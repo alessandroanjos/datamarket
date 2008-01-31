@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"   
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.pdv.maquinaestados.Estado" table="ESTADO" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="2"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+
+        <property name="descricao" type="java.lang.String" update="true" insert="true">
+            <column name="DESCRICAO" length="20" not-null="true"/>
+        </property>
+        
+        <property name="inputType" type="int" update="true" insert="true">
+            <column name="INPUT_TYPE" length="20" not-null="true"/>
+        </property>
+        
+        <property name="inputSize" type="int" update="true" insert="true">
+            <column name="INPUT_SIZE" length="20" not-null="true"/>
+        </property>
+
+        <set name="finalizadoras" table="ESTADO_TECLA" lazy="false">
+             <key column="ID_ESTADO" />
+             <many-to-many column="ID_TECLA" class="com.infinity.datamarket.pdv.maquinaestados.Tecla"/>
+        </set>
+
+    </class>
+
+</hibernate-mapping>

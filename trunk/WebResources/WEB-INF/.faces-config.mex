@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JSFFlowViewLayout version="1.0">
+  <Drawing gridVisible="true" snapOn="true" />
+  <JSFFlowResource path="/EnterpriseServer/WebResources/jsp/login.jsp" location="40,180" dimension="267,36" />
+  <JSFFlowResource path="/jsp/menu.jsp" location="480,180" dimension="110,36" />
+  <JSFFlowNavigationCase id="/EnterpriseServer/WebResources/jsp/login.jsp,/jsp/menu.jsp,logado,#{loginBB.logar}" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="307,198" />
+      <AbsolutePoint location="480,198" />
+    </AutomaticBendpoints>
+  </JSFFlowNavigationCase>
+</JSFFlowViewLayout>
+

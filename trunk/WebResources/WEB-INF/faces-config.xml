@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<faces-config >
+	<navigation-rule>
+		<from-view-id>/jsp/login.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{loginBB.logar}</from-action>
+			<from-outcome>logado</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{loginBB.logar}</from-action>
+			<from-outcome>erro</from-outcome>
+			<to-view-id>/jsp/login.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/menu.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>inserirTipoProduto</from-outcome>
+			<to-view-id>/jsp/tipoProduto/inserirTipoProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterTipoProduto</from-outcome>
+			<to-view-id>/jsp/tipoProduto/consultarTipoProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{loginBB.logout}</from-action>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/jsp/login.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/erro.jsp</from-view-id>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/tipoProduto/inserirTipoProduto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{tipoProdutoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/tipoProduto/inserirTipoProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tipoProdutoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/tipoProduto/consultarTipoProduto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{tipoProdutoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/tipoProduto/consultarTipoProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tipoProdutoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/tipoProduto/manterTipoProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tipoProdutoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/tipoProduto/manterTipoProduto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{tipoProdutoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/tipoProduto/consultarTipoProduto.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<managed-bean>
+		<managed-bean-name>tipoProdutoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.tipoProduto.TipoProdutoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>tiposProduto</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+	
+	
+	<managed-bean>		
+		<managed-bean-name>loginBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.login.LoginBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>senha</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>usuario</property-name>
+		    <property-class>com.infinity.datamarket.comum.usuario.Usuario</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+	
+	<validator>
+       <validator-id>LongValidator</validator-id>
+       <validator-class>com.infinity.datamarket.enterprise.gui.util.validator.LongValidator</validator-class>
+    </validator>
+	</faces-config>
+

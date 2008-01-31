@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.pdv.maquinaestados.SaidaMicroOperacaoAssociada" table="SAIDA_MICRO_OPERACAO" dynamic-update="false" dynamic-insert="false" lazy="false">
+
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="2"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+
+        <property name="saida" type="int" update="true" insert="true">
+            <column name="saida" length="20" not-null="false"/>
+        </property>
+        
+        <many-to-one name="microOperacaoAssociada" class="com.infinity.datamarket.pdv.maquinaestados.MicroOperacaoAssociada" update="false" insert="false">
+          <column name="ID_MICRO_OPERACAO_ASSOCIADA" not-null="true"/>
+        </many-to-one>
+
+    </class>
+
+</hibernate-mapping>

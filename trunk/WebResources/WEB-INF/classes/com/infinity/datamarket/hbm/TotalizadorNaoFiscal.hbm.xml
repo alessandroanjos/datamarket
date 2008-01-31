@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.totalizadores.TotalizadorNaoFiscal" table="TOTALIZADORES_NAO_FISCAIS" dynamic-update="false" dynamic-insert="false" lazy="false">
+
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="2"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+        <property name="impressora" type="java.lang.String" update="true" insert="true">
+            <column name="IMPRESSORA" length="20" not-null="false"/>
+          </property>
+
+        <property name="valor" type="java.math.BigDecimal" update="true" insert="true">
+              <column name="VALOR" length="20" not-null="false"/>
+          </property>
+
+        <property name="contador" type="int" update="true" insert="true">
+            <column name="CONTADOR" length="20" not-null="true"/>
+        </property>
+
+    </class>
+
+</hibernate-mapping>
