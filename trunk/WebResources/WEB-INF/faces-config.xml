@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
-<faces-config >
+<faces-config>
+	
 	<navigation-rule>
 		<from-view-id>/jsp/login.jsp</from-view-id>
 		<navigation-case>
@@ -27,6 +28,15 @@
 			<to-view-id>/jsp/tipoProduto/consultarTipoProduto.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>inserirUnidade</from-outcome>
+			<to-view-id>/jsp/unidade/inserirUnidade.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterUnidade</from-outcome>
+			<to-view-id>/jsp/unidade/consultarUnidade.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
 			<from-action>#{loginBB.logout}</from-action>
 			<from-outcome>logout</from-outcome>
 			<to-view-id>/jsp/login.jsp</to-view-id>
@@ -37,6 +47,8 @@
 		<from-view-id>/jsp/erro.jsp</from-view-id>
 	</navigation-rule>
 	
+	
+	<!-- TIPO DE PRODUTO -->
 	<navigation-rule>
 		<from-view-id>/jsp/tipoProduto/inserirTipoProduto.jsp</from-view-id>
 		<navigation-case>
@@ -79,6 +91,50 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!-- UNIDADE -->
+	<navigation-rule>
+		<from-view-id>/jsp/unidade/inserirUnidade.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{unidadeBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/unidade/inserirUnidade.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{unidadeBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/jsp/unidade/consultarUnidade.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{unidadeBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/unidade/consultarUnidade.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{unidadeBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/unidade/manterUnidade.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{unidadeBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/unidade/manterUnidade.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{unidadeBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/unidade/consultarUnidade.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<!-- TIPO DE PRODUTO -->
 	
 	<managed-bean>
 		<managed-bean-name>tipoProdutoBB</managed-bean-name>
@@ -103,6 +159,7 @@
 		</managed-property>
 	</managed-bean>
 	
+	<!-- LOGIN -->
 	
 	<managed-bean>		
 		<managed-bean-name>loginBB</managed-bean-name>
@@ -127,9 +184,45 @@
 		</managed-property>
 	</managed-bean>
 	
+	
+	<!-- UNIDADE -->
+	
+	<managed-bean>
+		<managed-bean-name>unidadeBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.unidade.UnidadeBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricaoCompacta</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>abreviacao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>unidades</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+	
 	<validator>
        <validator-id>LongValidator</validator-id>
        <validator-class>com.infinity.datamarket.enterprise.gui.util.validator.LongValidator</validator-class>
     </validator>
-	</faces-config>
+</faces-config>
 
