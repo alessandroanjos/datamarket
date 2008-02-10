@@ -22,6 +22,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
+import org.hibernate.exception.ConstraintViolationException;
 
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Persistente;
@@ -71,10 +72,22 @@ public class RepositoryManagerHibernate implements IRepositoryManager
     }
 
     public void insert(Serializable _obj)
-        throws RepositoryControlerException
+        throws AppException
     {
-        try
+    	try{
+    		if (_obj instanceof Persistente){
+        		findById(_obj.getClass(), ((Persistente)_obj).getId());
+        		throw new ObjectExistentException("Object Existent");
+        	}
+    	}catch(com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException e){
+    		
+    	}catch(HibernateException ex)
         {
+            throw new RepositoryControlerException(ex);
+        }
+    	
+        try
+        {        	
             Session session = null;
             session = RepositoryManagerHibernateUtil.currentSession();
             session.save(_obj);
@@ -86,8 +99,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
     }
     
     public void insertOrUpdate(Serializable _obj)
-    throws RepositoryControlerException
-{
+    throws AppException{
     try
     {
         Session session = null;
@@ -96,7 +108,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
     }
     catch(HibernateException ex)
     {
-        throw  ex;
+    	throw new RepositoryControlerException(ex);
     }
 }
 
