@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import com.infinity.datamarket.comum.produto.TipoProduto;
+import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
@@ -48,6 +49,11 @@ public class TipoProdutoBackBean extends BackBean{
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
+		} catch (ObjectExistentException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Tipo de Produto já Existente!", "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
