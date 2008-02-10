@@ -33,6 +33,10 @@
 	<br>
 	<h:commandLink styleClass="label" value="Manter Tipo de Produto" action="manterTipoProduto"></h:commandLink>
 	<br>
+	<h:commandLink styleClass="label" value="Inserir Unidade" action="inserirUnidade"></h:commandLink>
+	<br>
+	<h:commandLink styleClass="label" value="Manter Unidade" action="manterUnidade"></h:commandLink>
+	<br>
 	<h:commandLink styleClass="label" value="Logout" action="#{loginBB.logout}"></h:commandLink>
 	</h:form>
 </body>

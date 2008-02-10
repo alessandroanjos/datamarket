@@ -20,7 +20,7 @@
 		<h:messages styleClass="errors" globalOnly="true" showDetail="true"/>
 	</div>
 	<h:form>
-		<h:panelGrid align="center" columns="3" id="formGrid">
+		<h:panelGrid border="0" cellspacing="0" cellpadding="0" align="center" columns="3" id="formGrid">
 			<f:facet name="header">
 				<h:outputText styleClass="tituloTabela" value="Login" />
 			</f:facet>
@@ -38,7 +38,10 @@
 				<f:validator validatorId="LongValidator"/>
 			</h:inputSecret>
 			<h:message for="senha" styleClass="errors"/>
+		</h:panelGrid>
+		<h:panelGrid columns="2" align="center">
 			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoLogin" action="#{loginBB.logar}" value="Login"></h:commandButton>
+			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
 		</h:panelGrid>
 	</h:form>
 	
