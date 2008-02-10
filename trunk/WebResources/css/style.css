@@ -55,14 +55,13 @@
 	border: 1px solid #781351;
 }
 
-.error {
-	color: #FF6347;
-	font-family: verdana;
-	font-size: 12px;
-}
-
 .info {
 	color: #781351;
 	font-family: verdana;
 	font-size: 12px;
+}
+
+.table {
+	border: 1;
+	border-spacing: 0;
 }
