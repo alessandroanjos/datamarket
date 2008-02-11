@@ -18,8 +18,15 @@ public class Produto extends Persistente{
 	private BigDecimal precoPromocional;
 	private TipoProduto tipo;
 	private Unidade unidade;
+	private Imposto imposto;
 	
 	
+	public Imposto getImposto() {
+		return imposto;
+	}
+	public void setImposto(Imposto imposto) {
+		this.imposto = imposto;
+	}
 	public String getCodigoExterno() {
 		return codigoExterno;
 	}
