@@ -35,6 +35,14 @@
 			<from-outcome>manterUnidade</from-outcome>
 			<to-view-id>/jsp/unidade/consultarUnidade.jsp</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>inserirImposto</from-outcome>
+			<to-view-id>/jsp/imposto/inserirImposto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterImposto</from-outcome>
+			<to-view-id>/jsp/imposto/consultarImposto.jsp</to-view-id>
+		</navigation-case>
 		
 		<navigation-case>
 			<from-action>#{loginBB.logout}</from-action>
@@ -134,7 +142,50 @@
 	</navigation-rule>
 	
 	
-	<!-- TIPO DE PRODUTO -->
+	<!-- IMPOSTO -->
+	<navigation-rule>
+		<from-view-id>/jsp/imposto/inserirImposto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{impostoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/imposto/inserirImposto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{impostoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/jsp/imposto/consultarImposto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{impostoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/imposto/consultarImposto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{impostoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/imposto/manterImposto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{impostoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/imposto/manterImposto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{impostoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/imposto/consultarImposto.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<!-- TIPO DE PRODUTO BACK BEAN -->
 	
 	<managed-bean>
 		<managed-bean-name>tipoProdutoBB</managed-bean-name>
@@ -159,7 +210,7 @@
 		</managed-property>
 	</managed-bean>
 	
-	<!-- LOGIN -->
+	<!-- LOGIN BACK BEAN -->
 	
 	<managed-bean>		
 		<managed-bean-name>loginBB</managed-bean-name>
@@ -185,7 +236,7 @@
 	</managed-bean>
 	
 	
-	<!-- UNIDADE -->
+	<!-- UNIDADE BACK BEAN -->
 	
 	<managed-bean>
 		<managed-bean-name>unidadeBB</managed-bean-name>
@@ -219,6 +270,42 @@
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
+	
+	<!-- IMPOSTO BACK BEAN -->
+	
+	<managed-bean>
+		<managed-bean-name>impostoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.imposto.ImpostoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>impostoImpressora</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>percentual</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>impostos</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+	
 	
 	<validator>
        <validator-id>LongValidator</validator-id>
