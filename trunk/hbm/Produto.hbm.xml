@@ -47,6 +47,9 @@
 	<many-to-one name="unidade" class="com.infinity.datamarket.comum.produto.Unidade" update="false" insert="false">
           <column name="ID_UNIDADE" not-null="true"/>
         </many-to-one>
+	<many-to-one name="imposto" class="com.infinity.datamarket.comum.produto.Imposto" update="false" insert="false">
+          <column name="ID_IMPOSTO" not-null="true"/>
+        </many-to-one>
 
     </class>
 
