@@ -34,6 +34,12 @@
           <property name="precoPraticado" type="java.math.BigDecimal" update="true" insert="true">
               <column name="PRECO_PRATICADO" length="20" not-null="false"/>
           </property>
+	  <property name="impostoImpressora" type="java.lang.String" update="true" insert="true">
+              <column name="IMP_IMPRESSORA" length="50" not-null="true"/>
+          </property>
+          <property name="percentual" type="java.math.BigDecimal" update="true" insert="true">
+              <column name="PERCENTUAL" length="20" not-null="true"/>
+          </property>
 
       </class>
    </hibernate-mapping>
