@@ -26,7 +26,7 @@
 <body>
 <h:form>
 	<div>
-	<h:outputText id="titulo" styleClass="label" value="Home > Unidade"></h:outputText>
+	<h:outputText id="titulo" styleClass="label" value="Home > Imposto"></h:outputText>
 	</div>
 	<br>
 	<div>
@@ -34,39 +34,40 @@
 	</div>
 		<h:panelGrid columns="3" id="formGrid">
 		    <f:facet name="header">
-				<h:outputText styleClass="tituloTabela" value="Inserir Unidade" />
+				<h:outputText styleClass="tituloTabela" value="Inserir Imposto" />
 			</f:facet>
 			<h:outputText styleClass="label" value="Codigo*"></h:outputText>					
 			<h:inputText styleClass="inputText" id="id" maxlength="2"
-				value="#{unidadeBB.id}" size="2" required="true">
+				value="#{impostoBB.id}" size="2" required="true">
 				<f:validateLength maximum="2" />
 				<f:validator validatorId="LongValidator"/>
 			</h:inputText>
 			<h:message for="id" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Descrição*"></h:outputText>
 			<h:inputText styleClass="inputText" id="descricao" maxlength="50" size="50"
-				value="#{unidadeBB.descricao}" required="true">
+				value="#{impostoBB.descricao}" required="true">
 				<f:validateLength maximum="50" />
 			</h:inputText>			
 			<h:message for="descricao" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Descrição Compácta*"></h:outputText>
-			<h:inputText styleClass="inputText" id="descricaoCompacta" maxlength="25" size="25"
-				value="#{unidadeBB.descricaoCompacta}" required="true">
-				<f:validateLength maximum="25" />
-			</h:inputText>			
-			<h:message for="descricaoCompacta" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Abeviação*"></h:outputText>
-			<h:inputText styleClass="inputText" id="abreviacao" maxlength="2" size="2"
-				value="#{unidadeBB.abreviacao}" required="true">
+			<h:outputText styleClass="label" value="Imposto Impressora*"></h:outputText>
+			<h:inputText styleClass="inputText" id="impostoImpressora" maxlength="2" size="2"
+				value="#{impostoBB.impostoImpressora}" required="true">
 				<f:validateLength maximum="2" />
 			</h:inputText>			
-			<h:message for="descricaoCompacta" styleClass="errors"/>
+			<h:message for="impostoImpressora" styleClass="errors"/>
+			<h:outputText styleClass="label" value="Percentual*"></h:outputText>
+			<h:inputText styleClass="inputText" id="percentual" maxlength="5" size="5"
+				value="#{impostoBB.percentual}" required="true">
+				<f:validateLength maximum="5" />
+				<f:validateDoubleRange minimum="00.01" maximum="99.99"/>
+			</h:inputText>			
+			<h:message for="percentual" styleClass="errors"/>
 		</h:panelGrid>
 		<br>
 		<h:panelGrid  columns="3" id="formGrid1">
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" immediate="true" styleClass="inputBtn" id="botaoVoltar" action="#{unidadeBB.voltarMenu}" value="Voltar"></h:commandButton>
+			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" immediate="true" styleClass="inputBtn" id="botaoVoltar" action="#{impostoBB.voltarMenu}" value="Voltar"></h:commandButton>
 			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" immediate="true" styleClass="inputBtn" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoInserir" action="#{unidadeBB.inserir}" value="Inserir"></h:commandButton>
+			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoInserir" action="#{impostoBB.inserir}" value="Inserir"></h:commandButton>
 		</h:panelGrid>
 </h:form>	
 </body>

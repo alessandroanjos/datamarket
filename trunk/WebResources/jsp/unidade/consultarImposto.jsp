@@ -26,7 +26,7 @@
   
 <body>
 	<div>
-	<h:outputText id="titulo" styleClass="label" value="Home > Unidade"></h:outputText>
+	<h:outputText id="titulo" styleClass="label" value="Home > Imposto"></h:outputText>
 	</div>
 	<br>
 	<div>
@@ -35,59 +35,59 @@
 	<h:form>
 		<h:panelGrid columns="3" id="formGrid">
 		    <f:facet name="header">
-				<h:outputText styleClass="tituloTabela" value="Consulta Unidade" />
+				<h:outputText styleClass="tituloTabela" value="Consulta Imposto" />
 			</f:facet>
 		    <h:outputText styleClass="label" value="Código"></h:outputText>					
 			<h:inputText styleClass="inputText" id="id" maxlength="2"
-				value="#{unidadeBB.id}" size="3">
+				value="#{impostoBB.id}" size="3">
 				<f:validateLength maximum="2" />
 				<f:validator validatorId="LongValidator"/>
 			</h:inputText>
 			<h:message for="id" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Descrição"></h:outputText>
 			<h:inputText styleClass="inputText" id="descricao" maxlength="50" size="50"
-				value="#{unidadeBB.descricao}">
+				value="#{impostoBB.descricao}">
 				<f:validateLength maximum="50" />
 			</h:inputText>
 			<h:message for="descricao" styleClass="errors"/>
 		</h:panelGrid>
 		<br>
 		<h:panelGrid columns="3" id="formGrid1">	
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoVoltar" action="#{unidadeBB.voltarMenu}" value="Voltar"></h:commandButton>
+			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoVoltar" action="#{impostoBB.voltarMenu}" value="Voltar"></h:commandButton>
 			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" immediate="true" styleClass="inputBtn" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoConsultar" action="#{unidadeBB.consultar}" value="Consultar"></h:commandButton>
+			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoConsultar" action="#{impostoBB.consultar}" value="Consultar"></h:commandButton>
 		</h:panelGrid>
 		<p>
-		<h:dataTable value="#{unidadeBB.unidades}"
-					var="unidade">
+		<h:dataTable value="#{impostoBB.impostos}"
+					var="imposto">
 					<f:facet name="header">
-						<h:outputText styleClass="tituloTabela" value="Unidades" />
+						<h:outputText styleClass="tituloTabela" value="Impostos" />
 					</f:facet>					
 					<h:column>
 						<f:facet name="header">
 							<h:outputText styleClass="label"  value="Código" />
 						</f:facet>
-						<h:outputText styleClass="label" value="#{unidade.id}" /> 
+						<h:outputText styleClass="label" value="#{imposto.id}" /> 
 					</h:column>
 					<h:column>
 						<f:facet name="header">
 							<h:outputText styleClass="label"  value="Descrição" />
 						</f:facet>
-						<h:commandLink styleClass="label" value="#{unidade.descricao}" action="#{unidadeBB.consultar}">
-							<f:param name="id" value="#{unidade.id}"/>						
+						<h:commandLink styleClass="label" value="#{imposto.descricao}" action="#{impostoBB.consultar}">
+							<f:param name="id" value="#{imposto.id}"/>						
 						</h:commandLink>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Descrição Compácta" />
+							<h:outputText styleClass="label"  value="Imposto Impressora" />
 						</f:facet>
-						<h:outputText styleClass="label" value="#{unidade.descricaoDisplay}" /> 
+						<h:outputText styleClass="label" value="#{imposto.impostoImpressora}" /> 
 					</h:column>
 					<h:column>
 						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Abreviação" />
+							<h:outputText styleClass="label"  value="Percentual" />
 						</f:facet>
-						<h:outputText styleClass="label" value="#{unidade.abreviacao}" /> 
+						<h:outputText styleClass="label" value="#{imposto.percentual}" /> 
 					</h:column>
 
 				</h:dataTable>
