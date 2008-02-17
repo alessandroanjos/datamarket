@@ -43,6 +43,14 @@
 			<from-outcome>manterImposto</from-outcome>
 			<to-view-id>/jsp/imposto/consultarImposto.jsp</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>inserirLoja</from-outcome>
+			<to-view-id>/jsp/loja/inserirLoja.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterLoja</from-outcome>
+			<to-view-id>/jsp/loja/consultarLoja.jsp</to-view-id>
+		</navigation-case>
 		
 		<navigation-case>
 			<from-action>#{loginBB.logout}</from-action>
@@ -184,6 +192,48 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!-- LOJA -->
+	<navigation-rule>
+		<from-view-id>/jsp/loja/inserirLoja.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{lojaBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/loja/inserirLoja.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{lojaBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/loja/consultarLoja.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{lojaBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/loja/consultarLoja.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{lojaBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/loja/manterLoja.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{lojaBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/loja/manterLoja.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{lojaBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/loja/consultarLoja.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<!-- TIPO DE PRODUTO BACK BEAN -->
 	
@@ -301,6 +351,41 @@
 		</managed-property>
 		<managed-property>
 		    <property-name>impostos</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+	
+		<!-- LOJA BACK BEAN -->
+	
+	<managed-bean>
+		<managed-bean-name>lojaBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.loja.LojaBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>nome</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>numeroIp</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>numeroPorta</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>lojas</property-name>
 		    <property-class>java.util.Collection</property-class>
 		    <null-value/>
 		</managed-property>
