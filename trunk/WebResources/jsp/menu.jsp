@@ -41,6 +41,10 @@
 	<br>
 	<h:commandLink styleClass="label" value="Manter Imposto" action="manterImposto"></h:commandLink>
 	<br>
+	<h:commandLink styleClass="label" value="Inserir Loja" action="inserirLoja"></h:commandLink>
+	<br>
+	<h:commandLink styleClass="label" value="Manter Loja" action="manterLoja"></h:commandLink>
+	<br>
 	<h:commandLink styleClass="label" value="Logout" action="#{loginBB.logout}"></h:commandLink>
 	</h:form>
 </body>
