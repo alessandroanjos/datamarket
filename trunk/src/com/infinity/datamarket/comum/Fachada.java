@@ -6,9 +6,13 @@ import com.infinity.datamarket.comum.pagamento.CadastroFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.CadastroPlanoPagamento;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
+import com.infinity.datamarket.comum.produto.CadastroGrupoProduto;
+import com.infinity.datamarket.comum.produto.CadastroImposto;
 import com.infinity.datamarket.comum.produto.CadastroProduto;
 import com.infinity.datamarket.comum.produto.CadastroTipoProduto;
 import com.infinity.datamarket.comum.produto.CadastroUnidade;
+import com.infinity.datamarket.comum.produto.GrupoProduto;
+import com.infinity.datamarket.comum.produto.Imposto;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.produto.Unidade;
@@ -47,6 +51,11 @@ public class Fachada {
 	private CadastroTipoProduto getCadastroTipoProduto(){
 		return CadastroTipoProduto.getInstancia();
 	}
+	
+	private CadastroGrupoProduto getCadastroGrupoProduto(){
+		return CadastroGrupoProduto.getInstancia();
+	}
+
 	
 	private CadastroImposto getCadastroImposto(){
 		return CadastroImposto.getInstancia();
@@ -1145,7 +1154,6 @@ public class Fachada {
 			}
 		}
 	}
-
 	public void excluirLoja(Loja loja) throws AppException{
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
@@ -1173,6 +1181,184 @@ public class Fachada {
 			}
 		}
 	}
+
+//grupo produto
+	
+	public void inserirGrupoProduto(GrupoProduto grupo) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroGrupoProduto().inserir(grupo);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public Collection consultarGrupoProduto(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroGrupoProduto().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	public Collection consultarTodosGruposProduto() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroGrupoProduto().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	public GrupoProduto consultarGrupoProdutoPorPK(Long id) throws AppException{
+		GrupoProduto g = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			g = getCadastroGrupoProduto().consultarPorPK(id);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return g;
+	}
+	
+	public void alterarGrupoProduto(GrupoProduto grupo) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroGrupoProduto().alterar(grupo);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public void excluirGrupoProduto(GrupoProduto grupo) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroGrupoProduto().excluir(grupo);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
+
 
 	
 	
