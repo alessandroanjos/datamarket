@@ -71,9 +71,9 @@
 		</h:panelGrid>
 		<p>
 		<h:dataTable value="#{lojaBB.lojas}"
-					var="loja">
+					var="loja" style="width: 611px;">
 					<f:facet name="header">
-						<h:outputText styleClass="tituloTabela" value="Tipos de Produto" />
+						<h:outputText styleClass="tituloTabela" value="Lojas" />
 					</f:facet>					
 					<h:column>
 						<f:facet name="header">

@@ -39,23 +39,35 @@
 			</f:facet>
 		    <h:outputText styleClass="label" value="Codigo*"></h:outputText>					
 			<h:inputText styleClass="inputText" id="id" maxlength="2"
-				value="#{tipoProdutoBB.id}" readonly="true"  required="true" size="2">
+				value="#{lojaBB.id}" readonly="true"  required="true" size="2">
 				<f:validateLength maximum="2" minimum="1"/>
 				<f:validator validatorId="LongValidator"/>
 			</h:inputText>
 			<h:message for="id" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Descrição*"></h:outputText>
-			<h:inputText styleClass="inputText" id="descricao" maxlength="50" size="50"
-				value="#{tipoProdutoBB.descricao}" required="true">
+			<h:outputText styleClass="label" value="Nome*"></h:outputText>
+			<h:inputText styleClass="inputText" id="nome" maxlength="50" size="50"
+				value="#{lojaBB.nome}" required="true">
 				<f:validateLength maximum="50" />
 			</h:inputText>
-			<h:message for="descricao" styleClass="errors"/>
+			<h:message for="nome" styleClass="errors"/>
+			<h:outputText styleClass="label" value="IP*"></h:outputText>
+			<h:inputText styleClass="inputText" id="numeroIp" maxlength="15" size="15"
+				value="#{lojaBB.numeroIp}" required="true">
+				<f:validateLength maximum="15" />
+			</h:inputText>
+			<h:message for="numeroIp" styleClass="errors"/>
+			<h:outputText styleClass="label" value="Porta*"></h:outputText>
+			<h:inputText styleClass="inputText" id="numeroPorta" maxlength="4" size="5"
+				value="#{lojaBB.numeroPorta}" required="true">
+				<f:validateLength maximum="4" />
+			</h:inputText>
+			<h:message for="numeroPorta" styleClass="errors"/>
 			</h:panelGrid>
 			<br>
 			<h:panelGrid columns="3" id="formGrid1">
-				<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoVoltar" immediate="true" action="#{tipoProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>
-				<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoAlterar" action="#{tipoProdutoBB.alterar}" value="Alterar"></h:commandButton>
-				<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoExcluir" action="#{tipoProdutoBB.excluir}" value="Excluir"></h:commandButton>
+				<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoVoltar" immediate="true" action="#{lojaBB.voltarConsulta}" value="Voltar"></h:commandButton>
+				<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoAlterar" action="#{lojaBB.alterar}" value="Alterar"></h:commandButton>
+				<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoExcluir" action="#{lojaBB.excluir}" value="Excluir"></h:commandButton>
 			</h:panelGrid>
 		
 	</h:form>
