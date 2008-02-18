@@ -161,6 +161,7 @@ public class RepositoryManagerHibernateUtil {
         	ex.printStackTrace();
             throw new RuntimeException("Configuration Problem: " + ex.getMessage(), ex);
         }
-    }
+    }    
+   
 }
 
