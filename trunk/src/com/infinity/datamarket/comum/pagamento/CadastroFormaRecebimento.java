@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 
@@ -29,6 +30,18 @@ public class CadastroFormaRecebimento extends Cadastro{
 		filter.setIgnoreCase(true);
 		List l = getRepositorio().filter(filter, preciso);
 		return l;
+	}
+	
+	public void inserir(FormaRecebimento formaRecebimento) throws AppException{
+		getRepositorio().insert(formaRecebimento);
+	}
+	
+	public void alterar(FormaRecebimento formaRecebimento) throws AppException{
+		getRepositorio().update(formaRecebimento);
+	}
+	
+	public void excluir(FormaRecebimento formaRecebimento) throws AppException{
+		getRepositorio().remove(formaRecebimento);
 	}
 
 }
