@@ -51,7 +51,15 @@
 			<from-outcome>manterLoja</from-outcome>
 			<to-view-id>/jsp/loja/consultarLoja.jsp</to-view-id>
 		</navigation-case>
-		
+		<navigation-case>
+			<from-outcome>inserirPerfil</from-outcome>
+			<to-view-id>/jsp/perfil/inserirPerfil.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterPerfil</from-outcome>
+			<to-view-id>/jsp/perfil/consultarPerfil.jsp</to-view-id>
+		</navigation-case>
+				
 		<navigation-case>
 			<from-action>#{loginBB.logout}</from-action>
 			<from-outcome>logout</from-outcome>
@@ -235,6 +243,49 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!-- PERFIL -->
+	<navigation-rule>
+		<from-view-id>/jsp/perfil/inserirPerfil.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{perfilBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/perfil/inserirPerfil.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{perfilBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/perfil/consultarPerfil.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{perfilBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/perfil/consultarPerfil.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{perfilBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/perfil/manterPerfil.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{perfilBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/perfil/manterPerfil.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{perfilBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/perfil/consultarPerfil.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
 	<!-- TIPO DE PRODUTO BACK BEAN -->
 	
 	<managed-bean>
@@ -391,6 +442,47 @@
 		</managed-property>
 	</managed-bean>
 	
+		<!-- PERFIL BACK BEAN -->
+	
+	<managed-bean>
+		<managed-bean-name>perfilBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.perfil.PerfilBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>perfilSuperior</property-name>
+		    <property-class>com.infinity.datamarket.comum.usuario.Perfil</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>percentualDesconto</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>operacoes</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>perfis</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+
+
 	
 	<validator>
        <validator-id>LongValidator</validator-id>
