@@ -6,6 +6,11 @@ import java.util.Collection;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class Perfil extends Persistente{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3958914186578038113L;
+	
 	private String descricao;
 	private BigDecimal percentualDesconto;
 	private Perfil perfilSuperior;
