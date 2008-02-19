@@ -3,6 +3,11 @@ package com.infinity.datamarket.comum.usuario;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class Usuario extends Persistente{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 243674995309273011L;
 	private String nome;
 	private Perfil perfil;
 	private String senha;
