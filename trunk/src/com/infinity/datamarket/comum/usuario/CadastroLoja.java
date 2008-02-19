@@ -2,7 +2,6 @@ package com.infinity.datamarket.comum.usuario;
 
 import java.util.Collection;
 
-import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
