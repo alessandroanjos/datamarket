@@ -421,7 +421,35 @@ public class Fachada {
 		}
 		return tot;
 	}
-
+	public Collection consultarFormaRecebimento(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroFormaRecebimento().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
 	public FormaRecebimento consultarFormaRecebimentoPorId(Long id) throws AppException{
 		FormaRecebimento forma = null;
 		try{
@@ -451,7 +479,37 @@ public class Fachada {
 		}
 		return forma;
 	}
-
+    
+	public Collection consultarFormaRecebimento(String descricao, boolean preciso) throws AppException{
+		Collection ret = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			ret = getCadastroProduto().consultarPorDescricao(descricao,preciso);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return ret;
+	}
+	
 	public PlanoPagamento consultarPlanoPagamentoPorId(Long id) throws AppException{
 		PlanoPagamento plano = null;
 		try{
@@ -1011,7 +1069,90 @@ public class Fachada {
 			}
 		}
 	}
+// 
+	public void excluirFormaRecebimento(FormaRecebimento formaRecebimento) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroFormaRecebimento().excluir(formaRecebimento);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
+	public void alterarFormaRecebimento(FormaRecebimento formaRecebimento) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroFormaRecebimento().alterar(formaRecebimento);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
 	
+	public void inserirFormaRecebimento(FormaRecebimento formaRecebimento) throws AppException{
+	try{
+		RepositoryManagerHibernateUtil.beginTrasaction();
+		getCadastroFormaRecebimento().inserir(formaRecebimento);
+		RepositoryManagerHibernateUtil.commitTransation();
+	}catch(AppException e){
+		try{
+			RepositoryManagerHibernateUtil.rollbackTransation();
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+		throw e;
+	}catch(Throwable e){
+		try{
+			RepositoryManagerHibernateUtil.rollbackTransation();
+			throw new SistemaException(e);
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+	}finally{
+		try{
+			RepositoryManagerHibernateUtil.closeSession();
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+	}
+}	
 // Loja
 	
 	public void inserirLoja(Loja loja) throws AppException{
@@ -1072,6 +1213,35 @@ public class Fachada {
 		return c;
 	}
 	
+	public Collection consultarTodosFormaRecebimento() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroFormaRecebimento().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
 	public Collection consultarTodosLoja() throws AppException{
 		Collection c = null;
 		try{
