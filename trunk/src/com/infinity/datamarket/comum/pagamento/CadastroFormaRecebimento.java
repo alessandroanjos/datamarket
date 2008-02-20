@@ -3,8 +3,8 @@ package com.infinity.datamarket.comum.pagamento;
 import java.util.Collection;
 import java.util.List;
 
+import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
-import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 
@@ -31,7 +31,12 @@ public class CadastroFormaRecebimento extends Cadastro{
 		List l = getRepositorio().filter(filter, preciso);
 		return l;
 	}
-	
+	public Collection consultar(IPropertyFilter filter) throws AppException{
+		return getRepositorio().filter(filter, false);
+	}
+	public Collection consultarTodos() throws AppException{
+		return getRepositorio().findAll(CLASSE);
+	}
 	public void inserir(FormaRecebimento formaRecebimento) throws AppException{
 		getRepositorio().insert(formaRecebimento);
 	}

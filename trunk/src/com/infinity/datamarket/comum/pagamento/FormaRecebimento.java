@@ -8,15 +8,19 @@ import com.infinity.datamarket.comum.util.Persistente;
 
 public class FormaRecebimento extends Persistente{
 
-	private String descricao;
-	private String recebimentoImpressora;
-	private String abrirGaveta;
-	private BigDecimal valorLimiteSangria;
-	private Date dataInicioValidade;
-	private Date dataFimValidade;
-	private BigDecimal valorMaxTroco;
-	private FormaRecebimento formaTroco;
-	private Collection planos;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4859446635232194912L;
+	String descricao;
+	String recebimentoImpressora;
+	String abrirGaveta;
+	BigDecimal valorLimiteSangria;
+	Date dataInicioValidade;
+	Date dataFimValidade;
+	BigDecimal valorMaxTroco;
+	FormaRecebimento formaTroco;
+	Collection planos;
 
 	public Collection getPlanos() {
 		return planos;
