@@ -15,6 +15,7 @@ import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -145,22 +146,20 @@ public class FormaRecebimentoBackBean extends BackBean {
 	
 	
 	public String inserir(){
+		FormaRecebimento formaRecebimento = new FormaRecebimento();
 		
+		formaRecebimento.setId(new Long(this.id));
+		formaRecebimento.setDescricao(this.descricao);
+		formaRecebimento.setRecebimentoImpressora(this.recebimentoImpressora);
+		formaRecebimento.setAbrirGaveta(this.abrirGaveta);
+		formaRecebimento.setValorLimiteSangria(this.valorLimiteSangria);
+		formaRecebimento.setDataInicioValidade(this.dataInicioValidade);
+		formaRecebimento.setDataFimValidade(this.dataFimValidade);
+		formaRecebimento.setValorMaxTroco(this.valorMaxTroco);
+		formaRecebimento.setFormaTroco(this.formaTroco);
+		formaRecebimento.setPlanos(this.planos);
 		
 		try {
-			FormaRecebimento formaRecebimento = new FormaRecebimento();
-			
-			formaRecebimento.setId(new Long(this.id));
-			formaRecebimento.setDescricao(this.descricao);
-			formaRecebimento.setRecebimentoImpressora(this.recebimentoImpressora);
-			formaRecebimento.setAbrirGaveta(this.abrirGaveta);
-			formaRecebimento.setValorLimiteSangria(this.valorLimiteSangria);
-			formaRecebimento.setDataInicioValidade(this.dataInicioValidade);
-			formaRecebimento.setDataFimValidade(this.dataFimValidade);
-			formaRecebimento.setValorMaxTroco(this.valorMaxTroco);
-			formaRecebimento.setFormaTroco(this.formaTroco);
-			formaRecebimento.setPlanos(this.planos);
-			
 			getFachada().inserirFormaRecebimento(formaRecebimento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -276,7 +275,7 @@ public class FormaRecebimentoBackBean extends BackBean {
 			formaRecebimento.setValorMaxTroco(this.valorMaxTroco);
 			formaRecebimento.setFormaTroco(this.formaTroco);
 			formaRecebimento.setPlanos(this.planos);
-			formaRecebimento.setFormaTroco(this.formaTroco);
+			
 			getFachada().alterarFormaRecebimento(formaRecebimento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
