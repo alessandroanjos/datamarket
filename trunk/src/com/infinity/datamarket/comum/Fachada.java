@@ -2,6 +2,7 @@ package com.infinity.datamarket.comum;
 
 import java.util.Collection;
 
+import com.infinity.datamarket.comum.macrooperacao.CadastroMacroOperacao;
 import com.infinity.datamarket.comum.pagamento.CadastroFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.CadastroPlanoPagamento;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
@@ -31,6 +32,7 @@ import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.SistemaException;
+import com.infinity.datamarket.pdv.maquinaestados.MacroOperacao;
 
 public class Fachada {
 
@@ -93,6 +95,10 @@ public class Fachada {
 
 	private CadastroPerfil getCadastroPerfil(){
 		return CadastroPerfil.getInstancia();
+	}
+	
+	private CadastroMacroOperacao getCadastroMacroOperacao(){
+		return CadastroMacroOperacao.getInstancia();
 	}
 	
 	public Usuario loginUsuario(Long id, String senha) throws AppException{
@@ -1708,4 +1714,178 @@ public class Fachada {
 		}
 	}
 	
+// Macro Operacao
+	
+	public void inserirMacroOperacao(MacroOperacao macroOperacao) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroMacroOperacao().inserir(macroOperacao);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public Collection consultarMacroOperacao(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroMacroOperacao().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	public Collection consultarTodosMacroOperacao() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroMacroOperacao().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	public MacroOperacao consultarMacroOperacaoPorPK(Long id) throws AppException{
+		MacroOperacao macroOperacao = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			macroOperacao = getCadastroMacroOperacao().consultarPorPK(id);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return macroOperacao;
+	}
+	
+	public void alterarMacroOperacao(MacroOperacao macroOperacao) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroMacroOperacao().alterar(macroOperacao);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public void excluirMacroOperacao(MacroOperacao macroOperacao) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroMacroOperacao().excluir(macroOperacao);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
 }
