@@ -461,23 +461,23 @@
 		    <null-value/>
 		</managed-property>
 		<managed-property>
-		    <property-name>perfilSuperior</property-name>
-		    <property-class>com.infinity.datamarket.comum.usuario.Perfil</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
 		    <property-name>percentualDesconto</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
 		    <null-value/>
 		</managed-property>
-		<managed-property>
-		    <property-name>operacoes</property-name>
-		    <property-class>java.util.Collection</property-class>
+				<managed-property>
+		    <property-name>idPerfilSuperior</property-name>
+		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
 		<managed-property>
 		    <property-name>perfis</property-name>
-		    <property-class>java.util.Collection</property-class>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>operacoes</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
@@ -488,5 +488,10 @@
        <validator-id>LongValidator</validator-id>
        <validator-class>com.infinity.datamarket.enterprise.gui.util.validator.LongValidator</validator-class>
     </validator>
+    <validator>
+       <validator-id>BigDecimalValidator</validator-id>
+       <validator-class>com.infinity.datamarket.enterprise.gui.util.validator.BigDecimalValidator</validator-class>
+    </validator>
+    
 </faces-config>
 
