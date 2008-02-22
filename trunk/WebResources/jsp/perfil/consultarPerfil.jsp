@@ -21,6 +21,7 @@
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<script type="text/javascript" src="/js/funcoes.js"></script>
 
 </head>
   
@@ -37,31 +38,33 @@
 		    <f:facet name="header">
 				<h:outputText styleClass="tituloTabela" value="Consulta Perfis" />
 			</f:facet>
-		    <h:outputText styleClass="label" value="Código"></h:outputText>					
+		    <h:outputText styleClass="label" value="Codigo*"></h:outputText>					
 			<h:inputText styleClass="inputText" id="id" maxlength="2"
 				value="#{perfilBB.id}" size="2">
 				<f:validateLength maximum="2" />
 				<f:validator validatorId="LongValidator"/>
 			</h:inputText>
 			<h:message for="id" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Descrição"></h:outputText>
+			<h:outputText styleClass="label" value="Descrição*"></h:outputText>
 			<h:inputText styleClass="inputText" id="descricao" maxlength="20" size="20"
 				value="#{perfilBB.descricao}">
 				<f:validateLength maximum="20" />
-			</h:inputText>
+			</h:inputText>			
 			<h:message for="descricao" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Perfil Superior"></h:outputText>
-			<h:inputText styleClass="inputText" id="perfilSuperior" maxlength="2" size="2"
-				value="#{perfilBB.perfilSuperior}">
-				<f:validateLength maximum="2" />
-				<f:validator validatorId="LongValidator"/>
-			</h:inputText>
+			<h:outputText styleClass="label" value="Perfil Superior*"></h:outputText>
+			<h:selectOneMenu id="perfis" 
+				value="#{perfilBB.idPerfilSuperior}">   
+					  <f:selectItems id="perfilSuperiorSelectItems" 
+					  value="#{perfilBB.perfis}" />   
+			</h:selectOneMenu>  
 			<h:message for="perfilSuperior" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Percentual de Desconto"></h:outputText>
-			<h:inputText styleClass="inputText" id="percentualDesconto" maxlength="21" size="25"
+			<h:outputText styleClass="label" value="Percentual de Desconto*"></h:outputText>
+			<h:inputText styleClass="inputText" id="percentualDesconto" maxlength="6" size="6"
 				value="#{perfilBB.percentualDesconto}">
-				<f:validateLength maximum="21" />
-			</h:inputText>
+				<f:validateLength maximum="6" />
+
+				<f:validator validatorId="BigDecimalValidator"/>
+			</h:inputText>			
 			<h:message for="percentualDesconto" styleClass="errors"/>
 		</h:panelGrid>
 		<br>
@@ -70,11 +73,11 @@
 			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" immediate="true" styleClass="inputBtn" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
 			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoConsultar" action="#{perfilBB.consultar}" value="Consultar"></h:commandButton>
 		</h:panelGrid>
-		<p>
-		<h:dataTable value="#{perfilBB.perfis}"
-					var="perfil" style="width: 666px;">
+				<p>
+		<h:dataTable value="#{perfilBB.listaPerfis}"
+					var="perfil" style="width: 466px;">
 					<f:facet name="header">
-						<h:outputText styleClass="tituloTabela" value="Lojas" />
+						<h:outputText styleClass="tituloTabela" value="Perfis" />
 					</f:facet>					
 					<h:column>
 						<f:facet name="header">
