@@ -2,6 +2,7 @@ package com.infinity.datamarket.comum.usuario;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Set;
 
 import com.infinity.datamarket.comum.util.Persistente;
 
@@ -14,7 +15,23 @@ public class Perfil extends Persistente{
 	private String descricao;
 	private BigDecimal percentualDesconto;
 	private Perfil perfilSuperior;
-	private Collection operacoes;
+	private Set operacoes;
+	
+	private Collection perfis;
+	
+	/**
+	 * @return the perfis
+	 */
+	public Collection getPerfis() {
+		return perfis;
+	}
+
+	/**
+	 * @param perfis the perfis to set
+	 */
+	public void setPerfis(Collection perfis) {
+		this.perfis = perfis;
+	}
 
 	public String getDescricao() {
 		return descricao;
@@ -24,11 +41,11 @@ public class Perfil extends Persistente{
 		this.descricao = descricao;
 	}
 
-	public Collection getOperacoes() {
+	public Set getOperacoes() {
 		return operacoes;
 	}
 
-	public void setOperacoes(Collection operacoes) {
+	public void setOperacoes(Set operacoes) {
 		this.operacoes = operacoes;
 	}
 
