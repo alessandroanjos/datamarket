@@ -51,5 +51,4 @@ public class CadastroPerfil extends Cadastro {
 	public void excluir(Perfil perfil) throws AppException{
 		getRepositorio().remove(perfil);
 	}
-
 }
