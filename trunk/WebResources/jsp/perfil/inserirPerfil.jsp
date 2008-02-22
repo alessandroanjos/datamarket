@@ -50,18 +50,32 @@
 			</h:inputText>			
 			<h:message for="descricao" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Perfil Superior*"></h:outputText>
-			<h:inputText styleClass="inputText" id="perfilSuperior" maxlength="2" size="2"
-				value="#{perfilBB.perfilSuperior}" required="true">
-				<f:validateLength maximum="2" />
-				<f:validator validatorId="LongValidator"/>
-			</h:inputText>			
+			<h:selectOneMenu id="perfis" 
+				value="#{perfilBB.idPerfilSuperior}">   
+					  <f:selectItems id="perfilSuperiorSelectItems" 
+					  value="#{perfilBB.perfis}" />   
+			</h:selectOneMenu>  
 			<h:message for="perfilSuperior" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Percentual de Desconto*"></h:outputText>
-			<h:inputText styleClass="inputText" id="numeroPorta" maxlength="21" size="21"
+			<h:inputText styleClass="inputText" id="percentualDesconto" maxlength="6" size="6"
 				value="#{perfilBB.percentualDesconto}" required="true">
-				<f:validateLength maximum="21" />
+				<f:validateLength maximum="6" />
+
+				<f:validator validatorId="BigDecimalValidator"/>
 			</h:inputText>			
 			<h:message for="percentualDesconto" styleClass="errors"/>
+		</h:panelGrid>
+		<br>
+		<h:panelGrid columns="5" id="formGrid2" style="width: 400px;">
+			<f:facet name="header">
+				<h:outputText styleClass="tituloTabela-left" value="Operações Associadas" />
+			</f:facet>			
+			<t:div styleClass="div-auto-scroll" style="width: 100%; height: 300px;">
+				<h:selectManyCheckbox id="idListaOperacoesAssociadas" layout="pageDirection" required="true" styleClass="label"
+					value="#{perfilBB.listaOperacoesAssociadas}" >
+						<f:selectItems value="#{perfilBB.operacoes}"/>
+				</h:selectManyCheckbox>
+			</t:div>		
 		</h:panelGrid>
 		<br>
 		<h:panelGrid  columns="3" id="formGrid1">
