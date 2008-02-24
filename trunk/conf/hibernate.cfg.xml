@@ -46,6 +46,7 @@
 	<mapping resource="com/infinity/datamarket/hbm/Unidade.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/TipoProduto.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Imposto.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/GrupoProduto.hbm.xml"/>
 
 
     </session-factory>
