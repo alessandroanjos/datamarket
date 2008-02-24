@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.ValidationException;
 
 public class CadastroGrupoProduto extends Cadastro{
 	
@@ -19,8 +20,8 @@ public class CadastroGrupoProduto extends Cadastro{
 		return instancia;
 	}
 	
-	public void inserir(GrupoProduto grupoProduto) throws AppException{
-		getRepositorio().insert(grupoProduto);
+	public void inserir(GrupoProduto grupoProduto) throws AppException{		
+		getRepositorio().insert(grupoProduto);		
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
@@ -36,7 +37,11 @@ public class CadastroGrupoProduto extends Cadastro{
 	}
 	
 	public void alterar(GrupoProduto grupoProduto) throws AppException{
-		getRepositorio().update(grupoProduto);
+		if (grupoProduto.getGrupoSuperior() != null && grupoProduto.getGrupoSuperior().getId().equals(grupoProduto.getId())){
+			throw new ValidationException("Grupo de produto superior não pode ser o próprio grupo de produto");
+		}else{
+			getRepositorio().update(grupoProduto);
+		}		
 	}
 	
 	public void excluir(GrupoProduto grupoProduto) throws AppException{
