@@ -221,66 +221,7 @@ public class Fachada {
 		return usu;
 	}
 
-	public Produto consultarProdutoPorCodigoExterno(String codigo) throws AppException{
-		Produto pro = null;
-		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
-			pro = getCadastroProduto().consultarPorCodigoExterno(codigo);
-			RepositoryManagerHibernateUtil.commitTransation();
-		}catch(AppException e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-			throw e;
-		}catch(Throwable e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-				throw new SistemaException(e);
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}
-		return pro;
-	}
-
-	public Collection consultarProdutoPorFiltro(IPropertyFilter filter, boolean preciso) throws AppException{
-		Collection ret = null;
-		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
-			ret = getCadastroProduto().consultarPorFiltro(filter,preciso);
-			RepositoryManagerHibernateUtil.commitTransation();
-		}catch(AppException e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-			throw e;
-		}catch(Throwable e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-				throw new SistemaException(e);
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}
-		return ret;
-	}
-
+	
 
 	public void inserirTransacao(Transacao trans) throws AppException{
 
@@ -1859,4 +1800,211 @@ public class Fachada {
 			}
 		}
 	}
+	
+// produto
+	
+	public void inserirProduto(Produto produto) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroProduto().inserir(produto);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public Collection consultarTodosProdutos() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroProduto().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	public Produto consultarProdutoPorPK(Long id) throws AppException{
+		Produto produto = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			 produto = getCadastroProduto().consultarPorPK(id);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return produto;
+	}
+	
+	public void alterarProduto(Produto produto) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroProduto().alterar(produto);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public void excluirProduto(Produto produto) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroProduto().excluir(produto);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public Produto consultarProdutoPorCodigoExterno(String codigo) throws AppException{
+		Produto pro = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			pro = getCadastroProduto().consultarPorCodigoExterno(codigo);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return pro;
+	}
+
+	public Collection consultarProdutoPorFiltro(IPropertyFilter filter, boolean preciso) throws AppException{
+		Collection ret = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			ret = getCadastroProduto().consultarPorFiltro(filter,preciso);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return ret;
+	}
+
+
 }
