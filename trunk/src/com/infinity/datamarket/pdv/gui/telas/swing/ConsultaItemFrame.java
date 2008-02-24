@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.produto.Produto;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.StringUtil;
 
@@ -183,7 +184,10 @@ public class ConsultaItemFrame extends javax.swing.JDialog{
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {
     	try{
     		if (!"".equalsIgnoreCase(jTextField1.getText()) && jTextField1.getText().length() > 2){
-	    		Collection c = Fachada.getInstancia().consultarProdutoPorDescricao(jTextField1.getText(),false);
+    			PropertyFilter filter = new PropertyFilter();
+    			filter.addProperty("descricaoCompleta", jTextField1.getText());
+    			filter.setIgnoreCase(true);
+	    		Collection c = Fachada.getInstancia().consultarProdutoPorFiltro(filter,false);
 	    		removeTodos();
 	    		adicionar(c);
     		}else{
