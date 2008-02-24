@@ -22,13 +22,4 @@ public class CadastroPlanoPagamento extends Cadastro{
 		return (PlanoPagamento) getRepositorio().findById(CLASSE, id);
 	}
 
-	public Collection consultarPorDescricao(String descricao, boolean preciso) throws AppException{
-		PropertyFilter filter = new PropertyFilter();
-		filter.setTheClass(CLASSE);
-		filter.addProperty("descricao", descricao);
-		filter.setIgnoreCase(true);
-		List l = getRepositorio().filter(filter, preciso);
-		return l;
-	}
-
 }
