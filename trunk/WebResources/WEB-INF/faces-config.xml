@@ -44,6 +44,14 @@
 			<to-view-id>/jsp/imposto/consultarImposto.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>inserirGrupoProduto</from-outcome>
+			<to-view-id>/jsp/grupoProduto/inserirGrupoProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterGrupoProduto</from-outcome>
+			<to-view-id>/jsp/grupoProduto/consultarGrupoProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
 			<from-outcome>inserirLoja</from-outcome>
 			<to-view-id>/jsp/loja/inserirLoja.jsp</to-view-id>
 		</navigation-case>
@@ -200,6 +208,47 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!-- GRUPO DE PRODUTO -->
+	<navigation-rule>
+		<from-view-id>/jsp/grupoProduto/inserirGrupoProduto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{grupoProdutoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/grupoProduto/inserirGrupoProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{grupoProdutoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/jsp/grupoProduto/consultarGrupoProduto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{grupoProdutoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/grupoProduto/consultarGrupoProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{grupoProdutoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/grupoProduto/manterGrupoProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{grupoProdutoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/jsp/grupoProduto/manterGrupoProduto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{grupoProdutoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/grupoProduto/consultarGrupoProduto.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
 	<!-- LOJA -->
 	<navigation-rule>
 		<from-view-id>/jsp/loja/inserirLoja.jsp</from-view-id>
@@ -214,7 +263,6 @@
 			<to-view-id>/jsp/menu.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
 	<navigation-rule>
 		<from-view-id>/jsp/loja/consultarLoja.jsp</from-view-id>
 		<navigation-case>
@@ -407,7 +455,37 @@
 		</managed-property>
 	</managed-bean>
 	
-		<!-- LOJA BACK BEAN -->
+	<!-- GRUPO PRODUTO BACK BEAN -->
+	
+	<managed-bean>
+		<managed-bean-name>grupoProdutoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.grupoProduto.GrupoProdutoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idSuperior</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>gruposProduto</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+	
+	<!-- LOJA BACK BEAN -->
 	
 	<managed-bean>
 		<managed-bean-name>lojaBB</managed-bean-name>
@@ -483,7 +561,6 @@
 	</managed-bean>
 
 
-	
 	<validator>
        <validator-id>LongValidator</validator-id>
        <validator-class>com.infinity.datamarket.enterprise.gui.util.validator.LongValidator</validator-class>
