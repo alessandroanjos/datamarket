@@ -21,7 +21,7 @@ public class CadastroProduto extends Cadastro{
 		return instancia;
 	}
 
-	public Produto consultarPorId(Long id) throws AppException{
+	public Produto consultarPorPK(Long id) throws AppException{
 		return (Produto) getRepositorio().findById(CLASSE, id);
 	}
 
