@@ -12,6 +12,7 @@ public class Produto extends Persistente{
 	
 	
 	private String codigoExterno;
+	private String codigoAutomacao;
 	private String descricaoCompleta;
 	private String descricaoCompacta;
 	private BigDecimal precoPadrao;
@@ -19,6 +20,7 @@ public class Produto extends Persistente{
 	private TipoProduto tipo;
 	private Unidade unidade;
 	private Imposto imposto;
+	private GrupoProduto grupo;
 	
 	
 	public Imposto getImposto() {
@@ -71,6 +73,18 @@ public class Produto extends Persistente{
 	}
 	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade;
+	}
+	public String getCodigoAutomacao() {
+		return codigoAutomacao;
+	}
+	public void setCodigoAutomacao(String codigoAutomacao) {
+		this.codigoAutomacao = codigoAutomacao;
+	}
+	public GrupoProduto getGrupo() {
+		return grupo;
+	}
+	public void setGrupo(GrupoProduto grupo) {
+		this.grupo = grupo;
 	}
 
 }
