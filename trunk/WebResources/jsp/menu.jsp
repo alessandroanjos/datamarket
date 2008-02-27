@@ -53,6 +53,14 @@
 	<br>
 	<h:commandLink styleClass="label" value="Manter Perfil" action="manterPerfil"></h:commandLink>
 	<br>
+	<h:commandLink styleClass="label" value="Inserir Forma de Recebimento" action="inserirFormaRecebimento"></h:commandLink>
+	<br>
+	<h:commandLink styleClass="label" value="Manter Forma de Recebimento" action="manterFormaRecebimento"></h:commandLink>
+	<br>
+	<h:commandLink styleClass="label" value="Inserir Plano de Pagamento" action="inserirPlanoPagamento"></h:commandLink>
+	<br>
+	<h:commandLink styleClass="label" value="Manter Plano de Pagamento" action="manterPlanoPagamento"></h:commandLink>
+	<br>
 	<br>
 	<h:commandLink styleClass="label" value="Logout" action="#{loginBB.logout}"></h:commandLink>
 	</h:form>
