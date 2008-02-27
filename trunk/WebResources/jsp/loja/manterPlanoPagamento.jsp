@@ -35,7 +35,7 @@
 	<h:form>
 		<h:panelGrid columns="3" id="formGrid">
 		    <f:facet name="header">
-				<h:outputText styleClass="tituloTabela" value="Consulta Plano de Pagamento" />
+				<h:outputText styleClass="tituloTabela" value="Manter Plano de Pagamento" />
 			</f:facet>
 		    <h:outputText styleClass="label" value="Código"></h:outputText>					
 			<h:inputText styleClass="inputText" id="id" maxlength="2"
