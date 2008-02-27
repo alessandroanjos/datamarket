@@ -54,6 +54,8 @@
           <column name="ID_GRUPO_PRODUTO" not-null="true"/>
         </many-to-one>
 
+   
+
     </class>
 
 </hibernate-mapping>
