@@ -4,8 +4,8 @@
 <hibernate-configuration>
     <session-factory>
     
-        <property name="connection.driver_class">com.microsoft.jdbc.sqlserver.SQLServerDriver</property>
-        <property name="connection.url">jdbc:microsoft:sqlserver://localhost:1433;databasename=PDV;SelectMethod=Cursor</property>
+        <property name="connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
+        <property name="connection.url">jdbc:jtds:sqlserver://localhost:1433;databasename=PDV;SelectMethod=Cursor</property>
         <property name="connection.username">sa</property>
         <property name="connection.password">sa</property>
 
@@ -25,6 +25,7 @@
 	<mapping resource="com/infinity/datamarket/hbm/Usuario.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Perfil.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Produto.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Imposto.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Transacao.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/TransacaoEntradaOperador.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/TransacaoVenda.hbm.xml"/>
@@ -45,7 +46,6 @@
 	<mapping resource="com/infinity/datamarket/hbm/Loja.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Unidade.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/TipoProduto.hbm.xml"/>
-	<mapping resource="com/infinity/datamarket/hbm/Imposto.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/GrupoProduto.hbm.xml"/>
 
 
