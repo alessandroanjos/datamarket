@@ -457,6 +457,67 @@ public class Fachada {
 		}
 		return plano;
 	}
+	public Collection consultarPlanoPagamento(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroPlanoPagamento().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+    
+	
+	public Collection consultarTodosPlanos() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroPlanoPagamento().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
 	
 	//unidade
 	
@@ -1048,6 +1109,90 @@ public class Fachada {
 	try{
 		RepositoryManagerHibernateUtil.beginTrasaction();
 		getCadastroFormaRecebimento().inserir(formaRecebimento);
+		RepositoryManagerHibernateUtil.commitTransation();
+	}catch(AppException e){
+		try{
+			RepositoryManagerHibernateUtil.rollbackTransation();
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+		throw e;
+	}catch(Throwable e){
+		try{
+			RepositoryManagerHibernateUtil.rollbackTransation();
+			throw new SistemaException(e);
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+	}finally{
+		try{
+			RepositoryManagerHibernateUtil.closeSession();
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+	}
+}	
+// PlanoPagamento	
+	public void excluirPlanoPagamento(PlanoPagamento planoPagamento) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroPlanoPagamento().excluir(planoPagamento);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
+	public void alterarPlanoPagamento(PlanoPagamento planoPagamento) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroPlanoPagamento().alterar(planoPagamento);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public void inserirPlanoPagamento(PlanoPagamento planoPagamento) throws AppException{
+	try{
+		RepositoryManagerHibernateUtil.beginTrasaction();
+		getCadastroPlanoPagamento().inserir(planoPagamento);
 		RepositoryManagerHibernateUtil.commitTransation();
 	}catch(AppException e){
 		try{
