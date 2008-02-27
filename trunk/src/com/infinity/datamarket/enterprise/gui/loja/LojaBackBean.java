@@ -223,10 +223,11 @@ public class LojaBackBean extends BackBean {
 	}
 	
 	public String resetBB(){
-		this.id = null;
-		this.nome = null;
-		this.numeroIp = null;
-		this.numeroPorta = null;
+		this.setId(null);
+		this.setNome(null);
+		this.setNumeroIp(null);
+		this.setNumeroPorta(null);
+		this.setLojas(null);
 		return "mesma";
 	}
 	
