@@ -15,7 +15,6 @@ import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
-import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -275,7 +274,7 @@ public class FormaRecebimentoBackBean extends BackBean {
 			formaRecebimento.setValorMaxTroco(this.valorMaxTroco);
 			formaRecebimento.setFormaTroco(this.formaTroco);
 			formaRecebimento.setPlanos(this.planos);
-			
+
 			getFachada().alterarFormaRecebimento(formaRecebimento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
