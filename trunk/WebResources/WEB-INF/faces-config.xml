@@ -60,6 +60,23 @@
 			<to-view-id>/jsp/loja/consultarLoja.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>inserirFormaRecebimento</from-outcome>
+			<to-view-id>/jsp/formaRecebimento/inserirFormaRecebimento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterFormaRecebimento</from-outcome>
+			<to-view-id>/jsp/formaRecebimento/consultarFormaRecebimento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>inserirPlanoPagamento</from-outcome>
+			<to-view-id>/jsp/planoPagamento/inserirPlanoPagamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterPlanoPagamento</from-outcome>
+			<to-view-id>/jsp/planoPagamento/consultarPlanoPagamento.jsp</to-view-id>
+		</navigation-case>
+	
+		<navigation-case>
 			<from-outcome>inserirPerfil</from-outcome>
 			<to-view-id>/jsp/perfil/inserirPerfil.jsp</to-view-id>
 		</navigation-case>
@@ -383,7 +400,70 @@
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
+	<!-- PLANO DE PAGAMENTO BACK BEAN -->
 	
+	<managed-bean>
+		<managed-bean-name>planoPagamentoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.planoPagamento.PlanoPagamentoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>status</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valorMinimo</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valorMaximo</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+				<managed-property>
+		    <property-name>percDesconto</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>percAcrescimo</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataInicioValidade</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataFimValidade</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>forma</property-name>
+		    <property-class>com.infinity.datamarket.comum.pagamento.FormaRecebimento</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>planos</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
 	
 	<!-- UNIDADE BACK BEAN -->
 	
@@ -520,7 +600,39 @@
 		</managed-property>
 	</managed-bean>
 	
-		<!-- PERFIL BACK BEAN -->
+	<navigation-rule>
+		<from-view-id>/jsp/loja/inserirLoja.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{lojaBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/loja/inserirLoja.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{lojaBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- PERFIL BACK BEAN -->
+	<navigation-rule>
+		<from-view-id>/jsp/loja/consultarLoja.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{lojaBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/loja/consultarLoja.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{lojaBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/loja/manterLoja.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{lojaBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<managed-bean>
 		<managed-bean-name>perfilBB</managed-bean-name>
