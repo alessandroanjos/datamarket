@@ -35,7 +35,7 @@
 	<h:form>
 		<h:panelGrid columns="3" id="formGrid">
 		    <f:facet name="header">
-				<h:outputText styleClass="tituloTabela" value="Consulta Formas de Recebimentos" />
+				<h:outputText styleClass="tituloTabela" value="Alterar Forma de Recebimento" />
 			</f:facet>
 		    <h:outputText styleClass="label" value="Código"></h:outputText>					
 			<h:inputText styleClass="inputText" id="id" maxlength="2"
