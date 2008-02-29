@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
+import org.hibernate.proxy.HibernateProxyHelper;
+
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class FormaRecebimento extends Persistente{
@@ -12,6 +14,7 @@ public class FormaRecebimento extends Persistente{
 	 * 
 	 */
 	private static final long serialVersionUID = -4859446635232194912L;
+	String id;
 	String descricao;
 	String recebimentoImpressora;
 	String abrirGaveta;

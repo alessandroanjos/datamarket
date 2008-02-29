@@ -2,25 +2,30 @@ package com.infinity.datamarket.comum.pagamento;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
+import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class PlanoPagamento extends Persistente{
-	private String descricao;
-	private String status;
-	private BigDecimal valorMinimo;
-	private BigDecimal valorMaximo;
-	private BigDecimal percDesconto;
-	private BigDecimal percAcrescimo;
-	private Date dataInicioValidade;
-	private Date dataFimValidade;
-	private FormaRecebimento forma;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5162497470349833544L;
+	String descricao;
+	String status;
+	BigDecimal valorMinimo;
+	BigDecimal valorMaximo;
+	BigDecimal percDesconto;
+	BigDecimal percAcrescimo;
+	Date dataInicioValidade;
+	Date dataFimValidade;
+	String idForma;
+	FormaRecebimento forma;
 
-	public FormaRecebimento getForma() {
-		return forma;
+	public String getIdForma() {
+		return idForma;
 	}
-	public void setForma(FormaRecebimento forma) {
-		this.forma = forma;
+	public void setIdForma(String idForma) {
+		this.idForma = idForma;
 	}
 	public Date getDataFimValidade() {
 		return dataFimValidade;
@@ -70,4 +75,11 @@ public class PlanoPagamento extends Persistente{
 	public void setValorMinimo(BigDecimal valorMinimo) {
 		this.valorMinimo = valorMinimo;
 	}
+	public FormaRecebimento getForma() {
+		return forma;
+	}
+	public void setForma(FormaRecebimento forma) {
+		this.forma = forma;
+	}
+	
 }
