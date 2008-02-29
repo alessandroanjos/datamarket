@@ -4,17 +4,21 @@ package com.infinity.datamarket.enterprise.gui.formaRecebimento;
  * 
  */
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -33,6 +37,7 @@ public class FormaRecebimentoBackBean extends BackBean {
 	FormaRecebimento formaTroco;
 	Collection planos;
 	Collection formasRecebimentos;
+
 	
 	public String voltarConsulta(){
 		resetBB();
@@ -339,6 +344,5 @@ public class FormaRecebimentoBackBean extends BackBean {
 	public void setFormasRecebimentos(Collection formasRecebimentos) {
 		this.formasRecebimentos = formasRecebimentos;
 	}
-	
 	
 }
