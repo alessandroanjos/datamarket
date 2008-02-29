@@ -54,8 +54,8 @@
 			<h:outputText styleClass="label" value="Situação"></h:outputText>
 			<h:selectOneRadio  styleClass="selectOneRadio" id="status" 
 				value="#{planoPagamentoBB.status}" layout="lineDirection">
-			    <f:selectItem itemLabel="Ativo" itemValue="S"/>
-			    <f:selectItem itemLabel="Inativo" itemValue="N"/>
+			    <f:selectItem itemLabel="Ativo" itemValue="A"/>
+			    <f:selectItem itemLabel="Inativo" itemValue="I"/>
 			</h:selectOneRadio>
 			<h:message for="status" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Valor Minimo"></h:outputText>
@@ -64,7 +64,7 @@
 				<f:validateLength maximum="15" />
 			</h:inputText>
 			<h:message for="valorMinimo" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Valor Minimo"></h:outputText>
+			<h:outputText styleClass="label" value="Valor Maximo"></h:outputText>
 			<h:inputText styleClass="inputText" id="valorMaximo" maxlength="15" size="15"
 				value="#{planoPagamentoBB.valorMaximo}">
 				<f:validateLength maximum="15" />
@@ -103,7 +103,7 @@
 			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoConsultar" action="#{planoPagamentoBB.consultar}" value="Consultar"></h:commandButton>
 		</h:panelGrid>
 		<p>
-		<h:dataTable value="#{planoPagamentoBB.formasRecebimentos}"
+		<h:dataTable value="#{planoPagamentoBB.planos}"
 					var="plano">
 					<f:facet name="header">
 						<h:outputText styleClass="tituloTabela" value="Plano de Pagamento" />

@@ -26,7 +26,7 @@
 <body>
 <h:form>
 	<div>
-	<h:outputText id="titulo" styleClass="label" value="Home > Forma de Recebimento"></h:outputText>
+	<h:outputText id="titulo" styleClass="label" value="Home > Inserir Forma de Recebimento"></h:outputText>
 	</div>
 	<br>
 	<div>
@@ -34,11 +34,11 @@
 	</div>
 		<h:panelGrid columns="3" id="formGrid">
 		    <f:facet name="header">
-				<h:outputText styleClass="tituloTabela" value="Consulta Plano de Pagamento" />
+				<h:outputText styleClass="tituloTabela" value="Inserir Plano de Pagamento" />
 			</f:facet>
-		    <h:outputText styleClass="label" value="Código"></h:outputText>					
+		    <h:outputText styleClass="label" value="Codigo*"></h:outputText>					
 			<h:inputText styleClass="inputText" id="id" maxlength="2"
-				value="#{planoPagamentoBB.id}" size="3">
+				value="#{planoPagamentoBB.id}" size="2" required="true">
 				<f:validateLength maximum="2" />
 				<f:validator validatorId="LongValidator"/>
 			</h:inputText>
@@ -52,8 +52,8 @@
 			<h:outputText styleClass="label" value="Situação"></h:outputText>
 			<h:selectOneRadio  styleClass="selectOneRadio" id="status" 
 				value="#{planoPagamentoBB.status}" layout="lineDirection">
-			    <f:selectItem itemLabel="Ativo" itemValue="S"/>
-			    <f:selectItem itemLabel="Inativo" itemValue="N"/>
+			    <f:selectItem itemLabel="Ativo" itemValue="A"/>
+			    <f:selectItem itemLabel="Inativo" itemValue="I"/>
 			</h:selectOneRadio>
 			<h:message for="status" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Valor Minimo"></h:outputText>
@@ -62,7 +62,7 @@
 				<f:validateLength maximum="15" />
 			</h:inputText>
 			<h:message for="valorMinimo" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Valor Minimo"></h:outputText>
+			<h:outputText styleClass="label" value="Valor Maximo"></h:outputText>
 			<h:inputText styleClass="inputText" id="valorMaximo" maxlength="15" size="15"
 				value="#{planoPagamentoBB.valorMaximo}">
 				<f:validateLength maximum="15" />
@@ -83,15 +83,22 @@
 			<h:outputText styleClass="label" value="Inicio Validade"></h:outputText>
 			<h:inputText styleClass="inputText" id="dataInicioValidade" 
 				value="#{planoPagamentoBB.dataInicioValidade}">
-				<f:convertDateTime type="DATE" pattern="MM/dd/yyyy" />
+				<f:convertDateTime type="date" pattern="MM/dd/yyyy" />
 			</h:inputText>
 			<h:message for="dataInicioValidade" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Final Validade"></h:outputText>
 			<h:inputText styleClass="inputText" id="dataFimValidade" 
 				value="#{planoPagamentoBB.dataFimValidade}" >
-				<f:convertDateTime type="DATE" pattern="MM/dd/yyyy" />
+				<f:convertDateTime type="date" pattern="MM/dd/yyyy" />
 			</h:inputText>
 			<h:message for="dataFimValidade" styleClass="errors"/>
+			<h:outputText styleClass="label" value="Forma de Recebimento"></h:outputText>
+			<h:selectOneMenu id="idForma" 
+				value="#{planoPagamentoBB.idForma}">   
+					  <f:selectItems id="formaSelectItems" 
+					  value="#{planoPagamentoBB.formas}" />   
+			</h:selectOneMenu>  
+			<h:message for="idForma" styleClass="errors"/>
 		</h:panelGrid>
 		<br>
 		<h:panelGrid  columns="3" id="formGrid1">
