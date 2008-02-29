@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -39,7 +38,7 @@ public class PerfilBackBean extends BackBean {
 	
 	Collection listaPerfis;
 	ArrayList listaOperacoesAssociadas;
-	
+		
 	SelectItem[] perfis;
 	SelectItem[] operacoes;
 	
@@ -157,8 +156,7 @@ public class PerfilBackBean extends BackBean {
 		}
 		resetBB();
 		return "mesma";
-	}
-	
+	}	
 		
 	public String consultar(){
 		try{
@@ -176,24 +174,22 @@ public class PerfilBackBean extends BackBean {
 				
 				if(this.getPerfilSuperior() != null){
 					this.setIdPerfilSuperior(this.getPerfilSuperior().getId().toString());
-//					this.idPerfilSuperior = this.getPerfilSuperior().getId().toString();
 				}else{
 					this.setIdPerfilSuperior("0");
-//					this.idPerfilSuperior = "0";
 				}
 				
 				this.setPercentualDesconto(perfil.getPercentualDesconto());
 				
-//				Set operacoesAssociadas = perfil.getOperacoes();
-//				List<MacroOperacao> listaTemp = new ArrayList<MacroOperacao>();
-//				
-//				for (Iterator iter = operacoesAssociadas.iterator(); iter
-//						.hasNext();) {
-//					MacroOperacao macroOperacaoAssociada = (MacroOperacao) iter.next();
-//					listaTemp.add(macroOperacaoAssociada);
-//				}
-//				this.setListaOperacoesAssociadas((ArrayList)listaTemp);
+				Set operacoesAssociadas = perfil.getOperacoes();
+				List<String> listaTemp = new ArrayList<String>();
 				
+				for (Iterator iter = operacoesAssociadas.iterator(); iter
+						.hasNext();) {
+					MacroOperacao macroOperacaoAssociada = (MacroOperacao) iter.next();
+					listaTemp.add(macroOperacaoAssociada.getId().toString());
+				}
+				this.setListaOperacoesAssociadas((ArrayList)listaTemp);
+
 				return "proxima";
 			}else if (getDescricao() != null && !"".equals(getDescricao())){
 				PropertyFilter filter = new PropertyFilter();
@@ -220,13 +216,13 @@ public class PerfilBackBean extends BackBean {
 						}
 						this.setPercentualDesconto(perfil.getPercentualDesconto());
 
-						Set operacoesAssociadas = (HashSet)perfil.getOperacoes();
-						List<MacroOperacao> listaTemp = new ArrayList<MacroOperacao>();
+						Set operacoesAssociadas = perfil.getOperacoes();
+						List<String> listaTemp = new ArrayList<String>();
 						
 						for (Iterator iter = operacoesAssociadas.iterator(); iter
 								.hasNext();) {
 							MacroOperacao macroOperacaoAssociada = (MacroOperacao) iter.next();
-							listaTemp.add(macroOperacaoAssociada);
+							listaTemp.add(macroOperacaoAssociada.getId().toString());
 						}
 						this.setListaOperacoesAssociadas((ArrayList)listaTemp);
 
@@ -256,8 +252,10 @@ public class PerfilBackBean extends BackBean {
 		this.setPercentualDesconto(null);
 		this.setListaOperacoesAssociadas(null);
 		this.setIdPerfilSuperior(null);
+		this.setPerfis(null);
+		this.setOperacoes(null);
 		return "mesma";
-	}
+	}	
 	
 	public String alterar(){
 		try {
@@ -288,7 +286,11 @@ public class PerfilBackBean extends BackBean {
 			}else{
 				perfil.setOperacoes(null);	
 			}
-
+			
+			if(perfil.getPerfilSuperior() != null && perfil.getId().equals(perfil.getPerfilSuperior().getId())){
+				throw new Exception("O Perfil não pode ter ele mesmo como Perfil Superior.");				
+			}
+			
 			getFachada().alterarPerfil(perfil);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -298,7 +300,7 @@ public class PerfilBackBean extends BackBean {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
+					"Erro de Sistema!", e.getMessage());
 			ctx.addMessage(null, msg);
 		}
 		return "mesma";
@@ -308,15 +310,17 @@ public class PerfilBackBean extends BackBean {
 		try {
 			Perfil perfil = new Perfil();
 			perfil.setId(new Long(this.getId()));
+			
 			perfil.setDescricao(this.getDescricao());
 
-			if(!this.getIdPerfilSuperior().equals("0")){
-				Perfil perfilSuperior= getFachada().consultarPerfilPorPK(new Long(this.getIdPerfilSuperior()));
+			if (!this.getIdPerfilSuperior().equals("0")) {
+				Perfil perfilSuperior = getFachada().consultarPerfilPorPK(
+						new Long(this.getIdPerfilSuperior()));
 				perfil.setPerfilSuperior(perfilSuperior);
-			}else{
+			} else {
 				perfil.setPerfilSuperior(null);
 			}
-			
+		
 			perfil.setPercentualDesconto(this.getPercentualDesconto());
 			
 			if(this.getListaOperacoesAssociadas() != null && this.getListaOperacoesAssociadas().size() > 0){
@@ -333,20 +337,32 @@ public class PerfilBackBean extends BackBean {
 			}else{
 				perfil.setOperacoes(null);	
 			}
-
-			getFachada().excluirPerfil(perfil);
+			
+			//verifica se o perfil eh perfil superior
+			if(perfil.getPerfilSuperior() != null &&
+					getFachada().consultarPerfisPorPerfilSuperior(perfil).size() > 0){
+				throw new Exception("O Perfil selecionado não pode ser excluído. \n" +
+						"Existem Perfis vinculados a este Perfil.");
+			// verifica se o perfil possui usuarios associados
+			}else if(getFachada().consultarUsuariosPorPerfil(perfil).size() > 0){
+				throw new Exception("O Perfil selecionado não pode ser excluído. \n" +
+						"Existem Usuários vinculados a este Perfil.");
+			}
+			
+			getFachada().excluirPerfil(perfil);	
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
+					"Erro de Sistema!", e.getMessage());
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
+		
 		return "mesma";
 	}
 	
@@ -356,8 +372,10 @@ public class PerfilBackBean extends BackBean {
 		this.setPerfilSuperior(null);
 		this.setPercentualDesconto(null);
 		this.setListaOperacoesAssociadas(null);
-		this.setListaPerfis(null);
 		this.setIdPerfilSuperior(null);
+		this.setListaPerfis(null);
+		this.setPerfis(null);
+		this.setOperacoes(null);
 		return "mesma";
 	}
 	
