@@ -4,18 +4,22 @@ package com.infinity.datamarket.enterprise.gui.planoPagamento;
  * 
  */
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -32,7 +36,8 @@ public class PlanoPagamentoBackBean extends BackBean {
 	BigDecimal percAcrescimo;
 	Date dataInicioValidade;
 	Date dataFimValidade;
-	FormaRecebimento forma;
+	String idForma;
+	SelectItem[] formas;
 	Collection planos;
 	
 	public String voltarConsulta(){
@@ -74,10 +79,11 @@ public class PlanoPagamentoBackBean extends BackBean {
 		planoPagamento.setStatus(this.status);
 		planoPagamento.setValorMaximo(this.valorMaximo);
 		planoPagamento.setValorMinimo(this.valorMinimo);
-		planoPagamento.setValorMinimo(this.valorMinimo);
+		planoPagamento.setPercAcrescimo(this.percAcrescimo);
+		planoPagamento.setPercDesconto(this.percDesconto);
 		planoPagamento.setDataInicioValidade(this.dataInicioValidade);
 		planoPagamento.setDataFimValidade(this.dataFimValidade);
-        planoPagamento.setForma(this.forma);
+        planoPagamento.setIdForma(this.idForma);
 
 		try {
 			getFachada().inserirPlanoPagamento(planoPagamento);
@@ -117,11 +123,12 @@ public class PlanoPagamentoBackBean extends BackBean {
 				planoPagamento.setStatus(this.status);
 				planoPagamento.setValorMaximo(this.valorMaximo);
 				planoPagamento.setValorMinimo(this.valorMinimo);
-				planoPagamento.setValorMinimo(this.valorMinimo);
+				planoPagamento.setPercAcrescimo(this.percAcrescimo);
+				planoPagamento.setPercDesconto(this.percDesconto);
 				planoPagamento.setDataInicioValidade(this.dataInicioValidade);
 				planoPagamento.setDataFimValidade(this.dataFimValidade);
-		        planoPagamento.setForma(this.forma);
-				
+		        planoPagamento.setIdForma(this.idForma);
+		        
 				return "proxima";
 			}else if (getDescricao() != null && !"".equals(getDescricao())){
 				PropertyFilter filter = new PropertyFilter();
@@ -142,10 +149,11 @@ public class PlanoPagamentoBackBean extends BackBean {
 						this.setStatus(planoPagamento.getStatus());
 						this.setValorMaximo(planoPagamento.getValorMaximo());
 						this.setValorMinimo(planoPagamento.getValorMinimo());
-						this.setValorMinimo(planoPagamento.getValorMinimo());
+						this.setPercDesconto(planoPagamento.getPercDesconto());
+						this.setPercAcrescimo(planoPagamento.getPercAcrescimo());
 						this.setDataInicioValidade(planoPagamento.getDataInicioValidade());
 						this.setDataFimValidade(planoPagamento.getDataFimValidade());
-						this.setForma(planoPagamento.getForma());
+						this.setIdForma(planoPagamento.getIdForma());
 
 						return "proxima";
 					}else{
@@ -172,10 +180,11 @@ public class PlanoPagamentoBackBean extends BackBean {
 		this.setStatus(null);
 		this.setValorMaximo(null);
 		this.setValorMinimo(null);
-		this.setValorMinimo(null);
+		this.setPercDesconto(null);
+		this.setPercAcrescimo(null);
 		this.setDataInicioValidade(null);
 		this.setDataFimValidade(null);
-		this.setForma(null);
+		this.setIdForma(null);
 		return "mesma";
 	}
 	
@@ -188,10 +197,11 @@ public class PlanoPagamentoBackBean extends BackBean {
 			planoPagamento.setStatus(this.status);
 			planoPagamento.setValorMaximo(this.valorMaximo);
 			planoPagamento.setValorMinimo(this.valorMinimo);
-			planoPagamento.setValorMinimo(this.valorMinimo);
+			planoPagamento.setPercAcrescimo(this.percAcrescimo);
+			planoPagamento.setPercDesconto(this.percDesconto);
 			planoPagamento.setDataInicioValidade(this.dataInicioValidade);
 			planoPagamento.setDataFimValidade(this.dataFimValidade);
-	        planoPagamento.setForma(this.forma);
+	        planoPagamento.setIdForma(this.idForma);
 
 			getFachada().alterarPlanoPagamento(planoPagamento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -217,10 +227,11 @@ public class PlanoPagamentoBackBean extends BackBean {
 			planoPagamento.setStatus(this.status);
 			planoPagamento.setValorMaximo(this.valorMaximo);
 			planoPagamento.setValorMinimo(this.valorMinimo);
-			planoPagamento.setValorMinimo(this.valorMinimo);
+			planoPagamento.setPercAcrescimo(this.percAcrescimo);
+			planoPagamento.setPercDesconto(this.percDesconto);
 			planoPagamento.setDataInicioValidade(this.dataInicioValidade);
 			planoPagamento.setDataFimValidade(this.dataFimValidade);
-	        planoPagamento.setForma(this.forma);
+	        planoPagamento.setIdForma(this.idForma);
 			getFachada().excluirPlanoPagamento(planoPagamento);
 			
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -241,19 +252,60 @@ public class PlanoPagamentoBackBean extends BackBean {
 	public String resetBB(){
 		this.setId(null);
 		this.setDescricao(null);
-		
+		this.setStatus(null);
+		this.setValorMaximo(null);
+		this.setValorMinimo(null);
+		this.setPercDesconto(null);
+		this.setPercAcrescimo(null);
 		this.setDataInicioValidade(null);
 		this.setDataFimValidade(null);
-		
-		this.setPlanos(null);
+		this.setIdForma(null);
 		return "mesma";
 	}
-	
-	public FormaRecebimento getForma() {
-		return forma;
+	private List<FormaRecebimento> carregarFormas() {
+		
+		List<FormaRecebimento> formas = null;
+		try {
+			formas = (ArrayList<FormaRecebimento>)getFachada().consultarTodosFormaRecebimento();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return formas;
 	}
-	public void setForma(FormaRecebimento forma) {
-		this.forma = forma;
+	public SelectItem[] getFormas(){
+		SelectItem[] arrayFormas = null;
+		try {
+			List<FormaRecebimento> formas = carregarFormas();
+			arrayFormas = new SelectItem[formas.size()+1];
+			int i = 0;
+			SelectItem itemBranco = new SelectItem("0", "");
+			arrayFormas[i++] = itemBranco;
+			for(FormaRecebimento formaTmp : formas){
+				SelectItem item = new SelectItem(formaTmp.getId().toString(), formaTmp.getDescricao());
+				arrayFormas[i++] = item;
+			}
+			
+			if(this.getIdForma() == null || this.getIdForma().equals("") || this.getIdForma().equals("0")){
+				this.setIdForma((String) arrayFormas[0].getValue());				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayFormas;
+	}
+	public String getIdForma() {
+		return idForma;
+	}
+	public void setIdForma(String idForma) {
+		this.idForma = idForma;
 	}
 	public Date getDataFimValidade() {
 		return dataFimValidade;
@@ -302,6 +354,9 @@ public class PlanoPagamentoBackBean extends BackBean {
 	}
 	public void setValorMinimo(BigDecimal valorMinimo) {
 		this.valorMinimo = valorMinimo;
+	}
+	public void setFormas(SelectItem[] formas) {
+		this.formas = formas;
 	}
 	
 }
