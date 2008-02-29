@@ -73,7 +73,7 @@
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>manterPlanoPagamento</from-outcome>
-			<to-view-id>/jsp/planoPagamento/consultarPlanoPagamento.jsp</to-view-id>
+			<to-view-id>/jsp/planoPagamento/manterPlanoPagamento.jsp</to-view-id>
 		</navigation-case>
 	
 		<navigation-case>
@@ -454,8 +454,13 @@
 		    <null-value/>
 		</managed-property>
 		<managed-property>
-		    <property-name>forma</property-name>
-		    <property-class>com.infinity.datamarket.comum.pagamento.FormaRecebimento</property-class>
+		    <property-name>idForma</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>formas</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
 		    <null-value/>
 		</managed-property>
 		<managed-property>
@@ -464,6 +469,35 @@
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
+	
+	<!-- Plano de Pagamento -->
+	<navigation-rule>
+		<from-view-id>/jsp/planoPagamento/consultarPlanoPagamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{planoPagamentoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/planoPagamento/consultarPlanoPagamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{planoPagamentoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/planoPagamento/manterPlanoPagamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{planoPagamentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/planoPagamento/manterPlanoPagamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{planoPagamentoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/planoPagamento/consultarPlanoPagamento.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<!-- UNIDADE BACK BEAN -->
 	
@@ -564,6 +598,97 @@
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
+	<!-- FORMA DE RECEBIMENTO BACK BEAN -->
+	
+	<managed-bean>
+		<managed-bean-name>formaRecebimentoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.formaRecebimento.FormaRecebimentoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>recebimentoImpressora</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>abrirGaveta</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valorLimiteSangria</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataInicioValidade</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataFimValidade</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valorMaxTroco</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+	<!-- Forma de Recebimento -->
+	<navigation-rule>
+		<from-view-id>/jsp/formaRecebimento/inserirFormaRecebimento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/formaRecebimento/inserirFormaRecebimento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/formaRecebimento/consultarFormaRecebimento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/formaRecebimento/consultarFormaRecebimento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/formaRecebimento/manterFormaRecebimento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/formaRecebimento/manterFormaRecebimento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/formaRecebimento/consultarFormaRecebimento.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<!-- LOJA BACK BEAN -->
 	
