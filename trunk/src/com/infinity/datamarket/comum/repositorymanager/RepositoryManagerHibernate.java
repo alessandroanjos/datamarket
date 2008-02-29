@@ -164,7 +164,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         try
         {
             session = RepositoryManagerHibernateUtil.currentSession();
-            obj = session.get(_class, (Serializable)_id);
+            obj = session.load(_class, (Serializable)_id);
         }
         catch (ObjectNotFoundException e) {
         	throw new com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException(e);
