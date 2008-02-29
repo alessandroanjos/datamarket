@@ -5,7 +5,12 @@ package com.infinity.datamarket.comum.usuario;
 
 import java.util.Collection;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 
@@ -50,5 +55,23 @@ public class CadastroPerfil extends Cadastro {
 	
 	public void excluir(Perfil perfil) throws AppException{
 		getRepositorio().remove(perfil);
+	}
+	
+	/**
+	 * Metodo responsavel por trazer uma lista com os perfis onde o perfil passado
+	 * como parâmetro é Perfil Superior
+	 * @param perfilSuperior
+	 * @return
+	 */
+	public Collection consultarPerfisPorPerfilSuperior(Perfil perfil) throws AppException {
+			
+		Collection col = null;
+		PropertyFilter filter = new PropertyFilter();
+		filter.setTheClass(CLASSE);
+		filter.addProperty("perfilSuperior.id", perfil.getId());
+		
+		col = this.consultar(filter);
+		
+		return col;
 	}
 }
