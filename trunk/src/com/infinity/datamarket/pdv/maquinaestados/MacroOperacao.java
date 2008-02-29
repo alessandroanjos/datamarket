@@ -1,5 +1,7 @@
 package com.infinity.datamarket.pdv.maquinaestados;
 
+import java.util.Set;
+
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class MacroOperacao extends Persistente{
@@ -10,6 +12,21 @@ public class MacroOperacao extends Persistente{
 	private Estado proximoEstado;
 	private MicroOperacaoAssociada microOperacaoInicial;
 	
+	private Set perfis;
+	
+	
+	/**
+	 * @return the perfis
+	 */
+	public Set getPerfis() {
+		return perfis;
+	}
+	/**
+	 * @param perfis the perfis to set
+	 */
+	public void setPerfis(Set perfis) {
+		this.perfis = perfis;
+	}
 	/**
 	 * @return the descricao
 	 */
