@@ -38,15 +38,15 @@
 		    <f:facet name="header">
 				<h:outputText styleClass="tituloTabela" value="Consulta Formas de Recebimentos" />
 			</f:facet>
-		    <h:outputText styleClass="label" value="Código"></h:outputText>					
+		    <h:outputText styleClass="label" value="Código*"></h:outputText>					
 			<h:inputText styleClass="inputText" id="id" maxlength="2"
 				value="#{formaRecebimentoBB.id}" size="3">
 				<f:validateLength maximum="2" />
 				<f:validator validatorId="LongValidator"/>
 			</h:inputText>
 			<h:message for="id" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Descrição"></h:outputText>
-			<h:inputText styleClass="inputText" id="descricao" maxlength="50" size="50"
+			<h:outputText styleClass="label" value="Descrição*"></h:outputText>
+			<h:inputText styleClass="inputText" id="descricao"  maxlength="50" size="50"
 				value="#{formaRecebimentoBB.descricao}">
 				<f:validateLength maximum="50" />
 			</h:inputText>
@@ -68,24 +68,26 @@
 			<h:inputText styleClass="inputText" id="valorLimiteSangria" maxlength="15" size="15"
 				value="#{formaRecebimentoBB.valorLimiteSangria}">
 				<f:validateLength maximum="15" />
+				<f:validator validatorId="BigDecimalValidator"/>
 			</h:inputText>
 			<h:message for="valorLimiteSangria" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Inicio Validade"></h:outputText>
 			<h:inputText styleClass="inputText" id="dataInicioValidade" 
 				value="#{formaRecebimentoBB.dataInicioValidade}">
-				<f:convertDateTime type="DATE" pattern="MM/dd/yyyy" />
+				<f:convertDateTime type="date" pattern="MM/dd/yyyy" />
 			</h:inputText>
 			<h:message for="dataInicioValidade" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Final Validade"></h:outputText>
 			<h:inputText styleClass="inputText" id="dataFimValidade" 
 				value="#{formaRecebimentoBB.dataFimValidade}" >
-				<f:convertDateTime type="DATE" pattern="MM/dd/yyyy" />
+				<f:convertDateTime type="date" pattern="MM/dd/yyyy" />
 			</h:inputText>
 			<h:message for="dataFimValidade" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Valor Maximo Troco"></h:outputText>
 			<h:inputText styleClass="inputText" id="valorMaxTroco" maxlength="15" size="15"
 				value="#{formaRecebimentoBB.valorMaxTroco}">
 				<f:validateLength maximum="15" />
+				<f:validator validatorId="BigDecimalValidator"/>
 			</h:inputText>
 			<h:message for="valorMaxTroco" styleClass="errors"/>
 			
