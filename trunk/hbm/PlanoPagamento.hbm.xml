@@ -44,7 +44,7 @@
               <column name="DATA_FIM_VALIDADE" not-null="false"/>
        </property>
        
-       <many-to-one name="forma" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento" update="false" insert="false">
+       <many-to-one name="idForma" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento" update="false" insert="false">
           <column name="ID_FORMA" not-null="true"/>
        </many-to-one>
 

@@ -41,13 +41,14 @@
               <column name="DATA_FIM_VALIDADE" not-null="false"/>
        </property>
 
-       <one-to-one name="formaTroco" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento" cascade="all"/>
+      <property name="formaTroco" type="com.infinity.datamarket.comum.pagamento.FormaRecebimento" update="true" insert="true">
+              <column name="ID_FORMA_TROCO" not-null="false"/>
+       </property>
 
        <set name="planos" lazy="false" inverse="true">
              <key column="ID"/>
              <one-to-many class="com.infinity.datamarket.comum.pagamento.PlanoPagamento"/>
        </set>
-
 
     </class>
 
