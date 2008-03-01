@@ -1,7 +1,9 @@
 package com.infinity.datamarket.enterprise.gui.produto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -17,6 +19,7 @@ import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.ValidationException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -32,6 +35,7 @@ public class ProdutoBackBean extends BackBean{
 	private String idUnidade;
 	private String idImposto;
 	private String idGrupo;
+	private String[] listaLojas;
 	
 	private Collection produtos;
 	
@@ -180,6 +184,7 @@ public class ProdutoBackBean extends BackBean{
 		GrupoProduto grupo = new GrupoProduto();
 		grupo.setId(new Long(getIdGrupo()));
 		p.setGrupo(grupo);
+		p.setLojas(criaLojas(listaLojas));
 		return p;
 	}
 	
@@ -197,7 +202,28 @@ public class ProdutoBackBean extends BackBean{
 		setIdImposto(p.getImposto().getId().toString());
 		setIdTipoProduto(p.getTipo().getId().toString());
 		setIdUnidade(p.getUnidade().getId().toString());
+		carregaLojas(p.getLojas());
 		
+	}
+	
+	private Collection criaLojas(String[] idLojas){
+		Collection c = new HashSet();
+		for (int i = 0; i < idLojas.length; i++){
+			Loja l = new Loja();
+			l.setId(new Long(idLojas[i]));
+			c.add(l);
+		}
+		return c;
+	}
+	
+	private void carregaLojas(Collection lojas){
+		String[] listaLojas = new String[lojas.size()];
+		Iterator i = lojas.iterator();
+		for(int count = 0 ; i.hasNext(); count++){
+			Loja l = (Loja) i.next();
+			listaLojas[count] = l.getId().toString(); 
+		}
+		this.listaLojas = listaLojas;
 	}
 
 	public String inserir(){
@@ -316,6 +342,7 @@ public class ProdutoBackBean extends BackBean{
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
+		resetBB();
 		return "mesma";
 	}
 	
@@ -350,6 +377,7 @@ public class ProdutoBackBean extends BackBean{
 		this.idImposto = null;
 		this.idGrupo = null;
 		this.produtos = null;
+		this.listaLojas = null;
 		return "mesma";
 	}
 	
@@ -498,6 +526,42 @@ public class ProdutoBackBean extends BackBean{
 			ctx.addMessage(null, msg);
 		}
 		return impostos;
+	}
+	
+	
+	public SelectItem[] getLojas() {
+		Collection lojas = carregarLojas();
+		SelectItem[] itens = new SelectItem[lojas.size()];
+		Iterator it = lojas.iterator();
+		for(int i = 0;it.hasNext();i++){
+			Loja loja = (Loja) it.next();
+			SelectItem item = new SelectItem(String.valueOf(loja.getId()),loja.getNome());
+			itens[i] = item;
+		}
+		return itens;
+	}
+	
+	private Collection carregarLojas() {
+		Collection lojas = null;
+		try{
+			lojas = getFachada().consultarTodosLoja();
+		}catch(Exception e){
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return lojas;
+	}
+
+
+	public String[] getListaLojas() {
+		return listaLojas;
+	}
+
+
+	public void setListaLojas(String[] listaLojas) {
+		this.listaLojas = listaLojas;
 	}
 
 
