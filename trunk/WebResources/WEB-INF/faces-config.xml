@@ -83,7 +83,15 @@
 		<navigation-case>
 			<from-outcome>manterPerfil</from-outcome>
 			<to-view-id>/jsp/perfil/consultarPerfil.jsp</to-view-id>
+		</navigation-case>		
+		<navigation-case>
+			<from-outcome>inserirProduto</from-outcome>
+			<to-view-id>/jsp/produto/inserirProduto.jsp</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterProduto</from-outcome>
+			<to-view-id>/jsp/produto/consultarProduto.jsp</to-view-id>
+		</navigation-case>		
 				
 		<navigation-case>
 			<from-action>#{loginBB.logout}</from-action>
@@ -351,6 +359,123 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!-- PRODUTO -->
+	<navigation-rule>
+		<from-view-id>/jsp/produto/inserirProduto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{produtoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/produto/inserirProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{produtoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/produto/consultarProduto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{produtoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/produto/consultarProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{produtoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/produto/manterProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{produtoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/produto/manterProduto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{produtoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/produto/consultarProduto.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	<!-- Plano de Pagamento -->
+	<navigation-rule>
+		<from-view-id>/jsp/planoPagamento/consultarPlanoPagamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{planoPagamentoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/planoPagamento/consultarPlanoPagamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{planoPagamentoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/planoPagamento/manterPlanoPagamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{planoPagamentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/planoPagamento/manterPlanoPagamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{planoPagamentoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/planoPagamento/consultarPlanoPagamento.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+		<!-- Forma de Recebimento -->
+	<navigation-rule>
+		<from-view-id>/jsp/formaRecebimento/inserirFormaRecebimento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/formaRecebimento/inserirFormaRecebimento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/formaRecebimento/consultarFormaRecebimento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/formaRecebimento/consultarFormaRecebimento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/formaRecebimento/manterFormaRecebimento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/formaRecebimento/manterFormaRecebimento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/formaRecebimento/consultarFormaRecebimento.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
 	<!-- TIPO DE PRODUTO BACK BEAN -->
 	
 	<managed-bean>
@@ -400,6 +525,8 @@
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
+	
+	
 	<!-- PLANO DE PAGAMENTO BACK BEAN -->
 	
 	<managed-bean>
@@ -469,35 +596,6 @@
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
-	
-	<!-- Plano de Pagamento -->
-	<navigation-rule>
-		<from-view-id>/jsp/planoPagamento/consultarPlanoPagamento.jsp</from-view-id>
-		<navigation-case>
-			<from-action>#{planoPagamentoBB.consultar}</from-action>
-			<from-outcome>mesma</from-outcome>
-			<to-view-id>/jsp/planoPagamento/consultarPlanoPagamento.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{planoPagamentoBB.consultar}</from-action>
-			<from-outcome>proxima</from-outcome>
-			<to-view-id>/jsp/planoPagamento/manterPlanoPagamento.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{planoPagamentoBB.voltarMenu}</from-action>
-			<from-outcome>voltar</from-outcome>
-			<to-view-id>/jsp/menu.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
-	<navigation-rule>
-		<from-view-id>/jsp/planoPagamento/manterPlanoPagamento.jsp</from-view-id>
-		<navigation-case>
-			<from-action>#{planoPagamentoBB.voltarConsulta}</from-action>
-			<from-outcome>voltar</from-outcome>
-			<to-view-id>/jsp/planoPagamento/consultarPlanoPagamento.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
 	
 	<!-- UNIDADE BACK BEAN -->
 	
@@ -598,6 +696,8 @@
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
+
+
 	<!-- FORMA DE RECEBIMENTO BACK BEAN -->
 	
 	<managed-bean>
@@ -647,49 +747,7 @@
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
-	<!-- Forma de Recebimento -->
-	<navigation-rule>
-		<from-view-id>/jsp/formaRecebimento/inserirFormaRecebimento.jsp</from-view-id>
-		<navigation-case>
-			<from-action>#{formaRecebimentoBB.inserir}</from-action>
-			<from-outcome>mesma</from-outcome>
-			<to-view-id>/jsp/formaRecebimento/inserirFormaRecebimento.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{formaRecebimentoBB.voltarMenu}</from-action>
-			<from-outcome>voltar</from-outcome>
-			<to-view-id>/jsp/menu.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
-	<navigation-rule>
-		<from-view-id>/jsp/formaRecebimento/consultarFormaRecebimento.jsp</from-view-id>
-		<navigation-case>
-			<from-action>#{formaRecebimentoBB.consultar}</from-action>
-			<from-outcome>mesma</from-outcome>
-			<to-view-id>/jsp/formaRecebimento/consultarFormaRecebimento.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{formaRecebimentoBB.consultar}</from-action>
-			<from-outcome>proxima</from-outcome>
-			<to-view-id>/jsp/formaRecebimento/manterFormaRecebimento.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{formaRecebimentoBB.voltarMenu}</from-action>
-			<from-outcome>voltar</from-outcome>
-			<to-view-id>/jsp/menu.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
-	<navigation-rule>
-		<from-view-id>/jsp/formaRecebimento/manterFormaRecebimento.jsp</from-view-id>
-		<navigation-case>
-			<from-action>#{formaRecebimentoBB.voltarConsulta}</from-action>
-			<from-outcome>voltar</from-outcome>
-			<to-view-id>/jsp/formaRecebimento/consultarFormaRecebimento.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
+
 	<!-- LOJA BACK BEAN -->
 	
 	<managed-bean>
@@ -793,6 +851,76 @@
 		<managed-property>
 		    <property-name>operacoes</property-name>
 		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+	
+	<!-- PRODUTO BACK BEAN -->
+	
+	<managed-bean>
+		<managed-bean-name>produtoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.produto.ProdutoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricaoCompacta</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricaoCompleta</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>precoPadrao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>precoPromocional</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>codigoExterno</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>codigoAutomacao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idTipoProduto</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idGrupo</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idImposto</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idUnidade</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>produtos</property-name>
+		    <property-class>java.util.Collection</property-class>
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
