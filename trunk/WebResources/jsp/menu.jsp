@@ -53,6 +53,10 @@
 	<br>
 	<h:commandLink styleClass="label" value="Manter Perfil" action="manterPerfil"></h:commandLink>
 	<br>
+	<h:commandLink styleClass="label" value="Inserir Produto" action="inserirProduto"></h:commandLink>
+	<br>	
+	<h:commandLink styleClass="label" value="Manter Produto" action="manterProduto"></h:commandLink>
+	<br>
 	<h:commandLink styleClass="label" value="Inserir Forma de Recebimento" action="inserirFormaRecebimento"></h:commandLink>
 	<br>
 	<h:commandLink styleClass="label" value="Manter Forma de Recebimento" action="manterFormaRecebimento"></h:commandLink>
