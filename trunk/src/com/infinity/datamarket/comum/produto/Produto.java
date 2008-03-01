@@ -1,6 +1,7 @@
 package com.infinity.datamarket.comum.produto;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 
 import com.infinity.datamarket.comum.util.Persistente;
 
@@ -21,6 +22,8 @@ public class Produto extends Persistente{
 	private Unidade unidade;
 	private Imposto imposto;
 	private GrupoProduto grupo;
+	
+	private Collection lojas;
 	
 	
 	public Imposto getImposto() {
@@ -85,6 +88,12 @@ public class Produto extends Persistente{
 	}
 	public void setGrupo(GrupoProduto grupo) {
 		this.grupo = grupo;
+	}
+	public Collection getLojas() {
+		return lojas;
+	}
+	public void setLojas(Collection lojas) {
+		this.lojas = lojas;
 	}
 
 }
