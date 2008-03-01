@@ -21,23 +21,26 @@
 
 
         <property name="codigoExterno" type="java.lang.String" update="true" insert="true">
-            <column name="CODIGO_EXTERNO" length="20" not-null="true"/>
+            <column name="CODIGO_EXTERNO" length="15" not-null="true"/>
+        </property>
+	<property name="codigoAutomacao" type="java.lang.String" update="true" insert="true">
+            <column name="CODIGO_AUTOMACAO" length="15" not-null="true"/>
         </property>
         
         <property name="descricaoCompleta" type="java.lang.String" update="true" insert="true">
-            <column name="DESCRICAO_COMPLETA" length="50" not-null="false"/>
+            <column name="DESCRICAO_COMPLETA" length="50" not-null="true"/>
         </property>
 
         <property name="descricaoCompacta" type="java.lang.String" update="true" insert="true">
-            <column name="DESCRICAO_COMPACTA" length="30" not-null="false"/>
+            <column name="DESCRICAO_COMPACTA" length="30" not-null="true"/>
         </property>
 
         <property name="precoPadrao" type="java.math.BigDecimal" update="true" insert="true">
-            <column name="PRECO_PADRAO" length="20" not-null="false"/>
+            <column name="PRECO_PADRAO" length="20" not-null="true"/>
         </property>
 
         <property name="precoPromocional" type="java.math.BigDecimal" update="true" insert="true">
-            <column name="PRECO_PROMOCAO" length="20" not-null="true"/>
+            <column name="PRECO_PROMOCAO" length="20" not-null="false"/>
         </property>
 
 	<many-to-one name="tipo" class="com.infinity.datamarket.comum.produto.TipoProduto" update="true" insert="true">
@@ -53,8 +56,6 @@
 	<many-to-one name="grupo" class="com.infinity.datamarket.comum.produto.GrupoProduto" update="true" insert="true">
           <column name="ID_GRUPO_PRODUTO" not-null="true"/>
         </many-to-one>
-
-   
 
     </class>
 
