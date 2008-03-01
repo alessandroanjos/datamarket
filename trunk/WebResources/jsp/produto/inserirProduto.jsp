@@ -115,6 +115,18 @@
 			
 		</h:panelGrid>
 		<br>
+		<h:panelGrid columns="5" id="formGrid2" style="width: 400px;">
+			<f:facet name="header">
+				<h:outputText styleClass="tituloTabela-left" value="Lojas associadas ao produto" />
+			</f:facet>			
+			<t:div styleClass="div-auto-scroll" style="width: 130%; height: 150px;">
+				<h:selectManyCheckbox id="listaLojas" layout="pageDirection" required="true" styleClass="label"
+					value="#{produtoBB.listaLojas}" >
+						<f:selectItems value="#{produtoBB.lojas}"/>
+				</h:selectManyCheckbox>
+			</t:div>		
+		</h:panelGrid>
+		<br>
 		<h:panelGrid  columns="3" id="formGrid1">
 			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" immediate="true" styleClass="inputBtn" id="botaoVoltar" action="#{produtoBB.voltarMenu}" value="Voltar"></h:commandButton>
 			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" immediate="true" styleClass="inputBtn" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
