@@ -165,7 +165,9 @@ public class ProdutoBackBean extends BackBean{
 		p.setDescricaoCompleta(getDescricaoCompleta());
 		p.setDescricaoCompacta(getDescricaoCompacta());
 		p.setPrecoPadrao(new BigDecimal(getPrecoPadrao()));
-		p.setPrecoPromocional(new BigDecimal(getPrecoPromocional()));
+		if (getPrecoPromocional() != null && !"".equals(getPrecoPromocional())){ 
+			p.setPrecoPromocional(new BigDecimal(getPrecoPromocional()));
+		}
 		Imposto imp = new Imposto();
 		imp.setId(new Long(getIdImposto()));
 		p.setImposto(imp);
@@ -209,7 +211,7 @@ public class ProdutoBackBean extends BackBean{
 		} catch (ObjectExistentException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Grupo de Produto já Existente!", "");
+					"Produto já Existente!", "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -230,33 +232,44 @@ public class ProdutoBackBean extends BackBean{
 			String param = (String)  params.get("id");
 			if (param != null && !"".equals(param)){
 				setId(param);
-			}
+			}			
 			if (getId() != null && !"".equals(getId())){
 				Produto produto = getFachada().consultarProdutoPorPK(new Long(getId()));
 				setProduto(produto);
 				return "proxima";
-			}else if (getDescricaoCompleta() != null && !"".equals(getDescricaoCompleta())){
-				PropertyFilter filter = new PropertyFilter();
-				filter.setTheClass(Produto.class);
+			}
+			PropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(Produto.class);
+			if (getDescricaoCompleta() != null && !"".equals(getDescricaoCompleta())){				
 				filter.addProperty("descricaoCompleta", getDescricaoCompleta());
-				Collection col = getFachada().consultarProdutoPorFiltro(filter,false);
-				if (col == null || col.size() == 0){
-					setProdutos(null);
-					FacesContext ctx = FacesContext.getCurrentInstance();
-					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
-				}else if (col != null){
-					if(col.size() == 1){
-						Produto produto = (Produto)col.iterator().next();
-						setProduto(produto);
-						return "proxima";
-					}else{
-						setProdutos(col);
-					}
+			}
+			if (getIdTipoProduto() != null && !"".equals(getIdTipoProduto())){				
+				filter.addProperty("tipo.id", new Long(getIdTipoProduto()));
+			}
+			if (getIdGrupo() != null && !"".equals(getIdGrupo())){				
+				filter.addProperty("grupo.id", new Long(getIdGrupo()));
+			}
+			if (getIdImposto() != null && !"".equals(getIdImposto())){				
+				filter.addProperty("imposto.id", new Long(getIdImposto()));
+			}
+			if (getIdUnidade() != null && !"".equals(getIdUnidade())){				
+				filter.addProperty("unidade.id", new Long(getIdUnidade()));
+			}
+			Collection col = getFachada().consultarProdutoPorFiltro(filter,false);
+			if (col == null || col.size() == 0){
+				setProdutos(null);
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Nenhum Registro Encontrado", "");
+				ctx.addMessage(null, msg);					
+			}else if (col != null){
+				if(col.size() == 1){
+					Produto produto = (Produto)col.iterator().next();
+					setProduto(produto);
+					return "proxima";
+				}else{
+					setProdutos(col);
 				}
-			}else{
-				setProdutos(getFachada().consultarTodosProdutos());
 			}
 		}catch(ObjectNotFoundException e){
 			setProdutos(null);
@@ -349,12 +362,17 @@ public class ProdutoBackBean extends BackBean{
 		return "voltar";
 	}
 	
+	public SelectItem[] getGruposConsulta() {
+		SelectItem[] retorno = getGrupos(); 
+		idGrupo = "";
+		return retorno;
+	}
+	
 	public SelectItem[] getGrupos() {
 		Collection grupos = carregarGrupos();
-		SelectItem[] itens = new SelectItem[grupos.size() + 1];
+		SelectItem[] itens = new SelectItem[grupos.size()];
 		Iterator it = grupos.iterator();
-		itens[0] = new SelectItem("","");
-		for(int i = 1;it.hasNext();i++){
+		for(int i = 0;it.hasNext();i++){
 			GrupoProduto grupo = (GrupoProduto) it.next();
 			SelectItem item = new SelectItem(String.valueOf(grupo.getId()),
 					grupo.getDescricao());
@@ -379,6 +397,12 @@ public class ProdutoBackBean extends BackBean{
 		return grupos;
 	}
 	
+	public SelectItem[] getTiposConsulta() {
+		SelectItem[] retorno = getTipos(); 
+		idTipoProduto = "";
+		return retorno;
+	}
+	
 	public SelectItem[] getTipos() {
 		Collection tipos = carregarTipos();
 		SelectItem[] itens = new SelectItem[tipos.size()];
@@ -388,7 +412,9 @@ public class ProdutoBackBean extends BackBean{
 			SelectItem item = new SelectItem(String.valueOf(tipo.getId()),tipo.getDescricao());
 			itens[i] = item;
 		}
-		idTipoProduto = (String) itens[0].getValue();
+		if (idTipoProduto == null){
+			idTipoProduto = (String) itens[0].getValue();
+		}
 		return itens;
 	}
 
@@ -405,6 +431,12 @@ public class ProdutoBackBean extends BackBean{
 		return tipos;
 	}
 	
+	public SelectItem[] getUnidadesConsulta() {
+		SelectItem[] retorno = getUnidades(); 
+		idUnidade = "";
+		return retorno;
+	}
+	
 	public SelectItem[] getUnidades() {
 		Collection unidades = carregarUnidades();
 		SelectItem[] itens = new SelectItem[unidades.size()];
@@ -414,7 +446,9 @@ public class ProdutoBackBean extends BackBean{
 			SelectItem item = new SelectItem(String.valueOf(unidade.getId()),unidade.getDescricao());
 			itens[i] = item;
 		}
-		idUnidade = (String) itens[0].getValue();
+		if (idUnidade == null){
+			idUnidade = (String) itens[0].getValue();
+		}
 		return itens;
 	}
 
@@ -431,6 +465,13 @@ public class ProdutoBackBean extends BackBean{
 		return unidades;
 	}
 	
+	
+	public SelectItem[] getImpostosConsulta() {
+		SelectItem[] retorno = getImpostos(); 
+		idImposto = "";
+		return retorno;
+	}
+	
 	public SelectItem[] getImpostos() {
 		Collection impostos = carregarImpostos();
 		SelectItem[] itens = new SelectItem[impostos.size()];
@@ -440,7 +481,9 @@ public class ProdutoBackBean extends BackBean{
 			SelectItem item = new SelectItem(String.valueOf(imposto.getId()),imposto.getDescricao());
 			itens[i] = item;
 		}
-		idImposto = (String) itens[0].getValue();
+		if (idImposto == null){
+			idImposto = (String) itens[0].getValue();
+		}
 		return itens;
 	}
 
