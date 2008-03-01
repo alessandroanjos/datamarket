@@ -252,36 +252,6 @@ public class Fachada {
 	}
 
 	
-
-	public Collection consultarProdutoPorDescricao(String descricao, boolean preciso) throws AppException{
-		Collection ret = null;
-		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
-			ret = getCadastroProduto().consultarPorDescricao(descricao,preciso);
-			RepositoryManagerHibernateUtil.commitTransation();
-		}catch(AppException e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-			throw e;
-		}catch(Throwable e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-				throw new SistemaException(e);
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}
-		return ret;
-	}
 	
 
 	public void inserirTransacao(Transacao trans) throws AppException{
@@ -488,36 +458,6 @@ public class Fachada {
 		return forma;
 	}
     
-	public Collection consultarFormaRecebimento(String descricao, boolean preciso) throws AppException{
-		Collection ret = null;
-		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
-			ret = getCadastroProduto().consultarPorDescricao(descricao,preciso);
-			RepositoryManagerHibernateUtil.commitTransation();
-		}catch(AppException e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-			throw e;
-		}catch(Throwable e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-				throw new SistemaException(e);
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}
-		return ret;
-	}
-	
 	public PlanoPagamento consultarPlanoPagamentoPorId(Long id) throws AppException{
 		PlanoPagamento plano = null;
 		try{
