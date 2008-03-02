@@ -65,6 +65,11 @@
 	<br>
 	<h:commandLink styleClass="label" value="Manter Plano de Pagamento" action="manterPlanoPagamento"></h:commandLink>
 	<br>
+	<h:commandLink styleClass="label" value="Inserir Componente" action="inserirComponente"></h:commandLink>
+	<br>
+	<h:commandLink styleClass="label" value="Manter Componente" action="manterComponente"></h:commandLink>
+	<br>
+
 	<br>
 	<h:commandLink styleClass="label" value="Logout" action="#{loginBB.logout}"></h:commandLink>
 	</h:form>
