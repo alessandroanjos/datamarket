@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.componente.Componente" table="COMPONENTE" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="4"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+
+        <property name="descricao" type="java.lang.String" update="true" insert="true">
+            <column name="DESCRICAO" length="50" not-null="true"/>
+        </property>
+        
+        <property name="ip" type="java.lang.String" update="true" insert="true">
+            <column name="IP" length="15" not-null="true"/>
+        </property>
+
+		<property name="versao" type="java.lang.String" update="true" insert="true">
+            <column name="VERSAO" length="50" not-null="false"/>
+        </property>
+        
+        <property name="porta" type="java.lang.String" update="true" insert="true">
+            <column name="PORTA" length="6" not-null="true"/>
+        </property>
+        <many-to-one name="loja" class="com.infinity.datamarket.comum.usuario.Loja" update="true" insert="true">
+          <column name="ID_LOJA" not-null="true"/>
+       </many-to-one>
+    </class>
+
+</hibernate-mapping>
