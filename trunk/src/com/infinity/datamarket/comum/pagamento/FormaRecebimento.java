@@ -14,7 +14,6 @@ public class FormaRecebimento extends Persistente{
 	 * 
 	 */
 	private static final long serialVersionUID = -4859446635232194912L;
-	String id;
 	String descricao;
 	String recebimentoImpressora;
 	String abrirGaveta;
