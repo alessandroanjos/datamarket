@@ -18,15 +18,8 @@ public class PlanoPagamento extends Persistente{
 	BigDecimal percAcrescimo;
 	Date dataInicioValidade;
 	Date dataFimValidade;
-	String idForma;
 	FormaRecebimento forma;
 
-	public String getIdForma() {
-		return idForma;
-	}
-	public void setIdForma(String idForma) {
-		this.idForma = idForma;
-	}
 	public Date getDataFimValidade() {
 		return dataFimValidade;
 	}
@@ -81,5 +74,6 @@ public class PlanoPagamento extends Persistente{
 	public void setForma(FormaRecebimento forma) {
 		this.forma = forma;
 	}
+
 	
 }
