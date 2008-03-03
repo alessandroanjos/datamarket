@@ -31,6 +31,11 @@
         <property name="numeroPorta" type="java.lang.String" update="true" insert="true">
             <column name="NUMERO_PORTA" length="4" not-null="true"/>
         </property>
+        
+        <set name="usuarios" table="USUARIO_LOJA">
+             <key column="ID_LOJA"/>
+             <many-to-many column="ID_USUARIO" class="com.infinity.datamarket.comum.usuario.Usuario"/>
+        </set>
     </class>
 
 </hibernate-mapping>
