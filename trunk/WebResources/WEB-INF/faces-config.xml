@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
 <faces-config>
@@ -475,6 +475,48 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!-- USUARIO -->
+	<navigation-rule>
+		<from-view-id>/jsp/usuario/inserirUsuario.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{usuarioBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/usuario/inserirUsuario.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarioBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/usuario/consultarUsuario.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{usuarioBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/usuario/consultarUsuario.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarioBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/usuario/manterUsuario.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{usuarioBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/usuario/manterUsuario.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{usuarioBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/usuario/consultarUsuario.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<!-- TIPO DE PRODUTO BACK BEAN -->
 	
@@ -931,7 +973,46 @@
 		
 	</managed-bean>
 
-
+<!-- USUARIO BACK BEAN -->
+	
+	<managed-bean>
+		<managed-bean-name>usuarioBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.usuario.UsuarioBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>nome</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>senha</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+				<managed-property>
+		    <property-name>idPerfil</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>perfis</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>lojas</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+	
 	<validator>
        <validator-id>LongValidator</validator-id>
        <validator-class>com.infinity.datamarket.enterprise.gui.util.validator.LongValidator</validator-class>
