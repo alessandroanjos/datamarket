@@ -69,7 +69,10 @@
 	<br>
 	<h:commandLink styleClass="label" value="Manter Componente" action="manterComponente"></h:commandLink>
 	<br>
-
+	<h:commandLink styleClass="label" value="Inserir Usuário" action="inserirUsuario"></h:commandLink>
+	<br>
+	<h:commandLink styleClass="label" value="Manter Usuário" action="manterUsuario"></h:commandLink>
+	<br>
 	<br>
 	<h:commandLink styleClass="label" value="Logout" action="#{loginBB.logout}"></h:commandLink>
 	</h:form>
