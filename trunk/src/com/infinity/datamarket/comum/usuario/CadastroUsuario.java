@@ -3,11 +3,8 @@ package com.infinity.datamarket.comum.usuario;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.hibernate.Query;
-
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.AutorizacaoRecusadaException;
 import com.infinity.datamarket.comum.util.Cadastro;
@@ -24,17 +21,17 @@ public class CadastroUsuario extends Cadastro{
 		}
 		return instancia;
 	}
-	
+
+	public Usuario consultarPorId(Long id) throws AppException{
+		return (Usuario) getRepositorio().findById(CLASSE, id);
+	}
+
 	public void inserir(Usuario usuario) throws AppException{
 		getRepositorio().insert(usuario);
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
 		return getRepositorio().filter(filter, false);
-	}
-
-	public Usuario consultarPorId(Long id) throws AppException{
-		return (Usuario) getRepositorio().findById(CLASSE, id);
 	}
 	
 	public Usuario consultarPorPK(Long id) throws AppException{

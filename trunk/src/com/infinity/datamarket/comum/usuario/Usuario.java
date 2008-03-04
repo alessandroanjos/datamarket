@@ -1,5 +1,8 @@
 package com.infinity.datamarket.comum.usuario;
 
+import java.util.Collection;
+import java.util.Set;
+
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class Usuario extends Persistente{
@@ -11,6 +14,38 @@ public class Usuario extends Persistente{
 	private String nome;
 	private Perfil perfil;
 	private String senha;
+	
+	Collection usuarios;
+	
+	Set lojas;
+	
+	/**
+	 * @return the lojas
+	 */
+	public Set getLojas() {
+		return lojas;
+	}
+
+	/**
+	 * @param lojas the lojas to set
+	 */
+	public void setLojas(Set lojas) {
+		this.lojas = lojas;
+	}
+
+	/**
+	 * @return the usuarios
+	 */
+	public Collection getUsuarios() {
+		return usuarios;
+	}
+
+	/**
+	 * @param usuarios the usuarios to set
+	 */
+	public void setUsuarios(Collection usuarios) {
+		this.usuarios = usuarios;
+	}
 
 	public String getSenha() {
 		return senha;

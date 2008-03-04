@@ -1,6 +1,7 @@
 package com.infinity.datamarket.comum.usuario;
 
 import java.util.Collection;
+import java.util.Set;
 
 import com.infinity.datamarket.comum.util.Persistente;
 
@@ -20,6 +21,22 @@ public class Loja extends Persistente {
 	String numeroPorta;
 	Collection lojas;
 	
+	Set usuarios;
+	
+	/**
+	 * @return the usuarios
+	 */
+	public Set getUsuarios() {
+		return usuarios;
+	}
+
+	/**
+	 * @param usuarios the usuarios to set
+	 */
+	public void setUsuarios(Set usuarios) {
+		this.usuarios = usuarios;
+	}
+
 	/**
 	 * @return the nome
 	 */
