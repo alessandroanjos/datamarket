@@ -66,14 +66,21 @@
 			<h:message for="percentualDesconto" styleClass="errors"/>
 		</h:panelGrid>
 		<br>
-		<h:panelGrid columns="5" id="formGrid2" style="width: 400px;">
-			<f:facet name="header">
-				<h:outputText styleClass="tituloTabela-left" value="Operações Associadas" />
-			</f:facet>			
+		<h:panelGrid columns="2" id="formGrid2" style="width: 600px;">
+			<h:outputText styleClass="tituloTabela-left" value="Operações Associadas" />
+			<h:outputText styleClass="tituloTabela-left" value="Funcionalidades Associadas" />
 			<t:div styleClass="div-auto-scroll" style="width: 100%; height: 300px;">
-				<h:selectManyCheckbox id="idListaOperacoesAssociadas" layout="pageDirection" styleClass="label"
+				
+				<h:selectManyCheckbox id="idListaOperacoesAssociadas" layout="pageDirection" required="true" styleClass="label"
 					value="#{perfilBB.listaOperacoesAssociadas}" >
 						<f:selectItems value="#{perfilBB.operacoes}"/>
+				</h:selectManyCheckbox>
+			</t:div>
+
+			<t:div styleClass="div-auto-scroll" style="width: 100%; height: 300px;">
+				<h:selectManyCheckbox id="idListaFuncionalidadesAssociadas" layout="pageDirection" required="true" styleClass="label"
+					value="#{perfilBB.listaFuncionalidadesAssociadas}" >
+						<f:selectItems value="#{perfilBB.funcionalidades}"/>
 				</h:selectManyCheckbox>
 			</t:div>		
 		</h:panelGrid>

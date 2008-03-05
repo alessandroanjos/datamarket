@@ -20,11 +20,14 @@
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<script type="text/javascript" language="javascript" src="/EnterpriseServer/js/funcoes.js"></script> 
 </head>
+
+
 <f:view>  
 <t:stylesheet path="/css/style.css"></t:stylesheet>
 <body>
-<h:form>
+<h:form id="frmInserirPerfil">
 	<div>
 	<h:outputText id="titulo" styleClass="label" value="Home > Perfil"></h:outputText>
 	</div>
@@ -57,23 +60,30 @@
 			</h:selectOneMenu>  
 			<h:message for="perfilSuperior" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Percentual de Desconto*"></h:outputText>
-			<h:inputText styleClass="inputText" id="percentualDesconto" maxlength="6" size="6"
-				value="#{perfilBB.percentualDesconto}" required="true">
+			<h:inputText styleClass="inputTextRight" id="percentualDesconto" maxlength="6" size="6"
+				value="#{perfilBB.percentualDesconto}" required="true" onkeypress="Formata('frmInserirPerfil:percentualDesconto',5,2);">
 				<f:validateLength maximum="6" />
-
+				<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 				<f:validator validatorId="BigDecimalValidator"/>
 			</h:inputText>			
-			<h:message for="percentualDesconto" styleClass="errors"/>
+			<h:message for="percentualDesconto" showSummary="true" styleClass="errors"/>
 		</h:panelGrid>
 		<br>
-		<h:panelGrid columns="5" id="formGrid2" style="width: 400px;">
-			<f:facet name="header">
-				<h:outputText styleClass="tituloTabela-left" value="Operações Associadas" />
-			</f:facet>			
+		<h:panelGrid columns="2" id="formGrid2" style="width: 600px;">
+			<h:outputText styleClass="tituloTabela-left" value="Operações Associadas" />
+			<h:outputText styleClass="tituloTabela-left" value="Funcionalidades Associadas" />
 			<t:div styleClass="div-auto-scroll" style="width: 100%; height: 300px;">
+				
 				<h:selectManyCheckbox id="idListaOperacoesAssociadas" layout="pageDirection" required="true" styleClass="label"
 					value="#{perfilBB.listaOperacoesAssociadas}" >
 						<f:selectItems value="#{perfilBB.operacoes}"/>
+				</h:selectManyCheckbox>
+			</t:div>
+
+			<t:div styleClass="div-auto-scroll" style="width: 100%; height: 300px;">
+				<h:selectManyCheckbox id="idListaFuncionalidadesAssociadas" layout="pageDirection" required="true" styleClass="label"
+					value="#{perfilBB.listaFuncionalidadesAssociadas}" >
+						<f:selectItems value="#{perfilBB.funcionalidades}"/>
 				</h:selectManyCheckbox>
 			</t:div>		
 		</h:panelGrid>
