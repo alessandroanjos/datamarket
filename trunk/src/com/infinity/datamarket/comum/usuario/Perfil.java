@@ -16,6 +16,8 @@ public class Perfil extends Persistente{
 	private BigDecimal percentualDesconto;
 	private Perfil perfilSuperior;
 	private Set operacoes;
+	private Set funcionalidades;
+	
 	
 	private Collection perfis;
 	
@@ -63,5 +65,19 @@ public class Perfil extends Persistente{
 
 	public void setPercentualDesconto(BigDecimal percentualDesconto) {
 		this.percentualDesconto = percentualDesconto;
+	}
+
+	/**
+	 * @return the funcionalidades
+	 */
+	public Set getFuncionalidades() {
+		return funcionalidades;
+	}
+
+	/**
+	 * @param funcionalidades the funcionalidades to set
+	 */
+	public void setFuncionalidades(Set funcionalidades) {
+		this.funcionalidades = funcionalidades;
 	}
 }
