@@ -44,6 +44,17 @@
 	border: 1px solid #781351;
 }
 
+.inputTextRight {
+	font-family: verdana;
+	font-size: 12px;
+	text-align: right;
+	color: #781351;
+	background: #fed;
+	border: 1px solid #781351;
+	
+}
+
+
 .inputBtn {
 	color: #781351;
 	font-family: 'trebuchet ms', helvetica, sans-serif;
