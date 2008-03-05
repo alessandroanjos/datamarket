@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+   <hibernate-mapping>
+      <class name="com.infinity.datamarket.comum.transacao.EventoTransacao" table="EVENTO_TRANSACAO" lazy="false">
+
+         <composite-id name="pk" class="com.infinity.datamarket.comum.transacao.EventoTransacaoPK">
+           <key-property name="loja" column="LOJA" type="integer"/>
+           <key-property name="componente" column="COMPONENTE" type="integer"/>
+           <key-property name="numeroTransacao" column="NUM_TRANSACAO" type="integer"/>
+           <key-property name="dataTransacao" column="DATA_TRANSACAO" type="java.util.Date"/>
+           <key-property name="numeroEvento" column="NUM_EVENTO" type="integer"/>
+         </composite-id>
+
+          <property name="tipoEvento" type="int" update="true" insert="true">
+            <column name="TIPO_EVENTO" length="20" not-null="false"/>
+          </property>
+
+          <property name="dataHoraEvento" type="java.util.Date" update="true" insert="true">
+              <column name="DATA_HORA_EVENTO" not-null="false"/>
+          </property>
+
+      </class>
+   </hibernate-mapping>
