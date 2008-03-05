@@ -92,6 +92,15 @@
 			<from-outcome>manterProduto</from-outcome>
 			<to-view-id>/jsp/produto/consultarProduto.jsp</to-view-id>
 		</navigation-case>		
+		
+		<navigation-case>
+			<from-outcome>inserirUsuario</from-outcome>
+			<to-view-id>/jsp/usuario/inserirUsuario.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterUsuario</from-outcome>
+			<to-view-id>/jsp/usuario/consultarUsuario.jsp</to-view-id>
+		</navigation-case>		
 				
 		<navigation-case>
 			<from-action>#{loginBB.logout}</from-action>
@@ -825,39 +834,7 @@
 		</managed-property>
 	</managed-bean>
 	
-	<navigation-rule>
-		<from-view-id>/jsp/loja/inserirLoja.jsp</from-view-id>
-		<navigation-case>
-			<from-action>#{lojaBB.inserir}</from-action>
-			<from-outcome>mesma</from-outcome>
-			<to-view-id>/jsp/loja/inserirLoja.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{lojaBB.voltarMenu}</from-action>
-			<from-outcome>voltar</from-outcome>
-			<to-view-id>/jsp/menu.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-
 	<!-- PERFIL BACK BEAN -->
-	<navigation-rule>
-		<from-view-id>/jsp/loja/consultarLoja.jsp</from-view-id>
-		<navigation-case>
-			<from-action>#{lojaBB.consultar}</from-action>
-			<from-outcome>mesma</from-outcome>
-			<to-view-id>/jsp/loja/consultarLoja.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{lojaBB.consultar}</from-action>
-			<from-outcome>proxima</from-outcome>
-			<to-view-id>/jsp/loja/manterLoja.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{lojaBB.voltarMenu}</from-action>
-			<from-outcome>voltar</from-outcome>
-			<to-view-id>/jsp/menu.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
 	
 	<managed-bean>
 		<managed-bean-name>perfilBB</managed-bean-name>
@@ -880,7 +857,7 @@
 		    <property-class>java.math.BigDecimal</property-class>
 		    <null-value/>
 		</managed-property>
-				<managed-property>
+		<managed-property>
 		    <property-name>idPerfilSuperior</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
@@ -892,6 +869,11 @@
 		</managed-property>
 		<managed-property>
 		    <property-name>operacoes</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>funcionalidades</property-name>
 		    <property-class>javax.faces.model.SelectItem</property-class>
 		    <null-value/>
 		</managed-property>
