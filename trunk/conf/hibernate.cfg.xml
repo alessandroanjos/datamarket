@@ -22,6 +22,7 @@
 	<mapping resource="com/infinity/datamarket/hbm/MicroOperacaoAssociada.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/SaidaMicroOperacaoAssociada.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Estado.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Funcionalidade.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Usuario.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Perfil.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Produto.hbm.xml"/>
