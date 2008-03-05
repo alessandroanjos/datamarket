@@ -6,10 +6,11 @@ import java.util.Set;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class Funcionalidade extends Persistente{
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3958914186578038113L;
+	private static final long serialVersionUID = 3210257304789828052L;
 	
 	private String descricao;
 	private Funcionalidade funcionalidadeSuperior;
