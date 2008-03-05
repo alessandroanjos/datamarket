@@ -16,6 +16,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -38,9 +39,12 @@ public class PerfilBackBean extends BackBean {
 	
 	Collection listaPerfis;
 	ArrayList listaOperacoesAssociadas;
+	ArrayList listaFuncionalidadesAssociadas;
 		
 	SelectItem[] perfis;
 	SelectItem[] operacoes;
+	SelectItem[] funcionalidades;
+	
 	
 	public ArrayList getListaOperacoesAssociadas() {
 		return listaOperacoesAssociadas;
@@ -48,6 +52,14 @@ public class PerfilBackBean extends BackBean {
 
 	public void setListaOperacoesAssociadas(ArrayList listaOperacoesAssociadas) {
 		this.listaOperacoesAssociadas = listaOperacoesAssociadas;
+	}
+	
+	public ArrayList getListaFuncionalidadesAssociadas() {
+		return listaFuncionalidadesAssociadas;
+	}
+
+	public void setListaFuncionalidadesAssociadas(ArrayList listaFuncionalidadesAssociadas) {
+		this.listaFuncionalidadesAssociadas = listaFuncionalidadesAssociadas;
 	}
 
 	public Collection getListaPerfis() {
@@ -88,6 +100,10 @@ public class PerfilBackBean extends BackBean {
 
 	public void setOperacoes(SelectItem[] operacoes){
 		this.operacoes = operacoes;
+	}
+	
+	public void setFuncionalidades(SelectItem[] funcionalidades){
+		this.funcionalidades = funcionalidades;
 	}
 
 	public Perfil getPerfilSuperior() {
@@ -135,6 +151,21 @@ public class PerfilBackBean extends BackBean {
 				perfil.setOperacoes(macroOperacoesTmp);
 			}else{
 				perfil.setOperacoes(null);	
+			}
+			
+			if(this.getListaFuncionalidadesAssociadas() != null && this.getListaFuncionalidadesAssociadas().size() > 0){
+				ArrayList lista = this.getListaFuncionalidadesAssociadas();
+				Set<Funcionalidade> funcionalidadesTmp = new HashSet<Funcionalidade>(); 
+				for (int i = 0; i < lista.size(); i++) {
+					String idFuncionalidade = (String)lista.get(i);
+					Funcionalidade funcionalidade = new Funcionalidade();
+					funcionalidade.setId(new Long(idFuncionalidade));
+					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
+					funcionalidadesTmp.add(funcionalidade);					
+				}
+				perfil.setFuncionalidades(funcionalidadesTmp);
+			}else{
+				perfil.setFuncionalidades(null);	
 			}
 			
 			getFachada().inserirPerfil(perfil);
@@ -190,6 +221,16 @@ public class PerfilBackBean extends BackBean {
 				}
 				this.setListaOperacoesAssociadas((ArrayList)listaTemp);
 
+				Set funcionalidadesAssociadas = perfil.getFuncionalidades();
+				List<String> listaFuncTemp = new ArrayList<String>();
+				
+				for (Iterator iter = funcionalidadesAssociadas.iterator(); iter
+						.hasNext();) {
+					Funcionalidade funcionalidadeAssociada = (Funcionalidade) iter.next();
+					listaFuncTemp.add(funcionalidadeAssociada.getId().toString());
+				}
+				this.setListaFuncionalidadesAssociadas((ArrayList)listaFuncTemp);
+				
 				return "proxima";
 			}else if (getDescricao() != null && !"".equals(getDescricao())){
 				PropertyFilter filter = new PropertyFilter();
@@ -226,6 +267,16 @@ public class PerfilBackBean extends BackBean {
 						}
 						this.setListaOperacoesAssociadas((ArrayList)listaTemp);
 
+						Set funcionalidadesAssociadas = perfil.getFuncionalidades();
+						List<String> listaFuncTemp = new ArrayList<String>();
+						
+						for (Iterator iter = funcionalidadesAssociadas.iterator(); iter
+								.hasNext();) {
+							Funcionalidade funcionalidadeAssociada = (Funcionalidade) iter.next();
+							listaFuncTemp.add(funcionalidadeAssociada.getId().toString());
+						}
+						this.setListaFuncionalidadesAssociadas((ArrayList)listaFuncTemp);
+
 						return "proxima";
 					}else{
 						setListaPerfis(col);
@@ -251,9 +302,11 @@ public class PerfilBackBean extends BackBean {
 		this.setPerfilSuperior(null);
 		this.setPercentualDesconto(null);
 		this.setListaOperacoesAssociadas(null);
+		this.setListaFuncionalidadesAssociadas(null);
 		this.setIdPerfilSuperior(null);
 		this.setPerfis(null);
 		this.setOperacoes(null);
+		this.setFuncionalidades(null);
 		return "mesma";
 	}	
 	
@@ -285,6 +338,21 @@ public class PerfilBackBean extends BackBean {
 				perfil.setOperacoes(macroOperacoesTmp);
 			}else{
 				perfil.setOperacoes(null);	
+			}
+			
+			if(this.getListaFuncionalidadesAssociadas() != null && this.getListaFuncionalidadesAssociadas().size() > 0){
+				ArrayList lista = this.getListaFuncionalidadesAssociadas();
+				Set<Funcionalidade> funcionalidadesTmp = new HashSet<Funcionalidade>(); 
+				for (int i = 0; i < lista.size(); i++) {
+					String idFuncionalidade = (String)lista.get(i);
+					Funcionalidade funcionalidade = new Funcionalidade();
+					funcionalidade.setId(new Long(idFuncionalidade));
+					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
+					funcionalidadesTmp.add(funcionalidade);					
+				}
+				perfil.setFuncionalidades(funcionalidadesTmp);
+			}else{
+				perfil.setFuncionalidades(null);	
 			}
 			
 			if(perfil.getPerfilSuperior() != null && perfil.getId().equals(perfil.getPerfilSuperior().getId())){
@@ -338,6 +406,20 @@ public class PerfilBackBean extends BackBean {
 				perfil.setOperacoes(null);	
 			}
 			
+			if(this.getListaFuncionalidadesAssociadas() != null && this.getListaFuncionalidadesAssociadas().size() > 0){
+				ArrayList lista = this.getListaFuncionalidadesAssociadas();
+				Set<Funcionalidade> macroOperacoesTmp = new HashSet<Funcionalidade>(); 
+				for (int i = 0; i < lista.size(); i++) {
+					String idFuncionalidade = (String)lista.get(i);
+					Funcionalidade funcionalidade = new Funcionalidade();
+					funcionalidade.setId(new Long(idFuncionalidade));
+					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
+					macroOperacoesTmp.add(funcionalidade);					
+				}
+				perfil.setFuncionalidades(macroOperacoesTmp);
+			}else{
+				perfil.setFuncionalidades(null);	
+			}
 			//verifica se o perfil eh perfil superior
 			if(perfil.getPerfilSuperior() != null &&
 					getFachada().consultarPerfisPorPerfilSuperior(perfil).size() > 0){
@@ -372,10 +454,12 @@ public class PerfilBackBean extends BackBean {
 		this.setPerfilSuperior(null);
 		this.setPercentualDesconto(null);
 		this.setListaOperacoesAssociadas(null);
+		this.setListaFuncionalidadesAssociadas(null);
 		this.setIdPerfilSuperior(null);
 		this.setListaPerfis(null);
 		this.setPerfis(null);
 		this.setOperacoes(null);
+		this.setFuncionalidades(null);
 		return "mesma";
 	}
 	
@@ -462,6 +546,41 @@ public class PerfilBackBean extends BackBean {
 			ctx.addMessage(null, msg);
 		}
 		return arrayOperacoesAssociadas;
+	}
+
+	public SelectItem[] getFuncionalidades(){
+		SelectItem[] arrayFuncionalidadesAssociadas = null;
+		try {
+			List<Funcionalidade> funcionalidades = carregarFuncionalidades();
+			arrayFuncionalidadesAssociadas = new SelectItem[funcionalidades.size()];
+			int i = 0;
+			for(Funcionalidade funcionalidadesAssociadasTmp : funcionalidades){
+				SelectItem item = new SelectItem(funcionalidadesAssociadasTmp.getId().toString(), funcionalidadesAssociadasTmp.getDescricao());
+				arrayFuncionalidadesAssociadas[i++] = item;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayFuncionalidadesAssociadas;
+	}
+	
+	private List<Funcionalidade> carregarFuncionalidades() {
+		
+		List<Funcionalidade> funcionalidades = null;
+		try {
+			funcionalidades = (ArrayList<Funcionalidade>)getFachada().consultarTodosFuncionalidade();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return funcionalidades;
 	}
 
 }
