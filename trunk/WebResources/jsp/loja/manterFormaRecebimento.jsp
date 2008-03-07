@@ -62,7 +62,7 @@
 			    <f:selectItem itemLabel="Sim" itemValue="S"/>
 			    <f:selectItem itemLabel="Não" itemValue="N"/>
 			</h:selectOneRadio>
-			<h:message for="abrirGaveta" styleClass="errors"/>
+			<h:message for="abrirGaveta" styleClass="errors"/> 
 			<h:outputText styleClass="label" value="Valor Limite Sangria"></h:outputText>
 			<h:inputText styleClass="inputText" id="valorLimiteSangria" maxlength="15" size="15" rendered="true"
 				value="#{formaRecebimentoBB.valorLimiteSangria}">
