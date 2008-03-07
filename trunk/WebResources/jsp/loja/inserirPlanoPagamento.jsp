@@ -52,8 +52,8 @@
 			<h:outputText styleClass="label" value="Situação"></h:outputText>
 			<h:selectOneRadio  styleClass="selectOneRadio" id="status" 
 				value="#{planoPagamentoBB.status}" layout="lineDirection">
-			    <f:selectItem itemLabel="Ativo" itemValue="A"/>
-			    <f:selectItem itemLabel="Inativo" itemValue="I"/>
+			    <f:selectItems id="situacao" value="#{planoPagamentoBB.situacaoItens}" />
+
 			</h:selectOneRadio>
 			<h:message for="status" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Valor Minimo"></h:outputText>

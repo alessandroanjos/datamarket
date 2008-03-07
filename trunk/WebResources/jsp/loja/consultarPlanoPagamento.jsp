@@ -51,49 +51,7 @@
 				<f:validateLength maximum="50" />
 			</h:inputText>
 			<h:message for="descricao" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Situação"></h:outputText>
-			<h:selectOneRadio  styleClass="selectOneRadio" id="status" 
-				value="#{planoPagamentoBB.status}" layout="lineDirection">
-			    <f:selectItem itemLabel="Ativo" itemValue="A"/>
-			    <f:selectItem itemLabel="Inativo" itemValue="I"/>
-			</h:selectOneRadio>
-			<h:message for="status" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Valor Minimo"></h:outputText>
-			<h:inputText styleClass="inputText" id="valorMinimo" maxlength="15" size="15"
-				value="#{planoPagamentoBB.valorMinimo}">
-				<f:validateLength maximum="15" />
-			</h:inputText>
-			<h:message for="valorMinimo" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Valor Maximo"></h:outputText>
-			<h:inputText styleClass="inputText" id="valorMaximo" maxlength="15" size="15"
-				value="#{planoPagamentoBB.valorMaximo}">
-				<f:validateLength maximum="15" />
-			</h:inputText>
-			<h:message for="valorMaximo" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Percentual Desconto"></h:outputText>
-			<h:inputText styleClass="inputText" id="percDesconto" maxlength="15" size="15"
-				value="#{planoPagamentoBB.percDesconto}">
-				<f:validateLength maximum="15" />
-			</h:inputText>
-			<h:message for="valorMinimo" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Percentual Acrescimo"></h:outputText>
-			<h:inputText styleClass="inputText" id="percAcrescimo" maxlength="15" size="15"
-				value="#{planoPagamentoBB.percAcrescimo}">
-				<f:validateLength maximum="15" />
-			</h:inputText>
-			<h:message for="percAcrescimo" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Inicio Validade"></h:outputText>
-			<h:inputText styleClass="inputText" id="dataInicioValidade" 
-				value="#{planoPagamentoBB.dataInicioValidade}">
-				<f:convertDateTime type="DATE" pattern="MM/dd/yyyy" />
-			</h:inputText>
-			<h:message for="dataInicioValidade" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Final Validade"></h:outputText>
-			<h:inputText styleClass="inputText" id="dataFimValidade" 
-				value="#{planoPagamentoBB.dataFimValidade}" >
-				<f:convertDateTime type="DATE" pattern="MM/dd/yyyy" />
-			</h:inputText>
-			<h:message for="dataFimValidade" styleClass="errors"/>
+			
 		</h:panelGrid>
 		<br>
 		
