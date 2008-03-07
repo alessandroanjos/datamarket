@@ -51,44 +51,7 @@
 				<f:validateLength maximum="50" />
 			</h:inputText>
 			<h:message for="descricao" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Recebimento na Impressora"></h:outputText>
-			<h:inputText styleClass="inputText" id="recebimentoImpressora" maxlength="50" size="50"
-				value="#{formaRecebimentoBB.recebimentoImpressora}">
-				<f:validateLength maximum="50" />
-			</h:inputText>
-			<h:message for="recebimentoImpressora" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Abre Gaveta"></h:outputText>
-			<h:selectOneRadio  styleClass="selectOneRadio" id="abrirGaveta" 
-				value="#{formaRecebimentoBB.abrirGaveta}" layout="lineDirection">
-			    <f:selectItem itemLabel="Sim" itemValue="S"/>
-			    <f:selectItem itemLabel="Não" itemValue="N"/>
-			</h:selectOneRadio>
-			<h:message for="abrirGaveta" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Valor Limite Sangria"></h:outputText>
-			<h:inputText styleClass="inputText" id="valorLimiteSangria" maxlength="15" size="15"
-				value="#{formaRecebimentoBB.valorLimiteSangria}">
-				<f:validateLength maximum="15" />
-				<f:validator validatorId="BigDecimalValidator"/>
-			</h:inputText>
-			<h:message for="valorLimiteSangria" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Inicio Validade"></h:outputText>
-			<h:inputText styleClass="inputText" id="dataInicioValidade" 
-				value="#{formaRecebimentoBB.dataInicioValidade}">
-				<f:convertDateTime type="date" pattern="MM/dd/yyyy" />
-			</h:inputText>
-			<h:message for="dataInicioValidade" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Final Validade"></h:outputText>
-			<h:inputText styleClass="inputText" id="dataFimValidade" 
-				value="#{formaRecebimentoBB.dataFimValidade}" >
-				<f:convertDateTime type="date" pattern="MM/dd/yyyy" />
-			</h:inputText>
-			<h:message for="dataFimValidade" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Valor Maximo Troco"></h:outputText>
-			<h:inputText styleClass="inputText" id="valorMaxTroco" maxlength="15" size="15"
-				value="#{formaRecebimentoBB.valorMaxTroco}">
-				<f:validateLength maximum="15" />
-				<f:validator validatorId="BigDecimalValidator"/>
-			</h:inputText>
+			
 			<h:message for="valorMaxTroco" styleClass="errors"/>
 			
 		</h:panelGrid>
