@@ -71,16 +71,13 @@
 			</h:inputText>
 			<h:message for="valorLimiteSangria" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Inicio Validade"></h:outputText>
-			<h:inputText styleClass="inputText" id="dataInicioValidade" 
-				value="#{formaRecebimentoBB.dataInicioValidade}" rendered="true">
-				<f:convertDateTime type="date" pattern="MM/dd/yyyy" />
-			</h:inputText>
+			<t:inputCalendar readonly="true"  styleClass="inputText" value="#{formaRecebimentoBB.dataInicioValidade}" id="dataInicioValidade" renderAsPopup="true"
+					popupDateFormat="dd/MM/yyyy"/>
 			<h:message for="dataInicioValidade" styleClass="errors"/>
+					
 			<h:outputText styleClass="label" value="Final Validade"></h:outputText>
-			<h:inputText styleClass="inputText" id="dataFimValidade" 
-				value="#{formaRecebimentoBB.dataFimValidade}" >
-				<f:convertDateTime type="date" pattern="MM/dd/yyyy" />
-			</h:inputText>
+			<t:inputCalendar readonly="true" styleClass="inputText"  value="#{formaRecebimentoBB.dataFimValidade}" id="dataFimValidade" renderAsPopup="true"
+					popupDateFormat="dd/MM/yyyy"/>
 			<h:message for="dataFimValidade" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Valor Maximo Troco"></h:outputText>
 			<h:inputText styleClass="inputText" id="valorMaxTroco" maxlength="15" size="15"
