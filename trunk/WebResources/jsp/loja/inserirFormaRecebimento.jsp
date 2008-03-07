@@ -1,8 +1,12 @@
+<%@taglib uri="http://yui4jsf.sourceforge.net" prefix="yui"%>
 <%@ page language="java" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
+
+
+
 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -70,16 +74,13 @@
 			</h:inputText>
 			<h:message for="valorLimiteSangria" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Inicio Validade"></h:outputText>
-			<h:inputText styleClass="inputText" id="dataInicioValidade" 
-				value="#{formaRecebimentoBB.dataInicioValidade}">
-				<f:convertDateTime type="date" pattern="MM/dd/yyyy" />
-			</h:inputText>
+			<t:inputCalendar readonly="true" styleClass="inputText" forceId="dataInicioValidade" value="#{formaRecebimentoBB.dataInicioValidade}" id="dataInicioValidade" renderAsPopup="true"
+					popupDateFormat="dd/MM/yyyy"/>
 			<h:message for="dataInicioValidade" styleClass="errors"/>
+					
 			<h:outputText styleClass="label" value="Final Validade"></h:outputText>
-			<h:inputText styleClass="inputText" id="dataFimValidade" 
-				value="#{formaRecebimentoBB.dataFimValidade}" >
-				<f:convertDateTime type="date" pattern="MM/dd/yyyy" />
-			</h:inputText>
+			<t:inputCalendar readonly="true" styleClass="inputText" forceId="dataFimValidade" value="#{formaRecebimentoBB.dataFimValidade}" id="dataFimValidade" renderAsPopup="true"
+					popupDateFormat="dd/MM/yyyy"/>
 			<h:message for="dataFimValidade" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Valor Maximo Troco"></h:outputText>
 			<h:inputText styleClass="inputText" id="valorMaxTroco" maxlength="15" size="15"
