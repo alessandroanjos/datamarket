@@ -1,7 +1,9 @@
 package com.infinity.datamarket.comum.transacao;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 
+import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.totalizadores.CadastroTotalizadores;
 import com.infinity.datamarket.comum.totalizadores.ConstantesTotalizadoresNaoFiscais;
 import com.infinity.datamarket.comum.util.AppException;
@@ -50,6 +52,15 @@ public class CadastroTransacao extends Cadastro{
 	
 	private void atualizar(Transacao trans) throws AppException{
 		getRepositorio().update(trans);
+	}
+	
+	public void atualizaTransacaoProcessada(Transacao trans) throws AppException{
+		trans.setStatus(Transacao.PROCESSADO);
+		atualizar(trans);
+	}
+	
+	public Collection consultar(IPropertyFilter filter) throws AppException{
+		return getRepositorio().filter(filter, false);
 	}
 
 
