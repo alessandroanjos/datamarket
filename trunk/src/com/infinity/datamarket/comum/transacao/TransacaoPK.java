@@ -6,6 +6,10 @@ import java.util.Date;
 import com.infinity.datamarket.comum.util.Constantes;
 
 public class TransacaoPK implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6710116253158427914L;
 	private int loja = Constantes.NUMERO_NAO_INFORMADO;
 	private int componente = Constantes.NUMERO_NAO_INFORMADO;
 	private int numeroTransacao = Constantes.NUMERO_NAO_INFORMADO;
@@ -55,4 +59,8 @@ public class TransacaoPK implements Serializable{
 		return false;
 
 	}
+	public String toString(){
+		return this.loja +","+ this.componente +","+ this.numeroTransacao +","+ this.dataTransacao;
+	}
+	
 }
