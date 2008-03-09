@@ -2,6 +2,8 @@ package com.infinity.datamarket.pdv.gui.telas.swing;
 
 import javax.swing.JFrame;
 
+import com.infinity.datamarket.comum.util.ConcentradorParametro;
+
 public class TelaInicial extends JFrame{
 
     public TelaInicial() {
@@ -25,7 +27,7 @@ public class TelaInicial extends JFrame{
         getContentPane().add(jProgressBar1);
         jProgressBar1.setBounds(0, 140, 350, 20);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\eclipse3.2\\workspace\\MaquinaEstados\\bin\\logo.png"));
+        jLabel1.setIcon(new javax.swing.ImageIcon(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOGO_CLIENTE).getValor()));
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 350, 90);
 
@@ -34,7 +36,7 @@ public class TelaInicial extends JFrame{
         jLabel2.setBounds(100, 110, 250, 40);
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Iniciando Janela Principal...");
+        jLabel2.setText("Iniciando ...");
 
         getContentPane().add(jLabel2);
 
