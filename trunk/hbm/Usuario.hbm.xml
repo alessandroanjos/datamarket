@@ -28,9 +28,14 @@
             <column name="SENHA" length="20" not-null="true"/>
         </property>
 
-        <many-to-one name="perfil" class="com.infinity.datamarket.comum.usuario.Perfil" update="false" insert="false">
+        <many-to-one name="perfil" class="com.infinity.datamarket.comum.usuario.Perfil" update="true" insert="true">
           <column name="ID_PERFIL" not-null="true"/>
         </many-to-one>
+        
+        <set name="lojas" table="USUARIO_LOJA" cascade="save-update" lazy="false">
+             <key column="ID_USUARIO"/>
+             <many-to-many column="ID_LOJA" class="com.infinity.datamarket.comum.usuario.Loja"/>
+        </set>
 
     </class>
 
