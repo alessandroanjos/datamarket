@@ -1,0 +1,65 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"   
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+    
+<!-- 
+	  <property name="connection.driver_class">com.microsoft.jdbc.sqlserver.SQLServerDriver</property>
+      <property name="connection.url">jdbc:microsoft:sqlserver://localhost:1433;databasename=PDV;SelectMethod=Cursor</property> 
+-->
+      <property name="connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
+      <property name="connection.url">jdbc:jtds:sqlserver://127.0.0.1:1433/PDV</property> 
+      
+      
+      <property name="connection.username">sa</property>
+      <property name="connection.password">sa</property>
+
+      <property name="show_sql">false</property>
+      <property name="format_sql">true</property>
+      <!-- <property name="dialect">net.sf.hibernate.dialect.PostgreSQLDialect</property> -->
+      <!--property name="dialect">net.sf.hibernate.dialect.OracleDialect</property>-->
+      <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
+      <property name="hibernate.cglib.use_reflection_optimizer">false</property>
+   
+      <!-- Mapping files -->
+        
+ 	<mapping resource="com/infinity/datamarket/hbm/Tecla.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/MacroOperacao.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/MicroOperacao.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/MicroOperacaoAssociada.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/SaidaMicroOperacaoAssociada.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Estado.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Funcionalidade.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Usuario.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Perfil.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Produto.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Imposto.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Transacao.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/TransacaoEntradaOperador.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/TransacaoVenda.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/ProdutoItemRegistrado.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/EventoTransacao.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/EventoItemRegistrado.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamento.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Parametro.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/TransacaoSangria.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/TransacaoResuprimento.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/TotalizadorNaoFiscal.hbm.xml"/>
+    <mapping resource="com/infinity/datamarket/hbm/TransacaoAbertura.hbm.xml"/>
+    <mapping resource="com/infinity/datamarket/hbm/TransacaoFechamentoZ.hbm.xml"/>
+    <mapping resource="com/infinity/datamarket/hbm/TransacaoFechamentoX.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/TransacaoCancelamento.hbm.xml"/>
+    <mapping resource="com/infinity/datamarket/hbm/PlanoPagamento.hbm.xml"/>
+    <mapping resource="com/infinity/datamarket/hbm/FormaRecebimento.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Loja.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Unidade.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/TipoProduto.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/GrupoProduto.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Componente.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/InfoComponente.hbm.xml"/>
+
+
+    </session-factory>
+</hibernate-configuration>
+

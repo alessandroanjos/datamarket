@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"   
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.pagamento.PlanoPagamento" table="PLANO_PAGAMENTO" dynamic-update="false" dynamic-insert="false" lazy="false">
+
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="2"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+       <property name="descricao" type="java.lang.String" update="true" insert="true">
+            <column name="DESCRICAO" length="50" not-null="false"/>
+       </property>
+       <property name="status" type="java.lang.String" update="true" insert="true">
+            <column name="STATUS" length="1" not-null="false"/>
+       </property>
+       <property name="valorMinimo" type="java.math.BigDecimal" update="true" insert="true">
+              <column name="VALOR_MIN" length="20" not-null="false"/>
+       </property>
+       <property name="valorMaximo" type="java.math.BigDecimal" update="true" insert="true">
+              <column name="VALOR_MAX" length="20" not-null="false"/>
+       </property>
+       <property name="percDesconto" type="java.math.BigDecimal" update="true" insert="true">
+              <column name="PERCENTUAL_DESC" length="20" not-null="false"/>
+       </property>
+       <property name="percAcrescimo" type="java.math.BigDecimal" update="true" insert="true">
+              <column name="PERCENTUAL_ACRE" length="20" not-null="false"/>
+       </property>
+       <property name="dataInicioValidade" type="java.util.Date" update="true" insert="true">
+              <column name="DATA_INICIO_VALIDADE" not-null="false"/>
+       </property>
+       <property name="dataFimValidade" type="java.util.Date" update="true" insert="true">
+              <column name="DATA_FIM_VALIDADE" not-null="false"/>
+       </property>
+       <many-to-one name="forma" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento" update="true" insert="true">
+          <column name="ID_FORMA" not-null="true"/>
+       </many-to-one>
+
+    </class>
+
+</hibernate-mapping>
