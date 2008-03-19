@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.4"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<context-param>
+		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-value>/WEB-INF/faces-config.xml</param-value>
+	</context-param>
+	<context-param>   
+        <param-name>com.sun.faces.verifyObjects</param-name>   
+        <param-value>false</param-value>   
+    </context-param>   
+    <context-param>   
+        <param-name>   
+            org.apache.myfaces.CHECK_EXTENSIONS_FILTER   
+        </param-name>   
+        <param-value>false</param-value>   
+    </context-param>   
+    <context-param>   
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>   
+        <param-value>server</param-value>   
+    </context-param>   
+    <context-param>   
+        <param-name>com.sun.faces.validateXml</param-name>   
+        <param-value>true</param-value>   
+    </context-param>   
+  
+	<listener>
+		<listener-class>
+			org.apache.myfaces.webapp.StartupServletContextListener
+		</listener-class>
+	</listener>
+	
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<!-- servlet mapping -->   
+    <servlet-mapping>   
+        <servlet-name>Faces Servlet</servlet-name>   
+        <url-pattern>*.jsf</url-pattern>   
+    </servlet-mapping>   
+    <servlet-mapping>   
+        <servlet-name>Faces Servlet</servlet-name>   
+        <url-pattern>/faces/*</url-pattern>   
+    </servlet-mapping>   
+	
+	 <!-- Extensions Filter -->   
+    <filter>   
+        <filter-name>extensionsFilter</filter-name>   
+        <filter-class>   
+            org.apache.myfaces.component.html.util.ExtensionsFilter   
+        </filter-class>   
+        <init-param>   
+            <param-name>uploadMaxFileSize</param-name>   
+            <param-value>100m</param-value>   
+        </init-param>   
+        <init-param>   
+            <param-name>uploadThresholdSize</param-name>   
+            <param-value>100k</param-value>   
+        </init-param>   
+    </filter>   
+    <!-- Filter Mappings -->   
+    <filter-mapping>   
+        <filter-name>extensionsFilter</filter-name>   
+        <url-pattern>*.jsp</url-pattern>   
+    </filter-mapping>   
+    <filter-mapping>   
+        <filter-name>extensionsFilter</filter-name>   
+        <url-pattern>/*</url-pattern>   
+    </filter-mapping>   
+    <filter-mapping>   
+        <filter-name>extensionsFilter</filter-name>   
+        <url-pattern>/faces/*</url-pattern>   
+    </filter-mapping>   
+    <!-- extension mapping for serving page-independent resources (javascript, stylesheets, images, etc.)  -->   
+	
+	<filter-mapping>   
+        <filter-name>extensionsFilter</filter-name>   
+        <url-pattern>/faces/myFacesExtensionResource/*</url-pattern>   
+    </filter-mapping>   
+    <filter-mapping>   
+        <filter-name>extensionsFilter</filter-name>   
+        <servlet-name>Faces Servlet</servlet-name>   
+    </filter-mapping> 
+	
+<!-- 	<filter>
+		<filter-name>yui4jsf filter</filter-name>
+		<filter-class>net.sf.yui4jsf.filter.YUI4JSFFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>yui4jsf filter</filter-name>
+		<url-pattern>*.jsf</url-pattern>
+	</filter-mapping>
+ -->
+	<filter>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
+		<filter-class>
+			org.apache.myfaces.component.html.util.ExtensionsFilter
+		</filter-class>
+		<init-param>
+			<param-name>maxFileSize</param-name>
+			<param-value>20m</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>MyFacesExtensionsFilter</filter-name>
+		<url-pattern>*.*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<display-name>Ajax4jsf Filter</display-name>
+		<filter-name>ajax4jsf</filter-name>
+		<filter-class>org.ajax4jsf.Filter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>ajax4jsf</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+
+
+</web-app>
+
