@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"   
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.produto.Unidade" table="UNIDADE" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="2"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+
+        <property name="descricao" type="java.lang.String" update="true" insert="true">
+            <column name="DESCRICAO" length="50" not-null="true"/>
+        </property>
+        
+	<property name="descricaoDisplay" type="java.lang.String" update="true" insert="true">
+            <column name="DESCRICAO_DISPLAY" length="50" not-null="true"/>
+        </property>
+
+	<property name="abreviacao" type="java.lang.String" update="true" insert="true">
+            <column name="ABREVIACAO" length="50" not-null="true"/>
+        </property>
+    </class>
+
+</hibernate-mapping>
