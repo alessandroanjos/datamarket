@@ -13,20 +13,11 @@ import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.transacao.Transacao;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.pdv.util.ServerConfig;
 import com.infinity.datamarket.pdv.util.ServiceLocator;
 import com.infinity.datamarket.transaction.TransactionServerRemote;
 
 public class ThreadEnviaTransacao extends Thread{
-	
-	private static final String TRANSACTION_SERVER_JNDI;
-	private static final int SLEEP;
-	
-	static{
-	
-		ResourceBundle rb = ResourceBundle.getBundle("TransactionServer");
-		TRANSACTION_SERVER_JNDI = rb.getString("TRANSACTION_SERVER_JNDI");
-		SLEEP = Integer.parseInt(rb.getString("SLEEP"));
-	}
 		
 	public void run(){
 		System.out.println("---------------------------------------------" );
@@ -34,7 +25,7 @@ public class ThreadEnviaTransacao extends Thread{
 		System.out.println("---------------------------------------------" );
 		while(true){
 			try {
-				Thread.currentThread().sleep(SLEEP);
+				Thread.currentThread().sleep(ServerConfig.SLEEP);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -42,7 +33,7 @@ public class ThreadEnviaTransacao extends Thread{
 				Collection transacoes = getTransacoesNaoProcessadas();
 				Iterator i = transacoes.iterator();
 				 
-				TransactionServerRemote remote = (TransactionServerRemote) ServiceLocator.getSession(TRANSACTION_SERVER_JNDI);
+				TransactionServerRemote remote = (TransactionServerRemote) ServiceLocator.getSession(ServerConfig.TRANSACTION_SERVER_JNDI);
 				while(i.hasNext()){
 					Transacao trans = (Transacao) i.next();
 					System.out.println("PROCESSANDO TRANSAÇÃO >> "+trans.getPk());
