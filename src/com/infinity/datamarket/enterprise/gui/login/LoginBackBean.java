@@ -2,18 +2,18 @@ package com.infinity.datamarket.enterprise.gui.login;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.custom.navmenu.NavigationMenuItem;
+import org.apache.myfaces.custom.tree2.TreeNode;
+import org.apache.myfaces.custom.tree2.TreeNodeBase;
 
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
-import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
@@ -23,7 +23,7 @@ public class LoginBackBean extends BackBean{
 	private String id;
 	private String senha;
 	private NavigationMenuItem[] navItens;
-	private ArrayList subItens = new ArrayList();
+	
 	
 	public String logar(){
 		try{
@@ -93,18 +93,107 @@ public class LoginBackBean extends BackBean{
 
 	public void setNavItems(Usuario usu) {
 		
-		Set funcionalidadesTmp = usu.getPerfil().getFuncionalidades();
 		
-		for (Iterator iter = funcionalidadesTmp.iterator(); iter.hasNext();) {
-			Funcionalidade element = (Funcionalidade) iter.next();
-			if (element.getFuncionalidadeSuperior() == null) {
-				System.out.print(element.getDescricao());
-			}
+		Object[] funcSuperior = buscaFuncionalidadeSuperiores(usu); 
+		NavigationMenuItem[] navigationMenus = new NavigationMenuItem[funcSuperior.length];
+		for (int i = 0; i < funcSuperior.length; i++) {
+			Funcionalidade func = (Funcionalidade)funcSuperior[i];
+			navigationMenus[i] = new NavigationMenuItem(func.getDescricao(),func.getUrl(),null,false);
+			navigationMenus[i].setNavigationMenuItems(montaMenu(func));
 		}
-		
+		setNavItens(navigationMenus);		
 	}
+    private Object[] buscaFuncionalidadeSuperiores(Usuario usu) {
+    	    Collection listaSuperior = new ArrayList();
+            Iterator funcionalidades = usu.getPerfil().getFuncionalidades().iterator();
+            while (funcionalidades.hasNext()) {
+				Funcionalidade element = (Funcionalidade) funcionalidades.next();
+				if (element.getFuncionalidadeSuperior()==null) {
+					listaSuperior.add(element);
+				}
+			}
 
+            return  listaSuperior.toArray();
+    }
+	
+	
+	public ArrayList montaMenu(Funcionalidade func){
+
+			
+			
+				Iterator listaAux;
+				ArrayList subMenu = new ArrayList();
+				try {
+					listaAux = getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(func).iterator();
+					while (listaAux.hasNext()) {
+						Funcionalidade funcAux = (Funcionalidade) listaAux.next();
+						Collection funcFilha = getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(funcAux);
+						funcAux.setFuncionalidadesFilhas(funcFilha);
+						NavigationMenuItem subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),funcAux.getUrl(),null,false);
+						if (funcAux.getFuncionalidadesFilhas() != null) {
+							subMenuAux.setNavigationMenuItems(montaMenu(funcAux));
+						}
+						subMenu.add(subMenuAux);
+					}
+					
+
+				} catch (AppException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+		
+		return subMenu;
+	}
+	
 	public void setNavItens(NavigationMenuItem[] navItens) {
 		this.navItens = navItens;
 	}
+	
+	private List<Funcionalidade> carregarFuncionalidades() {
+		
+		List<Funcionalidade> funcionalidades = null;
+		try {
+			funcionalidades = (ArrayList<Funcionalidade>)getFachada().consultarTodosFuncionalidade();
+			setarFuncionalidadesFilhas(funcionalidades.iterator());
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return funcionalidades;
+	}
+	
+	public void setarFuncionalidadesFilhas(Iterator<Funcionalidade> funcionalidades){
+		try {
+			while(funcionalidades.hasNext()){
+				Funcionalidade funcTemp = (Funcionalidade) funcionalidades.next();
+				Collection funcionalidadesFilhas = getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(funcTemp);
+
+				if(funcionalidadesFilhas != null && funcionalidadesFilhas.size() > 0){
+					setarFuncionalidadesFilhas(funcionalidadesFilhas.iterator());
+				}
+				
+				funcTemp.setFuncionalidadesFilhas(funcionalidadesFilhas);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+	}
+
+	public NavigationMenuItem[] getNavItens() {
+		return navItens;
+	}
+	
+
+	
+	
 }
+

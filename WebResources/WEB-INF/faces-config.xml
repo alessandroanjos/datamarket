@@ -632,6 +632,11 @@
 		    <property-class>com.infinity.datamarket.comum.usuario.Usuario</property-class>
 		    <null-value/>
 		</managed-property>
+		<managed-property>
+		    <property-name>navItens</property-name>
+		    <property-class>org.apache.myfaces.custom.navmenu.NavigationMenuItem[]</property-class>
+		    <null-value/>
+		</managed-property>
 	</managed-bean>
 	
 	

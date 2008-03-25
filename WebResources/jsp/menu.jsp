@@ -23,56 +23,16 @@
 	
 <f:view>	
 <t:stylesheet path="/css/style.css"></t:stylesheet>
+	
 <body>
 	<div>
 	<h:outputText styleClass="label" id="titulo" value="Home"></h:outputText>
 	</div>
+	<t:jscookMenu layout="hbr" theme="ThemeOffice">
+		<t:navigationMenuItems value="#{loginBB.navItens}" />
+	</t:jscookMenu>
 	<br>
 	<h:form>
-	<h:commandLink styleClass="label" value="Inserir Tipo de Produto" action="inserirTipoProduto"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Manter Tipo de Produto" action="manterTipoProduto"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Inserir Unidade" action="inserirUnidade"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Manter Unidade" action="manterUnidade"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Inserir Imposto" action="inserirImposto"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Manter Imposto" action="manterImposto"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Inserir Loja" action="inserirLoja"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Manter Loja" action="manterLoja"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Inserir Grupo Produto" action="inserirGrupoProduto"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Manter Grupo Produto" action="manterGrupoProduto"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Inserir Perfil" action="inserirPerfil"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Manter Perfil" action="manterPerfil"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Inserir Produto" action="inserirProduto"></h:commandLink>
-	<br>	
-	<h:commandLink styleClass="label" value="Manter Produto" action="manterProduto"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Inserir Forma de Recebimento" action="inserirFormaRecebimento"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Manter Forma de Recebimento" action="manterFormaRecebimento"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Inserir Plano de Pagamento" action="inserirPlanoPagamento"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Manter Plano de Pagamento" action="manterPlanoPagamento"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Inserir Componente" action="inserirComponente"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Manter Componente" action="manterComponente"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Inserir Usuário" action="inserirUsuario"></h:commandLink>
-	<br>
-	<h:commandLink styleClass="label" value="Manter Usuário" action="manterUsuario"></h:commandLink>
-	<br>
 	<br>
 	<h:commandLink styleClass="label" value="Logout" action="#{loginBB.logout}"></h:commandLink>
 	</h:form>
