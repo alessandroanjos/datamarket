@@ -3,14 +3,11 @@ package com.infinity.datamarket.enterprise.gui.login;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.custom.navmenu.NavigationMenuItem;
-import org.apache.myfaces.custom.tree2.TreeNode;
-import org.apache.myfaces.custom.tree2.TreeNodeBase;
 
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -23,8 +20,8 @@ public class LoginBackBean extends BackBean{
 	private String id;
 	private String senha;
 	private NavigationMenuItem[] navItens;
-	
-	
+
+
 	public String logar(){
 		try{
 			Usuario usu = getFachada().loginUsuario(new Long(id), senha);
@@ -53,19 +50,19 @@ public class LoginBackBean extends BackBean{
 		setSenha(null);
 		return "logado";
 	}
-	
+
 	public void resetBB(){
 		this.id = null;
 		this.senha = null;
 		this.usuario = null;
 	}
-	
+
 	public String logout(){
 		resetBB();
 		return "logout";
 	}
-	
-	
+
+
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -92,8 +89,8 @@ public class LoginBackBean extends BackBean{
 	}
 
 	public void setNavItems(Usuario usu) {
-		
-		
+
+
 		Object[] funcSuperior = buscaFuncionalidadeSuperiores(usu); 
 		NavigationMenuItem[] navigationMenus = new NavigationMenuItem[funcSuperior.length];
 		for (int i = 0; i < funcSuperior.length; i++) {
@@ -103,97 +100,64 @@ public class LoginBackBean extends BackBean{
 		}
 		setNavItens(navigationMenus);		
 	}
-    private Object[] buscaFuncionalidadeSuperiores(Usuario usu) {
-    	    Collection listaSuperior = new ArrayList();
-            Iterator funcionalidades = usu.getPerfil().getFuncionalidades().iterator();
-            while (funcionalidades.hasNext()) {
-				Funcionalidade element = (Funcionalidade) funcionalidades.next();
-				if (element.getFuncionalidadeSuperior()==null) {
-					listaSuperior.add(element);
-				}
-			}
 
-            return  listaSuperior.toArray();
-    }
-	
-	
+	private Object[] buscaFuncionalidadeSuperiores(Usuario usu) {
+
+		Collection<Funcionalidade> listaSuperior = new ArrayList<Funcionalidade>();
+		Iterator funcionalidades = usu.getPerfil().getFuncionalidades().iterator();
+
+		while (funcionalidades.hasNext()) {
+			Funcionalidade element = (Funcionalidade) funcionalidades.next();
+			if (element.getFuncionalidadeSuperior()==null) {
+				listaSuperior.add(element);
+			}
+		}
+
+		return  listaSuperior.toArray();
+	}
+
+
 	public ArrayList montaMenu(Funcionalidade func){
 
-			
-			
-				Iterator listaAux;
-				ArrayList subMenu = new ArrayList();
-				try {
-					listaAux = getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(func).iterator();
-					while (listaAux.hasNext()) {
-						Funcionalidade funcAux = (Funcionalidade) listaAux.next();
-						Collection funcFilha = getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(funcAux);
-						funcAux.setFuncionalidadesFilhas(funcFilha);
-						NavigationMenuItem subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),funcAux.getUrl(),null,false);
-						if (funcAux.getFuncionalidadesFilhas() != null) {
-							subMenuAux.setNavigationMenuItems(montaMenu(funcAux));
-						}
-						subMenu.add(subMenuAux);
-					}
-					
+		Iterator listaAux;
 
-				} catch (AppException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		ArrayList<NavigationMenuItem> subMenu = new ArrayList<NavigationMenuItem>();
+
+		try {
+			listaAux = getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(func).iterator();
+			while (listaAux.hasNext()) {
+				Funcionalidade funcAux = (Funcionalidade) listaAux.next();
+				Collection funcFilha = getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(funcAux);
+				funcAux.setFuncionalidadesFilhas(funcFilha);
+				NavigationMenuItem subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),funcAux.getUrl(),null,false);
+				if (funcAux.getFuncionalidadesFilhas() != null) {
+					subMenuAux.setNavigationMenuItems(montaMenu(funcAux));
 				}
-				
-		
+				subMenu.add(subMenuAux);
+			}
+
+
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
 		return subMenu;
 	}
-	
+
 	public void setNavItens(NavigationMenuItem[] navItens) {
 		this.navItens = navItens;
 	}
-	
-	private List<Funcionalidade> carregarFuncionalidades() {
-		
-		List<Funcionalidade> funcionalidades = null;
-		try {
-			funcionalidades = (ArrayList<Funcionalidade>)getFachada().consultarTodosFuncionalidade();
-			setarFuncionalidadesFilhas(funcionalidades.iterator());
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
-		}
-		return funcionalidades;
-	}
-	
-	public void setarFuncionalidadesFilhas(Iterator<Funcionalidade> funcionalidades){
-		try {
-			while(funcionalidades.hasNext()){
-				Funcionalidade funcTemp = (Funcionalidade) funcionalidades.next();
-				Collection funcionalidadesFilhas = getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(funcTemp);
 
-				if(funcionalidadesFilhas != null && funcionalidadesFilhas.size() > 0){
-					setarFuncionalidadesFilhas(funcionalidadesFilhas.iterator());
-				}
-				
-				funcTemp.setFuncionalidadesFilhas(funcionalidadesFilhas);
-				
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
-		}
-	}
+
 
 	public NavigationMenuItem[] getNavItens() {
 		return navItens;
 	}
-	
 
-	
-	
+
+
+
 }
 
