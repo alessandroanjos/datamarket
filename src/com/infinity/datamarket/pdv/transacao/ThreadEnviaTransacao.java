@@ -13,28 +13,21 @@ import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.transacao.Transacao;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.pdv.util.ServiceLocator;
 import com.infinity.datamarket.transaction.TransactionServerRemote;
 
 public class ThreadEnviaTransacao extends Thread{
 	
-	private static final String INITIAL_CONTEXT_FACTORY;
-	private static final String PROVIDER_URL;
 	private static final String TRANSACTION_SERVER_JNDI;
 	private static final int SLEEP;
 	
 	static{
 	
 		ResourceBundle rb = ResourceBundle.getBundle("TransactionServer");
-		INITIAL_CONTEXT_FACTORY = rb.getString("INITIAL_CONTEXT_FACTORY");
-		PROVIDER_URL = rb.getString("PROVIDER_URL");
 		TRANSACTION_SERVER_JNDI = rb.getString("TRANSACTION_SERVER_JNDI");
 		SLEEP = Integer.parseInt(rb.getString("SLEEP"));
 	}
-	
-	public ThreadEnviaTransacao(){
-		criaPropriedades();
-	}
-	
+		
 	public void run(){
 		System.out.println("---------------------------------------------" );
 		System.out.println("-- INICIANDO SERVICO DE ENVIO DE TRANSACAO --" );
@@ -48,8 +41,8 @@ public class ThreadEnviaTransacao extends Thread{
 			try{
 				Collection transacoes = getTransacoesNaoProcessadas();
 				Iterator i = transacoes.iterator();
-				Context ctx = new InitialContext (prop); 
-				TransactionServerRemote remote = (TransactionServerRemote) ctx.lookup (TRANSACTION_SERVER_JNDI);
+				 
+				TransactionServerRemote remote = (TransactionServerRemote) ServiceLocator.getSession(TRANSACTION_SERVER_JNDI);
 				while(i.hasNext()){
 					Transacao trans = (Transacao) i.next();
 					System.out.println("PROCESSANDO TRANSAÇÃO >> "+trans.getPk());
@@ -62,8 +55,6 @@ public class ThreadEnviaTransacao extends Thread{
 						e.printStackTrace();
 					}
 				}
-			}catch(NamingException e){
-				System.out.println("TRANSACTION SERVER NÃO ENCONTRADO");
 			}catch (Throwable e){
 				e.printStackTrace();
 			}
@@ -78,14 +69,7 @@ public class ThreadEnviaTransacao extends Thread{
 		return Fachada.getInstancia().consultarTransacao(filter);
 	}
 	
-	private Hashtable prop;
-	
-	private void criaPropriedades(){
-		prop = new Hashtable (); 
-		prop.put (InitialContext.INITIAL_CONTEXT_FACTORY, this.INITIAL_CONTEXT_FACTORY); 
-		prop.put (InitialContext.PROVIDER_URL,this.PROVIDER_URL);
-	}
-	
+
 	public static void main(String[] a){
 		ThreadEnviaTransacao t = new ThreadEnviaTransacao();
 		t.start();
