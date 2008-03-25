@@ -25,13 +25,11 @@
 <t:stylesheet path="/css/style.css"></t:stylesheet>
 	
 <body>
-	<div>
-	<h:outputText styleClass="label" id="titulo" value="Home"></h:outputText>
-	</div>
+	
 	<t:jscookMenu layout="hbr" theme="ThemeOffice">
 		<t:navigationMenuItems value="#{loginBB.navItens}" />
 	</t:jscookMenu>
-	<br>
+	<br><br><br><br><br><br><br><br><br><br><br>
 	<h:form>
 	<br>
 	<h:commandLink styleClass="label" value="Logout" action="#{loginBB.logout}"></h:commandLink>
