@@ -15,10 +15,9 @@ public class ServiceLocator {
 	
 	static{
 	
-		ResourceBundle rb = ResourceBundle.getBundle("ContextServer");
 		prop = new Hashtable (); 
-		prop.put (InitialContext.INITIAL_CONTEXT_FACTORY, rb.getString("INITIAL_CONTEXT_FACTORY")); 
-		prop.put (InitialContext.PROVIDER_URL,rb.getString("PROVIDER_URL"));
+		prop.put (InitialContext.INITIAL_CONTEXT_FACTORY, ServerConfig.INITIAL_CONTEXT_FACTORY); 
+		prop.put (InitialContext.PROVIDER_URL,ServerConfig.PROVIDER_URL);
 	
 	}
 	
