@@ -51,7 +51,8 @@ public class ThreadEnviaTransacao extends Thread{
 					System.out.println("TRANSAÇÕES NÃO PROCESSADAS");
 				}
 			}catch (Throwable e){
-				e.printStackTrace();
+				System.out.println(e.getMessage());
+				//e.printStackTrace();
 			}
 				
 		}
