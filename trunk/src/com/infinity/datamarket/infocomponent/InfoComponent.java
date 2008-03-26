@@ -8,8 +8,8 @@ public class InfoComponent implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private String componente;
+	private static final long serialVersionUID = 8204037679947279102L;
+	private InfoComponentPK pk;
 	private String versao;
 	private String lote;
 	private String estado;
@@ -39,11 +39,12 @@ public class InfoComponent implements Serializable{
 	public void setDataAtualizacao(Date dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
 	}
-	public String getComponente() {
-		return componente;
+	public InfoComponentPK getPk() {
+		return pk;
 	}
-	public void setComponente(String componente) {
-		this.componente = componente;
+	public void setPk(InfoComponentPK pk) {
+		this.pk = pk;
 	}
+	
 	
 }
