@@ -34,17 +34,21 @@ public class ThreadEnviaTransacao extends Thread{
 				Iterator i = transacoes.iterator();
 				 
 				TransactionServerRemote remote = (TransactionServerRemote) ServiceLocator.getSession(ServerConfig.TRANSACTION_SERVER_JNDI);
-				while(i.hasNext()){
-					Transacao trans = (Transacao) i.next();
-					System.out.println("PROCESSANDO TRANSA플O >> "+trans.getPk());
-					try{
-						remote.inserirTransacao(trans);
-						Fachada.getInstancia().atualizaTransacaoProcessada(trans);
-						System.out.println("TRANSA플O PROCESSADA COM SUCESSO");
-					}catch(AppException e){
-						System.out.println("ERRO NO PROCESSAMENTO DA TRANSA플O");
-						e.printStackTrace();
+				if (remote != null){	
+					while(i.hasNext()){
+						Transacao trans = (Transacao) i.next();
+						System.out.println("PROCESSANDO TRANSA플O >> "+trans.getPk());
+						try{
+							remote.inserirTransacao(trans);
+							Fachada.getInstancia().atualizaTransacaoProcessada(trans);
+							System.out.println("TRANSA플O PROCESSADA COM SUCESSO");
+						}catch(AppException e){
+							System.out.println("ERRO NO PROCESSAMENTO DA TRANSA플O");
+							e.printStackTrace();
+						}
 					}
+				}else{
+					System.out.println("TRANSA합ES N홒 PROCESSADAS");
 				}
 			}catch (Throwable e){
 				e.printStackTrace();
