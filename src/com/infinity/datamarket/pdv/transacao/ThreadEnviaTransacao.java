@@ -33,7 +33,7 @@ public class ThreadEnviaTransacao extends Thread{
 				Collection transacoes = getTransacoesNaoProcessadas();
 				Iterator i = transacoes.iterator();
 				 
-				TransactionServerRemote remote = (TransactionServerRemote) ServiceLocator.getSession(ServerConfig.TRANSACTION_SERVER_JNDI);
+				TransactionServerRemote remote = (TransactionServerRemote) ServiceLocator.getJNDIObject(ServerConfig.TRANSACTION_SERVER_JNDI);
 				if (remote != null){	
 					while(i.hasNext()){
 						Transacao trans = (Transacao) i.next();
