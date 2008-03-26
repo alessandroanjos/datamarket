@@ -20,7 +20,12 @@ import com.infinity.datamarket.pdv.maquinaestados.Evento;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 
 public class GerenciadorPerifericos implements Serializable{
-    private static GerenciadorPerifericos instancia;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5243286292600587391L;
+
+	private static GerenciadorPerifericos instancia;
 
     private Window window;
     private CMOS cmos;
