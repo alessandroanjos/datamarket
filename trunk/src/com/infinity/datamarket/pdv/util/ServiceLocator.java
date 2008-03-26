@@ -21,7 +21,7 @@ public class ServiceLocator {
 	
 	}
 	
-	public static Object getSession(String jndi){
+	public static Object getJNDIObject(String jndi){
 		try{
 			Context ctx = new InitialContext (prop); 
 			return  ctx.lookup (jndi);
