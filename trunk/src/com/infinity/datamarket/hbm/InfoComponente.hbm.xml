@@ -6,7 +6,7 @@
 
 
 <hibernate-mapping>
-    <class name="com.infinity.datamarket.infocomponent.InfoComponent" table="INFO_COPONENTE" dynamic-update="false" dynamic-insert="false" lazy="false">
+    <class name="com.infinity.datamarket.infocomponent.InfoComponent" table="INFO_COMPONENT" dynamic-update="false" dynamic-insert="false" lazy="false">
 
 	<composite-id name="pk" class="com.infinity.datamarket.infocomponent.InfoComponentPK">
            <key-property name="loja" column="LOJA" type="java.lang.String"/>
