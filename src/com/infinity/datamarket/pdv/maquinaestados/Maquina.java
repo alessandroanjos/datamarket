@@ -8,6 +8,8 @@ import java.util.Iterator;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.ServiceLocator;
+import com.infinity.datamarket.infocomponent.InfoComponent;
+import com.infinity.datamarket.infocomponent.InfoComponentPK;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
@@ -15,6 +17,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.gui.telas.Tela;
 import com.infinity.datamarket.pdv.gui.telas.TelaMenssagem;
+import com.infinity.datamarket.pdv.infocomponent.ThreadEnviaInfoComponent;
 
 public class Maquina implements Serializable{
     private Estado estadoAtual;
@@ -134,6 +137,16 @@ public class Maquina implements Serializable{
                         gerenciadorPerifericos.getCmos().gravar(CMOS.ESTADO_ATUAL, estAtual);
                     }
                 }
+                InfoComponentPK pk = new InfoComponentPK();
+    			pk.setComponente(gerenciadorPerifericos.getCodigoComponente()+"");
+    			pk.setLoja(gerenciadorPerifericos.getCodigoLoja()+"");
+    			InfoComponent info = new InfoComponent();
+    			info.setPk(pk);
+    			info.setLote(gerenciadorPerifericos.getLote()+"");
+    			info.setVersao(gerenciadorPerifericos.getVersao());
+    			info.setEstado(estadoAtual.getDescricao());
+                ThreadEnviaInfoComponent t2 = new ThreadEnviaInfoComponent(info);
+        		t2.start();
                 new ThreadProcessaMacro(estadoAtual);
             }catch(Exception ex){
             	ex.printStackTrace();
