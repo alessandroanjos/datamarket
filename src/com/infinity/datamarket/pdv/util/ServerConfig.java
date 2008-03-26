@@ -12,6 +12,9 @@ public class ServerConfig {
 	
 	public static final String TRANSACTION_SERVER_JNDI;
 	public static final int SLEEP;
+	
+	public static final String QUEUE_INFO_COMPONENT_SERVER_JNDI;
+	public static final String CONNECTION_FACTORY;
 
 	
 	static{
@@ -22,6 +25,9 @@ public class ServerConfig {
 		
 		TRANSACTION_SERVER_JNDI = rb.getString("TRANSACTION_SERVER_JNDI");
 		SLEEP = Integer.parseInt(rb.getString("SLEEP"));
+		
+		QUEUE_INFO_COMPONENT_SERVER_JNDI = rb.getString("QUEUE_INFO_COMPONENT_SERVER_JNDI");
+		CONNECTION_FACTORY = rb.getString("CONNECTION_FACTORY");
 		
 	}
 }
