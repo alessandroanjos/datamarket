@@ -6,6 +6,7 @@ import java.util.Date;
 
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gui.telas.swing.TelaInicial;
+import com.infinity.datamarket.pdv.infocomponent.ThreadEnviaInfoComponent;
 import com.infinity.datamarket.pdv.maquinaestados.Estado;
 import com.infinity.datamarket.pdv.maquinaestados.Maquina;
 import com.infinity.datamarket.pdv.transacao.ThreadEnviaTransacao;
@@ -37,8 +38,8 @@ public class StartUpPDV {
 		est.setInputType(0);
 		Maquina maquina = Maquina.getInstancia(est, new Date(), ger);
 //		ti.jProgressBar1.setValue(75);
-		ThreadEnviaTransacao t = new ThreadEnviaTransacao();
-		t.start();
+		ThreadEnviaTransacao t1 = new ThreadEnviaTransacao();
+		t1.start();
 		maquina.iniciar();
 //		ti.jProgressBar1.setValue(100);
 //		ti.setVisible(false);
