@@ -8,6 +8,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.custom.navmenu.NavigationMenuItem;
+import org.jboss.logging.Logger;
+import org.jboss.logging.util.LoggerPluginWriter;
+import org.jboss.logging.util.LoggerWriter;
 
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -16,11 +19,12 @@ import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class LoginBackBean extends BackBean{
-	private Usuario usuario; 
+	private Usuario usuario;
+	private Usuario usuarioLogado;
 	private String id;
 	private String senha;
 	private NavigationMenuItem[] navItens;
-
+    
 
 	public String logar(){
 		try{
@@ -55,6 +59,7 @@ public class LoginBackBean extends BackBean{
 		this.id = null;
 		this.senha = null;
 		this.usuario = null;
+		this.navItens = null;
 	}
 
 	public String logout(){
@@ -90,15 +95,24 @@ public class LoginBackBean extends BackBean{
 
 	public void setNavItems(Usuario usu) {
 
-
-		Object[] funcSuperior = buscaFuncionalidadeSuperiores(usu); 
-		NavigationMenuItem[] navigationMenus = new NavigationMenuItem[funcSuperior.length];
-		for (int i = 0; i < funcSuperior.length; i++) {
-			Funcionalidade func = (Funcionalidade)funcSuperior[i];
-			navigationMenus[i] = new NavigationMenuItem(func.getDescricao(),func.getUrl(),null,false);
-			navigationMenus[i].setNavigationMenuItems(montaMenu(func));
-		}
-		setNavItens(navigationMenus);		
+		if ((navItens==null)||(!usu.getId().equals(usuarioLogado.getId()))) {
+			
+			Object[] funcSuperior = buscaFuncionalidadeSuperiores(usu); 
+			
+			NavigationMenuItem[] navigationMenus = new NavigationMenuItem[funcSuperior.length];
+			
+			for (int i = 0; i < funcSuperior.length; i++) {
+			
+				Funcionalidade func = (Funcionalidade)funcSuperior[i];
+				navigationMenus[i] = new NavigationMenuItem(func.getDescricao(),func.getUrl());
+				navigationMenus[i].setNavigationMenuItems(montaMenu(func));
+			
+			}
+			
+			setUsuarioLogado(usuario);
+			setNavItens(navigationMenus);
+			
+		}	
 	}
 
 	private Object[] buscaFuncionalidadeSuperiores(Usuario usu) {
@@ -107,10 +121,15 @@ public class LoginBackBean extends BackBean{
 		Iterator funcionalidades = usu.getPerfil().getFuncionalidades().iterator();
 
 		while (funcionalidades.hasNext()) {
+
 			Funcionalidade element = (Funcionalidade) funcionalidades.next();
+			
 			if (element.getFuncionalidadeSuperior()==null) {
+			
 				listaSuperior.add(element);
+			
 			}
+			
 		}
 
 		return  listaSuperior.toArray();
@@ -124,16 +143,32 @@ public class LoginBackBean extends BackBean{
 		ArrayList<NavigationMenuItem> subMenu = new ArrayList<NavigationMenuItem>();
 
 		try {
+			
 			listaAux = getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(func).iterator();
+			
 			while (listaAux.hasNext()) {
+
 				Funcionalidade funcAux = (Funcionalidade) listaAux.next();
-				Collection funcFilha = getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(funcAux);
+                
+				if (!checkPermissao(funcAux)) {
+					
+                	continue;
+                }
+				
+				Collection funcFilha   =  getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(funcAux);
+				
 				funcAux.setFuncionalidadesFilhas(funcFilha);
-				NavigationMenuItem subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),funcAux.getUrl(),null,false);
+				
+				NavigationMenuItem subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),funcAux.getUrl());
+					
 				if (funcAux.getFuncionalidadesFilhas() != null) {
+				
 					subMenuAux.setNavigationMenuItems(montaMenu(funcAux));
+					
 				}
+
 				subMenu.add(subMenuAux);
+	
 			}
 
 
@@ -144,8 +179,25 @@ public class LoginBackBean extends BackBean{
 
 
 		return subMenu;
+		
 	}
+    
+	public boolean checkPermissao(Funcionalidade func){
+		
+		Iterator<Funcionalidade> funcisUsuario = this.usuario.getPerfil().getFuncionalidades().iterator();
+		
+		while (funcisUsuario.hasNext()) {
+			
+			Funcionalidade element = (Funcionalidade) funcisUsuario.next();
 
+			if (func.getId().longValue()==element.getId().longValue()) {
+				return true;
+			}
+			
+		}
+		return false;
+	}
+	
 	public void setNavItens(NavigationMenuItem[] navItens) {
 		this.navItens = navItens;
 	}
@@ -154,6 +206,14 @@ public class LoginBackBean extends BackBean{
 
 	public NavigationMenuItem[] getNavItens() {
 		return navItens;
+	}
+
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(Usuario usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
 	}
 
 
