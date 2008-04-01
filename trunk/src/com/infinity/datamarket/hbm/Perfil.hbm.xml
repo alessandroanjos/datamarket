@@ -36,7 +36,7 @@
              <many-to-many column="ID_MACRO_OPERACAO" class="com.infinity.datamarket.pdv.maquinaestados.MacroOperacao"/>
         </set>
      
-		<set name="funcionalidades" table="PERFIL_FUNCIONALIDADE" cascade="save-update" lazy="false">
+		<set name="funcionalidades" table="PERFIL_FUNCIONALIDADE" lazy="false">
              <key column="ID_PERFIL" />
              <many-to-many column="ID_FUNCIONALIDADE" class="com.infinity.datamarket.comum.funcionalidade.Funcionalidade"/>
         </set>  
