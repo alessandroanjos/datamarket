@@ -15,10 +15,13 @@ import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import javax.swing.event.TreeWillExpandListener;
 
+import org.apache.myfaces.custom.tree2.HtmlTree;
+import org.apache.myfaces.custom.tree2.TreeModel;
+import org.apache.myfaces.custom.tree2.TreeModelBase;
 import org.apache.myfaces.custom.tree2.TreeNode;
 import org.apache.myfaces.custom.tree2.TreeNodeBase;
+import org.apache.myfaces.custom.tree2.TreeNodeChecked;
 
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
@@ -48,8 +51,9 @@ public class PerfilBackBean extends BackBean {
 	SelectItem[] perfis;
 	SelectItem[] operacoes;
 	SelectItem[] funcionalidades;
-	
+	TreeNode arvore;
 	TreeNode arvoreFuncionalidades;
+
 	SelectItem[] funcionalidadesSelecionadas;
 
 	public ArrayList getListaOperacoesAssociadas() {
@@ -131,6 +135,7 @@ public class PerfilBackBean extends BackBean {
 	public String inserir(){
 		
 		try {
+			// Perfil
 			Perfil perfil = new Perfil();
 			perfil.setId(new Long(this.getId()));
 			perfil.setDescricao(this.getDescricao());
@@ -144,6 +149,7 @@ public class PerfilBackBean extends BackBean {
 			
 			perfil.setPercentualDesconto(this.getPercentualDesconto());
 			
+			// Macro-Operaçoes Associadas
 			if(this.getListaOperacoesAssociadas() != null && this.getListaOperacoesAssociadas().size() > 0){
 				ArrayList lista = this.getListaOperacoesAssociadas();
 				Set<MacroOperacao> macroOperacoesTmp = new HashSet<MacroOperacao>(); 
@@ -159,21 +165,35 @@ public class PerfilBackBean extends BackBean {
 				perfil.setOperacoes(null);	
 			}
 			
-			if(this.getListaFuncionalidadesAssociadas() != null && this.getListaFuncionalidadesAssociadas().size() > 0){
-				ArrayList lista = this.getListaFuncionalidadesAssociadas();
-				Set<Funcionalidade> funcionalidadesTmp = new HashSet<Funcionalidade>(); 
-				for (int i = 0; i < lista.size(); i++) {
-					String idFuncionalidade = (String)lista.get(i);
+			// Funcionalidades Associadas
+			List<String> listaFuncSelecionadas = new ArrayList<String>();
+			
+		    this.processNodes(listaFuncSelecionadas, this.arvore.getChildren().iterator());
+		    
+		    if(listaFuncSelecionadas != null && listaFuncSelecionadas.size() > 0){
+		    	List<String> arrayCodFuncionalidades = new ArrayList<String>();
+				for (int i = 0; i < listaFuncSelecionadas.size(); i++) {
+					String idFuncionalidade = (String)listaFuncSelecionadas.get(i);
 					Funcionalidade funcionalidade = new Funcionalidade();
 					funcionalidade.setId(new Long(idFuncionalidade));
 					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
-					funcionalidadesTmp.add(funcionalidade);					
+					arrayCodFuncionalidades.add(idFuncionalidade);
+					montaListaCodigosFuncionalidades(funcionalidade, arrayCodFuncionalidades);
+				}
+				
+				Set<Funcionalidade> funcionalidadesTmp = new HashSet<Funcionalidade>();
+				for (int i = 0; i < arrayCodFuncionalidades.size(); i++) {
+					String codFuncionalidade = arrayCodFuncionalidades.get(i);
+					Funcionalidade funcionalidade = new Funcionalidade();
+					funcionalidade.setId(new Long(codFuncionalidade));
+					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
+					funcionalidadesTmp.add(funcionalidade);
 				}
 				perfil.setFuncionalidades(funcionalidadesTmp);
 			}else{
 				perfil.setFuncionalidades(null);	
 			}
-			
+		    
 			getFachada().inserirPerfil(perfil);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -194,7 +214,24 @@ public class PerfilBackBean extends BackBean {
 		resetBB();
 		return "mesma";
 	}	
+
+	public void montaListaCodigosFuncionalidades(Funcionalidade funcionalidade, List<String> listaCodFuncionalidades){
 		
+		if(funcionalidade.getFuncionalidadeSuperior() != null){
+			if(!listaCodFuncionalidades.contains(funcionalidade.getFuncionalidadeSuperior().getId().toString())){
+				listaCodFuncionalidades.add(funcionalidade.getFuncionalidadeSuperior().getId().toString());
+				montaListaCodigosFuncionalidades(funcionalidade.getFuncionalidadeSuperior(), listaCodFuncionalidades);
+			}
+		}
+	}
+
+	
+	public boolean verificaExisteFuncionalidade(Set<Funcionalidade> listaFuncionalidades){
+		boolean result = true;
+		
+		return result;
+	}
+	
 	public String consultar(){
 		try{
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -236,7 +273,7 @@ public class PerfilBackBean extends BackBean {
 					listaFuncTemp.add(funcionalidadeAssociada.getId().toString());
 				}
 				this.setListaFuncionalidadesAssociadas((ArrayList)listaFuncTemp);
-				
+								
 				return "proxima";
 			}else if (getDescricao() != null && !"".equals(getDescricao())){
 				PropertyFilter filter = new PropertyFilter();
@@ -329,8 +366,13 @@ public class PerfilBackBean extends BackBean {
 				perfil.setPerfilSuperior(null);
 			}
 			
-			perfil.setPercentualDesconto(this.getPercentualDesconto());
+			if(perfil.getPerfilSuperior() != null && perfil.getId().equals(perfil.getPerfilSuperior().getId())){
+				throw new Exception("O Perfil não pode ter ele mesmo como Perfil Superior.");				
+			}
 			
+			perfil.setPercentualDesconto(this.getPercentualDesconto());
+						
+			//Macro-Operações Associadas
 			if(this.getListaOperacoesAssociadas() != null && this.getListaOperacoesAssociadas().size() > 0){
 				ArrayList lista = this.getListaOperacoesAssociadas();
 				Set<MacroOperacao> macroOperacoesTmp = new HashSet<MacroOperacao>(); 
@@ -346,23 +388,33 @@ public class PerfilBackBean extends BackBean {
 				perfil.setOperacoes(null);	
 			}
 			
-			if(this.getListaFuncionalidadesAssociadas() != null && this.getListaFuncionalidadesAssociadas().size() > 0){
-				ArrayList lista = this.getListaFuncionalidadesAssociadas();
-				Set<Funcionalidade> funcionalidadesTmp = new HashSet<Funcionalidade>(); 
-				for (int i = 0; i < lista.size(); i++) {
-					String idFuncionalidade = (String)lista.get(i);
+//			 Funcionalidades Associadas
+			List<String> listaFuncSelecionadas = new ArrayList<String>();
+			
+		    this.processNodes(listaFuncSelecionadas, this.arvore.getChildren().iterator());
+		    
+		    if(listaFuncSelecionadas != null && listaFuncSelecionadas.size() > 0){
+		    	List<String> arrayCodFuncionalidades = new ArrayList<String>();
+				for (int i = 0; i < listaFuncSelecionadas.size(); i++) {
+					String idFuncionalidade = (String)listaFuncSelecionadas.get(i);
 					Funcionalidade funcionalidade = new Funcionalidade();
 					funcionalidade.setId(new Long(idFuncionalidade));
 					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
-					funcionalidadesTmp.add(funcionalidade);					
+					arrayCodFuncionalidades.add(idFuncionalidade);
+					montaListaCodigosFuncionalidades(funcionalidade, arrayCodFuncionalidades);
+				}
+				
+				Set<Funcionalidade> funcionalidadesTmp = new HashSet<Funcionalidade>();
+				for (int i = 0; i < arrayCodFuncionalidades.size(); i++) {
+					String codFuncionalidade = arrayCodFuncionalidades.get(i);
+					Funcionalidade funcionalidade = new Funcionalidade();
+					funcionalidade.setId(new Long(codFuncionalidade));
+					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
+					funcionalidadesTmp.add(funcionalidade);
 				}
 				perfil.setFuncionalidades(funcionalidadesTmp);
 			}else{
 				perfil.setFuncionalidades(null);	
-			}
-			
-			if(perfil.getPerfilSuperior() != null && perfil.getId().equals(perfil.getPerfilSuperior().getId())){
-				throw new Exception("O Perfil não pode ter ele mesmo como Perfil Superior.");				
 			}
 			
 			getFachada().alterarPerfil(perfil);
@@ -627,35 +679,40 @@ public class PerfilBackBean extends BackBean {
 	}
 
 	public TreeNode getArvoreFuncionalidades(){
-		TreeNodeBase tree = new TreeNodeBase("root","",false);
+		TreeNode tree = new TreeNodeBase("root","",false);
 		TreeNodeBase treeFilhos = null;
 		Iterator itFunc = carregarFuncionalidades().iterator();
 		while(itFunc.hasNext()){
 			Funcionalidade func = (Funcionalidade)itFunc.next();
 			if(func.getFuncionalidadeSuperior() == null){
-				treeFilhos = new TreeNodeBase("noRaiz", func.getDescricao(), false);
+				treeFilhos = new TreeNodeBase("noRaiz", func.getDescricao(), func.getId().toString(), false);
 				if(func.getFuncionalidadesFilhas() != null && func.getFuncionalidadesFilhas().size() > 0){
 					montaArvore(func.getFuncionalidadesFilhas().iterator(), treeFilhos);	
 					tree.getChildren().add(treeFilhos);	
 				}
 			}
 		}		
-		
+		this.arvore = tree;		
+		if(this.arvore != null && this.arvore.getChildren() != null && this.arvore.getChildren().size() > 0){
+			if(this.getListaFuncionalidadesAssociadas() != null && this.getListaFuncionalidadesAssociadas().size() > 0){
+				marcarFuncionalidadesAssociadas(this.getListaFuncionalidadesAssociadas(), this.arvore.getChildren().iterator());	
+			}				
+		}
 		return tree;
 	}
-	
-	public void montaArvore(Iterator itFuncionalidades, TreeNodeBase tree){
+
+	public void montaArvore(Iterator itFuncionalidades, TreeNode tree){
 		while(itFuncionalidades.hasNext()){			
 			Funcionalidade func = (Funcionalidade)itFuncionalidades.next();			
 			if(func != null){				
-				TreeNodeBase no = null;
+				TreeNode no = null;
 				if(func.getFuncionalidadeSuperior() == null){
 					no = new TreeNodeBase("noRaiz", func.getDescricao(), func.getId().toString(), false);
 				}else{
 					if(func.getUrl() == null || func.getUrl().equals("")){
 						no = new TreeNodeBase("noRaiz", func.getDescricao(), func.getId().toString(), false);	
 					}else{
-						no = new TreeNodeBase("no", func.getDescricao(), func.getId().toString(), false);	
+						no = new TreeNodeChecked("no", func.getDescricao(), func.getId().toString(), false, false);	
 					}															
 				}
 				if(func.getFuncionalidadesFilhas() != null && func.getFuncionalidadesFilhas().size() > 0){
@@ -667,7 +724,68 @@ public class PerfilBackBean extends BackBean {
 		
 	}
 	
-	public void setArvoreFuncionalidades(org.apache.myfaces.custom.tree2.TreeNode arvoreFuncionalidades){
+	public void setArvoreFuncionalidades(TreeNode arvoreFuncionalidades){
 		this.arvoreFuncionalidades = arvoreFuncionalidades;
-	}	
+	}
+
+	public void processNodes(List<String> listaFuncSelecionadas, Iterator iterator){
+		 for (Iterator iter = iterator; iter.hasNext();) {
+			 Object obj = iter.next();
+			 if(obj instanceof TreeNodeChecked){
+				   TreeNodeChecked tree = (TreeNodeChecked) obj; 
+				   if(tree.getChildren() != null && tree.getChildren().size() > 0){
+					   processNodes(listaFuncSelecionadas, tree.getChildren().iterator());
+					   if(tree.isChecked() == true) { 
+					       listaFuncSelecionadas.add(tree.getIdentifier());
+					   }   
+				   }else if(tree.isChecked() == true) { 
+				       listaFuncSelecionadas.add(tree.getIdentifier());
+				   } 
+			 }else if (obj instanceof TreeNodeBase){
+				 TreeNodeBase tree = (TreeNodeBase) obj;
+//				 listaFuncSelecionadas.add(tree.getIdentifier());
+				 if(tree.getChildren() != null && tree.getChildren().size() > 0){
+					 processNodes(listaFuncSelecionadas, tree.getChildren().iterator());
+				 }
+			 }
+		 }
+	}
+	
+	public void marcarFuncionalidadesAssociadas(List<String> listaFuncSelecionadas, Iterator iterator){
+		 for (Iterator iter = iterator; iter.hasNext();) {
+			 Object obj = iter.next();
+			 if(obj instanceof TreeNodeChecked){
+				   TreeNodeChecked tree = (TreeNodeChecked) obj; 
+				   if(tree.getChildren() != null && tree.getChildren().size() > 0){
+					   marcarFuncionalidadesAssociadas(listaFuncSelecionadas, tree.getChildren().iterator());
+					   if(existeFuncionalidade(tree.getIdentifier())){
+						   tree.setChecked(true);
+					   }else{
+						   tree.setChecked(false);
+					   }
+				   }else if(existeFuncionalidade(tree.getIdentifier())){
+					   tree.setChecked(true);
+				   }else{
+					   tree.setChecked(false);
+				   }
+			 }else if (obj instanceof TreeNodeBase){
+				 TreeNodeBase tree = (TreeNodeBase) obj;
+				 if(tree.getChildren() != null && tree.getChildren().size() > 0){
+					 marcarFuncionalidadesAssociadas(listaFuncSelecionadas, tree.getChildren().iterator());
+				 }
+			 }
+		 }
+	}
+	
+	public boolean existeFuncionalidade(String codigoNo){
+		boolean existe = false;
+		for (int i = 0; i < this.getListaFuncionalidadesAssociadas().size(); i++) {
+			String codFuncionalidade = (String)this.getListaFuncionalidadesAssociadas().get(i);
+			if(codFuncionalidade.equals(codigoNo)){
+				existe = true;
+				break;
+			}
+		}
+		return existe;
+	}
 }
