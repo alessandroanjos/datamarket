@@ -113,27 +113,23 @@
 								<t:div styleClass="div-auto-scroll"
 									style="width: 100%; height: 200px;">
 									<h:panelGrid columns="1" id="formGridTeste">
-										<t:tree2 value="#{perfilBB.arvoreFuncionalidades}" var="node"
-										showRootNode="false"
-											varNodeToggler="t">
+										<t:tree2 id="tree" value="#{perfilBB.arvoreFuncionalidades}" clientSideToggle="true" 
+											varNodeToggler="t" var="node" showRootNode="false" preserveToggle="true"> 
 											<f:facet name="root">
-												<h:outputText styleClass="label" value="#{node.description}"></h:outputText>
+												<h:outputText value="#{node.description}" styleClass="label"></h:outputText>
 											</f:facet>
 											<f:facet name="noRaiz">
 												<h:panelGroup>
-													<h:outputText value="#{node.description}"
-														styleClass="label"></h:outputText>
+													<h:outputText value="#{node.description}" styleClass="label"></h:outputText>
 												</h:panelGroup>
 											</f:facet>
 											<f:facet name="no">
 												<h:panelGroup>
-													<t:selectManyCheckbox id="selectManyCheckbox" styleClass="label" layout="spread" value="#{perfilBB.listaFuncionalidadesAssociadas}">
-														<t:treeCheckbox for="selectManyCheckbox" itemValue="#{node.identifier}" itemLabel="#{node.description}" value="#{perfilBB.funcionalidadesSelecionadas}"/>
-													</t:selectManyCheckbox>
+												  <h:selectBooleanCheckbox value="#{node.checked}"/> 
+												  <h:outputText value="#{node.description}" styleClass="label"/> 
 												</h:panelGroup>
 											</f:facet>
 										</t:tree2>
-
 									</h:panelGrid>
 								</t:div>
 							</t:div>
