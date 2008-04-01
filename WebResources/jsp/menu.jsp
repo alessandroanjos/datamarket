@@ -31,8 +31,7 @@
 	</t:jscookMenu>
 	<br><br><br><br><br><br><br><br><br><br><br>
 	<h:form>
-	<br>
-	<h:commandLink styleClass="label" value="Logout" action="#{loginBB.logout}"></h:commandLink>
+	
 	</h:form>
 </body>
 </f:view>
