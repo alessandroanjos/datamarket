@@ -35,7 +35,7 @@
             <column name="URL" length="1000" not-null="false"/>
         </property>      
         
-         <set name="perfis" table="PERFIL_FUNCIONALIDADE" cascade="save-update" inverse="true">
+         <set name="perfis" table="PERFIL_FUNCIONALIDADE" cascade="all" lazy="false" inverse="true">
              <key column="ID_FUNCIONALIDADE" />
              <many-to-many column="ID_PERFIL" class="com.infinity.datamarket.comum.usuario.Perfil"/>
         </set>          
