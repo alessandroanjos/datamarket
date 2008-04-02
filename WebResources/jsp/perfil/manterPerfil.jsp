@@ -78,7 +78,7 @@
 								</t:div>
 								<t:div id="Layer2" styleClass="abas-pagto-rec" style="position:relative" style="width: 450px; height: 200px;">
 									<t:div styleClass="div-auto-scroll" style="width: 100%; height: 200px;">
-										<h:selectManyCheckbox id="idListaOperacoesAssociadas" layout="pageDirection" required="true" styleClass="label" value="#{perfilBB.listaOperacoesAssociadas}">
+										<h:selectManyCheckbox id="idListaOperacoesAssociadas" layout="pageDirection" required="false" styleClass="label" value="#{perfilBB.listaOperacoesAssociadas}">
 											<f:selectItems value="#{perfilBB.operacoes}" />
 										</h:selectManyCheckbox>
 									</t:div>
