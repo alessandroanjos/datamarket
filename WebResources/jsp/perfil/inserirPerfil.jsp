@@ -102,7 +102,7 @@
 								<t:div styleClass="div-auto-scroll"
 									style="width: 100%; height: 200px;">
 									<h:selectManyCheckbox id="idListaOperacoesAssociadas"
-										layout="pageDirection" required="true" styleClass="label"
+										layout="pageDirection" required="false" styleClass="label"
 										value="#{perfilBB.listaOperacoesAssociadas}">
 										<f:selectItems value="#{perfilBB.operacoes}" />
 									</h:selectManyCheckbox>
