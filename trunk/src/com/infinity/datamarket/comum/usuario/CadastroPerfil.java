@@ -65,7 +65,8 @@ public class CadastroPerfil extends Cadastro {
 		PropertyFilter filter = new PropertyFilter();
 		filter.setTheClass(CLASSE);
 		filter.addProperty("perfilSuperior.id", perfil.getId());
-		
+		filter.addOrderByProperty("perfilSuperior.id", PropertyFilter.ASC);
+	
 		col = this.consultar(filter);
 		
 		return col;
