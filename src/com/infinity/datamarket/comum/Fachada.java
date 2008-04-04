@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import com.infinity.datamarket.comum.componente.CadastroComponente;
 import com.infinity.datamarket.comum.componente.Componente;
+import com.infinity.datamarket.comum.estoque.CadastroEstoque;
+import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.funcionalidade.CadastroFuncionalidade;
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.macrooperacao.CadastroMacroOperacao;
@@ -118,6 +120,10 @@ public class Fachada {
 	
 	private CadastroInfoComponente getCadastroInfoComponente(){
 		return CadastroInfoComponente.getInstancia();
+	}
+	
+	private CadastroEstoque getCadastroEstoque(){
+		return CadastroEstoque.getInstancia();
 	}
 	
 	
@@ -2908,5 +2914,179 @@ public class Fachada {
 		}
 	}
 
+	//	 Estoque
+	public void inserirEstoque(Estoque estoque) throws AppException{
 
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroEstoque().inserir(estoque);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public void alterarEstoque(Estoque estoque) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroEstoque().alterar(estoque);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public void excluirEstoque(Estoque estoque) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroEstoque().excluir(estoque);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public Estoque consultarEstoquePorId(Long id) throws AppException{
+		Estoque estoque = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			estoque = getCadastroEstoque().consultarPorId(id);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return estoque;
+	}
+	public Collection consultarEstoque(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroEstoque().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+    
+	
+	public Collection consultarTodosEstoques() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroEstoque().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
 }
