@@ -3,6 +3,7 @@
  */
 package com.infinity.datamarket.enterprise.gui.usuario;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -21,6 +22,7 @@ import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.usuario.Usuario;
+import com.infinity.datamarket.comum.usuario.Vendedor;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -29,10 +31,15 @@ import com.infinity.datamarket.enterprise.gui.util.BackBean;
  */
 public class UsuarioBackBean extends BackBean {
 	
+	public static final String SIM = "S";
+	public static final String NAO = "N";
+	
 	String id;
 	String nome;
 	Perfil perfil;
 	String senha;
+	String vendedor;
+	String comissao;
 	
 	String idPerfil;
 	
@@ -157,7 +164,16 @@ public class UsuarioBackBean extends BackBean {
 	public String inserir(){
 		
 		try {
-			Usuario usuario = new Usuario();
+			Usuario usuario = null;
+			if (this.vendedor.equals(SIM)){
+				Vendedor vendedor = new Vendedor();
+				if (this.comissao != null && !"".equals(this.comissao)){
+					vendedor.setComissao(new BigDecimal(this.comissao));
+				}
+				usuario = vendedor;
+			}else{
+				usuario = new Usuario();
+			}
 			usuario.setId(new Long(this.getId()));
 			usuario.setNome(this.getNome());
 			
@@ -216,6 +232,13 @@ public class UsuarioBackBean extends BackBean {
 			}
 			if (getId() != null && !"".equals(getId())){
 				Usuario usuario = getFachada().consultarUsuarioPorPK(new Long(getId()));
+				if (usuario instanceof Vendedor){
+					Vendedor vendedor = (Vendedor) usuario;
+					if (vendedor.getComissao() != null){
+						this.comissao = vendedor.getComissao().toString();
+					}
+					this.vendedor = SIM;
+				}
 				this.setId(usuario.getId().toString());
 				this.setNome(usuario.getNome());
 				this.setSenha(usuario.getSenha());
@@ -240,50 +263,64 @@ public class UsuarioBackBean extends BackBean {
 				this.setListaLojasAssociadas((ArrayList)listaTemp);
 
 				return "proxima";
-			}else if (getNome() != null && !"".equals(getNome())){
-				PropertyFilter filter = new PropertyFilter();
-				filter.setTheClass(Usuario.class);
+			}
+			PropertyFilter filter = new PropertyFilter();
+			if (getNome() != null && !"".equals(getNome())){	
 				filter.addProperty("nome", getNome());
-				Collection col = getFachada().consultarUsuario(filter);
-				if (col == null || col.size() == 0){
-					this.setListaUsuarios(null);
-					FacesContext ctx = FacesContext.getCurrentInstance();
-					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
-				}else if (col != null){
-					if(col.size() == 1){
-						Usuario usuario = (Usuario)col.iterator().next();
-						this.setId(usuario.getId().toString());
-						this.setNome(usuario.getNome());
-						this.setSenha(usuario.getSenha());
-
-						this.setIdPerfil(usuario.getPerfil().getId().toString());
-						
-						if(this.getIdPerfil() != null && !this.getIdPerfil().equals("0")){
-							Perfil perfilTmp = getFachada().consultarPerfilPorPK(new Long(this.getIdPerfil()));
-							this.setPerfil(perfilTmp);
-						}else{
-							this.setPerfil(null);
-						}
-						
-						Set lojasAssociadas = usuario.getLojas();
-						List<String> listaTemp = new ArrayList<String>();
-						
-						for (Iterator iter = lojasAssociadas.iterator(); iter
-								.hasNext();) {
-							Loja lojaAssociada = (Loja) iter.next();
-							listaTemp.add(lojaAssociada.getId().toString());
-						}
-						this.setListaLojasAssociadas((ArrayList)listaTemp);
-
-						return "proxima";
-					}else{
-						setListaUsuarios(col);
-					}
-				}
+			}
+			if (getIdPerfil() != null && !"".equals(getIdPerfil()) && !"0".equals(getIdPerfil())){	
+				filter.addProperty("perfil.id", new Long(getIdPerfil()));
+			}
+			
+			if (getVendedor().equals(SIM)){
+				filter.setTheClass(Vendedor.class);
 			}else{
-				setListaUsuarios(getFachada().consultarTodosUsuario());
+				filter.setTheClass(Usuario.class);
+			}
+			Collection col = getFachada().consultarUsuario(filter);
+			if (col == null || col.size() == 0){
+				this.setListaUsuarios(null);
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Nenhum Registro Encontrado", "");
+				ctx.addMessage(null, msg);					
+			}else if (col != null){
+				if(col.size() == 1){
+					Usuario usuario = (Usuario)col.iterator().next();
+					if (usuario instanceof Vendedor){
+						Vendedor vendedor = (Vendedor) usuario;
+						if (vendedor.getComissao() != null){
+							this.comissao = vendedor.getComissao().toString();
+						}
+						this.vendedor = SIM;
+					}
+					this.setId(usuario.getId().toString());
+					this.setNome(usuario.getNome());
+					this.setSenha(usuario.getSenha());
+
+					this.setIdPerfil(usuario.getPerfil().getId().toString());
+					
+					if(this.getIdPerfil() != null && !this.getIdPerfil().equals("0")){
+						Perfil perfilTmp = getFachada().consultarPerfilPorPK(new Long(this.getIdPerfil()));
+						this.setPerfil(perfilTmp);
+					}else{
+						this.setPerfil(null);
+					}
+					
+					Set lojasAssociadas = usuario.getLojas();
+					List<String> listaTemp = new ArrayList<String>();
+					
+					for (Iterator iter = lojasAssociadas.iterator(); iter
+							.hasNext();) {
+						Loja lojaAssociada = (Loja) iter.next();
+						listaTemp.add(lojaAssociada.getId().toString());
+					}
+					this.setListaLojasAssociadas((ArrayList)listaTemp);
+
+					return "proxima";
+				}else{
+					setListaUsuarios(col);
+				}
 			}
 		}catch(ObjectNotFoundException e){
 			this.setPerfis(null);
@@ -300,6 +337,8 @@ public class UsuarioBackBean extends BackBean {
 		this.setId(null);
 		this.setNome(null);
 		this.setSenha(null);
+		this.setVendedor(NAO);
+		this.setComissao(null);
 		this.setPerfil(null);
 		this.setIdPerfil(null);
 		this.setListaLojasAssociadas(null);
@@ -309,7 +348,16 @@ public class UsuarioBackBean extends BackBean {
 	
 	public String alterar(){
 		try {
-			Usuario usuario = new Usuario();
+			Usuario usuario = null;
+			if (this.vendedor.equals(SIM)){
+				Vendedor vendedor = new Vendedor();
+				if (this.comissao != null && !"".equals(this.comissao)){
+					vendedor.setComissao(new BigDecimal(this.comissao));
+				}
+				usuario = vendedor;
+			}else{
+				usuario = new Usuario();
+			}
 			usuario.setId(new Long(this.getId()));
 			usuario.setNome(this.getNome());
 			usuario.setSenha(this.getSenha());
@@ -353,7 +401,16 @@ public class UsuarioBackBean extends BackBean {
 	
 	public String excluir(){
 		try {
-			Usuario usuario = new Usuario();
+			Usuario usuario = null;
+			if (this.vendedor.equals(SIM)){
+				Vendedor vendedor = new Vendedor();
+				if (this.comissao != null && !"".equals(this.comissao)){
+					vendedor.setComissao(new BigDecimal(this.comissao));
+				}
+				usuario = vendedor;
+			}else{
+				usuario = new Usuario();
+			}
 			usuario.setId(new Long(this.getId()));
 			
 			usuario.setNome(this.getNome());
@@ -409,7 +466,8 @@ public class UsuarioBackBean extends BackBean {
 		this.setListaLojasAssociadas(null);
 		this.setLojas(null);
 		this.setListaUsuarios(null);
-		
+		this.setVendedor(NAO);
+		this.setComissao(null);
 		return "mesma";
 	}
 	
@@ -496,6 +554,22 @@ public class UsuarioBackBean extends BackBean {
 			ctx.addMessage(null, msg);
 		}
 		return arrayLojasAssociadas;
+	}
+
+	public String getComissao() {
+		return comissao;
+	}
+
+	public void setComissao(String comissao) {
+		this.comissao = comissao;
+	}
+
+	public String getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(String vendedor) {
+		this.vendedor = vendedor;
 	}
 
 }
