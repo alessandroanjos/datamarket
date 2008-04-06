@@ -6,6 +6,10 @@ import java.util.Date;
 
 public class TransacaoVenda extends Transacao{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7371750038229819699L;
 	public static final String ATIVO = "A";
 	public static final String CANCELADO = "C";
 
@@ -18,6 +22,7 @@ public class TransacaoVenda extends Transacao{
 	private String numeroCupom;
 	private BigDecimal valorCupom;
 	private BigDecimal descontoCupom;
+	private BigDecimal comissaoUsuarioVendedor;
 	private String situacao;
 	private Collection eventosTransacao;
 
@@ -116,5 +121,13 @@ public class TransacaoVenda extends Transacao{
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
+	}
+
+	public BigDecimal getComissaoUsuarioVendedor() {
+		return comissaoUsuarioVendedor;
+	}
+
+	public void setComissaoUsuarioVendedor(BigDecimal comissaoUsuarioVendedor) {
+		this.comissaoUsuarioVendedor = comissaoUsuarioVendedor;
 	}
 }
