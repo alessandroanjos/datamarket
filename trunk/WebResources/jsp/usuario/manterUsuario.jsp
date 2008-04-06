@@ -64,6 +64,19 @@
 					  value="#{usuarioBB.perfis}" />   
 			</h:selectOneMenu>  
 			<h:message for="perfil" styleClass="errors"/>
+			<h:outputText styleClass="label" value="Vendedor?*"></h:outputText>
+			<h:selectOneRadio styleClass="selectOneRadio" readonly="true" id="vendedor" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
+			    <f:selectItem itemLabel="Sim" itemValue="S"/>
+			    <f:selectItem itemLabel="Não" itemValue="N"/>
+			</h:selectOneRadio>
+			<h:message for="vendedor" styleClass="errors"/>
+			<h:outputText styleClass="label" value="Comissão*"></h:outputText>
+			<h:inputText styleClass="inputText" id="comissao" maxlength="6" size="7"
+				value="#{usuarioBB.comissao}" required="false">
+				<f:validateLength maximum="6" />
+				<f:validateDoubleRange maximum="100.00" minimum="0.00"/>
+			</h:inputText>			
+			<h:message for="comissao" styleClass="errors"/>
 		</h:panelGrid>
 		<br>
 		<h:panelGrid columns="5" id="formGrid2" style="width: 400px;">
@@ -71,7 +84,7 @@
 				<h:outputText styleClass="tituloTabela-left" value="Lojas Associadas" />
 			</f:facet>			
 			<t:div styleClass="div-auto-scroll" style="width: 100%; height: 300px;">
-				<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="true" styleClass="label"
+				<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="label"
 					value="#{usuarioBB.listaLojasAssociadas}" >
 						<f:selectItems value="#{usuarioBB.lojas}"/>
 				</h:selectManyCheckbox>
