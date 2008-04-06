@@ -1,5 +1,8 @@
 package com.infinity.datamarket.pdv.mic;
 
+import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
+import com.infinity.datamarket.comum.usuario.Usuario;
+import com.infinity.datamarket.comum.usuario.Vendedor;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.Parametro;
@@ -21,7 +24,24 @@ public class MicSolicitaVendedor extends Mic{
 				String idUsu = null;
 				if (entrada.getTeclaFinalizadora() == 10){
 					idUsu = entrada.getDado();
-					gerenciadorPerifericos.getCmos().gravar(CMOS.VENDEDOR_ATUAL, idUsu);
+					if ("".equals(idUsu)){
+						gerenciadorPerifericos.getCmos().gravar(CMOS.VENDEDOR_ATUAL, null);
+						return ALTERNATIVA_1;
+					}
+					try{
+						Usuario u = getFachadaPDV().consultarUsuarioPorId(new Long(idUsu));
+						if (u instanceof Vendedor){
+							gerenciadorPerifericos.getCmos().gravar(CMOS.VENDEDOR_ATUAL, u);
+						}else{
+							gerenciadorPerifericos.getDisplay().setMensagem("Usuario não é vendedor");
+							gerenciadorPerifericos.esperaVolta();
+							return ALTERNATIVA_2;
+						}
+					}catch(ObjectNotFoundException e){
+						gerenciadorPerifericos.getDisplay().setMensagem("Usuário não encontrado");
+						gerenciadorPerifericos.esperaVolta();
+						return ALTERNATIVA_2;
+					}
 					return ALTERNATIVA_1;
 				}else{
 					return ALTERNATIVA_2;
