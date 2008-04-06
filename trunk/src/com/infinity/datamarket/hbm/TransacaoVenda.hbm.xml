@@ -42,8 +42,12 @@
               <column name="VALOR_CUPOM" length="20" not-null="false"/>
           </property>
 
-	  <property name="descontoCupom" type="java.math.BigDecimal" update="true" insert="true">
+	      <property name="descontoCupom" type="java.math.BigDecimal" update="true" insert="true">
               <column name="DESCONTO_CUPOM" length="20" not-null="false"/>
+          </property>
+          
+          <property name="comissaoUsuarioVendedor" type="java.math.BigDecimal" update="true" insert="true">
+              <column name="COMISSAO_USU_VENDEDOR" length="20" not-null="false"/>
           </property>
 
 
