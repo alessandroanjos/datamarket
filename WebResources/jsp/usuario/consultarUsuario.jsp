@@ -38,26 +38,32 @@
 		    <f:facet name="header">
 				<h:outputText styleClass="tituloTabela" value="Consulta Usuários" />
 			</f:facet>
-		    <h:outputText styleClass="label" value="Codigo*"></h:outputText>					
+		    <h:outputText styleClass="label" value="Codigo"></h:outputText>					
 			<h:inputText styleClass="inputText" id="id" maxlength="2"
 				value="#{usuarioBB.id}" size="2">
 				<f:validateLength maximum="2" />
 				<f:validator validatorId="LongValidator"/>
 			</h:inputText>
 			<h:message for="id" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Nome*"></h:outputText>
+			<h:outputText styleClass="label" value="Nome"></h:outputText>
 			<h:inputText styleClass="inputText" id="nome" maxlength="50" size="50"
 				value="#{usuarioBB.nome}">
 				<f:validateLength maximum="50" />
 			</h:inputText>			
 			<h:message for="nome" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Perfil*"></h:outputText>
+			<h:outputText styleClass="label" value="Perfil"></h:outputText>
 			<h:selectOneMenu id="perfis" 
 				value="#{usuarioBB.idPerfil}" required="true">   
 					  <f:selectItems id="perfilSelectItems" 
 					  value="#{usuarioBB.perfis}" />   
 			</h:selectOneMenu>  
 			<h:message for="perfil" styleClass="errors"/>
+			<h:outputText styleClass="label" value="Vendedor?*"></h:outputText>
+			<h:selectOneRadio styleClass="selectOneRadio" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
+			    <f:selectItem itemLabel="Sim" itemValue="S"/>
+			    <f:selectItem itemLabel="Todos" itemValue="N"/>
+			</h:selectOneRadio>
+			<h:message for="vendedor" styleClass="errors"/>
 		</h:panelGrid>
 		<br>
 		<h:panelGrid columns="3" id="formGrid1">	
