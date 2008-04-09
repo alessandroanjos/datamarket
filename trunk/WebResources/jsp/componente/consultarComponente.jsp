@@ -8,11 +8,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <f:view>
 <t:stylesheet path="/css/style.css"></t:stylesheet>
+
 <html>
+	
 <head>
 
 	<title>INFINITY - DataMarket - Enterprise Server</title>
-	
+
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -21,10 +23,11 @@
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
+		
 </head>
   
 <body>
+   
 	<div>
 	<h:outputText id="titulo" styleClass="label" value="Home > Componente"></h:outputText>
 	</div>
