@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://java. sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
@@ -7,8 +7,11 @@
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <f:view>
+        
+
 <t:stylesheet path="/css/style.css"></t:stylesheet>
 <html>
+
 <head>
 
 	<title>INFINITY - DataMarket - Enterprise Server</title>
@@ -23,8 +26,9 @@
 	-->
 
 </head>
-  
+         
 <body>
+  
 	<div>
 	<h:outputText styleClass="label" id="titulo" value="Home > Componente"></h:outputText>
 	</div>
@@ -32,7 +36,9 @@
 	<div>
 		<h:messages styleClass="errors" globalOnly="true" showDetail="true"/>
 	</div>
+
 	<h:form>
+
 		<h:panelGrid columns="3" id="formGrid">
 		    <f:facet name="header">
 				<h:outputText styleClass="tituloTabela" value="Inserir Componenete" />
