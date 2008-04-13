@@ -62,5 +62,10 @@ public class CadastroProduto extends Cadastro{
 		getRepositorio().remove(produto);
 	}
 
+	public Collection consultaProdutosPorSecao(String idLoja) throws AppException{
+		
+		
+		return null;
+	}
 
 }
