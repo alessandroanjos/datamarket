@@ -32,7 +32,7 @@
 	<div>
 		<h:messages styleClass="errors" globalOnly="true" showDetail="true"/>
 	</div>
-		<h:panelGrid columns="3" id="formGrid">
+		<h:panelGrid columns="3" id="formGrid" width="600px">
 			<h:outputText styleClass="label" value="Loja*"></h:outputText>					
 			<h:selectOneMenu id="idLoja" 
 				value="#{relatorioProdutosPorSecaoBB.idLoja}" required="true">   
@@ -54,7 +54,7 @@
 		<br>
 		<h:panelGrid  columns="2" id="formGrid1">
 			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" immediate="true" styleClass="inputBtn" id="botaoVoltar" action="#{relatorioProdutosPorSecaoBB.voltarMenu}" value="Voltar"></h:commandButton>
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoRelatorio" action="#{relatorioProdutosPorSecaoBB.gerarRelatorioProdutosPorSecao}" value="Relatório"></h:commandButton>
+			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoRelatorio" action="#{relatorioProdutosPorSecaoBB.gerarRelatorioProdutosPorSecao}" value="Relatório" onclick="openReport('#{relatorioProdutosPorSecaoBB.nomeRelatorio}');"></h:commandButton>
 		</h:panelGrid>
 </h:form>	
 </body>
