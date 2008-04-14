@@ -26,7 +26,7 @@
 	
 <body>
 	
-	<t:jscookMenu layout="hbr" theme="ThemeOffice">
+	<t:jscookMenu id="menuPrincipal" layout="hbr" theme="ThemeOffice">
 		<t:navigationMenuItems value="#{loginBB.navItens}" />
 	</t:jscookMenu>
 	<br><br><br><br><br><br><br><br><br><br><br>
