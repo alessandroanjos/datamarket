@@ -63,3 +63,10 @@ function trocaAba(nomeForm, x, n) {
 		}
 	}
 }
+
+
+function openReport(url){
+
+	window.open(url,"","top=10,left=50,height=600,width=900, menubar=no, resizable=no, scrollbars=no, status=no, toolbar=no");
+
+}
