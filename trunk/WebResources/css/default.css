@@ -1,0 +1,487 @@
+@charset "utf-8";
+/*
+	Design e Engenharia de Interface
+	por Marco Antnio (marcaopimentel@gmail.com)
+	Disponibilizado para Infinity DataMarket
+*/
+
+/* Basico */
+*
+{
+	margin: 0em;
+	padding: 0em;
+}
+
+h1,h2,h3,h4,h5,h6
+{
+	color: #444;
+}
+.bgAtiva {background-color:#0066CC;}
+body { background: #e0e0e0 url(../images/bg.gif) repeat-y center;  }
+body, input
+{
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	color: #555;
+}
+
+input.button
+{
+	border-top: solid 1px #fff;
+	border-left: solid 1px #fff;
+	border-bottom: solid 1px #888;
+	border-right: solid 1px #888;
+	background-color: #eaeaea;
+	color: #555;
+	font-size: 0.8em;
+	padding: 0.35em;
+}
+
+input.text
+{
+	border-top: solid 1px #888;
+	border-left: solid 1px #888;
+	border-bottom: solid 1px #fff;
+	border-right: solid 1px #fff;
+	padding: 0.1em;
+	margin-top: 0.25em;
+	margin-bottom: 0.5em;
+}
+
+a
+{
+	color: #006699;
+	text-decoration: underline;
+}
+
+a:hover
+{
+	text-decoration: none;
+}
+fieldset {
+	border: 1px solid #cccccc;
+	padding:7px;
+	margin: 20px 0px 0px 0px;
+}
+
+/* Outer */
+
+#outer
+{
+	margin: 1.5em auto 0em auto;
+	width: 780px;
+}
+/*
+	Design e Engenharia de Interface
+	por Marco Antnio (marcaopimentel@gmail.com)
+	Disponibilizado para Infinity DataMarket
+*/
+
+/* Cabecalho */
+
+#topo
+{
+	padding: 1.5em 1.5em 0 1.5em;
+	position:relative;
+	text-align:right;
+}
+
+#topo h2
+{
+	font-size: 1.5em;
+	font-weight: normal;
+	color: #949494;
+	display: inline;
+	padding-left: 0.5em;
+}
+
+#topo h1
+{
+	font-size: 2.0em;
+	display: inline;
+	letter-spacing: -0.05em;
+}
+
+#topo h1 a
+{
+	color: #343434;
+	text-decoration: none;
+}
+
+#loginUser
+{
+	display:inline-block; 
+	float:right; 
+	color:white; 
+	padding: 0.3em 1.5em 0.3em 1.5em;
+}
+
+#breadcrumb
+{
+	display:inline-block; 
+	float:left; 
+	color:white; 
+	padding: 0.3em 1.5em 0.3em 1.5em;
+}
+#tituloPagina 
+{
+	font-size:1.2em; 
+	background-color:#CFE0F7; 
+	padding:0.3em; 
+	margin-top:20px;
+	text-align:left;
+}
+#logoCliente {
+	position:absolute;
+	top:20px;
+	left:10px;
+	width:200px;
+	height:50px;
+
+}
+
+#header
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: #007799;
+	border-bottom: solid 1px black;
+	width: 100%;
+	text-align:right;
+}
+#header .centro
+{
+	width: 780px;
+	margin: 0em auto 0em auto;
+}
+#header ul
+{
+	padding: 0.3em 1.5em 0.3em 1.5em;
+	list-style: none;
+}
+#header li
+{
+	display: inline;
+	padding-right: 2.5em;
+	font-size: 0.8em;
+}
+#header li a
+{
+	color: #fff;
+	background-color: inherit;
+}
+#header li a:hover
+{
+	border-bottom: solid 1px #007799;
+}
+
+
+/** boxA **/
+.boxA .boxContent
+{
+	margin-top: 0em;
+	color: #000;
+	border-bottom: solid 1px #999;
+	background: #cccccc;
+	padding: 1em;
+}
+.boxA label
+{
+	font-weight: bold;
+	font-size: 0.8em;
+}
+.boxA a
+{
+	background-color: inherit;
+	color: #fff;
+	font-size: 0.8em;
+}
+.boxA a:hover
+{
+	text-decoration: none;
+	border-bottom: solid 1px #ff9900;
+}
+.boxA input.button
+{
+	margin-top: 0.25em;
+	vertical-align: middle;
+}
+.boxA input.text
+{
+	width: 100%;
+}
+
+
+/** boxB **/
+.boxB .boxContent
+{
+	margin-top: 0em;
+	color: #fff;
+	border-bottom: solid 1px #004466;
+	background: #007799;
+	padding: 1em 1.5em 1em 1em;
+}
+.boxB span
+{
+	font-weight: bold;
+	font-size: 0.8em;
+}
+.boxB a
+{
+	background-color: inherit;
+	color: #fff;
+	font-size: 0.8em;
+}
+.boxB a:hover
+{
+	text-decoration: none;
+	border-bottom: solid 1px #007799;
+}
+.boxB input.button
+{
+	margin-top: 0.25em;
+	vertical-align: middle;
+}
+.boxB input.text
+{
+	width: 100%;
+}
+
+
+/* Content */
+#content
+{
+	padding-left: 1.5em;
+	padding-right: 1.5em;
+}
+.box
+{
+	margin-bottom: 1.25em;
+}
+.box h2
+{
+	padding: 0em 1.5em 0em 1.1em;
+}
+.boxContent
+{
+	margin-top: 0.5em;
+	padding: 1.25em 1.5em 0.25em 1.5em;
+}
+#content p
+{
+	margin-bottom: 1em;
+	text-align: justify;
+	line-height: 1.5em;
+}
+#content strong
+{
+	color: #444;
+}
+#content h2,h3,h4,h5,h6
+{
+}
+#content h2,h3
+{
+}
+#content h3
+{
+	font-size: 1.0em;
+}
+#content h2
+{
+	font-size: 1.25em;
+}
+#content ul
+{
+	margin-bottom: 1em;
+	padding-left: 0.3em;
+	line-height: 1.8em;
+}
+#content blockquote
+{
+	padding: 1em;
+	margin-bottom: 1.5em;
+	border-left: solid 6px #558800;
+}
+#content blockquote p
+{
+	margin-bottom: 0em;
+	line-height: 1.5em;
+}
+#content table
+{
+}
+#content table th
+{
+	text-align: left;
+	font-weight: bold;
+	padding: 0.3em;
+	color: #444;
+}
+#content table td
+{
+	padding: 0.3em;
+}
+#content div.listagem
+{
+	overflow:auto;
+	height:300px;
+	margin: 1.5em 0;
+}
+#content table tr.bgAtivo{ background-color: white; }
+#content table tr.rowA
+{
+	background-color: #cee3ff;
+	color: inherit;
+}
+#content table tr.rowB
+{
+	background-color: #deecff;
+	color: inherit;
+}
+
+/* Primario Content */
+#primarioContentContainer
+{
+	float: right;
+	margin-left: -19em;
+	width: 100%;
+}
+#primarioContent
+{
+	margin: 0em 0em 0em 13em;
+	padding: 2.5em 1.5em 1.5em 0em;
+}
+#primarioContentContainerInternas
+{
+	float: left;
+	width: 580px;
+	padding: 1.8em 0 0 0;
+}
+
+/* Secundario Content */
+#secundarioContent
+{
+	float: left;
+	width: 13em;
+	padding: 2.5em 0em 1.5em 0em;
+}
+#secundarioContentInternas
+{
+	float: left;
+	padding: 1.5em 0 1.5em 0.8em;
+}
+
+.msgErro {
+/*	border:1px dotted red;
+	background-color:#ecd2d2;  */
+	padding-left:10px;
+	color:red;
+}
+.msgSistema {
+	border:1px dotted green;
+	background-color:#d2dfd2; 
+	padding:5px; 
+	color:black; 
+}
+
+/* TAB MENU inicio */
+#tabMenu {
+	width:100%;
+	font-size: 0.8em;
+	font-weight:bold;
+	line-height:normal;
+	clear:both;
+	border-bottom:2px solid #cccccc;
+	margin-top:20px;
+}
+#tabMenu ul
+{
+	margin-bottom: 0 !important;
+	padding-left: 0 !important;
+	line-height: normal !important;
+	height:26px;
+}
+#tabMenu li {
+	display:block;
+	float:left;
+	background: url(../images/tabmenubg.gif) top left repeat-x;
+	position:relative;
+	margin-right:-2px;
+}
+#tabMenu li span {
+	display:block;
+	float:left;
+	background: url(../images/tabmenubgleft.gif) top left no-repeat;
+}
+#tabMenu li a {
+	display:block;
+	float:left;
+	text-decoration:none;
+	color:#666666;
+	padding: 13px 9px 0px 9px;
+	background: url(../images/tabmenubgright.gif) top right no-repeat;
+	height:17px;
+}
+#tabMenu li.current {
+	background: url(../images/tabmenubgcurrent.gif) top left repeat-x !important;
+	margin-right: 0px !important;
+}
+#tabMenu li.current span {
+	background: url(../images/tabmenubgcurrentleft.gif) top left no-repeat !important;
+}
+#tabMenu li.current a {
+	background: url(../images/tabmenubgcurrentright.gif) top right no-repeat !important;
+	color:#e8e8e8 !important;
+	padding: 10px 9px 0px 9px !important;
+	height:20px !important;
+}
+/* TAB MENU fim */
+
+
+/* Rodape */
+#footer
+{
+	border-top: dotted 1px #D5D5D5;
+	text-align: center;
+	padding: 1em 0em;
+	margin: 0em 2px;
+}
+div.clear {
+	width:0px;
+	height:0px;
+	clear:both;
+	padding:0px;
+	line-height:0px;
+	margin:0px;
+}
+.clear
+{
+	clear: both;
+}
+
+#menuPrincipal_menu {
+	text-align:left;
+	border-bottom:1px solid #666666;
+	background:#BDD2EF;
+	padding: 6px 5px 2px 9px;
+	margin: 0px 2px 0px 2px;
+/*	position:relative;
+	top:0px;
+	left:0px;*/
+}
+.ThemeOfficeMainItem {
+	background:none;
+	padding-left:5px;
+	padding-right:5px;
+	font-weight: bold;
+}
+
+td.ThemeOfficeMainItemHover {
+	background-color:none;
+	padding-left:4px;
+	padding-right:4px;
+	font-weight: bold;
+	height:18px;
+}
