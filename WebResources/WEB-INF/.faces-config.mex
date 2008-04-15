@@ -37,6 +37,7 @@
   <JSFFlowResource path="/jsp/planoPagamento/manterPlanoPagamento.jsp" location="630,630" dimension="312,36" />
   <JSFFlowResource path="/jsp/formaRecebimento/manterFormaRecebimento.jsp" location="480,1230" dimension="336,36" />
   <JSFFlowResource path="/jsp/usuario/manterUsuario.jsp" location="630,1330" dimension="209,36" />
+  <JSFFlowResource path="/jsp/reports/produtosPorSecao/relatorioProdutosPorSecao.jsp" location="630,1030" dimension="372,36" />
   <JSFFlowNavigationCase id="/jsp/login.jsp,/jsp/menu.jsp,logado,#{loginBB.logar}" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="72,30" />
@@ -197,8 +198,8 @@
       <AbsolutePoint location="550,180" />
       <AbsolutePoint location="550,118" />
       <AbsolutePoint location="1049,118" />
-      <AbsolutePoint location="1049,963" />
-      <AbsolutePoint location="909,963" />
+      <AbsolutePoint location="1049,948" />
+      <AbsolutePoint location="909,948" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/menu.jsp,/jsp/produto/consultarProduto.jsp,manterProduto,null" routingType="0">
@@ -236,10 +237,20 @@
       <AbsolutePoint location="83,48" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
+  <JSFFlowNavigationCase id="/jsp/menu.jsp,/jsp/reports/produtosPorSecao/relatorioProdutosPorSecao.jsp,relatorioProdutosPorSecao,null" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="480,184" />
+      <AbsolutePoint location="369,184" />
+      <AbsolutePoint location="369,139" />
+      <AbsolutePoint location="1169,139" />
+      <AbsolutePoint location="1169,1048" />
+      <AbsolutePoint location="1002,1048" />
+    </AutomaticBendpoints>
+  </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/tipoProduto/inserirTipoProduto.jsp,/jsp/tipoProduto/inserirTipoProduto.jsp,mesma,#{tipoProdutoBB.inserir}" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="445,30" />
-      <AbsolutePoint location="445,-22" />
+      <AbsolutePoint location="460,30" />
+      <AbsolutePoint location="460,-22" />
       <AbsolutePoint location="697,-22" />
       <AbsolutePoint location="697,55" />
       <AbsolutePoint location="561,55" />
@@ -604,15 +615,17 @@
       <AbsolutePoint location="769,930" />
       <AbsolutePoint location="769,903" />
       <AbsolutePoint location="976,903" />
-      <AbsolutePoint location="976,948" />
-      <AbsolutePoint location="909,948" />
+      <AbsolutePoint location="976,933" />
+      <AbsolutePoint location="909,933" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/componente/consultarComponente.jsp,/jsp/componente/manterComponente.jsp,proxima,#{componenteBB.consultar}" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="853,966" />
-      <AbsolutePoint location="853,1448" />
-      <AbsolutePoint location="298,1448" />
+      <AbsolutePoint location="909,963" />
+      <AbsolutePoint location="1147,963" />
+      <AbsolutePoint location="1147,1503" />
+      <AbsolutePoint location="164,1503" />
+      <AbsolutePoint location="164,1466" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/componente/consultarComponente.jsp,/jsp/menu.jsp,voltar,#{componenteBB.voltarMenu}" routingType="0">
@@ -720,9 +733,11 @@
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/componente/manterComponente.jsp,/jsp/componente/consultarComponente.jsp,voltar,#{componenteBB.voltarConsulta}" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="298,1463" />
-      <AbsolutePoint location="868,1463" />
-      <AbsolutePoint location="868,966" />
+      <AbsolutePoint location="30,1448" />
+      <AbsolutePoint location="-67,1448" />
+      <AbsolutePoint location="-67,1008" />
+      <AbsolutePoint location="769,1008" />
+      <AbsolutePoint location="769,966" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/perfil/manterPerfil.jsp,/jsp/perfil/consultarPerfil.jsp,voltar,#{perfilBB.voltarConsulta}" routingType="0">
