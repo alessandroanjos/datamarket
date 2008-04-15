@@ -112,6 +112,13 @@
 			<from-outcome>manterUsuario</from-outcome>
 			<to-view-id>/jsp/usuario/consultarUsuario.jsp</to-view-id>
 		</navigation-case>		
+
+		<!-- Relatorios -->				
+				
+		<navigation-case>
+			<from-outcome>relatorioProdutosPorSecao</from-outcome>
+			<to-view-id>/jsp/reports/produtosPorSecao/relatorioProdutosPorSecao.jsp</to-view-id>
+		</navigation-case>				
 				
 		<navigation-case>
 			<from-action>#{loginBB.logout}</from-action>
@@ -582,6 +589,23 @@
 			<from-outcome>voltar</from-outcome>
 			<to-view-id>/jsp/usuario/consultarUsuario.jsp</to-view-id>
 		</navigation-case>
+	</navigation-rule>
+	
+	<!-- RELATORIO DE PRODUTOS POR SECAO -->
+	<navigation-rule>
+		<from-view-id>/jsp/reports/produtosPorSecao/relatorioProdutosPorSecao.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{relatorioProdutosPorSecaoBB.gerarRelatorioProdutosPorSecao}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/reports/produtosPorSecao/relatorioProdutosPorSecao.jsp</to-view-id>
+			
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{relatorioProdutosPorSecaoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+		
 	</navigation-rule>
 	
 	<!-- TIPO DE PRODUTO BACK BEAN -->
@@ -1168,6 +1192,51 @@
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
+	
+<!-- RELATORIO PRODUTOS POR SECAO BACK BEAN -->
+	
+	<managed-bean>
+		<managed-bean-name>relatorioProdutosPorSecaoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.relatorios.produtosporsecao.RelatorioProdutosPorSecaoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>idLoja</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>nomeLoja</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idGrupoProduto</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricaoGrupoProduto</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>produtos</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>lojas</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>grupos</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>	
 	
 	<validator>
        <validator-id>LongValidator</validator-id>
