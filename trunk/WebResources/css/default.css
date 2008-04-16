@@ -386,6 +386,21 @@ fieldset {
 	color:black; 
 }
 
+.msgSistemaSucesso {
+	border:1px dotted green;
+	background-color:#d2dfd2; 
+	padding:5px; 
+	color:black; 
+}
+
+.msgSistemaErro {
+	border:1px dotted red;
+	background-color:#ecd2d2; 
+	padding:5px; 
+	color:black; 
+}
+
+
 /* TAB MENU inicio */
 #tabMenu {
 	width:100%;
