@@ -1,7 +1,6 @@
 <%@ page language="java" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
 
@@ -92,8 +91,8 @@ var day=returnDay(today_date.getDay()+1)
 							<ul>
 								<li class="normal">
 									<div>
-										<h:outputText styleClass="label" value="Codigo*"></h:outputText>
-										<h:inputText styleClass="inputText" id="id" maxlength="2"
+										<label class="desc"><h:outputText value="Codigo*"></h:outputText></label>
+										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
 											value="#{tipoProdutoBB.id}" size="2" required="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator" />
@@ -103,8 +102,8 @@ var day=returnDay(today_date.getDay()+1)
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputText styleClass="label" value="Nome *"></h:outputText>
-										<h:inputText styleClass="inputText" id="nome" maxlength="50"
+										<label class="desc"><h:outputText value="Nome*"></h:outputText></label>
+										<h:inputText styleClass="field text" id="nome" maxlength="50"
 											size="50" value="#{tipoProdutoBB.descricao}" required="true">
 											<f:validateLength maximum="50" />
 										</h:inputText>
@@ -112,8 +111,8 @@ var day=returnDay(today_date.getDay()+1)
 									</div>
 								</li>
 								<li class="buttons">
-									<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" immediate="true" styleClass="inputBtn" id="botaoLimpar" action="#{tipoProdutoBB.resetBB}" type="reset" value="Limpar"></h:commandButton>
-									<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoInserir" action="#{tipoProdutoBB.inserir}" value="Inserir"></h:commandButton>
+									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{tipoProdutoBB.inserir}" value="Inserir"></h:commandButton>
 								</li>
 						</div>
 						<div class="clear"></div>
@@ -125,9 +124,6 @@ var day=returnDay(today_date.getDay()+1)
 						<a href="http://www.infinity.com.br" target="_blank">www.infinity.com.br</a>
 					</p>
 				</div>
-				<f:subview id="pagina">   
-					<c:import url="http://www.uol.com.br"></c:import>
-				</f:subview>
 			</div>
 		</body>
 	</f:view>
