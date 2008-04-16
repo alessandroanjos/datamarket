@@ -6,6 +6,7 @@ import com.infinity.datamarket.comum.componente.CadastroComponente;
 import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.estoque.CadastroEstoque;
 import com.infinity.datamarket.comum.estoque.Estoque;
+import com.infinity.datamarket.comum.estoque.EstoquePK;
 import com.infinity.datamarket.comum.funcionalidade.CadastroFuncionalidade;
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.macrooperacao.CadastroMacroOperacao;
@@ -2999,7 +3000,7 @@ public class Fachada {
 			}
 		}
 	}
-	public Estoque consultarEstoquePorId(Long id) throws AppException{
+	public Estoque consultarEstoquePorId(EstoquePK id) throws AppException{
 		Estoque estoque = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
