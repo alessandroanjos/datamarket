@@ -1,6 +1,7 @@
 package com.infinity.datamarket.comum.estoque;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
@@ -23,7 +24,14 @@ public class EntradaProduto extends Persistente{
 	private BigDecimal valor;
 	private Fornecedor fornecedor;
 	
+	private Collection produtosEntrada;
 	
+	public Collection getProdutosEntrada() {
+		return produtosEntrada;
+	}
+	public void setProdutosEntrada(Collection produtosEntrada) {
+		this.produtosEntrada = produtosEntrada;
+	}
 	public Date getDataEmissaoNota() {
 		return dataEmissaoNota;
 	}

@@ -1,17 +1,17 @@
 package com.infinity.datamarket.comum.estoque;
 
-import com.infinity.datamarket.comum.usuario.Loja;
-import com.infinity.datamarket.comum.util.Persistente;
+import java.io.Serializable;
 
-public class Estoque extends Persistente {
+public class Estoque implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1105657518976458874L;
 	
+	private EstoquePK pk;
 	String descricao;
-	Loja loja;
+
 	
 	public String getDescricao() {
 		return descricao;
@@ -19,11 +19,11 @@ public class Estoque extends Persistente {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Loja getLoja() {
-		return loja;
+	public EstoquePK getPk() {
+		return pk;
 	}
-	public void setLoja(Loja loja) {
-		this.loja = loja;
+	public void setPk(EstoquePK pk) {
+		this.pk = pk;
 	}
-
+	
 }

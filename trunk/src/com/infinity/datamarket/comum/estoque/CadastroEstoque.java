@@ -24,7 +24,7 @@ public class CadastroEstoque extends Cadastro {
 		return instancia;
 	}
 
-	public Estoque consultarPorId(Long id) throws AppException{
+	public Estoque consultarPorId(EstoquePK id) throws AppException{
 		return (Estoque) getRepositorio().findById(CLASSE, id);
 	}
 
