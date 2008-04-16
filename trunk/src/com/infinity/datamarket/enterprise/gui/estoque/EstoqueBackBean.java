@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.estoque.Estoque;
+import com.infinity.datamarket.comum.estoque.EstoquePK;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -62,12 +63,15 @@ public class EstoqueBackBean extends BackBean {
 
 	public String inserir() {
 		Estoque estoque = new Estoque();
-
-		estoque.setId(new Long(this.id));
+		EstoquePK pk = new EstoquePK();
+		
+		pk.setId(new Long(this.id));
 		estoque.setDescricao(this.descricao);
 		Loja loja = new Loja();
 		loja.setId(new Long(this.idLoja));
-		estoque.setLoja(loja);
+		pk.setLoja(loja);
+		
+		estoque.setPk(pk);
 
 		try {
 			getFachada().inserirEstoque(estoque);
@@ -82,6 +86,7 @@ public class EstoqueBackBean extends BackBean {
 					"Estoque já Existente!", "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
+			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
@@ -96,15 +101,21 @@ public class EstoqueBackBean extends BackBean {
 			FacesContext context = FacesContext.getCurrentInstance();
 			Map params = context.getExternalContext().getRequestParameterMap();
 			String param = (String) params.get("id");
-			if (param != null && !"".equals(param)) {
+			String loja = (String) params.get("loja");
+			if (param != null && !"".equals(param) && loja != null && !"".equals(loja)) {
 				setId(param);
+				setIdLoja(loja);
 			}
-			if (getId() != null && !"".equals(getId())) {
-				Estoque estoque = getFachada().consultarEstoquePorId(
-						new Long(getId()));
-				this.setId(estoque.getId().toString());
+			if (getId() != null && !"".equals(getId()) && getIdLoja() != null && !"".equals(getIdLoja())) {
+				EstoquePK pk = new EstoquePK();
+				pk.setId(new Long(getId()));
+				Loja l = new Loja();
+				l.setId(new Long(getIdLoja()));
+				pk.setLoja(l);
+				Estoque estoque = getFachada().consultarEstoquePorId(pk);
+				this.setId(estoque.getPk().getId().toString());
 				this.setDescricao(estoque.getDescricao());
-				this.setIdLoja(estoque.getLoja().getId().toString());
+				this.setIdLoja(estoque.getPk().getLoja().getId().toString());
 				return "proxima";
 			} else if (getDescricao() != null && !"".equals(getDescricao())) {
 				PropertyFilter filter = new PropertyFilter();
@@ -121,9 +132,9 @@ public class EstoqueBackBean extends BackBean {
 				} else if (col != null) {
 					if (col.size() == 1) {
 						Estoque estoque = (Estoque) col.iterator().next();
-						this.setId(estoque.getId().toString());
+						this.setId(estoque.getPk().getId().toString());
 						this.setDescricao(estoque.getDescricao());
-						this.setIdLoja(estoque.getLoja().getId().toString());
+						this.setIdLoja(estoque.getPk().getLoja().getId().toString());
 						return "proxima";
 					} else {
 						this.setEstoques(col);
@@ -139,6 +150,7 @@ public class EstoqueBackBean extends BackBean {
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
+			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
@@ -153,13 +165,16 @@ public class EstoqueBackBean extends BackBean {
 	public String alterar() {
 		try {
 			Estoque estoque = new Estoque();
-
-			estoque.setId(new Long(this.id));
+			EstoquePK pk = new EstoquePK();
+			
+			pk.setId(new Long(this.id));
 			estoque.setDescricao(this.descricao);
 			Loja loja = new Loja();
 			loja.setId(new Long(this.idLoja));
-			estoque.setLoja(loja);
-
+			pk.setLoja(loja);
+			
+			estoque.setPk(pk);
+			
 			getFachada().alterarEstoque(estoque);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -178,12 +193,16 @@ public class EstoqueBackBean extends BackBean {
 	public String excluir() {
 		try {
 			Estoque estoque = new Estoque();
-
-			estoque.setId(new Long(this.id));
+			EstoquePK pk = new EstoquePK();
+			
+			pk.setId(new Long(this.id));
 			estoque.setDescricao(this.descricao);
 			Loja loja = new Loja();
 			loja.setId(new Long(this.idLoja));
-			estoque.setLoja(loja);
+			pk.setLoja(loja);
+			
+			estoque.setPk(pk);
+			
 			getFachada().excluirEstoque(estoque);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
