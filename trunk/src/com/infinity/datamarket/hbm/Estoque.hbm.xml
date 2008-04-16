@@ -10,21 +10,16 @@
 		table="ESTOQUE" dynamic-update="false" dynamic-insert="false"
 		lazy="false">
 
-		<id name="id" column="ID" type="java.lang.Long" length="2"
-			unsaved-value="null">
-			<generator class="assigned"></generator>
-		</id>
+		<composite-id name="pk" class="com.infinity.datamarket.comum.estoque.EstoquePK">			
+	   		<key-property name="id" column="ID" type="long"/>
+			<key-many-to-one name="loja" class="com.infinity.datamarket.comum.usuario.Loja" column="ID_LOJA"/>
+	        </composite-id>
 
 		<property name="descricao" type="java.lang.String" update="true"
 			insert="true">
 			<column name="DESCRICAO" length="20" not-null="true" />
 		</property>
 
-		<many-to-one name="loja"
-			class="com.infinity.datamarket.comum.usuario.Loja" update="true"
-			insert="true">
-			<column name="ID_LOJA" not-null="true" />
-		</many-to-one>
 	</class>
 
 </hibernate-mapping>
