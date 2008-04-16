@@ -70,21 +70,22 @@
 						<f:facet name="header">
 							<h:outputText styleClass="label"  value="Código" />
 						</f:facet>
-						<h:outputText styleClass="label" value="#{estoque.id}" />  
+						<h:outputText styleClass="label" value="#{estoque.pk.id}" />  
 					</h:column>
 					<h:column>
 						<f:facet name="header">
 							<h:outputText styleClass="label"  value="Descrição" />
 						</f:facet>
 						<h:commandLink styleClass="label" value="#{estoque.descricao}" action="#{estoqueBB.consultar}">
-							<f:param name="id" value="#{estoque.id}"/>						
+							<f:param name="id" value="#{estoque.pk.id}"/>
+							<f:param name="loja" value="#{estoque.pk.loja.id}"/>												
 						</h:commandLink>
 					</h:column>
 					<h:column>
 						<f:facet name="header">
 							<h:outputText styleClass="label"  value="Loja" />
 						</f:facet>
-						<h:outputText styleClass="label" value="#{estoque.loja.nome}" /> 
+						<h:outputText styleClass="label" value="#{estoque.pk.loja.nome}" /> 
 					</h:column>
 				</h:dataTable>
 	</h:form>
