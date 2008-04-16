@@ -38,7 +38,7 @@
 				<h:outputText styleClass="tituloTabela" value="Manter Estoque" />
 			</f:facet>
 		    <h:outputText styleClass="label" value="Codigo*"></h:outputText>					
-			<h:inputText styleClass="inputText" id="id" maxlength="3"
+			<h:inputText styleClass="inputText" readonly="true" id="id" maxlength="3"
 				value="#{estoqueBB.id}" size="3" required="true">
 				<f:validateLength maximum="3" />
 				<f:validator validatorId="LongValidator"/>
@@ -51,7 +51,7 @@
 			</h:inputText>
 			<h:message for="descricao" styleClass="errors"/>
 			<h:outputText styleClass="label" value="Loja"></h:outputText>
-			<h:selectOneMenu id="idLoja" 
+			<h:selectOneMenu id="idLoja" readonly="true"
 				value="#{estoqueBB.idLoja}">   
 					  <f:selectItems id="lojaSelectItems" 
 					  value="#{estoqueBB.lojas}" />   
