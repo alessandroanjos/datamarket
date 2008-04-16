@@ -62,52 +62,48 @@ var day=returnDay(today_date.getDay()+1)
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<body>
-
 			<div id="outer">
-				<h:form>
-<div id="topo">
+					<h:form>
+					<div id="topo">
 						<h1>&nbsp;</h1>
 						<h2>&nbsp;</h2>
 						<div id="tituloPagina"><strong>Tipos de Produtos</strong></div>
-						<div id="logoCliente">
-							<img src="/EnterpriseServer/images/logoCliente.gif" alt="Magia dos Pães" title="Magia dos Pães" />
-						</div>
+						<div id="logoCliente"><img src="/EnterpriseServer/images/logoCliente.gif" alt="Magia dos Pães" title="Magia dos Pães" /></div>
 					</div>
 					<div id="header">
 						<div class="centro">
-							<div id="loginUser">
-								Usuário:
-								<strong><h:outputText id="usuario"
-										value="#{loginBB.usuarioLogado.nome}"></h:outputText>
-								</strong> &nbsp;&nbsp;&nbsp;&#8212;&nbsp;&nbsp;&nbsp; <script>document.write(day)</script>,  <script>document.write(today+"/"+month+"/"+year)</script>
-							</div>
-							<div id="breadcrumb">
-								<strong>Infinity</strong> - DataMarket - Enterprise Server
-							</div>
+							<div id="loginUser">Usuário: <strong><h:outputText id="usuario" value="#{loginBB.usuarioLogado.nome}"></h:outputText></strong> &nbsp;&nbsp;&nbsp;&#8212;&nbsp;&nbsp;&nbsp; <script>document.write(day)</script>,  <script>document.write(today+"/"+month+"/"+year)</script></div>
+							<div id="breadcrumb"><strong>Infinity</strong> - DataMarket - Enterprise Server</div>
 						</div>
 					</div>
+					
 					<div id="content">
 						<div id="primarioContentContainerInternas">
 							<ul>
 								<li class="normal">
 									<div>
-										<label class="desc"><h:outputText value="Codigo*"></h:outputText></label>
+										<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+									</div>
+								</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
 											value="#{tipoProdutoBB.id}" size="2" required="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator" />
 										</h:inputText>
-										<h:message for="id" styleClass="errors" />
+										<h:message for="id" styleClass="msgErro" />
 									</div>
 								</li>
 								<li class="normal">
 									<div>
-										<label class="desc"><h:outputText value="Nome*"></h:outputText></label>
+										<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="nome" maxlength="50"
 											size="50" value="#{tipoProdutoBB.descricao}" required="true">
 											<f:validateLength maximum="50" />
 										</h:inputText>
-										<h:message for="nome" styleClass="errors" />
+										<h:message for="nome" styleClass="msgErro" />
 									</div>
 								</li>
 								<li class="buttons">
