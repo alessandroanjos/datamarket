@@ -14,11 +14,11 @@ import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class TipoProdutoBackBean extends BackBean{
+	
 	private String id;
 	private String descricao;
 	private Collection tiposProduto;
-	
-	
+		
 	public Collection getTiposProduto() {
 		return tiposProduto;
 	}
@@ -40,8 +40,8 @@ public class TipoProdutoBackBean extends BackBean{
 	
 	public String inserir(){
 		TipoProduto tipo = new TipoProduto();
-		tipo.setId(new Long(id));
-		tipo.setDescricao(descricao);
+		tipo.setId(new Long(this.getId()));
+		tipo.setDescricao(this.getDescricao());
 		try {
 			getFachada().inserirTipoProduto(tipo);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -60,11 +60,9 @@ public class TipoProdutoBackBean extends BackBean{
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
 		return "mesma";
 	}
-	
-		
+			
 	public String consultar(){
 		try{
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -129,6 +127,7 @@ public class TipoProdutoBackBean extends BackBean{
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -149,6 +148,7 @@ public class TipoProdutoBackBean extends BackBean{
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -156,7 +156,7 @@ public class TipoProdutoBackBean extends BackBean{
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
+		
 		return "mesma";
 	}
 	
