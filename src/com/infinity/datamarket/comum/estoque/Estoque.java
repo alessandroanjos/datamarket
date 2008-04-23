@@ -11,8 +11,15 @@ public class Estoque implements Serializable{
 	
 	private EstoquePK pk;
 	String descricao;
+	String estoqueVenda;
 
 	
+	public String getEstoqueVenda() {
+		return estoqueVenda;
+	}
+	public void setEstoqueVenda(String estoqueVenda) {
+		this.estoqueVenda = estoqueVenda;
+	}
 	public String getDescricao() {
 		return descricao;
 	}
