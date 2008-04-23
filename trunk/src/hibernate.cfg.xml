@@ -60,6 +60,10 @@
 	<mapping resource="com/infinity/datamarket/hbm/InfoComponente.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Vendedor.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Estoque.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/EntradaProduto.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/ProdutoEntradaProduto.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Fornecedor.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/EstoqueProduto.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>
