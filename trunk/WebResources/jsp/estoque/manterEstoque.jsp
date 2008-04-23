@@ -57,6 +57,14 @@
 					  value="#{estoqueBB.lojas}" />   
 			</h:selectOneMenu>  
 			<h:message for="idLoja" styleClass="errors"/>
+			
+			<h:outputText styleClass="label" value="Venda Associada*"></h:outputText>
+			<h:selectOneRadio  styleClass="selectOneRadio"  id="estoqueVenda" 
+				value="#{estoqueBB.estoqueVenda}"  layout="lineDirection" required="true">
+			    <f:selectItem itemLabel="Sim" itemValue="S" />
+			    <f:selectItem itemLabel="Não" itemValue="N" />
+			</h:selectOneRadio>
+			<h:message for="estoqueVenda" styleClass="errors"/>
 		</h:panelGrid>
 			<br>
 			<h:panelGrid columns="3" id="formGrid1">
