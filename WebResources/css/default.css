@@ -83,7 +83,7 @@ fieldset {
 {
 	padding: 1.5em 1.5em 0 1.5em;
 	position:relative;
-	text-align:right;
+	text-align:left;
 }
 
 #topo h2
@@ -152,6 +152,7 @@ fieldset {
 }
 #header .centro
 {
+	position: relative;
 	width: 780px;
 	margin: 0em auto 0em auto;
 }
