@@ -57,13 +57,11 @@
         </many-to-one>
 
 	<set name="produtosEntrada" inverse="true" cascade="all">
-                 <key>
-                     <column name="ID_ENTRADA_PRODUTO"/>
-                     <column name="ID_PRODUTO"/>
-                     <column name="NUM_ENTRADA"/>
-                 </key>
-                 <one-to-many class="com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto"/>
-        </set>
+        <key>
+            <column name="ID_ENTRADA_PRODUTO"/>
+        </key>
+        <one-to-many class="com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto"/>
+    </set>
 
     </class>
 
