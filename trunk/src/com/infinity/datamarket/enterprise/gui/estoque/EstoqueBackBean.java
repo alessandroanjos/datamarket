@@ -18,6 +18,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -28,6 +29,8 @@ public class EstoqueBackBean extends BackBean {
 	String id;
 
 	String descricao;
+	
+	String estoqueVenda;
 
 	String idLoja;
 
@@ -67,6 +70,7 @@ public class EstoqueBackBean extends BackBean {
 		
 		pk.setId(new Long(this.id));
 		estoque.setDescricao(this.descricao);
+		estoque.setEstoqueVenda(this.estoqueVenda);
 		Loja loja = new Loja();
 		loja.setId(new Long(this.idLoja));
 		pk.setLoja(loja);
@@ -84,6 +88,11 @@ public class EstoqueBackBean extends BackBean {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Estoque já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,6 +124,7 @@ public class EstoqueBackBean extends BackBean {
 				Estoque estoque = getFachada().consultarEstoquePorId(pk);
 				this.setId(estoque.getPk().getId().toString());
 				this.setDescricao(estoque.getDescricao());
+				this.setEstoqueVenda(estoque.getEstoqueVenda());
 				this.setIdLoja(estoque.getPk().getLoja().getId().toString());
 				return "proxima";
 			} else if (getDescricao() != null && !"".equals(getDescricao())) {
@@ -134,6 +144,7 @@ public class EstoqueBackBean extends BackBean {
 						Estoque estoque = (Estoque) col.iterator().next();
 						this.setId(estoque.getPk().getId().toString());
 						this.setDescricao(estoque.getDescricao());
+						this.setEstoqueVenda(estoque.getEstoqueVenda());
 						this.setIdLoja(estoque.getPk().getLoja().getId().toString());
 						return "proxima";
 					} else {
@@ -169,6 +180,7 @@ public class EstoqueBackBean extends BackBean {
 			
 			pk.setId(new Long(this.id));
 			estoque.setDescricao(this.descricao);
+			estoque.setEstoqueVenda(this.estoqueVenda);
 			Loja loja = new Loja();
 			loja.setId(new Long(this.idLoja));
 			pk.setLoja(loja);
@@ -179,6 +191,11 @@ public class EstoqueBackBean extends BackBean {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -197,6 +214,7 @@ public class EstoqueBackBean extends BackBean {
 			
 			pk.setId(new Long(this.id));
 			estoque.setDescricao(this.descricao);
+			estoque.setEstoqueVenda(this.estoqueVenda);
 			Loja loja = new Loja();
 			loja.setId(new Long(this.idLoja));
 			pk.setLoja(loja);
@@ -292,6 +310,14 @@ public class EstoqueBackBean extends BackBean {
 
 	public void setLoja(Loja loja) {
 		this.loja = loja;
+	}
+
+	public String getEstoqueVenda() {
+		return estoqueVenda;
+	}
+
+	public void setEstoqueVenda(String estoqueVenda) {
+		this.estoqueVenda = estoqueVenda;
 	}
 
 }
