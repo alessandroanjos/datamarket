@@ -269,7 +269,7 @@ public class ComponenteBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		if (this.idLoja == null) {
+		if (this.idLoja != null) {
 			this.idLoja = arrayLojas[0].getValue().toString();
 		}
 		return arrayLojas;
