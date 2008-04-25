@@ -23,14 +23,15 @@
 
 	</head>
 	<f:view>
+		
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<h:form id="frmInserirTipoProduto">		
 			<div id="outer">
+				<f:loadBundle basename="resources.mensagens" var="msgs"/>
 				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
-				</f:subview>
-					
+					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.inserirTipoProduto}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
+				</f:subview>					
 				<div id="content">
 					<div id="primarioContentContainerInternas">
 						<ul>
