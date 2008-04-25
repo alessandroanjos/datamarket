@@ -22,60 +22,17 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 
-		<script type="text/javascript">
-
-window.onload = function(){ inicializar() };
-
-function inicializar() {
-	$("input.field, select.field").each(function(i){
-		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
-		$(this).blur(function() {this.style.backgroundColor = "white"});
-	});
-}
-
-
-</script>
-<script>
-<!--
-function returnDay(day){
-var day_of_week = "";
-switch (parseInt(day)){
-case parseInt("1"): day_of_week = "Domingo";break;
-case parseInt("2"): day_of_week = "Segunda-Feira";break;
-case parseInt("3"): day_of_week = "Terça-Feira";break;
-case parseInt("4"): day_of_week = "Quarta-Feira";break;
-case parseInt("5"): day_of_week = "Quinta-Feira";break;
-case parseInt("6"): day_of_week = "Sexta-Feira";break;
-case parseInt("7"): day_of_week = "Sábado";break;
-}
-return day_of_week;
-}
-var today_date= new Date()
-var month=today_date.getMonth()+1
-var today=today_date.getDate()
-var year=today_date.getYear()
-var day=returnDay(today_date.getDay()+1)
-
-//--> </script>
 	</head>
 <f:view>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
-		<body>
-		<div id="outer">
-					<h:form>
-					<div id="topo">
-						<h1>&nbsp;</h1>
-						<h2>&nbsp;</h2>
-						<div id="tituloPagina"><strong>Manter Tipos de Produtos</strong></div>
-						<div id="logoCliente"><img src="/EnterpriseServer/images/logoCliente.gif" alt="Magia dos Pães" title="Magia dos Pães" /></div>
-					</div>
-					<div id="header">
-						<div class="centro">
-							<div id="loginUser">Usuário: <strong><h:outputText id="usuario" value="#{loginBB.usuarioLogado.nome}"></h:outputText></strong> &nbsp;&nbsp;&nbsp;&#8212;&nbsp;&nbsp;&nbsp; <script>document.write(day)</script>,  <script>document.write(today+"/"+month+"/"+year)</script></div>
-							<div id="breadcrumb"><strong>Infinity</strong> - DataMarket - Enterprise Server</div>
-						</div>
-					</div>
+<f:loadBundle basename="resources.mensagens" var="msgs"/>
+		<h:form id="frmManterTipoProduto">
+			<div id="outer">
+				
+				<f:subview id="subTopo" rendered="true">
+					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.manterTipoProduto}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
+				</f:subview>	
 					<div id="content">
 						<div id="primarioContentContainerInternas">
 							<ul>
@@ -114,14 +71,14 @@ var day=returnDay(today_date.getDay()+1)
 						</div>
 						<div class="clear"></div>
 					</div>
-				</h:form>
-				<div id="footer">
-					<p>
-						Todos os direitos reservados &copy; 2008 |
-						<a href="http://www.infinity.com.br" target="_blank">www.infinity.com.br</a>
-					</p>
+					<div id="footer">
+						<p>
+							Todos os direitos reservados &copy; 2008 |
+							<a href="http://www.infinity.com.br" target="_blank">www.infinity.com.br</a>
+						</p>
+					</div>
 				</div>
-			</div>
-		</body>
+			</h:form>		
+
 	</f:view>
 </html>
