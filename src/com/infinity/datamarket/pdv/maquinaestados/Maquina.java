@@ -7,6 +7,8 @@ import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Usuario;
+import com.infinity.datamarket.comum.util.ConcentradorParametro;
+import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.infocomponent.InfoComponent;
 import com.infinity.datamarket.infocomponent.InfoComponentPK;
@@ -21,7 +23,11 @@ import com.infinity.datamarket.pdv.infocomponent.ThreadEnviaInfoComponent;
 import com.infinity.datamarket.pdv.lote.ThreadVerificaNovoLote;
 
 public class Maquina implements Serializable{
-    private Estado estadoAtual;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3260987050727215663L;
+	private Estado estadoAtual;
     private Date dataMov;
     private GerenciadorPerifericos gerenciadorPerifericos;
     private ThreadVerificaNovoLote threadVerificaNovoLote; 
@@ -61,7 +67,7 @@ public class Maquina implements Serializable{
         }
 
         System.out.println("Maquina Iniciada");
-        threadVerificaNovoLote = new ThreadVerificaNovoLote();
+        threadVerificaNovoLote = new ThreadVerificaNovoLote(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValorInteiro());
         threadVerificaNovoLote.start();
         new ThreadProcessaMacro(estadoAtual);
     }
@@ -145,16 +151,21 @@ public class Maquina implements Serializable{
     			pk.setLoja(gerenciadorPerifericos.getCodigoLoja()+"");
     			InfoComponent info = new InfoComponent();
     			info.setPk(pk);
-    			info.setLote(gerenciadorPerifericos.getLote()+"");
-    			info.setVersao(gerenciadorPerifericos.getVersao());
+    			info.setLote(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValor());
+    			info.setVersao(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.VERSAO).getValor());
     			info.setEstado(estadoAtual.getDescricao());
                 ThreadEnviaInfoComponent t2 = new ThreadEnviaInfoComponent(info);
         		t2.start();
         		if (estadoAtual.getId().equals(Estado.DISPONIVEL)){
-	        		if (verificaNovoLoteLiberado()){
-	        			System.out.println("ATIALIZA LOTE");
-	        			threadVerificaNovoLote = new ThreadVerificaNovoLote();
-	        			threadVerificaNovoLote.start();
+	        		//verifica se tem novo lote liberado
+        			if (threadVerificaNovoLote.existeNovoLote()){
+        				System.out.println("HÁ UM NOVO LOTE LIBERADO");
+	        			threadVerificaNovoLote.atualizaLote();
+	        			Parametro p = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE);
+	        			p.setValorInteiro(p.getValorInteiro() + 1);
+	        			ConcentradorParametro.getInstancia().atualizarParametro(p);
+	        		}else{
+	        			System.out.println("NÃO HÁ NOVO LOTE LIBERADO");
 	        		}
         		}
                 new ThreadProcessaMacro(estadoAtual);
@@ -170,8 +181,5 @@ public class Maquina implements Serializable{
 
 
     }
-    
-    private boolean verificaNovoLoteLiberado(){
-    	return threadVerificaNovoLote.existeNovoLote();
-    }
+
 }

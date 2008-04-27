@@ -34,9 +34,7 @@ public class GerenciadorPerifericos implements Serializable{
 
     private int loja;
     private int componente;
-    private int lote;
-    private String versao;
-
+  
     private static final String WINDOW = "WINDOW";
     private static final String CMOS_VIRTUAL = "CMOS";
     private static final String DISPLAY_VIRTUAL = "DISPLAY";
@@ -203,8 +201,6 @@ public class GerenciadorPerifericos implements Serializable{
 		try{
 			loja = Integer.parseInt(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValor());
 			componente =  Integer.parseInt(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValor());
-			lote = Integer.parseInt(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValor());
-			versao =  ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.VERSAO).getValor();
 			Loja objLoja = Fachada.getInstancia().consultarLojaPorId(new Long(loja));
 			getDisplay().setLoja(objLoja.getNome());
 			getDisplay().setComponente(""+componente);
@@ -219,14 +215,6 @@ public class GerenciadorPerifericos implements Serializable{
 
 	public int getCodigoComponente(){
 		return this.componente;
-	}
-
-	public int getLote() {
-		return lote;
-	}
-
-	public String getVersao() {
-		return versao;
 	}
 
 }

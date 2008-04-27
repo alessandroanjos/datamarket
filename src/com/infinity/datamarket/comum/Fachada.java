@@ -11,6 +11,7 @@ import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoquePK;
 import com.infinity.datamarket.comum.funcionalidade.CadastroFuncionalidade;
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
+import com.infinity.datamarket.comum.lote.CadastroDadoLote;
 import com.infinity.datamarket.comum.macrooperacao.CadastroMacroOperacao;
 import com.infinity.datamarket.comum.pagamento.CadastroFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.CadastroPlanoPagamento;
@@ -131,6 +132,10 @@ public class Fachada {
 	
 	private CadastroEntradaProduto getCadastroEntradaProduto(){
 		return CadastroEntradaProduto.getInstancia();
+	}
+	
+	private CadastroDadoLote getCadastroDadoLote(){
+		return CadastroDadoLote.getInstancia();
 	}
 	
 	
@@ -3254,6 +3259,39 @@ public class Fachada {
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			c = getCadastroEntradaProduto().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	
+	// LOTE
+	
+	public Collection consultarDadosLote(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroDadoLote().consultar(filter);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
