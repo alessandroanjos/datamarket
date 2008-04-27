@@ -2,6 +2,7 @@ package com.infinity.datamarket.comum.produto;
 
 import java.util.Collection;
 
+import com.infinity.datamarket.comum.lote.DadoLote;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
@@ -21,6 +22,7 @@ public class CadastroUnidade extends Cadastro{
 	
 	public void inserir(Unidade unidade) throws AppException{
 		getRepositorio().insert(unidade);
+		inserirDadoLote(unidade);
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
@@ -37,9 +39,11 @@ public class CadastroUnidade extends Cadastro{
 	
 	public void alterar(Unidade unidade) throws AppException{
 		getRepositorio().update(unidade);
+		alterarDadoLote(unidade);
 	}
 	
 	public void excluir(Unidade unidade) throws AppException{
 		getRepositorio().remove(unidade);
+		excluirDadoLote(unidade);
 	}
 }
