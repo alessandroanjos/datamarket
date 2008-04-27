@@ -64,6 +64,7 @@
 	<mapping resource="com/infinity/datamarket/hbm/ProdutoEntradaProduto.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Fornecedor.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/EstoqueProduto.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/DadoLote.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>
