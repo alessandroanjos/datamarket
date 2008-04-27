@@ -18,12 +18,13 @@ import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.gui.telas.Tela;
 import com.infinity.datamarket.pdv.gui.telas.TelaMenssagem;
 import com.infinity.datamarket.pdv.infocomponent.ThreadEnviaInfoComponent;
+import com.infinity.datamarket.pdv.lote.ThreadVerificaNovoLote;
 
 public class Maquina implements Serializable{
     private Estado estadoAtual;
     private Date dataMov;
     private GerenciadorPerifericos gerenciadorPerifericos;
-
+    private ThreadVerificaNovoLote threadVerificaNovoLote; 
 
     private static Maquina instancia;
 
@@ -60,6 +61,8 @@ public class Maquina implements Serializable{
         }
 
         System.out.println("Maquina Iniciada");
+        threadVerificaNovoLote = new ThreadVerificaNovoLote();
+        threadVerificaNovoLote.start();
         new ThreadProcessaMacro(estadoAtual);
     }
     private ConcentradorMaquina getConcentradorMaquina(){
@@ -147,6 +150,13 @@ public class Maquina implements Serializable{
     			info.setEstado(estadoAtual.getDescricao());
                 ThreadEnviaInfoComponent t2 = new ThreadEnviaInfoComponent(info);
         		t2.start();
+        		if (estadoAtual.getId().equals(Estado.DISPONIVEL)){
+	        		if (verificaNovoLoteLiberado()){
+	        			System.out.println("ATIALIZA LOTE");
+	        			threadVerificaNovoLote = new ThreadVerificaNovoLote();
+	        			threadVerificaNovoLote.start();
+	        		}
+        		}
                 new ThreadProcessaMacro(estadoAtual);
             }catch(Exception ex){
             	ex.printStackTrace();
@@ -159,5 +169,9 @@ public class Maquina implements Serializable{
         }
 
 
+    }
+    
+    private boolean verificaNovoLoteLiberado(){
+    	return threadVerificaNovoLote.existeNovoLote();
     }
 }

@@ -11,6 +11,8 @@ public class Estado extends Persistente{
 	private int inputSize;
 	private Collection finalizadoras;
 
+	public static final Long DISPONIVEL = new Long(3);
+	
 //	private static final String DELIM = ",";
 
 	public String getDescricao() {
