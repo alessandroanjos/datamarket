@@ -11,6 +11,7 @@ public class ServerConfig {
 	
 	
 	public static final String TRANSACTION_SERVER_JNDI;
+	public static final String LOTE_SERVER_JNDI;
 	public static final int SLEEP;
 	
 	public static final String QUEUE_INFO_COMPONENT_SERVER_JNDI;
@@ -24,6 +25,7 @@ public class ServerConfig {
 		PROVIDER_URL = rb.getString("PROVIDER_URL");
 		
 		TRANSACTION_SERVER_JNDI = rb.getString("TRANSACTION_SERVER_JNDI");
+		LOTE_SERVER_JNDI = rb.getString("LOTE_SERVER_JNDI");
 		SLEEP = Integer.parseInt(rb.getString("SLEEP"));
 		
 		QUEUE_INFO_COMPONENT_SERVER_JNDI = rb.getString("QUEUE_INFO_COMPONENT_SERVER_JNDI");
