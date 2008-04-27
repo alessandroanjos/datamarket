@@ -15,6 +15,8 @@ public class DadoLote implements Serializable{
 	
 	private String operacao;
 	
+	private String sequencial;
+	
 	private int lote;
 	
 	private Serializable dado;
@@ -41,6 +43,14 @@ public class DadoLote implements Serializable{
 
 	public void setOperacao(String operacao) {
 		this.operacao = operacao;
+	}
+
+	public String getSequencial() {
+		return sequencial;
+	}
+
+	public void setSequencial(String sequencial) {
+		this.sequencial = sequencial;
 	}
 
 }
