@@ -20,14 +20,13 @@
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-
+		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
 	</head>
 	<f:view>
 		
-		<t:stylesheet path="/css/form.css"></t:stylesheet>
-		<t:stylesheet path="/css/default.css"></t:stylesheet>
-		<h:form id="frmInserirTipoProduto">		
-			<div id="outer">
+
+		<h:form id="frmInserirTipoProduto">
 				<f:loadBundle basename="resources.mensagens" var="msgs"/>
 				<f:subview id="subTopo" rendered="true">
 					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.inserirTipoProduto}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
@@ -75,7 +74,7 @@
 					<div class="clear"></div>
 				</div>
 				<jsp:include page="/jsp/rodape.jsp"></jsp:include>
-			</div>	
+			</div>
 		</h:form>		
 	</f:view>
 </html>
