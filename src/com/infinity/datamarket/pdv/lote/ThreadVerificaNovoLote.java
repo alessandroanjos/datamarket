@@ -14,12 +14,14 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 	 * 
 	 */
 	
-	public ThreadVerificaNovoLote(int numeroLote){
+	public ThreadVerificaNovoLote(int numeroLote, int numeroLoja){
 		this.numeroLote = numeroLote;
+		this.numeroLoja = numeroLoja;
 	}
 	
 	private static final long serialVersionUID = -849614647967981958L;
 	private int numeroLote;
+	private int numeroLoja;
 	private boolean novoLote;
 	
 	public int getNumeroLote() {
@@ -59,7 +61,7 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 		try{ 
 			LoteServerRemote remote = (LoteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.LOTE_SERVER_JNDI);
 			if (remote != null){	
-				Collection c = remote.getLote(numeroLote);
+				Collection c = remote.getLote(numeroLote, numeroLoja);
 				System.out.println("ATUALIZANDO O LOTE "+numeroLote + 1);
 				Iterator i = c.iterator();
 				while(i.hasNext()){
@@ -81,6 +83,12 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 		}
 		numeroLote = numeroLote + 1;
 		novoLote = false;
+	}
+	public int getNumeroLoja() {
+		return numeroLoja;
+	}
+	public void setNumeroLoja(int numeroLoja) {
+		this.numeroLoja = numeroLoja;
 	}
 	
 	

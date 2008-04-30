@@ -67,7 +67,7 @@ public class Maquina implements Serializable{
         }
 
         System.out.println("Maquina Iniciada");
-        threadVerificaNovoLote = new ThreadVerificaNovoLote(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValorInteiro());
+        threadVerificaNovoLote = new ThreadVerificaNovoLote(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValorInteiro(), ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro());
         threadVerificaNovoLote.start();
         new ThreadProcessaMacro(estadoAtual);
     }
