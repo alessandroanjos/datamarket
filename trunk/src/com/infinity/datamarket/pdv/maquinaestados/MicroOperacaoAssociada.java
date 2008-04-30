@@ -6,6 +6,10 @@ import com.infinity.datamarket.comum.util.Persistente;
 
 public class MicroOperacaoAssociada extends Persistente{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5359714767961446097L;
 	private MicroOperacao microOperacao;
 	private Collection saidas;
 	public MicroOperacao getMicroOperacao() {

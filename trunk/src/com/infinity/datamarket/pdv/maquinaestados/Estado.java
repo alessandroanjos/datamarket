@@ -6,6 +6,10 @@ import java.util.Iterator;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class Estado extends Persistente{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6159008855909034237L;
 	private String descricao;
 	private int inputType;
 	private int inputSize;
