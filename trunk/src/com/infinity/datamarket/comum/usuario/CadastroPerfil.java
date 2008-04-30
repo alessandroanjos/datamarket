@@ -31,6 +31,7 @@ public class CadastroPerfil extends Cadastro {
 	
 	public void inserir(Perfil perfil) throws AppException{
 		getRepositorio().insert(perfil);
+		inserirDadoLote(perfil);
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
@@ -47,10 +48,12 @@ public class CadastroPerfil extends Cadastro {
 	
 	public void alterar(Perfil perfil) throws AppException{
 		getRepositorio().update(perfil);
+		alterarDadoLote(perfil);
 	}
 	
 	public void excluir(Perfil perfil) throws AppException{
 		getRepositorio().remove(perfil);
+		excluirDadoLote(perfil);
 	}
 	
 	/**

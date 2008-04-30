@@ -23,6 +23,7 @@ public class CadastroLoja extends Cadastro{
 	
 	public void inserir(Loja loja) throws AppException{
 		getRepositorio().insert(loja);
+		inserirDadoLote(loja);
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
@@ -39,9 +40,11 @@ public class CadastroLoja extends Cadastro{
 	
 	public void alterar(Loja loja) throws AppException{
 		getRepositorio().update(loja);
+		alterarDadoLote(loja);
 	}
 	
 	public void excluir(Loja loja) throws AppException{
 		getRepositorio().remove(loja);
+		excluirDadoLote(loja);
 	}
 }
