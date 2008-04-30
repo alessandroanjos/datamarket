@@ -4,6 +4,10 @@ import com.infinity.datamarket.comum.util.Persistente;
 
 public class Tecla extends Persistente{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4381406580564543091L;
 	public static final int CODIGO_ENTER = 10;
 	public static final int CODIGO_VOLTA = 27;
 

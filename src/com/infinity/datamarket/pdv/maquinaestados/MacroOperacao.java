@@ -6,6 +6,10 @@ import com.infinity.datamarket.comum.util.Persistente;
 
 public class MacroOperacao extends Persistente{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3360926495862268571L;
 	private String descricao;
 	private Tecla tecla;
 	private Estado estadoAtual;

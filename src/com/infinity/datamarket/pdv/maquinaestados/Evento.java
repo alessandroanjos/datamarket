@@ -3,6 +3,10 @@ package com.infinity.datamarket.pdv.maquinaestados;
 import java.io.Serializable;
 
 public class Evento implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6823177101174180928L;
 	private String param;
 	private int tecla;
 	
