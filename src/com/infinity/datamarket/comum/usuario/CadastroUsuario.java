@@ -28,6 +28,7 @@ public class CadastroUsuario extends Cadastro{
 
 	public void inserir(Usuario usuario) throws AppException{
 		getRepositorio().insert(usuario);
+		inserirDadoLote(usuario);
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
@@ -44,10 +45,12 @@ public class CadastroUsuario extends Cadastro{
 	
 	public void alterar(Usuario usuario) throws AppException{
 		getRepositorio().update(usuario);
+		alterarDadoLote(usuario);
 	}
 	
 	public void excluir(Usuario usuario) throws AppException{
 		getRepositorio().remove(usuario);
+		excluirDadoLote(usuario);
 	}
 
 	public Usuario consultarPorId_IdMacro(Long id,Long idMacro) throws AppException{
