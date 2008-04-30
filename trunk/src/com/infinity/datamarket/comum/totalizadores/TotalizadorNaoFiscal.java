@@ -6,6 +6,10 @@ import com.infinity.datamarket.comum.util.Persistente;
 
 public class TotalizadorNaoFiscal extends Persistente{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8100118358347853507L;
 	private BigDecimal valor;
 	private int contador;
 	private String impressora;
