@@ -6,6 +6,10 @@ import java.util.Vector;
 import com.infinity.datamarket.pdv.maquinaestados.Evento;
 
 public class ListaEventos implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2730324546902376066L;
 	private Vector lista;
 	private int indice;
 	private int prox;
