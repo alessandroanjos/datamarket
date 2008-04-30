@@ -10,6 +10,10 @@ import com.infinity.datamarket.comum.transacao.EventoTransacao;
 
 public class ConjuntoEventoTransacao implements Collection, Serializable, Set{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1264559352895489701L;
 	private Collection list;
 
 	public ConjuntoEventoTransacao(){
