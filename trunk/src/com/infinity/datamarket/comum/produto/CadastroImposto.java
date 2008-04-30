@@ -21,6 +21,7 @@ public class CadastroImposto extends Cadastro{
 	
 	public void inserir(Imposto imposto) throws AppException{
 		getRepositorio().insert(imposto);
+		inserirDadoLote(imposto);
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
@@ -37,9 +38,11 @@ public class CadastroImposto extends Cadastro{
 	
 	public void alterar(Imposto imposto) throws AppException{
 		getRepositorio().update(imposto);
+		alterarDadoLote(imposto);
 	}
 	
 	public void excluir(Imposto imposto) throws AppException{
 		getRepositorio().remove(imposto);
+		excluirDadoLote(imposto);
 	}
 }

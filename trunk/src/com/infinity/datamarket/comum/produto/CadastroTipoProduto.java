@@ -21,6 +21,7 @@ public class CadastroTipoProduto extends Cadastro{
 	
 	public void inserir(TipoProduto tipoProduto) throws AppException{
 		getRepositorio().insert(tipoProduto);
+		inserirDadoLote(tipoProduto);
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
@@ -37,9 +38,11 @@ public class CadastroTipoProduto extends Cadastro{
 	
 	public void alterar(TipoProduto tipoProsuto) throws AppException{
 		getRepositorio().update(tipoProsuto);
+		alterarDadoLote(tipoProsuto);
 	}
 	
 	public void excluir(TipoProduto tipoProsuto) throws AppException{
 		getRepositorio().remove(tipoProsuto);
+		excluirDadoLote(tipoProsuto);
 	}
 }

@@ -54,14 +54,17 @@ public class CadastroProduto extends Cadastro{
 	}
 	public void inserir(Produto produto) throws AppException{
 		getRepositorio().insert(produto);
+		inserirDadoLote(produto);
 	}
 	
 	public void alterar(Produto produto) throws AppException{
 		getRepositorio().update(produto);
+		alterarDadoLote(produto);
 	}
 	
 	public void excluir(Produto produto) throws AppException{
 		getRepositorio().remove(produto);
+		excluirDadoLote(produto);
 	}
 
 	public Collection consultaProdutosPorSecao(String idLoja) throws AppException{
