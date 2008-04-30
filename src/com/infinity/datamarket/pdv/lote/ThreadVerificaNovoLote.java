@@ -79,7 +79,7 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 			}
 		}catch (Throwable e){
 			System.out.println(e.getMessage());
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		numeroLote = numeroLote + 1;
 		novoLote = false;
