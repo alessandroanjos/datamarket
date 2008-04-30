@@ -10,7 +10,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 	<head>
-
+		
 		<title>INFINITY - DataMarket - Enterprise Server</title>
 
 		<meta http-equiv="pragma" content="no-cache"/>
@@ -21,16 +21,19 @@
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
+		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 	</head>
+		
 	<f:view>
 		<h:form id="frmConsultarComponente">
-				<f:loadBundle basename="resources.mensagens" var="msgs"/>
 				<f:subview id="subTopo" rendered="true">
+					<f:loadBundle basename="resources.mensagens" var="msgs"/>
 					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.consultarComponente}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>					
 				<div id="content">
+				
 						<div id="primarioContentContainer">
 							<fieldset>
 								<legend>Opções de filtro:</legend>
@@ -60,7 +63,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable id="componentes" value="#{componenteBB.componentes}"
-									var="componente" rowClasses="rowA,rowB" rows="5" width="100%" preserveDataModel="false" renderedIfEmpty="false">
+									var="componente" rowClasses="rowA,rowB" width="100%">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -75,32 +78,11 @@
 											<f:param name="id" value="#{componente.id}"/>						
 										</h:commandLink>
 									</h:column>
-								</t:dataTable>
-								<t:dataScroller 
-									for="componentes" 
-									id="paginacao" 
-									pageCountVar="pageCount" 
-									pageIndexVar="pageIndex"
-									fastStep="10" 
-									paginator="true"
-									paginatorActiveColumnStyle="font-weight;bold;" renderFacetsIfSinglePage="false">
-									<f:facet name="first">
-										<t:outputText value="Primeira"></t:outputText>
-									</f:facet>
-									<f:facet name="previous">
-										<t:outputText value="Anterior"></t:outputText>
-									</f:facet>
-									<f:facet name="next">
-										<t:outputText value="Próxima"></t:outputText>
-									</f:facet>
-									<f:facet name="last">
-										<t:outputText value="Última"></t:outputText>
-									</f:facet>
-								</t:dataScroller>								
+								</t:dataTable>																
 							</div>
 							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoLimpar" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{componenteBB.consultar}" value="Consultar"></h:commandButton>
 								</li>						
 							</ul>
@@ -108,6 +90,7 @@
 						<div class="clear"></div>
 					</div>
 					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+
 				</div>
 		</h:form>
 	</f:view>
