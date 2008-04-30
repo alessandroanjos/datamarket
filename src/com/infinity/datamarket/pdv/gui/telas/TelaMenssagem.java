@@ -15,6 +15,10 @@ import javax.swing.JPanel;
  * @author  wagner.medeiros
  */
 public class TelaMenssagem extends Tela{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -631336578969656451L;
 	private JPanel painelCentral;
 	private JPanel painelTop;
 	private JLabel imgLogo;

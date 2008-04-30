@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class EventoTransacao implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7791509685125741870L;
 	private EventoTransacaoPK pk;
 	private int tipoEvento;
 	private Date dataHoraEvento;

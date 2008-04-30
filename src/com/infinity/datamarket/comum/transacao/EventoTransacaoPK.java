@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class EventoTransacaoPK extends TransacaoPK{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8595196502943918568L;
 	private int numeroEvento;
 
 	public EventoTransacaoPK(int loja, int componente, int numeroTransacao, Date dataTransacao) {

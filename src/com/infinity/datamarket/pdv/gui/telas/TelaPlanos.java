@@ -21,6 +21,10 @@ import javax.swing.JTextPane;
  * @author  wagner.medeiros
  */
 public class TelaPlanos extends Tela{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3067546726606964988L;
 	private JPanel painelCentral;
 	private JPanel painelTop;
 	private JLabel imgLogo;

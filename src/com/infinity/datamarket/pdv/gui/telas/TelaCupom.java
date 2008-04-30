@@ -25,6 +25,10 @@ import com.infinity.datamarket.comum.util.StringUtil;
  * @author  wagner.medeiros
  */
 public class TelaCupom extends Tela{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8820248094332158099L;
 	protected JPanel painelCentral;
 	protected JPanel painelTop;
 	protected JLabel imgLogo;
