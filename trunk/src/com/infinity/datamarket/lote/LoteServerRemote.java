@@ -9,5 +9,5 @@ import com.infinity.datamarket.comum.util.AppException;
 @Remote
 public interface LoteServerRemote {
 	public boolean verificaNovoLoteLiberado(int numeroLote);
-	public Collection getLote(int numeroLote) throws AppException;
+	public Collection getLote(int numeroLote, int loja) throws AppException;
 }
