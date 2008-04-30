@@ -6,7 +6,11 @@ import com.infinity.datamarket.comum.util.ConcentradorParametro;
 
 public class TelaInicial extends JFrame{
 
-    public TelaInicial() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2753722533693045319L;
+	public TelaInicial() {
         initComponents();
     }
 

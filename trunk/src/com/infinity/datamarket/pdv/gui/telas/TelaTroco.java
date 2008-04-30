@@ -23,7 +23,13 @@ import com.infinity.datamarket.comum.util.StringUtil;
  */
 public class TelaTroco extends TelaCupom{
 
-    public TelaTroco() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -9114993147343593358L;
+
+
+	public TelaTroco() {
         initComponents();
     }
 

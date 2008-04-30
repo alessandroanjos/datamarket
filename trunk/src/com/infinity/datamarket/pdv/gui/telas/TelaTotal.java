@@ -24,7 +24,13 @@ import com.infinity.datamarket.comum.util.StringUtil;
  */
 public class TelaTotal extends TelaCupom{
 	
-    public TelaTotal() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7511489337433445282L;
+
+
+	public TelaTotal() {
         initComponents();
     }
 

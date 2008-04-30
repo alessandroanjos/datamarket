@@ -22,6 +22,14 @@ import com.infinity.datamarket.comum.util.StringUtil;
  * @author  wagner.medeiros
  */
 public class TelaVenda extends TelaCupom{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8683394242326153996L;
+
+
+
+
 	public TelaVenda() {
         initComponents();
     }

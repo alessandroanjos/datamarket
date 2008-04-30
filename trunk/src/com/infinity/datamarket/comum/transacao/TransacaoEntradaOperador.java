@@ -5,6 +5,10 @@ import java.util.Date;
 
 public class TransacaoEntradaOperador extends Transacao{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2591730255440422954L;
 	private String codigoUsuarioAutorizador;
 	private String codigoUsuarioOperador;
 	private BigDecimal fundoTroco;

@@ -5,6 +5,10 @@ import java.util.Date;
 
 public class EventoItemRegistrado extends EventoTransacao{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4762680977171871132L;
 	public static final String ATIVO = "A";
 	public static final String CANCELADO = "C";
 

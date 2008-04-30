@@ -5,6 +5,10 @@ import java.util.Date;
 
 public class TransacaoFechamentoX extends Transacao{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3171784313092172624L;
 	private String codigoUsuarioAutorizador;
 	private String codigoUsuarioOperador;
 

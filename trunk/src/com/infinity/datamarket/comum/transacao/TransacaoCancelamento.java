@@ -7,6 +7,10 @@ import java.util.Date;
 public class TransacaoCancelamento extends Transacao{
 
 	 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8238206002730397858L;
 	private int lojaCancelada;
 	private int componenteCancelado;
 	private int numeroTransacaoCancelada;

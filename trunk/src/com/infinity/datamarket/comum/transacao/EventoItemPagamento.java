@@ -5,6 +5,10 @@ import java.util.Date;
 
 public class EventoItemPagamento extends EventoTransacao{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5059669320701557563L;
 	private BigDecimal valorBruto;
 	private BigDecimal valorDesconto;
 	private BigDecimal valorAcrescimo;
