@@ -31,13 +31,16 @@ public class CadastroPlanoPagamento extends Cadastro{
 	}
 	public void inserir(PlanoPagamento planoPagamento) throws AppException{
 		getRepositorio().insert(planoPagamento);
+		inserirDadoLote(planoPagamento);
 	}
 	
 	public void alterar(PlanoPagamento planoPagamento) throws AppException{
 		getRepositorio().update(planoPagamento);
+		alterarDadoLote(planoPagamento);
 	}
 	
 	public void excluir(PlanoPagamento planoPagamento) throws AppException{
 		getRepositorio().remove(planoPagamento);
+		excluirDadoLote(planoPagamento);
 	}
 }

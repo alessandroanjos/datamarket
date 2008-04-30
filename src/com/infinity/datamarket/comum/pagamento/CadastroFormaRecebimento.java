@@ -29,14 +29,17 @@ public class CadastroFormaRecebimento extends Cadastro{
 	}
 	public void inserir(FormaRecebimento formaRecebimento) throws AppException{
 		getRepositorio().insert(formaRecebimento);
+		inserirDadoLote(formaRecebimento);
 	}
 	
 	public void alterar(FormaRecebimento formaRecebimento) throws AppException{
 		getRepositorio().update(formaRecebimento);
+		alterarDadoLote(formaRecebimento);
 	}
 	
 	public void excluir(FormaRecebimento formaRecebimento) throws AppException{
 		getRepositorio().remove(formaRecebimento);
+		excluirDadoLote(formaRecebimento);
 	}
 
 }
