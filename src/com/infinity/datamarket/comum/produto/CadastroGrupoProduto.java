@@ -21,7 +21,8 @@ public class CadastroGrupoProduto extends Cadastro{
 	}
 	
 	public void inserir(GrupoProduto grupoProduto) throws AppException{		
-		getRepositorio().insert(grupoProduto);		
+		getRepositorio().insert(grupoProduto);
+		inserirDadoLote(grupoProduto);
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
@@ -41,10 +42,12 @@ public class CadastroGrupoProduto extends Cadastro{
 			throw new ValidationException("Grupo de produto superior não pode ser o próprio grupo de produto");
 		}else{
 			getRepositorio().update(grupoProduto);
+			alterarDadoLote(grupoProduto);
 		}		
 	}
 	
 	public void excluir(GrupoProduto grupoProduto) throws AppException{
 		getRepositorio().remove(grupoProduto);
+		excluirDadoLote(grupoProduto);
 	}
 }
