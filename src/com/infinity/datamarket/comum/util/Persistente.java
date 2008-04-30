@@ -17,6 +17,10 @@ import java.io.Serializable;
  */
 public class Persistente implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8910558005367304727L;
 	private Long id;
 
 	public Persistente(){
