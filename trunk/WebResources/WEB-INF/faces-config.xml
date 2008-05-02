@@ -122,6 +122,11 @@
 			<from-outcome>manterUsuario</from-outcome>
 			<to-view-id>/jsp/usuario/consultarUsuario.jsp</to-view-id>
 		</navigation-case>		
+		
+		<navigation-case>
+			<from-outcome>liberaDados</from-outcome>
+			<to-view-id>/jsp/lote/liberaDados.jsp</to-view-id>
+		</navigation-case>		
 				
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
@@ -133,6 +138,26 @@
 		<from-view-id>/jsp/erro.jsp</from-view-id>
 	</navigation-rule>
 	
+	
+	<!-- LOTE -->
+	<navigation-rule>
+		<from-view-id>/jsp/lote/liberaDados.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{loteBB.consultarLote}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/lote/liberaDados.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{loteBB.liberarLote}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/lote/liberaDados.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tipoProdutoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<!-- TIPO DE PRODUTO -->
 	<navigation-rule>
@@ -1250,6 +1275,28 @@
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
+
+
+<!-- lote BACK BEAN -->
+	
+	<managed-bean>
+		<managed-bean-name>loteBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.lote.LoteBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>numeroLote</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>qtdRegistros</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+
 	
 	<validator>
        <validator-id>LongValidator</validator-id>
