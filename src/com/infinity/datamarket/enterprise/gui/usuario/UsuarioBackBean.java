@@ -38,7 +38,7 @@ public class UsuarioBackBean extends BackBean {
 	String nome;
 	Perfil perfil;
 	String senha;
-	String vendedor;
+	String vendedor = NAO;
 	String comissao;
 	
 	String idPerfil;
