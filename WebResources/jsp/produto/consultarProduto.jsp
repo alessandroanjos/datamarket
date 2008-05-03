@@ -1,165 +1,185 @@
 <%@ page language="java" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
 
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<f:view>
-<t:stylesheet path="/css/style.css"></t:stylesheet>
-<html>
-<head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-	<title>INFINITY - DataMarket - Enterprise Server</title>
-	
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-</head>
-  
-<body>
-	<div>
-	<h:outputText id="titulo" styleClass="label" value="Home > Produto"></h:outputText>
-	</div>
-	<br>
-	<div>
-		<h:messages styleClass="errors" globalOnly="true" showDetail="true"/>
-	</div>
-	<h:form>
-		<h:panelGrid columns="3" id="formGrid">
-		    <f:facet name="header">
-				<h:outputText styleClass="tituloTabela" value="Consulta de Produto" />
-			</f:facet>
-		    <h:outputText styleClass="label" value="Código"></h:outputText>					
-			<h:inputText styleClass="inputText" id="id" maxlength="2"
-				value="#{produtoBB.id}" size="3">
-				<f:validateLength maximum="2" />
-				<f:validator validatorId="LongValidator"/>
-			</h:inputText>
-			<h:message for="id" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Descrição Completa"></h:outputText>
-			<h:inputText styleClass="inputText" id="descricaoCompleta" maxlength="50" size="50"
-				value="#{produtoBB.descricaoCompleta}">
-				<f:validateLength maximum="50" />
-			</h:inputText>
-			<h:message for="descricao" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Tipo de Produto*"></h:outputText>
-			<h:selectOneMenu id="tipos" styleClass="inputText"
-						value="#{produtoBB.idTipoProduto}">		
-				<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>		
-				<f:selectItems id="tiposSelectItems" value="#{produtoBB.tiposConsulta}" />
-			</h:selectOneMenu>
-			<h:message for="idTipoProduto" styleClass="errors"/>
-			
-			<h:outputText styleClass="label" value="Grupo de Produto*"></h:outputText>
-			<h:selectOneMenu id="grupos" styleClass="inputText"
-						value="#{produtoBB.idGrupo}">		
-				<f:selectItem id="gruposSelectItemsBranco" itemValue="" itemLabel=""/>		
-				<f:selectItems id="gruposSelectItems" value="#{produtoBB.gruposConsulta}" />
-			</h:selectOneMenu>
-			<h:message for="idGrupo" styleClass="errors"/>
-			
-			<h:outputText styleClass="label" value="Unidade*"></h:outputText>
-			<h:selectOneMenu id="undades" styleClass="inputText"
-						value="#{produtoBB.idUnidade}">		
-				<f:selectItem id="unidadeSelectItemsBranco" itemValue="" itemLabel=""/>		
-				<f:selectItems id="unidadeSelectItems" value="#{produtoBB.unidadesConsulta}" />
-			</h:selectOneMenu>
-			<h:message for="idUnidades" styleClass="errors"/>
-			
-			<h:outputText styleClass="label" value="Imposto*"></h:outputText>
-			<h:selectOneMenu id="impostos" styleClass="inputText"
-						value="#{produtoBB.idImposto}">		
-				<f:selectItem id="impostosSelectItemsBranco" itemValue="" itemLabel=""/>		
-				<f:selectItems id="impostosSelectItems" value="#{produtoBB.impostosConsulta}" />
-			</h:selectOneMenu>
-			<h:message for="idImpostos" styleClass="errors"/>
-		</h:panelGrid>
-		<br>
-		<h:panelGrid columns="3" id="formGrid1">	
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoVoltar" action="#{produtoBB.voltarMenu}" value="Voltar"></h:commandButton>
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" immediate="true" styleClass="inputBtn" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoConsultar" action="#{produtoBB.consultar}" value="Consultar"></h:commandButton>
-		</h:panelGrid>
-		<p>
-		<h:dataTable value="#{produtoBB.produtos}"
-					var="produto">
-					<f:facet name="header">
-						<h:outputText styleClass="tituloTabela" value="Produtos" />
-					</f:facet>					
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Código" />
-						</f:facet>
-						<h:outputText styleClass="label" value="#{produto.id}" /> 
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Descrição Completa" />
-						</f:facet>
-						<h:commandLink styleClass="label" value="#{produto.descricaoCompleta}" action="#{produtoBB.consultar}">
-							<f:param name="id" value="#{produto.id}"/>						
-						</h:commandLink>
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Código Automação" />
-						</f:facet>
-						<h:outputText styleClass="label" value="#{produto.codigoAutomacao}" /> 
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Código Externo" />
-						</f:facet>
-						<h:outputText styleClass="label" value="#{produto.codigoExterno}" /> 
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Preço" />
-						</f:facet>
-						<h:outputText styleClass="label" value="#{produto.precoPadrao}" /> 
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Preço Promocional" />
-						</f:facet>
-						<h:outputText styleClass="label" value="#{produto.precoPromocional}" /> 
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Tipo de Produto" />
-						</f:facet>
-						<h:outputText styleClass="label" value="#{produto.tipo.descricao}" /> 
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Grupo de Produto" />
-						</f:facet>
-						<h:outputText styleClass="label" value="#{produto.grupo.descricao}" /> 
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Unidade" />
-						</f:facet>
-						<h:outputText styleClass="label" value="#{produto.unidade.descricao}" /> 
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Imposto" />
-						</f:facet>
-						<h:outputText styleClass="label" value="#{produto.imposto.descricao}" /> 
-					</h:column>
+	<head>
+		
+		<title>INFINITY - DataMarket - Enterprise Server</title>
 
-				</h:dataTable>
-	</h:form>
-	
-</body>
+		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="cache-control" content="no-cache"/>
+		<meta http-equiv="expires" content="0"/>
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+		<meta http-equiv="description" content="This is my page"/>
+		
+		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+		
+		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
+		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+	</head>
+		
+	<f:view>
+		<h:form id="frmConsultarProduto">
+				<f:subview id="subTopo" rendered="true">
+					<f:loadBundle basename="resources.mensagens" var="msgs"/>
+					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.consultarProduto}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
+				</f:subview>					
+				<div id="content">
+				
+						<div id="primarioContentContainerInternas">
+							<fieldset>
+								<legend>Opções de filtro:</legend>
+								<ul>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
+											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+												value="#{produtoBB.id}" size="4" required="false">
+												<f:validateLength maximum="4" />
+												<f:validator validatorId="LongValidator"/>
+											</h:inputText>
+											<h:message for="id" styleClass="msgErro" />
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Descrição Completa"></h:outputLabel>
+											<h:inputText styleClass="field text" id="descricaoCompleta" maxlength="50" size="50"
+												value="#{produtoBB.descricaoCompleta}">
+												<f:validateLength maximum="50" />
+											</h:inputText>
+											<h:message for="descricaoCompleta" styleClass="msgErro" />
+										</div>
+										<br />
+										<br />
+										<div>
+											<h:outputLabel styleClass="desc" value="Tipo de Produto"></h:outputLabel>
+											<h:selectOneMenu id="tiposProduto" styleClass="field select"
+												value="#{produtoBB.idTipoProduto}" required="true"> 
+													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
+													<f:selectItems id="perfilSelectItems" 
+													  value="#{produtoBB.tiposConsulta}" />   
+											</h:selectOneMenu> 
+											<h:message for="idTipoProduto" styleClass="msgErro" />											
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Grupo de Produto"></h:outputLabel>
+											<h:selectOneMenu id="gruposProduto" styleClass="field select"
+												value="#{produtoBB.idGrupo}" required="true"> 
+													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
+													<f:selectItems id="perfilSelectItems" 
+													  value="#{produtoBB.gruposConsulta}" />   
+											</h:selectOneMenu> 
+											<h:message for="idGrupo" styleClass="msgErro" />											
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Unidade"></h:outputLabel>
+											<h:selectOneMenu id="unidades" styleClass="field select"
+												value="#{produtoBB.idUnidade}" required="true"> 
+													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
+													<f:selectItems id="perfilSelectItems" 
+													  value="#{produtoBB.unidadesConsulta}" />   
+											</h:selectOneMenu> 
+											<h:message for="idUnidade" styleClass="msgErro" />											
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Imposto"></h:outputLabel>
+											<h:selectOneMenu id="impostos" styleClass="field select"
+												value="#{produtoBB.idImposto}" required="true"> 
+													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
+													<f:selectItems id="perfilSelectItems" 
+													  value="#{produtoBB.impostosConsulta}" />   
+											</h:selectOneMenu> 
+											<h:message for="idImposto" styleClass="msgErro" />											
+										</div>										
+									</li>
+								</ul>
+							</fieldset>	
+							<div class="listagem">
+								<t:dataTable value="#{produtoBB.produtos}"
+									var="produto" rowClasses="rowA,rowB" width="100%">
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Código" /> 
+										</f:facet>
+										<h:outputText value="#{produto.id}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Desc. Completa" />
+										</f:facet>
+										<h:commandLink value="#{produto.descricaoCompleta}" action="#{produtoBB.consultar}">
+											<f:param name="id" value="#{produto.id}"/>						
+										</h:commandLink>
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Cód. Automação" /> 
+										</f:facet>
+										<h:outputText value="#{produto.codigoAutomacao}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Cód. Externo" /> 
+										</f:facet>
+										<h:outputText value="#{produto.codigoExterno}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Preço" /> 
+										</f:facet>
+										<h:outputText value="#{produto.precoPadrao}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Preço Promo" /> 
+										</f:facet>
+										<h:outputText value="#{produto.precoPromocional}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Tipo" /> 
+										</f:facet>
+										<h:outputText value="#{produto.tipo.descricao}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Grupo" /> 
+										</f:facet>
+										<h:outputText value="#{produto.grupo.descricao}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Unidade" /> 
+										</f:facet>
+										<h:outputText value="#{produto.unidade.descricao}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Imposto" /> 
+										</f:facet>
+										<h:outputText value="#{produto.imposto.descricao}" /> 
+									</h:column>								
+								</t:dataTable>
+							</div>
+							<ul>
+								<li class="buttons">
+									<h:commandButton styleClass="btTxt" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{produtoBB.consultar}" value="Consultar"></h:commandButton>
+								</li>						
+							</ul>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+
+				</div>
+		</h:form>
+	</f:view>
 </html>
-</f:view>

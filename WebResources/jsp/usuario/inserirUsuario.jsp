@@ -85,7 +85,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Vendedor*"></h:outputLabel>
-										<h:selectOneRadio styleClass="field radio" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
+										<h:selectOneRadio styleClass="field select" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
 										    <f:selectItem itemLabel="Sim" itemValue="S"/>
 										    <f:selectItem itemLabel="Não" itemValue="N"/>
 										</h:selectOneRadio>
@@ -108,7 +108,7 @@
 									<div style="width: 100%;">
 										<h:outputLabel styleClass="desc" value="Lojas Associadas"></h:outputLabel>
 										<t:div styleClass="listagem" style="width: 100%; height: 150px;">
-											<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field checkbox"
+											<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field select"
 												value="#{usuarioBB.listaLojasAssociadas}" >
 													<f:selectItems value="#{usuarioBB.lojas}"/>
 											</h:selectManyCheckbox>

@@ -4,35 +4,45 @@
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
 
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+	Design e Engenharia de Interface
+	por Marco Antônio (marcaopimentel@gmail.com)
+	Disponibilizado para Infinity DataMarket
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>INFINITY - DataMarket - Enterprise Server</title>
+		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+		
+	</head>
+	<f:view>
+		<h:form>
+			<t:stylesheet path="css/default.css" enabledOnUserRole="true"></t:stylesheet>
+			<t:stylesheet path="css/form.css" enabledOnUserRole="true"></t:stylesheet>			
 	
-	<title>INFINITY - DataMarket - Enterprise Server</title>
-	
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-</head>
-	
-<f:view>	
-<t:stylesheet path="/css/style.css"></t:stylesheet>
-	
-<body>
-	
-	<t:jscookMenu id="menuPrincipal" layout="hbr" theme="ThemeOffice">
-		<t:navigationMenuItems value="#{loginBB.navItens}" />
-	</t:jscookMenu>
-	<br><br><br><br><br><br><br><br><br><br><br>
-	<h:form>
-	
-	</h:form>
-</body>
-</f:view>
+				<f:subview id="subTopo" rendered="true">
+					<jsp:include page="/jsp/topo.jsp?tituloPagina=&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
+				</f:subview>					
+				<div id="content" style="margin-top:20px;height:430px;">
+					<div id="primarioContentContainer">
+						<ul>
+							<li>
+								<div>
+									<t:jscookMenu id="menuPrincipal" layout="hbr" 
+									   theme="ThemeOffice">
+										<t:navigationMenuItems value="#{loginBB.navItens}" />
+									</t:jscookMenu>
+								</div>
+							</li>
+						</ul>					
+						<div class="box" style="height:100px;"></div>			
+					</div>
+					<div class="clear"></div>
+					</div>
+					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+				</div>
+		</h:form>
+	</f:view>
 </html>

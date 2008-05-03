@@ -20,8 +20,9 @@
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
+		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 		<t:stylesheet path="/EnterpriseServer/css/style.css"></t:stylesheet>
 	</head>
 	<f:view>
@@ -122,10 +123,7 @@
 										</t:tree2>			
 									</div>
 								</li>
-							</ul>
-						</div>
-						<div id="primarioContentContainerInternas">
-							<ul>
+							
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{perfilBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{perfilBB.excluir}" value="Excluir"></h:commandButton>

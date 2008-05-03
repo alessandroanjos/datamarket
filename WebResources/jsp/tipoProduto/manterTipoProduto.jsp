@@ -8,20 +8,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 	<head>
 
 		<title>INFINITY - DataMarket - Enterprise Server</title>
 
-		<meta http-equiv="pragma" content="no-cache">
-		<meta http-equiv="cache-control" content="no-cache">
-		<meta http-equiv="expires" content="0">
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-		<meta http-equiv="description" content="This is my page">
+		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="cache-control" content="no-cache"/>
+		<meta http-equiv="expires" content="0"/>
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+		<meta http-equiv="description" content="This is my page"/>
+		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
-
 	</head>
 	<f:view>
 		<h:form id="frmManterTipoProduto">
@@ -36,12 +37,11 @@
 									<div>
 										<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 									</div>
-								</li>
-							
+								</li>							
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="id" maxlength="2"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
 											value="#{tipoProdutoBB.id}" size="2" disabled="true" required="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator" />
@@ -51,7 +51,7 @@
 								</li>
 								<li class="normal">
 									<div>
-										<label class="desc"><h:outputText value="Nome*"></h:outputText></label>
+										<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="nome" maxlength="50"
 											size="50" value="#{tipoProdutoBB.descricao}" required="true">
 											<f:validateLength maximum="50" />
@@ -67,12 +67,7 @@
 						</div>
 						<div class="clear"></div>
 					</div>
-					<div id="footer">
-						<p>
-							Todos os direitos reservados &copy; 2008 |
-							<a href="http://www.infinity.com.br" target="_blank">www.infinity.com.br</a>
-						</p>
-					</div>
+					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
 				</div>
 			</h:form>	
 	</f:view>

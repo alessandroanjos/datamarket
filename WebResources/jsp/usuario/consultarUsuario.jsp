@@ -1,105 +1,120 @@
 <%@ page language="java" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
 
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<f:view>
-<t:stylesheet path="/css/style.css"></t:stylesheet>
-<html>
-<head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-	<title>INFINITY - DataMarket - Enterprise Server</title>
-	
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-	<script type="text/javascript" src="/js/funcoes.js"></script>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-</head>
-  
-<body>
-	<div>
-	<h:outputText id="titulo" styleClass="label" value="Home > Usuário"></h:outputText>
-	</div>
-	<br>
-	<div>
-		<h:messages styleClass="errors" globalOnly="true" showDetail="true"/>
-	</div>
-	<h:form>
-		<h:panelGrid columns="3" id="formGrid">
-		    <f:facet name="header">
-				<h:outputText styleClass="tituloTabela" value="Consulta Usuários" />
-			</f:facet>
-		    <h:outputText styleClass="label" value="Codigo"></h:outputText>					
-			<h:inputText styleClass="inputText" id="id" maxlength="2"
-				value="#{usuarioBB.id}" size="2">
-				<f:validateLength maximum="2" />
-				<f:validator validatorId="LongValidator"/>
-			</h:inputText>
-			<h:message for="id" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Nome"></h:outputText>
-			<h:inputText styleClass="inputText" id="nome" maxlength="50" size="50"
-				value="#{usuarioBB.nome}">
-				<f:validateLength maximum="50" />
-			</h:inputText>			
-			<h:message for="nome" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Perfil"></h:outputText>
-			<h:selectOneMenu id="perfis" 
-				value="#{usuarioBB.idPerfil}" required="true">   
-					  <f:selectItems id="perfilSelectItems" 
-					  value="#{usuarioBB.perfis}" />   
-			</h:selectOneMenu>  
-			<h:message for="perfil" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Vendedor?*"></h:outputText>
-			<h:selectOneRadio styleClass="selectOneRadio" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
-			    <f:selectItem itemLabel="Sim" itemValue="S"/>
-			    <f:selectItem itemLabel="Todos" itemValue="N"/>
-			</h:selectOneRadio>
-			<h:message for="vendedor" styleClass="errors"/>
-		</h:panelGrid>
-		<br>
-		<h:panelGrid columns="3" id="formGrid1">	
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoVoltar" action="#{usuarioBB.voltarMenu}" value="Voltar"></h:commandButton>
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" immediate="true" styleClass="inputBtn" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoConsultar" action="#{usuarioBB.consultar}" value="Consultar"></h:commandButton>
-		</h:panelGrid>
-				<p>
-		<h:dataTable value="#{usuarioBB.listaUsuarios}"
-					var="usuario" style="width: 400px;">
-					<f:facet name="header">
-						<h:outputText styleClass="tituloTabela" value="Usuários" />
-					</f:facet>					
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Código" />
-						</f:facet>
-						<h:outputText styleClass="label" value="#{usuario.id}" /> 
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Nome" />
-						</f:facet>
-						<h:commandLink styleClass="label" value="#{usuario.nome}" action="#{usuarioBB.consultar}">
-							<f:param name="id" value="#{usuario.id}"/>						
-						</h:commandLink>
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText styleClass="label"  value="Perfil" />
-						</f:facet>
-						<h:outputText styleClass="label" value="#{usuario.perfil.id} - #{usuario.perfil.descricao}" /> 
-					</h:column>
-				</h:dataTable>
-	</h:form>
-	
-</body>
-</html>
-</f:view>
+	<head>
+		
+		<title>INFINITY - DataMarket - Enterprise Server</title>
+
+		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="cache-control" content="no-cache"/>
+		<meta http-equiv="expires" content="0"/>
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+		<meta http-equiv="description" content="This is my page"/>
+		
+		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+		
+		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
+		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+	</head>
+		
+	<f:view>
+		<h:form id="frmConsultarUsuario">
+				<f:subview id="subTopo" rendered="true">
+					<f:loadBundle basename="resources.mensagens" var="msgs"/>
+					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.consultarUsuario}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
+				</f:subview>					
+				<div id="content">
+				
+						<div id="primarioContentContainerInternas">
+							<fieldset>
+								<legend>Opções de filtro:</legend>
+								<ul>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
+											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+												value="#{usuarioBB.id}" size="4" required="false">
+												<f:validateLength maximum="4" />
+												<f:validator validatorId="LongValidator"/>
+											</h:inputText>
+											<h:message for="id" styleClass="msgErro" />
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Nome"></h:outputLabel>
+											<h:inputText styleClass="field text" id="nome" maxlength="50" size="50"
+												value="#{usuarioBB.nome}">
+												<f:validateLength maximum="50" />
+											</h:inputText>
+											<h:message for="nome" styleClass="msgErro" />
+										</div>
+										<br />
+										<br />
+										<div>
+											<h:outputLabel styleClass="desc" value="Perfil"></h:outputLabel>
+											<h:selectOneMenu id="perfis" styleClass="field select"
+												value="#{usuarioBB.idPerfil}" required="true">   
+													  <f:selectItems id="perfilSelectItems" 
+													  value="#{usuarioBB.perfis}" />   
+											</h:selectOneMenu> 
+											<h:message for="perfis" styleClass="msgErro" />
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Vendedor"></h:outputLabel>
+											<h:selectOneRadio styleClass="field select" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
+											    <f:selectItem itemLabel="Sim" itemValue="S"/>
+											    <f:selectItem itemLabel="Não" itemValue="N"/>
+											</h:selectOneRadio>
+											<h:message for="vendedor" styleClass="msgErro" />
+										</div>
+									</li>
+								</ul>
+							</fieldset>	
+							<div class="listagem">
+								<t:dataTable value="#{usuarioBB.listaUsuarios}"
+									var="usuario" rowClasses="rowA,rowB" width="100%">
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Código" /> 
+										</f:facet>
+										<h:outputText value="#{usuario.id}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Nome" />
+										</f:facet>
+										<h:commandLink value="#{usuario.nome}" action="#{usuarioBB.consultar}">
+											<f:param name="id" value="#{usuario.id}"/>						
+										</h:commandLink>
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Perfil" />
+										</f:facet>
+										<h:outputText value="#{usuario.perfil.id} - #{usuario.perfil.descricao}" />
+									</h:column>									
+								</t:dataTable>
+							</div>
+							<ul>
+								<li class="buttons">
+									<h:commandButton styleClass="btTxt" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{usuarioBB.consultar}" value="Consultar"></h:commandButton>
+								</li>						
+							</ul>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+
+				</div>
+		</h:form>
+	</f:view>
+</html>				

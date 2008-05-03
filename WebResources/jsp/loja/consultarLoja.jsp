@@ -48,18 +48,16 @@
 											</h:inputText>
 											<h:message for="id" styleClass="msgErro" />
 										</div>
-									</li>
-									<li>
-										<div>
+									<div>
 											<h:outputLabel styleClass="desc" value="Nome"></h:outputLabel>
 											<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50"
 												value="#{lojaBB.nome}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
 											<h:message for="descricao" styleClass="msgErro" />
-										</div>
-									</li>
-									<li>
+										</div>									
+										<br />
+										<br />	
 										<div>
 											<h:outputLabel styleClass="desc" value="Número IP"></h:outputLabel>
 											<h:inputText styleClass="field text" id="numeroIp" maxlength="15" size="15"
@@ -67,9 +65,7 @@
 												<f:validateLength maximum="15" />
 											</h:inputText>
 											<h:message for="numeroIp" styleClass="msgErro" />
-										</div>
-									</li>
-									<li>
+										</div>									
 										<div>
 											<h:outputLabel styleClass="desc" value="Número Porta"></h:outputLabel>
 											<h:inputText styleClass="field text" id="numeroPorta" maxlength="4" size="4"
