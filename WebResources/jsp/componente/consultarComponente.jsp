@@ -34,7 +34,7 @@
 				</f:subview>					
 				<div id="content">
 				
-						<div id="primarioContentContainer">
+						<div id="primarioContentContainerInternas">
 							<fieldset>
 								<legend>Opções de filtro:</legend>
 								<ul>
@@ -48,8 +48,6 @@
 											</h:inputText>
 											<h:message for="id" styleClass="msgErro" />
 										</div>
-									</li>
-									<li>
 										<div>
 											<h:outputLabel styleClass="desc" value="Descrição"></h:outputLabel>
 											<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50"
@@ -78,7 +76,7 @@
 											<f:param name="id" value="#{componente.id}"/>						
 										</h:commandLink>
 									</h:column>
-								</t:dataTable>																
+								</t:dataTable>
 							</div>
 							<ul>
 								<li class="buttons">
