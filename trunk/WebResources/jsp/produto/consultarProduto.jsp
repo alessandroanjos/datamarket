@@ -61,7 +61,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo de Produto"></h:outputLabel>
 											<h:selectOneMenu id="tiposProduto" styleClass="field select"
-												value="#{produtoBB.idTipoProduto}" required="true"> 
+												value="#{produtoBB.idTipoProduto}" > 
 													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
 													<f:selectItems id="perfilSelectItems" 
 													  value="#{produtoBB.tiposConsulta}" />   
@@ -71,7 +71,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Grupo de Produto"></h:outputLabel>
 											<h:selectOneMenu id="gruposProduto" styleClass="field select"
-												value="#{produtoBB.idGrupo}" required="true"> 
+												value="#{produtoBB.idGrupo}" > 
 													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
 													<f:selectItems id="perfilSelectItems" 
 													  value="#{produtoBB.gruposConsulta}" />   
@@ -81,7 +81,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Unidade"></h:outputLabel>
 											<h:selectOneMenu id="unidades" styleClass="field select"
-												value="#{produtoBB.idUnidade}" required="true"> 
+												value="#{produtoBB.idUnidade}" > 
 													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
 													<f:selectItems id="perfilSelectItems" 
 													  value="#{produtoBB.unidadesConsulta}" />   
@@ -91,7 +91,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Imposto"></h:outputLabel>
 											<h:selectOneMenu id="impostos" styleClass="field select"
-												value="#{produtoBB.idImposto}" required="true"> 
+												value="#{produtoBB.idImposto}" > 
 													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
 													<f:selectItems id="perfilSelectItems" 
 													  value="#{produtoBB.impostosConsulta}" />   
@@ -106,7 +106,7 @@
 									var="produto" rowClasses="rowA,rowB" width="100%">
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Código" /> 
+											<h:outputText value="Cód." /> 
 										</f:facet>
 										<h:outputText value="#{produto.id}" /> 
 									</h:column>
@@ -120,13 +120,13 @@
 									</h:column>
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Cód. Automação" /> 
+											<h:outputText value="Cód. Aut." /> 
 										</f:facet>
 										<h:outputText value="#{produto.codigoAutomacao}" /> 
 									</h:column>
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Cód. Externo" /> 
+											<h:outputText value="Cód. Ext." /> 
 										</f:facet>
 										<h:outputText value="#{produto.codigoExterno}" /> 
 									</h:column>
