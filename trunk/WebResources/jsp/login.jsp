@@ -4,47 +4,89 @@
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
 
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<f:view>
-<t:stylesheet path="/css/style.css"></t:stylesheet>
-<html>
-<head>
-
-	<title>INFINITY - DataMarket - Enterprise Server</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+	Design e Engenharia de Interface
+	por Marco Antônio (marcaopimentel@gmail.com)
+	Disponibilizado para Infinity DataMarket
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Login &nbsp;&nbsp;&nbsp;&#8212;&nbsp;&nbsp;&nbsp; Infinity | Data Market - Enterprise Server</title>
+		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+		
+	</head>
+	<f:view>
+		<h:form>
+			<t:stylesheet path="css/default.css" enabledOnUserRole="true"></t:stylesheet>
+			<t:stylesheet path="css/form.css" enabledOnUserRole="true"></t:stylesheet>
 	
-</head>
-  
-<body>
-	<div>
-		<h:messages styleClass="errors" globalOnly="true" showDetail="true"/>
-	</div>
-	<h:form>
-		<h:panelGrid border="0" cellspacing="0" cellpadding="0" align="center" columns="3" id="formGrid">
-			<f:facet name="header">
-				<h:outputText styleClass="tituloTabela" value="Login" />
-			</f:facet>
-			<h:outputText styleClass="label" value="ID*"></h:outputText>					
-			<h:inputText styleClass="inputText" id="id" maxlength="6"
-				value="#{loginBB.id}" required="true">
-				<f:validateLength maximum="6" />
-				<f:validator validatorId="LongValidator"/>
-			</h:inputText>
-			<h:message for="id" styleClass="errors"/>
-			<h:outputText styleClass="label" value="Senha*"></h:outputText>
-			<h:inputSecret styleClass="inputText" id="senha" redisplay="true" maxlength="6"
-				value="#{loginBB.senha}" required="true">
-				<f:validateLength maximum="10" />
-				<f:validator validatorId="LongValidator"/>
-			</h:inputSecret>
-			<h:message for="senha" styleClass="errors"/>
-		</h:panelGrid>
-		<h:panelGrid columns="2" align="center">
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoLogin" action="#{loginBB.logar}" value="Login"></h:commandButton>
-			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
-		</h:panelGrid>
-	</h:form>
-	
-</body>
+				<f:subview id="subTopo" rendered="true">
+					<jsp:include page="/jsp/topo.jsp?tituloPagina=&user=Desconhecido"></jsp:include>	
+				</f:subview>					
+				<div id="content" style="margin-top:20px;">
+					<div id="primarioContentContainer">
+						<div id="primarioContent">			
+							<div class="box">
+								<h2>Benvindo!</h2>
+								<div class="boxContent">
+									<p>Este sistema é parte de um conjunto de aplicações que foram desenvolvidas visando <strong>gerenciar</strong>, <strong>informar</strong> e <strong>ajudar na tomada de decis&atilde;o</strong> de sua empresa.</p>
+									<p>Para usá-lo <strong>é necessário ter registrado</strong> junto ao administrador de sistema <strong>um usuário e senha</strong>.</p>
+								</div>
+							</div>			
+						</div>
+					</div>
+					<div id="secundarioContent">			
+						<div class="box boxA">
+							<div class="boxContent">
+								
+									<ul>
+										<li>
+											<div>
+												<h:messages errorClass="msgSistemaErro"
+														infoClass="msgSistemaSucesso" globalOnly="true"
+														showDetail="true" />
+											</div>
+										</li>
+										<li>
+											<div>										
+												<label class="desc">ID*</label>					
+												<h:inputText styleClass="text" id="id" maxlength="6"
+													value="#{loginBB.id}" required="true">
+													<f:validateLength maximum="6" />
+													<f:validator validatorId="LongValidator"/>
+												</h:inputText>
+												<h:message for="id" styleClass="msgErro"/>
+											</div>
+										</li>
+										<li>
+											<div>
+												<label class="desc">SENHA*</label>
+												<h:inputSecret styleClass="text" id="senha" redisplay="true" maxlength="6"
+													value="#{loginBB.senha}" required="true">
+													<f:validateLength maximum="10" />
+													<f:validator validatorId="LongValidator"/>
+												</h:inputSecret>
+												<h:message for="senha" styleClass="msgErro"/>
+											</div>
+										</li>
+										<li class="buttons">
+											<h:commandButton styleClass="btTxt" id="botaoLogin" action="#{loginBB.logar}" value="Login"></h:commandButton>
+											<h:commandButton styleClass="btTxt" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+										</li>
+									</ul>
+
+							</div>
+						</div>
+			
+						<div class="box" style="height:100px;"></div>
+			
+					</div>
+					<div class="clear"></div>
+					</div>
+					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+				</div>
+		</h:form>
+	</f:view>
 </html>
-</f:view>
