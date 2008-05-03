@@ -38,7 +38,7 @@ form li, .buttons{display: block;}
 	display:inline-block;
 }
 form li div, form li span{
-	margin:0 4px 0 0;
+	margin:0 10px 0 0;
 	padding:0 0 4px 0;
 	color:#444;
 }
