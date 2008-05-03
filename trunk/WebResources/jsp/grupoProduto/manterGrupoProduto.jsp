@@ -25,14 +25,12 @@
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
 	</head>
 	<f:view>
-		
-
 		<h:form id="frmManterGrupoProduto">
 				<f:loadBundle basename="resources.mensagens" var="msgs"/>
 				<f:subview id="subTopo" rendered="true">
 					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.manterGrupoProduto}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>					
-				<div id="content">
+					<div id="content">
 						<div id="primarioContentContainerInternas">
 							<ul>
 								<li class="normal">

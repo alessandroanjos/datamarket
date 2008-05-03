@@ -48,8 +48,6 @@
 											</h:inputText>
 											<h:message for="id" styleClass="msgErro" />
 										</div>
-									</li>
-									<li>
 										<div>
 											<h:outputLabel styleClass="desc" value="Descrição"></h:outputLabel>
 											<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50"
@@ -62,7 +60,7 @@
 								</ul>
 							</fieldset>	
 							<div class="listagem">
-								<t:dataTable id="componentes" value="#{grupoProdutoBB.gruposProduto}"
+								<t:dataTable value="#{grupoProdutoBB.gruposProduto}"
 									var="grupos" rowClasses="rowA,rowB" width="100%">
 									<h:column>
 										<f:facet name="header">
