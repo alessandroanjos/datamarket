@@ -1,131 +1,113 @@
 <%@ page language="java" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<f:view>
+<t:stylesheet path="/css/style.css"></t:stylesheet>
+<html>
+<head>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+	<title>INFINITY - DataMarket - Enterprise Server</title>
+	
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+	<script type="text/javascript" src="/js/funcoes.js"></script>
 
-	<head>
-		
-		<title>INFINITY - DataMarket - Enterprise Server</title>
+</head>
+  
+<body>
+	<div>
+	<h:outputText id="titulo" styleClass="label" value="Home > Perfil"></h:outputText>
+	</div>
+	<br>
+	<div>
+		<h:messages styleClass="errors" globalOnly="true" showDetail="true"/>
+	</div>
+	<h:form>
+		<h:panelGrid columns="3" id="formGrid">
+		    <f:facet name="header">
+				<h:outputText styleClass="tituloTabela" value="Consulta Perfis" />
+			</f:facet>
+		    <h:outputText styleClass="label" value="Codigo*"></h:outputText>					
+			<h:inputText styleClass="inputText" id="id" maxlength="2"
+				value="#{perfilBB.id}" size="2">
+				<f:validateLength maximum="2" />
+				<f:validator validatorId="LongValidator"/>
+			</h:inputText>
+			<h:message for="id" styleClass="errors"/>
+			<h:outputText styleClass="label" value="Descrição*"></h:outputText>
+			<h:inputText styleClass="inputText" id="descricao" maxlength="20" size="20"
+				value="#{perfilBB.descricao}">
+				<f:validateLength maximum="20" />
+			</h:inputText>			
+			<h:message for="descricao" styleClass="errors"/>
+			<h:outputText styleClass="label" value="Perfil Superior*"></h:outputText>
+			<h:selectOneMenu id="perfis" 
+				value="#{perfilBB.idPerfilSuperior}">   
+					  <f:selectItems id="perfilSuperiorSelectItems" 
+					  value="#{perfilBB.perfis}" />   
+			</h:selectOneMenu>  
+			<h:message for="perfilSuperior" styleClass="errors"/>
+			<h:outputText styleClass="label" value="Percentual de Desconto*"></h:outputText>
+			<h:inputText styleClass="inputText" id="percentualDesconto" maxlength="6" size="6"
+				value="#{perfilBB.percentualDesconto}">
+				<f:validateLength maximum="6" />
 
-		<meta http-equiv="pragma" content="no-cache"/>
-		<meta http-equiv="cache-control" content="no-cache"/>
-		<meta http-equiv="expires" content="0"/>
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
-		<meta http-equiv="description" content="This is my page"/>
-		
-		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-		
-		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
-	</head>
-		
-	<f:view>
-		<h:form id="frmConsultarPerfil">
-				<f:subview id="subTopo" rendered="true">
-					<f:loadBundle basename="resources.mensagens" var="msgs"/>
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.consultarPerfil}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
-				</f:subview>					
-				<div id="content">
-				
-						<div id="primarioContentContainer">
-							<fieldset>
-								<legend>Opções de filtro:</legend>
-								<ul>
-									<li class="normal">
-										<div>
-											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
-												value="#{perfilBB.id}" size="4" required="false">
-												<f:validateLength maximum="4" />
-												<f:validator validatorId="LongValidator"/>
-											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
-										</div>
-									</li>
-									<li>
-										<div>
-											<h:outputLabel styleClass="desc" value="Descrição"></h:outputLabel>
-											<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50"
-												value="#{perfilBB.descricao}">
-												<f:validateLength maximum="50" />
-											</h:inputText>
-											<h:message for="descricao" styleClass="msgErro" />
-										</div>
-									</li>
-									<li>
-										<div>
-											<h:outputLabel styleClass="desc" value="Número IP"></h:outputLabel>
-											<h:selectOneMenu id="perfis"  styleClass="field select"
-												value="#{perfilBB.idPerfilSuperior}">   
-													  <f:selectItems id="perfilSuperiorSelectItems" 
-													  value="#{perfilBB.perfis}" />   
-											</h:selectOneMenu>
-											<h:message for="perfilSuperior" styleClass="msgErro" />
-										</div>
-									</li>
-									<li>
-										<div>
-											<h:outputLabel styleClass="desc" value="Percentual Desconto"></h:outputLabel>
-											<h:inputText styleClass="field text" id="percentualDesconto" maxlength="6" size="6"
-												value="#{perfilBB.percentualDesconto}">
-												<f:validateLength maximum="6" />
-												<f:validator validatorId="BigDecimalValidator"/>
-											</h:inputText>
-											<h:message for="percentualDesconto" styleClass="msgErro" />
-										</div>
-									</li>
-								</ul>
-							</fieldset>	
-							<div class="listagem">
-								<t:dataTable id="perfis" value="#{perfilBB.perfis}"
-									var="perfil" rowClasses="rowA,rowB" width="100%">
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Código" /> 
-										</f:facet>
-										<h:outputText value="#{perfil.id}" /> 
-									</h:column>
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Descrição" />
-										</f:facet>
-										<h:commandLink value="#{perfil.descricao}" action="#{perfilBB.consultar}">
-											<f:param name="id" value="#{loja.id}"/>						
-										</h:commandLink>
-									</h:column>
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Perfil Superior" />
-										</f:facet>
-										<h:outputText value="#{perfil.perfilSuperior.id} - #{perfil.perfilSuperior.descricao}" /> 
-									</h:column>
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Percentual de Desconto" />
-										</f:facet>
-										<h:outputText value="#{perfil.percentualDesconto}" /> 
-									</h:column>
-								</t:dataTable>																
-							</div>
-							<ul>
-								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoLimpar" value="Limpar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{perfilBB.consultar}" value="Consultar"></h:commandButton>
-								</li>						
-							</ul>
-						</div>
-						<div class="clear"></div>
-					</div>
-					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
-
-				</div>
-		</h:form>
-	</f:view>
+				<f:validator validatorId="BigDecimalValidator"/>
+			</h:inputText>			
+			<h:message for="percentualDesconto" styleClass="errors"/>
+		</h:panelGrid>
+		<br>
+		<h:panelGrid columns="3" id="formGrid1">	
+			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoVoltar" action="#{perfilBB.voltarMenu}" value="Voltar"></h:commandButton>
+			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" immediate="true" styleClass="inputBtn" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+			<h:commandButton onmouseover="this.className='inputBtnhov'" onmouseout="this.className='inputBtn'" styleClass="inputBtn" id="botaoConsultar" action="#{perfilBB.consultar}" value="Consultar"></h:commandButton>
+		</h:panelGrid>
+		<p>
+		<h:dataTable value="#{perfilBB.listaPerfis}"
+					var="perfil" style="width: 466px;">
+					<f:facet name="header">
+						<h:outputText styleClass="tituloTabela" value="Perfis" />
+					</f:facet>					
+					<h:column>
+						<f:facet name="header">
+							<h:outputText styleClass="label"  value="Código" />
+						</f:facet>
+						<h:outputText styleClass="label" value="#{perfil.id}" /> 
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText styleClass="label"  value="Descrição" />
+						</f:facet>
+						<h:commandLink styleClass="label" value="#{perfil.descricao}" action="#{perfilBB.consultar}">
+							<f:param name="id" value="#{perfil.id}"/>						
+						</h:commandLink>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText styleClass="label"  value="Perfil Superior" />
+						</f:facet>
+						<h:outputText styleClass="label" value="#{perfil.perfilSuperior.id} - #{perfil.perfilSuperior.descricao}" /> 
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText styleClass="label"  value="Percentual de Desconto" />
+						</f:facet>
+						<h:outputText styleClass="label" value="#{perfil.percentualDesconto}" /> 
+					</h:column>
+				</h:dataTable>
+	</h:form>
+	
+</body>
 </html>
+</f:view>
