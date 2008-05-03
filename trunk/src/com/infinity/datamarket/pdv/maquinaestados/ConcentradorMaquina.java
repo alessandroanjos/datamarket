@@ -2,7 +2,9 @@ package com.infinity.datamarket.pdv.maquinaestados;
 
 import java.util.Collection;
 
+import com.infinity.datamarket.comum.lote.DadoLote;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
@@ -121,4 +123,52 @@ public class ConcentradorMaquina extends Cadastro{
 			return null;
 		}
 	}
+	
+	
+	public void consulta() throws AppException{
+		Tecla tecla = null;
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			
+			PropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(DadoLote.class);
+			filter.addProperty("lote", 7);
+			filter.addOrderByProperty("sequencial", filter.ASC);
+			getRepositorio().filter(filter, true);
+			
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public static void  main(String[] a){
+		try {
+			ConcentradorMaquina.getInstancia().consulta();
+		} catch (Throwable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
