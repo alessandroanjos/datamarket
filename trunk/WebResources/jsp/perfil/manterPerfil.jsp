@@ -7,10 +7,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-
+<f:view>
+	<f:loadBundle basename="resources.mensagens" var="msgs"/>
 	<head>
 
-		<title>INFINITY - DataMarket - Enterprise Server</title>
+		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
 		<meta http-equiv="pragma" content="no-cache"/>
 		<meta http-equiv="cache-control" content="no-cache"/>
@@ -23,13 +24,8 @@
 		
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
-		<t:stylesheet path="/EnterpriseServer/css/style.css"></t:stylesheet>
 	</head>
-	<f:view>
-		
 
-		<h:form id="frmManterPerfil">
-				<f:loadBundle basename="resources.mensagens" var="msgs"/>
 				<f:subview id="subTopo" rendered="true">
 					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.manterPerfil}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>					
@@ -43,6 +39,9 @@
 						<div class="clear"></div>
 					</div>
 					<div id="primarioContentContainerInternas">
+<!-- xxxxxxxxxxxxxxx -->					
+		<h:form id="frmManterPerfil">
+<!-- xxxxxxxxxxxxxxx -->					
 						<div id="tabDiv0">
 							<ul>
 								<li class="normal">
@@ -88,21 +87,21 @@
 								</li>
 							</ul>
 						</div>
-						<div id="tabDiv1">
+						<div id="tabDiv1" style="display:none;">
 							<ul>
 								<li class="normal">
-									<div class="div-auto-scroll" style="width: 100%; height: 163px;">
-										<h:selectManyCheckbox id="idListaOperacoesAssociadas" layout="pageDirection" required="false" styleClass="field select" value="#{perfilBB.listaOperacoesAssociadas}">
+									<div class="div-auto-scroll" style="width:400px !important;">
+										<h:selectManyCheckbox id="idListaOperacoesAssociadas" layout="pageDirection" required="false" value="#{perfilBB.listaOperacoesAssociadas}">
 											<f:selectItems value="#{perfilBB.operacoes}" />
 										</h:selectManyCheckbox>		
 									</div>
 								</li>
 							</ul>
 						</div>
-						<div id="tabDiv2">
+						<div id="tabDiv2" style="display:none;">
 							<ul>
 								<li class="normal">
-									<div class="div-auto-scroll" style="width: 100%; height: 163px;">
+									<div class="div-auto-scroll tabelaTree" style="width:400px !important;">
 										<t:tree2 id="tree" value="#{perfilBB.arvoreFuncionalidades}"
 											clientSideToggle="true" varNodeToggler="t" var="node"
 											showRootNode="false" preserveToggle="true">
@@ -111,11 +110,11 @@
 											</f:facet>
 											<f:facet name="noRaiz">
 												<h:panelGroup>
-													<h:outputLabel value="#{node.description}"></h:outputLabel>
+													<h:outputLabel styleClass="noRaiz" value="#{node.description}"></h:outputLabel>
 												</h:panelGroup>
 											</f:facet>
 											<f:facet name="no">
-												<h:panelGroup styleClass="field select">
+												<h:panelGroup>
 													<h:selectBooleanCheckbox value="#{node.checked}"/>
 													<h:outputLabel value="#{node.description}" />
 												</h:panelGroup>
@@ -124,17 +123,21 @@
 									</div>
 								</li>
 							
+							</ul>
+						</div>
+							<ul>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{perfilBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{perfilBB.excluir}" value="Excluir"></h:commandButton>
 								</li>
 							</ul>
-						</div>
-					</div>
+<!-- xxxxxxxxxxxxxxx -->					
+		</h:form>		
+<!-- xxxxxxxxxxxxxxx -->					
+          </div>
 					<div class="clear"></div>
 				</div>
 				<jsp:include page="/jsp/rodape.jsp"></jsp:include>
 			</div>	
-		</h:form>		
 	</f:view>
 </html>
