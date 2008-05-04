@@ -27,12 +27,21 @@
 		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 		
 	</head>
-			<h:form id="frmManterUsuario">
+
 				<f:subview id="subTopo" rendered="true">
 					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.manterUsuario}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>	
 					<div id="content">
+						<div id="tabMenu">
+							<ul>
+								<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Usuário</a></span></li>
+								<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)"><span><a href="#">Lojas Associadas</a></span></li>
+							</ul>
+							<div class="clear"></div>
+						</div>
 						<div id="primarioContentContainerInternas">
+						<h:form id="frmManterUsuario">
+						<div id="tabDiv0">						
 							<ul>
 								<li class="normal">
 									<div>
@@ -43,7 +52,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
-											value="#{usuarioBB.id}" size="3" readonly="true" required="true">
+											value="#{usuarioBB.id}" size="3" required="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>
@@ -75,7 +84,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Perfil*"></h:outputLabel>
 										<h:selectOneMenu id="perfis" styleClass="field select"
-											value="#{usuarioBB.idPerfil}" required="true">   
+											value="#{usuarioBB.idPerfil}" required="true" style="width: 200px;">   
 												  <f:selectItems id="perfilSelectItems" 
 												  value="#{usuarioBB.perfis}" />   
 										</h:selectOneMenu>
@@ -85,7 +94,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Vendedor*"></h:outputLabel>
-										<h:selectOneRadio styleClass="field radio" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
+										<h:selectOneRadio styleClass="field select" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
 										    <f:selectItem itemLabel="Sim" itemValue="S"/>
 										    <f:selectItem itemLabel="Não" itemValue="N"/>
 										</h:selectOneRadio>
@@ -104,29 +113,32 @@
 										<h:message for="comissao" styleClass="msgErro"/>		
 									</div>
 								</li>
+								</ul>
+								</div>
+						<div id="tabDiv1" style="display:none;">
+						<ul>
 								<li class="normal">
-									<div style="width: 100%;">
-										<h:outputLabel styleClass="desc" value="Lojas Associadas"></h:outputLabel>
-										<t:div styleClass="listagem" style="width: 100%; height: 150px;">
-											<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field checkbox"
-												value="#{usuarioBB.listaLojasAssociadas}" >
-													<f:selectItems value="#{usuarioBB.lojas}"/>
-											</h:selectManyCheckbox>
-										</t:div>
-										<h:message for="idListaLojasAssociadas" styleClass="msgErro"/>
-									</div>
-								</li>
+									<div class="div-auto-scroll" style="width:400px !important; height: 274px;">
+										<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field select"
+											value="#{usuarioBB.listaLojasAssociadas}" >
+												<f:selectItems value="#{usuarioBB.lojas}"/>
+										</h:selectManyCheckbox>	
+									</div>									
+									<h:message for="idListaLojasAssociadas" styleClass="msgErro"/>
+								</li>															
+							</ul>
+						</div>
+							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{usuarioBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{usuarioBB.excluir}" value="Excluir"></h:commandButton>
 								</li>
 							</ul>
+								</h:form>
 						</div>
 						<div class="clear"></div>
-					</div>
+					</div>	
 					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
 				</div>
-		</h:form>
 	</f:view>
 </html>
