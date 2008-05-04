@@ -9,10 +9,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-
+<f:view>
+	<f:loadBundle basename="resources.mensagens" var="msgs"/>
 	<head>
 
-		<title>INFINITY - DataMarket - Enterprise Server</title>
+		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
 		<meta http-equiv="pragma" content="no-cache"/>
 		<meta http-equiv="cache-control" content="no-cache"/>
@@ -22,12 +23,11 @@
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
+		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		
 	</head>
-	<f:view>
 			<h:form id="frmManterUsuario">
-				<f:loadBundle basename="resources.mensagens" var="msgs"/>
 				<f:subview id="subTopo" rendered="true">
 					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.manterUsuario}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>	
@@ -96,7 +96,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Comissão"></h:outputLabel>
 										<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5"
-											value="#{usuarioBB.comissao}" required="true" dir="rtl" onkeypress="Formata('frmManterUsuario:comissao',5,2);">
+											value="#{usuarioBB.comissao}" required="true" dir="rtl" onkeypress="Formata('frmManterUsuario:comissao',4,2);">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
