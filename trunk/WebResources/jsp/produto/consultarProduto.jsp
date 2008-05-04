@@ -8,10 +8,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-
+<f:view>
+	<f:loadBundle basename="resources.mensagens" var="msgs"/>
 	<head>
-		
-		<title>INFINITY - DataMarket - Enterprise Server</title>
+
+		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
 		<meta http-equiv="pragma" content="no-cache"/>
 		<meta http-equiv="cache-control" content="no-cache"/>
@@ -25,11 +26,8 @@
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 	</head>
-		
-	<f:view>
 		<h:form id="frmConsultarProduto">
 				<f:subview id="subTopo" rendered="true">
-					<f:loadBundle basename="resources.mensagens" var="msgs"/>
 					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.consultarProduto}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>					
 				<div id="content">
