@@ -9,11 +9,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-
+<f:view>
+	<f:loadBundle basename="resources.mensagens" var="msgs"/>
 	<head>
 
-		<title>INFINITY - DataMarket - Enterprise Server</title>
-
+		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 		<meta http-equiv="pragma" content="no-cache"/>
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
@@ -22,14 +22,11 @@
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
+		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>		
 	</head>
-	<f:view>
-		
-
 		<h:form id="frmInserirFormaRecebimento">
-				<f:loadBundle basename="resources.mensagens" var="msgs"/>
 				<f:subview id="subTopo" rendered="true">
 					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.inserirFormaRecebimento}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>					
@@ -75,7 +72,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Abre Gaveta*"></h:outputLabel>
-										<h:selectOneRadio  styleClass="field radio"  id="abrirGaveta" 
+										<h:selectOneRadio  styleClass="field select"  id="abrirGaveta" 
 											value="#{formaRecebimentoBB.abrirGaveta}"  layout="lineDirection" rendered="true">
 										    <f:selectItem itemLabel="Sim" itemValue="S" />
 										    <f:selectItem itemLabel="Não" itemValue="N"/>
@@ -109,16 +106,18 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Inicio Validade"></h:outputLabel>
-										<t:inputCalendar readonly="true" popupTheme="jscalendar-DB" styleClass="field text" forceId="dataInicioValidade" 
-											value="#{formaRecebimentoBB.dataInicioValidade}" id="dataInicioValidade" renderAsPopup="true" 
-											popupDateFormat="dd/MM/yyyy"/>
+										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10"
+											value="#{formaRecebimentoBB.dataInicioValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirFormaRecebimento:dataInicioValidade');">
+											
+										</h:inputText>
 										<h:message for="dataInicioValidade" styleClass="msgErro"/>
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Final Validade"></h:outputLabel>
-										<t:inputCalendar readonly="true" styleClass="field text" forceId="dataFimValidade" 
-											value="#{formaRecebimentoBB.dataFimValidade}" id="dataFimValidade" renderAsPopup="true" 
-											popupDateFormat="dd/MM/yyyy"/>
+										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10"
+											value="#{formaRecebimentoBB.dataFimValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirFormaRecebimento:dataFimValidade');">
+											
+										</h:inputText>
 										<h:message for="dataFimValidade" styleClass="msgErro"/>
 									</div>
 								</li>																

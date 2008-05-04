@@ -9,10 +9,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-	<head>
-
-		<title>INFINITY - DataMarket - Enterprise Server</title>
-
 		<meta http-equiv="pragma" content="no-cache"/>
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
@@ -21,12 +17,12 @@
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
+		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		
 	</head>
 	<f:view>
 		<h:form id="frmManterGrupoProduto">
-				<f:loadBundle basename="resources.mensagens" var="msgs"/>
 				<f:subview id="subTopo" rendered="true">
 					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.manterGrupoProduto}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>					
@@ -62,7 +58,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Grupo Superior"></h:outputLabel>
-										<h:selectOneMenu id="grupos" styleClass="inputText"
+										<h:selectOneMenu id="grupos" styleClass="field select"
 											value="#{grupoProdutoBB.idSuperior}">		
 											<f:selectItems id="gruposSelectItems" value="#{grupoProdutoBB.grupos}" />
 										</h:selectOneMenu>
