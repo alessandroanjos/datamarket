@@ -29,13 +29,22 @@
 		
 	</head>
 
-			<h:form id="frmInserirUsuario">
+			
 
 				<f:subview id="subTopo" rendered="true">
 					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.inserirUsuario}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>	
 					<div id="content">
+						<div id="tabMenu">
+							<ul>
+								<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Usuário</a></span></li>
+								<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)"><span><a href="#">Lojas Associadas</a></span></li>
+							</ul>
+							<div class="clear"></div>
+						</div>
 						<div id="primarioContentContainerInternas">
+						<h:form id="frmInserirUsuario">
+						<div id="tabDiv0">						
 							<ul>
 								<li class="normal">
 									<div>
@@ -78,7 +87,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Perfil*"></h:outputLabel>
 										<h:selectOneMenu id="perfis" styleClass="field select"
-											value="#{usuarioBB.idPerfil}" required="true">   
+											value="#{usuarioBB.idPerfil}" required="true" style="width: 200px;">   
 												  <f:selectItems id="perfilSelectItems" 
 												  value="#{usuarioBB.perfis}" />   
 										</h:selectOneMenu>
@@ -107,28 +116,33 @@
 										<h:message for="comissao" styleClass="msgErro"/>		
 									</div>
 								</li>
+								</ul>
+								</div>
+						<div id="tabDiv1" style="display:none;">
+						<ul>
 								<li class="normal">
-									<div style="width: 100%;">
-										<h:outputLabel styleClass="desc" value="Lojas Associadas"></h:outputLabel>
-										<t:div styleClass="listagem" style="width: 100%; height: 150px;">
-											<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field select"
-												value="#{usuarioBB.listaLojasAssociadas}" >
-													<f:selectItems value="#{usuarioBB.lojas}"/>
-											</h:selectManyCheckbox>
-										</t:div>
-										<h:message for="idListaLojasAssociadas" styleClass="msgErro"/>
-									</div>
-								</li>
+									<div class="div-auto-scroll" style="width:400px !important; height: 274px;">
+										<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field select"
+											value="#{usuarioBB.listaLojasAssociadas}" >
+												<f:selectItems value="#{usuarioBB.lojas}"/>
+										</h:selectManyCheckbox>	
+									</div>									
+									<h:message for="idListaLojasAssociadas" styleClass="msgErro"/>
+								</li>															
+							</ul>
+						</div>
+							<ul>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{usuarioBB.inserir}" value="Inserir"></h:commandButton>
 								</li>
 							</ul>
+								</h:form>
 						</div>
 						<div class="clear"></div>
 					</div>				
 				<jsp:include page="/jsp/rodape.jsp"></jsp:include>
 			</div>
-		</h:form>
+
 	</f:view>
 </html>
