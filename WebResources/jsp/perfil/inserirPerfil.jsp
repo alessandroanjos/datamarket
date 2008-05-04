@@ -40,7 +40,7 @@
 					</div>
 					<div id="primarioContentContainerInternas">
 <!-- xxxxxxxxxxxxxxx -->					
-		<h:form id="frmManterPerfil">
+		<h:form id="frmInserirPerfil">
 <!-- xxxxxxxxxxxxxxx -->					
 						<div id="tabDiv0">
 							<ul>
@@ -77,7 +77,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Percentual de Desconto*"></h:outputLabel>
-										<h:inputText styleClass="text field" dir="rtl" id="percentualDesconto" maxlength="6" size="6" value="#{perfilBB.percentualDesconto}" required="true" onkeypress="Formata('frmManterPerfil:percentualDesconto',5,2);">
+										<h:inputText styleClass="text field" dir="rtl" id="percentualDesconto" maxlength="6" size="6" value="#{perfilBB.percentualDesconto}" required="true" onkeypress="Formata('frmInserirPerfil:percentualDesconto',5,2);">
 											<f:validateLength maximum="6" />
 											<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 											<f:validator validatorId="BigDecimalValidator" />
