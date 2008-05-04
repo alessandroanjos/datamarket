@@ -47,9 +47,7 @@
 					<label><%= request.getParameter("user") %></label>
 				</strong>
 				&nbsp;&nbsp;&nbsp;&#8212;&nbsp;&nbsp;&nbsp;
-				<script type="text/javascript">document.write(day)</script>
-				,&nbsp;
-				<script type="text/javascript">document.write(today+"/"+month+"/"+year)</script>
+				<script type="text/javascript">document.write(day + ", "+today+"/"+month+"/"+year)</script>
 			</div>
 			<div id="breadcrumb"><strong>Infinity</strong> - DataMarket - Enterprise Server</div>
 		</div>
