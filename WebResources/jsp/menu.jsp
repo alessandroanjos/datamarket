@@ -11,13 +11,15 @@
 	Disponibilizado para Infinity DataMarket
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
+<f:view>
+	<f:loadBundle basename="resources.mensagens" var="msgs"/>
 	<head>
-		<title>INFINITY - DataMarket - Enterprise Server</title>
+
+		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		
 	</head>
-	<f:view>
 		<h:form>
 			<t:stylesheet path="css/default.css" enabledOnUserRole="true"></t:stylesheet>
 			<t:stylesheet path="css/form.css" enabledOnUserRole="true"></t:stylesheet>			
