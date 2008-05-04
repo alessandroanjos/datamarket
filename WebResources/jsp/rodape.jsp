@@ -5,8 +5,9 @@
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
 
 <f:subview id="include_rodape">
+<t:stylesheet path="/css/default.css"></t:stylesheet>
 <t:stylesheet path="/css/form.css"></t:stylesheet>
-		<t:stylesheet path="/css/default.css"></t:stylesheet>
+		
 <div id="footer">
 	<p>
 		Todos os direitos reservados &copy; 2008 |
