@@ -316,9 +316,6 @@ fieldset legend {
 	margin-bottom: 0em;
 	line-height: 1.5em;
 }
-#content table
-{
-}
 #content table th
 {
 	text-align: left;
@@ -424,28 +421,28 @@ fieldset legend {
 	margin-bottom: 0 !important;
 	padding-left: 0 !important;
 	line-height: normal !important;
-	height:26px;
+	height:26px !important;
 }
 #tabMenu li {
-	display:block;
-	float:left;
-	background: url(../images/tabmenubg.gif) top left repeat-x;
-	position:relative;
-	margin-right:-2px;
+	display:block !important;
+	float:left !important;
+	background: url(../images/tabmenubg.gif) top left repeat-x !important;
+	position:relative !important;
+	margin-right:-2px !important;
 }
 #tabMenu li span {
-	display:block;
-	float:left;
-	background: url(../images/tabmenubgleft.gif) top left no-repeat;
+	display:block !important;
+	float:left !important;
+	background: url(../images/tabmenubgleft.gif) top left no-repeat !important;
 }
 #tabMenu li a {
-	display:block;
-	float:left;
-	text-decoration:none;
-	color:#666666;
-	padding: 13px 9px 0px 9px;
-	background: url(../images/tabmenubgright.gif) top right no-repeat;
-	height:17px;
+	display:block !important;
+	float:left !important;
+	text-decoration:none !important;
+	color:#666666 !important;
+	padding: 13px 9px 0px 9px !important;
+	background: url(../images/tabmenubgright.gif) top right no-repeat !important;
+	height:17px !important;
 }
 #tabMenu li.current {
 	background: url(../images/tabmenubgcurrent.gif) top left repeat-x !important;
@@ -514,4 +511,29 @@ td.ThemeOfficeMainItemHover {
 	padding-right:4px;
 	font-weight: bold;
 	height:5px;
+}
+
+.div-auto-scroll {
+	overflow:auto;
+	height: 210px;
+	width: 100% !important;
+}
+
+.tabelaTree span {
+	float: none !important;
+	padding: 0 !important;
+}
+.tabelaTree .noRaiz {
+	font-weight: bold !important;
+	font-size: 11px !important;
+}
+.tabelaTree label {
+	display:inline !important;
+}
+.tabelaTree td {
+	padding: 0 !important;
+}
+.tabelaTree table {
+	padding: 0 !important;
+	margin: 0 !important;
 }
