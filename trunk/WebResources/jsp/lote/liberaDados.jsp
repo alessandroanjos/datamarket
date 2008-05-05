@@ -29,7 +29,7 @@
 
 		<h:form id="frmInserirGrupoProduto">
 				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.inserirGrupoProduto}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
+					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.liberarDados}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>					
 				<div id="content">
 						<div id="primarioContentContainerInternas">
@@ -43,7 +43,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Número da Liberação de Dados Atual"></h:outputLabel>
 										<h:inputText styleClass="field text ativo" id="numeroLote" maxlength="8"
-											value="#{loteBB.numeroLote}" size="8" required="true">
+											value="#{loteBB.numeroLote}" size="8">
 											<f:validateLength maximum="8" />
 											<f:validator validatorId="LongValidator" />
 										</h:inputText>
@@ -54,7 +54,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Quantidade de Registros para Liberar"></h:outputLabel>
 										<h:inputText styleClass="field text" id="qtdRegistros" maxlength="8"
-											size="8" value="#{loteBB.qtdRegistros}" required="true">
+											size="8" value="#{loteBB.qtdRegistros}">
 											<f:validateLength maximum="50" />
 										</h:inputText>
 										<h:message for="qtdRegistros" styleClass="msgErro" />
