@@ -8,7 +8,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-
+<f:view>
+	<f:loadBundle basename="resources.mensagens" var="msgs"/>
+	<head>
 		<meta http-equiv="pragma" content="no-cache"/>
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
@@ -21,7 +23,6 @@
 		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 		
 	</head>
-	<f:view>
 		<h:form id="frmManterGrupoProduto">
 				<f:subview id="subTopo" rendered="true">
 					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.manterGrupoProduto}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
