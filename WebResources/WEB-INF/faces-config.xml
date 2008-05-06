@@ -130,6 +130,7 @@
 		<navigation-case>
 			<from-outcome>inserirUsuario</from-outcome>
 			<to-view-id>/jsp/usuario/inserirUsuario.jsp</to-view-id>
+			
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>manterUsuario</from-outcome>
