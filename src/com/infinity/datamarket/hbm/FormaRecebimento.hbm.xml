@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"   
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.pagamento.FormaRecebimento" table="FORMA_RECEBIMENTO" dynamic-update="true" dynamic-insert="false" lazy="false">
+
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="2"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+       <property name="descricao" type="java.lang.String" update="true" insert="true">
+            <column name="DESCRICAO" length="50" not-null="false"/>
+       </property>
+       <property name="recebimentoImpressora" type="java.lang.String" update="true" insert="true">
+            <column name="REC_IMPRESSORA" length="50" not-null="false"/>
+       </property>
+       <property name="abrirGaveta" type="java.lang.String" update="true" insert="true">
+            <column name="ABRIR_GAVETA" length="1" not-null="false"/>
+       </property>
+       <property name="valorLimiteSangria" type="java.math.BigDecimal" update="true" insert="true">
+              <column name="VALOR_LIMITE_SANGRIA" length="20" not-null="false"/>
+       </property>
+       <property name="valorMaxTroco" type="java.math.BigDecimal" update="true" insert="true">
+              <column name="VALOR_MAX_TROCO" length="20" not-null="false"/>
+       </property>
+       <property name="dataInicioValidade" type="java.util.Date" update="true" insert="true">
+              <column name="DATA_INICIO_VALIDADE" not-null="false"/>
+       </property>
+       <property name="dataFimValidade" type="java.util.Date" update="true" insert="true">
+              <column name="DATA_FIM_VALIDADE" not-null="false"/>
+       </property>
+
+       <many-to-one name="formaTroco" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento" update="true" insert="true" >
+              <column name="ID_FORMA_TROCO" not-null="false"/>
+       </many-to-one>
+
+       <set name="planos" lazy="false" inverse="true">
+             <key column="ID"/>
+             <one-to-many  class="com.infinity.datamarket.comum.pagamento.PlanoPagamento"/>
+       </set>
+      
+   </class>
+
+</hibernate-mapping>

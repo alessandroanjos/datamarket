@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.funcionalidade.Funcionalidade" table="FUNCIONALIDADE" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="4"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+        <property name="descricao" type="java.lang.String" update="true" insert="true">
+            <column name="DESCRICAO" length="50" not-null="true"/>
+        </property>
+        
+		<many-to-one name="funcionalidadeSuperior" class="com.infinity.datamarket.comum.funcionalidade.Funcionalidade" update="true" insert="true">
+          <column name="ID_FUNC_SUPERIOR" not-null="false"/>
+        </many-to-one>
+
+        <property name="situacao" type="java.lang.String" update="true" insert="true">
+            <column name="SITUACAO" length="1" not-null="true"/>
+        </property>        
+
+        <property name="url" type="java.lang.String" update="true" insert="true">
+            <column name="URL" length="1000" not-null="false"/>
+        </property>      
+        
+         <set name="perfis" table="PERFIL_FUNCIONALIDADE" cascade="all" lazy="false" inverse="true">
+             <key column="ID_FUNCIONALIDADE" />
+             <many-to-many column="ID_PERFIL" class="com.infinity.datamarket.comum.usuario.Perfil"/>
+        </set>          
+    </class>
+
+</hibernate-mapping>
