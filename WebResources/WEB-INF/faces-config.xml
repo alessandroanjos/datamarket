@@ -83,7 +83,7 @@
 		<navigation-case>
 			<from-outcome>manterPerfil</from-outcome>
 			<to-view-id>/jsp/perfil/consultarPerfil.jsp</to-view-id>
-		</navigation-case>		
+		</navigation-case>	
 		<navigation-case>
 			<from-outcome>inserirProduto</from-outcome>
 			<to-view-id>/jsp/produto/inserirProduto.jsp</to-view-id>
@@ -108,11 +108,24 @@
 			<to-view-id>/jsp/estoque/consultarEstoque.jsp</to-view-id>
 		</navigation-case>
 
+		<navigation-case>
+			<from-outcome>inserirEntradaProduto</from-outcome>
+			<to-view-id>/jsp/entradaProduto/inserirEntradaProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterEntradaProduto</from-outcome>
+			<to-view-id>/jsp/entradaProduto/consultarEntradaProduto.jsp</to-view-id>
+		</navigation-case>
+
 
 		<navigation-case>
 			<from-outcome>manterProduto</from-outcome>
 			<to-view-id>/jsp/produto/consultarProduto.jsp</to-view-id>
 		</navigation-case>		
+		<navigation-case>
+			<from-outcome>popUpProduto</from-outcome>
+			<to-view-id>/jsp/popup/PopUpProdutos.jsp</to-view-id>
+		</navigation-case>
 		
 		<navigation-case>
 			<from-outcome>inserirUsuario</from-outcome>
@@ -456,7 +469,53 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!-- Entradas -->
+	<navigation-rule>
+		<from-view-id>/jsp/entradaProduto/inserirEntradaProduto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{entradaProdutoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/entradaProduto/inserirEntradaProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{entradaProdutoBB.inserirProduto}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/entradaProduto/inserirEntradaProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{entradaProdutoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
+	<navigation-rule>
+		<from-view-id>/jsp/entradaProduto/consultarEntradaProduto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{entradaProdutoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/entradaProduto/consultarEntradaProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{entradaProdutoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/entradaProduto/manterEntradaProduto.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{entradaProdutoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/entradaProduto/manterEntradaProduto.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{entradaProdutoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/entradaProduto/consultarEntradaProduto.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<!-- PERFIL -->
 	<navigation-rule>
@@ -710,7 +769,7 @@
 		</managed-property>
 		<managed-property>
 		    <property-name>navItens</property-name>
-		    <property-class>org.apache.myfaces.custom.navmenu.NavigationMenuItem[]</property-class>
+		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
@@ -1276,7 +1335,74 @@
 		</managed-property>
 	</managed-bean>
 
-
+<!-- EntradaProduto BACK BEAN -->
+	<managed-bean>
+		<managed-bean-name>entradaProdutoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.estoque.EntradaProdutoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>numeroNota</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataEmissaoNota</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataEntrada</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataEntrada</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>frete</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>icms</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
+		    <property-name>ipi</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
+		    <property-name>desconto</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valor</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idFornecedor</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>produtoEntrada</property-name>
+		    <property-class>com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
 <!-- lote BACK BEAN -->
 	
 	<managed-bean>
