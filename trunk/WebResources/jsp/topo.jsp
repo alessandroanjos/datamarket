@@ -1,9 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
-<%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
-<%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t" %>
+<%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j" %>
 
 <script type="text/javascript">
 
@@ -36,10 +35,7 @@
 			var day=returnDay(today_date.getDay()+1)
  </script>
 
-
-	
-	
-	<div id="header">
+	 <div id="header">
 		<div class="centro">
 			<div id="loginUser">
 				Usuário:
@@ -51,14 +47,15 @@
 			</div>
 			<div id="breadcrumb"><strong>Infinity</strong> - DataMarket - Enterprise Server</div>
 		</div>
-	</div>
+	</div> 
+	 
 	<div id="outer">
-		<% if(!request.getParameter("user").equals("Desconhecido")) { %>
+		<% if(!request.getParameter("user").equals("Desconhecido")) { %>			
 			<div id="topo">
 				<h1>&nbsp;</h1>
 				<h2>&nbsp;</h2>
 				<div id="tituloPagina"><strong><%= request.getParameter("tituloPagina") %></strong></div>
 				<div id="logoCliente"><img src="/EnterpriseServer/images/logoCliente.gif" alt="Magia dos Pães" title="Magia dos Pães" /></div>
+				
 			</div>
 		<% } %>
-
