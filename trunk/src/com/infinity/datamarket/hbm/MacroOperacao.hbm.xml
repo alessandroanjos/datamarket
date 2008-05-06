@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"   
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.pdv.maquinaestados.MacroOperacao" table="MACRO_OPERACAO" dynamic-update="false" dynamic-insert="false" lazy="false">
+
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="2"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+        
+        <property name="descricao" type="java.lang.String" update="true" insert="true">
+            <column name="DESCRICAO" length="50" not-null="true"/>
+        </property>
+
+        <many-to-one name="estadoAtual" class="com.infinity.datamarket.pdv.maquinaestados.Estado" update="false" insert="false">
+          <column name="ID_ESTADO_ATUAL" not-null="true"/>
+        </many-to-one>
+
+        <many-to-one name="proximoEstado" class="com.infinity.datamarket.pdv.maquinaestados.Estado" update="false" insert="false">
+          <column name="ID_PROXIMO_ESTADO" not-null="true"/>
+        </many-to-one>
+        
+        <many-to-one name="tecla" class="com.infinity.datamarket.pdv.maquinaestados.Tecla" update="false" insert="false">
+          <column name="ID_TECLA" not-null="true"/>
+        </many-to-one>
+        
+        <many-to-one name="microOperacaoInicial" class="com.infinity.datamarket.pdv.maquinaestados.MicroOperacaoAssociada" update="false" insert="false">
+          <column name="ID_MICRO_OPERACAO_ASSOCIADA" not-null="true"/>
+        </many-to-one>
+
+ 		<set name="perfis" table="PERFIL_MACRO_OPERACAO" cascade="save-update" inverse="true">
+             <key column="ID_MACRO_OPERACAO"/>
+             <many-to-many column="ID_PERFIL" class="com.infinity.datamarket.comum.usuario.Perfil"/>
+        </set>
+
+    </class>
+
+</hibernate-mapping>

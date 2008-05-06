@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.fornecedor.Fornecedor" table="FORNECEDOR" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="2"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+
+        <property name="cpfcnpj" type="java.lang.String" update="true" insert="true">
+            <column name="CPF_CNPJ" length="50" not-null="true"/>
+        </property>
+
+	<property name="rasaoSocial" type="java.lang.String" update="true" insert="true">
+            <column name="RAZAO_SOCIAL" length="50" not-null="true"/>
+        </property>
+
+	<property name="nomeFantazia" type="java.lang.String" update="true" insert="true">
+            <column name="NOME_FANTAZIA" length="50" not-null="true"/>
+        </property>
+
+	<property name="inscricaoEstadual" type="java.lang.String" update="true" insert="true">
+            <column name="INSCRICAO_ESTADUAL" length="50" not-null="true"/>
+        </property>
+
+	<property name="inscricaoMunincipal" type="java.lang.String" update="true" insert="true">
+            <column name="INSCRICAO_MUNICIPAL" length="50" not-null="true"/>
+        </property>
+
+	<property name="logradouro" type="java.lang.String" update="true" insert="true">
+            <column name="LOGRADOURO" length="50" not-null="true"/>
+        </property>
+
+	<property name="numero" type="java.lang.String" update="true" insert="true">
+            <column name="NUMERO" length="50" not-null="true"/>
+        </property>
+
+	<property name="cidade" type="java.lang.String" update="true" insert="true">
+            <column name="CIDADE" length="50" not-null="true"/>
+        </property>
+
+	<property name="estado" type="java.lang.String" update="true" insert="true">
+            <column name="ESTADO" length="50" not-null="true"/>
+        </property>
+
+	<property name="pais" type="java.lang.String" update="true" insert="true">
+            <column name="PAIS" length="50" not-null="true"/>
+        </property>
+
+	<property name="telefone" type="java.lang.String" update="true" insert="true">
+            <column name="TELEFONE" length="50" not-null="true"/>
+        </property>
+
+	<property name="contato" type="java.lang.String" update="true" insert="true">
+            <column name="CONTATO" length="50" not-null="true"/>
+        </property>
+
+	<property name="telefoneContato" type="java.lang.String" update="true" insert="true">
+            <column name="TELEFONE_CONTATO" length="50" not-null="true"/>
+        </property>
+
+	<property name="cep" type="java.lang.String" update="true" insert="true">
+            <column name="CEP" length="50" not-null="true"/>
+        </property>
+    </class>
+
+</hibernate-mapping>

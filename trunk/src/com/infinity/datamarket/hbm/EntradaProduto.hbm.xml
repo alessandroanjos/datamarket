@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.estoque.EntradaProduto" table="ENTRADA_PRODUTO" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="2"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+
+        <property name="numeroNota" type="java.lang.String" update="true" insert="true">
+            <column name="NUMERO_NOTA" length="15" not-null="true"/>
+        </property>
+
+	<property name="dataEmissaoNota" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_EMISSAO_NOTA" length="20" not-null="false"/>
+        </property>
+
+	<property name="dataEntrada" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_ENTRADA" length="20" not-null="false"/>
+        </property>
+	
+        <property name="frete" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="FRETE" length="20" not-null="false"/>
+        </property>
+
+	<property name="icms" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="ICMS" length="20" not-null="false"/>
+        </property>
+
+	<property name="ipi" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="IPI" length="20" not-null="false"/>
+        </property>
+
+	<property name="desconto" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="DESCONTO" length="20" not-null="false"/>
+        </property>
+
+	<property name="valor" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR" length="20" not-null="false"/>
+        </property>
+
+	<many-to-one name="fornecedor" class="com.infinity.datamarket.comum.fornecedor.Fornecedor" update="true" insert="true">
+          <column name="ID_FORNECEDOR" not-null="false"/>
+    </many-to-one>
+
+	<set name="produtosEntrada" inverse="true" cascade="all">
+        <key>
+            <column name="ID_ENTRADA_PRODUTO"/>
+        </key>
+        <one-to-many class="com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto"/>
+    </set>
+
+    </class>
+
+</hibernate-mapping>
