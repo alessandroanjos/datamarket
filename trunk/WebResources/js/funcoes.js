@@ -255,3 +255,8 @@ function ValidaData(data){
 
 	return true;
 }
+
+function showwindow(action) {
+	alert(action);
+    window.open(action,'_blank','');
+}
