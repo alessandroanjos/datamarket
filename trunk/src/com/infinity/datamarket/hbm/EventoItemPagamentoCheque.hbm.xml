@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+   <hibernate-mapping>
+      <joined-subclass name="com.infinity.datamarket.comum.transacao.EventoItemPagamentoCheque" extends="com.infinity.datamarket.comum.transacao.EventoItemPagamento" table="EVENTO_ITEM_PAGAMENTO_CHEQUE" lazy="false">
+
+          <key>
+              <column name="LOJA"/>
+              <column name="COMPONENTE"/>
+              <column name="NUM_TRANSACAO"/>
+              <column name="DATA_TRANSACAO"/>
+              <column name="NUM_EVENTO"/>
+          </key>
+
+          <property name="CPFCNPJ" type="java.lang.String" update="true" insert="true">
+            <column name="CPF_CNPJ" length="50" not-null="true"/>
+          </property>
+          
+          <property name="numeroChequeLido" type="java.lang.String" update="true" insert="true">
+            <column name="NUMERO_CHEQUE_LIDO" length="50" not-null="false"/>
+          </property>
+          
+          <property name="banco" type="java.lang.String" update="true" insert="true">
+            <column name="BANCO" length="50" not-null="false"/>
+          </property>
+          
+          <property name="agencia" type="java.lang.String" update="true" insert="true">
+            <column name="AGENCIA" length="50" not-null="false"/>
+          </property>
+          
+          <property name="conta" type="java.lang.String" update="false" insert="true">
+            <column name="CONTA" length="50" not-null="false"/>
+          </property>
+          
+          <property name="numeroCheque" type="java.lang.String" update="true" insert="true">
+            <column name="NUMERO_CHEQUE" length="50" not-null="false"/>
+          </property>
+
+      </joined-subclass>
+   </hibernate-mapping>
