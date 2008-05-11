@@ -42,6 +42,7 @@
 	<mapping resource="com/infinity/datamarket/hbm/EventoTransacao.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/EventoItemRegistrado.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamento.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoCheque.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Parametro.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/TransacaoSangria.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/TransacaoResuprimento.hbm.xml"/>
