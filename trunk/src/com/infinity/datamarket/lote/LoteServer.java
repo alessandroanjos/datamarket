@@ -34,7 +34,9 @@ public class LoteServer implements LoteServerLocal, LoteServerRemote {
 		Collection retorno = new Vector();
 		Iterator i = col.iterator();
 		while(i.hasNext()){
-			Serializable obj = (Serializable) i.next();
+			DadoLote dado = (DadoLote) i.next();
+			Object obj = dado.getDado();
+			System.out.println(obj);
 			if (obj instanceof Produto){
 				Produto prod = (Produto) obj;
 				Collection lojas = prod.getLojas();
@@ -47,7 +49,7 @@ public class LoteServer implements LoteServerLocal, LoteServerRemote {
 					}
 				}
 				if (contem){
-					retorno.add(obj);
+					retorno.add(dado);
 				}
 			}else if (obj instanceof Usuario){
 				Usuario usu = (Usuario) obj;
@@ -61,10 +63,10 @@ public class LoteServer implements LoteServerLocal, LoteServerRemote {
 					}
 				}
 				if (contem){
-					retorno.add(obj);
+					retorno.add(dado);
 				}
 			}else{
-				retorno.add(obj);
+				retorno.add(dado);
 			}
 		}
 		return retorno;
