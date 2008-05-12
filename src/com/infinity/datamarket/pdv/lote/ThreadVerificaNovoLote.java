@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.infinity.datamarket.comum.lote.DadoLote;
+import com.infinity.datamarket.comum.util.ConcentradorParametro;
+import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.lote.LoteServerRemote;
 import com.infinity.datamarket.pdv.util.ServerConfig;
 import com.infinity.datamarket.pdv.util.ServiceLocator;
@@ -58,30 +60,35 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 	}
 	
 	public void atualizaLote(){
-		try{ 
+		try{
 			LoteServerRemote remote = (LoteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.LOTE_SERVER_JNDI);
-			if (remote != null){	
-				Collection c = remote.getLote(numeroLote, numeroLoja);
-				System.out.println("ATUALIZANDO O LOTE "+numeroLote + 1);
-				Iterator i = c.iterator();
-				while(i.hasNext()){
-					AtualizadorLote atualizador = AtualizadorLote.getInstancia();
-					DadoLote dado = (DadoLote) i.next();
-					if (dado.getOperacao().equals(dado.INSERIR)){
-						atualizador.incluir(dado.getDado());
-					}else if (dado.getOperacao().equals(dado.ALTERAR)){
-						atualizador.alterar(dado.getDado());
-					}else if (dado.getOperacao().equals(dado.EXCLUIR)){	
-						atualizador.excluir(dado.getDado());
-					}
+			while(remote.verificaNovoLoteLiberado(numeroLote)){			
+				if (remote != null){	
+					Collection c = remote.getLote(numeroLote, numeroLoja);
+					System.out.println("ATUALIZANDO O LOTE "+ (numeroLote + 1));
+					Iterator i = c.iterator();
+					while(i.hasNext()){
+						AtualizadorLote atualizador = AtualizadorLote.getInstancia();
+						DadoLote dado = (DadoLote) i.next();
+						if (dado.getOperacao().equals(dado.INSERIR)){
+							atualizador.incluir(dado.getDado());
+						}else if (dado.getOperacao().equals(dado.ALTERAR)){
+							atualizador.alterar(dado.getDado());
+						}else if (dado.getOperacao().equals(dado.EXCLUIR)){	
+							atualizador.excluir(dado.getDado());
+						}
+					}					
+					numeroLote = numeroLote + 1;
+					Parametro p = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE);
+        			p.setValorInteiro(numeroLote);
+        			ConcentradorParametro.getInstancia().atualizarParametro(p);
+        			System.out.println("FIM DA ATUALIZAÇÃO DO LOTE "+numeroLote);
 				}
-				System.out.println("FIM DA ATUALIZAÇÃO DO LOTE "+numeroLote + 1);
 			}
 		}catch (Throwable e){
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-		}
-		numeroLote = numeroLote + 1;
+		}		
 		novoLote = false;
 	}
 	public int getNumeroLoja() {

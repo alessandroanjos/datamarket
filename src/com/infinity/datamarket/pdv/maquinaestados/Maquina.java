@@ -19,6 +19,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.gui.telas.Tela;
 import com.infinity.datamarket.pdv.gui.telas.TelaMenssagem;
+import com.infinity.datamarket.pdv.gui.telas.swing.TelaCargaDados;
 import com.infinity.datamarket.pdv.infocomponent.ThreadEnviaInfoComponent;
 import com.infinity.datamarket.pdv.lote.ThreadVerificaNovoLote;
 
@@ -160,10 +161,11 @@ public class Maquina implements Serializable{
 	        		//verifica se tem novo lote liberado
         			if (threadVerificaNovoLote.existeNovoLote()){
         				System.out.println("HÁ UM NOVO LOTE LIBERADO");
+        				TelaCargaDados tela = new TelaCargaDados(gerenciadorPerifericos.getWindow().getFrame().getWidth(),gerenciadorPerifericos.getWindow().getFrame().getHeight());
+        				Thread thread = new Thread(tela);
+        				thread.start();
 	        			threadVerificaNovoLote.atualizaLote();
-	        			Parametro p = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE);
-	        			p.setValorInteiro(p.getValorInteiro() + 1);
-	        			ConcentradorParametro.getInstancia().atualizarParametro(p);
+	        			tela.stop();	        			
 	        		}else{
 	        			System.out.println("NÃO HÁ NOVO LOTE LIBERADO");
 	        		}
