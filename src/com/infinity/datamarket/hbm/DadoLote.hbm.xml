@@ -9,13 +9,13 @@
     <class name="com.infinity.datamarket.comum.lote.DadoLote" table="DADOS_LOTE" dynamic-update="false" dynamic-insert="false" lazy="false">
         
         <id
-            name="lote"
-            column="LOTE"
+            name="sequencial"
+            column="ID"
             type="int"
             length="8"
             unsaved-value="null"
         >
-            <generator class="assigned">
+            <generator class="native">
             </generator>
         </id>
 
@@ -28,9 +28,10 @@
             <column name="OPERACAO" length="1" not-null="false"/>
         </property>
         
-        <property name="sequencial" type="int" update="false" insert="false">
-            <column name="ID" length="8" not-null="false"/>
+        <property name="lote" type="int" update="false" insert="false">
+            <column name="LOTE" length="8" not-null="false"/>
         </property>
+        
     </class>
 
 </hibernate-mapping>
