@@ -37,6 +37,10 @@
           <property name="numeroCupom" type="java.lang.String" update="true" insert="true">
               <column name="NUMERO_CUPOM" length="20" not-null="false"/>
           </property>
+          
+          <property name="situacao" type="java.lang.String" update="true" insert="true">
+              <column name="SITUACAO" length="20" not-null="false"/>
+          </property>
 
           <property name="valorCupom" type="java.math.BigDecimal" update="true" insert="true">
               <column name="VALOR_CUPOM" length="20" not-null="false"/>
