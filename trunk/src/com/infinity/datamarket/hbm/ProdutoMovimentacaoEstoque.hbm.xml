@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque" table="PRODUTO_MOVIMENTACAO_ESTOQUE" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <composite-id name="pk" class="com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoquePK">			
+	   		<key-property name="id" column="ID_MOVIMENTACAO_ESTOQUE" type="integer"/>
+            <key-property name="numeroEntrada" column="NUM_ENTRADA" type="integer"/>
+         </composite-id>
+	
+		<many-to-one name="produto" class="com.infinity.datamarket.comum.produto.Produto" update="true" insert="true">
+          <column name="ID_PRODUTO" not-null="true"/>
+        </many-to-one>
+	
+    </class>
+
+</hibernate-mapping>

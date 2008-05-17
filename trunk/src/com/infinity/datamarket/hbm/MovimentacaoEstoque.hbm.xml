@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.estoque.MovimentacaoEstoque" table="MOVIMENTACAO_ESTOQUE" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="2"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+
+        <property name="codigoUsuario" type="int" update="true" insert="true">
+            <column name="ID_USUARIO" length="15" not-null="true"/>
+        </property>
+
+	    <property name="dataMovimentacao" type="java.util.Date" update="true" insert="true">
+            <column name="DATA" length="20" not-null="false"/>
+        </property>
+
+		<many-to-one name="estoqueSaida" class="com.infinity.datamarket.comum.estoque.Estoque" update="true" insert="true">
+          <column name="ID_ESTOQUE_SAI" not-null="false"/>
+          <column name="ID_LOJA_SAI" not-null="false"/>
+    	</many-to-one>
+    	
+    	<many-to-one name="estoqueEntrada" class="com.infinity.datamarket.comum.estoque.Estoque" update="true" insert="true">
+          <column name="ID_ESTOQUE_ENT" not-null="false"/>
+          <column name="ID_LOJA_ENT" not-null="false"/>
+    	</many-to-one>
+    	
+    	<set name="produtosMovimentacao" inverse="true" cascade="all">
+	        <key>
+	            <column name="ID_MOVIMENTACAO_ESTOQUE"/>
+	        </key>
+	        <one-to-many class="com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque"/>
+    	</set>
+    	
+
+    </class>
+
+</hibernate-mapping>
