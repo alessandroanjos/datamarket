@@ -3,12 +3,16 @@
  */
 package com.infinity.datamarket.enterprise.gui.loja;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
+import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -24,9 +28,14 @@ public class LojaBackBean extends BackBean {
 	String nome;
 	String numeroIp;
 	String numeroPorta;
+	String idEstoqueAtual;
 	
 	private Collection lojas;
+	SelectItem[] estoques;
 	
+	public void setEstoques(SelectItem[] estoques) {
+		this.estoques = estoques;
+	}
 	/**
 	 * @return the lojas
 	 */
@@ -88,13 +97,23 @@ public class LojaBackBean extends BackBean {
 		this.numeroPorta = numeroPorta;
 	}
 	
+	public String getIdEstoqueAtual() {
+		return idEstoqueAtual;
+	}
+	public void setIdEstoqueAtual(String idEstoqueAtual) {
+		this.idEstoqueAtual = idEstoqueAtual;
+	}
+	
 	public String inserir(){
-		Loja loja = new Loja();
-		loja.setId(new Long(this.id));
-		loja.setNome(this.nome);
-		loja.setNumeroIp(this.numeroIp);
-		loja.setNumeroPorta(this.numeroPorta);
 		try {
+			Loja loja = new Loja();
+			loja.setId(new Long(this.id));
+			loja.setNome(this.nome);
+			loja.setNumeroIp(this.numeroIp);
+			loja.setNumeroPorta(this.numeroPorta);
+
+			loja.setIdEstoque(null);
+		
 			getFachada().inserirLoja(loja);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -131,6 +150,11 @@ public class LojaBackBean extends BackBean {
 				this.setNome(loja.getNome());
 				this.setNumeroIp(loja.getNumeroIp());
 				this.setNumeroPorta(loja.getNumeroPorta());
+				if(loja.getIdEstoque() != null){
+					this.setIdEstoqueAtual(loja.getIdEstoque().toString());	
+				}else{
+					this.setIdEstoqueAtual("0");
+				}
 				return "proxima";
 			}else if (getNome() != null && !"".equals(getNome())){
 				PropertyFilter filter = new PropertyFilter();
@@ -150,6 +174,11 @@ public class LojaBackBean extends BackBean {
 						this.setNome(loja.getNome());
 						this.setNumeroIp(loja.getNumeroIp());
 						this.setNumeroPorta(loja.getNumeroPorta());
+						if(loja.getIdEstoque() != null){
+							this.setIdEstoqueAtual(loja.getIdEstoque().toString());	
+						}else{
+							this.setIdEstoqueAtual("0");
+						}
 						return "proxima";
 					}else{
 						setLojas(col);
@@ -174,6 +203,7 @@ public class LojaBackBean extends BackBean {
 		this.setNome(null);
 		this.setNumeroIp(null);
 		this.setNumeroPorta(null);
+		this.setIdEstoqueAtual("0");
 		return "mesma";
 	}
 	
@@ -184,11 +214,15 @@ public class LojaBackBean extends BackBean {
 			loja.setNome(this.getNome());
 			loja.setNumeroIp(this.getNumeroIp());
 			loja.setNumeroPorta(this.getNumeroPorta());
+			
+			loja.setIdEstoque(new Long(this.getIdEstoqueAtual()));
+			
 			getFachada().alterarLoja(loja);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -205,7 +239,10 @@ public class LojaBackBean extends BackBean {
 			loja.setId(new Long(this.getId()));
 			loja.setNome(this.getNome());
 			loja.setNumeroIp(this.getNumeroIp());
-			loja.setNumeroPorta(this.getNumeroIp());
+			loja.setNumeroPorta(this.getNumeroIp());			
+		
+			loja.setIdEstoque(new Long(this.getIdEstoqueAtual()));	
+			
 			getFachada().excluirLoja(loja);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -227,6 +264,7 @@ public class LojaBackBean extends BackBean {
 		this.setNome(null);
 		this.setNumeroIp(null);
 		this.setNumeroPorta(null);
+		this.setIdEstoqueAtual("0");
 		this.setLojas(null);
 		return "mesma";
 	}
@@ -239,4 +277,53 @@ public class LojaBackBean extends BackBean {
 		resetBB();
 		return "voltar";
 	}
+	
+	private List<Estoque> carregarEstoques() {
+		
+		List<Estoque> estoques = null;
+		try {
+			estoques = (ArrayList<Estoque>)getFachada().consultarTodosEstoquesPorLoja(this.getId());	
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return estoques;
+	}
+	
+	public SelectItem[] getEstoques(){
+		SelectItem[] arrayEstoques = null;
+		try {
+			List<Estoque> estoques = carregarEstoques();
+			
+			int i = 0;
+			SelectItem itemBranco = null;
+			if(estoques.size() == 0){
+				arrayEstoques = new SelectItem[estoques.size()+1];
+				itemBranco = new SelectItem("0", "Sem estoques Cadastrados.");
+				arrayEstoques[i++] = itemBranco;
+			}else{
+				arrayEstoques = new SelectItem[estoques.size()];
+			}
+			
+			for(Estoque estoqueTmp : estoques){
+				SelectItem item = new SelectItem(estoqueTmp.getPk().getId().toString(), estoqueTmp.getDescricao());
+				arrayEstoques[i++] = item;
+			}
+			
+			if(this.getIdEstoqueAtual() == null || this.getIdEstoqueAtual().equals("") || this.getIdEstoqueAtual().equals("0")){
+				this.setIdEstoqueAtual((String) arrayEstoques[0].getValue());				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayEstoques;
+	}
+
 }
