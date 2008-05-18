@@ -1,6 +1,7 @@
 package com.infinity.datamarket.comum.cliente;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import com.infinity.datamarket.comum.util.Persistente;
 
@@ -31,6 +32,8 @@ public class Cliente extends Persistente {
 	String foneContato;
 	BigDecimal valorLimiteCompras;
 	BigDecimal valorLimiteDisponivel;
+	Date dataNascimento;
+	Date dataCadastro;
 	
 	public String getBairro() {
 		return bairro;
@@ -157,5 +160,17 @@ public class Cliente extends Persistente {
 	}
 	public void setValorLimiteDisponivel(BigDecimal valorLimiteDisponivel) {
 		this.valorLimiteDisponivel = valorLimiteDisponivel;
-	}	
+	}
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 }
