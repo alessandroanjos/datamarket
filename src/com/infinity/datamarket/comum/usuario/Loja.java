@@ -19,6 +19,7 @@ public class Loja extends Persistente {
 	String nome;
 	String numeroIp;
 	String numeroPorta;
+	Long idEstoque;
 	Collection lojas;
 	
 	Set usuarios;
@@ -92,6 +93,14 @@ public class Loja extends Persistente {
 	public void setLojas(Collection lojas) {
 		this.lojas = lojas;
 	}
-	
+
+	public Long getIdEstoque() {
+		return idEstoque;
+	}
+
+	public void setIdEstoque(Long idEstoque) {
+		this.idEstoque = idEstoque;
+	}
+
 	
 }
