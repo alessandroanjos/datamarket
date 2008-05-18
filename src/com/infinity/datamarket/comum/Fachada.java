@@ -3137,6 +3137,38 @@ public class Fachada {
 		}
 		return c;
 	}
+
+	public Collection consultarTodosEstoquesPorLoja(String idLoja) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			
+			c = getCadastroEstoque().consultarTodosPorLoja(idLoja);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+
 	
 //	 Fornecedor
 	public void inserirFornecedor(Fornecedor fornecedor) throws AppException{
