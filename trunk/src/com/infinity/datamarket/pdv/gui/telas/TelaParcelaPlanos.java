@@ -9,6 +9,12 @@
 package com.infinity.datamarket.pdv.gui.telas;
 
 import java.awt.Font;
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,11 +22,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import com.infinity.datamarket.comum.util.StringUtil;
+
 /**
  *
  * @author  wagner.medeiros
  */
-public class TelaPlanos extends Tela{
+public class TelaParcelaPlanos extends Tela{
 	/**
 	 * 
 	 */
@@ -29,7 +37,7 @@ public class TelaPlanos extends Tela{
 	private JPanel painelTop;
 	private JLabel imgLogo;
 
-    public TelaPlanos() {
+    public TelaParcelaPlanos() {
         initComponents();
     }
 
@@ -44,7 +52,7 @@ public class TelaPlanos extends Tela{
         painelCentral.setBounds(0,100,800, 400);
         
         
-        lbForma = new JLabel("Forma");
+        lbForma = new JLabel("Entrada");
         lbForma.setFont(new java.awt.Font("MS Sans Serif",Font.BOLD,16));
         lbForma.setBounds(10,0, 200, 20);
     	painelCentral.add(lbForma);
@@ -58,15 +66,20 @@ public class TelaPlanos extends Tela{
         forma.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 150), 5));
     	painelCentral.add(forma);
         
-    	lbCodigo = new JLabel("Código");
+    	lbCodigo = new JLabel("Parcela");
     	lbCodigo.setFont(new java.awt.Font("MS Sans Serif",Font.BOLD,16));
     	lbCodigo.setBounds(10,100, 200, 20);
     	painelCentral.add(lbCodigo);
     	
-    	lbDescricao = new JLabel("Plano");
+    	lbDescricao = new JLabel("Valor");
     	lbDescricao.setFont(new java.awt.Font("MS Sans Serif",Font.BOLD,16));
-    	lbDescricao.setBounds(110,100, 200, 20);
+    	lbDescricao.setBounds(90,100, 200, 20);
     	painelCentral.add(lbDescricao);
+    	
+    	lbData = new JLabel("Data");
+    	lbData.setFont(new java.awt.Font("MS Sans Serif",Font.BOLD,16));
+    	lbData.setBounds(320,100, 200, 20);
+    	painelCentral.add(lbData);
     	
         planos = new JTextPaneCupom();
     	planos.setFont(new java.awt.Font("Courier New",Font.PLAIN+Font.BOLD,32));
@@ -101,21 +114,26 @@ public class TelaPlanos extends Tela{
     private JLabel lbForma;
     private JLabel lbCodigo;
     private JLabel lbDescricao;
+    private JLabel lbData;
 
-	public void addPlano(int codigo, String descricao){
-
-		this.planos.setText(this.planos.getText()+codigo+"    "+descricao+"\n");
+	public void addParcela(int codigo, BigDecimal valor, Date data){
+		
+		Calendar c  = new GregorianCalendar();
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		df.setCalendar(c);
+		
+		this.planos.setText(this.planos.getText()+codigo+"   "+StringUtil.completaString(StringUtil.numeroToString(valor, 2, 0, ",", ".", true),10,' ',true)+"  "+df.format(data)+"\n");
 
 	}
 	
-	public void setForma(String descricao){
+	public void setEntrada(BigDecimal entrada){
 
-		this.forma.setText(descricao);
+		this.forma.setText(StringUtil.numeroToString(entrada, 2, 0, ",", ".", true));
 
 	}
 	
 
-	public void limparPlanos(){
+	public void limparParcelas(){
 
 		this.planos.setText("");
 
@@ -126,12 +144,13 @@ public class TelaPlanos extends Tela{
 
 	public static void main(String[] a){
 		JFrame f = new JFrame();
-		TelaPlanos t = new TelaPlanos();
+		TelaParcelaPlanos t = new TelaParcelaPlanos();
 		f.setSize(800, 600);
-		t.setForma("Cheque Pré");
-		t.addPlano(1, "A vista");
-		t.addPlano(2, "2x sem juros");
-		t.addPlano(3, "3x sem juros");
+		t.setEntrada(new BigDecimal(1200.00));
+		t.addParcela(1, new BigDecimal(100000.00),new Date());
+		t.addParcela(2, new BigDecimal(10000.00),new Date());
+		t.addParcela(3, new BigDecimal(1000.00),new Date());
+		t.addParcela(4, new BigDecimal(100.00),new Date());
 		f.getContentPane().add(t.painelCentral);
 		f.setVisible(true);
 	}
