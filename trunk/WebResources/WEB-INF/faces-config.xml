@@ -1087,8 +1087,18 @@
 		    <null-value/>
 		</managed-property>
 		<managed-property>
+		    <property-name>idEstoqueAtual</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
 		    <property-name>lojas</property-name>
 		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>estoques</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
@@ -1318,12 +1328,7 @@
 		    <property-name>descricao</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>estoqueVenda</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
+		</managed-property>		
 		<managed-property>
 		    <property-name>idLoja</property-name>
 		    <property-class>java.lang.String</property-class>
