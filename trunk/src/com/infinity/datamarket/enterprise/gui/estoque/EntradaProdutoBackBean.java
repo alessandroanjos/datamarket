@@ -14,7 +14,6 @@ import javax.faces.model.SelectItem;
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
-import com.infinity.datamarket.comum.estoque.EstoquePK;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProdutoPK;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
@@ -364,7 +363,7 @@ public class EntradaProdutoBackBean extends BackBean {
 			int i = 0;
 			for (Estoque estoqueTmp : estoques) {
 				SelectItem item = new SelectItem(estoqueTmp.getPk().getId().toString(),
-						estoqueTmp.getEstoqueVenda());
+						estoqueTmp.getDescricao());
 				arrayEstoques[i++] = item;
 			}
 		} catch (Exception e) {
