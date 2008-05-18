@@ -103,6 +103,13 @@
             <column name="VAL_LIMITE_DISPONIVEL" length="20" not-null="false"/>
         </property>                                  
         
+        <property name="dataNascimento" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_NASCIMENTO" length="10" not-null="false"/>
+        </property> 
+        
+        <property name="dataCadastro" type="java.util.Date" update="false" insert="true">
+            <column name="DATA_CADASTRO" length="10" not-null="true"/>
+        </property> 
     </class>
 
 </hibernate-mapping>
