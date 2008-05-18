@@ -1,8 +1,6 @@
 package com.infinity.datamarket.enterprise.gui.cliente;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
