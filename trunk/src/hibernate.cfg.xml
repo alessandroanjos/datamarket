@@ -70,6 +70,7 @@
 	<mapping resource="com/infinity/datamarket/hbm/ProdutoMovimentacaoEstoque.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/PlanoPagamentoChequePredatado.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/ParcelaPlanoPagamentoChequePredatado.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Cliente.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>
