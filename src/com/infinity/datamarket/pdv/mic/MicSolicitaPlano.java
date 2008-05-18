@@ -1,10 +1,14 @@
 package com.infinity.datamarket.pdv.mic;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
+import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
@@ -27,11 +31,21 @@ public class MicSolicitaPlano extends Mic{
 					}catch(NumberFormatException e){
 						continue;
 					}
-					PlanoPagamento plano;
-					try{
-						plano= getFachadaPDV().consultarPlanoPagamentoPorId(id);
-					}catch(ObjectNotFoundException e){
-						gerenciadorPerifericos.getDisplay().setMensagem("Plano Inválido");
+					
+					FormaRecebimento forma = (FormaRecebimento) gerenciadorPerifericos.getCmos().ler(CMOS.FORMA_RECEBIMENTO_ATUAL);
+					Collection c = forma.getPlanos();
+					Iterator i = c.iterator();
+					PlanoPagamento plano = null;
+					while(i.hasNext()){
+						plano = (PlanoPagamento) i.next();
+						if (plano.getId().equals(id)){
+							break;
+						}else{
+							plano = null;
+						}
+					}
+					if (plano == null){					
+						gerenciadorPerifericos.getDisplay().setMensagem("Opção Inválida");
 						gerenciadorPerifericos.esperaVolta();
 						continue;
 					}
