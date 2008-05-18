@@ -9,6 +9,7 @@ public class ParcelaPlanoPagamentoChequePredatado implements Serializable{
 	 */
 	private static final long serialVersionUID = -6237638829985692672L;
 	private ParcelaPlanoPagamentoChequePredatadoPK pk;
+	private PlanoPagamentoChequePredatado plano;
 	
 	private BigDecimal percentagemParcela;
 	private int quantidadeDias;
@@ -30,5 +31,13 @@ public class ParcelaPlanoPagamentoChequePredatado implements Serializable{
 	public void setQuantidadeDias(int quantidadeDias) {
 		this.quantidadeDias = quantidadeDias;
 	}
+	public PlanoPagamentoChequePredatado getPlano() {
+		return plano;
+	}
+	public void setPlano(PlanoPagamentoChequePredatado plano) {
+		this.plano = plano;
+	}
+	
+	
 	
 }
