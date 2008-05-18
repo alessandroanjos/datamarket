@@ -30,8 +30,6 @@ public class EstoqueBackBean extends BackBean {
 
 	String descricao;
 	
-	String estoqueVenda;
-
 	String idLoja;
 
 	Loja loja;
@@ -70,7 +68,7 @@ public class EstoqueBackBean extends BackBean {
 		
 		pk.setId(new Long(this.id));
 		estoque.setDescricao(this.descricao);
-		estoque.setEstoqueVenda(this.estoqueVenda);
+		
 		Loja loja = new Loja();
 		loja.setId(new Long(this.idLoja));
 		pk.setLoja(loja);
@@ -124,7 +122,7 @@ public class EstoqueBackBean extends BackBean {
 				Estoque estoque = getFachada().consultarEstoquePorId(pk);
 				this.setId(estoque.getPk().getId().toString());
 				this.setDescricao(estoque.getDescricao());
-				this.setEstoqueVenda(estoque.getEstoqueVenda());
+
 				this.setIdLoja(estoque.getPk().getLoja().getId().toString());
 				return "proxima";
 			} else if (getDescricao() != null && !"".equals(getDescricao())) {
@@ -144,7 +142,7 @@ public class EstoqueBackBean extends BackBean {
 						Estoque estoque = (Estoque) col.iterator().next();
 						this.setId(estoque.getPk().getId().toString());
 						this.setDescricao(estoque.getDescricao());
-						this.setEstoqueVenda(estoque.getEstoqueVenda());
+
 						this.setIdLoja(estoque.getPk().getLoja().getId().toString());
 						return "proxima";
 					} else {
@@ -180,7 +178,7 @@ public class EstoqueBackBean extends BackBean {
 			
 			pk.setId(new Long(this.id));
 			estoque.setDescricao(this.descricao);
-			estoque.setEstoqueVenda(this.estoqueVenda);
+			
 			Loja loja = new Loja();
 			loja.setId(new Long(this.idLoja));
 			pk.setLoja(loja);
@@ -214,7 +212,7 @@ public class EstoqueBackBean extends BackBean {
 			
 			pk.setId(new Long(this.id));
 			estoque.setDescricao(this.descricao);
-			estoque.setEstoqueVenda(this.estoqueVenda);
+			
 			Loja loja = new Loja();
 			loja.setId(new Long(this.idLoja));
 			pk.setLoja(loja);
@@ -311,13 +309,4 @@ public class EstoqueBackBean extends BackBean {
 	public void setLoja(Loja loja) {
 		this.loja = loja;
 	}
-
-	public String getEstoqueVenda() {
-		return estoqueVenda;
-	}
-
-	public void setEstoqueVenda(String estoqueVenda) {
-		this.estoqueVenda = estoqueVenda;
-	}
-
 }
