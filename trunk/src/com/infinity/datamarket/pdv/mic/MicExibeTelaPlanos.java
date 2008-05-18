@@ -23,6 +23,7 @@ public class MicExibeTelaPlanos extends Mic{
 
 		FormaRecebimento forma = (FormaRecebimento) gerenciadorPerifericos.getCmos().ler(CMOS.FORMA_RECEBIMENTO_ATUAL);
 		tela.limparPlanos();
+		tela.setForma(forma.getDescricao());
 		Collection c = forma.getPlanos();
 		Iterator i = c.iterator();
 		Date dataAtual = new Date();

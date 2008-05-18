@@ -12,6 +12,7 @@ import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 
 public class MicSolicitaDadosCheque extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
+		
 		String CPFCNPJ = null;
 		String numeroChequeLido = null;
 		String banco = null;
