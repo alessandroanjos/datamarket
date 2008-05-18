@@ -20,11 +20,6 @@
 			<column name="DESCRICAO" length="20" not-null="true" />
 		</property>
 		
-		<property name="estoqueVenda" type="java.lang.String" update="true"
-			insert="true">
-			<column name="ESTOQUE_VENDA" length="1" not-null="true" />
-		</property>
-
 	</class>
 
 </hibernate-mapping>
