@@ -18,18 +18,18 @@
 		
 	</head>
 	<f:view>
-		<h:form>
+		
 			<t:stylesheet path="css/default.css" enabledOnUserRole="true"></t:stylesheet>
 			<t:stylesheet path="css/form.css" enabledOnUserRole="true"></t:stylesheet>
 	
-				<f:subview id="subTopo" rendered="true">
+				
 					<jsp:include page="/jsp/topo.jsp?tituloPagina=&user=Desconhecido"></jsp:include>	
-				</f:subview>					
+					<h:form>				
 				<div id="content" style="margin-top:20px;">
 					<div id="primarioContentContainer">
 						<div id="primarioContent">			
 							<div class="box">
-								<h2>Benvindo!</h2>
+								<h2>Bem Vindo!</h2>
 								<div class="boxContent">
 									<p>Este sistema é parte de um conjunto de aplicações que foram desenvolvidas visando <strong>gerenciar</strong>, <strong>informar</strong> e <strong>ajudar na tomada de decis&atilde;o</strong> de sua empresa.</p>
 									<p>Para usá-lo <strong>é necessário ter registrado</strong> junto ao administrador de sistema <strong>um usuário e senha</strong>.</p>
