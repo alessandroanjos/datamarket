@@ -67,18 +67,7 @@
 										</h:selectOneMenu>
 										<h:message for="idLoja" styleClass="msgErro" />
 									</div>
-								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Venda Associada*"></h:outputLabel>
-										<h:selectOneRadio  styleClass="field select"  id="estoqueVenda" 
-											value="#{estoqueBB.estoqueVenda}"  layout="lineDirection" required="true">
-										    <f:selectItem itemLabel="Sim" itemValue="S" />
-										    <f:selectItem itemLabel="Não" itemValue="N" />
-										</h:selectOneRadio>
-										<h:message for="estoqueVenda" styleClass="msgErro" />
-									</div>
-								</li>								
+								</li>														
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{estoqueBB.inserir}" value="Inserir"></h:commandButton>
