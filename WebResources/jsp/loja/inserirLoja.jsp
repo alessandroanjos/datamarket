@@ -69,9 +69,7 @@
 											<f:validateLength maximum="15" />
 										</h:inputText>
 										<h:message for="ip" styleClass="msgErro" />
-									</div>
-								</li>
-								<li class="normal">
+									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Porta*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="numeroPorta" maxlength="4"
@@ -79,6 +77,16 @@
 											<f:validateLength maximum="4" />
 										</h:inputText>
 										<h:message for="numeroPorta" styleClass="msgErro" />
+									</div>
+								</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Estoque Atual*"></h:outputLabel>
+										<h:selectOneMenu id="idEstoque" styleClass="field select"
+											value="#{lojaBB.idEstoqueAtual}" style="width: 200px;">		
+											<f:selectItems id="estoqueSelectItems" value="#{lojaBB.estoques}" />
+										</h:selectOneMenu>
+										<h:message for="idEstoque" styleClass="msgErro" />
 									</div>
 								</li>
 								<li class="buttons">
