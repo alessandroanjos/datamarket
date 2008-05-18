@@ -2,7 +2,6 @@ package com.infinity.datamarket.comum.cliente;
 
 import java.util.Collection;
 
-import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
@@ -27,8 +26,8 @@ public class CadastroCliente extends Cadastro {
 		return getRepositorio().filter(filter, false);
 	}
 	
-	public Unidade consultarPorPK(Long id) throws AppException{
-		return (Unidade) getRepositorio().findById(CLASSE, id);
+	public Cliente consultarPorPK(Long id) throws AppException{
+		return (Cliente) getRepositorio().findById(CLASSE, id);
 	}
 	
 	public Collection consultarTodos() throws AppException{
