@@ -14,13 +14,14 @@
           <property name="percentagemEntrada" type="java.math.BigDecimal" update="true" insert="true">
               <column name="PERCENTAGEM_ENTRADA" length="20" not-null="false"/>
           </property>
-          
-          <set name="parcelas" inverse="true" cascade="all">
+         
+          <set name="parcelas" inverse="false" cascade="all" lazy="false">
 	        <key>
-	            <column name="ID_FORMA"/>
+	            <column name="ID_PLANO"/>
 	        </key>
 	        <one-to-many class="com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatado"/>
     	</set>
+    	
           
       </joined-subclass>
    </hibernate-mapping>
