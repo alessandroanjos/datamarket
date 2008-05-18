@@ -3683,11 +3683,11 @@ public class Fachada {
 		return c;
 	}
 	
-	public Unidade consultarClientePorPK(Long id) throws AppException{
-		Unidade u = null;
+	public Cliente consultarClientePorPK(Long id) throws AppException{
+		Cliente c = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			u = getCadastroCliente().consultarPorPK(id);
+			c = getCadastroCliente().consultarPorPK(id);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
@@ -3710,7 +3710,7 @@ public class Fachada {
 				throw new SistemaException(ex);
 			}
 		}
-		return u;
+		return c;
 	}
 	
 	public void alterarCliente(Cliente cliente) throws AppException{
