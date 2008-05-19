@@ -38,9 +38,9 @@ public class ClienteBackBean extends BackBean {
 	String pessoaContato;
 	String foneContato;
 	BigDecimal valorLimiteCompras;
-	BigDecimal valorLimiteDisponivel;
+//	BigDecimal valorLimiteDisponivel;
 	Date dataNascimento;
-	Date dataCadastro;
+	Date dataCadastro = new Date(System.currentTimeMillis());
 	
 	Collection clientes;
 
@@ -220,13 +220,13 @@ public class ClienteBackBean extends BackBean {
 		this.valorLimiteCompras = valorLimiteCompras;
 	}
 
-	public BigDecimal getValorLimiteDisponivel() {
-		return valorLimiteDisponivel;
-	}
-
-	public void setValorLimiteDisponivel(BigDecimal valorLimiteDisponivel) {
-		this.valorLimiteDisponivel = valorLimiteDisponivel;
-	}
+//	public BigDecimal getValorLimiteDisponivel() {
+//		return valorLimiteDisponivel;
+//	}
+//
+//	public void setValorLimiteDisponivel(BigDecimal valorLimiteDisponivel) {
+//		this.valorLimiteDisponivel = valorLimiteDisponivel;
+//	}
 	
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -247,7 +247,7 @@ public class ClienteBackBean extends BackBean {
 	public String resetBB(){
 		this.setId(null);
 		this.setNomeCliente(null);
-		this.setTipoPessoa(null);
+		this.setTipoPessoa(Cliente.PESSOA_FISICA);
 		this.setCpfCnpj(null);
 		this.setRazaoSocial(null);
 		this.setNomeFantasia(null);
@@ -266,7 +266,7 @@ public class ClienteBackBean extends BackBean {
 		this.setPessoaContato(null);
 		this.setFoneContato(null);
 		this.setValorLimiteCompras(null);
-		this.setValorLimiteDisponivel(null);
+//		this.setValorLimiteDisponivel(null);
 		this.setDataCadastro(null);
 		this.setDataNascimento(null);
 		
@@ -304,7 +304,7 @@ public class ClienteBackBean extends BackBean {
 				this.setPessoaContato(cliente.getPessoaContato());
 				this.setFoneContato(cliente.getFoneContato());
 				this.setValorLimiteCompras(cliente.getValorLimiteCompras());
-				this.setValorLimiteDisponivel(cliente.getValorLimiteDisponivel());
+//				this.setValorLimiteDisponivel(cliente.getValorLimiteDisponivel());
 				this.setDataCadastro(cliente.getDataCadastro());
 				this.setDataNascimento(cliente.getDataNascimento());
 				
@@ -344,7 +344,7 @@ public class ClienteBackBean extends BackBean {
 						this.setPessoaContato(cliente.getPessoaContato());
 						this.setFoneContato(cliente.getFoneContato());
 						this.setValorLimiteCompras(cliente.getValorLimiteCompras());
-						this.setValorLimiteDisponivel(cliente.getValorLimiteDisponivel());
+//						this.setValorLimiteDisponivel(cliente.getValorLimiteDisponivel());
 						this.setDataCadastro(cliente.getDataCadastro());
 						this.setDataNascimento(cliente.getDataNascimento());
 						
@@ -374,33 +374,8 @@ public class ClienteBackBean extends BackBean {
 
 	public String inserir(){
 		try {
-			Cliente cliente = new Cliente();
+			Cliente cliente = preencheCliente("I");
 			
-			cliente.setId(new Long(this.getId()));
-			cliente.setNomeCliente(this.getNomeCliente());
-			cliente.setTipoPessoa(this.getTipoPessoa());
-			cliente.setCpfCnpj(this.getCpfCnpj());
-			cliente.setRazaoSocial(this.getRazaoSocial());
-			cliente.setNomeFantasia(this.getNomeFantasia());
-			cliente.setInscricaoEstadual(this.getInscricaoEstadual());
-			cliente.setInscricaoMunicipal(this.getInscricaoMunicipal());
-			cliente.setLogradouro(this.getLogradouro());
-			cliente.setNumero(this.getNumero());
-			cliente.setComplemento(this.getComplemento());
-			cliente.setBairro(this.getBairro());
-			cliente.setCidade(this.getCidade());
-			cliente.setEstado(this.getEstado());
-			cliente.setCep(this.getCep());
-			cliente.setFoneResidencial(this.getFoneResidencial());
-			cliente.setFoneComercial(this.getFoneComercial());
-			cliente.setFoneCelular(this.getFoneCelular());
-			cliente.setPessoaContato(this.getPessoaContato());
-			cliente.setFoneContato(this.getFoneContato());
-			cliente.setValorLimiteCompras(this.getValorLimiteCompras());
-			cliente.setValorLimiteDisponivel(this.getValorLimiteDisponivel());			
-			cliente.setDataCadastro(new Date(System.currentTimeMillis()));
-			cliente.setDataNascimento(this.getDataNascimento());
-		
 			getFachada().inserirCliente(cliente);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -424,31 +399,7 @@ public class ClienteBackBean extends BackBean {
 	
 	public String alterar(){
 		try {		
-			Cliente cliente = new Cliente();
-			
-			cliente.setId(new Long(this.getId()));
-			cliente.setNomeCliente(this.getNomeCliente());
-			cliente.setTipoPessoa(this.getTipoPessoa());
-			cliente.setCpfCnpj(this.getCpfCnpj());
-			cliente.setRazaoSocial(this.getRazaoSocial());
-			cliente.setNomeFantasia(this.getNomeFantasia());
-			cliente.setInscricaoEstadual(this.getInscricaoEstadual());
-			cliente.setInscricaoMunicipal(this.getInscricaoMunicipal());
-			cliente.setLogradouro(this.getLogradouro());
-			cliente.setNumero(this.getNumero());
-			cliente.setComplemento(this.getComplemento());
-			cliente.setBairro(this.getBairro());
-			cliente.setCidade(this.getCidade());
-			cliente.setEstado(this.getEstado());
-			cliente.setCep(this.getCep());
-			cliente.setFoneResidencial(this.getFoneResidencial());
-			cliente.setFoneComercial(this.getFoneComercial());
-			cliente.setFoneCelular(this.getFoneCelular());
-			cliente.setPessoaContato(this.getPessoaContato());
-			cliente.setFoneContato(this.getFoneContato());
-			cliente.setValorLimiteCompras(this.getValorLimiteCompras());
-			cliente.setValorLimiteDisponivel(this.getValorLimiteDisponivel());
-			cliente.setDataNascimento(this.getDataNascimento());
+			Cliente cliente = preencheCliente("A");			
 								
 			getFachada().alterarCliente(cliente);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -468,7 +419,8 @@ public class ClienteBackBean extends BackBean {
 	
 	public String excluir(){
 		try {
-			Cliente cliente = new Cliente();			
+			Cliente cliente = new Cliente();
+			
 			cliente.setId(new Long(this.getId()));
 			
 			getFachada().alterarCliente(cliente);
@@ -486,5 +438,37 @@ public class ClienteBackBean extends BackBean {
 		}
 		resetBB();
 		return "mesma";
+	}
+	
+	public Cliente preencheCliente(String acao){
+		Cliente cliente = new Cliente();
+		
+		cliente.setId(new Long(this.getId()));
+		cliente.setNomeCliente(this.getNomeCliente());
+		cliente.setTipoPessoa(this.getTipoPessoa());
+		cliente.setCpfCnpj(this.getCpfCnpj());
+		cliente.setRazaoSocial(this.getRazaoSocial());
+		cliente.setNomeFantasia(this.getNomeFantasia());
+		cliente.setInscricaoEstadual(this.getInscricaoEstadual());
+		cliente.setInscricaoMunicipal(this.getInscricaoMunicipal());
+		cliente.setLogradouro(this.getLogradouro());
+		cliente.setNumero(this.getNumero());
+		cliente.setComplemento(this.getComplemento());
+		cliente.setBairro(this.getBairro());
+		cliente.setCidade(this.getCidade());
+		cliente.setEstado(this.getEstado());
+		cliente.setCep(this.getCep());
+		cliente.setFoneResidencial(this.getFoneResidencial());
+		cliente.setFoneComercial(this.getFoneComercial());
+		cliente.setFoneCelular(this.getFoneCelular());
+		cliente.setPessoaContato(this.getPessoaContato());
+		cliente.setFoneContato(this.getFoneContato());
+		cliente.setValorLimiteCompras(this.getValorLimiteCompras());
+//		cliente.setValorLimiteDisponivel(this.getValorLimiteDisponivel());
+		cliente.setDataNascimento(this.getDataNascimento());
+		if(acao.equals("I")){
+			cliente.setDataCadastro(new Date(System.currentTimeMillis()));	
+		}		
+		return cliente;
 	}
 }
