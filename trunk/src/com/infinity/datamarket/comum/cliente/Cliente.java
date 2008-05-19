@@ -6,6 +6,9 @@ import java.util.Date;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class Cliente extends Persistente {
+	
+	public static final String PESSOA_FISICA = "F";
+	public static final String PESSOA_JURIDICA = "J";
 	/**
 	 * 
 	 */
