@@ -260,3 +260,31 @@ function showwindow(action) {
 	alert(action);
     window.open(action,'_blank','');
 }
+
+function formataTel(Campo) {
+	var evt = event.keyCode;
+	var obj = document.getElementById(Campo);
+//    if (navigator.appName.indexOf("Netscape") != -1)
+//      obj = evt.target;
+//    else 
+//      obj = evt.srcElement;
+    qtd = obj.value.length;
+    if (qtd == 2) obj.value = "("+obj.value+")";
+    if (qtd == 7) obj.value = obj.value+"-";
+    if (qtd == 12 && evt.keyCode == 8) {
+    character = tiraChar(obj.value, "-");
+        obj.value = character.substring(0,7)+"-"+character.substring(7,12);
+    }
+    if (qtd == 13) {
+    character = tiraChar(obj.value, "-");
+    obj.value = character.substring(0,8)+"-"+character.substring(8,12);
+}
+}
+function tiraChar(texto, caracter) {
+var ret;
+    for (i=0; i < texto.length; i++) {
+    if (texto.substring(i, i+1) == caracter)
+            ret = texto.substring(0, i)+texto.substring(i+1, texto.length);
+    }
+    return ret;
+}
