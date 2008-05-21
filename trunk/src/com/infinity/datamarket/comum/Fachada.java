@@ -35,6 +35,7 @@ import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.totalizadores.CadastroTotalizadores;
 import com.infinity.datamarket.comum.totalizadores.TotalizadorNaoFiscal;
@@ -3149,12 +3150,12 @@ public class Fachada {
 		return c;
 	}
 
-	public Collection consultarTodosEstoquesPorLoja(String idLoja) throws AppException{
+	public Collection consultarTodosEstoquesPorLoja(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			
-			c = getCadastroEstoque().consultarTodosPorLoja(idLoja);
+			c = getCadastroEstoque().consultar(filter);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
@@ -3475,6 +3476,35 @@ public class Fachada {
 			}
 		}
 	}
+	public Collection consultarTodosEntradaProdutos() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroEntradaProduto().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
 	public EntradaProduto consultarEntradaProdutoPorId(Long id) throws AppException{
 		EntradaProduto entradaProduto = null;
 		try{
@@ -3566,39 +3596,6 @@ public class Fachada {
 		return c;
 	}
 	
-	
-	// LOTE
-	
-	public Collection consultarDadosLote(IPropertyFilter filter) throws AppException{
-		Collection c = null;
-		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
-			c = getCadastroDadoLote().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
-		}catch(AppException e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-			throw e;
-		}catch(Throwable e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-				throw new SistemaException(e);
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}
-		return c;
-	}
-	
 //CLIENTE
 	
 	public void inserirCliente(Cliente cliente) throws AppException{
@@ -3659,11 +3656,11 @@ public class Fachada {
 		return c;
 	}
 	
-	public Collection consultarTodosClientes() throws AppException{
+	public Collection consultarDadosLote(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			c = getCadastroCliente().consultarTodos();
+			c = getCadastroDadoLote().consultar(filter);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
