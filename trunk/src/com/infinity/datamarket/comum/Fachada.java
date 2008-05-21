@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import com.infinity.datamarket.comum.cliente.CadastroCliente;
 import com.infinity.datamarket.comum.cliente.Cliente;
+import com.infinity.datamarket.comum.clientepagamento.CadastroClientePagamento;
+import com.infinity.datamarket.comum.clientepagamento.ClientePagamento;
 import com.infinity.datamarket.comum.componente.CadastroComponente;
 import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.estoque.CadastroEntradaProduto;
@@ -148,6 +150,10 @@ public class Fachada {
 	
 	private CadastroCliente getCadastroCliente(){
 		return CadastroCliente.getInstancia();
+	}
+	
+	private CadastroClientePagamento getCadastroClientePagamento(){
+		return CadastroClientePagamento.getInstancia();
 	}
 	
 	public Usuario loginUsuario(Long id, String senha) throws AppException{
@@ -3768,4 +3774,180 @@ public class Fachada {
 			}
 		}
 	}
+	
+// CLIENTE PAGAMENTO
+	
+	public void inserirCliente(ClientePagamento clientePagamento) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroClientePagamento().inserir(clientePagamento);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public Collection consultarClientePagamento(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroClientePagamento().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	public Collection consultarTodosClientesPagamentos() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroClientePagamento().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	public ClientePagamento consultarClientePagamentoPorPK(Long id) throws AppException{
+		ClientePagamento c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroClientePagamento().consultarPorPK(id);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	public void alterarCliente(ClientePagamento clientePagamento) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroClientePagamento().alterar(clientePagamento);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public void excluirCliente(ClientePagamento clientePagamento) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroClientePagamento().excluir(clientePagamento);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}	
 }
