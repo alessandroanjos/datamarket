@@ -151,6 +151,14 @@
 			<to-view-id>/jsp/cliente/consultarCliente.jsp</to-view-id>
 		</navigation-case>
 			
+		<navigation-case>
+			<from-outcome>inserirClientePagamento</from-outcome>
+			<to-view-id>/jsp/clientePagamento/inserirClientePagamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterClientePagamento</from-outcome>
+			<to-view-id>/jsp/clientePagamento/consultarClientePagamento.jsp</to-view-id>
+		</navigation-case>
 				
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
@@ -730,6 +738,22 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!--  CLIENTE -->
+	
+		<navigation-rule>
+			<from-view-id>/jsp/cliente/inserirCliente.jsp</from-view-id>
+			<navigation-case>
+				<from-action>#{clienteBB.inserir}</from-action>
+				<from-outcome>mesma</from-outcome>
+				<to-view-id>/jsp/cliente/inserirCliente.jsp</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-action>#{clienteBB.voltarMenu}</from-action>
+				<from-outcome>voltar</from-outcome>
+				<to-view-id>/jsp/menu.jsp</to-view-id>
+			</navigation-case>
+		</navigation-rule>
+	
 		<navigation-rule>
 		<from-view-id>/jsp/cliente/consultarCliente.jsp</from-view-id>
 		<navigation-case>
@@ -757,6 +781,52 @@
 			<to-view-id>/jsp/cliente/consultarCliente.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+
+
+	<!--  CLIENTE PAGAMENTO -->
+	
+		<navigation-rule>
+			<from-view-id>/jsp/clientePagamento/inserirClientePagamento.jsp</from-view-id>
+			<navigation-case>
+				<from-action>#{clientePagamentoBB.inserir}</from-action>
+				<from-outcome>mesma</from-outcome>
+				<to-view-id>/jsp/clientePagamento/inserirClientePagamento.jsp</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-action>#{clientePagamentoBB.voltarMenu}</from-action>
+				<from-outcome>voltar</from-outcome>
+				<to-view-id>/jsp/menu.jsp</to-view-id>
+			</navigation-case>
+		</navigation-rule>
+	
+		<navigation-rule>
+		<from-view-id>/jsp/clientePagamento/consultarClientePagamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{clientePagamentoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/clientePagamento/consultarClientePagamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{clientePagamentoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/clientePagamento/manterClientePagamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{clientePagamentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/clientePagamento/manterClientePagamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{clientePagamentoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/clientePagamento/consultarClientePagamento.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
 	
 	<!-- TIPO DE PRODUTO BACK BEAN -->
 	
@@ -1614,6 +1684,40 @@
 		</managed-property>				
 	</managed-bean>
 
+<!-- CLIENTE PAGAMENTO BACK BEAN -->
+
+	<managed-bean>
+		<managed-bean-name>clientePagamentoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.clientepagamento.ClientePagamentoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cliente</property-name>
+		    <property-class>com.infinity.datamarket.comum.cliente.Cliente</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>formaRecebimento</property-name>
+		    <property-class>com.infinity.datamarket.comum.pagamento.FormaRecebimento</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valorPagamento</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataPagamento</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
 	
 	<validator>
        <validator-id>LongValidator</validator-id>
