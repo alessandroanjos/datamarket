@@ -9,7 +9,7 @@
     <class name="com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto" table="PRODUTO_ENTRADA_PRODUTO" dynamic-update="false" dynamic-insert="false" lazy="false">
         
         <composite-id name="pk" class="com.infinity.datamarket.comum.estoque.ProdutoEntradaProdutoPK">			
-	   		<key-property name="id" column="ID_ENTRADA_PRODUTO" type="integer"/>
+	   		<key-property name="id" column="ID_ENTRADA_PRODUTO" type="java.lang.Long"/>
             <key-many-to-one name="produto" class="com.infinity.datamarket.comum.produto.Produto" column="ID_PRODUTO"/>
             <key-property name="numeroEntrada" column="NUM_ENTRADA" type="integer"/>
          </composite-id>
