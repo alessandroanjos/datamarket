@@ -1595,11 +1595,13 @@
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
+<!--  		
 		<managed-property>
 		    <property-name>valorLimiteDisponivel</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>	
+-->		
 		<managed-property>
 		    <property-name>dataNascimento</property-name>
 		    <property-class>java.util.Date</property-class>
