@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.cliente.Cliente" table="CLIENTE_PAGTO" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="2"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+		
+	    <many-to-one name="cliente" class="com.infinity.datamarket.comum.cliente.Cliente" update="true" insert="true" >
+              <column name="ID_CLIENTE" not-null="true"/>
+        </many-to-one>
+
+		<property name="dataPagamento" type="java.util.Date" update="true" insert="true">
+	        <column name="DATA_PAGTO" length="1" not-null="true"/>
+	    </property>
+
+		<property name="valorPagamento" type="java.math.BigDecimal" update="true" insert="true">
+	        <column name="VALOR_PAGTO" length="18" not-null="true"/>
+	    </property>
+
+		<many-to-one name="formaRecebimento" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento" update="true" insert="true" >
+              <column name="ID_FORMA_RECEBIMENTO" not-null="true"/>
+        </many-to-one>
+    </class>
+
+</hibernate-mapping>
