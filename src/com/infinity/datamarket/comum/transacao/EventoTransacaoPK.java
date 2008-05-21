@@ -13,6 +13,11 @@ public class EventoTransacaoPK extends TransacaoPK{
 	public EventoTransacaoPK(int loja, int componente, int numeroTransacao, Date dataTransacao) {
 		super(loja,componente,numeroTransacao,dataTransacao);
 	}
+	
+	public EventoTransacaoPK(int loja, int componente, int numeroTransacao, Date dataTransacao, int numeroEvento) {
+		super(loja,componente,numeroTransacao,dataTransacao);
+		this.numeroEvento = numeroEvento;
+	}
 
 	public EventoTransacaoPK(){
 
