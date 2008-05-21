@@ -56,7 +56,7 @@
           <column name="ID_FORNECEDOR" not-null="false"/>
     </many-to-one>
 
-	<set name="produtosEntrada" inverse="true" cascade="all">
+	<set name="produtosEntrada" inverse="true" cascade="all" lazy="false">
         <key>
             <column name="ID_ENTRADA_PRODUTO"/>
         </key>
