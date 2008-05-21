@@ -17,9 +17,13 @@ import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class ClienteBackBean extends BackBean {
 	
+	public ClienteBackBean(){
+		resetBB();
+	}
+	
 	String id;
 	String nomeCliente;
-	String tipoPessoa;
+	String tipoPessoa = new String(Cliente.PESSOA_FISICA);
 	String cpfCnpj;
 	String razaoSocial;
 	String nomeFantasia;
@@ -267,8 +271,9 @@ public class ClienteBackBean extends BackBean {
 		this.setFoneContato(null);
 		this.setValorLimiteCompras(null);
 //		this.setValorLimiteDisponivel(null);
-		this.setDataCadastro(null);
+		this.setDataCadastro(new Date(System.currentTimeMillis()));
 		this.setDataNascimento(null);
+		
 		
 		return "mesma";
 	}
@@ -309,10 +314,20 @@ public class ClienteBackBean extends BackBean {
 				this.setDataNascimento(cliente.getDataNascimento());
 				
 				return "proxima";
-			}else if (getNomeCliente() != null && !"".equals(getNomeCliente())){
+			}else if ((this.getNomeCliente() != null && !"".equals(this.getNomeCliente()))
+					|| (this.getCpfCnpj() != null && !"".equals(this.getCpfCnpj()))
+					|| (this.getTipoPessoa() != null && !"".equals(this.getTipoPessoa()))){
 				PropertyFilter filter = new PropertyFilter();
-				filter.setTheClass(Componente.class);
-				filter.addProperty("nomeCliente", getNomeCliente());
+				filter.setTheClass(Cliente.class);
+				filter.addProperty("tipoPessoa", this.getTipoPessoa());
+				if(this.getTipoPessoa().equals(Cliente.PESSOA_FISICA)){
+					filter.addProperty("nomeCliente", this.getNomeCliente());	
+				}else{
+					filter.addProperty("razaoSocial", this.getNomeCliente());
+				}
+				if(this.getCpfCnpj() != null && !"".equals(this.getCpfCnpj())){
+					filter.addProperty("cpfCnpj", this.getCpfCnpj());	
+				}
 				Collection col = getFachada().consultarCliente(filter);
 				if (col == null || col.size() == 0){
 					this.setClientes(col);
@@ -354,7 +369,7 @@ public class ClienteBackBean extends BackBean {
 					}
 				}
 			}else{
-				setClientes(getFachada().consultarTodosClientes());
+				this.setClientes(getFachada().consultarTodosClientes());
 			}
 		}catch(ObjectNotFoundException e){
 			this.setClientes(null);
@@ -407,6 +422,7 @@ public class ClienteBackBean extends BackBean {
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
+			this.setClientes(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -429,6 +445,7 @@ public class ClienteBackBean extends BackBean {
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
+			this.setClientes(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
