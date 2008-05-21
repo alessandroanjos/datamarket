@@ -439,7 +439,7 @@ public class ClienteBackBean extends BackBean {
 			
 			cliente.setId(new Long(this.getId()));
 			
-			getFachada().alterarCliente(cliente);
+			getFachada().excluirCliente(cliente);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
