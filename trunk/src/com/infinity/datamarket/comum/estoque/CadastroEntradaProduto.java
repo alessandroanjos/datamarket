@@ -42,9 +42,21 @@ public class CadastroEntradaProduto extends Cadastro{
 			pk.setProduto(pep.getPk().getProduto());
 			
 			//consulta de estoque produto
-			EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pk);
-			ep.setQuantidade(ep.getQuantidade().add(pep.getQuantidade()));
-			getRepositorio().update(ep);
+			try {
+				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pk);
+				ep.setQuantidade(ep.getQuantidade().add(pep.getQuantidade()));
+				getRepositorio().update(ep);
+			} catch (Exception e) {
+				// TODO: handle exception
+				EstoqueProduto ep = new EstoqueProduto();
+				EstoqueProdutoPK pkEp = new EstoqueProdutoPK();
+				pkEp.setEstoque(pk.getEstoque());
+				pkEp.setProduto(pk.getProduto());
+				ep.setPk(pkEp);
+				ep.setQuantidade(pep.getQuantidade());
+				getRepositorio().insert(ep);
+			}
+	
 		}
 	}
 	public void alterar(EntradaProduto entradaProduto) throws AppException{
