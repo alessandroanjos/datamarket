@@ -15,7 +15,7 @@
       <property name="connection.username">sa</property>
       <property name="connection.password">sa</property>
 
-      <property name="show_sql">true</property>
+      <property name="show_sql">false</property>
       <property name="format_sql">true</property>
       <!-- <property name="dialect">net.sf.hibernate.dialect.PostgreSQLDialect</property> -->
       <!--property name="dialect">net.sf.hibernate.dialect.OracleDialect</property>-->
@@ -68,10 +68,12 @@
 	<mapping resource="com/infinity/datamarket/hbm/DadoLote.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/MovimentacaoEstoque.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/ProdutoMovimentacaoEstoque.hbm.xml"/>
- 	<mapping resource="com/infinity/datamarket/hbm/PlanoPagamentoChequePredatado.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/PlanoPagamentoChequePredatado.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/ParcelaPlanoPagamentoChequePredatado.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Cliente.hbm.xml"/>
-	
+	<mapping resource="com/infinity/datamarket/hbm/ClientePagamento.hbm.xml"/>
+
+
     </session-factory>
 </hibernate-configuration>
 
