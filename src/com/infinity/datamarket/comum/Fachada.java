@@ -3774,7 +3774,7 @@ public class Fachada {
 	
 // CLIENTE PAGAMENTO
 	
-	public void inserirCliente(ClientePagamento clientePagamento) throws AppException{
+	public void inserirClientePagamento(ClientePagamento clientePagamento) throws AppException{
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			getCadastroClientePagamento().inserir(clientePagamento);
@@ -3892,7 +3892,7 @@ public class Fachada {
 		return c;
 	}
 	
-	public void alterarCliente(ClientePagamento clientePagamento) throws AppException{
+	public void alterarClientePagamento(ClientePagamento clientePagamento) throws AppException{
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			getCadastroClientePagamento().alterar(clientePagamento);
@@ -3920,7 +3920,7 @@ public class Fachada {
 		}
 	}
 	
-	public void excluirCliente(ClientePagamento clientePagamento) throws AppException{
+	public void excluirClientePagamento(ClientePagamento clientePagamento) throws AppException{
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			getCadastroClientePagamento().excluir(clientePagamento);
