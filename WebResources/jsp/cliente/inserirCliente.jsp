@@ -22,8 +22,10 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/masks.js"></script>
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		
 	</head>
 
 				<f:subview id="subTopo" rendered="true">
@@ -70,7 +72,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
-										<h:selectOneRadio  styleClass="field select"  id="tipoPessoa" 
+										<h:selectOneRadio  styleClass="field select" id="tipoPessoa"
 											value="#{clienteBB.tipoPessoa}"  layout="lineDirection" rendered="true">
 										    <f:selectItem itemLabel="Física" itemValue="F" />
 										    <f:selectItem itemLabel="Jurídica" itemValue="J"/>
@@ -222,22 +224,22 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Residencial"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneResidencial" maxlength="12" size="12" value="#{clienteBB.foneResidencial}" required="false">
-											<f:validateLength maximum="12" />
+										<h:inputText styleClass="field text" id="foneResidencial" maxlength="13" size="13" value="#{clienteBB.foneResidencial}" required="false">
+											<f:validateLength maximum="13" />
 										</h:inputText>
 										<h:message for="foneResidencial" styleClass="msgErro" />
 									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Comercial"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneComercial" maxlength="12" size="12" value="#{clienteBB.foneComercial}" required="false">
-											<f:validateLength maximum="12" />
+										<h:inputText styleClass="field text" id="foneComercial" maxlength="13" size="13" value="#{clienteBB.foneComercial}" required="false">
+											<f:validateLength maximum="13" />
 										</h:inputText>
 										<h:message for="foneComercial" styleClass="msgErro" />									
 									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Celular"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneCelular" maxlength="12" size="12" value="#{clienteBB.foneCelular}" required="false">
-											<f:validateLength maximum="12" />
+										<h:inputText styleClass="field text" id="foneCelular" maxlength="13" size="13" value="#{clienteBB.foneCelular}" required="false">
+											<f:validateLength maximum="13" />
 										</h:inputText>
 										<h:message for="foneCelular" styleClass="msgErro" />									
 									</div>
@@ -252,14 +254,14 @@
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Contato"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneContato" maxlength="12" size="12" value="#{clienteBB.foneContato}" required="false">
-											<f:validateLength maximum="12" />
+										<h:inputText styleClass="field text" id="foneContato" maxlength="13" size="13" value="#{clienteBB.foneContato}" required="false">
+											<f:validateLength maximum="13" />
 										</h:inputText>
 										<h:message for="foneContato" styleClass="msgErro" />									
 									</div>
 								</li>
 							</ul>
-						</div>						
+						</div>	
 						<ul>
 							<li class="buttons">
 								<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
