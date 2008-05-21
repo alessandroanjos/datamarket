@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
+import com.infinity.datamarket.comum.pagamento.ConstantesFormaRecebimento;
+import com.infinity.datamarket.comum.pagamento.DadosCheque;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
 import com.infinity.datamarket.comum.transacao.ConstantesEventoTransacao;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
+import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCheque;
 import com.infinity.datamarket.comum.transacao.EventoTransacaoPK;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.ConjuntoEventoTransacao;
@@ -49,8 +52,16 @@ public class MicProcessaPlano extends Mic{
 
 
 		Date dataAtual = new Date();
-		EventoItemPagamento eventoItemPagamento = new EventoItemPagamento(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getId().intValue(),plano.getForma().getId().intValue(),plano.getForma().getDescricao(),valorPagamento,valorDesconto,valorAcrescimo);
-
+		
+		EventoItemPagamento eventoItemPagamento = null;
+		
+		if (plano.getForma().getId().equals(ConstantesFormaRecebimento.CHEQUE)){
+			DadosCheque dados = (DadosCheque) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CHEQUE);
+			eventoItemPagamento = new EventoItemPagamentoCheque(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo,
+					dados.getCPFCNPJ(), dados.getNumeroChequeLido(), dados.getBanco(), dados.getAgencia(), dados.getConta(),dados.getNumeroCheque());
+		}else{
+			eventoItemPagamento = new EventoItemPagamento(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo);
+		}
 		Collection eventos = transVenda.getEventosTransacao();
 
 		if (eventos == null){

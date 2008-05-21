@@ -72,7 +72,6 @@ public class MicExibeTelaTotal extends Mic{
 						FormaRecebimento forma = getFachadaPDV().consultarFormaRecebimentoPorId(new Long(eip.getCodigoForma()));
 						tela.addRecebimento(forma.getDescricao(), valorPagamento);
 					}catch(AppException e){
-
 					}
 				}
 			}
