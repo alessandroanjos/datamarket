@@ -1,9 +1,10 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t" %>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j" %>
 
+		
 <script type="text/javascript">
 
 			window.onload = function(){ inicializar() };
@@ -39,9 +40,9 @@
 		<div class="centro">
 			<div id="loginUser">
 				Usuário:
-				<strong>
-					<label><%= request.getParameter("user") %></label>
-				</strong>
+				<strong>				
+					<%= request.getParameter("user") %>
+				</strong>				
 				&nbsp;&nbsp;&nbsp;&#8212;&nbsp;&nbsp;&nbsp;
 				<script type="text/javascript">document.write(day + ", "+today+"/"+month+"/"+year)</script>
 			</div>
@@ -56,6 +57,5 @@
 				<h2>&nbsp;</h2>
 				<div id="tituloPagina"><strong><%= request.getParameter("tituloPagina") %></strong></div>
 				<div id="logoCliente"><img src="/EnterpriseServer/images/logoCliente.gif" alt="Magia dos Pães" title="Magia dos Pães" /></div>
-				
 			</div>
 		<% } %>
