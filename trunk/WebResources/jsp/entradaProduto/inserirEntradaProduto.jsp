@@ -25,6 +25,7 @@
 
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
 
@@ -97,7 +98,7 @@
 								</h:inputText>
 								<h:message for="id" styleClass="msgErro" />
 							</div>
-
+							
 							<div>
 								<h:outputLabel styleClass="desc" value="N.Fiscal*"></h:outputLabel>
 								<h:inputText styleClass="field text" id="numeroNota"
@@ -112,6 +113,7 @@
 								<t:inputText readonly="false" maxlength="10" size="10"
 									styleClass="field text" forceId="dataEmissaoNota"
 									value="#{entradaProdutoBB.dataEmissaoNota}"
+									onkeypress="FormataData('frmInserirEntradaProdutos:dataEmissaoNota');"
 									id="dataEmissaoNota" />
 								<h:message for="dataEmissaoNota" styleClass="msgErro" />
 							</div>
@@ -119,6 +121,7 @@
 								<h:outputLabel styleClass="desc" value="Data Entrada"></h:outputLabel>
 								<t:inputText readonly="false" styleClass="field text"
 									maxlength="10" size="10" forceId="dataEntrada"
+									onkeypress="FormataData('frmInserirEntradaProdutos:dataEntrada');"
 									value="#{entradaProdutoBB.dataEntrada}" id="dataEntrada" />
 								<h:message for="dataEntrada" styleClass="msgErro" />
 							</div>
@@ -138,15 +141,7 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Valor da Nota"></h:outputLabel>
-								<h:inputText styleClass="field text" id="valor" maxlength="10"
-									size="10" value="#{entradaProdutoBB.valor}" dir="rtl"
-									required="true"
-									onkeypress="Formata('frmInserirEntradaProdutos:valor',9,2);">
-									<f:validateLength maximum="10" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
-									<f:validator validatorId="BigDecimalValidator" />
-								</h:inputText>
-								<h:message for="valor" styleClass="msgErro" />
+								<h:outputText value="#{entradaProdutoBB.valor}" /> 
 							</div>
 
 							<div>
@@ -175,53 +170,35 @@
 								<h:message for="desconto" styleClass="msgErro" />
 							</div>
 
-							<div>
-								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
-								<h:inputText styleClass="field text" id="ipi" maxlength="7"
-									size="7" value="#{entradaProdutoBB.ipi}" dir="rtl"
-									required="true"
-									onkeypress="Formata('frmInserirEntradaProdutos:ipi',9,2);">
-									<f:validateLength maximum="7" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
-									<f:validator validatorId="BigDecimalValidator" />
-								</h:inputText>
-								<h:message for="ipi" styleClass="msgErro" />
-							</div>
-
+							
 							<div>
 								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
-								<h:inputText styleClass="field text" id="icms" maxlength="7"
-									size="7" value="#{entradaProdutoBB.icms}" dir="rtl"
-									required="true"
-									onkeypress="Formata('frmInserirEntradaProdutos:icms',9,2);">
-									<f:validateLength maximum="7" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
-									<f:validator validatorId="BigDecimalValidator" />
-								</h:inputText>
-								<h:message for="icms" styleClass="msgErro" />
+								<h:outputText value="#{entradaProdutoBB.icms}" /> 
 							</div>
-
+							<div>
+								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
+								<h:outputText value="#{entradaProdutoBB.ipi}" /> 
+							</div>
+	
 						</li>
 
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
 								<h:inputText styleClass="field text ativo" id="idProduto"
-									maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9"
-									rendered="true">
+									maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
 								</h:inputText>
-								<h:message for="idProduto" styleClass="msgErro" />
+								
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
 								<h:inputText styleClass="field text ativo" id="descricao" 
-									maxlength="50" size="50" rendered="true"
-									value="#{entradaProdutoBB.descricao}">
+									maxlength="50" size="50" value="#{entradaProdutoBB.descricao}">
 									<f:validateLength maximum="50" />
 								</h:inputText>
-								<h:message for="descricao" styleClass="msgErro" />
+								
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
@@ -238,7 +215,7 @@
 								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidade" maxlength="7"
 									size="7" value="#{entradaProdutoBB.quantidade}" dir="rtl"
-									required="true"
+									required="false"
 									onkeypress="Formata('frmInserirEntradaProdutos:quantidade',7,2);">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
@@ -250,7 +227,7 @@
 								<h:outputLabel styleClass="desc" value="Unitário"></h:outputLabel>
 								<h:inputText styleClass="field text" id="precoUnitario" maxlength="7"
 									size="7" value="#{entradaProdutoBB.precoUnitario}" dir="rtl"
-									required="true"
+									required="false"
 									onkeypress="Formata('frmInserirEntradaProdutos:precoUnitario',7,2);">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
@@ -262,7 +239,7 @@
 								<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
 								<h:inputText styleClass="field text" id="descontoProduto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.descontoProduto}" dir="rtl"
-									required="true"
+									required="false"
 									onkeypress="Formata('frmInserirEntradaProdutos:descontoProduto',7,2);">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
@@ -274,7 +251,7 @@
 								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
 								<h:inputText styleClass="field text" id="icmsProduto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.icmsProduto}" dir="rtl"
-									required="true"
+									required="false"
 									onkeypress="Formata('frmInserirEntradaProdutos:icmsProduto',7,2);">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
@@ -286,7 +263,7 @@
 								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
 								<h:inputText styleClass="field text" id="ipiProduto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.ipiProduto}" dir="rtl"
-									required="true"
+									required="false"
 									onkeypress="Formata('frmInserirEntradaProdutos:ipiProduto',7,2);">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
@@ -301,7 +278,7 @@
 								value="Inserir Produto"></h:commandButton>
 							<h:commandButton styleClass="btTxt" id="botaoConsultarProduto"
 								onmousedown="showPopUp(this,'frmInserirEntradaProdutos','find')"
-								onclick="return false" value="Consultar Produt "></h:commandButton>
+								onclick="return false" value="Consultar Produto "></h:commandButton>
 						</li>
 
 						<div class="listagem">
@@ -321,12 +298,54 @@
 								</h:column>
 								<h:column>
 									<f:facet name="header">
+										<h:outputText value="Estoque" />
+									</f:facet>
+									<h:outputText value="#{produtoEntrada.estoque.estoqueVenda}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="Quant" />
+									</f:facet>
+									<h:outputText value="#{produtoEntrada.quantidade}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="Preço Unit." />
+									</f:facet>
+									<h:outputText value="#{produtoEntrada.precoUnitario}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="Desconto" />
+									</f:facet>
+									<h:outputText value="#{produtoEntrada.desconto}" />
+								</h:column>	
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="ICMS" />
+									</f:facet>
+									<h:outputText value="#{produtoEntrada.icms}" />
+								</h:column>	
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="IPI" />
+									</f:facet>
+									<h:outputText value="#{produtoEntrada.ipi}" />
+								</h:column>	
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="Total" />
+									</f:facet>
+									<h:outputText value="#{produtoEntrada.total}" />
+								</h:column>																
+								<h:column>
+									<f:facet name="header">
 										<h:outputText value="Excluir" />
 									</f:facet>
 									<h:commandLink  value=""
-										action="#{entradaProdutoBB.excluirProduto}">
+										action="#{entradaProdutoBB.excluirProdutoEntrada}">
 										<h:commandButton type="button" image="images/tree/TortoiseDeleted.ico"/>
-										<f:param name="id" value="#{produtoEntrada.pk.produto.id}" />
+										<f:param name="idExcluir" value="#{produtoEntrada.pk.produto.id}" />
 									</h:commandLink>
 								</h:column>
 							</t:dataTable>
