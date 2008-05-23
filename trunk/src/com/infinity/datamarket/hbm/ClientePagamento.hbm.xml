@@ -6,16 +6,16 @@
 
 
 <hibernate-mapping>
-    <class name="com.infinity.datamarket.comum.cliente.Cliente" table="CLIENTE_PAGTO" dynamic-update="false" dynamic-insert="false" lazy="false">
+    <class name="com.infinity.datamarket.comum.clientepagamento.ClientePagamento" table="CLIENTE_PAGTO" dynamic-update="false" dynamic-insert="false" lazy="false">
         
         <id
             name="id"
             column="ID"
             type="java.lang.Long"
-            length="2"
+            length="9"
             unsaved-value="null"
         >
-            <generator class="assigned">
+            <generator class="increment" >
             </generator>
         </id>
 		
