@@ -1,6 +1,7 @@
 package com.infinity.datamarket.comum.clientepagamento;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
@@ -43,5 +44,29 @@ public class CadastroClientePagamento extends Cadastro {
 	
 	public void excluir(ClientePagamento clientePagamento) throws AppException{
 		getRepositorio().remove(clientePagamento);
+	}
+	
+	public Long retornaMaxIDClientePagamento() throws AppException{
+		Long maxIDClientePagamento = new Long(0);
+		
+		try {
+			Collection c = consultarTodos();
+			if (c != null && c.size() > 0){
+				Iterator it = c.iterator();
+				while (it.hasNext()){
+					ClientePagamento cp = (ClientePagamento)it.next();
+					if(cp.getId().longValue() > maxIDClientePagamento.longValue()){
+						maxIDClientePagamento = cp.getId();						
+					}
+				}				
+			}
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		Query q = RepositoryManagerHibernateUtil.currentSession().createQuery("select max(i");
+//		q.list();
+		return ++maxIDClientePagamento;
 	}
 }
