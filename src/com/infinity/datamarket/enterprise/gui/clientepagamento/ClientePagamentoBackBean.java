@@ -18,6 +18,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class ClientePagamentoBackBean extends BackBean {
@@ -33,9 +34,14 @@ public class ClientePagamentoBackBean extends BackBean {
 	
 	Date dataInicial;
 	Date dataFinal;
+	String idCliente;
+	String idFormaRecebimento;
+	String nomeCliente;
+	String descricaoFormaRecebimento;
 		
 	Collection clientesPagamentos;
 	SelectItem[] clientes;
+	SelectItem[] formas;
 
 	public Cliente getCliente() {
 		return cliente;
@@ -68,7 +74,7 @@ public class ClientePagamentoBackBean extends BackBean {
 			int i = 0;
 			arrayClientes[i++] = new SelectItem("0", "");
 			for(Cliente clienteTmp : clientes){
-				SelectItem item = new SelectItem(clienteTmp.getId().toString(), clienteTmp.getTipoPessoa() == Cliente.PESSOA_FISICA ? clienteTmp.getNomeCliente() : clienteTmp.getRazaoSocial());
+				SelectItem item = new SelectItem(clienteTmp.getId().toString(), clienteTmp.getTipoPessoa().equals(Cliente.PESSOA_FISICA) ? clienteTmp.getNomeCliente() : clienteTmp.getRazaoSocial());
 				arrayClientes[i++] = item;
 			}
 		} catch (Exception e) {
@@ -164,7 +170,6 @@ public class ClientePagamentoBackBean extends BackBean {
 				
 				filter.addPropertyInterval("dataPagamento", this.getDataInicial(), IntervalObject.MAIOR_IGUAL);
 				filter.addPropertyInterval("dataPagamento", this.getDataFinal(), IntervalObject.MENOR_IGUAL);
-				
 				Collection col = getFachada().consultarClientePagamento(filter);
 				if (col == null || col.size() == 0){
 					this.setClientesPagamentos(col);
@@ -196,8 +201,9 @@ public class ClientePagamentoBackBean extends BackBean {
 			ctx.addMessage(null, msg);			
 		}catch(Exception e){
 			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		}
 		resetBB();
@@ -206,12 +212,15 @@ public class ClientePagamentoBackBean extends BackBean {
 
 	public String inserir(){
 		try {
-			ClientePagamento clientePagamento = preencheClientePagamento();
+			ClientePagamento clientePagamento = preencheClientePagamento("I");
 			
 			getFachada().inserirClientePagamento(clientePagamento);
 			
 			// devolve ao limite disponível de compras o valor pago.
 			Cliente cli = getFachada().consultarClientePorPK(clientePagamento.getCliente().getId());
+			if(cli.getValorLimiteDisponivel() == null){
+				cli.setValorLimiteCompras(BigDecimal.ZERO);
+			}
 			cli.setValorLimiteDisponivel(cli.getValorLimiteDisponivel().add(clientePagamento.getValorPagamento()));
 			getFachada().alterarCliente(cli);
 			
@@ -237,7 +246,7 @@ public class ClientePagamentoBackBean extends BackBean {
 	
 	public String alterar(){
 		try {		
-			ClientePagamento clientePagamento = preencheClientePagamento();			
+			ClientePagamento clientePagamento = preencheClientePagamento("A");			
 								
 			getFachada().alterarClientePagamento(clientePagamento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -280,13 +289,18 @@ public class ClientePagamentoBackBean extends BackBean {
 		return "mesma";
 	}
 	
-	public ClientePagamento preencheClientePagamento(){
+	public ClientePagamento preencheClientePagamento(String acao) throws AppException{
 		ClientePagamento clientePagamento = new ClientePagamento();
-		
-		clientePagamento.setId(new Long(this.getId()));
+		if("I".equals(acao)){
+			clientePagamento.setId(getFachada().consultarMaxIdClientePagamento());	
+		}else if("A".equals(acao)){
+			clientePagamento.setId(new Long(this.getId()));
+		}
+		this.setCliente(getFachada().consultarClientePorPK(new Long(this.getIdCliente())));
 		clientePagamento.setCliente(this.getCliente());
 		clientePagamento.setValorPagamento(this.getValorPagamento());
 		clientePagamento.setDataPagamento(this.getDataPagamento());
+		this.setFormaRecebimento(getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaRecebimento())));
 		clientePagamento.setFormaRecebimento(this.getFormaRecebimento());
 		
 		return clientePagamento;
@@ -307,4 +321,79 @@ public class ClientePagamentoBackBean extends BackBean {
 	public void setDataInicial(Date dataInicial) {
 		this.dataInicial = dataInicial;
 	}
+
+	public String getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(String idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public String getIdFormaRecebimento() {
+		return idFormaRecebimento;
+	}
+
+	public void setIdFormaRecebimento(String idFormaRecebimento) {
+		this.idFormaRecebimento = idFormaRecebimento;
+	}
+
+	public String getDescricaoFormaRecebimento() {
+		return descricaoFormaRecebimento;
+	}
+
+	public void setDescricaoFormaRecebimento(String descricaoFormaRecebimento) {
+		this.descricaoFormaRecebimento = descricaoFormaRecebimento;
+	}
+
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
+	private List<FormaRecebimento> carregarFormas() {
+		
+		List<FormaRecebimento> formas = null;
+		try {
+			formas = (ArrayList<FormaRecebimento>)getFachada().consultarTodosFormaRecebimento();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return formas;
+	}
+
+	public SelectItem[] getFormas() {
+		SelectItem[] arrayFormas = null;
+		try {
+			List<FormaRecebimento> formas = carregarFormas();
+			arrayFormas = new SelectItem[formas.size()];
+			int i = 0;
+//			arrayFormas[i++] = new SelectItem("0", "");
+			for(FormaRecebimento formaTmp : formas){
+				SelectItem item = new SelectItem(formaTmp.getId().toString(), formaTmp.getDescricao());
+				arrayFormas[i++] = item;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayFormas;
+
+	}
+
+
+	public void setFormas(SelectItem[] formas) {
+		this.formas = formas;
+	}
+	
 }
