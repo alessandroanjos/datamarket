@@ -1703,8 +1703,28 @@
 		    <null-value/>
 		</managed-property>
 		<managed-property>
+		    <property-name>idCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>nomeCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
 		    <property-name>formaRecebimento</property-name>
 		    <property-class>com.infinity.datamarket.comum.pagamento.FormaRecebimento</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idFormaRecebimento</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricaoFormaRecebimento</property-name>
+		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
 		<managed-property>
