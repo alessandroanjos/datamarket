@@ -64,8 +64,9 @@ public class ClientePagamentoBackBean extends BackBean {
 		SelectItem[] arrayClientes = null;
 		try {
 			List<Cliente> clientes = carregarClientes();
-			arrayClientes = new SelectItem[clientes.size()];
+			arrayClientes = new SelectItem[clientes.size()+1];
 			int i = 0;
+			arrayClientes[i++] = new SelectItem("0", "");
 			for(Cliente clienteTmp : clientes){
 				SelectItem item = new SelectItem(clienteTmp.getId().toString(), clienteTmp.getTipoPessoa() == Cliente.PESSOA_FISICA ? clienteTmp.getNomeCliente() : clienteTmp.getRazaoSocial());
 				arrayClientes[i++] = item;
@@ -129,8 +130,7 @@ public class ClientePagamentoBackBean extends BackBean {
 		this.setId(null);		
 		this.setValorPagamento(null);
 		this.setDataPagamento(null);
-		this.setFormaRecebimento(null);
-		
+		this.setFormaRecebimento(null);		
 		return "mesma";
 	}
 	
@@ -139,10 +139,10 @@ public class ClientePagamentoBackBean extends BackBean {
 			FacesContext context = FacesContext.getCurrentInstance();
 			Map params = context.getExternalContext().getRequestParameterMap();            
 			String param = (String)  params.get("id");
-			if (param != null && !"".equals(param)){
+			if (param != null && (!"".equals(param) && !"0".equals(param))){
 				setId(param);
 			}
-			if (getId() != null && !"".equals(getId())){
+			if (getId() != null && (!"".equals(getId()) && !"0".equals(getId()))){
 				ClientePagamento clientePagamento = getFachada().consultarClientePagamentoPorPK(new Long(getId()));
 				this.setId(clientePagamento.getId().toString());
 				this.setCliente(clientePagamento.getCliente());
