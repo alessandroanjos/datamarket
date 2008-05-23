@@ -35,7 +35,6 @@ import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.totalizadores.CadastroTotalizadores;
 import com.infinity.datamarket.comum.totalizadores.TotalizadorNaoFiscal;
@@ -3656,11 +3655,11 @@ public class Fachada {
 		return c;
 	}
 	
-	public Collection consultarDadosLote(IPropertyFilter filter) throws AppException{
+	public Collection consultarTodosClientes() throws AppException{
 		Collection c = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			c = getCadastroDadoLote().consultar(filter);
+			c = getCadastroCliente().consultarTodos();
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
