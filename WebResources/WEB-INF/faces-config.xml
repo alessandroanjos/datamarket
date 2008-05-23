@@ -1714,7 +1714,17 @@
 		</managed-property>
 		<managed-property>
 		    <property-name>dataPagamento</property-name>
-		    <property-class>java.util.Date</property-class>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataInicial</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataFinal</property-name>
+		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
