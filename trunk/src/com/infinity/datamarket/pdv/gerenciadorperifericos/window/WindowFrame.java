@@ -10,7 +10,7 @@ import com.infinity.datamarket.pdv.gui.telas.Tela;
 public class WindowFrame implements Window{
 	private JFrame frame;
 	public WindowFrame(){
-		frame = new JFrame();
+		frame = new JFrame("INFINITY - DATAMARKET - PDV");
 		frame.setFocusable(false);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
