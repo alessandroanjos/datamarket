@@ -21,7 +21,8 @@ public class EventoItemPagamentoChequePredatado extends EventoItemPagamento{
 		this.parcelas = parcelas;
 	}
 
-	public EventoItemPagamentoChequePredatado(EventoTransacaoPK pk, int tipoEvento, Date dataHoraEvento,int codigoForma, int codigoPlano, String formaImpressora, BigDecimal valorBruto, BigDecimal valorDesconto, BigDecimal valorAcrescimo){
+	public EventoItemPagamentoChequePredatado(EventoTransacaoPK pk, int tipoEvento, Date dataHoraEvento,int codigoForma, int codigoPlano, String formaImpressora, BigDecimal valorBruto, BigDecimal valorDesconto, BigDecimal valorAcrescimo,Collection parcelas){
 		super(pk,tipoEvento,dataHoraEvento,codigoForma,codigoPlano,formaImpressora,valorBruto,valorDesconto,valorAcrescimo);
+		this.parcelas = parcelas;
 	}
 }

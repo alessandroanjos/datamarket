@@ -6,7 +6,7 @@ import java.util.Date;
 
 import com.infinity.datamarket.comum.util.Constantes;
 
-public class DadosChequePredatado extends DadosCheque{
+public class DadosChequePredatado extends DadosCheque implements Comparable{
 
 	/**
 	 * 
@@ -33,6 +33,17 @@ public class DadosChequePredatado extends DadosCheque{
 	}
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+	public int compareTo(Object o) {
+		if (o instanceof DadosChequePredatado){
+			DadosChequePredatado dado = (DadosChequePredatado) o;
+			if (this.data.after(dado.data)){
+				return -1;
+			}else{
+				return 1;
+			}
+		}
+		return 0;
 	}
 	
 		

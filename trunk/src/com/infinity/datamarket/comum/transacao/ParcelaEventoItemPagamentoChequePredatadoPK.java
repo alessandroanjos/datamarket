@@ -12,7 +12,7 @@ public class ParcelaEventoItemPagamentoChequePredatadoPK extends EventoTransacao
 	private int numeroParcela;
 	
 	public ParcelaEventoItemPagamentoChequePredatadoPK(int loja, int componente, int numeroTransacao, Date dataTransacao, int numeroEvento, int numeroParcela) {
-		super(loja,componente,numeroTransacao,dataTransacao,numeroTransacao);
+		super(loja,componente,numeroTransacao,dataTransacao,numeroEvento);
 		this.numeroParcela = numeroParcela;
 	}
 
