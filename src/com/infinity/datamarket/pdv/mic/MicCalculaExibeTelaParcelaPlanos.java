@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import com.infinity.datamarket.comum.pagamento.DadosChequePredatado;
 import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatado;
@@ -33,6 +35,8 @@ public class MicCalculaExibeTelaParcelaPlanos extends Mic{
 
 		PlanoPagamento plano = (PlanoPagamento) gerenciadorPerifericos.getCmos().ler(CMOS.PLANO_PAGAMENTO_ATUAL);
 		
+		tela.setPlanoFroma(plano);
+		
 		if (plano instanceof PlanoPagamentoChequePredatado){
 			tela.limparParcelas();
 			
@@ -40,6 +44,8 @@ public class MicCalculaExibeTelaParcelaPlanos extends Mic{
 			PlanoPagamentoChequePredatado planoPre = (PlanoPagamentoChequePredatado) plano;
 			
 			BigDecimal valorPagamento = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_PAGAMENTO_ATUAL);
+			
+			tela.setValorTotal(valorPagamento);
 			
 			BigDecimal percentualEntrada = planoPre.getPercentagemEntrada();
 			
@@ -53,7 +59,7 @@ public class MicCalculaExibeTelaParcelaPlanos extends Mic{
 			
 			Date dataAtual = new Date();
 			
-			Collection parcelas = new ArrayList();
+			SortedSet parcelas = new TreeSet();
 
 			System.out.println(valorEntrada);
 			

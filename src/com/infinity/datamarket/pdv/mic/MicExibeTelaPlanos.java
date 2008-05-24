@@ -4,6 +4,8 @@ package com.infinity.datamarket.pdv.mic;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
@@ -24,7 +26,7 @@ public class MicExibeTelaPlanos extends Mic{
 		FormaRecebimento forma = (FormaRecebimento) gerenciadorPerifericos.getCmos().ler(CMOS.FORMA_RECEBIMENTO_ATUAL);
 		tela.limparPlanos();
 		tela.setForma(forma.getDescricao());
-		Collection c = forma.getPlanos();
+		SortedSet c = organizarPlanos(forma.getPlanos());
 		Iterator i = c.iterator();
 		Date dataAtual = new Date();
 		while(i.hasNext()){
@@ -38,5 +40,15 @@ public class MicExibeTelaPlanos extends Mic{
 
 		gerenciadorPerifericos.atualizaTela(tela);
 		return ALTERNATIVA_1;
+	}
+	
+	private SortedSet organizarPlanos(Collection c){
+		SortedSet retorno = new TreeSet();
+		Iterator i = c.iterator();
+		Date dataAtual = new Date();
+		while(i.hasNext()){
+			retorno.add(i.next());
+		}
+		return retorno;
 	}
 }
