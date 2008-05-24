@@ -5,7 +5,7 @@ import java.util.Date;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.util.Persistente;
 
-public class PlanoPagamento extends Persistente{
+public class PlanoPagamento extends Persistente implements Comparable{
 	/**
 	 * 
 	 */
@@ -73,6 +73,17 @@ public class PlanoPagamento extends Persistente{
 	}
 	public void setForma(FormaRecebimento forma) {
 		this.forma = forma;
+	}
+	public int compareTo(Object o) {
+		if (o instanceof PlanoPagamento){
+			PlanoPagamento plano = (PlanoPagamento) o;
+			if (this.getId().intValue() > plano.getId().intValue()){
+				return 1;
+			}else{
+				return -1;
+			}
+		}
+		return 0;
 	}
 
 	
