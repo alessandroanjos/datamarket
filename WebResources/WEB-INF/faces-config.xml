@@ -1747,6 +1747,11 @@
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
+		<managed-property>
+		    <property-name>saldoDevedor</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
 	</managed-bean>
 	
 	<validator>
