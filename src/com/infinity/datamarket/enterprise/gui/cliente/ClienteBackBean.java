@@ -9,7 +9,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import com.infinity.datamarket.comum.cliente.Cliente;
-import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -481,10 +480,10 @@ public class ClienteBackBean extends BackBean {
 		cliente.setPessoaContato(this.getPessoaContato());
 		cliente.setFoneContato(this.getFoneContato());
 		cliente.setValorLimiteCompras(this.getValorLimiteCompras());
-//		cliente.setValorLimiteDisponivel(this.getValorLimiteDisponivel());
 		cliente.setDataNascimento(this.getDataNascimento());
 		if(acao.equals("I")){
-			cliente.setDataCadastro(new Date(System.currentTimeMillis()));	
+			cliente.setDataCadastro(new Date(System.currentTimeMillis()));
+			cliente.setValorLimiteDisponivel(this.getValorLimiteCompras());
 		}		
 		return cliente;
 	}
