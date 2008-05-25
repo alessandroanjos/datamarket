@@ -29,6 +29,7 @@ public class ClientePagamentoBackBean extends BackBean {
 	String id;
 	Cliente cliente;
 	BigDecimal valorPagamento;
+	BigDecimal saldoDevedor;
 	Date dataPagamento;
 	FormaRecebimento formaRecebimento;
 	
@@ -156,8 +157,11 @@ public class ClientePagamentoBackBean extends BackBean {
 				this.setDataPagamento(clientePagamento.getDataPagamento());
 				this.setFormaRecebimento(clientePagamento.getFormaRecebimento());
 				
+				this.setSaldoDevedor(this.getCliente().getValorLimiteCompras().subtract(this.getCliente().getValorLimiteDisponivel()));
+				this.setSaldoDevedor(this.getSaldoDevedor().setScale(2));
+				
 				return "proxima";
-			}else if (this.getCliente() != null
+			}else if ((this.getIdCliente() != null && !this.getIdCliente().equals("0"))
 					|| (this.getDataInicial() != null && this.getDataFinal() != null)){
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(ClientePagamento.class);
@@ -185,13 +189,23 @@ public class ClientePagamentoBackBean extends BackBean {
 						this.setValorPagamento(clientePagamento.getValorPagamento());
 						this.setDataPagamento(clientePagamento.getDataPagamento());
 						this.setFormaRecebimento(clientePagamento.getFormaRecebimento());
+						
+						this.setSaldoDevedor(this.getCliente().getValorLimiteCompras().subtract(this.getCliente().getValorLimiteDisponivel()));
+						this.setSaldoDevedor(this.getSaldoDevedor().setScale(2));
+						
 						return "proxima";
 					}else{
 						this.setClientesPagamentos(col);
+						if(this.getClientesPagamentos() != null && this.getClientesPagamentos().size() == 0){
+							throw new ObjectNotFoundException("Nenhum Registro Encontrado!");
+						}
 					}
 				}
 			}else{
 				this.setClientesPagamentos(getFachada().consultarTodosClientesPagamentos());
+				if(this.getClientesPagamentos() != null && this.getClientesPagamentos().size() == 0){
+					throw new ObjectNotFoundException("Nenhum Registro Encontrado!");
+				}
 			}
 		}catch(ObjectNotFoundException e){
 			this.setClientes(null);
@@ -219,7 +233,7 @@ public class ClientePagamentoBackBean extends BackBean {
 			// devolve ao limite disponível de compras o valor pago.
 			Cliente cli = getFachada().consultarClientePorPK(clientePagamento.getCliente().getId());
 			if(cli.getValorLimiteDisponivel() == null){
-				cli.setValorLimiteCompras(BigDecimal.ZERO);
+				cli.setValorLimiteDisponivel(BigDecimal.ZERO);
 			}
 			cli.setValorLimiteDisponivel(cli.getValorLimiteDisponivel().add(clientePagamento.getValorPagamento()));
 			getFachada().alterarCliente(cli);
@@ -394,6 +408,14 @@ public class ClientePagamentoBackBean extends BackBean {
 
 	public void setFormas(SelectItem[] formas) {
 		this.formas = formas;
+	}
+
+	public BigDecimal getSaldoDevedor() {
+		return saldoDevedor;
+	}
+
+	public void setSaldoDevedor(BigDecimal saldoDevedor) {
+		this.saldoDevedor = saldoDevedor;
 	}
 	
 }
