@@ -39,54 +39,43 @@
 						<ul>
 							<li class="normal">
 								<div>
-									<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+									<h:outputLabel styleClass="desc" value="Cliente"></h:outputLabel>
+									<h:outputLabel styleClass="field text" value="#{clientePagamentoBB.cliente.cpfCnpj} - #{clientePagamentoBB.cliente.nomeCliente}"></h:outputLabel>									
 								</div>
 							</li>
-							<li class="normal">
-								<div>
-									<h:outputLabel styleClass="desc" value="Cliente"></h:outputLabel>
-									<h:selectOneMenu id="clientes" styleClass="field select"
-										value="#{clientePagamentoBB.idCliente}" required="true" style="width: 200px;">   
-										  <f:selectItems id="clienteSelectItems" value="#{clientePagamentoBB.clientes}" />   
-									</h:selectOneMenu>
-									<h:message for="clientes" styleClass="msgErro" />
-								</div>
-							</li>																						
+							<br />																						
+							<br />							
 							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Data do Pagamento"></h:outputLabel>
-									<h:inputText styleClass="field text" id="dataPagamento" maxlength="10" size="10"
-										value="#{clientePagamentoBB.dataPagamento}" onkeypress="return SoNumero();" onkeydown="FormataData('frmManterClientePagamento:dataPagamento');"
-										required="true">
-									</h:inputText>
-									<h:message for="dataPagamento" styleClass="msgErro"/>
+									<h:outputLabel styleClass="field text" value="#{clientePagamentoBB.dataPagamento}"></h:outputLabel>
 								</div>							
 								<div>
 									<h:outputLabel styleClass="desc" value="Forma de Recebimento"></h:outputLabel>
-									<h:selectOneMenu id="formas" styleClass="field select"
-										value="#{clientePagamentoBB.idFormaRecebimento}" required="true" style="width: 200px;">   
-										  <f:selectItems id="formaSelectItems" value="#{clientePagamentoBB.formas}" />   
-									</h:selectOneMenu>
-									<h:message for="formas" styleClass="msgErro" />
+									<h:outputLabel styleClass="field text" value="#{clientePagamentoBB.formaRecebimento.descricao}"></h:outputLabel>
 								</div>
 							</li>
-							<li>
+							<br />																						
+							<br />
+							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Valor do Pagamento"></h:outputLabel>
-									<h:inputText styleClass="text field" dir="rtl" id="valorPagamento" maxlength="10" size="10" 
-										value="#{clientePagamentoBB.valorPagamento}" required="true" onkeypress="Formata('frmManterClientePagamento:valorPagamento',9,2);">
-										<f:validateLength maximum="10" />	
-										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>										
-										<f:validator validatorId="BigDecimalValidator" />
-									</h:inputText>
-									<h:message for="valorPagamento" styleClass="msgErro" />							
+									<h:outputLabel styleClass="field text" value="#{clientePagamentoBB.valorPagamento}"></h:outputLabel>									
 								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Saldo Devedor"></h:outputLabel>
+									<h:outputLabel styleClass="field text" value="#{clientePagamentoBB.saldoDevedor}"></h:outputLabel>									
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Limite Disponível"></h:outputLabel>
+									<h:outputLabel styleClass="field text" value="#{clientePagamentoBB.cliente.valorLimiteDisponivel}"></h:outputLabel>									
+								</div>							
 							</li>									
 						</ul>						
 						<ul>
 							<li class="buttons">
 								<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
-								<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{clientePagamentoBB.inserir}" value="Inserir"></h:commandButton>
+								<h:commandButton styleClass="btTxt" id="botaoInserir" onclick="window.print();" value="Imprimir"></h:commandButton>
 							</li>
 						</ul>
 <!-- xxxxxxxxxxxxxxx -->					
