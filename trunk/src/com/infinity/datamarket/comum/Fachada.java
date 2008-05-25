@@ -8,6 +8,8 @@ import com.infinity.datamarket.comum.clientepagamento.CadastroClientePagamento;
 import com.infinity.datamarket.comum.clientepagamento.ClientePagamento;
 import com.infinity.datamarket.comum.componente.CadastroComponente;
 import com.infinity.datamarket.comum.componente.Componente;
+import com.infinity.datamarket.comum.estoque.AjusteEstoque;
+import com.infinity.datamarket.comum.estoque.CadastroAjusteEstoque;
 import com.infinity.datamarket.comum.estoque.CadastroEntradaProduto;
 import com.infinity.datamarket.comum.estoque.CadastroEstoque;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
@@ -146,6 +148,10 @@ public class Fachada {
 	
 	private CadastroDadoLote getCadastroDadoLote(){
 		return CadastroDadoLote.getInstancia();
+	}
+	
+	private CadastroAjusteEstoque getCadastroAjusteEstoque(){
+		return CadastroAjusteEstoque.getInstancia();
 	}
 	
 	private CadastroCliente getCadastroCliente(){
@@ -4008,5 +4014,34 @@ public class Fachada {
 		}
 		return c;
 	}
+	
+	public void inserirAjusteEstque(AjusteEstoque ajuste) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroAjusteEstoque().inserir(ajuste);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
 
 }
