@@ -19,7 +19,6 @@ import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
-import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -74,22 +73,8 @@ public class PlanoPagamentoBackBean extends BackBean {
 
 
 	public String inserir(){
-
-		PlanoPagamento planoPagamento = new PlanoPagamento();
-		planoPagamento.setId(new Long(this.getId()));
-		planoPagamento.setDescricao(this.descricao);
-		planoPagamento.setStatus(this.status);
-		planoPagamento.setValorMaximo(this.valorMaximo);
-		planoPagamento.setValorMinimo(this.valorMinimo);
-		planoPagamento.setPercAcrescimo(this.percAcrescimo);
-		planoPagamento.setPercDesconto(this.percDesconto);
-		planoPagamento.setDataInicioValidade(this.dataInicioValidade);
-		planoPagamento.setDataFimValidade(this.dataFimValidade);
-		
-		try {
-			FormaRecebimento forma = new FormaRecebimento();
-			forma.setId(new Long(this.idForma));
-			planoPagamento.setForma(forma);
+		try {			
+			PlanoPagamento planoPagamento = preenchePlanoPagamento(INSERIR);
 			
 			getFachada().inserirPlanoPagamento(planoPagamento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -194,21 +179,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 	
 	public String alterar(){
 		try {
-			PlanoPagamento planoPagamento = new PlanoPagamento();
-			
-			planoPagamento.setId(new Long(this.id));
-			planoPagamento.setDescricao(this.descricao);
-			planoPagamento.setStatus(this.status);
-			planoPagamento.setValorMaximo(this.valorMaximo);
-			planoPagamento.setValorMinimo(this.valorMinimo);
-			planoPagamento.setPercAcrescimo(this.percAcrescimo);
-			planoPagamento.setPercDesconto(this.percDesconto);
-			planoPagamento.setDataInicioValidade(this.dataInicioValidade);
-			planoPagamento.setDataFimValidade(this.dataFimValidade);
-			
-			FormaRecebimento forma = new FormaRecebimento();
-			forma.setId(new Long(this.idForma));
-			planoPagamento.setForma(forma);
+			PlanoPagamento planoPagamento = preenchePlanoPagamento(ALTERAR);
 			
 			getFachada().alterarPlanoPagamento(planoPagamento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -378,5 +349,23 @@ public class PlanoPagamentoBackBean extends BackBean {
 		this.situacaoItens = situacaoItens;
 	}
 	
-	
+	public PlanoPagamento preenchePlanoPagamento(String acao){
+		PlanoPagamento planoPagamento = new PlanoPagamento();
+		
+		planoPagamento.setId(new Long(this.getId()));
+		planoPagamento.setDescricao(this.descricao);
+		planoPagamento.setStatus(this.status);
+		planoPagamento.setValorMaximo(this.valorMaximo);
+		planoPagamento.setValorMinimo(this.valorMinimo);
+		planoPagamento.setPercAcrescimo(this.percAcrescimo);
+		planoPagamento.setPercDesconto(this.percDesconto);
+		planoPagamento.setDataInicioValidade(this.dataInicioValidade);
+		planoPagamento.setDataFimValidade(this.dataFimValidade);
+		
+		FormaRecebimento forma = new FormaRecebimento();
+		forma.setId(new Long(this.idForma));
+		planoPagamento.setForma(forma);
+		
+		return planoPagamento;
+	}
 }
