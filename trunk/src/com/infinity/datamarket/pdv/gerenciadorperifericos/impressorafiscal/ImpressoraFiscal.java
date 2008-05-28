@@ -15,8 +15,8 @@ public interface ImpressoraFiscal {
 	public void sangria(BigDecimal valor, String forma) throws ImpressoraFiscalException;
 	public void suprimento(BigDecimal valor, String forma) throws ImpressoraFiscalException;
 	public void inicioCupomFiscal(String cpf_cnpj) throws ImpressoraFiscalException;
-	public void vendeItem(String codigo , String descricao,String aliquota, String tipoUnidade, BigDecimal quantidade, String unidade,int casasDecimais, BigDecimal valor,
-						  String tipoDesconto, String desconto) throws ImpressoraFiscalException;
+	public void vendeItem(String codigo , String descricao,String aliquota, String tipoUnidade, BigDecimal quantidade, String unidade,BigDecimal valor,
+						  String tipoDesconto, BigDecimal desconto) throws ImpressoraFiscalException;
 	public void cancelaItem(String indice) throws ImpressoraFiscalException;
 	public void cancelaCupom() throws ImpressoraFiscalException;
 	public void efetuaPagamento(BigDecimal valor, String forma) throws ImpressoraFiscalException;
@@ -25,4 +25,5 @@ public interface ImpressoraFiscal {
 	public void iniciaFechamentoCupom(String tipoDescontoAcressimo,BigDecimal desconto, BigDecimal acressimo) throws ImpressoraFiscalException;
 	public void imprimeRelatorioGerencial(String texto) throws ImpressoraFiscalException;
 	public void finalizaRelatorioGerencial() throws ImpressoraFiscalException;
+	public BigDecimal getGT() throws ImpressoraFiscalException;
 }

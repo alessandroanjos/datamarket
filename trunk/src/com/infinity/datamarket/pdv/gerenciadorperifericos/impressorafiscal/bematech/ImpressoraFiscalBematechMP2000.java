@@ -1,26 +1,34 @@
 package com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.bematech;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscal;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscalException;
 import com.sun.jna.Native;
 
-public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal{
+public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Serializable{
 
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1339103375970047661L;
 	private static final String DESCONTO = "D";
 	private static final String ACRESSIMO = "A";
+	
+	private static final String QUANTIDADE_INTEIRA = "I";
+	private static final String QUANTIDADE_FRACIONADA = "F";
 	
 	private IComunicacaoImpressoraFiscalBematechMP2000 lib;
 	
 	public ImpressoraFiscalBematechMP2000() throws ImpressoraFiscalException{
 		lib = (IComunicacaoImpressoraFiscalBematechMP2000) Native.loadLibrary("BemaFI32", IComunicacaoImpressoraFiscalBematechMP2000.class);
-		int iRetorno = lib.Bematech_FI_NomeiaTotalizadorNaoSujeitoIcms(01, "SUPRIMNETO");
+		int iRetorno = lib.Bematech_FI_NomeiaTotalizadorNaoSujeitoIcms(01, "SUPRIMETO");
 		trataRetorno(iRetorno);
 		
-		iRetorno = lib.Bematech_FI_ProgramaAliquota("1700", 1);
+		iRetorno = lib.Bematech_FI_ProgramaAliquota("1800", 1);
 		trataRetorno(iRetorno);
 		
 		iRetorno = lib.Bematech_FI_NomeiaTotalizadorNaoSujeitoIcms(02, "SANGRIA");
@@ -93,11 +101,14 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal{
 		trataRetorno(iRetorno);
 	}
 	
-	public void vendeItem(String codigo , String descricao,String aliquota, String tipoUnidade, BigDecimal quantidade, String unidade,int casasDecimais, BigDecimal valor,
-			  String tipoDesconto, String desconto) throws ImpressoraFiscalException{
+	public void vendeItem(String codigo , String descricao,String aliquota, String tipoUnidade, BigDecimal quantidade, String unidade, BigDecimal valor,
+			  String tipoDesconto, BigDecimal desconto) throws ImpressoraFiscalException{
 		int iRetorno = lib.Bematech_FI_UsaUnidadeMedida(unidade);
 		trataRetorno(iRetorno);
-		iRetorno = lib.Bematech_FI_VendeItem(codigo, descricao, aliquota, tipoUnidade, quantidade.setScale(0).toString(), casasDecimais, valor.setScale(2).toString(), tipoDesconto, desconto);
+		
+		System.out.println(codigo+" | "+descricao+" | "+aliquota+" | "+tipoUnidade+" | "+quantidade.setScale(3).toString()+" | "+2+" | "+ valor.setScale(2).toString()+" | "+tipoDesconto+" | "+desconto.setScale(2).toString());
+		
+		iRetorno = lib.Bematech_FI_VendeItem(codigo, descricao, aliquota, tipoUnidade, tipoUnidade.equals(QUANTIDADE_FRACIONADA)?quantidade.setScale(3).toString():quantidade.setScale(0).toString(), 2, valor.setScale(2).toString(), tipoDesconto, desconto.setScale(2).toString());
 		trataRetorno(iRetorno);
 	}
 	
@@ -112,6 +123,9 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal{
 	}
 	
 	public void efetuaPagamento(BigDecimal valor, String forma) throws ImpressoraFiscalException{
+		
+		System.out.println(forma +" "+valor.toString());
+		
 		int iRetorno = lib.Bematech_FI_EfetuaFormaPagamento(forma, valor.setScale(2).toString());
 		trataRetorno(iRetorno);
 	}
@@ -162,6 +176,12 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal{
 	public void finalizaRelatorioGerencial() throws ImpressoraFiscalException{
 		int iRetorno = lib.Bematech_FI_FechaRelatorioGerencial();
 		trataRetorno(iRetorno);
+	}
+	
+	public BigDecimal getGT() throws ImpressoraFiscalException{
+		int iRetorno = lib.Bematech_FI_GrandeTotal(new char[18]);
+		trataRetorno(iRetorno);
+		return new BigDecimal(0);
 	}
 
 }
