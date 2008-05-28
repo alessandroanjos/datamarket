@@ -282,7 +282,10 @@ public class LojaBackBean extends BackBean {
 		
 		List<Estoque> estoques = null;
 		try {
-			estoques = (ArrayList<Estoque>)getFachada().consultarTodosEstoquesPorLoja(this.getId());	
+			PropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(Loja.class);
+			filter.addProperty("id", this.getId());
+			estoques = (ArrayList<Estoque>)getFachada().consultarTodosEstoquesPorLoja(filter);	
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
