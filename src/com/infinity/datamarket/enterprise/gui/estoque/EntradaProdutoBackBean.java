@@ -457,9 +457,9 @@ public class EntradaProdutoBackBean extends BackBean {
 			List<Estoque> estoques = carregarEstoques();
 			arrayEstoques = new SelectItem[estoques.size()];
 			int i = 0;
-			for (Estoque estoqueTmp : estoques) {
+			for (Estoque estoqueTmp : estoques) { 
 				SelectItem item = new SelectItem(estoqueTmp.getPk().getId().toString(),
-						estoqueTmp.getEstoqueVenda());
+						estoqueTmp.getEstoqueVenda()==null?estoqueTmp.getDescricao():estoqueTmp.getEstoqueVenda());
 				arrayEstoques[i++] = item;
 			}
 		} catch (Exception e) {
