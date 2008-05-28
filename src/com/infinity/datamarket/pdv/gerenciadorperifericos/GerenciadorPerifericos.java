@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
@@ -14,6 +16,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.FrameDisplay;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscal;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.window.Window;
 import com.infinity.datamarket.pdv.gui.telas.Tela;
 import com.infinity.datamarket.pdv.maquinaestados.Evento;
@@ -31,6 +34,7 @@ public class GerenciadorPerifericos implements Serializable{
     private CMOS cmos;
     private Display display;
     private ListaEventos eventos;
+    private transient ImpressoraFiscal impressoraFiscal;
 
     private int loja;
     private int componente;
@@ -38,6 +42,7 @@ public class GerenciadorPerifericos implements Serializable{
     private static final String WINDOW = "WINDOW";
     private static final String CMOS_VIRTUAL = "CMOS";
     private static final String DISPLAY_VIRTUAL = "DISPLAY";
+    private static final String IMPRESSOSRA_FISCAL = "IMPRESSOSRA_FISCAL";
 
     private GerenciadorPerifericos(){
         carregaPerifericos();
@@ -69,6 +74,13 @@ public class GerenciadorPerifericos implements Serializable{
         cmos = CMOS.getInstancia(strCmos);
         String strDisplay = rb.getString(DISPLAY_VIRTUAL);
         display = (Display) getInstanciaClasse(strDisplay);
+        String strImpFiscal = rb.getString(IMPRESSOSRA_FISCAL);
+        try{
+        	impressoraFiscal = (ImpressoraFiscal) getInstanciaClasse(strImpFiscal);
+        }catch(Exception e){
+        	JOptionPane.showMessageDialog(window.getFrame(), "Erro na inicialização da Impressora \n Verifique se a impressora está ligada","Atenção",JOptionPane.ERROR_MESSAGE);
+        	System.exit(0);
+        }
     }
 
     private Window carregaWindow(String parametros){
@@ -215,6 +227,10 @@ public class GerenciadorPerifericos implements Serializable{
 
 	public int getCodigoComponente(){
 		return this.componente;
+	}
+
+	public ImpressoraFiscal getImpressoraFiscal() {
+		return impressoraFiscal;
 	}
 
 }

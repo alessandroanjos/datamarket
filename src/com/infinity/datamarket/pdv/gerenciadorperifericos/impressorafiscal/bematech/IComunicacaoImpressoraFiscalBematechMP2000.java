@@ -26,5 +26,6 @@ public interface IComunicacaoImpressoraFiscalBematechMP2000 extends Library{
 	public int Bematech_FI_IniciaFechamentoCupom(String cTipoAcresDesc,String cValorAcresDesc,String cValorPago);
 	public int Bematech_FI_RelatorioGerencial(String cTexto);
 	public int Bematech_FI_FechaRelatorioGerencial();
+	public int Bematech_FI_GrandeTotal(char[] gt);
 
 }
