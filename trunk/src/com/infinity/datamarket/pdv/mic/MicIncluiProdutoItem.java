@@ -141,6 +141,9 @@ public class MicIncluiProdutoItem extends Mic {
 		}
 
 		eventos.add(eventoItemRegistrado);
+		
+		gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_REGISTRADO,
+				eventoItemRegistrado);
 
 		gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_VENDA_ATUAL,
 				transVenda);
