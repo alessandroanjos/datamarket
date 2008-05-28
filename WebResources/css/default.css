@@ -333,6 +333,14 @@ fieldset legend {
 	height:210px;
 	margin: 1.5em 0;
 }
+
+#content div.listagemSimples
+{
+	overflow:auto;
+	margin: 1.5em 0;
+}
+
+
 #content table tr.bgAtivo{ background-color: white; }
 
 #content table tr.rowA
