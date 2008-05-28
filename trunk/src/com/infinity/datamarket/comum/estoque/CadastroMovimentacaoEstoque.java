@@ -37,13 +37,54 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 	}
 	public void inserir(MovimentacaoEstoque movimentacaoEstoque) throws AppException{
 		getRepositorio().insert(movimentacaoEstoque);
+		Collection col = movimentacaoEstoque.getProdutosMovimentacao();
+		if (col==null)
+			return;
+		Iterator it = col.iterator();
+		while(it.hasNext()){
+		
+			ProdutoMovimentacaoEstoque pme = (ProdutoMovimentacaoEstoque) it.next();
+			ProdutoMovimentacaoEstoquePK pk = pme.getPk();
+			pk.setId(movimentacaoEstoque.getId());
+			getRepositorio().insert(pme);
+			
+			EstoqueProdutoPK pkEp = new EstoqueProdutoPK();
+			pkEp.setEstoque(movimentacaoEstoque.getEstoqueEntrada());
+			pkEp.setProduto(pme.getProduto());
+			
+			//adiciona saldo produto para o novo estoque
+			try {
+				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pkEp);
+				ep.setQuantidade(ep.getQuantidade().add(pme.getQuantidade()));
+				getRepositorio().update(ep);
+			} catch (Exception e) {
+				// TODO: handle exception
+				EstoqueProduto ep = new EstoqueProduto();
+				ep.setPk(pkEp);
+				ep.setQuantidade(pme.getQuantidade());
+				getRepositorio().insert(ep);
+			}
+			
+			pkEp = new EstoqueProdutoPK();
+			pkEp.setEstoque(movimentacaoEstoque.getEstoqueSaida());
+			pkEp.setProduto(pme.getProduto());
+			//retira saldo produto para o novo estoque
+			try {
+				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pkEp);
+				ep.setQuantidade(ep.getQuantidade().subtract(pme.getQuantidade()));
+				getRepositorio().update(ep);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		}
 	}
 	
-	public void alterar(EntradaProduto entradaProduto) throws AppException{
-		getRepositorio().update(entradaProduto);
+	public void alterar(MovimentacaoEstoque movimentacaoEstoque) throws AppException{
+		getRepositorio().update(movimentacaoEstoque);
 	}
-	public void excluir(EntradaProduto entradaProduto) throws AppException{
-		getRepositorio().remove(entradaProduto);
+	public void excluir(MovimentacaoEstoque movimentacaoEstoque) throws AppException{
+		getRepositorio().remove(movimentacaoEstoque);
 	}
 	
 	

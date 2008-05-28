@@ -6,19 +6,13 @@ import java.util.Iterator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.myfaces.context.servlet.ServletFacesContextImpl;
 import org.apache.myfaces.custom.navmenu.NavigationMenuItem;
-import org.jboss.logging.Logger;
-import org.jboss.logging.util.LoggerPluginWriter;
-import org.jboss.logging.util.LoggerWriter;
 
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
-import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class LoginBackBean extends BackBean{

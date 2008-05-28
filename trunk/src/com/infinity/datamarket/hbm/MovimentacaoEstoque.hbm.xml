@@ -12,7 +12,7 @@
             name="id"
             column="ID"
             type="java.lang.Long"
-            length="2"
+            length="6"
             unsaved-value="null"
         >
             <generator class="assigned">
@@ -21,7 +21,7 @@
 
 
         <property name="codigoUsuario" type="int" update="true" insert="true">
-            <column name="ID_USUARIO" length="15" not-null="true"/>
+            <column name="ID_USUARIO" length="5" not-null="true"/>
         </property>
 
 	    <property name="dataMovimentacao" type="java.util.Date" update="true" insert="true">

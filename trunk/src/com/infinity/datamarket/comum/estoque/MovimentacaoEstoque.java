@@ -11,7 +11,7 @@ public class MovimentacaoEstoque extends Persistente{
 	 * 
 	 */
 	private static final long serialVersionUID = 2975176905789035870L;
-	
+
 	private int codigoUsuario;
 	private Date dataMovimentacao;
 	private Estoque estoqueSaida;
@@ -49,5 +49,5 @@ public class MovimentacaoEstoque extends Persistente{
 	public void setProdutosMovimentacao(Collection produtosMovimentacao) {
 		this.produtosMovimentacao = produtosMovimentacao;
 	}
-	
+
 }

@@ -117,6 +117,14 @@
 			<to-view-id>/jsp/entradaProduto/consultarEntradaProduto.jsp</to-view-id>
 		</navigation-case>
 
+		<navigation-case>
+			<from-outcome>inserirMovimentacaoEstoque</from-outcome>
+			<to-view-id>/jsp/movimentacaoEstoque/inserirMovimentacaoEstoque.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterMovimentacaoEstoque</from-outcome>
+			<to-view-id>/jsp/movimentacaoEstoque/consultarMovimentacaoEstoque.jsp</to-view-id>
+		</navigation-case>
 
 		<navigation-case>
 			<from-outcome>manterProduto</from-outcome>
@@ -125,6 +133,10 @@
 		<navigation-case>
 			<from-outcome>popUpProduto</from-outcome>
 			<to-view-id>/jsp/popup/PopUpProdutos.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>PopUpProdutosEstoque</from-outcome>
+			<to-view-id>/jsp/popup/PopUpProdutosEstoque.jsp</to-view-id>
 		</navigation-case>
 		
 		<navigation-case>
@@ -488,6 +500,54 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!-- MovimentacaoEstoque -->
+	<navigation-rule>
+		<from-view-id>/jsp/movimentacaoEstoque/inserirMovimentacaoEstoque.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{movimentacaoEstoqueBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/movimentacaoEstoque/inserirMovimentacaoEstoque.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{movimentacaoEstoqueBB.inserirProduto}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/movimentacaoEstoque/inserirMovimentacaoEstoque.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{movimentacaoEstoqueBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/movimentacaoEstoqueBB/consultarMovimentacaoEstoque.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{movimentacaoEstoqueBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/movimentacaoEstoque/consultarMovimentacaoEstoque.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{movimentacaoEstoqueBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/movimentacaoEstoque/manterMovimentacaoEstoque.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{movimentacaoEstoqueBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/movimentacaoEstoque/manterMovimentacaoEstoque.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{movimentacaoEstoqueBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/movimentacaoEstoque/consultarMovimentacaoEstoque.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
 	<!-- Entradas -->
 	<navigation-rule>
 		<from-view-id>/jsp/entradaProduto/inserirEntradaProduto.jsp</from-view-id>
@@ -535,6 +595,7 @@
 			<to-view-id>/jsp/entradaProduto/consultarEntradaProduto.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+
 	
 	<!-- PERFIL -->
 	<navigation-rule>
@@ -1522,6 +1583,47 @@
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
+
+<!-- MovimentacaoEstoque BACK BEAN -->
+	<managed-bean>
+		<managed-bean-name>movimentacaoEstoqueBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.estoque.MovimentacaoEstoqueBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>codigoUsuario</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataMovimentacao</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idEstoqueSaida</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idEstoqueEntrada</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>produtoMovimentacaoEstoque</property-name>
+		    <property-class>com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+
+
 <!-- lote BACK BEAN -->
 	
 	<managed-bean>
