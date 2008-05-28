@@ -388,7 +388,7 @@ public class ClienteBackBean extends BackBean {
 
 	public String inserir(){
 		try {
-			Cliente cliente = preencheCliente("I");
+			Cliente cliente = preencheCliente(INSERIR);
 			
 			getFachada().inserirCliente(cliente);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -413,7 +413,7 @@ public class ClienteBackBean extends BackBean {
 	
 	public String alterar(){
 		try {		
-			Cliente cliente = preencheCliente("A");			
+			Cliente cliente = preencheCliente(ALTERAR);			
 								
 			getFachada().alterarCliente(cliente);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -481,7 +481,7 @@ public class ClienteBackBean extends BackBean {
 		cliente.setFoneContato(this.getFoneContato());
 		cliente.setValorLimiteCompras(this.getValorLimiteCompras());
 		cliente.setDataNascimento(this.getDataNascimento());
-		if(acao.equals("I")){
+		if(acao.equals(INSERIR)){
 			cliente.setDataCadastro(new Date(System.currentTimeMillis()));
 			cliente.setValorLimiteDisponivel(this.getValorLimiteCompras());
 		}		
