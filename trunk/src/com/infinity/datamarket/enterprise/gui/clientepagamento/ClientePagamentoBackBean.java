@@ -226,7 +226,7 @@ public class ClientePagamentoBackBean extends BackBean {
 
 	public String inserir(){
 		try {
-			ClientePagamento clientePagamento = preencheClientePagamento("I");
+			ClientePagamento clientePagamento = preencheClientePagamento(INSERIR);
 			
 			getFachada().inserirClientePagamento(clientePagamento);
 			
@@ -260,7 +260,7 @@ public class ClientePagamentoBackBean extends BackBean {
 	
 	public String alterar(){
 		try {		
-			ClientePagamento clientePagamento = preencheClientePagamento("A");			
+			ClientePagamento clientePagamento = preencheClientePagamento(ALTERAR);			
 								
 			getFachada().alterarClientePagamento(clientePagamento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -305,9 +305,9 @@ public class ClientePagamentoBackBean extends BackBean {
 	
 	public ClientePagamento preencheClientePagamento(String acao) throws AppException{
 		ClientePagamento clientePagamento = new ClientePagamento();
-		if("I".equals(acao)){
+		if(INSERIR.equals(acao)){
 			clientePagamento.setId(getFachada().consultarMaxIdClientePagamento());	
-		}else if("A".equals(acao)){
+		}else if(ALTERAR.equals(acao)){
 			clientePagamento.setId(new Long(this.getId()));
 		}
 		this.setCliente(getFachada().consultarClientePorPK(new Long(this.getIdCliente())));
