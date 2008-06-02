@@ -38,11 +38,11 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Seriali
 	private static void trataRetorno(int iRetorno) throws ImpressoraFiscalException{
 		switch (iRetorno) {
 		case 0:
-			throw new ImpressoraFiscalException("Erro de Comunicação");
+			throw new ImpressoraFiscalException("ERRO IMPRESSORA 001");
 		case -2:
-			throw new ImpressoraFiscalException("Parâmetro inválido na função.");			
+			throw new ImpressoraFiscalException("ERRO IMPRESSORA 002");			
 		case -5:
-			throw new ImpressoraFiscalException("Erro ao abrir a porta de comunicação");		
+			throw new ImpressoraFiscalException("ERRO IMPRESSORA 003");		
 		default:
 			break;
 		}
@@ -126,7 +126,7 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Seriali
 		
 		System.out.println(forma +" "+valor.toString());
 		
-		int iRetorno = lib.Bematech_FI_EfetuaFormaPagamento(forma, valor.setScale(2).toString());
+		int iRetorno = lib.Bematech_FI_EfetuaFormaPagamento(forma, valor.setScale(2,BigDecimal.ROUND_HALF_DOWN).toString());
 		trataRetorno(iRetorno);
 	}
 	
@@ -147,12 +147,12 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Seriali
 		trataRetorno(iRetorno);
 	}
 	
-	public void iniciaFechamentoCupom(String tipoDescontoAcressimo,BigDecimal desconto, BigDecimal acressimo) throws ImpressoraFiscalException{
+	public void iniciaFechamentoCupom(BigDecimal desconto, BigDecimal acressimo) throws ImpressoraFiscalException{
 		int iRetorno = 0;
 		if (desconto!= null && desconto.compareTo(BigDecimal.ZERO) > 0){
-			iRetorno = lib.Bematech_FI_IniciaFechamentoCupom(DESCONTO, tipoDescontoAcressimo!=null?tipoDescontoAcressimo:"", desconto!= null?desconto.setScale(2).toString():"");
+			iRetorno = lib.Bematech_FI_IniciaFechamentoCupom(DESCONTO, ImpressoraFiscal.DESCONTO_VALOR, desconto!= null?desconto.setScale(2).toString():"");
 		}else if (acressimo!= null && acressimo.compareTo(BigDecimal.ZERO) > 0){
-			iRetorno = lib.Bematech_FI_IniciaFechamentoCupom(ACRESSIMO, tipoDescontoAcressimo!=null?tipoDescontoAcressimo:"", desconto!= null?desconto.setScale(2).toString():"");
+			iRetorno = lib.Bematech_FI_IniciaFechamentoCupom(ACRESSIMO, ImpressoraFiscal.DESCONTO_VALOR, desconto!= null?acressimo.setScale(2).toString():"");
 		}else{
 			iRetorno = lib.Bematech_FI_IniciaFechamentoCupom(ACRESSIMO, ImpressoraFiscal.DESCONTO_VALOR, "0");
 		}
