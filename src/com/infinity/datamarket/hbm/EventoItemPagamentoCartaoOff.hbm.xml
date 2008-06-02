@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+   <hibernate-mapping>
+      <joined-subclass name="com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoOff" extends="com.infinity.datamarket.comum.transacao.EventoItemPagamento" table="EVENTO_ITEM_PAG_CARTAO_OFF" lazy="false">
+
+          <key>
+              <column name="LOJA"/>
+              <column name="COMPONENTE"/>
+              <column name="NUM_TRANSACAO"/>
+              <column name="DATA_TRANSACAO"/>
+              <column name="NUM_EVENTO"/>
+          </key>
+
+          <property name="numeroCartao" type="java.lang.String" update="true" insert="true">
+            <column name="NUMERO_CARTAO" length="50" not-null="true"/>
+          </property>
+          
+          <property name="quantidadeParcelas" type="int" update="true" insert="true">
+            <column name="QTD_PARCELAS" length="50" not-null="false"/>
+          </property>
+          
+          <property name="autorizacao" type="java.lang.String" update="true" insert="true">
+            <column name="AUTORIZACAO" length="50" not-null="false"/>
+          </property>
+          
+          <property name="codigoAutorizadora" type="java.lang.String" update="true" insert="true">
+            <column name="COD_AUTORIZADORA" length="50" not-null="false"/>
+          </property>
+
+      </joined-subclass>
+   </hibernate-mapping>
