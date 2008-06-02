@@ -22,7 +22,7 @@ public interface ImpressoraFiscal {
 	public void efetuaPagamento(BigDecimal valor, String forma) throws ImpressoraFiscalException;
 	public void fechaCupom(String forma, BigDecimal desconto, BigDecimal acressimo,String tipoDescontoAcressimo,BigDecimal valorTotal, String mensagem) throws ImpressoraFiscalException;
 	public void terminaFechaCupom(String mensagem) throws ImpressoraFiscalException;
-	public void iniciaFechamentoCupom(String tipoDescontoAcressimo,BigDecimal desconto, BigDecimal acressimo) throws ImpressoraFiscalException;
+	public void iniciaFechamentoCupom(BigDecimal desconto, BigDecimal acressimo) throws ImpressoraFiscalException;
 	public void imprimeRelatorioGerencial(String texto) throws ImpressoraFiscalException;
 	public void finalizaRelatorioGerencial() throws ImpressoraFiscalException;
 	public BigDecimal getGT() throws ImpressoraFiscalException;
