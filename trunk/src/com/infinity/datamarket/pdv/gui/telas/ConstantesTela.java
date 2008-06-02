@@ -7,4 +7,5 @@ public class ConstantesTela {
 	public static final String TELA_TROCO = "TELA_TROCO";
 	public static final String TELA_PLANOS = "TELA_PLANOS";
 	public static final String TELA_PARCELA_PLANOS = "TELA_PARCELA_PLANOS";
+	public static final String TELA_AUTORIZADORAS = "TELA_AUTORIZADORAS";
 }
