@@ -21,7 +21,7 @@ public class MicIncluiTransacaoEntradaOperador extends Mic{
 
 		Usuario autorizador = (Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.AUTORIZADOR_ATUAL);
 		Usuario operador = (Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.OPERADOR_ATUAL);
-		BigDecimal fundoTroco = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.FUNDO_TROCO);
+		BigDecimal fundoTroco = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_RESUPRIMENTO);
 		int numeroTransacao = gerenciadorPerifericos.incrementaNumeroTransacao();
 		int loja = gerenciadorPerifericos.getCodigoLoja();
 		int componente = gerenciadorPerifericos.getCodigoComponente();
