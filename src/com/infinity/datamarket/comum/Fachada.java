@@ -23,6 +23,8 @@ import com.infinity.datamarket.comum.funcionalidade.CadastroFuncionalidade;
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.lote.CadastroDadoLote;
 import com.infinity.datamarket.comum.macrooperacao.CadastroMacroOperacao;
+import com.infinity.datamarket.comum.pagamento.Autorizadora;
+import com.infinity.datamarket.comum.pagamento.CadastroAutorizadora;
 import com.infinity.datamarket.comum.pagamento.CadastroFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.CadastroPlanoPagamento;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
@@ -149,6 +151,10 @@ public class Fachada {
 	}
 	private CadastroMovimentacaoEstoque getCadastroMovimentacaoEstoque(){
 		return CadastroMovimentacaoEstoque.getInstancia();
+	}
+	
+	private CadastroAutorizadora getCadastroAutorizadora(){
+		return CadastroAutorizadora.getInstancia();
 	}
 
 	
@@ -881,6 +887,184 @@ public class Fachada {
 		}
 		return c;
 	}
+
+	// autorizadora
+	
+	public void inserirAutorizadora(Autorizadora autorizadora) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroAutorizadora().inserir(autorizadora);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public void alterarAutorizadora(Autorizadora autorizadora) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroAutorizadora().alterar(autorizadora);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public void excluirAutorizadora(Autorizadora autorizadora) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroAutorizadora().excluir(autorizadora);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public Autorizadora consultarAutorizadoraPorId(Long id) throws AppException{
+		Autorizadora autorizadora = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			autorizadora = getCadastroAutorizadora().consultarPorId(id);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return autorizadora;
+	}
+	public Collection consultarAutorizadora(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroAutorizadora().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+    
+	
+	public Collection consultarTodasAutorizadoraa() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroAutorizadora().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+
 	
 	//unidade
 	
