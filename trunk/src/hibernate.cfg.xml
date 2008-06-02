@@ -72,6 +72,8 @@
 	<mapping resource="com/infinity/datamarket/hbm/ParcelaPlanoPagamentoChequePredatado.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Cliente.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/ClientePagamento.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Autorizadora.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoCartaoOff.hbm.xml"/>
 
 
     </session-factory>
