@@ -21,7 +21,7 @@ public class MicSuprimento extends Mic{
 
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
-		BigDecimal fundoTroco = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.FUNDO_TROCO);
+		BigDecimal fundoTroco = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_RESUPRIMENTO);
 		try{
 			gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
 			FormaRecebimento forma =  getFachadaPDV().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.DINHEIRO);

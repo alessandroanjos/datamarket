@@ -7,11 +7,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import com.infinity.datamarket.comum.pagamento.ConstantesFormaRecebimento;
+import com.infinity.datamarket.comum.pagamento.DadosCartaoOff;
 import com.infinity.datamarket.comum.pagamento.DadosCheque;
 import com.infinity.datamarket.comum.pagamento.DadosChequePredatado;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
 import com.infinity.datamarket.comum.transacao.ConstantesEventoTransacao;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
+import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoOff;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCheque;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoChequePredatado;
 import com.infinity.datamarket.comum.transacao.EventoTransacaoPK;
@@ -73,17 +75,25 @@ public class MicProcessaPlano extends Mic{
 			eventoItemPagamento = new EventoItemPagamentoCheque(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo,
 					dados.getCPFCNPJ(), dados.getNumeroChequeLido(), dados.getBanco(), dados.getAgencia(), dados.getConta(),dados.getNumeroCheque());
 			eventos.add(eventoItemPagamento);
+			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamento);
 		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.CHEQUE_PRE)){
 			Collection dadosParcelas = (Collection) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CHEQUE_PRE);
 			EventoItemPagamentoChequePredatado eventoItemPagamentoChequePredatado = new EventoItemPagamentoChequePredatado(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo,null);
 			eventos.add(eventoItemPagamentoChequePredatado);
 			Collection parcelas = dadosToParcelas(dadosParcelas,eventoItemPagamentoChequePredatado.getPk());
 			eventoItemPagamentoChequePredatado.setParcelas(parcelas);
+			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamentoChequePredatado);
+		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.CARTAO_OFF)){
+			DadosCartaoOff dados = (DadosCartaoOff) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CARTAO_OFF);
+			eventoItemPagamento = new EventoItemPagamentoCartaoOff(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo,
+					dados.getNumeroCartao(), dados.getQuantidadeParcelas(), dados.getAutorizacao(), dados.getCodigoAutorizadora());
+			eventos.add(eventoItemPagamento);
+			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamento);
 		}else{
 			eventoItemPagamento = new EventoItemPagamento(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo);
 			eventos.add(eventoItemPagamento);
+			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamento);
 		}
-		
 		
 		gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_VENDA_ATUAL, transVenda);
 

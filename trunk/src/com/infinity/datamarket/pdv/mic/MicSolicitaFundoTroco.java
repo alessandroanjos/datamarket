@@ -19,7 +19,7 @@ public class MicSolicitaFundoTroco extends Mic{
 			if (entrada.getTeclaFinalizadora() == 10){
 				String valor = entrada.getDado();
 				BigDecimal fundoTroco = new BigDecimal(valor);
-				gerenciadorPerifericos.getCmos().gravar(CMOS.FUNDO_TROCO, fundoTroco);
+				gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_RESUPRIMENTO, fundoTroco);
 				return ALTERNATIVA_1;
 			}else{
 				return ALTERNATIVA_2;

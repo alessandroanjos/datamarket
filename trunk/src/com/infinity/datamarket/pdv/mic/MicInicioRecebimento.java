@@ -37,6 +37,7 @@ public abstract class MicInicioRecebimento extends Mic{
 			}else if (forma.getPlanos().size() ==  1){
 				PlanoPagamento plano = (PlanoPagamento) forma.getPlanos().iterator().next();
 				gerenciadorPerifericos.getCmos().gravar(CMOS.PLANO_PAGAMENTO_ATUAL,plano);
+				gerenciadorPerifericos.getCmos().gravar(CMOS.FORMA_RECEBIMENTO_ATUAL,forma);
 				return ALTERNATIVA_3;
 			}
 			Date dataAtual = new Date();

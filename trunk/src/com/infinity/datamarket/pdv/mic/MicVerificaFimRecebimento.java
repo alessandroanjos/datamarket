@@ -14,7 +14,7 @@ public class MicVerificaFimRecebimento extends Mic{
 
 		if (valorPagamento.compareTo(subTotal) > 0){
 			BigDecimal troco = valorPagamento.subtract(subTotal);
-			gerenciadorPerifericos.getCmos().gravar(CMOS.SUB_TOTAL,new BigDecimal(0));
+//			gerenciadorPerifericos.getCmos().gravar(CMOS.SUB_TOTAL,new BigDecimal(0));
 			gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TROCO_ATUAL,troco);
 			return ALTERNATIVA_1;
 		}else if (valorPagamento.compareTo(subTotal) < 0){
@@ -23,7 +23,7 @@ public class MicVerificaFimRecebimento extends Mic{
 			gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TROCO_ATUAL,new BigDecimal(0));
 			return ALTERNATIVA_2;
 		}else{
-			gerenciadorPerifericos.getCmos().gravar(CMOS.SUB_TOTAL,new BigDecimal(0));
+//			gerenciadorPerifericos.getCmos().gravar(CMOS.SUB_TOTAL,new BigDecimal(0));
 			gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TROCO_ATUAL,new BigDecimal(0));
 			return ALTERNATIVA_1;
 		}

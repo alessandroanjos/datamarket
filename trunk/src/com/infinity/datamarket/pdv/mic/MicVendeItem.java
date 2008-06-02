@@ -1,21 +1,18 @@
 package com.infinity.datamarket.pdv.mic;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
-import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscal;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscalException;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
-import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 
 public class MicVendeItem extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -34,6 +31,9 @@ public class MicVendeItem extends Mic{
 																   ImpressoraFiscal.DESCONTO_VALOR,
 																   descontoUnitario.multiply(itemRegistrado.getQuantidade()));
 		}catch(ImpressoraFiscalException e){
+			TransacaoVenda transVenda = (TransacaoVenda) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
+			Collection c = transVenda.getEventosTransacao();
+			c.remove(itemRegistrado);
 			gerenciadorPerifericos.getDisplay().setMensagem(e.getMessage());
 			try{
 				gerenciadorPerifericos.esperaVolta();
