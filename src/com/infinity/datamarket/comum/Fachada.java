@@ -16,6 +16,8 @@ import com.infinity.datamarket.comum.estoque.CadastroMovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoquePK;
+import com.infinity.datamarket.comum.estoque.EstoqueProduto;
+import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.fornecedor.CadastroFornecedor;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
@@ -3168,8 +3170,7 @@ public class Fachada {
 			}
 		}
 	}
-
-	//	 Estoque
+    //   Estoque
 	public void inserirEstoque(Estoque estoque) throws AppException{
 
 		try{
@@ -3375,8 +3376,127 @@ public class Fachada {
 		}
 		return c;
 	}
+	
+	public EstoqueProduto consultarEstoqueProduto(EstoqueProdutoPK id) throws AppException {
+		EstoqueProduto estoque = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			estoque = getCadastroEstoque().consultarEstoqueProduto(id);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return estoque;
+	}
 
 	
+
+	//	 Ajuste
+	public void inserirAjusteEstoque(AjusteEstoque ajustEstoque) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroAjusteEstoque().inserir(ajustEstoque);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public AjusteEstoque consultarAjustePorId(Long id) throws AppException{
+		AjusteEstoque ajustEstoque = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			ajustEstoque = getCadastroAjusteEstoque().consultarPorId(id);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return ajustEstoque;
+	}
+	public Collection consultarAjusteEstoque(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroAjusteEstoque().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
 //	 Fornecedor
 	public void inserirFornecedor(Fornecedor fornecedor) throws AppException{
 
