@@ -1,16 +1,15 @@
 package com.infinity.datamarket.comum.pagamento;
 
 import java.util.Collection;
-import java.util.List;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 
 public class CadastroPlanoPagamento extends Cadastro{
 	private static CadastroPlanoPagamento instancia;
 	private static Class CLASSE = PlanoPagamento.class;
+	private static Class CLASSE_CHEQUE_PRE = PlanoPagamentoChequePredatado.class;
 	private CadastroPlanoPagamento(){}
 	public static CadastroPlanoPagamento getInstancia(){
 		if (instancia == null){
@@ -43,4 +42,10 @@ public class CadastroPlanoPagamento extends Cadastro{
 		getRepositorio().remove(planoPagamento);
 		excluirDadoLote(planoPagamento);
 	}
+	
+	// Plano de Pagamento Pre-datado
+	public Collection consultarTodosPreDatato() throws AppException{
+		return getRepositorio().findAll(CLASSE_CHEQUE_PRE);
+	}
+	
 }
