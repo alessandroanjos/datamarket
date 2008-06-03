@@ -98,7 +98,6 @@
 				</div>
 				<div class="clear"></div>
 			</div>
-			</div>
 		</h:form>
 	</f:view>
 </html>
