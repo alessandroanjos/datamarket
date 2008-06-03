@@ -28,9 +28,9 @@
 		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 	</head>
 
-		<h:form id="frmConsultarEntradaProduto">
+		<h:form id="frmConsultarMovimentacaoEstoque">
 				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.consultarEntrada}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
+					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.consultarMovimentacaoEstoque}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>					
 				<div id="content">
 				
@@ -40,90 +40,53 @@
 								<ul>
 									<li class="normal">
 											<div>
-												<h:outputLabel styleClass="desc" value="N.Fiscal"></h:outputLabel>
-												<h:inputText styleClass="field text" id="numeroNota"
-													maxlength="15" size="15" rendered="true"
-													value="#{entradaProdutoBB.numeroNota}">
-													<f:validateLength maximum="15" />
-												</h:inputText>
-											</div>
-											<div>
 												<h:outputLabel styleClass="desc" value="Data Entrada Inicio"></h:outputLabel>
 												<t:inputText readonly="false" maxlength="10" size="10"
 													styleClass="field text" forceId="dataInicio"
-													value="#{entradaProdutoBB.dataInicio}"
-													onkeypress="FormataData('frmConsultarEntradaProduto:dataInicio');"
+													value="#{movimentacaoEstoqueBB.dataInicio}"
+													onkeypress="FormataData('frmConsultarMovimentacaoEstoque:dataInicio');"
 													id="dataInicio" />
 											</div>	
 											<div>	
 												<h:outputLabel styleClass="desc" value=" Data Entrada Final "></h:outputLabel>
 												<t:inputText readonly="false" styleClass="field text"
 													maxlength="10" size="10" forceId="dataFinal"
-													onkeypress="FormataData('frmConsultarEntradaProduto:dataFinal');"
-													value="#{entradaProdutoBB.dataFinal}" id="dataFinal" />
+													onkeypress="FormataData('frmConsultarMovimentacaoEstoque:dataFinal');"
+													value="#{movimentacaoEstoqueBB.dataFinal}" id="dataFinal" />
 											</div>								
 									</li>
 								</ul>
 							</fieldset>	
 							<div class="listagem">
-								<t:dataTable value="#{entradaProdutoBB.entradasProduto}"
-									var="entradaProduto" rowClasses="rowA,rowB" width="100%">
+								<t:dataTable value="#{movimentacaoEstoqueBB.movimentacaoEstoque}"
+									var="movimentacao" rowClasses="rowA,rowB" width="100%">
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="N.Fiscal" /> 
+											<h:outputText value="N.Entrada" /> 
 										</f:facet>
-										<h:commandLink value="#{entradaProduto.numeroNota}" action="#{entradaProdutoBB.consultar}">
-											<f:param name="id" value="#{entradaProduto.id}"/>						
+										<h:commandLink value="#{movimentacao.id}" action="#{movimentacaoEstoqueBB.consultar}">
+											<f:param name="id" value="#{movimentacao.id}"/>						
 										</h:commandLink>
 									</h:column>
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Dt.Entrada" />
+											<h:outputText value="Dt.Movimentação" />
 										</f:facet>
-										<h:outputText value="#{entradaProduto.dataEntrada}" /> 
+										<h:outputText value="#{movimentacao.dataMovimentacao}" />
 									</h:column>
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Dt.Emissão" />
+											<h:outputText value="Usuário" />
 										</f:facet>
-										<h:outputText value="#{entradaProduto.dataEmissaoNota}" /> 
-									</h:column>	
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Fornecedor" /> 
-										</f:facet>
-										<h:outputText value="#{entradaProduto.fornecedor.nomeFantazia}" /> 
-									</h:column>									
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Valor da Nota" /> 
-										</f:facet>
-										<h:outputText value="#{entradaProduto.valor}" /> 
-									</h:column>		
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Desconto" /> 
-										</f:facet>
-										<h:outputText value="#{entradaProduto.desconto}" /> 
-									</h:column>							
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Icms" /> 
-										</f:facet>
-										<h:outputText value="#{entradaProduto.icms}" /> 
-									</h:column>							
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="IPI" /> 
-										</f:facet>
-										<h:outputText value="#{entradaProduto.ipi}" /> 
-									</h:column>							
+										<h:outputText value="#{movimentacao.codigoUsuario}" /> 
+									</h:column>
+									
 								</t:dataTable>
 							</div>
 							<ul>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" id="botaoLimpar" value="Limpar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{entradaProdutoBB.consultar}" value="Consultar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{movimentacaoEstoqueBB.consultar}" value="Consultar"></h:commandButton>
 								</li>						
 							</ul>
 						</div>

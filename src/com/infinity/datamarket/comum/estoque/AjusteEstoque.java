@@ -19,11 +19,11 @@ public class AjusteEstoque extends Persistente implements Serializable{
 	private BigDecimal quantidadeAntes;
 	private BigDecimal quantidadeDepois;
 	private Date data;
-	private int codigoUsuario;
-	public int getCodigoUsuario() {
+	private Long codigoUsuario;
+	public Long getCodigoUsuario() {
 		return codigoUsuario;
 	}
-	public void setCodigoUsuario(int codigoUsuario) {
+	public void setCodigoUsuario(Long codigoUsuario) {
 		this.codigoUsuario = codigoUsuario;
 	}
 	public Date getData() {
