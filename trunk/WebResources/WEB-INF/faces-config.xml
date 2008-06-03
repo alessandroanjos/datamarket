@@ -171,6 +171,16 @@
 			<from-outcome>manterClientePagamento</from-outcome>
 			<to-view-id>/jsp/clientePagamento/consultarClientePagamento.jsp</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>inserirPlanoPagamentoChequePre</from-outcome>
+			<to-view-id>/jsp/planoPagamentoChequePre/inserirPlanoPagamentoChequePre.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterPlanoPagamentoChequePre</from-outcome>
+			<to-view-id>/jsp/planoPagamentoChequePre/consultarPlanoPagamentoChequePre.jsp</to-view-id>
+		</navigation-case>
+		
 				
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
@@ -1102,6 +1112,49 @@
 		</navigation-case>
 	</navigation-rule>
 	
+	<!-- Plano de Pagamento Cheque-Pre -->
+	<navigation-rule>
+		<from-view-id>/jsp/planoPagamentoChequePre/inserirPlanoPagamentoChequePre.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{planoPagamentoChequePreBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/planoPagamentoChequePre/inserirPlanoPagamentoChequePre.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{planoPagamentoChequePreBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/planoPagamentoChequePre/consultarPlanoPagamentoChequePre.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{formaRecebimentoChequePreBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/planoPagamentoChequePre/consultarPlanoPagamentoChequePre.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{planoPagamentoChequePreBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/planoPagamentoChequePre/manterPlanoPagamentoChequePre.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{planoPagamentoChequePreBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/planoPagamentoChequePre/manterPlanoPagamentoChequePre.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{planoPagamentoChequePreBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/planoPagamentoChequePre/consultarPlanoPagamentoChequePre.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
 
 	<!-- UNIDADE BACK BEAN -->
 	
@@ -1946,6 +1999,87 @@
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
+	
+		<!-- PLANO DE PAGAMENTO CHEQUE-PRE BACK BEAN -->
+	
+	<managed-bean>
+		<managed-bean-name>planoPagamentoChequePreBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.planoPagamentoChequePre.PlanoPagamentoChequePreBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>status</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valorMinimo</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valorMaximo</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>percDesconto</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>percAcrescimo</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataInicioValidade</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataFimValidade</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idForma</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>formas</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>planos</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>percentagemEntrada</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>parcelas</property-name>
+		    <property-class>java.util.Set</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+	
 	
 	<validator>
        <validator-id>LongValidator</validator-id>
