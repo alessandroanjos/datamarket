@@ -30,12 +30,11 @@ import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class EntradaProdutoBackBean extends BackBean {   
 	private static final int HashSet = 0;
+	
 	private String id;
 	private String numeroNota;
 	private Date dataEmissaoNota;
 	private Date dataEntrada;
-	private Date dataInicio;
-	private Date dataFinal;
 	private BigDecimal frete = BigDecimal.ZERO;
 	private BigDecimal icms  = BigDecimal.ZERO;
 	private BigDecimal ipi	 = BigDecimal.ZERO;
@@ -49,6 +48,7 @@ public class EntradaProdutoBackBean extends BackBean {
 	// Atributos para montar os Produtos
 	private String idProduto; 
 	private String descricao;
+	
 	// Atributos ProdutoEntradaEntrada
 	private Set<ProdutoEntradaProduto> arrayProduto; 
 	private String idEstoque;
@@ -61,7 +61,11 @@ public class EntradaProdutoBackBean extends BackBean {
 	private BigDecimal total		     = BigDecimal.ZERO;
 	private BigDecimal totalDescontoItem = BigDecimal.ZERO;
 	private List<Estoque> estoques = null; 
-	
+    
+	// para uso de filtro de consulta
+    private Date dataInicio;
+	private Date dataFinal;
+
 	private String idExcluir; 
 
 	

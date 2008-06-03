@@ -24,8 +24,8 @@
             <column name="QTD_ANTES" length="20" not-null="false"/>
         </property>
         
-        <property name="codigoUsuario" type="java.lang.String" update="true" insert="true">
-	        <column name="COD_USUARIO" length="100" not-null="true"/>
+        <property name="codigoUsuario" type="java.lang.Long" update="true" insert="true">
+	        <column name="COD_USUARIO" length="4" not-null="true"/>
 	    </property>
         
         <property name="quantidadeDepois" type="java.math.BigDecimal" update="true" insert="true">

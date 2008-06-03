@@ -521,7 +521,7 @@
 	</navigation-rule>
 	
 	<navigation-rule>
-		<from-view-id>/jsp/movimentacaoEstoqueBB/consultarMovimentacaoEstoque.jsp</from-view-id>
+		<from-view-id>/jsp/movimentacaoEstoque/consultarMovimentacaoEstoque.jsp</from-view-id>
 		<navigation-case>
 			<from-action>#{movimentacaoEstoqueBB.consultar}</from-action>
 			<from-outcome>mesma</from-outcome>
@@ -545,6 +545,49 @@
 			<from-action>#{movimentacaoEstoqueBB.voltarConsulta}</from-action>
 			<from-outcome>voltar</from-outcome>
 			<to-view-id>/jsp/movimentacaoEstoque/consultarMovimentacaoEstoque.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- ajusteEstoque -->
+	<navigation-rule>
+		<from-view-id>/jsp/ajusteEstoque/inserirAjusteEstoque.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{ajusteEstoqueBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/ajusteEstoque/inserirAjusteEstoque.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{ajusteEstoqueBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/ajusteEstoque/consultarAjusteEstoque.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{ajusteEstoqueBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/ajusteEstoque/consultarAjusteEstoque.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{ajusteEstoqueBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/ajusteEstoque/manterAjusteEstoque.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{ajusteEstoqueBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/ajusteEstoque/manterAjusteEstoque.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{ajusteEstoqueBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/ajusteEstoque/consultarAjusteEstoque.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
@@ -1623,6 +1666,54 @@
 		</managed-property>
 	</managed-bean>
 
+<!-- ajusteEstoque BACK BEAN -->
+	<managed-bean>
+		<managed-bean-name>ajusteEstoqueBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.estoque.AjusteEstoqueBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>codigoUsuario</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>data</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>quantidadeAntes</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
+		    <property-name>quantidadeDepois</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>				
+		<managed-property>
+		    <property-name>idEstoque</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idProduto</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>ajusteEstoque</property-name>
+		    <property-class>com.infinity.datamarket.comum.estoque.AjusteEstoque</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
 
 <!-- lote BACK BEAN -->
 	

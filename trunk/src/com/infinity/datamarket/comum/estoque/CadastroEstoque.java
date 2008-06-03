@@ -33,6 +33,12 @@ public class CadastroEstoque extends Cadastro {
 	public Collection consultar(IPropertyFilter filter) throws AppException{
 		return getRepositorio().filter(filter, false);
 	}
+	
+	public EstoqueProduto consultarEstoqueProduto(EstoqueProdutoPK id) throws AppException{
+		    EstoqueProduto estoque;
+			return estoque = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, id);
+	}
+	
 	public Collection consultarTodos() throws AppException{
 		return getRepositorio().findAll(CLASSE);
 	}

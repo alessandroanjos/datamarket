@@ -18,8 +18,8 @@ public class CadastroAjusteEstoque extends Cadastro{
 		return instancia;
 	}
 
-	public EntradaProduto consultarPorId(Long id) throws AppException{
-		return (EntradaProduto) getRepositorio().findById(CLASSE, id);
+	public AjusteEstoque consultarPorId(Long id) throws AppException{
+		return (AjusteEstoque) getRepositorio().findById(CLASSE, id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{

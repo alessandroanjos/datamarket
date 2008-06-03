@@ -45,11 +45,8 @@
 				  if (winId != null) {
 				      winId.close();
 				  }
-				  var formaux = document.forms[form];
-				 
                   features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-				  winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutosEstoque.faces','list',features);
-
+				  winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
 				  // Formulário escondido
                   hform=document.forms[form];                
 
@@ -66,22 +63,21 @@
              function setAtributo(idProduto,descricao) {
                              var form = document.forms[formId];   
                              form[formId+":idProduto"].value=idProduto; 
-                             form[formId+":descricao"].value=descricao;
-                             form[formId+":quantidade"].focus();
+                             form[formId+":descricao"].value=descricao;  
                              winId.close();
             }
       </script>
 
 	</head>
 	<f:view>
- 
-		<h:form id="frmInserirMovimentacaoEstoque">
+
+
+		<h:form id="frmInserirEntradaProdutos">
 			<f:loadBundle basename="resources.mensagens" var="msgs" />
 			<f:subview id="subTopo" rendered="true">
 				<jsp:include
-					page="/jsp/topo.jsp?tituloPagina=#{msgs.inserirMovimentacaoEstoque}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>
+					page="/jsp/topo.jsp?tituloPagina=#{msgs.manterMovimentacaoEstoque}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>
 			</f:subview>
-			
 			<div id="content">
 				<div id="primarioContentContainerInternas" >
 					<ul>
@@ -92,76 +88,25 @@
 									showDetail="true" />
 							</div>
 						</li>
-						
 						<li class="normal">
-						    <div>
-								<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="id" maxlength="4"
-									value="#{movimentacaoEstoqueBB.id}" size="4" required="true">
-									<f:validateLength maximum="4" />
-									<f:validator validatorId="LongValidator" />
-								</h:inputText>
-								<h:message for="id" styleClass="msgErro" />
+							<div>
+								<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
+								<h:outputText value="#{movimentacaoEstoqueBB.id}" />
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Data Emissão"></h:outputLabel>
+								<h:outputText value="#{movimentacaoEstoqueBB.dataMovimentacao}" />							
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque Saida"></h:outputLabel>
-								<h:selectOneMenu id="idEstoqueSaida" styleClass="field text"
-									value="#{movimentacaoEstoqueBB.idEstoqueSaida}">
-									<f:selectItems id="estoqueSelectItemsSaida"
-										value="#{movimentacaoEstoqueBB.estoques}" />
-								</h:selectOneMenu>
-								<h:message for="idEstoqueSaida" styleClass="errors" />
+								<h:outputText value="#{movimentacaoEstoqueBB.idEstoqueSaida}" />			
 							</div>	
-							<div>	
+							<div>
 								<h:outputLabel styleClass="desc" value="Estoque Entrada"></h:outputLabel>
-								<h:selectOneMenu id="idEstoqueEntrada" styleClass="field text"
-									value="#{movimentacaoEstoqueBB.idEstoqueEntrada}">
-									<f:selectItems id="estoqueSelectItemsEntrada"
-										value="#{movimentacaoEstoqueBB.estoques}" />
-								</h:selectOneMenu>
-								<h:message for="idEstoqueEntrada" styleClass="errors" />
-							</div>
-						</li>
-
-						<li class="normal">
-							<div>
-								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="idProduto"
-									maxlength="9" value="#{movimentacaoEstoqueBB.idProduto}" size="9">
-									<f:validateLength maximum="9" />
-									<f:validator validatorId="LongValidator" />
-								</h:inputText>
+								<h:outputText value="#{movimentacaoEstoqueBB.idEstoqueEntrada}" />			
 							</div>	
-							<div>		
-								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="descricao" 
-									maxlength="50" size="50" value="#{movimentacaoEstoqueBB.descricao}">
-									<f:validateLength maximum="50" /> 
-								</h:inputText>
-							</div>	
-							<div>
-								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="quantidade" maxlength="7"
-									size="7" value="#{movimentacaoEstoqueBB.quantidade}" required="false"
-									onkeypress="Formata('frmInserirMovimentacaoEstoque:quantidade',7,2);">
-									<f:validateLength maximum="7" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
-									<f:validator validatorId="BigDecimalValidator" />
-								</h:inputText>
-								<h:message for="quantidade" styleClass="msgErro" />
-							</div>
-						</li>	
 
-						<li class="buttons">
-						    								
-							<h:commandButton styleClass="btTxt" id="botaoInserirProduto"
-								action="#{movimentacaoEstoqueBB.inserirProduto}"
-								value="Inserir Produto">
-								</h:commandButton>
-							<h:commandButton styleClass="btTxt" id="botaoConsultarProduto"
-								onmousedown="showPopUp(this,'frmInserirMovimentacaoEstoque','find')"
-								onclick="return false" value="Consultar Produto ">
-								</h:commandButton>
+
 						</li>
 
 						<div class="listagem">
@@ -198,11 +143,11 @@
 							</t:dataTable>
 						</div>
 
+
+
 						<li class="buttons">
-							<h:commandButton styleClass="btTxt" immediate="true"
-								id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
-							<h:commandButton styleClass="btTxt" id="botaoInserir"
-								action="#{movimentacaoEstoqueBB.inserir}" value="Inserir"></h:commandButton>
+							<h:commandButton styleClass="btTxt" id="botaoVoltar"
+								action="#{entradaProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 						</li>
 					</ul>
 				</div>
