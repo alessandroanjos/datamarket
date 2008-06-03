@@ -16,6 +16,7 @@ import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
+import com.infinity.datamarket.comum.pagamento.PlanoPagamentoChequePredatado;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -74,8 +75,8 @@ public class PlanoPagamentoBackBean extends BackBean {
 
 	public String inserir(){
 		try {			
-			PlanoPagamento planoPagamento = preenchePlanoPagamento(INSERIR);
-			
+			PlanoPagamento planoPagamento = new PlanoPagamento();
+			preenchePlanoPagamento(planoPagamento, INSERIR);
 			getFachada().inserirPlanoPagamento(planoPagamento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -179,7 +180,9 @@ public class PlanoPagamentoBackBean extends BackBean {
 	
 	public String alterar(){
 		try {
-			PlanoPagamento planoPagamento = preenchePlanoPagamento(ALTERAR);
+			PlanoPagamento planoPagamento = new PlanoPagamento();
+			
+			preenchePlanoPagamento(planoPagamento, ALTERAR);
 			
 			getFachada().alterarPlanoPagamento(planoPagamento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -349,8 +352,12 @@ public class PlanoPagamentoBackBean extends BackBean {
 		this.situacaoItens = situacaoItens;
 	}
 	
-	public PlanoPagamento preenchePlanoPagamento(String acao){
-		PlanoPagamento planoPagamento = new PlanoPagamento();
+	public void preenchePlanoPagamento(PlanoPagamento plano, String acao){
+		PlanoPagamento planoPagamento = null;
+		
+		if(plano instanceof PlanoPagamentoChequePredatado){
+			planoPagamento = (PlanoPagamentoChequePredatado)plano;
+		}
 		
 		planoPagamento.setId(new Long(this.getId()));
 		planoPagamento.setDescricao(this.descricao);
@@ -365,7 +372,5 @@ public class PlanoPagamentoBackBean extends BackBean {
 		FormaRecebimento forma = new FormaRecebimento();
 		forma.setId(new Long(this.idForma));
 		planoPagamento.setForma(forma);
-		
-		return planoPagamento;
 	}
 }
