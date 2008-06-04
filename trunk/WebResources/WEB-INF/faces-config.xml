@@ -171,7 +171,6 @@
 			<from-outcome>manterClientePagamento</from-outcome>
 			<to-view-id>/jsp/clientePagamento/consultarClientePagamento.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>inserirPlanoPagamentoChequePre</from-outcome>
 			<to-view-id>/jsp/planoPagamentoChequePre/inserirPlanoPagamentoChequePre.jsp</to-view-id>
@@ -182,6 +181,16 @@
 		</navigation-case>
 		
 				
+		<navigation-case>
+			<from-outcome>inserirAutorizadora</from-outcome>
+			<to-view-id>/jsp/autorizadora/inserirAutorizadora.jsp</to-view-id>
+	 
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterAutorizadora</from-outcome>
+			<to-view-id>/jsp/autorizadora/consultarAutorizadora.jsp</to-view-id>
+		</navigation-case>
+						
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
 			<to-view-id>/jsp/login.jsp</to-view-id>
@@ -766,7 +775,7 @@
 		</navigation-case>
 	</navigation-rule>
 	
-		<!-- Forma de Recebimento -->
+	<!-- Forma de Recebimento -->
 	<navigation-rule>
 		<from-view-id>/jsp/formaRecebimento/inserirFormaRecebimento.jsp</from-view-id>
 		<navigation-case>
@@ -808,6 +817,50 @@
 			<to-view-id>/jsp/formaRecebimento/consultarFormaRecebimento.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+
+	<!-- Autorizadora -->
+	<navigation-rule>
+		<from-view-id>/jsp/autorizadora/inserirAutorizadora.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{autorizadoraBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/autorizadora/inserirAutorizadora.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{autorizadoraBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/autorizadora/consultarAutorizadora.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{formaRecebimentoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/autorizadora/consultarAutorizadora.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{autorizadoraBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/autorizadora/manterAutorizadora.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{autorizadoraBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/autorizadora/manterAutorizadora.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{autorizadoraBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/autorizadora/consultarAutorizadora.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
 	
 	<!-- USUARIO -->
 	<navigation-rule>
@@ -1929,7 +1982,35 @@
 		    <null-value/>
 		</managed-property>				
 	</managed-bean>
-
+	
+<!-- Autorizadora -->
+	<managed-bean>
+		<managed-bean-name>autorizadoraBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.autorizadora.AutorizadoraBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>situacao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>desagil</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>		
+	</managed-bean>
 <!-- CLIENTE PAGAMENTO BACK BEAN -->
 
 	<managed-bean>
