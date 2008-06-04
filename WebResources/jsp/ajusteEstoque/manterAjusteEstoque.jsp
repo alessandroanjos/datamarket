@@ -54,6 +54,8 @@
 								<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.id}"></h:outputLabel>
 							</div>
+						</li>
+						<li class="normal">	
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
 								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.ajusteEstoque.estoque.descricao}"></h:outputLabel>
@@ -65,15 +67,21 @@
 								<h:outputLabel styleClass="desc" value="Código Produto"></h:outputLabel>
 								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.idProduto}"></h:outputLabel>
 							</div>
+						</li>
+						<li class="normal">	
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.produto.descricaoCompleta}"></h:outputLabel>
+								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.ajusteEstoque.produto.descricaoCompleta}"></h:outputLabel>
 								
 							</div>
+						</li>
+						<li class="normal">	
 							<div>
 								<h:outputLabel styleClass="desc" value="Qtd.Antes"></h:outputLabel>
 								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.quantidadeAntes}"></h:outputLabel>								
 							</div>
+						</li>
+						<li class="normal">								
 							<div>
 								<h:outputLabel styleClass="desc" value="Qtd.Depois"></h:outputLabel>
 								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.quantidadeDepois}"></h:outputLabel>								

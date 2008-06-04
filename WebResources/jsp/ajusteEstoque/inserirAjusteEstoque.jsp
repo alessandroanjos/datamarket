@@ -64,6 +64,7 @@
                              var form = document.forms[formId];   
                              form[formId+":idProduto"].value=idProduto; 
                              form[formId+":descricao"].value=descricao;  
+                             form[formId+":quantidadeAntes"].focus();
                              winId.close();
             }
       </script>
@@ -91,9 +92,9 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+								<h:inputText styleClass="field text ativo" id="id" maxlength="5"
 									value="#{ajusteEstoqueBB.id}" size="3" rendered="true">
-									<f:validateLength maximum="2" />
+									<f:validateLength maximum="5" />
 									<f:validator validatorId="LongValidator" />
 								</h:inputText>
 								<h:message for="id" styleClass="msgErro" />
@@ -135,7 +136,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Qtd.Antes"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeAntes" maxlength="7"
-									size="7" value="#{ajusteEstoqueBB.quantidadeAntes}" dir="rtl"
+									size="7" value="#{ajusteEstoqueBB.quantidadeAntes}" 
 									required="true"
 									onkeypress="Formata('frmInserirAjusteEstoque:quantidadeAntes',7,2);">
 									<f:validateLength maximum="7" />
@@ -147,7 +148,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Qtd.Depois"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeDepois" maxlength="7"
-									size="7" value="#{ajusteEstoqueBB.quantidade}" dir="rtl"
+									size="7" value="#{ajusteEstoqueBB.quantidadeDepois}" 
 									required="true"
 									onkeypress="Formata('frmInserirAjusteEstoque:quantidadeDepois',7,2);">
 									<f:validateLength maximum="7" />
