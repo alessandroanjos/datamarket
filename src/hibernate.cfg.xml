@@ -23,7 +23,7 @@
       <property name="hibernate.cglib.use_reflection_optimizer">false</property>
    
       <!-- Mapping files -->
-        
+ 	<mapping resource="com/infinity/datamarket/hbm/AjusteEstoque.hbm.xml"/>        
  	<mapping resource="com/infinity/datamarket/hbm/Tecla.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/MacroOperacao.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/MicroOperacao.hbm.xml"/>
