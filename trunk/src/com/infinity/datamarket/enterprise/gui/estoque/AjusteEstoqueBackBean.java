@@ -31,7 +31,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 	private BigDecimal quantidadeAntes;
 	private BigDecimal quantidadeDepois;
 	private Date data;
-	private Long codigoUsuario;
+	private Long codigoUsuario=1L;
   
 //	 Atributos para montar os Produtos na movimentação de estoque
 	private String idProduto; 
@@ -70,26 +70,32 @@ public class AjusteEstoqueBackBean extends BackBean {
 			}
 			if (getId() != null && !"".equals(getId())) {
 				
-				AjusteEstoque ajusteEstoque = getFachada().consultarAjustePorId(new Long(id));
+				this.ajusteEstoque = getFachada().consultarAjustePorId(new Long(id));
 				this.setIdEstoque(ajusteEstoque.getEstoque().getPk().getId().toString());
 				this.setIdProduto(ajusteEstoque.getProduto().getId().toString());
 				this.setDescricao(ajusteEstoque.getProduto().getDescricaoCompleta());
 				this.setData(ajusteEstoque.getData());
 				this.setQuantidadeAntes(ajusteEstoque.getQuantidadeAntes());
 				this.setQuantidadeDepois(ajusteEstoque.getQuantidadeDepois());
-				return "";
+				return "proxima";
 				
 			} else {
 				PropertyFilter filter = new PropertyFilter();
-				filter.setTheClass(MovimentacaoEstoque.class);
+				filter.setTheClass(AjusteEstoque.class);
+				if (getIdEstoque() != null && !"".equals(getIdEstoque())) {
+					filter.addProperty("estoque.pk.id",new Long(getIdEstoque()));
+				}
 				if (getId() != null && !"".equals(getId())) {
 	            	filter.addProperty("id", getId());
 					return consultarFiltro(filter);
 				} else if (getDataInicio() != null && !"".equals(getDataFinal())) {
 					filter.addPropertyInterval("data",getDataInicio(), IntervalObject.MAIOR_IGUAL);
 					filter.addPropertyInterval("data",getDataFinal(), IntervalObject.MENOR_IGUAL);
-					return consultarFiltro(filter);
+					if (getIdEstoque() == null && "".equals(getIdEstoque())) {
+					   return consultarFiltro(filter);
+					}
 				}
+				return consultarFiltro(filter);				
  			}
 		} catch (ObjectNotFoundException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -111,7 +117,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 
 		Collection col=null;
 		try {
-			col = getFachada().consultarMovimentoEstoque(filter);
+			col = getFachada().consultarAjusteEstoque(filter);
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -147,7 +153,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 			AjusteEstoque ajusteEstoque = new AjusteEstoque();
 			
 			ajusteEstoque.setId(new Long(this.id));
-			ajusteEstoque.setCodigoUsuario(new Long(this.codigoUsuario));
+			ajusteEstoque.setCodigoUsuario(1L);
 			ajusteEstoque.setData(new Date());
 			ajusteEstoque.setQuantidadeAntes(this.quantidadeAntes);
 			ajusteEstoque.setQuantidadeDepois(this.quantidadeDepois);
@@ -198,10 +204,12 @@ public class AjusteEstoqueBackBean extends BackBean {
 	
 
 	public String resetBB() {
-        this.setCodigoUsuario(new Long(this.codigoUsuario));
+		this.setId(null);
+        this.setCodigoUsuario(null);
         this.setData(null);
 		this.setIdEstoque(null);
 		this.setIdProduto(null);
+		this.setDescricao(null);
 		this.setQuantidadeAntes(null);
 		this.setQuantidadeDepois(null);
 		return "mesma";
@@ -224,8 +232,9 @@ public class AjusteEstoqueBackBean extends BackBean {
 		SelectItem[] arrayEstoques = null;
 		try {
 			List<Estoque> estoques = carregarEstoques();
-			arrayEstoques = new SelectItem[estoques.size()];
+			arrayEstoques = new SelectItem[estoques.size()+1];
 			int i = 0;
+			arrayEstoques[i++] = new SelectItem("","");
 			for (Estoque estoqueTmp : estoques) { 
 				SelectItem item = new SelectItem(estoqueTmp.getPk().getId().toString(),estoqueTmp.getDescricao());
 				arrayEstoques[i++] = item;

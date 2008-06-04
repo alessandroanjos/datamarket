@@ -40,45 +40,83 @@
 								<ul>
 									<li class="normal">
 											<div>
-												<h:outputLabel styleClass="desc" value="Data Entrada Inicio"></h:outputLabel>
+												<h:outputLabel styleClass="desc" value="Data Inicio"></h:outputLabel>
 												<t:inputText readonly="false" maxlength="10" size="10"
 													styleClass="field text" forceId="dataInicio"
 													value="#{ajusteEstoqueBB.dataInicio}"
-													onkeypress="FormataData('frmConsultarMovimentacaoEstoque:dataInicio');"
+													onkeypress="FormataData('frmConsultarAjusteEstoque:dataInicio');"
 													id="dataInicio" />
 											</div>	
 											<div>	
-												<h:outputLabel styleClass="desc" value=" Data Entrada Final "></h:outputLabel>
+												<h:outputLabel styleClass="desc" value=" Data Final "></h:outputLabel>
 												<t:inputText readonly="false" styleClass="field text"
 													maxlength="10" size="10" forceId="dataFinal"
-													onkeypress="FormataData('frmConsultarMovimentacaoEstoque:dataFinal');"
+													onkeypress="FormataData('frmConsultarAjusteEstoque:dataFinal');"
 													value="#{ajusteEstoqueBB.dataFinal}" id="dataFinal" />
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
+												<h:selectOneMenu id="idEstoque" styleClass="field text"
+													value="#{ajusteEstoqueBB.idEstoque}">
+													<f:selectItems id="estoqueSelectItems"
+														value="#{ajusteEstoqueBB.estoques}" />
+												</h:selectOneMenu>
 											</div>								
 									</li>
 								</ul>
 							</fieldset>	
 							<div class="listagem">
-								<t:dataTable value="#{ajusteEstoqueBB.a}"
-									var="movimentacao" rowClasses="rowA,rowB" width="100%">
+								<t:dataTable value="#{ajusteEstoqueBB.ajusteEstoques}"
+									var="ajuste" rowClasses="rowA,rowB" width="100%">
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="N.Entrada" /> 
+											<h:outputText value="N.Ajuste" /> 
 										</f:facet>
-										<h:commandLink value="#{movimentacao.id}" action="#{movimentacaoEstoqueBB.consultar}">
-											<f:param name="id" value="#{movimentacao.id}"/>						
+										<h:commandLink value="#{ajuste.id}" action="#{ajusteEstoqueBB.consultar}">
+											<f:param name="id" value="#{ajuste.id}"/>						
 										</h:commandLink>
 									</h:column>
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Dt.Movimentação" />
+											<h:outputText value="Data" />
 										</f:facet>
-										<h:outputText value="#{movimentacao.dataMovimentacao}" />
+										<h:outputText value="#{ajuste.data}" />
 									</h:column>
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Usuário" />
 										</f:facet>
-										<h:outputText value="#{movimentacao.codigoUsuario}" /> 
+										<h:outputText value="#{ajuste.codigoUsuario}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Estoque" />
+										</f:facet>
+										<h:outputText value="#{ajuste.estoque.descricao}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Produto" />
+										</f:facet>
+										<h:outputText value="#{ajuste.produto.id}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="" />
+										</f:facet>
+										<h:outputText value="#{ajuste.produto.descricaoCompleta}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Qtd.Antes" />
+										</f:facet>
+										<h:outputText value="#{ajuste.quantidadeAntes}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Qtd.Depois" />
+										</f:facet>
+										<h:outputText value="#{ajuste.quantidadeDepois}" /> 
 									</h:column>
 									
 								</t:dataTable>
@@ -86,7 +124,7 @@
 							<ul>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" id="botaoLimpar" value="Limpar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{movimentacaoEstoqueBB.consultar}" value="Consultar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{ajusteEstoqueBB.consultar}" value="Consultar"></h:commandButton>
 								</li>						
 							</ul>
 						</div>
