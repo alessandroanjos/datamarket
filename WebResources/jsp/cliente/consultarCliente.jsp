@@ -125,7 +125,7 @@
 					</div>
 					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
 
-				</div>
+
 		</h:form>
 	</f:view>
 </html>
