@@ -3,6 +3,9 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.jsf.MYECLIPSE_MyFaces_1_1"/>
+
+	<classpathentry kind="lib" path="WebResources/WEB-INF/lib/jna.jar"/>
+
 	<classpathentry kind="lib" path="C:/workspace/EnterpriseServer/WebResources/WEB-INF/lib/yui4jsf-0.6.jar"/>
 	<classpathentry kind="lib" path="C:/workspace/EnterpriseServer/WebResources/WEB-INF/lib/ajax4jsf-1.1.0.jar"/>
 	<classpathentry kind="lib" path="C:/workspace/EnterpriseServer/WebResources/WEB-INF/lib/ant-1.6.5.jar"/>
@@ -68,5 +71,6 @@
 	<classpathentry kind="lib" path="C:/workspace/EnterpriseServer/WebResources/WEB-INF/lib/xml-apis.jar"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/lib/jna.jar"/>
+
 	<classpathentry kind="output" path="WebResources/WEB-INF/classes"/>
 </classpath>
