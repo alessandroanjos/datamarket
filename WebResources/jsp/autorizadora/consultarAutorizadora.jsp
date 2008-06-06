@@ -27,7 +27,7 @@
 		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 	</head>
 		
-	<f:view>
+
 		<h:form id="frmConsultarAutorizadora">
 				<f:subview id="subTopo" rendered="true">
 					
@@ -87,7 +87,7 @@
 										<f:facet name="header">
 											<h:outputText value="Desagil" /> 
 										</f:facet>
-										<h:outputText value="#{autorizadora.desagil"}/> 
+										<h:outputText value="#{autorizadora.desagil}"/> 
 									</h:column>
 								</t:dataTable>																
 							</div>

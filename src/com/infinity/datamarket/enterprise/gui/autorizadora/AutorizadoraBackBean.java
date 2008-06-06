@@ -40,6 +40,7 @@ public class AutorizadoraBackBean extends BackBean {
 		autorizadora.setId(new Long(this.id));
 		autorizadora.setDescricao(this.descricao);
 		autorizadora.setDesagil(this.desagil);
+		autorizadora.setSituacao(this.situacao); 
 		
 		try {
 			getFachada().inserirAutorizadora(autorizadora);
@@ -127,6 +128,7 @@ public class AutorizadoraBackBean extends BackBean {
 			autorizadora.setId(new Long(this.id));
 			autorizadora.setDescricao(this.descricao);
 			autorizadora.setDesagil(this.desagil);
+			autorizadora.setSituacao(this.situacao);
 
 			getFachada().alterarAutorizadora(autorizadora);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -151,6 +153,7 @@ public class AutorizadoraBackBean extends BackBean {
 			autorizadora.setId(new Long(this.id));
 			autorizadora.setDescricao(this.descricao);
 			autorizadora.setDesagil(this.desagil);
+			autorizadora.setSituacao(this.situacao);
 			
 			getFachada().excluirAutorizadora(autorizadora);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -170,8 +173,10 @@ public class AutorizadoraBackBean extends BackBean {
 	}
 	
 	public String resetBB(){
+		this.setId(null);
 		this.setDescricao(null);
 		this.setDesagil(null);
+		this.setSituacao(null);
 		return "mesma";
 	}
 	/**
