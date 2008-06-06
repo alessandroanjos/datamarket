@@ -74,7 +74,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Desagil"></h:outputLabel>
 										<h:inputText styleClass="field text" id="desagil" maxlength="6" size="6"
-											value="#{autorizadoraBB.desagil}" dir="rtl" required="true" onkeypress="Formata('frmInserirFormaRecebimento:valorLimiteSangria',9,2);">
+											value="#{autorizadoraBB.desagil}" dir="rtl" required="true" onkeypress="Formata('frmInserirAutorizadora:desagil',9,2);">
 											<f:validateLength maximum="6" />
 											<f:validateDoubleRange  minimum="0.00" maximum="999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>

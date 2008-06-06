@@ -6,7 +6,7 @@
 
 
 <hibernate-mapping>
-    <class name="com.infinity.datamarket.comum.pagamento.Autorizadora" table="AUTORIZADORA" dynamic-update="false" dynamic-insert="false" lazy="false">
+    <class name="com.infinity.datamarket.comum.autorizadora.Autorizadora" table="AUTORIZADORA" dynamic-update="false" dynamic-insert="false" lazy="false">
         
         <id
             name="id"
@@ -25,7 +25,7 @@
         </property>
         
         <property name="situacao" type="java.lang.String" update="true" insert="true">
-            <column name="SITUACAO" length="50" not-null="true"/>
+            <column name="SITUACAO" length="1" not-null="true"/>
         </property>
         
         <property name="desagil" type="java.math.BigDecimal" update="true" insert="true">

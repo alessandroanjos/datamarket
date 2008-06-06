@@ -184,7 +184,6 @@
 		<navigation-case>
 			<from-outcome>inserirAutorizadora</from-outcome>
 			<to-view-id>/jsp/autorizadora/inserirAutorizadora.jsp</to-view-id>
-	 
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>manterAutorizadora</from-outcome>

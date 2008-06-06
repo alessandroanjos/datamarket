@@ -684,7 +684,7 @@ public class Fachada {
 	
 	public Collection consultarTodosPlanosChequePre() throws AppException{
 		Collection c = null;
-		try{
+		/*try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			c = getCadastroPlanoPagamento().consultarTodosPreDatato();
 			RepositoryManagerHibernateUtil.commitTransation();
@@ -708,7 +708,7 @@ public class Fachada {
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
-		}
+		}*/
 		return c;
 	}
 
