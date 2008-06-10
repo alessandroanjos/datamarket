@@ -5,4 +5,5 @@ public class ConstantesFormaRecebimento {
 	public static final Long CHEQUE = new Long(2);
 	public static final Long CHEQUE_PRE = new Long(3);
 	public static final Long CARTAO_OFF = new Long(4);
+	public static final Long CARTAO_PROPRIO = new Long(5);
 }
