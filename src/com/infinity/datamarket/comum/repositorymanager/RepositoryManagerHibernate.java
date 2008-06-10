@@ -81,6 +81,8 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         	}
     	}catch(com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException e){
     		
+    	}catch(java.lang.IllegalArgumentException e){
+    		
     	}catch(HibernateException ex)
         {
             throw new RepositoryControlerException(ex);
