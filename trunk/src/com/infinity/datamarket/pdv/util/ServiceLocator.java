@@ -26,7 +26,7 @@ public class ServiceLocator {
 			Context ctx = new InitialContext (prop); 
 			return  ctx.lookup (jndi);
 		}catch(NamingException e){
-			System.out.println("Não encontrado o nome: "+jndi);
+			System.out.println("Não encontrado o servidor: "+jndi);
 		}catch (Throwable e){
 			e.printStackTrace();
 		}
