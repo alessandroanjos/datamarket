@@ -7,10 +7,11 @@ import java.util.Date;
 public class EventoItemPagamentoChequePredatado extends EventoItemPagamento{
 
 	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1583851046585015542L;
+	private static final long serialVersionUID = 3072430464035122249L;
 	private Collection parcelas;
 	
 	public Collection getParcelas() {
