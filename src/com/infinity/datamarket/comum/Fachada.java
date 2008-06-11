@@ -28,7 +28,6 @@ import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.lote.CadastroDadoLote;
 import com.infinity.datamarket.comum.macrooperacao.CadastroMacroOperacao;
 import com.infinity.datamarket.comum.pagamento.Autorizadora;
-import com.infinity.datamarket.comum.pagamento.CadastroAutorizadora;
 import com.infinity.datamarket.comum.pagamento.CadastroFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.CadastroPlanoPagamento;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
@@ -157,8 +156,8 @@ public class Fachada {
 		return CadastroMovimentacaoEstoque.getInstancia();
 	}
 	
-	private CadastroAutorizadora getCadastroAutorizadora(){
-		return CadastroAutorizadora.getInstancia();
+	private com.infinity.datamarket.comum.pagamento.CadastroAutorizadora getCadastroAutorizadora(){
+		return com.infinity.datamarket.comum.pagamento.CadastroAutorizadora.getInstancia();
 	}
 
 	
