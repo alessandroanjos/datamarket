@@ -19,62 +19,86 @@
             </generator>
         </id>
 
+	    <property name="nomeCliente" type="java.lang.String" update="true" insert="true">
+	        <column name="NOME_CLIENTE" length="100" not-null="true"/>
+	    </property>
 
-        <property name="cpfcnpj" type="java.lang.String" update="true" insert="true">
-            <column name="CPF_CNPJ" length="50" not-null="true"/>
+		<property name="tipoPessoa" type="java.lang.String" update="true" insert="true">
+	        <column name="TIPO_PESSOA" length="1" not-null="true"/>
+	    </property>
+
+		<property name="cpfCnpj" type="java.lang.String" update="true" insert="true">
+	        <column name="CPF_CNPJ" length="18" not-null="true"/>
+	    </property>
+
+		<property name="razaoSocial" type="java.lang.String" update="true" insert="true">
+	        <column name="RAZAO_SOCIAL" length="100" not-null="false"/>
+	    </property>
+
+		<property name="nomeFantasia" type="java.lang.String" update="true" insert="true">
+	        <column name="NOME_FANTASIA" length="100" not-null="false"/>
+	    </property>
+
+		<property name="inscricaoEstadual" type="java.lang.String" update="true" insert="true">
+	        <column name="INSCRICAO_ESTADUAL" length="50" not-null="false"/>
+	    </property>
+
+		<property name="inscricaoMunicipal" type="java.lang.String" update="true" insert="true">
+	        <column name="INSCRICAO_MUNICIPAL" length="50" not-null="false"/>
+	    </property>
+
+		<property name="logradouro" type="java.lang.String" update="true" insert="true">
+	        <column name="LOGRADOURO" length="200" not-null="false"/>
+	    </property>
+
+		<property name="numero" type="java.lang.String" update="true" insert="true">
+	        <column name="NUMERO" length="20" not-null="false"/>
+	    </property>
+
+        <property name="complemento" type="java.lang.String" update="true" insert="true">
+            <column name="COMPLEMENTO" length="50" not-null="false"/>
         </property>
 
-	<property name="rasaoSocial" type="java.lang.String" update="true" insert="true">
-            <column name="RAZAO_SOCIAL" length="50" not-null="true"/>
+        <property name="bairro" type="java.lang.String" update="true" insert="true">
+            <column name="BAIRRO" length="50" not-null="false"/>
         </property>
 
-	<property name="nomeFantazia" type="java.lang.String" update="true" insert="true">
-            <column name="NOME_FANTAZIA" length="50" not-null="true"/>
+        <property name="cidade" type="java.lang.String" update="true" insert="true">
+            <column name="CIDADE" length="50" not-null="false"/>
         </property>
-
-	<property name="inscricaoEstadual" type="java.lang.String" update="true" insert="true">
-            <column name="INSCRICAO_ESTADUAL" length="50" not-null="true"/>
+        
+        <property name="estado" type="java.lang.String" update="true" insert="true">
+            <column name="ESTADO" length="50" not-null="false"/>
         </property>
-
-	<property name="inscricaoMunincipal" type="java.lang.String" update="true" insert="true">
-            <column name="INSCRICAO_MUNICIPAL" length="50" not-null="true"/>
+        
+        <property name="cep" type="java.lang.String" update="true" insert="true">
+            <column name="CEP" length="50" not-null="false"/>
         </property>
-
-	<property name="logradouro" type="java.lang.String" update="true" insert="true">
-            <column name="LOGRADOURO" length="50" not-null="true"/>
+        
+        <property name="foneResidencial" type="java.lang.String" update="true" insert="true">
+            <column name="FONE_RESIDENCIAL" length="50" not-null="false"/>
         </property>
-
-	<property name="numero" type="java.lang.String" update="true" insert="true">
-            <column name="NUMERO" length="50" not-null="true"/>
-        </property>
-
-	<property name="cidade" type="java.lang.String" update="true" insert="true">
-            <column name="CIDADE" length="50" not-null="true"/>
-        </property>
-
-	<property name="estado" type="java.lang.String" update="true" insert="true">
-            <column name="ESTADO" length="50" not-null="true"/>
-        </property>
-
-	<property name="pais" type="java.lang.String" update="true" insert="true">
-            <column name="PAIS" length="50" not-null="true"/>
-        </property>
-
-	<property name="telefone" type="java.lang.String" update="true" insert="true">
-            <column name="TELEFONE" length="50" not-null="true"/>
-        </property>
-
-	<property name="contato" type="java.lang.String" update="true" insert="true">
-            <column name="CONTATO" length="50" not-null="true"/>
-        </property>
-
-	<property name="telefoneContato" type="java.lang.String" update="true" insert="true">
-            <column name="TELEFONE_CONTATO" length="50" not-null="true"/>
-        </property>
-
-	<property name="cep" type="java.lang.String" update="true" insert="true">
-            <column name="CEP" length="50" not-null="true"/>
-        </property>
+        
+        <property name="foneComercial" type="java.lang.String" update="true" insert="true">
+            <column name="FONE_COMERCIAL" length="50" not-null="false"/>
+        </property>                                        	
+        
+		<property name="foneCelular" type="java.lang.String" update="true" insert="true">
+            <column name="FONE_CELULAR" length="50" not-null="false"/>
+        </property>  
+        
+		<property name="pessoaContato" type="java.lang.String" update="true" insert="true">
+            <column name="PESSOA_CONTATO" length="50" not-null="false"/>
+        </property>  
+        
+		<property name="foneContato" type="java.lang.String" update="true" insert="true">
+            <column name="FONE_CONTATO" length="50" not-null="false"/>
+        </property>  
+        
+        <property name="dataCadastro" type="java.util.Date" update="false" insert="true">
+            <column name="DATA_CADASTRO" length="10" not-null="true"/>
+        </property>  
     </class>
+
 
 </hibernate-mapping>

@@ -22,14 +22,12 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/masks.js"></script>
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
-		
 	</head>
 
 				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.inserirFornecedor}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
+					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.manterFornecedor}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>					
 				<div id="content">
 					<div id="tabMenu">
@@ -41,7 +39,7 @@
 					</div>
 					<div id="primarioContentContainerInternas">
 <!-- xxxxxxxxxxxxxxx -->					
-		<h:form id="frmInserirFornecedor">
+		<h:form id="frmManterFornecedor">
 <!-- xxxxxxxxxxxxxxx -->					
 						<div id="tabDiv0">
 							<ul>
@@ -53,8 +51,8 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id"
-											maxlength="4" value="#{fornecedorBB.id}" size="4"
+										<h:inputText styleClass="field text ativo" id="id" readonly="true"
+											maxlength="4" value="#{clienteBB.id}" size="4"
 											required="true">
 											<f:validateLength maximum="4" />
 											<f:validator validatorId="LongValidator" />
@@ -63,8 +61,8 @@
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
-										<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false"
-											value="#{fornecedorBB.dataCadastro}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirFornecedor:dataCadastro');">			
+										<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false" readonly="true"
+											value="#{clienteBB.dataCadastro}" onkeypress="return SoNumero();" onkeydown="FormataData('frmManterFornecedor:dataCadastro');">			
 										</h:inputText>
 										<h:message for="dataCadastro" styleClass="msgErro"/>
 									</div>
@@ -72,8 +70,8 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
-										<h:selectOneRadio  styleClass="field select" id="tipoPessoa"
-											value="#{fornecedorBB.tipoPessoa}"  layout="lineDirection" rendered="true">
+										<h:selectOneRadio  styleClass="field select"  id="tipoPessoa" 
+											value="#{clienteBB.tipoPessoa}"  layout="lineDirection" rendered="true">
 										    <f:selectItem itemLabel="Física" itemValue="F" />
 										    <f:selectItem itemLabel="Jurídica" itemValue="J"/>
 										</h:selectOneRadio>
@@ -83,7 +81,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="CPF/CNPJ*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="cpfCnpj" maxlength="18" size="18" value="#{fornecedorBB.cpfCnpj}" required="true">
+										<h:inputText styleClass="field text" id="cpfCnpj" maxlength="18" size="18" value="#{clienteBB.cpfCnpj}" required="true">
 											<f:validateLength minimum="11" maximum="18" />
 										</h:inputText>
 										<h:message for="cpfCnpj" styleClass="msgErro" />									
@@ -94,18 +92,10 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Nome Fornecedor*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="nomeFornecedor" maxlength="50" size="50" value="#{fornecedorBB.nomeFornecedor}" required="true">
+										<h:inputText styleClass="field text" id="nomeFornecedor" maxlength="50" size="50" value="#{clienteBB.nomeFornecedor}" required="true">
 											<f:validateLength maximum="50" />
 										</h:inputText>
 										<h:message for="nomeFornecedor" styleClass="msgErro" />									
-									</div>
-									<div>
-										<h:outputLabel styleClass="desc" value="Data de Nascimento"></h:outputLabel>
-										<h:inputText styleClass="field text" id="dataNascimento" maxlength="10" size="10"
-											value="#{fornecedorBB.dataNascimento}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirFornecedor:dataNascimento');">
-											
-										</h:inputText>
-										<h:message for="dataNascimento" styleClass="msgErro"/>
 									</div>
 								</li>
 								<!-- PESSOA FISICA -->								
@@ -145,7 +135,7 @@
 										<h:message for="inscricaoMunicipal" styleClass="msgErro" />									
 									</div>
 								</li>
-								<!-- PESSOA JURIDICA -->
+															
 							</ul>
 						</div>
 						<div id="tabDiv1" style="display:none;">
@@ -210,22 +200,22 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Residencial"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneResidencial" maxlength="13" size="13" value="#{fornecedorBB.foneResidencial}" required="false">
-											<f:validateLength maximum="13" />
+										<h:inputText styleClass="field text" id="foneResidencial" maxlength="12" size="12" value="#{fornecedorBB.foneResidencial}" required="false">
+											<f:validateLength maximum="12" />
 										</h:inputText>
 										<h:message for="foneResidencial" styleClass="msgErro" />
 									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Comercial"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneComercial" maxlength="13" size="13" value="#{fornecedorBB.foneComercial}" required="false">
-											<f:validateLength maximum="13" />
+										<h:inputText styleClass="field text" id="foneComercial" maxlength="12" size="12" value="#{fornecedorBB.foneComercial}" required="false">
+											<f:validateLength maximum="12" />
 										</h:inputText>
 										<h:message for="foneComercial" styleClass="msgErro" />									
 									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Celular"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneCelular" maxlength="13" size="13" value="#{fornecedorBB.foneCelular}" required="false">
-											<f:validateLength maximum="13" />
+										<h:inputText styleClass="field text" id="foneCelular" maxlength="12" size="12" value="#{fornecedorBB.foneCelular}" required="false">
+											<f:validateLength maximum="12" />
 										</h:inputText>
 										<h:message for="foneCelular" styleClass="msgErro" />									
 									</div>
@@ -240,18 +230,18 @@
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Contato"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneContato" maxlength="13" size="13" value="#{fornecedorBB.foneContato}" required="false">
-											<f:validateLength maximum="13" />
+										<h:inputText styleClass="field text" id="foneContato" maxlength="12" size="12" value="#{fornecedorBB.foneContato}" required="false">
+											<f:validateLength maximum="12" />
 										</h:inputText>
 										<h:message for="foneContato" styleClass="msgErro" />									
 									</div>
 								</li>
 							</ul>
-						</div>	
+						</div>						
 						<ul>
 							<li class="buttons">
-								<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
-								<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{fornecedorBB.inserir}" value="Inserir"></h:commandButton>
+								<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{fornecedorBB.alterar}" value="Alterar"></h:commandButton>
+								<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{fornecedorBB.excluir}" value="Excluir"></h:commandButton>								
 							</li>
 						</ul>
 <!-- xxxxxxxxxxxxxxx -->					
@@ -261,6 +251,6 @@
 					<div class="clear"></div>
 				</div>
 				<jsp:include page="/jsp/rodape.jsp"></jsp:include>
-
+			
 	</f:view>
 </html>

@@ -1,0 +1,466 @@
+package com.infinity.datamarket.enterprise.gui.fornecedor;
+
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.Map;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
+import com.infinity.datamarket.comum.fornecedor.Fornecedor;
+import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
+import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.enterprise.gui.util.BackBean;
+
+public class FornecedorBackBean extends BackBean {
+	
+	public FornecedorBackBean(){
+		resetBB();
+	}
+	
+	String id;
+	String nomeFornecedor;
+	String tipoPessoa = new String(Fornecedor.PESSOA_FISICA);
+	String cpfCnpj;
+	String razaoSocial;
+	String nomeFantasia;
+	String inscricaoEstadual;
+	String inscricaoMunicipal;
+	String logradouro;
+	String numero;
+	String complemento;
+	String bairro;
+	String cidade;
+	String estado;
+	String cep;
+	String foneResidencial;
+	String foneComercial;
+	String foneCelular;
+	String pessoaContato;
+	String foneContato;
+	Date dataCadastro = new Date(System.currentTimeMillis());
+	
+	Collection fornecedores;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getCpfCnpj() {
+		return cpfCnpj;
+	}
+
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getFoneCelular() {
+		return foneCelular;
+	}
+
+	public void setFoneCelular(String foneCelular) {
+		this.foneCelular = foneCelular;
+	}
+
+	public String getFoneComercial() {
+		return foneComercial;
+	}
+
+	public void setFoneComercial(String foneComercial) {
+		this.foneComercial = foneComercial;
+	}
+
+	public String getFoneContato() {
+		return foneContato;
+	}
+
+	public void setFoneContato(String foneContato) {
+		this.foneContato = foneContato;
+	}
+
+	public String getInscricaoEstadual() {
+		return inscricaoEstadual;
+	}
+
+	public void setInscricaoEstadual(String inscricaoEstadual) {
+		this.inscricaoEstadual = inscricaoEstadual;
+	}
+
+	public String getInscricaoMunicipal() {
+		return inscricaoMunicipal;
+	}
+
+	public void setInscricaoMunicipal(String inscricaoMunicipal) {
+		this.inscricaoMunicipal = inscricaoMunicipal;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getNomeFantasia() {
+		return nomeFantasia;
+	}
+
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getPessoaContato() {
+		return pessoaContato;
+	}
+
+	public void setPessoaContato(String pessoaContato) {
+		this.pessoaContato = pessoaContato;
+	}
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
+
+	public String getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(String tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public String resetBB(){
+		this.setId(null);
+		this.setTipoPessoa(Fornecedor.PESSOA_FISICA);
+		this.setCpfCnpj(null);
+		this.setRazaoSocial(null);
+		this.setNomeFantasia(null);
+		this.setInscricaoEstadual(null);
+		this.setInscricaoMunicipal(null);
+		this.setLogradouro(null);
+		this.setNumero(null);
+		this.setComplemento(null);
+		this.setBairro(null);
+		this.setCidade(null);
+		this.setEstado(null);
+		this.setCep(null);
+		this.setFoneComercial(null);
+		this.setFoneCelular(null);
+		this.setPessoaContato(null);
+		this.setFoneContato(null);
+		this.setDataCadastro(new Date(System.currentTimeMillis()));
+		return "mesma";
+	}
+	
+	public String consultar(){
+		try{
+			FacesContext context = FacesContext.getCurrentInstance();
+			Map params = context.getExternalContext().getRequestParameterMap();            
+			String param = (String)  params.get("id");
+			if (param != null && !"".equals(param)){
+				setId(param);
+			}
+			if (getId() != null && !"".equals(getId())){
+				Fornecedor fornecedor = getFachada().consultaFornecedorPorId(new Long(getId()));
+				this.setId(fornecedor.getId().toString());
+				this.setNomeFornecedor(fornecedor.getNomeFornecedor());
+				this.setTipoPessoa(fornecedor.getTipoPessoa());
+				this.setCpfCnpj(fornecedor.getCpfCnpj());
+				this.setRazaoSocial(fornecedor.getRazaoSocial());
+				this.setNomeFantasia(fornecedor.getNomeFantasia());
+				this.setInscricaoEstadual(fornecedor.getInscricaoEstadual());
+				this.setInscricaoMunicipal(fornecedor.getInscricaoMunicipal());
+				this.setLogradouro(fornecedor.getLogradouro());
+				this.setNumero(fornecedor.getNumero());
+				this.setComplemento(fornecedor.getComplemento());
+				this.setBairro(fornecedor.getBairro());
+				this.setCidade(fornecedor.getCidade());
+				this.setEstado(fornecedor.getEstado());
+				this.setCep(fornecedor.getCep());
+				this.setFoneResidencial(fornecedor.getFoneResidencial());
+				this.setFoneComercial(fornecedor.getFoneComercial());
+				this.setFoneCelular(fornecedor.getFoneCelular());
+				this.setPessoaContato(fornecedor.getPessoaContato());
+				this.setFoneContato(fornecedor.getFoneContato());
+				this.setDataCadastro(fornecedor.getDataCadastro());
+				
+				return "proxima";
+			}else if ((this.getNomeFornecedor() != null && !"".equals(this.getNomeFornecedor()))
+					|| (this.getCpfCnpj() != null && !"".equals(this.getCpfCnpj()))
+					|| (this.getTipoPessoa() != null && !"".equals(this.getTipoPessoa()))){
+				PropertyFilter filter = new PropertyFilter();
+				filter.setTheClass(Fornecedor.class);
+				filter.addProperty("tipoPessoa", this.getTipoPessoa());
+				if(this.getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
+					filter.addProperty("nomeFornecedor", this.getNomeFornecedor());	
+				}else{
+					filter.addProperty("razaoSocial", this.getNomeFornecedor());
+				}
+				if(this.getCpfCnpj() != null && !"".equals(this.getCpfCnpj())){
+					filter.addProperty("cpfCnpj", this.getCpfCnpj());	
+				}
+				Collection col = getFachada().consultarFornecedor(filter);
+				if (col == null || col.size() == 0){
+					this.setFornecedores(col);
+					FacesContext ctx = FacesContext.getCurrentInstance();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Nenhum Registro Encontrado", "");
+					ctx.addMessage(null, msg);					
+				}else if (col != null){
+					if(col.size() == 1){
+						Fornecedor fornecedor = (Fornecedor)col.iterator().next();
+						this.setId(fornecedor.getId().toString());
+						this.setNomeFornecedor(fornecedor.getNomeFornecedor());
+						this.setTipoPessoa(fornecedor.getTipoPessoa());
+						this.setCpfCnpj(fornecedor.getCpfCnpj());
+						this.setRazaoSocial(fornecedor.getRazaoSocial());
+						this.setNomeFantasia(fornecedor.getNomeFantasia());
+						this.setInscricaoEstadual(fornecedor.getInscricaoEstadual());
+						this.setInscricaoMunicipal(fornecedor.getInscricaoMunicipal());
+						this.setLogradouro(fornecedor.getLogradouro());
+						this.setNumero(fornecedor.getNumero());
+						this.setComplemento(fornecedor.getComplemento());
+						this.setBairro(fornecedor.getBairro());
+						this.setCidade(fornecedor.getCidade());
+						this.setEstado(fornecedor.getEstado());
+						this.setCep(fornecedor.getCep());
+						this.setFoneResidencial(fornecedor.getFoneResidencial());
+						this.setFoneComercial(fornecedor.getFoneComercial());
+						this.setFoneCelular(fornecedor.getFoneCelular());
+						this.setPessoaContato(fornecedor.getPessoaContato());
+						this.setFoneContato(fornecedor.getFoneContato());
+						this.setDataCadastro(fornecedor.getDataCadastro());
+
+						return "proxima";
+					}else{
+						this.setFornecedores(col);
+					}
+				}
+			}else{
+				this.setFornecedores(getFachada().consultarTodosFornecedores());
+			}
+		}catch(ObjectNotFoundException e){
+			this.setFornecedores(null);
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Nenhum Registro Encontrado", "");
+			ctx.addMessage(null, msg);			
+		}catch(Exception e){
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		resetBB();
+		return "mesma";
+	}
+
+	public String inserir(){
+		try {
+			Fornecedor fornecedor = preencheFornecedor(INSERIR);
+			
+			getFachada().inserirFornecedor(fornecedor);
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Operação Realizada com Sucesso!", "");
+			ctx.addMessage(null, msg);
+			resetBB();
+		} catch (ObjectExistentException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Fornecedor já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (Exception e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		resetBB();
+		return "mesma";
+	}
+	
+	public String alterar(){
+		try {		
+			Fornecedor fornecedor = preencheFornecedor(ALTERAR);			
+								
+			getFachada().alterarFornecedor(fornecedor);
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Operação Realizada com Sucesso!", "");
+			ctx.addMessage(null, msg);
+			resetBB();
+			this.setFornecedores(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return "mesma";
+	}
+	
+	public String excluir(){
+		try {
+			Fornecedor fornecedor = new Fornecedor();
+			
+			fornecedor.setId(new Long(this.getId()));
+			
+			getFachada().excluirFornecedor(fornecedor);
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Operação Realizada com Sucesso!", "");
+			ctx.addMessage(null, msg);
+			resetBB();
+			this.setFornecedores(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		resetBB();
+		return "mesma";
+	}
+	
+	public Fornecedor preencheFornecedor(String acao){
+		
+		Fornecedor fornecedor = new Fornecedor();
+		
+		fornecedor.setId(new Long(this.getId()));
+		fornecedor.setNomeFornecedor(this.getNomeFornecedor());
+		fornecedor.setTipoPessoa(this.getTipoPessoa());
+		fornecedor.setCpfCnpj(this.getCpfCnpj());
+		fornecedor.setRazaoSocial(this.getRazaoSocial());
+		fornecedor.setNomeFantasia(this.getNomeFantasia());
+		fornecedor.setInscricaoEstadual(this.getInscricaoEstadual());
+		fornecedor.setInscricaoMunicipal(this.getInscricaoMunicipal());
+		fornecedor.setLogradouro(this.getLogradouro());
+		fornecedor.setNumero(this.getNumero());
+		fornecedor.setComplemento(this.getComplemento());
+		fornecedor.setBairro(this.getBairro());
+		fornecedor.setCidade(this.getCidade());
+		fornecedor.setEstado(this.getEstado());
+		fornecedor.setCep(this.getCep());
+		fornecedor.setFoneResidencial(this.getFoneResidencial());
+		fornecedor.setFoneComercial(this.getFoneComercial());
+		fornecedor.setFoneCelular(this.getFoneCelular());
+		fornecedor.setPessoaContato(this.getPessoaContato());
+		fornecedor.setFoneContato(this.getFoneContato());
+		if(acao.equals(INSERIR)){
+			fornecedor.setDataCadastro(new Date(System.currentTimeMillis()));
+		}		
+		return fornecedor;
+	}
+
+	/**
+	 * @return the fornecedores
+	 */
+	public Collection getFornecedores() {
+		return fornecedores;
+	}
+
+	/**
+	 * @param fornecedores the fornecedores to set
+	 */
+	public void setFornecedores(Collection fornecedores) {
+		this.fornecedores = fornecedores;
+	}
+
+	/**
+	 * @return the nomeFornecedor
+	 */
+	public String getNomeFornecedor() {
+		return nomeFornecedor;
+	}
+
+	/**
+	 * @param nomeFornecedor the nomeFornecedor to set
+	 */
+	public void setNomeFornecedor(String nomeFornecedor) {
+		this.nomeFornecedor = nomeFornecedor;
+	}
+
+	/**
+	 * @return the foneResidencial
+	 */
+	public String getFoneResidencial() {
+		return foneResidencial;
+	}
+
+	/**
+	 * @param foneResidencial the foneResidencial to set
+	 */
+	public void setFoneResidencial(String foneResidencial) {
+		this.foneResidencial = foneResidencial;
+	}
+}

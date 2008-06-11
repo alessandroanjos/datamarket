@@ -162,6 +162,15 @@
 			<from-outcome>manterCliente</from-outcome>
 			<to-view-id>/jsp/cliente/consultarCliente.jsp</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>inserirFornecedor</from-outcome>
+			<to-view-id>/jsp/fornecedor/inserirFornecedor.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manterFornecedor</from-outcome>
+			<to-view-id>/jsp/fornecedor/consultarFornecedor.jsp</to-view-id>
+		</navigation-case>
 			
 		<navigation-case>
 			<from-outcome>inserirClientePagamento</from-outcome>
@@ -948,7 +957,6 @@
 		</navigation-case>
 	</navigation-rule>
 
-
 	<!--  CLIENTE PAGAMENTO -->
 	
 		<navigation-rule>
@@ -992,7 +1000,49 @@
 			<to-view-id>/jsp/clientePagamento/consultarClientePagamento.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-
+<!--  Fornecedor -->
+	
+		<navigation-rule>
+			<from-view-id>/jsp/fornecedor/inserirFornecedor.jsp</from-view-id>
+			<navigation-case>
+				<from-action>#{fornecedorBB.inserir}</from-action>
+				<from-outcome>mesma</from-outcome>
+				<to-view-id>/jsp/fornecedor/inserirFornecedor.jsp</to-view-id>
+			</navigation-case>
+			<navigation-case>
+				<from-action>#{fornecedorBB.voltarMenu}</from-action>
+				<from-outcome>voltar</from-outcome>
+				<to-view-id>/jsp/menu.jsp</to-view-id>
+			</navigation-case>
+		</navigation-rule>
+	
+		<navigation-rule>
+		<from-view-id>/jsp/fornecedor/consultarFornecedor.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{fornecedorBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/fornecedor/consultarFornecedor.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{fornecedorBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/fornecedor/manterFornecedor.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{fornecedorBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/fornecedor/manterFornecedor.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{fornecedorBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/fornecedor/consultarFornecedor.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<!-- TIPO DE PRODUTO BACK BEAN -->
 	
@@ -1840,7 +1890,132 @@
 		</managed-property>
 	</managed-bean>
 
-<!-- CLIENTE BACK BEAN -->
+<!-- FORNECEDOR BACK BEAN -->
+
+	<managed-bean>
+		<managed-bean-name>fornecedorBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.fornecedor.FornecedorBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>nomeFornecedor</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>tipoPessoa</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cpfCnpj</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>razaoSocial</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>nomeFantasia</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>inscricaoEstadual</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>inscricaoMunicipal</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>logradouro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>numero</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>complemento</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>bairro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cidade</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>estado</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>inscricaoEstadual</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>inscricaoMunicipal</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>	
+				<managed-property>
+		    <property-name>cep</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>foneResidencial</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>foneComercial</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>foneCelular</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>pessoaContato</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>foneContato</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+
+		<managed-property>
+		    <property-name>dataCadastro</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>				
+		
+	</managed-bean>
 
 	<managed-bean>
 		<managed-bean-name>clienteBB</managed-bean-name>

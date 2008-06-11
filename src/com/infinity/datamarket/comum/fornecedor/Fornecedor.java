@@ -1,29 +1,46 @@
 package com.infinity.datamarket.comum.fornecedor;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import com.infinity.datamarket.comum.util.Persistente;
 
-public class Fornecedor extends Persistente{
-
+public class Fornecedor extends Persistente {
+	
+	public static final String PESSOA_FISICA = "F";
+	public static final String PESSOA_JURIDICA = "J";
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7916843563910560609L;
+	private static final long serialVersionUID = 139511304874487777L;
+
+	String nomeFornecedor;
+	String tipoPessoa;
+	String cpfCnpj;
+	String razaoSocial;
+	String nomeFantasia;
+	String inscricaoEstadual;
+	String inscricaoMunicipal;
+	String logradouro;
+	String numero;
+	String complemento;
+	String bairro;
+	String cidade;
+	String estado;
+	String cep;
+	String foneResidencial;
+	String foneComercial;
+	String foneCelular;
+	String pessoaContato;
+	String foneContato;
+	Date dataCadastro;
 	
-	private String cpfcnpj;
-	private String rasaoSocial;
-	private String nomeFantazia;
-	private String inscricaoEstadual;
-	private String inscricaoMunincipal;
-	private String logradouro;
-	private String numero;
-	private String cidade;
-	private String estado;
-	private String pais;
-	private String telefone;
-	private String contato;
-	private String telefoneContato;
-	private String cep;
-	
+	public String getBairro() {
+		return bairro;
+	}
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
 	public String getCep() {
 		return cep;
 	}
@@ -36,17 +53,17 @@ public class Fornecedor extends Persistente{
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
-	public String getContato() {
-		return contato;
+	public String getComplemento() {
+		return complemento;
 	}
-	public void setContato(String contato) {
-		this.contato = contato;
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
-	public String getCpfcnpj() {
-		return cpfcnpj;
+	public String getCpfCnpj() {
+		return cpfCnpj;
 	}
-	public void setCpfcnpj(String cpfcnpj) {
-		this.cpfcnpj = cpfcnpj;
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
 	}
 	public String getEstado() {
 		return estado;
@@ -54,17 +71,41 @@ public class Fornecedor extends Persistente{
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	public String getFoneCelular() {
+		return foneCelular;
+	}
+	public void setFoneCelular(String foneCelular) {
+		this.foneCelular = foneCelular;
+	}
+	public String getFoneComercial() {
+		return foneComercial;
+	}
+	public void setFoneComercial(String foneComercial) {
+		this.foneComercial = foneComercial;
+	}
+	public String getFoneContato() {
+		return foneContato;
+	}
+	public void setFoneContato(String foneContato) {
+		this.foneContato = foneContato;
+	}
+	public String getFoneResidencial() {
+		return foneResidencial;
+	}
+	public void setFoneResidencial(String foneResidencial) {
+		this.foneResidencial = foneResidencial;
+	}
 	public String getInscricaoEstadual() {
 		return inscricaoEstadual;
 	}
 	public void setInscricaoEstadual(String inscricaoEstadual) {
 		this.inscricaoEstadual = inscricaoEstadual;
 	}
-	public String getInscricaoMunincipal() {
-		return inscricaoMunincipal;
+	public String getInscricaoMunicipal() {
+		return inscricaoMunicipal;
 	}
-	public void setInscricaoMunincipal(String inscricaoMunincipal) {
-		this.inscricaoMunincipal = inscricaoMunincipal;
+	public void setInscricaoMunicipal(String inscricaoMunicipal) {
+		this.inscricaoMunicipal = inscricaoMunicipal;
 	}
 	public String getLogradouro() {
 		return logradouro;
@@ -72,11 +113,11 @@ public class Fornecedor extends Persistente{
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
-	public String getNomeFantazia() {
-		return nomeFantazia;
+	public String getNomeFantasia() {
+		return nomeFantasia;
 	}
-	public void setNomeFantazia(String nomeFantazia) {
-		this.nomeFantazia = nomeFantazia;
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
 	}
 	public String getNumero() {
 		return numero;
@@ -84,29 +125,40 @@ public class Fornecedor extends Persistente{
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
-	public String getPais() {
-		return pais;
+	public String getPessoaContato() {
+		return pessoaContato;
 	}
-	public void setPais(String pais) {
-		this.pais = pais;
+	public void setPessoaContato(String pessoaContato) {
+		this.pessoaContato = pessoaContato;
 	}
-	public String getRasaoSocial() {
-		return rasaoSocial;
+	public String getRazaoSocial() {
+		return razaoSocial;
 	}
-	public void setRasaoSocial(String rasaoSocial) {
-		this.rasaoSocial = rasaoSocial;
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
 	}
-	public String getTelefone() {
-		return telefone;
+	public String getTipoPessoa() {
+		return tipoPessoa;
 	}
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setTipoPessoa(String tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
 	}
-	public String getTelefoneContato() {
-		return telefoneContato;
+	public Date getDataCadastro() {
+		return dataCadastro;
 	}
-	public void setTelefoneContato(String telefoneContato) {
-		this.telefoneContato = telefoneContato;
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
-	
+	/**
+	 * @return the nomeFornecedor
+	 */
+	public String getNomeFornecedor() {
+		return nomeFornecedor;
+	}
+	/**
+	 * @param nomeFornecedor the nomeFornecedor to set
+	 */
+	public void setNomeFornecedor(String nomeFornecedor) {
+		this.nomeFornecedor = nomeFornecedor;
+	}
 }

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 
@@ -46,7 +47,7 @@ public class CadastroEntradaProduto extends Cadastro{
 				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pk);
 				ep.setQuantidade(ep.getQuantidade().add(pep.getQuantidade()));
 				getRepositorio().update(ep);
-			} catch (Exception e) {
+			} catch (ObjectNotFoundException e) {
 				// TODO: handle exception
 				EstoqueProduto ep = new EstoqueProduto();
 				EstoqueProdutoPK pkEp = new EstoqueProdutoPK();
