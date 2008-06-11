@@ -420,7 +420,7 @@ public class EntradaProdutoBackBean extends BackBean {
 			int i = 0;
 			for (Fornecedor fornecedorTmp : fornecedores) {
 				SelectItem item = new SelectItem(fornecedorTmp.getId().toString(),
-						fornecedorTmp.getNomeFantazia());
+						fornecedorTmp.getNomeFantasia());
 				arrayFornecedores[i++] = item;
 			}
 
