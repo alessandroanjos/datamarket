@@ -42,7 +42,7 @@ public class CadastroAjusteEstoque extends Cadastro{
 			//consulta de estoque produto
 			try {
 				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pk);
-				ep.setQuantidade(ep.getQuantidade().add(ajuste.getQuantidadeDepois()));
+				ep.setQuantidade(ajuste.getQuantidadeDepois());
 				getRepositorio().update(ep);
 			} catch (Exception e) {
 				// TODO: handle exception
