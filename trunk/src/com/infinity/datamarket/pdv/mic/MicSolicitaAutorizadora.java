@@ -1,12 +1,6 @@
 package com.infinity.datamarket.pdv.mic;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
-
 import com.infinity.datamarket.comum.pagamento.Autorizadora;
-import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
-import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
@@ -32,7 +26,7 @@ public class MicSolicitaAutorizadora extends Mic{
 					}catch(NumberFormatException e){
 						continue;
 					}
-					com.infinity.datamarket.comum.autorizadora.Autorizadora aut = null;
+					Autorizadora aut = null;
 					try{
 						aut =  getFachadaPDV().consultarAutorizadoraPorId(id);
 					}catch(ObjectNotFoundException e){
