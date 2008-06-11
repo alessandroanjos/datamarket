@@ -19,8 +19,8 @@
             </generator>
         </id>
 
-	    <property name="nomeCliente" type="java.lang.String" update="true" insert="true">
-	        <column name="NOME_CLIENTE" length="100" not-null="true"/>
+	    <property name="nomeFornecedor" type="java.lang.String" update="true" insert="true">
+	        <column name="NOME_FORNECEDOR" length="100" not-null="true"/>
 	    </property>
 
 		<property name="tipoPessoa" type="java.lang.String" update="true" insert="true">
