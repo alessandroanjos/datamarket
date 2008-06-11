@@ -15,7 +15,7 @@ public class TransactionServer implements TransactionServerRemote, TransactionSe
 		
 	}
 	public void inserirTransacao(Transacao transacao) throws AppException{
-//		Fachada.getInstancia().inserirTransacao(transacao);
+		Fachada.getInstancia().inserirTransacao(transacao);
 		System.out.println("TRANSACAO INSERIDA >> "+transacao.getPk());
 	}
 }
