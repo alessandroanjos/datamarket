@@ -2,6 +2,7 @@ package com.infinity.datamarket.comum.estoque;
 
 import java.util.Collection;
 
+import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
@@ -30,6 +31,29 @@ public class CadastroAjusteEstoque extends Cadastro{
 	}
 	public void inserir(AjusteEstoque ajuste) throws AppException{
 		getRepositorio().insert(ajuste);
+		Produto produto = ajuste.getProduto();
+		if (produto==null)
+			return;
+
+			EstoqueProdutoPK pk = new EstoqueProdutoPK();
+			pk.setEstoque(ajuste.getEstoque());
+			pk.setProduto(produto);
+			
+			//consulta de estoque produto
+			try {
+				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pk);
+				ep.setQuantidade(ep.getQuantidade().add(ajuste.getQuantidadeDepois()));
+				getRepositorio().update(ep);
+			} catch (Exception e) {
+				// TODO: handle exception
+				EstoqueProduto ep = new EstoqueProduto();
+				EstoqueProdutoPK pkEp = new EstoqueProdutoPK();
+				pkEp.setEstoque(pk.getEstoque());
+				pkEp.setProduto(pk.getProduto());
+				ep.setPk(pkEp);
+				ep.setQuantidade(ajuste.getQuantidadeDepois());
+				getRepositorio().insert(ep);
+			}
 	}
 	
 }
