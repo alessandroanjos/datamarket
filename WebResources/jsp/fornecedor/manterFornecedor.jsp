@@ -52,7 +52,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 										<h:inputText styleClass="field text ativo" id="id" readonly="true"
-											maxlength="4" value="#{clienteBB.id}" size="4"
+											maxlength="4" value="#{fornecedorBB.id}" size="4"
 											required="true">
 											<f:validateLength maximum="4" />
 											<f:validator validatorId="LongValidator" />
@@ -62,7 +62,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false" readonly="true"
-											value="#{clienteBB.dataCadastro}" onkeypress="return SoNumero();" onkeydown="FormataData('frmManterFornecedor:dataCadastro');">			
+											value="#{fornecedorBB.dataCadastro}" onkeypress="return SoNumero();" onkeydown="FormataData('frmManterFornecedor:dataCadastro');">			
 										</h:inputText>
 										<h:message for="dataCadastro" styleClass="msgErro"/>
 									</div>
@@ -71,7 +71,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
 										<h:selectOneRadio  styleClass="field select"  id="tipoPessoa" 
-											value="#{clienteBB.tipoPessoa}"  layout="lineDirection" rendered="true">
+											value="#{fornecedorBB.tipoPessoa}"  layout="lineDirection" rendered="true">
 										    <f:selectItem itemLabel="Física" itemValue="F" />
 										    <f:selectItem itemLabel="Jurídica" itemValue="J"/>
 										</h:selectOneRadio>
@@ -81,7 +81,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="CPF/CNPJ*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="cpfCnpj" maxlength="18" size="18" value="#{clienteBB.cpfCnpj}" required="true">
+										<h:inputText styleClass="field text" id="cpfCnpj" maxlength="18" size="18" value="#{fornecedorBB.cpfCnpj}" required="true">
 											<f:validateLength minimum="11" maximum="18" />
 										</h:inputText>
 										<h:message for="cpfCnpj" styleClass="msgErro" />									
@@ -92,7 +92,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Nome Fornecedor*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="nomeFornecedor" maxlength="50" size="50" value="#{clienteBB.nomeFornecedor}" required="true">
+										<h:inputText styleClass="field text" id="nomeFornecedor" maxlength="50" size="50" value="#{fornecedorBB.nomeFornecedor}" required="true">
 											<f:validateLength maximum="50" />
 										</h:inputText>
 										<h:message for="nomeFornecedor" styleClass="msgErro" />									
