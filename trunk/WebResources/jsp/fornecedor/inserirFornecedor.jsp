@@ -99,14 +99,6 @@
 										</h:inputText>
 										<h:message for="nomeFornecedor" styleClass="msgErro" />									
 									</div>
-									<div>
-										<h:outputLabel styleClass="desc" value="Data de Nascimento"></h:outputLabel>
-										<h:inputText styleClass="field text" id="dataNascimento" maxlength="10" size="10"
-											value="#{fornecedorBB.dataNascimento}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirFornecedor:dataNascimento');">
-											
-										</h:inputText>
-										<h:message for="dataNascimento" styleClass="msgErro"/>
-									</div>
 								</li>
 								<!-- PESSOA FISICA -->								
 								
@@ -145,7 +137,6 @@
 										<h:message for="inscricaoMunicipal" styleClass="msgErro" />									
 									</div>
 								</li>
-								<!-- PESSOA JURIDICA -->
 							</ul>
 						</div>
 						<div id="tabDiv1" style="display:none;">

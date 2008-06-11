@@ -4,8 +4,10 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.ObjetoInexistenteException;
 
 public class CadastroMovimentacaoEstoque extends Cadastro{
 
@@ -57,7 +59,7 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pkEp);
 				ep.setQuantidade(ep.getQuantidade().add(pme.getQuantidade()));
 				getRepositorio().update(ep);
-			} catch (Exception e) {
+			} catch (ObjectNotFoundException e) {
 				// TODO: handle exception
 				EstoqueProduto ep = new EstoqueProduto();
 				ep.setPk(pkEp);
@@ -73,7 +75,7 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pkEp);
 				ep.setQuantidade(ep.getQuantidade().subtract(pme.getQuantidade()));
 				getRepositorio().update(ep);
-			} catch (Exception e) {
+			} catch (ObjectNotFoundException e) {
 				// TODO: handle exception
 			}
 			
