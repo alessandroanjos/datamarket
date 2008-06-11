@@ -32,7 +32,7 @@ public class MicSolicitaAutorizadora extends Mic{
 					}catch(NumberFormatException e){
 						continue;
 					}
-					Autorizadora aut = null;
+					com.infinity.datamarket.comum.autorizadora.Autorizadora aut = null;
 					try{
 						aut =  getFachadaPDV().consultarAutorizadoraPorId(id);
 					}catch(ObjectNotFoundException e){
