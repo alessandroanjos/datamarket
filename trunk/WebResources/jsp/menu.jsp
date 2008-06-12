@@ -23,17 +23,16 @@
 			<t:stylesheet path="css/form.css" enabledOnUserRole="true"></t:stylesheet>	
 		</head>
 
-		<jsp:include page="/jsp/topo.jsp?tituloPagina=&user=#{loginBB.usuarioLogado.nome}" flush="true"></jsp:include>
+
 	<h:form id="menu">
+	
+		<f:subview id="topo">
+			<jsp:include page="/jsp/topo.jsp?tituloPagina=&user=#{loginBB.usuarioLogado.nome}" flush="true"></jsp:include>
+		</f:subview>
 		
 		<div id="content" style="margin-top:0px;">
 			<div id="primarioContentContainer">
 				<ul>
-					<li>
-						<div class="normal">
-							
-						</div>
-					</li>
 					<li>
 						<div style="margin-top:20px;height:240px;">
 							<t:jscookMenu layout="hbr" theme="ThemeOffice" id="menuPrincipal">
