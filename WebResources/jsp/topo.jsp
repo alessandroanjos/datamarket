@@ -4,7 +4,7 @@
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t" %>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j" %>
 
-		
+<f:verbatim>		
 <script type="text/javascript">
 
 			window.onload = function(){ inicializar() };
@@ -40,8 +40,16 @@
 		<div class="centro">
 			<div id="loginUser">
 				Usuário:
-				<strong>				
-					<%= request.getParameter("user") %>
+				<strong>
+					</f:verbatim>	
+						<% if(!request.getParameter("user").equals("Desconhecido")) { %>			
+							<h:outputText value="#{loginBB.usuarioLogado.nome}"></h:outputText>
+						<% } else { %>
+							<f:verbatim>	
+								<strong>Desconhecido</strong>
+							</f:verbatim>	
+						<% } %>
+					<f:verbatim>
 				</strong>				
 				&nbsp;&nbsp;&nbsp;&#8212;&nbsp;&nbsp;&nbsp;
 				<script type="text/javascript">document.write(day + ", "+today+"/"+month+"/"+year)</script>
@@ -49,13 +57,20 @@
 			<div id="breadcrumb"><strong>Infinity</strong> - DataMarket - Enterprise Server</div>
 		</div>
 	</div> 
-	 
+	 		</f:verbatim>	
 	<div id="outer">
 		<% if(!request.getParameter("user").equals("Desconhecido")) { %>			
+		<f:loadBundle basename="resources.mensagens" var="msgs"/>
 			<div id="topo">
 				<h1>&nbsp;</h1>
 				<h2>&nbsp;</h2>
-				<div id="tituloPagina"><strong><%= request.getParameter("tituloPagina") %></strong></div>
+				<div id="tituloPagina">
+					<strong>
+						<%= request.getParameter("tituloPagina")%>
+					</strong>
+				</div>
 				<div id="logoCliente"><img src="/EnterpriseServer/images/logoCliente.gif" alt="Magia dos Pães" title="Magia dos Pães" /></div>
 			</div>
 		<% } %>
+
+	
