@@ -11,9 +11,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <f:view>
 	<f:loadBundle basename="resources.mensagens" var="msgs"/>
+
 	<head>
 
-		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
+		<title>
+
+		<h:outputText value="#{msgs.tituloPaginas}"></h:outputText>
+
+		</title>
 
 		<meta http-equiv="pragma" content="no-cache"/>
 		<meta http-equiv="cache-control" content="no-cache"/>
@@ -32,7 +37,7 @@
 			
 
 				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.inserirUsuario}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
+					<jsp:include flush="true" page="/jsp/topo.jsp?tituloPagina=#{msgs.inserirUsuario}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
 				</f:subview>	
 					<div id="content">
 						<div id="tabMenu">
