@@ -34,6 +34,14 @@
         <property name="url" type="java.lang.String" update="true" insert="true">
             <column name="URL" length="1000" not-null="false"/>
         </property>      
+
+        <property name="largura" type="java.lang.String" update="true" insert="true">
+            <column name="LARGURA" length="4" not-null="false"/>
+        </property>      
+
+        <property name="altura" type="java.lang.String" update="true" insert="true">
+            <column name="ALTURA" length="4" not-null="false"/>
+        </property>      
         
          <set name="perfis" table="PERFIL_FUNCIONALIDADE" cascade="all" lazy="false" inverse="true">
              <key column="ID_FUNCIONALIDADE" />
