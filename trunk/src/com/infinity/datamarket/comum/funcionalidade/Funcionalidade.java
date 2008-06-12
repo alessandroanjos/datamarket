@@ -16,6 +16,8 @@ public class Funcionalidade extends Persistente{
 	private Funcionalidade funcionalidadeSuperior;
 	private String situacao;
 	private String url;
+	private String largura;
+	private String altura;
 	private Set perfis;
 	
 	private Collection funcionalidades;
@@ -168,6 +170,22 @@ public class Funcionalidade extends Persistente{
 		} else if (!url.equals(other.url))
 			return false;
 		return true;
+	}
+
+	public String getAltura() {
+		return altura;
+	}
+
+	public void setAltura(String altura) {
+		this.altura = altura;
+	}
+
+	public String getLargura() {
+		return largura;
+	}
+
+	public void setLargura(String largura) {
+		this.largura = largura;
 	}
 	
 	
