@@ -7,13 +7,14 @@
 <f:subview id="include_rodape">
 <t:stylesheet path="/css/default.css"></t:stylesheet>
 <t:stylesheet path="/css/form.css"></t:stylesheet>
-		
+<f:verbatim>
 <div id="footer">
 	<p>
 		Todos os direitos reservados &copy; 2008 |
 		<a href="http://www.infinity.com.br" target="_blank">www.infinity.com.br</a>
 	</p>
 </div>
-</f:subview>
+</f:verbatim>	
+
 </div>
 
