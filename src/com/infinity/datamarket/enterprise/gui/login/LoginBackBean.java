@@ -163,7 +163,10 @@ public class LoginBackBean extends BackBean{
 					if(funcAux.getId().equals(new Long(999))){
 						subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),"/EnterpriseServer/jsp/"+funcAux.getUrl()+".faces");
 					}else{
-						subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),getFachada().consultarURLApp()+"/EnterpriseServer/jsp/"+funcAux.getUrl()+".faces");	
+						subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),"javascript:window.open(\""+
+										getFachada().consultarURLApp()+"/EnterpriseServer/jsp/"+funcAux.getUrl()+
+										".faces\",\"\",\"top=50,left=50,status=no,toolbar=no,menubar=no,location=no,resize=no,height=" +
+										funcAux.getAltura() + ",width=" + funcAux.getLargura() + "\")");	
 					}
 					
 				}
