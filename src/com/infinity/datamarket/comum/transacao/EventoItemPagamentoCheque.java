@@ -22,6 +22,10 @@ public class EventoItemPagamentoCheque extends EventoItemPagamento{
 		this.numeroCheque = numeroCheque;
 	}
 	
+	public EventoItemPagamentoCheque(){
+		
+	}
+	
 	private String CPFCNPJ;
 	private String numeroChequeLido;
 	private String banco;

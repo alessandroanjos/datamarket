@@ -26,4 +26,8 @@ public class EventoItemPagamentoChequePredatado extends EventoItemPagamento{
 		super(pk,tipoEvento,dataHoraEvento,codigoForma,codigoPlano,formaImpressora,valorBruto,valorDesconto,valorAcrescimo);
 		this.parcelas = parcelas;
 	}
+	
+	public EventoItemPagamentoChequePredatado(){
+		
+	}
 }

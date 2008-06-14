@@ -18,6 +18,10 @@ public class EventoItemPagamentoCartaoProprio extends EventoItemPagamento{
 		this.autorizacao = autorizacao;
 	}
 	
+	public EventoItemPagamentoCartaoProprio(){
+		
+	}
+	
 	private String autorizacao;
 
 	public String getAutorizacao() {
