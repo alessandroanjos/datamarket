@@ -82,6 +82,15 @@ fieldset legend {
 
 /* Cabecalho */
 
+#topoGeral
+{
+	padding: 1.5em 1.5em 0 1.5em;
+	position:relative;
+	text-align:left;
+	border-color: red;
+	border: thick;
+}
+
 #topo
 {
 	padding: 1.5em 1.5em 0 1.5em;
@@ -126,6 +135,16 @@ fieldset legend {
 	color:white; 
 	padding: 0.3em 1.5em 0.3em 1.5em;
 }
+#tituloPaginaGeral 
+{
+	font-size:1.2em; 
+	background-color:#CFE0F7; 
+	padding:0.3em; 
+	margin-top:-30px;
+	_margin-top:-30px;
+	text-align:left;
+}
+
 #tituloPagina 
 {
 	font-size:1.2em; 
