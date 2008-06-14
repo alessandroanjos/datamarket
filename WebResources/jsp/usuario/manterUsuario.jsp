@@ -9,38 +9,42 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<f:view>
-	<f:loadBundle basename="resources.mensagens" var="msgs"/>
-	<head>
-
-		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
-
-		<meta http-equiv="pragma" content="no-cache"/>
-		<meta http-equiv="cache-control" content="no-cache"/>
-		<meta http-equiv="expires" content="0"/>
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
-		<meta http-equiv="description" content="This is my page"/>
-		
-		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
-		
-	</head>
-
-				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.manterUsuario}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
-				</f:subview>	
-					<div id="content">
-						<div id="tabMenu">
-							<ul>
-								<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Usuário</a></span></li>
-								<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)"><span><a href="#">Lojas Associadas</a></span></li>
-							</ul>
-							<div class="clear"></div>
-						</div>
-						<div id="primarioContentContainerInternas">
-						<h:form id="frmManterUsuario">
+	<f:view>
+		<f:loadBundle basename="resources.mensagens" var="msgs"/>	
+		<head>
+			<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
+	
+			<meta http-equiv="pragma" content="no-cache"/>
+			<meta http-equiv="cache-control" content="no-cache"/>
+			<meta http-equiv="expires" content="0"/>
+			<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+			<meta http-equiv="description" content="This is my page"/>
+			
+			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
+			<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
+			<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		</head>
+		<body>
+			<div id="outer">
+				<div id="topoGeral">
+					<div id="tituloPaginaGeral">
+						<strong>
+							<h:outputText value="#{msgs.manterUsuario}"></h:outputText>
+						</strong>
+					</div>				
+				</div>
+				<div id="content">
+					<div id="tabMenu">
+						<ul>
+							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Usuário</a></span></li>
+							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)"><span><a href="#">Lojas Associadas</a></span></li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+					<div id="primarioContentContainerInternas">
+					<h:form id="frmInserirUsuario">
 						<div id="tabDiv0">						
 							<ul>
 								<li class="normal">
@@ -52,7 +56,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
-											value="#{usuarioBB.id}" size="3" required="true">
+											value="#{usuarioBB.id}" size="3" required="true" readonly="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>
@@ -105,7 +109,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Comissão"></h:outputLabel>
 										<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5"
-											value="#{usuarioBB.comissao}" required="true" dir="rtl" onkeypress="Formata('frmManterUsuario:comissao',4,2);">
+											value="#{usuarioBB.comissao}" required="true" dir="rtl" onkeypress="Formata('frmInserirUsuario:comissao',4,2);">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -113,12 +117,12 @@
 										<h:message for="comissao" styleClass="msgErro"/>		
 									</div>
 								</li>
-								</ul>
-								</div>
+							</ul>
+						</div>
 						<div id="tabDiv1" style="display:none;">
-						<ul>
+							<ul>
 								<li class="normal">
-									<div class="div-auto-scroll" style="width:400px !important; height: 274px;">
+									<div class="div-auto-scroll" style="width:400px !important; height: 242px;">
 										<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field select"
 											value="#{usuarioBB.listaLojasAssociadas}" >
 												<f:selectItems value="#{usuarioBB.lojas}"/>
@@ -128,17 +132,17 @@
 								</li>															
 							</ul>
 						</div>
-							<ul>
-								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{usuarioBB.alterar}" value="Alterar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{usuarioBB.excluir}" value="Excluir"></h:commandButton>
-								</li>
-							</ul>
-								</h:form>
-						</div>
-						<div class="clear"></div>
-					</div>	
-					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
-
+						<ul>
+							<li class="buttons">
+								<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{usuarioBB.alterar}" value="Alterar"></h:commandButton>
+								<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{usuarioBB.excluir}" value="Excluir"></h:commandButton>
+							</li>
+						</ul>
+					</h:form>
+				</div>
+				<div class="clear"></div>
+			</div>				
+			<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+		</body>
 	</f:view>
 </html>
