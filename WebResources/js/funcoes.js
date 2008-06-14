@@ -288,3 +288,16 @@ var ret;
     }
     return ret;
 }
+
+function tamanhoJanela(width,height) {
+	if (window.outerWidth) {
+		window.outerWidth = width;
+		window.outerHeight = height;
+	}
+	else if (window.resizeTo) {
+		window.resizeTo(width,height);
+	}
+	else {
+		alert("Esse browser não suporta:\ntamanhoJanela(" + width + "," + height + ")");
+	}
+}
