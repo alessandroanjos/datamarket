@@ -29,11 +29,14 @@
 				}
 				return day_of_week;
 			}
-			var today_date= new Date()
-			var month=today_date.getMonth()+1
-			var today=today_date.getDate()
-			var year=today_date.getFullYear()
-			var day=returnDay(today_date.getDay()+1)
+			var today_date= new Date();
+			var month=today_date.getMonth()+1;
+			var today=today_date.getDate();
+			var year=today_date.getFullYear();
+			var day=returnDay(today_date.getDay()+1);
+			month = new String(month);
+			if(month.length==1)
+				month="0"+month;
  </script>
 
 	 <div id="header">
@@ -57,20 +60,12 @@
 			<div id="breadcrumb"><strong>Infinity</strong> - DataMarket - Enterprise Server</div>
 		</div>
 	</div> 
-	 		</f:verbatim>	
-	<div id="outer">
-		<% if(!request.getParameter("user").equals("Desconhecido")) { %>			
-		<f:loadBundle basename="resources.mensagens" var="msgs"/>
-			<div id="topo">
-				<h1>&nbsp;</h1>
-				<h2>&nbsp;</h2>
-				<div id="tituloPagina">
-					<strong>
-						<%= request.getParameter("tituloPagina")%>
-					</strong>
-				</div>
-				<div id="logoCliente"><img src="/EnterpriseServer/images/logoCliente.gif" alt="Magia dos Pães" title="Magia dos Pães" /></div>
-			</div>
-		<% } %>
-
-	
+</f:verbatim>	
+<f:verbatim>
+<div id="outer">
+<div id="topo">
+	<h1>&nbsp;</h1>
+	<h2>&nbsp;</h2>
+	<div id="logoCliente"><img src="/EnterpriseServer/images/logoCliente.gif" alt="Magia dos Pães" title="Magia dos Pães" /></div>
+</div>
+</f:verbatim>

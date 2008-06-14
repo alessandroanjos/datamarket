@@ -19,8 +19,9 @@
 		<t:stylesheet path="css/form.css" enabledOnUserRole="true"></t:stylesheet>
 	</head>
 	<f:view>
-		<jsp:include page="/jsp/topo.jsp?tituloPagina=&user=Desconhecido"></jsp:include>	
-			<h:form>				
+			<jsp:include page="/jsp/topo.jsp?user=Desconhecido"></jsp:include>	
+			<h:form>
+			<div id="outer">				
 				<div id="content" style="margin-top:20px;">
 					<div id="primarioContentContainer">
 						<div id="primarioContent">			
