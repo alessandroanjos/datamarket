@@ -31,6 +31,5 @@ public class Estoque implements Serializable{
 	}
 	public void setPk(EstoquePK pk) {
 		this.pk = pk;
-	}
-	
+	}	
 }
