@@ -55,7 +55,7 @@
           </property>
 
 
-          <set name="eventosTransacao" inverse="true" cascade="all">
+          <set name="eventosTransacao" inverse="true" cascade="all" lazy="false">
                  <key>
                      <column name="LOJA"/>
                      <column name="COMPONENTE"/>

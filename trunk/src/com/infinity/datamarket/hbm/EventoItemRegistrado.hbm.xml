@@ -32,7 +32,7 @@
             <column name="SITUACAO" length="20" not-null="true"/>
           </property>
           
-          <one-to-one name="produtoItemRegistrado" class="com.infinity.datamarket.comum.transacao.ProdutoItemRegistrado" cascade="all"/>
+          <one-to-one name="produtoItemRegistrado" class="com.infinity.datamarket.comum.transacao.ProdutoItemRegistrado" cascade="all" lazy="false"/>
 
 
 

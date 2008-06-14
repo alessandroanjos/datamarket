@@ -21,6 +21,10 @@ public class EventoItemPagamentoCartaoOff extends EventoItemPagamento{
 		this.autorizacao = autorizacao;
 	}
 	
+	public EventoItemPagamentoCartaoOff(){
+		
+	}
+	
 	private String numeroCartao;
 	private int quantidadeParcelas;
 	private String autorizacao;
