@@ -122,7 +122,7 @@
 						<div id="tabDiv1" style="display:none;">
 							<ul>
 								<li class="normal">
-									<div class="div-auto-scroll" style="width:400px !important; height: 274px;">
+									<div class="div-auto-scroll" style="width:400px !important; height: 242px;">
 										<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field select"
 											value="#{usuarioBB.listaLojasAssociadas}" >
 												<f:selectItems value="#{usuarioBB.lojas}"/>
