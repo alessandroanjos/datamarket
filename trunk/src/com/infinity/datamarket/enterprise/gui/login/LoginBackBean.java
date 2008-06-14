@@ -21,10 +21,13 @@ public class LoginBackBean extends BackBean{
 	private String id;
 	private String senha;
 	private NavigationMenuItem[] navItens;
-    
+	
+	private static String pathAplicacao = "";    
 
 	public String logar(){
 		try{
+			pathAplicacao = getFachada().consultarURLApp();
+			
 			Usuario usu = getFachada().loginUsuario(new Long(id), senha);
 			if (usu == null){
 				FacesContext ctx = FacesContext.getCurrentInstance();
@@ -63,8 +66,6 @@ public class LoginBackBean extends BackBean{
 		resetBB();
 		return "logout";
 	}
-
-
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -164,11 +165,10 @@ public class LoginBackBean extends BackBean{
 						subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),"/EnterpriseServer/jsp/"+funcAux.getUrl()+".faces");
 					}else{
 						subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),"javascript:window.open(\""+
-										getFachada().consultarURLApp()+"/EnterpriseServer/jsp/"+funcAux.getUrl()+
+										pathAplicacao+"/EnterpriseServer/jsp/"+funcAux.getUrl()+
 										".faces\",\"\",\"top=50,left=50,status=no,toolbar=no,menubar=no,location=no,resize=no,height=" +
 										funcAux.getAltura() + ",width=" + funcAux.getLargura() + "\")");	
-					}
-					
+					}					
 				}
 				
 				if (funcAux.getFuncionalidadesFilhas() != null) {
