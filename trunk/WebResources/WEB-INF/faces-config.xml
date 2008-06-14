@@ -15,6 +15,11 @@
 			<from-outcome>erro</from-outcome>
 			<to-view-id>/jsp/login.jsp</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-action>#{loginBB.logout}</from-action>
+			<from-outcome>logout</from-outcome>
+			<to-view-id>/jsp/login.jsp</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	
 	<navigation-rule>
