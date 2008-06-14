@@ -9,46 +9,42 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<f:view>
-	<f:loadBundle basename="resources.mensagens" var="msgs"/>
-
-	<head>
-
-		<title>
-
-		<h:outputText value="#{msgs.tituloPaginas}"></h:outputText>
-
-		</title>
-
-		<meta http-equiv="pragma" content="no-cache"/>
-		<meta http-equiv="cache-control" content="no-cache"/>
-		<meta http-equiv="expires" content="0"/>
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
-		<meta http-equiv="description" content="This is my page"/>
-		
-		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
-		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
-		
-	</head>
-
+	<f:view>
+		<f:loadBundle basename="resources.mensagens" var="msgs"/>	
+		<head>
+			<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
+	
+			<meta http-equiv="pragma" content="no-cache"/>
+			<meta http-equiv="cache-control" content="no-cache"/>
+			<meta http-equiv="expires" content="0"/>
+			<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+			<meta http-equiv="description" content="This is my page"/>
 			
-
-				<f:subview id="subTopo" rendered="true">
-					<jsp:include flush="true" page="/jsp/topo.jsp?tituloPagina=#{msgs.inserirUsuario}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
-				</f:subview>	
-					<div id="content">
-						<div id="tabMenu">
-							<ul>
-								<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Usuário</a></span></li>
-								<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)"><span><a href="#">Lojas Associadas</a></span></li>
-							</ul>
-							<div class="clear"></div>
-						</div>
-						<div id="primarioContentContainerInternas">
-						<h:form id="frmInserirUsuario">
+			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
+			<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
+			<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		</head>
+		<body>
+			<div id="outer">
+				<div id="topoGeral">
+					<div id="tituloPaginaGeral">
+						<strong>
+							<h:outputText value="#{msgs.inserirUsuario}"></h:outputText>
+						</strong>
+					</div>				
+				</div>
+				<div id="content">
+					<div id="tabMenu">
+						<ul>
+							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Usuário</a></span></li>
+							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)"><span><a href="#">Lojas Associadas</a></span></li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+					<div id="primarioContentContainerInternas">
+					<h:form id="frmInserirUsuario">
 						<div id="tabDiv0">						
 							<ul>
 								<li class="normal">
@@ -121,10 +117,10 @@
 										<h:message for="comissao" styleClass="msgErro"/>		
 									</div>
 								</li>
-								</ul>
-								</div>
+							</ul>
+						</div>
 						<div id="tabDiv1" style="display:none;">
-						<ul>
+							<ul>
 								<li class="normal">
 									<div class="div-auto-scroll" style="width:400px !important; height: 274px;">
 										<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field select"
@@ -136,17 +132,17 @@
 								</li>															
 							</ul>
 						</div>
-							<ul>
-								<li class="buttons">
-									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{usuarioBB.inserir}" value="Inserir"></h:commandButton>
-								</li>
-							</ul>
-								</h:form>
-						</div>
-						<div class="clear"></div>
-					</div>				
-				<jsp:include page="/jsp/rodape.jsp"></jsp:include>
-
+						<ul>
+							<li class="buttons">
+								<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+								<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{usuarioBB.inserir}" value="Inserir"></h:commandButton>
+							</li>
+						</ul>
+					</h:form>
+				</div>
+				<div class="clear"></div>
+			</div>				
+			<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+		</body>
 	</f:view>
 </html>
