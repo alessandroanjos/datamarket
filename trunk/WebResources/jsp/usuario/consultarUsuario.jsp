@@ -8,31 +8,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<f:view>
-	<f:loadBundle basename="resources.mensagens" var="msgs"/>
-	<head>
-
-		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
-
-		<meta http-equiv="pragma" content="no-cache"/>
-		<meta http-equiv="cache-control" content="no-cache"/>
-		<meta http-equiv="expires" content="0"/>
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
-		<meta http-equiv="description" content="This is my page"/>
-		
-		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-		
-		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
-	</head>
-
-		<h:form id="frmConsultarUsuario">
-				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.consultarUsuario}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
-				</f:subview>					
-				<div id="content">
-				
+	<f:view>
+		<f:loadBundle basename="resources.mensagens" var="msgs"/>
+		<head>	
+			<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>	
+			<meta http-equiv="pragma" content="no-cache"/>
+			<meta http-equiv="cache-control" content="no-cache"/>
+			<meta http-equiv="expires" content="0"/>
+			<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+			<meta http-equiv="description" content="This is my page"/>			
+			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>			
+			<t:stylesheet path="/css/default.css"></t:stylesheet>
+			<t:stylesheet path="/css/form.css"></t:stylesheet>
+		</head>
+		<body>
+			<div id="outer">
+				<div id="topoGeral">
+					<div id="tituloPaginaGeral">
+						<strong>
+							<h:outputText value="#{msgs.consultarUsuario}"></h:outputText>
+						</strong>
+					</div>				
+				</div>	
+				<h:form id="frmConsultarUsuario">
+					<div id="content">
 						<div id="primarioContentContainerInternas">
 							<fieldset>
 								<legend>Opções de filtro:</legend>
@@ -60,10 +60,10 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Perfil"></h:outputLabel>
 											<h:selectOneMenu id="perfis" styleClass="field select"
-												value="#{usuarioBB.idPerfil}" required="true">   
+												value="#{usuarioBB.idPerfil}" required="true" style="width: 200px;">   
 													  <f:selectItems id="perfilSelectItems" 
 													  value="#{usuarioBB.perfis}" />   
-											</h:selectOneMenu> 
+											</h:selectOneMenu>
 											<h:message for="perfis" styleClass="msgErro" />
 										</div>
 										<div>
@@ -82,7 +82,7 @@
 									var="usuario" rowClasses="rowA,rowB" width="100%">
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Código" /> 
+											<h:outputText value="Código" style="width: 60px;" /> 
 										</f:facet>
 										<h:outputText value="#{usuario.id}" /> 
 									</h:column>
@@ -111,9 +111,8 @@
 						</div>
 						<div class="clear"></div>
 					</div>
-					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
-
-
-		</h:form>
+				</h:form>
+			</div>
+		</body>
 	</f:view>
 </html>				

@@ -23,8 +23,8 @@
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
-			<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
-			<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+			<t:stylesheet path="/css/default.css"></t:stylesheet>
+			<t:stylesheet path="/css/form.css"></t:stylesheet>
 		</head>
 		<body>
 			<div id="outer">
@@ -44,105 +44,106 @@
 						<div class="clear"></div>
 					</div>
 					<div id="primarioContentContainerInternas">
-					<h:form id="frmInserirUsuario">
-						<div id="tabDiv0">						
+						<h:form id="frmInserirUsuario">
+							<div id="tabDiv0">						
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
+											<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+												value="#{usuarioBB.id}" size="3" required="true">
+												<f:validateLength maximum="2" />
+												<f:validator validatorId="LongValidator"/>
+											</h:inputText>
+											<h:message for="id" styleClass="msgErro"/>
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
+											<h:inputText styleClass="field text" id="nome" maxlength="50" size="50" required="true"
+												value="#{usuarioBB.nome}">
+												<f:validateLength maximum="50" />
+											</h:inputText>
+											<h:message for="nome" styleClass="msgErro"/>
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Senha*"></h:outputLabel>
+											<h:inputSecret styleClass="field text" id="senha" redisplay="true" maxlength="20" size="25"
+												value="#{usuarioBB.senha}" required="true">
+												<f:validateLength maximum="20" />
+												<f:validator validatorId="LongValidator"/>
+											</h:inputSecret>
+											<h:message for="senha" styleClass="msgErro"/>
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Perfil*"></h:outputLabel>
+											<h:selectOneMenu id="perfis" styleClass="field select"
+												value="#{usuarioBB.idPerfil}" required="true" style="width: 200px;">   
+													  <f:selectItems id="perfilSelectItems" 
+													  value="#{usuarioBB.perfis}" />   
+											</h:selectOneMenu>
+											<h:message for="perfis" styleClass="msgErro"/>
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Vendedor*"></h:outputLabel>
+											<h:selectOneRadio styleClass="field select" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
+											    <f:selectItem itemLabel="Sim" itemValue="S"/>
+											    <f:selectItem itemLabel="Não" itemValue="N"/>
+											</h:selectOneRadio>
+											<h:message for="vendedor" styleClass="msgErro"/>
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Valor Comissão"></h:outputLabel>
+											<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5"
+												value="#{usuarioBB.comissao}" required="true" dir="rtl" onkeypress="Formata('frmInserirUsuario:comissao',4,2);">
+												<f:validateLength maximum="5" />
+												<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
+												<f:validator validatorId="BigDecimalValidator"/>
+											</h:inputText>
+											<h:message for="comissao" styleClass="msgErro"/>		
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div id="tabDiv1" style="display:none;">
+								<ul>
+									<li class="normal">
+										<div class="div-auto-scroll" style="width:400px !important; height: 242px;">
+											<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field select"
+												value="#{usuarioBB.listaLojasAssociadas}" >
+													<f:selectItems value="#{usuarioBB.lojas}"/>
+											</h:selectManyCheckbox>	
+										</div>									
+										<h:message for="idListaLojasAssociadas" styleClass="msgErro"/>
+									</li>															
+								</ul>
+							</div>
 							<ul>
-								<li class="normal">
-									<div>
-										<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
-									</div>
-								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
-											value="#{usuarioBB.id}" size="3" required="true">
-											<f:validateLength maximum="2" />
-											<f:validator validatorId="LongValidator"/>
-										</h:inputText>
-										<h:message for="id" styleClass="msgErro"/>
-									</div>
-								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="nome" maxlength="50" size="50" required="true"
-											value="#{usuarioBB.nome}">
-											<f:validateLength maximum="50" />
-										</h:inputText>
-										<h:message for="nome" styleClass="msgErro"/>
-									</div>
-								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Senha*"></h:outputLabel>
-										<h:inputSecret styleClass="field text" id="senha" redisplay="true" maxlength="20" size="25"
-											value="#{usuarioBB.senha}" required="true">
-											<f:validateLength maximum="20" />
-											<f:validator validatorId="LongValidator"/>
-										</h:inputSecret>
-										<h:message for="senha" styleClass="msgErro"/>
-									</div>
-								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Perfil*"></h:outputLabel>
-										<h:selectOneMenu id="perfis" styleClass="field select"
-											value="#{usuarioBB.idPerfil}" required="true" style="width: 200px;">   
-												  <f:selectItems id="perfilSelectItems" 
-												  value="#{usuarioBB.perfis}" />   
-										</h:selectOneMenu>
-										<h:message for="perfis" styleClass="msgErro"/>
-									</div>
-								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Vendedor*"></h:outputLabel>
-										<h:selectOneRadio styleClass="field select" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
-										    <f:selectItem itemLabel="Sim" itemValue="S"/>
-										    <f:selectItem itemLabel="Não" itemValue="N"/>
-										</h:selectOneRadio>
-										<h:message for="vendedor" styleClass="msgErro"/>
-									</div>
-								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Valor Comissão"></h:outputLabel>
-										<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5"
-											value="#{usuarioBB.comissao}" required="true" dir="rtl" onkeypress="Formata('frmInserirUsuario:comissao',4,2);">
-											<f:validateLength maximum="5" />
-											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
-											<f:validator validatorId="BigDecimalValidator"/>
-										</h:inputText>
-										<h:message for="comissao" styleClass="msgErro"/>		
-									</div>
+								<li class="buttons">
+									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{usuarioBB.inserir}" value="Inserir"></h:commandButton>
 								</li>
 							</ul>
-						</div>
-						<div id="tabDiv1" style="display:none;">
-							<ul>
-								<li class="normal">
-									<div class="div-auto-scroll" style="width:400px !important; height: 242px;">
-										<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field select"
-											value="#{usuarioBB.listaLojasAssociadas}" >
-												<f:selectItems value="#{usuarioBB.lojas}"/>
-										</h:selectManyCheckbox>	
-									</div>									
-									<h:message for="idListaLojasAssociadas" styleClass="msgErro"/>
-								</li>															
-							</ul>
-						</div>
-						<ul>
-							<li class="buttons">
-								<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
-								<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{usuarioBB.inserir}" value="Inserir"></h:commandButton>
-							</li>
-						</ul>
-					</h:form>
+						</h:form>
+					</div>
 				</div>
 				<div class="clear"></div>
 			</div>				
-			<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+			
 		</body>
 	</f:view>
 </html>

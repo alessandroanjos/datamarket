@@ -23,10 +23,10 @@
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
-			<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
-			<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+			<t:stylesheet path="/css/default.css"></t:stylesheet>
+			<t:stylesheet path="/css/form.css"></t:stylesheet>
 		</head>
-		<body>
+		<body>			
 			<div id="outer">
 				<div id="topoGeral">
 					<div id="tituloPaginaGeral">
@@ -44,7 +44,7 @@
 						<div class="clear"></div>
 					</div>
 					<div id="primarioContentContainerInternas">
-					<h:form id="frmInserirUsuario">
+					<h:form id="frmManterUsuario">
 						<div id="tabDiv0">						
 							<ul>
 								<li class="normal">
@@ -77,7 +77,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Senha*"></h:outputLabel>
 										<h:inputSecret styleClass="field text" id="senha" redisplay="true" maxlength="20" size="25"
-											value="#{usuarioBB.senha}" required="true">
+											value="#{usuarioBB.senha}" required="true" >
 											<f:validateLength maximum="20" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputSecret>
@@ -88,10 +88,10 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Perfil*"></h:outputLabel>
 										<h:selectOneMenu id="perfis" styleClass="field select"
-											value="#{usuarioBB.idPerfil}" required="true" style="width: 200px;">   
-												  <f:selectItems id="perfilSelectItems" 
-												  value="#{usuarioBB.perfis}" />   
-										</h:selectOneMenu>
+												value="#{usuarioBB.idPerfil}" required="true" style="width: 200px;">   
+													  <f:selectItems id="perfilSelectItems" 
+													  value="#{usuarioBB.perfis}" />   
+											</h:selectOneMenu>
 										<h:message for="perfis" styleClass="msgErro"/>
 									</div>
 								</li>
@@ -109,7 +109,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Comissão"></h:outputLabel>
 										<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5"
-											value="#{usuarioBB.comissao}" required="true" dir="rtl" onkeypress="Formata('frmInserirUsuario:comissao',4,2);">
+											value="#{usuarioBB.comissao}" required="false" dir="rtl" onkeypress="Formata('frmManterUsuario:comissao',4,2);">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -134,6 +134,7 @@
 						</div>
 						<ul>
 							<li class="buttons">
+								<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{usuarioBB.voltarConsulta}" value="Voltar"></h:commandButton>
 								<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{usuarioBB.alterar}" value="Alterar"></h:commandButton>
 								<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{usuarioBB.excluir}" value="Excluir"></h:commandButton>
 							</li>
@@ -141,8 +142,7 @@
 					</h:form>
 				</div>
 				<div class="clear"></div>
-			</div>				
-			<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+			</div>
 		</body>
 	</f:view>
 </html>
