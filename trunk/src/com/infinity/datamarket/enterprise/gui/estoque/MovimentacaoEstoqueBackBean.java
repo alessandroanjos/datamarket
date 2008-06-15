@@ -1,7 +1,6 @@
 package com.infinity.datamarket.enterprise.gui.estoque;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -18,21 +17,17 @@ import javax.faces.model.SelectItem;
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
-import com.infinity.datamarket.comum.estoque.EstoquePK;
 import com.infinity.datamarket.comum.estoque.EstoqueProduto;
 import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoquePK;
 import com.infinity.datamarket.comum.produto.Produto;
-import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
-import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
-import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class MovimentacaoEstoqueBackBean extends BackBean {   
@@ -114,7 +109,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		
 		String msgValidacao = validaMovimentacao();
 		if (msgValidacao.equals("")) {
-			msgValidacao = validaProduto(produto);
+			msgValidacao = validaProduto(produto,new BigDecimal(this.getQuantidade()));
 		}
 		if (!msgValidacao.equals("")) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -194,7 +189,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			
 			for (Iterator iter = arrayProduto.iterator(); iter.hasNext();) {
 				ProdutoMovimentacaoEstoque produtoTmp = (ProdutoMovimentacaoEstoque) iter.next();
-				    msgValidacao = validaProduto(produtoTmp.getProduto());
+				    msgValidacao = validaProduto(produtoTmp.getProduto(),produtoTmp.getQuantidade());
 				    if (!msgValidacao.equals("")){
 					   break;
 				    }   
@@ -238,8 +233,8 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	}
 
 	static String ERRO_ESTOQUE_ENTRADA_SAIDA_IGUAL            = "Estoque saida, igual estoque entrada.";
-	static String ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO 	  = "Quantidade solicitada do produto $1, tem que ser maior que zero";
-	static String ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL =	"Produto $1, Quantidade Solicitada $2, Quantidade Disponivél $3.";
+	static String ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO 	  = "Quantidade solicitada do produto [1], tem que ser maior que zero";
+	static String ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL =	"Produto [1], Quantidade Solicitada [2], Quantidade Disponivél [3].";
 	
 	public String validaMovimentacao() {
         
@@ -250,18 +245,18 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		return "";
 	}
 	
-	public String validaProduto(Produto produto) {
+	public String validaProduto(Produto produto,BigDecimal quantidade) {
 
 		EstoqueProduto estoqueProduto = buscaEstoqueProduto(produto);
 		BigDecimal qtdEstoque = estoqueProduto.getQuantidade();
-		BigDecimal qtdMovimento = new BigDecimal(this.quantidade);
+		BigDecimal qtdMovimento = quantidade;
 		
 		if (qtdMovimento.doubleValue()<=0) {
-			return ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO.replaceAll("$1", produto.getDescricaoCompleta());
+			return ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO.replaceAll("[1]", produto.getDescricaoCompleta());
 		} else if (qtdMovimento.doubleValue()>qtdEstoque.doubleValue()) {
-			String msgValida = ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL.replaceAll("$1", produto.getDescricaoCompleta());
-			msgValida = msgValida.replaceAll("$2", qtdMovimento.toString());
-			msgValida = msgValida.replaceAll("$3", qtdEstoque.toString());
+			String msgValida = ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL.replaceFirst("[1]", produto.getDescricaoCompleta());
+			msgValida = msgValida.replaceFirst("[2]", qtdMovimento.toString());
+			msgValida = msgValida.replaceFirst("[3]", qtdEstoque.toString());
 			return msgValida;
 		}
 		return "";

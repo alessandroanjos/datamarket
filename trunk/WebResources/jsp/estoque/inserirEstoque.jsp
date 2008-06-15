@@ -83,7 +83,7 @@
 						</div>
 						<div class="clear"></div>
 					</div>
-					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+
 		</h:form>
   	  </body>
 	</f:view>

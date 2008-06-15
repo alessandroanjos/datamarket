@@ -1702,11 +1702,6 @@
 		    <null-value/>
 		</managed-property>
 		<managed-property>
-		    <property-name>estoqueVenda</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
 		    <property-name>idLoja</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>

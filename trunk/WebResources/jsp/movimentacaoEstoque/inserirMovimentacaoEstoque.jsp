@@ -109,6 +109,9 @@
 								</h:inputText>
 								<h:message for="id" styleClass="msgErro" />
 							</div>
+						</li>
+						
+						<li class="normal">	
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque Saida"></h:outputLabel>
 								<h:selectOneMenu id="idEstoqueSaida" styleClass="field text"

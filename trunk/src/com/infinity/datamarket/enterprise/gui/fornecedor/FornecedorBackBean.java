@@ -198,6 +198,7 @@ public class FornecedorBackBean extends BackBean {
 	public String resetBB(){
 		this.setId(null);
 		this.setTipoPessoa(Fornecedor.PESSOA_FISICA);
+		this.setNomeFornecedor(null);
 		this.setNomeFantasia(null);
 		this.setDataCadastro(null);
 		this.setCpfCnpj(null);
