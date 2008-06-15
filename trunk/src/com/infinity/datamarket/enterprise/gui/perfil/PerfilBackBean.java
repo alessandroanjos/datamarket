@@ -16,9 +16,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.custom.tree2.HtmlTree;
-import org.apache.myfaces.custom.tree2.TreeModel;
-import org.apache.myfaces.custom.tree2.TreeModelBase;
 import org.apache.myfaces.custom.tree2.TreeNode;
 import org.apache.myfaces.custom.tree2.TreeNodeBase;
 import org.apache.myfaces.custom.tree2.TreeNodeChecked;
