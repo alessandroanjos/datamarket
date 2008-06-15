@@ -487,4 +487,13 @@ public class ClienteBackBean extends BackBean {
 		}		
 		return cliente;
 	}
+	
+	public String voltarConsulta(){
+		resetBB();
+		return "voltar";
+	}
+	public String voltarMenu(){
+		resetBB();
+		return "voltar";
+	}
 }
