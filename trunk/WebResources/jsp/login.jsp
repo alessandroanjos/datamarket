@@ -15,8 +15,8 @@
 		<title>Login &nbsp;&nbsp;&nbsp;&#8212;&nbsp;&nbsp;&nbsp; Infinity | Data Market - Enterprise Server</title>
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-		<t:stylesheet path="css/default.css" enabledOnUserRole="true"></t:stylesheet>
-		<t:stylesheet path="css/form.css" enabledOnUserRole="true"></t:stylesheet>
+		<t:stylesheet path="/css/default.css" enabledOnUserRole="true"></t:stylesheet>
+		<t:stylesheet path="/css/form.css" enabledOnUserRole="true"></t:stylesheet>
 	</head>
 	<f:view>
 			<jsp:include page="/jsp/topo.jsp?user=Desconhecido"></jsp:include>	
@@ -82,7 +82,7 @@
 					</div>
 					<div class="clear"></div>
 					</div>
-					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+				<jsp:include page="/jsp/rodape.jsp"></jsp:include>
 		</h:form>
 	</f:view>
 </html>
