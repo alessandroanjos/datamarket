@@ -91,14 +91,15 @@
 							</div>
 							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoLimpar" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{grupoProdutoBB.consultar}" value="Consultar"></h:commandButton>
 								</li>						
 							</ul>
 						</div>
 						<div class="clear"></div>
 					</div>
-					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+
 		</h:form>
+	  </body>	
 	</f:view>
 </html>

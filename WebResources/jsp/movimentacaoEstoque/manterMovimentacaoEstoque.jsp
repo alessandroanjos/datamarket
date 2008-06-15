@@ -76,7 +76,7 @@
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
 				<strong>
-					<h:outputText value="#{msgs.materMovimentacaoEstoque}"></h:outputText>
+					<h:outputText value="#{msgs.manterMovimentacaoEstoque}"></h:outputText>
 				</strong>
 			</div>				
 		</div>	
@@ -112,7 +112,7 @@
 
 
 						</li>
-
+						<li class="normal">
 						<div class="listagem">
 							<t:dataTable value="#{movimentacaoEstoqueBB.arrayProduto}"
 								var="produtoMovimentacao" rowClasses="rowA,rowB" width="100%">
@@ -134,24 +134,14 @@
 									</f:facet>
 									<h:outputText value="#{produtoMovimentacao.quantidade}" />
 								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Excluir" />
-									</f:facet>
-									<h:commandLink  value=""
-										action="#{movimentacaoEstoqueBB.excluirProduto}">
-										<h:commandButton type="button" image="images/tree/TortoiseDeleted.ico"/>
-										<f:param name="idExcluir" value="#{produtoMovimentacao.produto.id}" />
-									</h:commandLink>
-								</h:column>
 							</t:dataTable>
 						</div>
 
-
+						</li>
 
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" id="botaoVoltar"
-								action="#{entradaProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>
+								action="#{movimentacaoEstoqueBB.voltarConsulta}" value="Voltar"></h:commandButton>
 						</li>
 					</ul>
 				</div>
