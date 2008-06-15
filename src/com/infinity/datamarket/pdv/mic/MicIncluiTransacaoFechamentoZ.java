@@ -10,6 +10,7 @@ import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscalException;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 
@@ -21,6 +22,13 @@ public class MicIncluiTransacaoFechamentoZ extends Mic{
 
 		Usuario autorizador = (Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.USUARIO_ATUAL);
 		BigDecimal gtFim = new BigDecimal(0);
+		
+		try {
+			gtFim = gerenciadorPerifericos.getImpressoraFiscal().getGT();
+		} catch (ImpressoraFiscalException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		int numeroTransacao = gerenciadorPerifericos.incrementaNumeroTransacao();
 		int loja = gerenciadorPerifericos.getCodigoLoja();
