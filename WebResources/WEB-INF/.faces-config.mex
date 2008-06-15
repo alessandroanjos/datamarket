@@ -64,6 +64,7 @@
   <JSFFlowResource path="/jsp/cliente/manterCliente.jsp" location="780,1930" dimension="186,36" />
   <JSFFlowResource path="/jsp/clientePagamento/manterClientePagamento.jsp" location="30,1830" dimension="294,36" />
   <JSFFlowResource path="/jsp/planoPagamentoChequePre/manterPlanoPagamentoChequePre.jsp" location="180,2430" dimension="388,36" />
+  <JSFFlowResource path="/jsp/fornecedor/inserirFornecedor.jsp" location="1080,930" dimension="225,36" />
   <JSFFlowNavigationCase id="/jsp/login.jsp,/jsp/menu.jsp,logado,#{loginBB.logar}" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="72,30" />
@@ -82,8 +83,8 @@
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/menu.jsp,/jsp/tipoProduto/inserirTipoProduto.jsp,inserirTipoProduto,null" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="535,180" />
-      <AbsolutePoint location="535,66" />
+      <AbsolutePoint location="490,180" />
+      <AbsolutePoint location="490,66" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/menu.jsp,/jsp/tipoProduto/consultarTipoProduto.jsp,manterTipoProduto,null" routingType="0">
@@ -204,8 +205,8 @@
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/menu.jsp,/jsp/produto/inserirProduto.jsp,inserirProduto,null" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="550,180" />
-      <AbsolutePoint location="550,152" />
+      <AbsolutePoint location="535,180" />
+      <AbsolutePoint location="535,152" />
       <AbsolutePoint location="1154,152" />
       <AbsolutePoint location="1154,803" />
       <AbsolutePoint location="686,803" />
@@ -222,11 +223,12 @@
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/menu.jsp,/jsp/componente/consultarComponente.jsp,manterComponente,null" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="520,180" />
-      <AbsolutePoint location="520,118" />
-      <AbsolutePoint location="1270,118" />
-      <AbsolutePoint location="1270,963" />
-      <AbsolutePoint location="909,963" />
+      <AbsolutePoint location="505,180" />
+      <AbsolutePoint location="505,118" />
+      <AbsolutePoint location="1285,118" />
+      <AbsolutePoint location="1285,903" />
+      <AbsolutePoint location="743,903" />
+      <AbsolutePoint location="743,930" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/menu.jsp,/jsp/estoque/inserirEstoque.jsp,inserirEstoque,null" routingType="0">
@@ -605,8 +607,8 @@
       <AbsolutePoint location="803,430" />
       <AbsolutePoint location="803,418" />
       <AbsolutePoint location="1094,418" />
-      <AbsolutePoint location="1094,448" />
-      <AbsolutePoint location="977,448" />
+      <AbsolutePoint location="1094,433" />
+      <AbsolutePoint location="977,433" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/formaRecebimento/consultarFormaRecebimento.jsp,/jsp/formaRecebimento/manterFormaRecebimento.jsp,proxima,#{formaRecebimentoBB.consultar}" routingType="0">
@@ -644,8 +646,8 @@
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/planoPagamento/consultarPlanoPagamento.jsp,/jsp/planoPagamento/consultarPlanoPagamento.jsp,mesma,#{planoPagamentoBB.consultar}" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="191,1230" />
-      <AbsolutePoint location="191,1196" />
+      <AbsolutePoint location="201,1230" />
+      <AbsolutePoint location="201,1196" />
       <AbsolutePoint location="415,1196" />
       <AbsolutePoint location="415,1257" />
       <AbsolutePoint location="353,1257" />
@@ -656,8 +658,8 @@
       <AbsolutePoint location="30,1248" />
       <AbsolutePoint location="22,1248" />
       <AbsolutePoint location="22,673" />
-      <AbsolutePoint location="787,673" />
-      <AbsolutePoint location="787,666" />
+      <AbsolutePoint location="735,673" />
+      <AbsolutePoint location="735,666" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/planoPagamento/consultarPlanoPagamento.jsp,/jsp/menu.jsp,voltar,#{planoPagamentoBB.voltarMenu}" routingType="0">
@@ -669,8 +671,8 @@
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/planoPagamento/consultarPlanoPagamento.jsp,/jsp/planoPagamento/consultarPlanoPagamento.jsp,mesma,#{formaRecebimentoBB.consultar}" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="201,1230" />
-      <AbsolutePoint location="201,1220" />
+      <AbsolutePoint location="216,1230" />
+      <AbsolutePoint location="216,1220" />
       <AbsolutePoint location="375,1220" />
       <AbsolutePoint location="375,1248" />
       <AbsolutePoint location="353,1248" />
@@ -751,9 +753,9 @@
   <JSFFlowNavigationCase id="/jsp/componente/consultarComponente.jsp,/jsp/componente/consultarComponente.jsp,mesma,#{componenteBB.consultar}" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="769,930" />
-      <AbsolutePoint location="769,873" />
-      <AbsolutePoint location="1102,873" />
-      <AbsolutePoint location="1102,948" />
+      <AbsolutePoint location="769,918" />
+      <AbsolutePoint location="952,918" />
+      <AbsolutePoint location="952,948" />
       <AbsolutePoint location="909,948" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
@@ -888,8 +890,8 @@
       <AbsolutePoint location="1102,1030" />
       <AbsolutePoint location="1102,1009" />
       <AbsolutePoint location="1327,1009" />
-      <AbsolutePoint location="1327,1048" />
-      <AbsolutePoint location="1278,1048" />
+      <AbsolutePoint location="1327,1037" />
+      <AbsolutePoint location="1278,1037" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/movimentacaoEstoque/consultarMovimentacaoEstoque.jsp,/jsp/movimentacaoEstoque/manterMovimentacaoEstoque.jsp,proxima,#{movimentacaoEstoqueBB.consultar}" routingType="0">
@@ -900,9 +902,12 @@
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/movimentacaoEstoque/consultarMovimentacaoEstoque.jsp,/jsp/menu.jsp,voltar,#{movimentacaoEstoqueBB.voltarMenu}" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="1104,1048" />
-      <AbsolutePoint location="1104,198" />
-      <AbsolutePoint location="535,198" />
+      <AbsolutePoint location="1278,1048" />
+      <AbsolutePoint location="1364,1048" />
+      <AbsolutePoint location="1364,319" />
+      <AbsolutePoint location="675,319" />
+      <AbsolutePoint location="675,187" />
+      <AbsolutePoint location="590,187" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/produto/consultarProduto.jsp,/jsp/produto/consultarProduto.jsp,mesma,#{produtoBB.consultar}" routingType="0">
@@ -993,8 +998,8 @@
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/cliente/inserirCliente.jsp,/jsp/cliente/inserirCliente.jsp,mesma,#{clienteBB.inserir}" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="120,1730" />
-      <AbsolutePoint location="120,1718" />
+      <AbsolutePoint location="130,1730" />
+      <AbsolutePoint location="130,1718" />
       <AbsolutePoint location="233,1718" />
       <AbsolutePoint location="233,1748" />
       <AbsolutePoint location="211,1748" />
@@ -1052,8 +1057,8 @@
       <AbsolutePoint location="1082,1230" />
       <AbsolutePoint location="1082,1220" />
       <AbsolutePoint location="1256,1220" />
-      <AbsolutePoint location="1256,1248" />
-      <AbsolutePoint location="1234,1248" />
+      <AbsolutePoint location="1256,1237" />
+      <AbsolutePoint location="1234,1237" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/clientePagamento/consultarClientePagamento.jsp,/jsp/clientePagamento/manterClientePagamento.jsp,proxima,#{clientePagamentoBB.consultar}" routingType="0">
@@ -1066,9 +1071,16 @@
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/clientePagamento/consultarClientePagamento.jsp,/jsp/menu.jsp,voltar,#{clientePagamentoBB.voltarMenu}" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="1082,1248" />
-      <AbsolutePoint location="1082,198" />
-      <AbsolutePoint location="535,198" />
+      <AbsolutePoint location="1234,1248" />
+      <AbsolutePoint location="1293,1248" />
+      <AbsolutePoint location="1293,979" />
+      <AbsolutePoint location="1030,979" />
+      <AbsolutePoint location="1030,919" />
+      <AbsolutePoint location="1296,919" />
+      <AbsolutePoint location="1296,274" />
+      <AbsolutePoint location="351,274" />
+      <AbsolutePoint location="351,184" />
+      <AbsolutePoint location="480,184" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/planoPagamentoChequePre/inserirPlanoPagamentoChequePre.jsp,/jsp/planoPagamentoChequePre/inserirPlanoPagamentoChequePre.jsp,mesma,#{planoPagamentoChequePreBB.inserir}" routingType="0">
@@ -1280,21 +1292,26 @@
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/planoPagamento/manterPlanoPagamento.jsp,/jsp/planoPagamento/consultarPlanoPagamento.jsp,voltar,#{planoPagamentoBB.voltarConsulta}" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="942,648" />
-      <AbsolutePoint location="1300,648" />
-      <AbsolutePoint location="1300,1173" />
-      <AbsolutePoint location="181,1173" />
-      <AbsolutePoint location="181,1230" />
+      <AbsolutePoint location="671,666" />
+      <AbsolutePoint location="671,818" />
+      <AbsolutePoint location="232,818" />
+      <AbsolutePoint location="232,999" />
+      <AbsolutePoint location="67,999" />
+      <AbsolutePoint location="67,1088" />
+      <AbsolutePoint location="191,1088" />
+      <AbsolutePoint location="191,1230" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/formaRecebimento/manterFormaRecebimento.jsp,/jsp/formaRecebimento/consultarFormaRecebimento.jsp,voltar,#{formaRecebimentoBB.voltarConsulta}" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="507,1230" />
-      <AbsolutePoint location="507,1188" />
-      <AbsolutePoint location="1285,1188" />
-      <AbsolutePoint location="1285,503" />
-      <AbsolutePoint location="818,503" />
-      <AbsolutePoint location="818,466" />
+      <AbsolutePoint location="816,1263" />
+      <AbsolutePoint location="876,1263" />
+      <AbsolutePoint location="876,1009" />
+      <AbsolutePoint location="1044,1009" />
+      <AbsolutePoint location="1044,888" />
+      <AbsolutePoint location="1270,888" />
+      <AbsolutePoint location="1270,448" />
+      <AbsolutePoint location="977,448" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
   <JSFFlowNavigationCase id="/jsp/autorizadora/manterAutorizadora.jsp,/jsp/autorizadora/consultarAutorizadora.jsp,voltar,#{autorizadoraBB.voltarConsulta}" routingType="0">
@@ -1333,6 +1350,24 @@
       <AbsolutePoint location="568,2463" />
       <AbsolutePoint location="994,2463" />
       <AbsolutePoint location="994,2066" />
+    </AutomaticBendpoints>
+  </JSFFlowNavigationCase>
+  <JSFFlowNavigationCase id="/jsp/fornecedor/inserirFornecedor.jsp,/jsp/fornecedor/inserirFornecedor.jsp,mesma,#{fornecedorBB.inserir}" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1192,930" />
+      <AbsolutePoint location="1192,875" />
+      <AbsolutePoint location="1327,875" />
+      <AbsolutePoint location="1327,948" />
+      <AbsolutePoint location="1305,948" />
+    </AutomaticBendpoints>
+  </JSFFlowNavigationCase>
+  <JSFFlowNavigationCase id="/jsp/fornecedor/inserirFornecedor.jsp,/jsp/menu.jsp,voltar,#{FornecedorBB.voltarMenu}" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1305,954" />
+      <AbsolutePoint location="1375,954" />
+      <AbsolutePoint location="1375,134" />
+      <AbsolutePoint location="520,134" />
+      <AbsolutePoint location="520,180" />
     </AutomaticBendpoints>
   </JSFFlowNavigationCase>
 </JSFFlowViewLayout>
