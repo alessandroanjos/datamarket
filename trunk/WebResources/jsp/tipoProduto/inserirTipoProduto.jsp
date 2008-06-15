@@ -21,14 +21,21 @@
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		<t:stylesheet path="/css/default.css"></t:stylesheet>
+		<t:stylesheet path="/css/form.css"></t:stylesheet>
 		
 	</head>
+	<body>
+	<div id="outer">
+		<div id="topoGeral">
+			<div id="tituloPaginaGeral">
+				<strong>
+					<h:outputText value="#{msgs.inserirTipoProduto}"></h:outputText>
+				</strong>
+			</div>				
+		</div>	
 		<h:form id="frmInserirTipoProduto">
-				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.inserirTipoProduto}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
-				</f:subview>					
+				
 				<div id="content">
 					<div id="primarioContentContainerInternas">
 						<ul>
@@ -71,7 +78,7 @@
 					</div>
 					<div class="clear"></div>
 				</div>
-				<jsp:include page="/jsp/rodape.jsp"></jsp:include>
-		</h:form>		
+		</h:form>
+	  </body>		
 	</f:view>
 </html>

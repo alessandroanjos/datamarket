@@ -26,11 +26,17 @@
 		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 	</head>
-
+	<body>
+	<div id="outer">
+		<div id="topoGeral">
+			<div id="tituloPaginaGeral">
+				<strong>
+					<h:outputText value="#{msgs.manterFornecedor}"></h:outputText>
+				</strong>
+			</div>				
+		</div>		
 		<h:form id="frmConsultarFornecedor">
-				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.consultarFornecedor}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
-				</f:subview>					
+					
 				<div id="content">
 				
 						<div id="primarioContentContainerInternas">
@@ -123,9 +129,9 @@
 						</div>
 						<div class="clear"></div>
 					</div>
-					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
 
 
 		</h:form>
+	 </body>	
 	</f:view>
 </html>

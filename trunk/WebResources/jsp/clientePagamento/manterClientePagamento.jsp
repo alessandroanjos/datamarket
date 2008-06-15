@@ -23,14 +23,19 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/masks.js"></script>
-		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		<t:stylesheet path="/css/default.css"></t:stylesheet>
+		<t:stylesheet path="/css/form.css"></t:stylesheet>
 		
 	</head>
-
-				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.exibirClientePagamento}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
-				</f:subview>					
+	<body>
+	<div id="outer">
+		<div id="topoGeral">
+			<div id="tituloPaginaGeral">
+				<strong>
+					<h:outputText value="#{msgs.manterClientePagamento}"></h:outputText>
+				</strong>
+			</div>				
+		</div>				
 				<div id="content">					
 					<div id="primarioContentContainerInternas">
 <!-- xxxxxxxxxxxxxxx -->					
@@ -84,7 +89,6 @@
           </div>
 					<div class="clear"></div>
 				</div>
-				<jsp:include page="/jsp/rodape.jsp"></jsp:include>
-
+		</body>		
 	</f:view>
 </html>
