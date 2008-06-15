@@ -7,6 +7,7 @@ import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscalException;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 
@@ -23,7 +24,14 @@ public class MicIncluiTransacaoVenda extends Mic{
 
 		trans.setDataHoraFim(new Date());
 		trans.setValorTroco(troco);
-		trans.setNumeroCupom("1");
+		String cupom = "1";
+		try {
+			cupom = gerenciadorPerifericos.getImpressoraFiscal().getNumeroCupom()+"";
+		} catch (ImpressoraFiscalException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		trans.setNumeroCupom(cupom);
 		trans.setValorCupom(total);
 
 		try{

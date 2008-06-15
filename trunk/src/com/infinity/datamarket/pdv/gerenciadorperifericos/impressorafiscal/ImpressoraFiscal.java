@@ -26,4 +26,5 @@ public interface ImpressoraFiscal {
 	public void imprimeRelatorioGerencial(String texto) throws ImpressoraFiscalException;
 	public void finalizaRelatorioGerencial() throws ImpressoraFiscalException;
 	public BigDecimal getGT() throws ImpressoraFiscalException;
+	public long getNumeroCupom() throws ImpressoraFiscalException;
 }

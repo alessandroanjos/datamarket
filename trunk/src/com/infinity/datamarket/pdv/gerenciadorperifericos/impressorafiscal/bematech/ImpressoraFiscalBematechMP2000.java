@@ -3,9 +3,12 @@ package com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.bema
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import org.apache.taglibs.standard.extra.spath.ASCII_CharStream;
+
 import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscal;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscalException;
 import com.sun.jna.Native;
+import com.sun.mail.util.ASCIIUtility;
 
 public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Serializable{
 
@@ -179,9 +182,31 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Seriali
 	}
 	
 	public BigDecimal getGT() throws ImpressoraFiscalException{
-		int iRetorno = lib.Bematech_FI_GrandeTotal(new char[18]);
+		byte[] t = new byte[18];
+		
+		int iRetorno = lib.Bematech_FI_GrandeTotal(t);
 		trataRetorno(iRetorno);
-		return new BigDecimal(0);
+		String sValor = "";
+		for(int i = 0;i < t.length;i++){
+			sValor = sValor + Character.getNumericValue(t[i]);
+		}
+		BigDecimal valor = new BigDecimal(sValor);
+		
+		return valor.divide(new BigDecimal(100));
 	}
+	
+	public long getNumeroCupom() throws ImpressoraFiscalException{
+		byte[] t = new byte[6];
+		
+		int iRetorno = lib.Bematech_FI_NumeroCupom(t);
+		trataRetorno(iRetorno);
+		String sValor = "";
+		for(int i = 0;i < t.length;i++){
+			sValor = sValor + Character.getNumericValue(t[i]);
+		}
+		return new Long(sValor).longValue();
+	}
+	
+
 
 }
