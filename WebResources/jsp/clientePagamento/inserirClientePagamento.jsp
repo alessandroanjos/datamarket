@@ -27,10 +27,16 @@
 		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 		
 	</head>
-
-				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.inserirClientePagamento}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
-				</f:subview>					
+	<body>
+	<div id="outer">
+		<div id="topoGeral">
+			<div id="tituloPaginaGeral">
+				<strong>
+					<h:outputText value="#{msgs.inserirClientePagamento}"></h:outputText>
+				</strong>
+			</div>				
+		</div>	
+					
 				<div id="content">					
 					<div id="primarioContentContainerInternas">
 <!-- xxxxxxxxxxxxxxx -->					
@@ -95,7 +101,7 @@
           </div>
 					<div class="clear"></div>
 				</div>
-				<jsp:include page="/jsp/rodape.jsp"></jsp:include>
 
+	  </body>
 	</f:view>
 </html>

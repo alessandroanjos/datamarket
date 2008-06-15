@@ -10,7 +10,7 @@ public class BackBean {
 	public static final String INSERIR = "I";
 	public static final String ALTERAR = "A";
 	public static final String CONSULTAR = "C";
-	
+	public static final String EXCLUIR   = "E";
 	public static Properties mensagens;
 	
 	public Fachada getFachada(){

@@ -1,6 +1,5 @@
 package com.infinity.datamarket.enterprise.gui.fornecedor;
 
-
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
@@ -199,6 +198,8 @@ public class FornecedorBackBean extends BackBean {
 	public String resetBB(){
 		this.setId(null);
 		this.setTipoPessoa(Fornecedor.PESSOA_FISICA);
+		this.setNomeFantasia(null);
+		this.setDataCadastro(null);
 		this.setCpfCnpj(null);
 		this.setRazaoSocial(null);
 		this.setNomeFantasia(null);
@@ -211,6 +212,7 @@ public class FornecedorBackBean extends BackBean {
 		this.setCidade(null);
 		this.setEstado(null);
 		this.setCep(null);
+		this.setFoneResidencial(null);
 		this.setFoneComercial(null);
 		this.setFoneCelular(null);
 		this.setPessoaContato(null);
@@ -370,7 +372,7 @@ public class FornecedorBackBean extends BackBean {
 	
 	public String excluir(){
 		try {
-			Fornecedor fornecedor = new Fornecedor();
+			Fornecedor fornecedor = preencheFornecedor(EXCLUIR);
 			
 			fornecedor.setId(new Long(this.getId()));
 			

@@ -343,7 +343,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				this.setDataMovimentacao(movimentacaoEstoque.getDataMovimentacao());
 				this.setIdEstoqueEntrada(movimentacaoEstoque.getEstoqueEntrada().getPk().getId().toString());
 				this.setIdEstoqueSaida(movimentacaoEstoque.getEstoqueSaida().getPk().getId().toString());
-				return "";
+				return "proxima";
 				
 			} else {
 				PropertyFilter filter = new PropertyFilter();
