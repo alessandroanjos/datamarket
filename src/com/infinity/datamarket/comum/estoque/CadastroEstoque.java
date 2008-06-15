@@ -5,11 +5,13 @@ package com.infinity.datamarket.comum.estoque;
 
 import java.util.Collection;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
-import com.infinity.datamarket.comum.util.Constantes;
 
 /**
  * @author alessandro
@@ -35,21 +37,17 @@ public class CadastroEstoque extends Cadastro {
 	}
 	
 	public EstoqueProduto consultarEstoqueProduto(EstoqueProdutoPK id) throws AppException{
-		    EstoqueProduto estoque;
-			return estoque = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, id);
+		  return (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, id);
 	}
 	
 	public Collection consultarTodos() throws AppException{
 		return getRepositorio().findAll(CLASSE);
 	}
 	public void inserir(Estoque componente) throws AppException{
-		validaEstoque(componente);
 		getRepositorio().insert(componente);
-		
 	}
 	
 	public void alterar(Estoque componente) throws AppException{
-		validaEstoque(componente);
 		getRepositorio().update(componente);
 	}
 	
@@ -57,19 +55,17 @@ public class CadastroEstoque extends Cadastro {
 		getRepositorio().remove(componente);
 	}
 	
-	private void validaEstoque(Estoque est) throws AppException{
-		if (est.estoqueVenda != null && est.estoqueVenda.equals(Constantes.SIM)){
-			PropertyFilter filter = new PropertyFilter();
-			filter.setTheClass(Estoque.class);
-			filter.addProperty("pk.loja", est.getPk().getLoja());
-			filter.addProperty("estoqueVenda", Constantes.SIM);
-			
-			Collection col = (Collection) getRepositorio().filter(filter, true);
-			System.out.println("######### "+col.size());
-			if (col != null && col.size() > 0){
-				throw new AppException("Já existe estoque associada as vendas desta loja");
-			}
-		}
+	public Collection consultarTodosPorLoja(String idLoja) throws AppException{
+		Session sessao = RepositoryManagerHibernateUtil.currentSession();
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("from Estoque estoque ");
+		sql.append("where estoque.pk.loja.id = " + idLoja);
+		
+		Query query = sessao.createQuery(sql.toString());
+		
+		Collection c = query.list();
+     
+		return c;
 	}
-
 }
