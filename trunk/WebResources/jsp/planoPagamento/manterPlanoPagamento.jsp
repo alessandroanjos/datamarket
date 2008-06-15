@@ -148,6 +148,7 @@
 									</div>
 								</li>
 								<li class="buttons">
+																	<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{planoPagamentoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{planoPagamentoBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{planoPagamentoBB.excluir}" value="Excluir"></h:commandButton>

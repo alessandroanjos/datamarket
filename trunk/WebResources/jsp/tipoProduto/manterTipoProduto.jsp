@@ -67,6 +67,7 @@
 									</div>
 								</li>
 								<li class="buttons">
+																	<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{tipoProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{tipoProdutoBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{tipoProdutoBB.excluir}" value="Excluir"></h:commandButton>
 								</li>
