@@ -60,8 +60,8 @@
 												<f:validateLength maximum="2" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro"/>
 										</div>
+										<h:message for="id" styleClass="msgErro" />
 									</li>
 									<li class="normal">
 										<div>
@@ -70,8 +70,8 @@
 												value="#{usuarioBB.nome}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="nome" styleClass="msgErro"/>
 										</div>
+										<h:message for="nome" styleClass="msgErro"/>
 									</li>
 									<li class="normal">
 										<div>
@@ -81,8 +81,8 @@
 												<f:validateLength maximum="20" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputSecret>
-											<h:message for="senha" styleClass="msgErro"/>
 										</div>
+										<h:message for="senha" styleClass="msgErro"/>										
 									</li>
 									<li class="normal">
 										<div>
@@ -92,8 +92,8 @@
 													  <f:selectItems id="perfilSelectItems" 
 													  value="#{usuarioBB.perfis}" />   
 											</h:selectOneMenu>
-											<h:message for="perfis" styleClass="msgErro"/>
 										</div>
+										<h:message for="perfis" styleClass="msgErro"/>									
 									</li>
 									<li class="normal">
 										<div>
@@ -102,24 +102,25 @@
 											    <f:selectItem itemLabel="Sim" itemValue="S"/>
 											    <f:selectItem itemLabel="Não" itemValue="N"/>
 											</h:selectOneRadio>
-											<h:message for="vendedor" styleClass="msgErro"/>
 										</div>
+										<h:message for="vendedor" styleClass="msgErro"/>										
 									</li>
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Valor Comissão"></h:outputLabel>
 											<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5"
-												value="#{usuarioBB.comissao}" required="true" dir="rtl" onkeypress="Formata('frmInserirUsuario:comissao',4,2);">
+												value="#{usuarioBB.comissao}" required="false" dir="rtl" onkeypress="Formata('frmInserirUsuario:comissao',4,2);">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 												<f:validator validatorId="BigDecimalValidator"/>
 											</h:inputText>
-											<h:message for="comissao" styleClass="msgErro"/>		
 										</div>
+										<h:message for="comissao" styleClass="msgErro"/>												
 									</li>
 								</ul>
 							</div>
 							<div id="tabDiv1" style="display:none;">
+								<h:message for="idListaLojasAssociadas" styleClass="msgErro"/>
 								<ul>
 									<li class="normal">
 										<div class="div-auto-scroll" style="width:400px !important; height: 242px;">
@@ -128,7 +129,6 @@
 													<f:selectItems value="#{usuarioBB.lojas}"/>
 											</h:selectManyCheckbox>	
 										</div>									
-										<h:message for="idListaLojasAssociadas" styleClass="msgErro"/>
 									</li>															
 								</ul>
 							</div>
