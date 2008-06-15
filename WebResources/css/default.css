@@ -408,6 +408,7 @@ fieldset legend {
 .msgErro {
 /*	border:1px dotted red;
 	background-color:#ecd2d2;  */
+	padding-top: 5px;
 	padding-left:10px;
 	color:red;
 }
