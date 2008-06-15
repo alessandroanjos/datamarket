@@ -9,31 +9,34 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <f:view>
-	<f:loadBundle basename="resources.mensagens" var="msgs"/>
-	<head>
-
-		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
-
-		<meta http-equiv="pragma" content="no-cache"/>
-		<meta http-equiv="cache-control" content="no-cache"/>
-		<meta http-equiv="expires" content="0"/>
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
-		<meta http-equiv="description" content="This is my page"/>
-		
-		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
-		
-		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
-	</head>
-
-		<h:form id="frmConsultarCliente">
-				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.consultarCliente}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
-				</f:subview>					
+		<f:loadBundle basename="resources.mensagens" var="msgs"/>	
+		<head>
+			<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
+	
+			<meta http-equiv="pragma" content="no-cache"/>
+			<meta http-equiv="cache-control" content="no-cache"/>
+			<meta http-equiv="expires" content="0"/>
+			<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+			<meta http-equiv="description" content="This is my page"/>
+			
+			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
+			<t:stylesheet path="/css/default.css"></t:stylesheet>
+			<t:stylesheet path="/css/form.css"></t:stylesheet>
+		</head>
+		<body>
+			<div id="outer">
+				<div id="topoGeral">
+					<div id="tituloPaginaGeral">
+						<strong>
+							<h:outputText value="#{msgs.consultarCliente}"></h:outputText>
+						</strong>
+					</div>				
+				</div>
 				<div id="content">
-				
-						<div id="primarioContentContainerInternas">
+					<div id="primarioContentContainerInternas">
+						<h:form id="frmConsultarCliente">
 							<fieldset>
 								<legend>Opções de filtro:</legend>
 								<ul>
@@ -120,12 +123,11 @@
 									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{clienteBB.consultar}" value="Consultar"></h:commandButton>
 								</li>						
 							</ul>
-						</div>
-						<div class="clear"></div>
+						</h:form>
 					</div>
-					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
-
-
-		</h:form>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</body>
 	</f:view>
 </html>
