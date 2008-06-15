@@ -3415,12 +3415,12 @@ public class Fachada {
 		return c;
 	}
 
-	public Collection consultarTodosEstoquesPorLoja(IPropertyFilter filter) throws AppException{
+	public Collection consultarTodosEstoquesPorLoja(String idLoja) throws AppException{
 		Collection c = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			
-			c = getCadastroEstoque().consultar(filter);
+			c = getCadastroEstoque().consultarTodosPorLoja(idLoja);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
