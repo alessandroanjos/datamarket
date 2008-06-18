@@ -49,6 +49,10 @@ public class UsuarioBackBean extends BackBean {
 	SelectItem[] perfis;
 	SelectItem[] lojas;
 	
+	public UsuarioBackBean(){
+		resetBB();
+	}
+	
 	/**
 	 * @return the id
 	 */
@@ -177,12 +181,12 @@ public class UsuarioBackBean extends BackBean {
 			usuario.setId(new Long(this.getId()));
 			usuario.setNome(this.getNome());
 			
-			if(!this.getIdPerfil().equals("0")){
+//			if(!this.getIdPerfil().equals("0")){
 				Perfil perfilTmp = getFachada().consultarPerfilPorPK(new Long(this.getIdPerfil()));
 				usuario.setPerfil(perfilTmp);
-			}else{
-				throw new Exception("É obrigatório selecionar um perfil.");
-			}
+//			}else{
+//				throw new Exception("É obrigatório selecionar um perfil.");
+//			}
 			
 			usuario.setSenha(this.getSenha());
 			
@@ -279,6 +283,7 @@ public class UsuarioBackBean extends BackBean {
 			}
 			Collection col = getFachada().consultarUsuario(filter);
 			if (col == null || col.size() == 0){
+				setExisteRegistros(false);
 				this.setListaUsuarios(null);
 				FacesContext ctx = FacesContext.getCurrentInstance();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -319,28 +324,31 @@ public class UsuarioBackBean extends BackBean {
 
 					return "proxima";
 				}else{
+					setExisteRegistros(true);
 					setListaUsuarios(col);
 				}
 			}
 		}catch(ObjectNotFoundException e){
+			setExisteRegistros(false);
 			this.setPerfis(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);			
 		}catch(Exception e){
+			setExisteRegistros(false);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		this.setId(null);
-		this.setNome(null);
+//		this.setId(null);
+//		this.setNome(null);
 		this.setSenha(null);
-		this.setVendedor(NAO);
+//		this.setVendedor(NAO);
 		this.setComissao(null);
 		this.setPerfil(null);
-		this.setIdPerfil(null);
+//		this.setIdPerfil(null);
 		this.setListaLojasAssociadas(null);
 		this.setLojas(null);
 		return "mesma";
@@ -349,6 +357,7 @@ public class UsuarioBackBean extends BackBean {
 	public String alterar(){
 		try {
 			Usuario usuario = null;
+			
 			if (this.vendedor.equals(SIM)){
 				Vendedor vendedor = new Vendedor();
 				if (this.comissao != null && !"".equals(this.comissao)){
@@ -384,6 +393,8 @@ public class UsuarioBackBean extends BackBean {
 				usuario.setLojas(null);	
 			}
 			
+			
+						
 			getFachada().alterarUsuario(usuario);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -394,7 +405,7 @@ public class UsuarioBackBean extends BackBean {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", e.getMessage());
+					"Erro na alteração do Usuário!", e.getMessage());
 			ctx.addMessage(null, msg);
 		}
 		return "mesma";
@@ -458,7 +469,7 @@ public class UsuarioBackBean extends BackBean {
 		return "mesma";
 	}
 	
-	public String resetBB(){
+	public void resetBB(){
 		this.setId(null);
 		this.setNome(null);
 		this.setSenha(null);
@@ -466,12 +477,11 @@ public class UsuarioBackBean extends BackBean {
 		this.setIdPerfil(null);
 		this.setListaLojasAssociadas(null);
 		this.setLojas(null);
-		this.setListaUsuarios(null);
+//		this.setListaUsuarios(null);
 		this.setVendedor(NAO);
 		this.setComissao(null);
-		return "mesma";
 	}
-	
+
 	public String voltarConsulta(){
 		resetBB();
 		return "voltar";
@@ -500,10 +510,10 @@ public class UsuarioBackBean extends BackBean {
 		SelectItem[] arrayPerfis = null;
 		try {
 			List<Perfil> perfis = carregarPerfis();
-			arrayPerfis = new SelectItem[perfis.size()+1];
+			arrayPerfis = new SelectItem[perfis.size()];
 			int i = 0;
-			SelectItem itemBranco = new SelectItem("0", "");
-			arrayPerfis[i++] = itemBranco;
+//			SelectItem itemBranco = new SelectItem("0", "");
+//			arrayPerfis[i++] = itemBranco;
 			for(Perfil perfilTmp : perfis){
 				SelectItem item = new SelectItem(perfilTmp.getId().toString(), perfilTmp.getDescricao());
 				arrayPerfis[i++] = item;
