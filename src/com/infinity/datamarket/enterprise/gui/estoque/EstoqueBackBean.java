@@ -137,6 +137,7 @@ public class EstoqueBackBean extends BackBean {
 							FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
 					ctx.addMessage(null, msg);
+					return "mesma";
 				} else if (col != null) {
 					if (col.size() == 1) {
 						Estoque estoque = (Estoque) col.iterator().next();
