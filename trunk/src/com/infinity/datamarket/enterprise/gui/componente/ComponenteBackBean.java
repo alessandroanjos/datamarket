@@ -27,7 +27,7 @@ public class ComponenteBackBean extends BackBean {
 	String descricao;
 	String idLoja;
 	String ip;
-	String versao;
+	String versao="";
 	String porta;
 	Loja loja;
 	Collection componentes;
@@ -73,7 +73,7 @@ public class ComponenteBackBean extends BackBean {
 		componente.setDescricao(this.descricao);
 	    componente.setIp(this.ip);
 	    componente.setPorta(this.porta);
-	    componente.setVersao(this.versao);
+	    componente.setVersao("");
 		Loja loja = new Loja();
 		loja.setId(new Long(this.idLoja));
 	    componente.setLoja(loja);
@@ -124,11 +124,12 @@ public class ComponenteBackBean extends BackBean {
 				filter.addProperty("descricao", getDescricao());
 				Collection col = getFachada().consultarComponentes(filter);
 				if (col == null || col.size() == 0){
-					this.setComponentes(col);
+					this.setComponentes(null);
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
+					ctx.addMessage(null, msg);
+					setExisteRegistros(false);
 				}else if (col != null){
 					if(col.size() == 1){
 						Componente componente = (Componente)col.iterator().next();
@@ -140,30 +141,35 @@ public class ComponenteBackBean extends BackBean {
 						this.setIdLoja(componente.getLoja().getId().toString());
 						return "proxima";
 					}else{
+						setExisteRegistros(true);
 						this.setComponentes(col);
 					}
 				}
 			}else{
-				setComponentes(getFachada().consultarTodosComponentes());
+				Collection c = getFachada().consultarTodosComponentes();
+				if (c != null && c.size() > 0){
+					setExisteRegistros(true);
+				}else{
+					setExisteRegistros(false);
+				}
+				setComponentes(c);
 			}
 		}catch(ObjectNotFoundException e){
 			this.setComponentes(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
+			return "mesma";
 		}catch(Exception e){
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
+			return "mesma";
 		}
-		this.setId(null);
-		this.setDescricao(null);
-		this.setIp(null);
-		this.setVersao(null);
-		this.setPorta(null);
-		this.setIdLoja(null);
 		return "mesma";
 	}
 	
@@ -192,6 +198,7 @@ public class ComponenteBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
+		resetBB();
 		return "mesma";
 	}
 	
@@ -207,7 +214,7 @@ public class ComponenteBackBean extends BackBean {
 			Loja loja = new Loja();
 			loja.setId(new Long(this.idLoja));			
 			componente.setLoja(loja);
-			getFachada().alterarComponente(componente);
+			getFachada().excluirComponente(componente);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -227,7 +234,7 @@ public class ComponenteBackBean extends BackBean {
 		this.setId(null);
 		this.setDescricao(null);
 		this.setIp(null);
-		this.setVersao(null);
+		this.setVersao("");
 		this.setPorta(null);
 		this.setIdLoja(null);
 		return "mesma";

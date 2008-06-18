@@ -35,7 +35,7 @@ public class GrupoProduto extends Persistente{
 	public boolean equals(Object obj){
 		if (obj instanceof GrupoProduto){
 			GrupoProduto tipo = (GrupoProduto) obj;
-			return super.equals(tipo) && tipo.descricao.equals(this.descricao) && (tipo.grupoSuperior == this.grupoSuperior || tipo.grupoSuperior.equals(this.grupoSuperior));
+			return super.equals(tipo) && tipo.descricao.equals(this.descricao);
 		}else{
 			return false;
 		}

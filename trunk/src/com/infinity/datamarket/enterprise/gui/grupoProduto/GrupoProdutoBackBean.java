@@ -75,7 +75,6 @@ public class GrupoProdutoBackBean extends BackBean{
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
 		return "mesma";
 	}
 	
@@ -106,7 +105,8 @@ public class GrupoProdutoBackBean extends BackBean{
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
+					ctx.addMessage(null, msg);
+					setExisteRegistros(false);
 				}else if (col != null){
 					if(col.size() == 1){
 						GrupoProduto grupo = (GrupoProduto)col.iterator().next();
@@ -117,28 +117,34 @@ public class GrupoProdutoBackBean extends BackBean{
 						}
 						return "proxima";
 					}else{
+						setExisteRegistros(true);
 						setGruposProduto(col);
 					}
 				}
 			}else{
-				setGruposProduto(getFachada().consultarTodosGruposProduto());
+				Collection c = getFachada().consultarTodosGruposProduto();
+				if (c != null && c.size() > 0){
+					setExisteRegistros(true);
+				}else{
+					setExisteRegistros(false);
+				}
+				setGruposProduto(c);
 			}
 		}catch(ObjectNotFoundException e){
 			setGruposProduto(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}catch(Exception e){
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}
-		setId(null);
-		setDescricao(null);
-		setIdSuperior(null);
 		return "mesma";
 	}
 	
@@ -200,7 +206,6 @@ public class GrupoProdutoBackBean extends BackBean{
 	public String resetBB(){
 		this.id = null;
 		this.descricao = null;
-		this.gruposProduto = null;
 		this.idSuperior = null;
 		return "mesma";
 	}

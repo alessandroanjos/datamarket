@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
@@ -86,7 +85,8 @@ public class TipoProdutoBackBean extends BackBean{
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
+					ctx.addMessage(null, msg);	
+					setExisteRegistros(false);
 				}else if (col != null){
 					if(col.size() == 1){
 						TipoProduto tipo = (TipoProduto)col.iterator().next();
@@ -94,26 +94,33 @@ public class TipoProdutoBackBean extends BackBean{
 						setDescricao(tipo.getDescricao());
 						return "proxima";
 					}else{
+						setExisteRegistros(true);
 						setTiposProduto(col);
 					}
 				}
 			}else{
-				setTiposProduto(getFachada().consultarTodosTipoProduto());
+				Collection c = getFachada().consultarTodosTipoProduto();
+				if (c != null && c.size() > 0){
+					setExisteRegistros(true);
+				}else{
+					setExisteRegistros(false);
+				}
+				setTiposProduto(c);
 			}
 		}catch(ObjectNotFoundException e){
 			setTiposProduto(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}catch(Exception e){
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}
-		setId(null);
-		setDescricao(null);
 		return "mesma";
 	}
 	
@@ -163,7 +170,6 @@ public class TipoProdutoBackBean extends BackBean{
 	public String resetBB(){
 		this.id = null;
 		this.descricao = null;
-		this.tiposProduto = null;
 		return "mesma";
 	}
 	

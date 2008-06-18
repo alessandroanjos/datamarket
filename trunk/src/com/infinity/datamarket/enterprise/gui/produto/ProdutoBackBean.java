@@ -287,13 +287,15 @@ public class ProdutoBackBean extends BackBean{
 				FacesContext ctx = FacesContext.getCurrentInstance();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Nenhum Registro Encontrado", "");
-				ctx.addMessage(null, msg);					
+				ctx.addMessage(null, msg);	
+				setExisteRegistros(false);
 			}else if (col != null){
 				if(col.size() == 1){
 					Produto produto = (Produto)col.iterator().next();
 					setProduto(produto);
 					return "proxima";
 				}else{
+					setExisteRegistros(true);
 					setProdutos(col);
 				}
 			}
@@ -302,25 +304,16 @@ public class ProdutoBackBean extends BackBean{
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}catch(Exception e){
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}
-		this.id = null;
-		this.codigoExterno = null;
-		this.codigoAutomacao = null;
-		this.descricaoCompleta = null;
-		this.descricaoCompacta = null;
-		this.precoPadrao = null;
-		this.precoPromocional = null;
-		this.idTipoProduto = null;
-		this.idUnidade = null;
-		this.idImposto = null;
-		this.idGrupo = null;
 		return "mesma";
 	}
 	
@@ -377,7 +370,7 @@ public class ProdutoBackBean extends BackBean{
 		this.idImposto = null;
 		this.idGrupo = null;
 		this.produtos = null;
-		this.listaLojas = null;
+
 		return "mesma";
 	}
 	

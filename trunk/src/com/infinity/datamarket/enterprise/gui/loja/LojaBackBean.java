@@ -166,7 +166,8 @@ public class LojaBackBean extends BackBean {
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
+					ctx.addMessage(null, msg);	
+					setExisteRegistros(false);
 				}else if (col != null){
 					if(col.size() == 1){
 						Loja loja = (Loja)col.iterator().next();
@@ -181,23 +182,32 @@ public class LojaBackBean extends BackBean {
 						}
 						return "proxima";
 					}else{
+						setExisteRegistros(true);
 						setLojas(col);
 					}
 				}
 			}else{
-				setLojas(getFachada().consultarTodosLoja());
+				Collection c = getFachada().consultarTodosLoja();
+				if (c != null && c.size() > 0){
+					setExisteRegistros(true);
+				}else{
+					setExisteRegistros(false);
+				}
+				setLojas(c);
 			}
 		}catch(ObjectNotFoundException e){
 			this.setLojas(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			ctx.addMessage(null, msg);	
+			setExisteRegistros(false);
 		}catch(Exception e){
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}
 		this.setId(null);
 		this.setNome(null);
@@ -259,14 +269,13 @@ public class LojaBackBean extends BackBean {
 		return "mesma";
 	}
 	
-	public String resetBB(){
+	public void resetBB(){
 		this.setId(null);
 		this.setNome(null);
 		this.setNumeroIp(null);
 		this.setNumeroPorta(null);
 		this.setIdEstoqueAtual("0");
-		this.setLojas(null);
-		return "mesma";
+		//return "mesma";
 	}
 	
 	public String voltarConsulta(){
