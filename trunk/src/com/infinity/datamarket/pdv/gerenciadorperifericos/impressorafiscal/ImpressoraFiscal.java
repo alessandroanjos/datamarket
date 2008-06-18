@@ -1,8 +1,12 @@
 package com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 
 public interface ImpressoraFiscal {
+	
+	public static final String SANGRIA = "02";
+	public static final String SUPRIMENTO = "01";
 	
 	public static final String DESCONTO_PERCENTUAL = "%";
 	public static final String DESCONTO_VALOR = "$";
@@ -27,4 +31,8 @@ public interface ImpressoraFiscal {
 	public void finalizaRelatorioGerencial() throws ImpressoraFiscalException;
 	public BigDecimal getGT() throws ImpressoraFiscalException;
 	public long getNumeroCupom() throws ImpressoraFiscalException;
+	public void addTotalizador(String totalizaor, int indice) throws ImpressoraFiscalException;
+	public void addAliquota(BigDecimal aliquota) throws ImpressoraFiscalException;
+	public Collection getAliqoutas() throws ImpressoraFiscalException;
+	
 }

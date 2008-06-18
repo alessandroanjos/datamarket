@@ -1,17 +1,22 @@
 package com.infinity.datamarket.pdv.gerenciadorperifericos;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.produto.Imposto;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.ListaEventos;
 import com.infinity.datamarket.comum.util.SistemaException;
+import com.infinity.datamarket.pdv.acumulador.AcumuladorNaoFiscal;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
@@ -77,7 +82,38 @@ public class GerenciadorPerifericos implements Serializable{
         String strImpFiscal = rb.getString(IMPRESSOSRA_FISCAL);
         try{
         	impressoraFiscal = (ImpressoraFiscal) getInstanciaClasse(strImpFiscal);
+        	System.out.println("Sincronizando Aliquotas");
+        	Collection c = Fachada.getInstancia().consultarTodosImpostos();
+        	Collection cImp = impressoraFiscal.getAliqoutas();
+        	Iterator i = c.iterator();
+        	while(i.hasNext()){
+        		Imposto imp = (Imposto) i.next();
+        		boolean flag = true;
+        		Iterator iImp = cImp.iterator();
+        		while(iImp.hasNext()){
+	        		BigDecimal impImp = (BigDecimal) iImp.next();
+	        		if (imp.getPercentual().compareTo(impImp) == 0){
+	        			flag = false;
+	        		}
+        		}
+        		if (flag){
+        			if (imp.getPercentual().compareTo(BigDecimal.ZERO) > 0){
+	        			System.out.println("Adicionando "+imp.getPercentual());
+	        			impressoraFiscal.addAliquota(imp.getPercentual()) ;
+        			}
+        		}
+        	}
+        	System.out.println("--------------------------");
+        	System.out.println("Sincronizando Acumuladores Não Fiscais");
+        	Collection cAnf = Fachada.getInstancia().consultarTodosAcumuladoresNaoFiscais();
+        	Iterator iAnf = cAnf.iterator();
+        	while(iAnf.hasNext()){
+        		AcumuladorNaoFiscal anf = (AcumuladorNaoFiscal) iAnf.next();
+        		impressoraFiscal.addTotalizador(anf.getDescricao(), anf.getId().intValue());
+        	}
+        	System.out.println("--------------------------");
         }catch(Exception e){
+        	e.printStackTrace();
         	JOptionPane.showMessageDialog(window.getFrame(), "Erro na inicialização da Impressora \n Verifique se a impressora está ligada","Atenção",JOptionPane.ERROR_MESSAGE);
         	System.exit(0);
         }
@@ -129,7 +165,6 @@ public class GerenciadorPerifericos implements Serializable{
     }
 
     public void atualizaTela(Tela tela) {
-    	//new ThreadAtualizaTela(tela);
     	if (display instanceof FrameDisplay){
         	FrameDisplay f = (FrameDisplay) display;
         	tela.getPainel().remove(f);

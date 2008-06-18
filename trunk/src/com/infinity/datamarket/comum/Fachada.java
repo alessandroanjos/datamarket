@@ -61,6 +61,8 @@ import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.SistemaException;
 import com.infinity.datamarket.infocomponent.CadastroInfoComponente;
 import com.infinity.datamarket.infocomponent.InfoComponent;
+import com.infinity.datamarket.pdv.acumulador.AcumuladorNaoFiscal;
+import com.infinity.datamarket.pdv.acumulador.CadastroAcumuladorNaoFiscal;
 import com.infinity.datamarket.pdv.maquinaestados.MacroOperacao;
 
 public class Fachada {
@@ -184,6 +186,10 @@ public class Fachada {
 	
 	private CadastroEstoqueProduto getCadastroEstoqueProduto(){
 		return CadastroEstoqueProduto.getInstancia();
+	}
+	
+	private CadastroAcumuladorNaoFiscal getCadastroAcumuladorNaoFiscal(){
+		return CadastroAcumuladorNaoFiscal.getInstancia();
 	}
 	
 	public Usuario loginUsuario(Long id, String senha) throws AppException{
@@ -4871,6 +4877,96 @@ public class Fachada {
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			c = getCadastroEstoqueProduto().consultarPorId(pk);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	public Collection consultarAcumuladorNaoFiscal(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroAcumuladorNaoFiscal().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	public Collection consultarTodosAcumuladoresNaoFiscais() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroAcumuladorNaoFiscal().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	public AcumuladorNaoFiscal consultarAcumuladorNaoFiscalPorPK(Long pk) throws AppException{
+		AcumuladorNaoFiscal c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroAcumuladorNaoFiscal().consultarPorId(pk);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{

@@ -1,5 +1,6 @@
 package com.infinity.datamarket.pdv.gui.telas.swing;
 
+import java.awt.Color;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
@@ -48,7 +49,7 @@ public class ConsultaItemFrame extends javax.swing.JDialog{
         getContentPane().setLayout(null);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        getContentPane().setBackground(new java.awt.Color(232, 232, 0));
+        getContentPane().setBackground(new Color(226, 252, 252));
         pnTable.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 150), 5));
         jTable1.setFont(new java.awt.Font("MS Sans Serif", 0, 28));
         jTable1.setRowHeight(50);
