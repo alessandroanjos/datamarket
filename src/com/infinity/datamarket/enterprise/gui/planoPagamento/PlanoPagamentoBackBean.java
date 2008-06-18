@@ -42,6 +42,10 @@ public class PlanoPagamentoBackBean extends BackBean {
 	SelectItem[] situacaoItens;
 	Collection planos;
 	
+//	public PlanoPagamentoBackBean(){
+//		resetBB();
+//	}
+	
 	public String voltarConsulta(){
 		resetBB();
 		return "voltar";
@@ -50,8 +54,6 @@ public class PlanoPagamentoBackBean extends BackBean {
 		resetBB();
 		return "voltar";
 	}
-
-
 	
 	public String getId() {
 		return id;
@@ -94,7 +96,6 @@ public class PlanoPagamentoBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
 		return "mesma";
 	}
 	
@@ -151,22 +152,30 @@ public class PlanoPagamentoBackBean extends BackBean {
 					}
 				}
 			}else{
-				setPlanos(getFachada().consultarTodosPlanos());
+				Collection c = getFachada().consultarTodosPlanos();
+				if(c != null && c.size() > 0){
+					setExisteRegistros(true);
+				}else{
+					setExisteRegistros(false);
+				}
+				setPlanos(c);
 			}
 		}catch(ObjectNotFoundException e){
+			setExisteRegistros(false);
 			this.setPlanos(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);			
 		}catch(Exception e){
+			setExisteRegistros(false);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		this.setId(null);
-		this.setDescricao(null);
+//		this.setId(null);
+//		this.setDescricao(null);
 		this.setStatus(null);
 		this.setValorMaximo(null);
 		this.setValorMinimo(null);
@@ -189,6 +198,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -223,6 +233,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -230,11 +241,10 @@ public class PlanoPagamentoBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
 		return "mesma";
 	}
 	
-	public String resetBB(){
+	public void resetBB(){
 		this.setId(null);
 		this.setDescricao(null);
 		this.setStatus(null);
@@ -245,8 +255,8 @@ public class PlanoPagamentoBackBean extends BackBean {
 		this.setDataInicioValidade(null);
 		this.setDataFimValidade(null);
 		this.setIdForma(null);
-		return "mesma";
 	}
+	
 	public SelectItem[] getSituacaoItens() {
 		return new SelectItem[]{new SelectItem(Constantes.STATUS_ATIVO,"Ativo"),
 				                new SelectItem(Constantes.STATUS_INATIVO,"Inativo")};
@@ -357,9 +367,11 @@ public class PlanoPagamentoBackBean extends BackBean {
 		
 		if(plano instanceof PlanoPagamentoChequePredatado){
 			planoPagamento = (PlanoPagamentoChequePredatado)plano;
+		}else{
+			planoPagamento = plano;
 		}
 		
-		planoPagamento.setId(new Long(this.getId()));
+		planoPagamento.setId(new Long(getId()));
 		planoPagamento.setDescricao(this.descricao);
 		planoPagamento.setStatus(this.status);
 		planoPagamento.setValorMaximo(this.valorMaximo);

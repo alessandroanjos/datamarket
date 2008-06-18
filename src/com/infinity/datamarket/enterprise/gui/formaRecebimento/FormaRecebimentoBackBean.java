@@ -43,6 +43,10 @@ public class FormaRecebimentoBackBean extends BackBean {
 	Collection planos;
 
 	Collection formasRecebimentos;
+	
+//	public FormaRecebimentoBackBean(){
+//		resetBB();
+//	}
 
 	public String voltarConsulta() {
 		resetBB();

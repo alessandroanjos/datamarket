@@ -52,6 +52,10 @@ public class PerfilBackBean extends BackBean {
 	TreeNode arvoreFuncionalidades;
 
 	SelectItem[] funcionalidadesSelecionadas;
+	
+//	public PerfilBackBean(){
+//		resetBB();
+//	}
 
 	public ArrayList getListaOperacoesAssociadas() {
 		return listaOperacoesAssociadas;
