@@ -35,7 +35,7 @@ public class TelaMenssagem extends Tela{
         menssagem.setBounds(20, 20, 590, 40);
         painelCentral = new JPanel();
         painelCentral.setLayout(null);
-        painelCentral.setBackground(new java.awt.Color(232, 232, 0));
+        painelCentral.setBackground(backGround);
         painelCentral.setBounds(0,100,800, 400);
         painelCentral.add(menssagem);
         getPainel().add(painelCentral);

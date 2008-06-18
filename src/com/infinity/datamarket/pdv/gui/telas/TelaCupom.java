@@ -44,7 +44,7 @@ public class TelaCupom extends Tela{
 
         painelCentral = new JPanel();
         painelCentral.setLayout(null);
-        painelCentral.setBackground(new java.awt.Color(232, 232, 0));
+        painelCentral.setBackground(backGround);
         painelCentral.setBounds(0,100,800, 400);
 
         lb_cupom = new JLabel("Cupom");

@@ -2,13 +2,13 @@ package com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.bema
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-
-import org.apache.taglibs.standard.extra.spath.ASCII_CharStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.StringTokenizer;
 
 import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscal;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscalException;
 import com.sun.jna.Native;
-import com.sun.mail.util.ASCIIUtility;
 
 public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Serializable{
 
@@ -24,18 +24,29 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Seriali
 	private static final String QUANTIDADE_INTEIRA = "I";
 	private static final String QUANTIDADE_FRACIONADA = "F";
 	
+	
 	private IComunicacaoImpressoraFiscalBematechMP2000 lib;
 	
 	public ImpressoraFiscalBematechMP2000() throws ImpressoraFiscalException{
 		lib = (IComunicacaoImpressoraFiscalBematechMP2000) Native.loadLibrary("BemaFI32", IComunicacaoImpressoraFiscalBematechMP2000.class);
-		int iRetorno = lib.Bematech_FI_NomeiaTotalizadorNaoSujeitoIcms(01, "SUPRIMETO");
+	}
+	
+	public void addTotalizador(String totalizaor, int indice) throws ImpressoraFiscalException{
+		int iRetorno = lib.Bematech_FI_NomeiaTotalizadorNaoSujeitoIcms(indice, totalizaor);
+		trataRetorno(iRetorno);
+	}
+	
+	public void addAliquota(BigDecimal aliquota) throws ImpressoraFiscalException{
+		
+		String sAliquota = aliquota.toString();
+		if (sAliquota.length() == 4){
+			sAliquota = "0"+sAliquota;
+		}
+		sAliquota = sAliquota.replace(".","");
+		System.out.println(sAliquota);
+		int iRetorno = lib.Bematech_FI_ProgramaAliquota(sAliquota, 0);
 		trataRetorno(iRetorno);
 		
-		iRetorno = lib.Bematech_FI_ProgramaAliquota("1800", 1);
-		trataRetorno(iRetorno);
-		
-		iRetorno = lib.Bematech_FI_NomeiaTotalizadorNaoSujeitoIcms(02, "SANGRIA");
-		trataRetorno(iRetorno);
 	}
 	
 	private static void trataRetorno(int iRetorno) throws ImpressoraFiscalException{
@@ -68,14 +79,14 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Seriali
 	
 	public void suprimento(BigDecimal valor, String forma) throws ImpressoraFiscalException {
 		
-		int iRetorno = lib.Bematech_FI_RecebimentoNaoFiscal("01",valor.setScale(2).toString(), forma);
+		int iRetorno = lib.Bematech_FI_RecebimentoNaoFiscal(SUPRIMENTO,valor.setScale(2).toString(), forma);
 		trataRetorno(iRetorno);
 		
 	}
 	
 	public void sangria(BigDecimal valor, String forma) throws ImpressoraFiscalException {
 		
-		int iRetorno = lib.Bematech_FI_RecebimentoNaoFiscal("02",valor.setScale(2).toString(), forma);
+		int iRetorno = lib.Bematech_FI_RecebimentoNaoFiscal(SANGRIA,valor.setScale(2).toString(), forma);
 		trataRetorno(iRetorno);
 		
 	}
@@ -197,7 +208,6 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Seriali
 	
 	public long getNumeroCupom() throws ImpressoraFiscalException{
 		byte[] t = new byte[6];
-		
 		int iRetorno = lib.Bematech_FI_NumeroCupom(t);
 		trataRetorno(iRetorno);
 		String sValor = "";
@@ -207,6 +217,29 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Seriali
 		return new Long(sValor).longValue();
 	}
 	
-
+	public Collection getAliqoutas() throws ImpressoraFiscalException{
+		byte[] t = new byte[79];
+		int iRetorno = lib.Bematech_FI_RetornoAliquotas(t);
+		trataRetorno(iRetorno);
+		String sValor = ""; 
+		for(int i = 0;i < t.length;i++){
+			sValor = sValor + Character.getNumericValue(t[i]);
+		}
+		sValor = sValor.replaceAll("-1", ",");
+		
+		
+		StringTokenizer st = new StringTokenizer(sValor,",");
+		Collection c = new ArrayList();
+		while(st.hasMoreElements()){
+			String sAliquota = (String) st.nextElement();
+			//if (!sAliquota.substring(0,2).equals("-1") && !sAliquota.substring(2,4).equals("-1")){
+				sAliquota = sAliquota.substring(0,2)+"."+sAliquota.substring(2,4);
+				c.add(new BigDecimal(sAliquota));
+			//}
+		}
+		return c;
+	
+	}
+	
 
 }
