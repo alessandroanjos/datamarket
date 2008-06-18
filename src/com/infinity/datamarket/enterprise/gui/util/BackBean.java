@@ -30,5 +30,17 @@ public class BackBean {
 			e.printStackTrace();
 		}
 		return valor;
-	}	
+	}
+	
+	
+	Boolean existeRegistros;
+
+	public Boolean getExisteRegistros() {
+		return existeRegistros;
+	}
+
+	public void setExisteRegistros(Boolean existeRegistros) {
+		this.existeRegistros = existeRegistros;
+	}
+
 }
