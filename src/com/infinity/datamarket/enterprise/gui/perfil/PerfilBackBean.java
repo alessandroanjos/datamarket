@@ -272,12 +272,19 @@ public class PerfilBackBean extends BackBean {
 				this.setListaFuncionalidadesAssociadas((ArrayList)listaFuncTemp);
 								
 				return "proxima";
-			}else if (getDescricao() != null && !"".equals(getDescricao())){
+			}else if ((getDescricao() != null && !getDescricao().equals("")) 
+					|| (getIdPerfilSuperior() != null && !getIdPerfilSuperior().equals("0"))){
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(Perfil.class);
-				filter.addProperty("descricao", getDescricao());
+				if(!getDescricao().equals("")){
+					filter.addProperty("descricao", getDescricao());	
+				}
+				if(!getIdPerfilSuperior().equals("0")){
+					filter.addProperty("perfilSuperior.id", new Long(getIdPerfilSuperior()));
+				}				
 				Collection col = getFachada().consultarPerfil(filter);
 				if (col == null || col.size() == 0){
+					setExisteRegistros(false);
 					this.setListaPerfis(null);
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -316,14 +323,20 @@ public class PerfilBackBean extends BackBean {
 							listaFuncTemp.add(funcionalidadeAssociada.getId().toString());
 						}
 						this.setListaFuncionalidadesAssociadas((ArrayList)listaFuncTemp);
-
 						return "proxima";
 					}else{
+						setExisteRegistros(true);
 						setListaPerfis(col);
 					}
 				}
 			}else{
-				setListaPerfis(getFachada().consultarTodosPerfil());
+				Collection c = getFachada().consultarTodosPerfil();
+				if (c != null && c.size() > 0){
+					setExisteRegistros(true);
+				}else{
+					setExisteRegistros(false);
+				}
+				setListaPerfis(c);
 			}
 		}catch(ObjectNotFoundException e){
 			this.setPerfis(null);
@@ -331,20 +344,22 @@ public class PerfilBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);			
+			setExisteRegistros(false);
 		}catch(Exception e){
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}
-		this.setId(null);
-		this.setDescricao(null);
+//		this.setId(null);
+//		this.setDescricao(null);
 		this.setPerfilSuperior(null);
 		this.setPercentualDesconto(null);
 		this.setListaOperacoesAssociadas(null);
 		this.setListaFuncionalidadesAssociadas(null);
-		this.setIdPerfilSuperior(null);
-		this.setPerfis(null);
+//		this.setIdPerfilSuperior(null);
+//		this.setPerfis(null);
 		this.setOperacoes(null);
 		this.setFuncionalidades(null);
 		return "mesma";
@@ -419,6 +434,7 @@ public class PerfilBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -503,7 +519,7 @@ public class PerfilBackBean extends BackBean {
 		return "mesma";
 	}
 	
-	public String resetBB(){
+	public void resetBB(){
 		this.setId(null);
 		this.setDescricao(null);
 		this.setPerfilSuperior(null);
@@ -511,11 +527,10 @@ public class PerfilBackBean extends BackBean {
 		this.setListaOperacoesAssociadas(null);
 		this.setListaFuncionalidadesAssociadas(null);
 		this.setIdPerfilSuperior(null);
-		this.setListaPerfis(null);
+//		this.setListaPerfis(null);
 		this.setPerfis(null);
 		this.setOperacoes(null);
 		this.setFuncionalidades(null);
-		return "mesma";
 	}
 	
 	public String voltarConsulta(){
@@ -785,4 +800,5 @@ public class PerfilBackBean extends BackBean {
 		}
 		return existe;
 	}
+
 }
