@@ -76,12 +76,7 @@ public class Usuario extends Persistente{
 	 */
 	@Override
 	public int hashCode() {
-		final int PRIME = 31;
-		int result = 1;
-		result = PRIME * result + ((nome == null) ? 0 : nome.hashCode());
-		result = PRIME * result + ((perfil == null) ? 0 : perfil.hashCode());
-		result = PRIME * result + ((senha == null) ? 0 : senha.hashCode());
-		return result;
+		return super.getId().toString().hashCode();
 	}
 
 	/* (non-Javadoc)
@@ -96,23 +91,11 @@ public class Usuario extends Persistente{
 		if (getClass() != obj.getClass())
 			return false;
 		final Usuario other = (Usuario) obj;
-		if (nome == null) {
-			if (other.nome != null)
+		if (getId() == null) {
+			if (other.getId() != null)
 				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (perfil == null) {
-			if (other.perfil != null)
-				return false;
-		} else if (!perfil.equals(other.perfil))
-			return false;
-		if (senha == null) {
-			if (other.senha != null)
-				return false;
-		} else if (!senha.equals(other.senha))
+		} else if (!getId().equals(other.getId()))
 			return false;
 		return true;
-	}
-	
-	
+	}	
 }
