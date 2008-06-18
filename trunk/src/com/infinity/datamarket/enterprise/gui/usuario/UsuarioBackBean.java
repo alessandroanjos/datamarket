@@ -49,9 +49,9 @@ public class UsuarioBackBean extends BackBean {
 	SelectItem[] perfis;
 	SelectItem[] lojas;
 	
-	public UsuarioBackBean(){
-		resetBB();
-	}
+//	public UsuarioBackBean(){
+//		resetBB();
+//	}
 	
 	/**
 	 * @return the id
