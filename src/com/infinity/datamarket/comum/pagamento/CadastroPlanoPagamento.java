@@ -44,7 +44,7 @@ public class CadastroPlanoPagamento extends Cadastro{
 	}
 	
 	// Plano de Pagamento Pre-datado
-	public Collection consultarTodosPreDatato() throws AppException{
+	public Collection consultarTodosPreDatado() throws AppException{
 		return getRepositorio().findAll(CLASSE_CHEQUE_PRE);
 	}
 	
