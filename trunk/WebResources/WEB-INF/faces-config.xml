@@ -1427,7 +1427,7 @@
 		    <property-name>valorMaxTroco</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
-		</managed-property>
+		</managed-property>		
 	</managed-bean>
 
 	<!-- LOJA BACK BEAN -->
@@ -1512,14 +1512,7 @@
 		    <property-class>javax.faces.model.SelectItem</property-class>
 		    <null-value/>
 		</managed-property>
-<!-- 		<managed-property>
-		    <property-name>funcionalidades</property-name>
-		    <property-class>javax.faces.model.SelectItem</property-class>
-		    <null-value/>
-		</managed-property>
 		
- -->		
- 
 		<managed-property>
 		    <property-name>funcionalidades</property-name>
 		    <property-class>org.apache.myfaces.custom.tree2.TreeNode</property-class>
