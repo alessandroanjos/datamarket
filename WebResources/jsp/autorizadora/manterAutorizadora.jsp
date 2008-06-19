@@ -49,7 +49,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
-											value="#{autorizadoraBB.id}" size="3" rendered="true" readonly="true">
+											value="#{autorizadoraBB.id}" size="3" required="true" readonly="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>
@@ -59,7 +59,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" rendered="true"
+										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" required="true"
 											value="#{autorizadoraBB.descricao}">
 											<f:validateLength maximum="50" />
 										</h:inputText>
@@ -70,7 +70,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Situação"></h:outputLabel>
 										<h:selectOneRadio  styleClass="field select"  id="situacao" 
-											value="#{autorizadoraBB.situacao}"  layout="lineDirection" rendered="true">
+											value="#{autorizadoraBB.situacao}"  layout="lineDirection" required="true">
 										    <f:selectItem itemLabel="Sim" itemValue="S" />
 										    <f:selectItem itemLabel="Não" itemValue="N"/>
 										</h:selectOneRadio>
