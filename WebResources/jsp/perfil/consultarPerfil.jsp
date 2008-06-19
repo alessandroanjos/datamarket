@@ -69,22 +69,12 @@
 											</h:selectOneMenu> 
 											<h:message for="perfis" styleClass="msgErro" />
 										</div>
-										<div>
-											<h:outputLabel styleClass="desc" value="Percentual de Desconto"></h:outputLabel>
-											<h:inputText styleClass="text field" dir="rtl" id="percentualDesconto" maxlength="6" size="6" 
-												value="#{perfilBB.percentualDesconto}" required="false" onkeypress="Formata('frmConsultarPerfil:percentualDesconto',5,2);">
-												<f:validateLength maximum="6" />
-												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
-												<f:validator validatorId="BigDecimalValidator" />
-											</h:inputText>
-											<h:message for="percentualDesconto" styleClass="msgErro" />
-										</div>
 									</li>
 								</ul>
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{perfilBB.listaPerfis}"
-									var="perfil" rowClasses="rowA,rowB" width="100%">
+									var="perfil" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -112,6 +102,13 @@
 										<h:outputText value="#{perfil.percentualDesconto}" />
 									</h:column>									
 								</t:dataTable>
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not perfilBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>
 							</div>
 							<ul>
 								<li class="buttons">

@@ -129,7 +129,7 @@
 							</div>
 							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{perfilBB.voltarConsulta}" value="Voltar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{perfilBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{perfilBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{perfilBB.excluir}" value="Excluir"></h:commandButton>
 								</li>

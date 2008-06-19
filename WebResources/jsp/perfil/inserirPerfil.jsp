@@ -48,6 +48,11 @@
 								<ul>
 									<li class="normal">
 										<div>
+											<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+									<li class="normal">
+										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 											<h:inputText styleClass="field text ativo" id="id"
 												maxlength="2" value="#{perfilBB.id}" size="2"
