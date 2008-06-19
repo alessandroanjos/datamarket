@@ -26,6 +26,10 @@ import com.infinity.datamarket.enterprise.gui.planoPagamento.PlanoPagamentoBackB
  *
  */
 public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
+	
+//	public PlanoPagamentoChequePreBackBean(){
+//		setPercentagemEntrada(BigDecimal.ZERO);
+//	}
 
 	BigDecimal percentualTotal = new BigDecimal(100.00).setScale(2);
 	BigDecimal percentualRestante = BigDecimal.ZERO;
@@ -102,24 +106,70 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 		return "voltar";
 	}
 	
-	public String resetBB(){
+	public void resetBB(){
 		super.resetBB();
-		this.setPercentagemEntrada(null);
+//		this.setPercentagemEntrada(null);
 		this.setParcelas(null);
-		return "mesma";
+	}
+	
+	public void validarBackBean() throws Exception{
+		if(this.getId() == null || this.getId().equals("")){
+			throw new Exception("O campo Código é obrigatório.");
+		}		
+		if(this.getDescricao() == null || this.getDescricao().equals("")){
+			throw new Exception("O campo Descrição é obrigatório.");
+		}
+		if(this.getIdForma() == null || this.getIdForma().equals("0")){
+			throw new Exception("O campo Forma Associada é obrigatório.");
+		}
+		
+		if(this.getValorMinimo() == null || this.getValorMinimo().compareTo(new BigDecimal("0")) <= 0){
+			throw new Exception("O campo Valor Mínimo é obrigatório.");
+		}
+		
+		if(this.getValorMaximo() == null || this.getValorMaximo().compareTo(new BigDecimal("0")) <= 0){
+			throw new Exception("O campo Valor Máximo é obrigatório.");
+		}
+		
+		if(this.getPercDesconto() == null || this.getPercDesconto().compareTo(new BigDecimal("0")) <= 0){
+			throw new Exception("O campo Percentual de Desconto é obrigatório.");
+		}
+		
+		if(this.getPercAcrescimo() == null || this.getPercAcrescimo().compareTo(new BigDecimal("0")) <= 0){
+			throw new Exception("O campo Percentual de Acréscimo é obrigatório.");
+		}
+
+		if(this.getDataInicioValidade() == null || this.getDataInicioValidade().equals("")){
+			throw new Exception("É necessário informar a Data Inicial de Validade.");
+		}
+		
+		if(this.getDataFimValidade() == null || this.getDataFimValidade().equals("")){
+			throw new Exception("É necessário informar a Data Final de Validade.");
+		}
+		
+		if(this.getStatus() == null){
+			throw new Exception("É necessário selecionar uma Situação.");
+		}
+
+		if(this.getParcelas() == null || (this.getParcelas() != null && this.getParcelas().size() == 0)){
+			throw new Exception("É necessário ter pelo menos uma parcela.");
+		}
 	}
 	
 	public String inserir(){
-		try {			
-			BigDecimal totalPercentagem = BigDecimal.ZERO;
+		try {	
+			
+			validarBackBean();
+			
 			PlanoPagamentoChequePredatado planoPre = new PlanoPagamentoChequePredatado();
 			
 			preenchePlanoPagamento(planoPre, INSERIR);
 			
 			planoPre.setPercentagemEntrada(this.getPercentagemEntrada());
-			
+		
+			BigDecimal totalPercentagem = BigDecimal.ZERO;
 			totalPercentagem = totalPercentagem.add(this.getPercentagemEntrada());
-			
+				
 			Iterator it = this.getParcelas().iterator();
 			
 			while (it.hasNext()){
@@ -128,11 +178,11 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 				totalPercentagem = totalPercentagem.add(parcela.getPercentagemParcela());
 			}
 			
-			planoPre.setParcelas(this.getParcelas());
-			
-			if(totalPercentagem.compareTo(new BigDecimal(100)) > 0){
-				throw new Exception("O somatório do percentual das parcelas mais \n o percentual de entrada não deve ultrapassar 100%.");
+			if(totalPercentagem.compareTo(new BigDecimal("100")) != 0){
+				throw new Exception("O somatório do percentual das parcelas mais o percentual de entrada deve ser igual a 100%.");
 			}
+			
+			planoPre.setParcelas(this.getParcelas());
 			
 			getFachada().inserirPlanoPagamento(planoPre);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -149,15 +199,17 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
-		}
-		this.resetBB();
+		}		
 		return "mesma";
 	}
 	
 	public String alterar(){
 		try {
+			
+			validarBackBean();
+			
 			BigDecimal totalPercentagem = BigDecimal.ZERO;
 			PlanoPagamentoChequePredatado planoPre = new PlanoPagamentoChequePredatado();
 			
@@ -166,6 +218,10 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			planoPre.setPercentagemEntrada(this.getPercentagemEntrada());
 			
 			totalPercentagem = totalPercentagem.add(this.getPercentagemEntrada());
+			
+			if(this.getParcelas() == null || (this.getParcelas() != null && this.getParcelas().size() == 0)){
+				throw new Exception("É necessário ter pelo menos uma parcela.");
+			}
 			
 			Iterator it = this.getParcelas().iterator();
 			
@@ -177,8 +233,8 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			
 			planoPre.setParcelas(this.getParcelas());
 			
-			if(totalPercentagem.compareTo(new BigDecimal(100)) > 0){
-				throw new Exception("O somatório entre o perc. das parcelas e o perc. de entrada não deve ultrapassar 100%.");
+			if(totalPercentagem.compareTo(new BigDecimal("100")) != 0){
+				throw new Exception("O somatório do percentual das parcelas mais o percentual de entrada deve ser igual a 100%.");
 			}
 			
 			getFachada().alterarPlanoPagamento(planoPre);
@@ -267,6 +323,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 				filter.addProperty("descricao", getDescricao());
 				Collection col = getFachada().consultarPlanoPagamento(filter);
 				if (col == null || col.size() == 0){
+					setExisteRegistros(false);
 					this.setPlanos(col);
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -298,19 +355,28 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 				        }		       
 						return "proxima";
 					}else{
+						setExisteRegistros(true);
 						this.setPlanos(col);
 					}
 				}
 			}else{
-				setPlanos(getFachada().consultarTodosPlanosChequePre());
+				Collection c = getFachada().consultarTodosPlanosChequePre();
+				if(c != null && c.size() > 0){
+					setExisteRegistros(true);
+				}else{
+					setExisteRegistros(false);
+				}
+				setPlanos(c);
 			}
 		}catch(ObjectNotFoundException e){
+			setExisteRegistros(false);
 			this.setPlanos(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);			
 		}catch(Exception e){
+			setExisteRegistros(false);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
@@ -333,13 +399,17 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 
 	
 	public String inserirParcela(){
-		try {			
+		try {
+			if(this.getPercentagemEntrada() == null){
+				this.setPercentagemEntrada(BigDecimal.ZERO);
+			}
 			if(this.getPercentagemParcela().equals(BigDecimal.ZERO)){
 				throw new Exception("O Percentual da Parcela deve ser maior que 0 (Zero).");
 			}
 			if(this.getQuantidadeDias() == 0){
 				throw new Exception("A Quantiade de Dias deve ser maior que 0 (Zero).");
 			}
+			
 			
 			int quantidadeDiasParcelaAnterior = 0;
 			BigDecimal percentualParcelasParcial = BigDecimal.ZERO;
@@ -349,8 +419,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			
 			ParcelaPlanoPagamentoChequePredatado parcela = new ParcelaPlanoPagamentoChequePredatado();
 			ParcelaPlanoPagamentoChequePredatadoPK parcelaPK = new ParcelaPlanoPagamentoChequePredatadoPK();
-			
-			
+						
 			parcelaPK.setPlano(null);
 			
 			parcela.setPk(parcelaPK);
