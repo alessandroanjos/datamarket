@@ -134,7 +134,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Inicio Validade*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10"
+										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10" required="false"
 											value="#{planoPagamentoChequePreBB.dataInicioValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirPlanoPagamentoChequePre:dataInicioValidade');">
 											
 										</h:inputText>
@@ -142,7 +142,7 @@
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Final Validade*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10"
+										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10" required="false"
 											value="#{planoPagamentoChequePreBB.dataFimValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirPlanoPagamentoChequePre:dataFimValidade');">
 										</h:inputText>
 										<h:message for="dataFimValidade" styleClass="msgErro"/>
@@ -233,7 +233,7 @@
 																</f:facet>
 																<h:commandLink  value=""
 																	action="#{planoPagamentoChequePreBB.excluirParcela}">
-																	<h:commandButton type="button" image="/EnterpriseServer/images/tree/TortoiseDeleted.jpg"/>
+																	<h:commandButton type="button" image="/images/excluir.gif"/>
 																	
 																	<f:param name="idExcluir" value="#{parcela.pk.numeroEntrada}" />
 																</h:commandLink>
