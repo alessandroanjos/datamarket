@@ -247,7 +247,7 @@ public class ClienteBackBean extends BackBean {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String resetBB(){
+	public void resetBB(){
 		this.setId(null);
 		this.setNomeCliente(null);
 		this.setTipoPessoa(Cliente.PESSOA_FISICA);
@@ -272,9 +272,6 @@ public class ClienteBackBean extends BackBean {
 //		this.setValorLimiteDisponivel(null);
 		this.setDataCadastro(new Date(System.currentTimeMillis()));
 		this.setDataNascimento(null);
-		
-		
-		return "mesma";
 	}
 	
 	public String consultar(){
@@ -388,6 +385,7 @@ public class ClienteBackBean extends BackBean {
 
 	public String inserir(){
 		try {
+			
 			Cliente cliente = preencheCliente(INSERIR);
 			
 			getFachada().inserirCliente(cliente);
@@ -483,7 +481,10 @@ public class ClienteBackBean extends BackBean {
 		cliente.setDataNascimento(this.getDataNascimento());
 		if(acao.equals(INSERIR)){
 			cliente.setDataCadastro(new Date(System.currentTimeMillis()));
-			cliente.setValorLimiteDisponivel(this.getValorLimiteCompras());
+			if(this.getValorLimiteCompras() == null){
+				cliente.setValorLimiteDisponivel(new BigDecimal("0"));
+				cliente.setValorLimiteCompras(new BigDecimal("0"));
+			}	
 		}		
 		return cliente;
 	}
