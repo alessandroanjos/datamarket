@@ -21,10 +21,29 @@
 		<meta http-equiv="description" content="This is my page"/>
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
-		
+      <script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      	$("input.inteiro").each(function(i){
+      		$(this).mask("99",{placeholder:" "});
+      	});
+
+      }
+
+      </script>
+
 	</head>
 	<body>
 	<div id="outer">
@@ -48,13 +67,13 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+										<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="2"
 											value="#{tipoProdutoBB.id}" size="2" disabled="true" required="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator" />
 										</h:inputText>
-										<h:message for="id" styleClass="msgErro" />
 									</div>
+									<h:message for="id" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
@@ -63,11 +82,11 @@
 											size="50" value="#{tipoProdutoBB.descricao}" required="true">
 											<f:validateLength maximum="50" />
 										</h:inputText>
-										<h:message for="nome" styleClass="msgErro" />
 									</div>
+									<h:message for="nome" styleClass="msgErro" />
 								</li>
 								<li class="buttons">
-																	<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{tipoProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{tipoProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{tipoProdutoBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{tipoProdutoBB.excluir}" value="Excluir"></h:commandButton>
 								</li>

@@ -21,10 +21,34 @@
 			<meta http-equiv="description" content="This is my page"/>
 			
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
+			
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
+      <script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      	$("input.monetario").each(function(i){
+      		$(this).mask("99.99",{placeholder:" "});
+      	});
+
+      	$("input.inteiro").each(function(i){
+      		$(this).mask("99",{placeholder:" "});
+      	});
+
+      }
+
+      </script>
 		</head>
 		<body>
 			<div id="outer">
@@ -47,21 +71,21 @@
 						<h:form id="frmInserirUsuario">
 							<div id="tabDiv0">						
 								<ul>
+  								<li class="normal">
+  									<div>
+  										<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+  									</div>
+  								</li>
 									<li class="normal">
 										<div>
-											<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
-										</div>
-									</li>
-									<li class="normal">
-										<div>
-											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+											<h:outputLabel styleClass="desc" style="float:none;" value="Código*"></h:outputLabel>
+											<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="2"
 												value="#{usuarioBB.id}" size="3" required="true">
-												<f:validateLength maximum="2" />
+												<f:validateLength minimum="1" maximum="2" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
 										</div>
-										<h:message for="id" styleClass="msgErro" />
+										<h:message for="id" styleClass="msgErro"/>
 									</li>
 									<li class="normal">
 										<div>
@@ -78,11 +102,11 @@
 											<h:outputLabel styleClass="desc" value="Senha*"></h:outputLabel>
 											<h:inputSecret styleClass="field text" id="senha" redisplay="true" maxlength="20" size="25"
 												value="#{usuarioBB.senha}" required="true">
-												<f:validateLength maximum="20" />
+												<f:validateLength minimum="6" maximum="20" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputSecret>
 										</div>
-										<h:message for="senha" styleClass="msgErro"/>										
+										<h:message for="senha" styleClass="msgErro"/>
 									</li>
 									<li class="normal">
 										<div>
@@ -93,43 +117,43 @@
 													  value="#{usuarioBB.perfis}" />   
 											</h:selectOneMenu>
 										</div>
-										<h:message for="perfis" styleClass="msgErro"/>									
+										<h:message for="perfis" styleClass="msgErro"/>
 									</li>
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Vendedor*"></h:outputLabel>
-											<h:selectOneRadio styleClass="field select" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
+											<h:selectOneRadio styleClass="field radio" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
 											    <f:selectItem itemLabel="Sim" itemValue="S"/>
 											    <f:selectItem itemLabel="Não" itemValue="N"/>
 											</h:selectOneRadio>
 										</div>
-										<h:message for="vendedor" styleClass="msgErro"/>										
+										<h:message for="vendedor" styleClass="msgErro"/>
 									</li>
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Valor Comissão"></h:outputLabel>
-											<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5"
-												value="#{usuarioBB.comissao}" required="false" dir="rtl" onkeypress="Formata('frmInserirUsuario:comissao',4,2);">
+											<h:inputText styleClass="field monetario" id="comissao" maxlength="5" size="5"
+												value="#{usuarioBB.comissao}" required="true" >
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 												<f:validator validatorId="BigDecimalValidator"/>
 											</h:inputText>
 										</div>
-										<h:message for="comissao" styleClass="msgErro"/>												
+										<h:message for="comissao" styleClass="msgErro"/>		
 									</li>
 								</ul>
 							</div>
 							<div id="tabDiv1" style="display:none;">
-								<h:message for="idListaLojasAssociadas" styleClass="msgErro"/>
 								<ul>
 									<li class="normal">
 										<div class="div-auto-scroll" style="width:400px !important; height: 242px;">
-											<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field select"
+											<h:selectManyCheckbox id="idListaLojasAssociadas" layout="pageDirection" required="false" styleClass="field checkbox"
 												value="#{usuarioBB.listaLojasAssociadas}" >
 													<f:selectItems value="#{usuarioBB.lojas}"/>
 											</h:selectManyCheckbox>	
 										</div>									
 									</li>															
+									<h:message for="idListaLojasAssociadas" styleClass="msgErro"/>
 								</ul>
 							</div>
 							<ul>

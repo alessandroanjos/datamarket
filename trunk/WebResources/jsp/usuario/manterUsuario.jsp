@@ -21,10 +21,33 @@
 			<meta http-equiv="description" content="This is my page"/>
 			
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
+      <script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      	$("input.monetario").each(function(i){
+      		$(this).mask("99.99",{placeholder:" "});
+      	});
+
+      	$("input.inteiro").each(function(i){
+      		$(this).mask("99",{placeholder:" "});
+      	});
+
+      }
+
+      </script>
 		</head>
 		<body>			
 			<div id="outer">
@@ -55,13 +78,13 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+										<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="2"
 											value="#{usuarioBB.id}" size="3" required="true" readonly="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>
-										<h:message for="id" styleClass="msgErro"/>
 									</div>
+									<h:message for="id" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
@@ -70,8 +93,8 @@
 											value="#{usuarioBB.nome}">
 											<f:validateLength maximum="50" />
 										</h:inputText>
-										<h:message for="nome" styleClass="msgErro"/>
 									</div>
+									<h:message for="nome" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
@@ -81,8 +104,8 @@
 											<f:validateLength maximum="20" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputSecret>
-										<h:message for="senha" styleClass="msgErro"/>
 									</div>
+									<h:message for="senha" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
@@ -92,8 +115,8 @@
 													  <f:selectItems id="perfilSelectItems" 
 													  value="#{usuarioBB.perfis}" />   
 											</h:selectOneMenu>
-										<h:message for="perfis" styleClass="msgErro"/>
 									</div>
+									<h:message for="perfis" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
@@ -102,20 +125,20 @@
 										    <f:selectItem itemLabel="Sim" itemValue="S"/>
 										    <f:selectItem itemLabel="Não" itemValue="N"/>
 										</h:selectOneRadio>
-										<h:message for="vendedor" styleClass="msgErro"/>
 									</div>
+									<h:message for="vendedor" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Comissão"></h:outputLabel>
-										<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5"
-											value="#{usuarioBB.comissao}" required="false" dir="rtl" onkeypress="Formata('frmManterUsuario:comissao',4,2);">
+										<h:inputText styleClass="field monetario" id="comissao" maxlength="5" size="5"
+											value="#{usuarioBB.comissao}" required="false" dir="rtl">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
 										</h:inputText>
-										<h:message for="comissao" styleClass="msgErro"/>		
 									</div>
+									<h:message for="comissao" styleClass="msgErro"/>		
 								</li>
 							</ul>
 						</div>
@@ -134,7 +157,7 @@
 						</div>
 						<ul>
 							<li class="buttons">
-								<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{usuarioBB.voltarConsulta}" value="Voltar"></h:commandButton>
+								<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{usuarioBB.voltarConsulta}" immediate="true" value="Voltar"></h:commandButton>
 								<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{usuarioBB.alterar}" value="Alterar"></h:commandButton>
 								<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{usuarioBB.excluir}" value="Excluir"></h:commandButton>
 							</li>

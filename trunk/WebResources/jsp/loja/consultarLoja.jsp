@@ -20,10 +20,29 @@
 			<meta http-equiv="description" content="This is my page"/>
 			
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
+      <script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      	$("input.inteiro").each(function(i){
+      		$(this).mask("9999",{placeholder:" "});
+      	});
+
+      }
+
+      </script>
 		</head>
 		<body>
 			<div id="outer">
@@ -43,7 +62,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+											<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="4"
 												value="#{lojaBB.id}" size="4" required="false">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
@@ -63,14 +82,14 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Número IP"></h:outputLabel>
 											<h:inputText styleClass="field text" id="numeroIp" maxlength="15" size="15"
-												value="#{lojaBB.numeroIp}">
+												value="#{lojaBB.numeroIp}" onblur="if (!verificaIP(this.value)) this.value = '';">
 												<f:validateLength maximum="15" />
 											</h:inputText>
 											<h:message for="numeroIp" styleClass="msgErro" />
 										</div>									
 										<div>
 											<h:outputLabel styleClass="desc" value="Número Porta"></h:outputLabel>
-											<h:inputText styleClass="field text" id="numeroPorta" maxlength="4" size="4"
+											<h:inputText styleClass="field inteiro text" id="numeroPorta" maxlength="4" size="4"
 												value="#{lojaBB.numeroPorta}">
 												<f:validateLength maximum="4" />
 											</h:inputText>

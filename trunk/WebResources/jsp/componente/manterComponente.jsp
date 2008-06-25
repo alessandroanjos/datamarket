@@ -20,10 +20,29 @@
 			<meta http-equiv="description" content="This is my page"/>
 			
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
+      <script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      	$("input.inteiro").each(function(i){
+      		$(this).mask("9999",{placeholder:" "});
+      	});
+
+      }
+
+      </script>
 		</head>
 		<body>
 			<div id="outer">
@@ -51,52 +70,52 @@
 											<f:validateLength maximum="4" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>
-										<h:message for="id" styleClass="msgErro" />
 									</div>
+									<h:message for="id" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50"
-											value="#{componenteBB.descricao}">
+											value="#{componenteBB.descricao}" required="true">
 											<f:validateLength maximum="50" />
 										</h:inputText>
-										<h:message for="descricao" styleClass="msgErro" />
 									</div>
+									<h:message for="descricao" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Numero IP*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="ip" maxlength="15" size="15"
-											value="#{componenteBB.ip}">
+											value="#{componenteBB.ip}" required="true" onblur="if (!verificaIP(this.value)) this.value = '';">
 											<f:validateLength maximum="15" />
 										</h:inputText>
-										<h:message for="ip" styleClass="msgErro" />
 									</div>
+									<h:message for="ip" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Porta*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="porta" maxlength="4" size="4"
-											value="#{componenteBB.porta}">
+										<h:inputText styleClass="field text inteiro" id="porta" maxlength="4" size="4"
+											value="#{componenteBB.porta}" required="true">
 											<f:validateLength maximum="4" />
 										</h:inputText>
-										<h:message for="porta" styleClass="msgErro" />
 									</div>
+									<h:message for="porta" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Loja*"></h:outputLabel>
 										<h:selectOneMenu id="idLoja" styleClass="field select"
-											value="#{componenteBB.idLoja}">   
+											value="#{componenteBB.idLoja}" required="true">   
 												  <f:selectItems id="lojaSelectItems" 
 												  value="#{componenteBB.lojas}" />   
 										</h:selectOneMenu> 
-										<h:message for="idLoja" styleClass="msgErro" />
 									</div>
+									<h:message for="idLoja" styleClass="msgErro" />
 								</li>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{componenteBB.voltarConsulta}" value="Voltar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{componenteBB.voltarConsulta}" immediate="true" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{componenteBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{componenteBB.excluir}" value="Excluir"></h:commandButton>
 								</li>

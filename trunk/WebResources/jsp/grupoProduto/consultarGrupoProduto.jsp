@@ -25,6 +25,20 @@
 		
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
+      <script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      }
+
+      </script>
 	</head>
 	<body>
 	<div id="outer">
@@ -91,15 +105,14 @@
 							</div>
 							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoLimpar" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoLimpar" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{grupoProdutoBB.consultar}" value="Consultar"></h:commandButton>
 								</li>						
 							</ul>
 						</div>
 						<div class="clear"></div>
 					</div>
-
+					
 		</h:form>
-	  </body>	
 	</f:view>
 </html>

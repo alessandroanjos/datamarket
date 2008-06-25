@@ -4,7 +4,6 @@
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t" %>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j" %>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 	Design e Engenharia de Interface
@@ -19,8 +18,9 @@
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
-			<t:stylesheet path="css/default.css" enabledOnUserRole="true"></t:stylesheet>
-			<t:stylesheet path="css/form.css" enabledOnUserRole="true"></t:stylesheet>	
+			<t:stylesheet path="/css/default.css" enabledOnUserRole="true"></t:stylesheet>
+			<t:stylesheet path="/css/form.css" enabledOnUserRole="true"></t:stylesheet>	
+			<t:stylesheet path="/css/themeOffice.css" enabledOnUserRole="true"></t:stylesheet>	
 		</head>
 
 
@@ -34,7 +34,7 @@
 			<div id="primarioContentContainer">
 				<ul>
 					<li>
-						<div style="margin-top:20px;height:240px;">
+						<div style="margin-top:20px;height:200px;">
 							<br />
 							<t:jscookMenu layout="hbr" theme="ThemeOffice" id="menuPrincipal">
 								<t:navigationMenuItems value="#{loginBB.navItens}" />
