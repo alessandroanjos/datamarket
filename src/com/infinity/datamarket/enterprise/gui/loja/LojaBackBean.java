@@ -156,12 +156,23 @@ public class LojaBackBean extends BackBean {
 					this.setIdEstoqueAtual("0");
 				}
 				return "proxima";
-			}else if (getNome() != null && !"".equals(getNome())){
+			}else if ((getNome() != null && !"".equals(getNome())) || 
+					(getNumeroIp() != null && !getNumeroIp().equals("")) ||
+					(getNumeroPorta() != null && !getNumeroPorta().equals(""))){
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(Loja.class);
-				filter.addProperty("nome", getNome());
+				if(!getNome().equals("")){
+					filter.addProperty("nome", getNome());	
+				}
+				if(!getNumeroIp().equals("")){
+					filter.addProperty("numeroIp", getNumeroIp());	
+				}
+				if(!getNumeroPorta().equals("")){
+					filter.addProperty("numeroPorta", getNumeroPorta());	
+				}
 				Collection col = getFachada().consultarLoja(filter);
 				if (col == null || col.size() == 0){
+					setExisteRegistros(false);
 					this.setLojas(null);
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -209,11 +220,11 @@ public class LojaBackBean extends BackBean {
 			ctx.addMessage(null, msg);
 			setExisteRegistros(false);
 		}
-		this.setId(null);
-		this.setNome(null);
-		this.setNumeroIp(null);
-		this.setNumeroPorta(null);
-		this.setIdEstoqueAtual("0");
+//		this.setId(null);
+//		this.setNome(null);
+//		this.setNumeroIp(null);
+//		this.setNumeroPorta(null);
+//		this.setIdEstoqueAtual("0");
 		return "mesma";
 	}
 	
@@ -279,7 +290,8 @@ public class LojaBackBean extends BackBean {
 	}
 	
 	public String voltarConsulta(){
-		resetBB();
+//		resetBB();
+		consultar();
 		return "voltar";
 	}
 	public String voltarMenu(){
