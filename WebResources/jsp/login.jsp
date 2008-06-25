@@ -11,6 +11,7 @@
 	Disponibilizado para Infinity DataMarket
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
+<f:view>
 	<head>
 		<title>Login &nbsp;&nbsp;&nbsp;&#8212;&nbsp;&nbsp;&nbsp; Infinity | Data Market - Enterprise Server</title>
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
@@ -18,7 +19,6 @@
 		<t:stylesheet path="/css/default.css" enabledOnUserRole="true"></t:stylesheet>
 		<t:stylesheet path="/css/form.css" enabledOnUserRole="true"></t:stylesheet>
 	</head>
-	<f:view>
 			<jsp:include page="/jsp/topo.jsp?user=Desconhecido"></jsp:include>	
 			<h:form>
 			<div id="outer">				
@@ -39,13 +39,6 @@
 							<div class="boxContent">
 								
 									<ul>
-										<li>
-											<div>
-												<h:messages errorClass="msgSistemaErro"
-														infoClass="msgSistemaSucesso" globalOnly="true"
-														showDetail="true" />
-											</div>
-										</li>
 										<li>
 											<div>										
 												<label class="desc">ID*</label>					
@@ -71,6 +64,13 @@
 										<li class="buttons">
 											<h:commandButton styleClass="btTxt" id="botaoLogin" action="#{loginBB.logar}" value="Login"></h:commandButton>
 											<h:commandButton styleClass="btTxt" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+										</li>
+										<li>
+											<div>
+												<h:messages errorClass="msgSistemaErro"
+														infoClass="msgSistemaSucesso" globalOnly="true"
+														showDetail="true" />
+											</div>
 										</li>
 									</ul>
 

@@ -21,10 +21,29 @@
 		<meta http-equiv="description" content="This is my page"/>
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
+      <script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      	$("input.inteiro").each(function(i){
+      		$(this).mask("9999",{placeholder:" "});
+      	});
+
+      }
+
+      </script>
 	</head>
 	<body>
 	<div id="outer">
@@ -38,14 +57,14 @@
 		<h:form id="frmConsultarProduto">
 				<div id="content">
 				
-						<div id="primarioContentContainerInternas">
+						<div id="primarioContentContainerInternas" style="width:100%;">
 							<fieldset>
 								<legend>Opções de filtro:</legend>
 								<ul>
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+											<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="4"
 												value="#{produtoBB.id}" size="4" required="false">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>

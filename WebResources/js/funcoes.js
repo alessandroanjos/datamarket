@@ -301,3 +301,32 @@ function tamanhoJanela(width,height) {
 		alert("Esse browser não suporta:\ntamanhoJanela(" + width + "," + height + ")");
 	}
 }
+
+
+function verificaIP (IPvalor) {
+    errorString = true;
+
+    var ipPattern = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+    var ipArray = IPvalor.match(ipPattern);
+
+    if (IPvalor == "0.0.0.0")
+        errorString = false;
+    else if (IPvalor == "255.255.255.255")
+        errorString = false;
+    if (ipArray == null)
+        errorString = false;
+    else {
+        for (i = 0; i < 4; i++) {
+            if (ipArray[i] > 255) {
+                errorString = false;
+                i = 4;
+            }
+            if ((i == 0) && (ipArray[i] > 255)) {
+                errorString = false;
+                i = 4;
+            }
+        }
+    }
+    return errorString;
+}
+

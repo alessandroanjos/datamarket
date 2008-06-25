@@ -15,8 +15,6 @@ public class Usuario extends Persistente{
 	private Perfil perfil;
 	private String senha;
 	
-	Collection usuarios;
-	
 	Set lojas;
 	
 	/**
@@ -31,20 +29,6 @@ public class Usuario extends Persistente{
 	 */
 	public void setLojas(Set lojas) {
 		this.lojas = lojas;
-	}
-
-	/**
-	 * @return the usuarios
-	 */
-	public Collection getUsuarios() {
-		return usuarios;
-	}
-
-	/**
-	 * @param usuarios the usuarios to set
-	 */
-	public void setUsuarios(Collection usuarios) {
-		this.usuarios = usuarios;
 	}
 
 	public String getSenha() {

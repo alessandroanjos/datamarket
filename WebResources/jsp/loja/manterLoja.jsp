@@ -20,10 +20,29 @@
 			<meta http-equiv="description" content="This is my page"/>
 			
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
+      <script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      	$("input.inteiro").each(function(i){
+      		$(this).mask("9999",{placeholder:" "});
+      	});
+
+      }
+
+      </script>
 		</head>
 		<body>			
 			<div id="outer">
@@ -51,8 +70,8 @@
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator" />
 										</h:inputText>
-										<h:message for="id" styleClass="msgErro" />
 									</div>
+									<h:message for="id" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
@@ -61,21 +80,21 @@
 											size="50" value="#{lojaBB.nome}" required="true">
 											<f:validateLength maximum="50" />
 										</h:inputText>
-										<h:message for="nome" styleClass="msgErro" />
 									</div>
+									<h:message for="nome" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Número IP*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="ip" maxlength="15"
-											size="15" value="#{lojaBB.numeroIp}" required="true">
+											size="15" value="#{lojaBB.numeroIp}" required="true" onblur="if (!verificaIP(this.value)) this.value = '';">
 											<f:validateLength maximum="15" />
 										</h:inputText>
 										<h:message for="ip" styleClass="msgErro" />
 									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Porta*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="numeroPorta" maxlength="4"
+										<h:inputText styleClass="field text inteiro" id="numeroPorta" maxlength="4"
 											size="4" value="#{lojaBB.numeroPorta}" required="true">
 											<f:validateLength maximum="4" />
 										</h:inputText>
@@ -89,11 +108,11 @@
 											value="#{lojaBB.idEstoqueAtual}" style="width: 200px;">		
 											<f:selectItems id="estoqueSelectItems" value="#{lojaBB.estoques}" />
 										</h:selectOneMenu>
-										<h:message for="idEstoque" styleClass="msgErro" />
 									</div>
+									<h:message for="idEstoque" styleClass="msgErro" />
 								</li>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{lojaBB.voltarConsulta}" value="Voltar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{lojaBB.voltarConsulta}" immediate="true" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{lojaBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{lojaBB.excluir}" value="Excluir"></h:commandButton>
 								</li>

@@ -21,6 +21,7 @@
 		<meta http-equiv="description" content="This is my page"/>
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
@@ -47,13 +48,13 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+										<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="4"
 											value="#{produtoBB.id}" size="4" required="true" readonly="true">
 											<f:validateLength maximum="4" />
 											<f:validator validatorId="LongValidator" />
 										</h:inputText>
-										<h:message for="id" styleClass="msgErro" />
 									</div>
+									<h:message for="id" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
@@ -62,8 +63,8 @@
 											size="50" value="#{produtoBB.descricaoCompleta}" required="true">
 											<f:validateLength maximum="50" />
 										</h:inputText>
-										<h:message for="descricaoCompleta" styleClass="msgErro" />
 									</div>
+									<h:message for="descricaoCompleta" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
@@ -72,12 +73,12 @@
 											size="30" value="#{produtoBB.descricaoCompacta}" required="true">
 											<f:validateLength maximum="30" />
 										</h:inputText>
-										<h:message for="descricaoCompacta" styleClass="msgErro" />
 									</div>
+									<h:message for="descricaoCompacta" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Preço Padão*"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Preço Padrão*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="precoPadrao" maxlength="9"
 											size="12" value="#{produtoBB.precoPadrao}" required="true" dir="rtl" onkeypress="Formata('frmManterProduto:precoPadrao',9,2);">
 											<f:validateDoubleRange minimum="0.01" maximum="999999.99"/>
@@ -115,7 +116,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Tipo de Produto*"></h:outputLabel>
 										<h:selectOneMenu id="tipos" styleClass="field select" style="width: 200px;"
-											value="#{produtoBB.idTipoProduto}">		
+											value="#{produtoBB.idTipoProduto}" required="true">		
 											<f:selectItems id="tiposSelectItems" value="#{produtoBB.tipos}" />
 										</h:selectOneMenu>
 										<h:message for="idTipoProduto" styleClass="msgErro" />
@@ -123,7 +124,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Grupo de Produto*"></h:outputLabel>
 										<h:selectOneMenu id="grupos" styleClass="field select" style="width: 200px;"
-											value="#{produtoBB.idGrupo}">		
+											value="#{produtoBB.idGrupo}" required="true">		
 											<f:selectItems id="gruposSelectItems" value="#{produtoBB.grupos}" />
 										</h:selectOneMenu>
 										<h:message for="idGrupo" styleClass="msgErro" />
@@ -133,7 +134,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Unidade*"></h:outputLabel>
 										<h:selectOneMenu id="unidades" styleClass="field select" style="width: 200px;"
-											value="#{produtoBB.idUnidade}">		
+											value="#{produtoBB.idUnidade}" required="true">		
 											<f:selectItems id="unidadeSelectItems" value="#{produtoBB.unidades}" />
 										</h:selectOneMenu>
 										<h:message for="idUnidade" styleClass="msgErro" />
@@ -141,14 +142,27 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Imposto*"></h:outputLabel>
 										<h:selectOneMenu id="impostos" styleClass="field select" style="width: 200px;"
-											value="#{produtoBB.idImposto}">		
+											value="#{produtoBB.idImposto}" required="true">		
 											<f:selectItems id="impostosSelectItems" value="#{produtoBB.impostos}" />
 										</h:selectOneMenu>
 										<h:message for="idImposto" styleClass="msgErro" />
 									</div>
 								</li>
+								<li class="normal">
+									<h:panelGrid columns="5" id="formGrid2" style="width: 400px;">
+										<f:facet name="header">
+											<h:outputText styleClass="tituloTabela-left" value="Lojas associadas ao produto" />
+										</f:facet>			
+										<t:div styleClass="div-auto-scroll" style="width: 100%; height: 100px;">
+											<h:selectManyCheckbox id="listaLojas" layout="pageDirection" required="true" styleClass="label"
+												value="#{produtoBB.listaLojas}" >
+													<f:selectItems value="#{produtoBB.lojas}"/>
+											</h:selectManyCheckbox>
+										</t:div>		
+									</h:panelGrid>
+								</li>
 								<li class="buttons">
-								    <h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{produtoBB.voltarConsulta}" value="Voltar"></h:commandButton>
+								  <h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{produtoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{produtoBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{produtoBB.excluir}" value="Excluir"></h:commandButton>
 								</li>

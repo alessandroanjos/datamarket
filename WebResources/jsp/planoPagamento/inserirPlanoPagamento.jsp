@@ -78,7 +78,7 @@
 									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Forma de Recebimento Associada"></h:outputLabel>
-										<h:selectOneMenu id="idForma" style="width: 200px;" 
+										<h:selectOneMenu id="idForma" styleClass="field select" style="width: 200px;" 
 											value="#{planoPagamentoBB.idForma}"> 
 												  <f:selectItems id="formaSelectItems" 
 												  value="#{planoPagamentoBB.formas}"  />   

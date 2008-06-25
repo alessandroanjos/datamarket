@@ -4,11 +4,6 @@
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
 
-
-
-
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,7 +13,6 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
-
 		<meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="cache-control" content="no-cache" />
 		<meta http-equiv="expires" content="0" />
@@ -26,6 +20,7 @@
 		<meta http-equiv="description" content="This is my page" />
 
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
@@ -33,41 +28,57 @@
 
 		<script language="javascript">
 
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      	$("input.monetario").each(function(i){
+      		$(this).mask("9999.99",{placeholder:" "});
+      	});
+
+      	$("input.inteiro").each(function(i){
+      		$(this).mask("999999999",{placeholder:" "});
+      	});
+
+      	$("input.data").each(function(i){
+      		$(this).mask("99/99/9999",{placeholder:" "});
+      	});
+
+      }
+
+
+
             var formId; // referência ao formulário principal
-
             var winId;  // referência à janela popup
-
             // Esta função faz a chamada da janela popup.
-
             //
-
             function showPopUp(action, form, target) {
-
                   formId=form;
-				  if (winId != null) {
-				      winId.close();
-				  }
+        				  if (winId != null) {
+        				      winId.close();
+        				  }
                   features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-				  winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
-				  // Formulário escondido
+        				  winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
+        				  // Formulário escondido
                   hform=document.forms[form];                
-
             }
 
             // Esta função é chamada pela janela popup 
-
             // quando um usuário clica em um item na listagem.
-
             // O item selecionado é copiado para um campo de texto
-
             // no formulário principal.
-
+            //
              function setAtributo(idProduto,descricao) {
                              var form = document.forms[formId];   
                              form[formId+":idProduto"].value=idProduto; 
                              form[formId+":descricao"].value=descricao;  
                              winId.close();
-            }
+             }
       </script>
 
 	</head>
@@ -210,7 +221,7 @@
 
 
 						<li class="buttons">
-							<h:commandButton styleClass="btTxt" id="botaoVoltar"
+							<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar"
 								action="#{entradaProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 						</li>
 					</ul>

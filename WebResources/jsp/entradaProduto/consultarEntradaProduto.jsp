@@ -21,11 +21,30 @@
 		<meta http-equiv="description" content="This is my page"/>
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 				
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
+      <script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      	$("input.data").each(function(i){
+      		$(this).mask("99/99/9999",{placeholder:" "}); 
+      	});
+
+      }
+
+      </script>
 	</head>
 	<body>
 	<div id="outer">
@@ -56,16 +75,14 @@
 											<div>
 												<h:outputLabel styleClass="desc" value="Data Entrada Inicio"></h:outputLabel>
 												<t:inputText readonly="false" maxlength="10" size="10"
-													styleClass="field text" forceId="dataInicio"
-													value="#{entradaProdutoBB.dataInicio}"
-													onkeypress="FormataData('frmConsultarEntradaProduto:dataInicio');"
+													styleClass="field text data" forceId="dataInicio"
+													value="#{entradaProdutoBB.dataInicio}" onblur="if (!isDate(this.value)) this.value = '';"
 													id="dataInicio" />
 											</div>	
 											<div>	
 												<h:outputLabel styleClass="desc" value=" Data Entrada Final "></h:outputLabel>
-												<t:inputText readonly="false" styleClass="field text"
-													maxlength="10" size="10" forceId="dataFinal"
-													onkeypress="FormataData('frmConsultarEntradaProduto:dataFinal');"
+												<t:inputText readonly="false" styleClass="field text data"
+													maxlength="10" size="10" forceId="dataFinal" onblur="if (!isDate(this.value)) this.value = '';"
 													value="#{entradaProdutoBB.dataFinal}" id="dataFinal" />
 											</div>								
 									</li>

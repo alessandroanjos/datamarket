@@ -5,10 +5,6 @@
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
 
 
-
-
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -17,7 +13,6 @@
 	<head>
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
-
 		
 		<meta http-equiv="pragma" content="no-cache" />
 		<meta http-equiv="cache-control" content="no-cache" />
@@ -26,6 +21,7 @@
 		<meta http-equiv="description" content="This is my page" />
 
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
@@ -33,35 +29,50 @@
 
 		<script language="javascript">
 
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      	$("input.monetario").each(function(i){
+      		$(this).mask("9999.99",{placeholder:" "});
+      	});
+
+      	$("input.inteiro").each(function(i){
+      		$(this).mask("999999999",{placeholder:" "});
+      	});
+
+      	$("input.data").each(function(i){
+      		$(this).mask("99/99/9999",{placeholder:" "});
+      	});
+
+      }
+
             var formId; // referência ao formulário principal
-
             var winId;  // referência à janela popup
-
             // Esta função faz a chamada da janela popup.
-
             //
-
             function showPopUp(action, form, target) {
-
                   formId=form;
-				  if (winId != null) {
-				      winId.close();
-				  }
+        				  if (winId != null) {
+        				      winId.close();
+        				  }
                   features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-				  winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
-				  // Formulário escondido
+        				  winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
+				          // Formulário escondido
                   hform=document.forms[form];                
 
             }
 
             // Esta função é chamada pela janela popup 
-
             // quando um usuário clica em um item na listagem.
-
             // O item selecionado é copiado para um campo de texto
-
             // no formulário principal.
-
+            //
              function setAtributo(idProduto,descricao) {
                              var form = document.forms[formId];   
                              form[formId+":idProduto"].value=idProduto; 
@@ -97,7 +108,7 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+								<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="2"
 									value="#{entradaProdutoBB.id}" size="3" rendered="true">
 									<f:validateLength maximum="2" />
 									<f:validator validatorId="LongValidator" />
@@ -117,18 +128,16 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Data Emissão"></h:outputLabel>
 								<t:inputText readonly="false" maxlength="10" size="10"
-									styleClass="field text" forceId="dataEmissaoNota"
-									value="#{entradaProdutoBB.dataEmissaoNota}"
-									onkeypress="FormataData('frmInserirEntradaProdutos:dataEmissaoNota');"
+									styleClass="field text data" forceId="dataEmissaoNota"
+									value="#{entradaProdutoBB.dataEmissaoNota}" onblur="if (!isDate(this.value)) this.value = '';"
 									id="dataEmissaoNota" />
 								<h:message for="dataEmissaoNota" styleClass="msgErro" />
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Data Entrada"></h:outputLabel>
-								<t:inputText readonly="false" styleClass="field text"
+								<t:inputText readonly="false" styleClass="field text data"
 									maxlength="10" size="10" forceId="dataEntrada"
-									onkeypress="FormataData('frmInserirEntradaProdutos:dataEntrada');"
-									value="#{entradaProdutoBB.dataEntrada}" id="dataEntrada" />
+									value="#{entradaProdutoBB.dataEntrada}" onblur="if (!isDate(this.value)) this.value = '';" id="dataEntrada" />
 								<h:message for="dataEntrada" styleClass="msgErro" />
 							</div>
 							<div>
@@ -141,7 +150,6 @@
 								<h:message for="idFornecedor" styleClass="errors" />
 							</div>
 
-
 						</li>
 
 						<li class="normal">
@@ -152,10 +160,8 @@
 
 							<div>
 								<h:outputLabel styleClass="desc" value="Frete"></h:outputLabel>
-								<h:inputText styleClass="field text" id="frete" maxlength="7"
-									size="7" value="#{entradaProdutoBB.frete}" dir="rtl"
-									required="true"
-									onkeypress="Formata('frmInserirEntradaProdutos:frete',7,2);">
+								<h:inputText styleClass="field monetario" id="frete" maxlength="7"
+									size="7" value="#{entradaProdutoBB.frete}" dir="rtl">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
@@ -165,17 +171,14 @@
 
 							<div>
 								<h:outputLabel styleClass="desc" value="Desc"></h:outputLabel>
-								<h:inputText styleClass="field text" id="desconto" maxlength="7"
-									size="7" value="#{entradaProdutoBB.desconto}" dir="rtl"
-									required="true"
-									onkeypress="Formata('frmInserirEntradaProdutos:desconto',7,2);">
+								<h:inputText styleClass="field monetario" id="desconto" maxlength="7"
+									size="7" value="#{entradaProdutoBB.desconto}" dir="rtl">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 								<h:message for="desconto" styleClass="msgErro" />
 							</div>
-
 							
 							<div>
 								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
@@ -191,8 +194,8 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="idProduto"
-									maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9">
+								<h:inputText styleClass="field text inteiro ativo" id="idProduto"
+									maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9" readonly="true" required="true">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
 								</h:inputText>
@@ -204,7 +207,6 @@
 									maxlength="50" size="50" value="#{entradaProdutoBB.descricao}">
 									<f:validateLength maximum="50" />
 								</h:inputText>
-								
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
@@ -219,10 +221,9 @@
 						<li class="normal">							
 							<div>
 								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
-								<h:inputText styleClass="field text" id="quantidade" maxlength="7"
+								<h:inputText styleClass="field monetario" id="quantidade" maxlength="7"
 									size="7" value="#{entradaProdutoBB.quantidade}" dir="rtl"
-									required="false"
-									onkeypress="Formata('frmInserirEntradaProdutos:quantidade',7,2);">
+									required="false">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
@@ -231,10 +232,9 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Unitário"></h:outputLabel>
-								<h:inputText styleClass="field text" id="precoUnitario" maxlength="7"
+								<h:inputText styleClass="field monetario" id="precoUnitario" maxlength="7"
 									size="7" value="#{entradaProdutoBB.precoUnitario}" dir="rtl"
-									required="false"
-									onkeypress="Formata('frmInserirEntradaProdutos:precoUnitario',7,2);">
+									required="false">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
@@ -243,10 +243,9 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
-								<h:inputText styleClass="field text" id="descontoProduto" maxlength="7"
+								<h:inputText styleClass="field monetario" id="descontoProduto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.descontoProduto}" dir="rtl"
-									required="false"
-									onkeypress="Formata('frmInserirEntradaProdutos:descontoProduto',7,2);">
+									required="false">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
@@ -255,10 +254,9 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
-								<h:inputText styleClass="field text" id="icmsProduto" maxlength="7"
+								<h:inputText styleClass="field monetario" id="icmsProduto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.icmsProduto}" dir="rtl"
-									required="false"
-									onkeypress="Formata('frmInserirEntradaProdutos:icmsProduto',7,2);">
+									required="false">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
@@ -267,10 +265,9 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
-								<h:inputText styleClass="field text" id="ipiProduto" maxlength="7"
+								<h:inputText styleClass="field monetario" id="ipiProduto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.ipiProduto}" dir="rtl"
-									required="false"
-									onkeypress="Formata('frmInserirEntradaProdutos:ipiProduto',7,2);">
+									required="false">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
