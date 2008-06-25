@@ -414,21 +414,20 @@ public class UsuarioBackBean extends BackBean {
 	public String excluir(){
 		try {
 			Usuario usuario = null;
-			if (this.vendedor.equals(SIM)){
-				Vendedor vendedor = new Vendedor();
+			if (this.getVendedor().equals(SIM)){
+				usuario = new Vendedor();
 				if (this.comissao != null && !"".equals(this.comissao)){
-					vendedor.setComissao(new BigDecimal(this.comissao));
+					((Vendedor)usuario).setComissao(new BigDecimal(this.comissao));
 				}
-				usuario = vendedor;
 			}else{
 				usuario = new Usuario();
 			}
 			usuario.setId(new Long(this.getId()));
 			
 			usuario.setNome(this.getNome());
-
+//
 			usuario.setSenha(this.getSenha());
-			
+//			
 			if (!this.getIdPerfil().equals("0")) {
 				Perfil perfil = getFachada().consultarPerfilPorPK(
 						new Long(this.getIdPerfil()));
@@ -474,7 +473,7 @@ public class UsuarioBackBean extends BackBean {
 		this.setNome(null);
 		this.setSenha(null);
 		this.setPerfil(null);
-		this.setIdPerfil(null);
+//		this.setIdPerfil(null);
 		this.setListaLojasAssociadas(null);
 		this.setLojas(null);
 //		this.setListaUsuarios(null);
@@ -483,7 +482,8 @@ public class UsuarioBackBean extends BackBean {
 	}
 
 	public String voltarConsulta(){
-		resetBB();
+//		resetBB();
+		consultar();
 		return "voltar";
 	}
 	public String voltarMenu(){
