@@ -12,7 +12,7 @@
             name="id"
             column="ID"
             type="java.lang.Long"
-            length="2"
+            length="4"
             unsaved-value="null"
         >
             <generator class="assigned">
