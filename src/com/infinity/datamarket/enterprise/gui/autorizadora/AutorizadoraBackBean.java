@@ -23,7 +23,7 @@ public class AutorizadoraBackBean extends BackBean {
 	Collection autorizadoras;
 
 	public String voltarConsulta(){
-		resetBB();
+		consultar();
 		return "voltar";
 	}
 	public String voltarMenu(){
@@ -83,6 +83,7 @@ public class AutorizadoraBackBean extends BackBean {
 				filter.addProperty("descricao", getDescricao());
 				Collection col = getFachada().consultarFormaRecebimento(filter);
 				if (col == null || col.size() == 0){
+					setExisteRegistros(false);
 					this.setAutorizadoras(col);
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -97,25 +98,33 @@ public class AutorizadoraBackBean extends BackBean {
 						this.setDesagil(autorizadora.getDesagil());
 						return "proxima";
 					}else{
+						setExisteRegistros(true);
 						this.setAutorizadoras(col);
 					}
 				}
 			}else{
-				setAutorizadoras(getFachada().consultarTodasAutorizadoras());
+				Collection c = getFachada().consultarTodasAutorizadoras();
+				if(c != null && c.size() > 0){
+					setExisteRegistros(true);
+					setAutorizadoras(c);
+				}else{
+					setExisteRegistros(false);	
+				}				
 			}
 		}catch(ObjectNotFoundException e){
+			setExisteRegistros(false);
 			this.setAutorizadoras(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);			
 		}catch(Exception e){
+			setExisteRegistros(false);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
 		return "mesma";
 	}
 	
@@ -170,12 +179,11 @@ public class AutorizadoraBackBean extends BackBean {
 		return "mesma";
 	}
 	
-	public String resetBB(){
+	public void resetBB(){
 		this.setId(null);
 		this.setDescricao(null);
 		this.setDesagil(null);
-		this.setSituacao(null);
-		return "mesma";
+		this.setSituacao("N");		
 	}
 	/**
 	 * @return the desagil
