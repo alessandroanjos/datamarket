@@ -67,7 +67,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable id="componentes" value="#{formaRecebimentoBB.formasRecebimentos}"
-									var="formas" rowClasses="rowA,rowB" width="100%">
+									var="formas" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -82,7 +82,14 @@
 											<f:param name="id" value="#{formas.id}"/>						
 										</h:commandLink>
 									</h:column>
-								</t:dataTable>																
+								</t:dataTable>	
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not formaRecebimentoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>															
 							</div>
 							<ul>
 								<li class="buttons">
