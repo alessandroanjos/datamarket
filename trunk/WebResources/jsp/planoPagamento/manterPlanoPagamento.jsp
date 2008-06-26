@@ -49,7 +49,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
-											value="#{planoPagamentoBB.id}" size="3" rendered="true">
+											value="#{planoPagamentoBB.id}" size="3" required="true" readonly="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>
