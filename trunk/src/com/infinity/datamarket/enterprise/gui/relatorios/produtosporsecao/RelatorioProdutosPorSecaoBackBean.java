@@ -24,7 +24,7 @@ import com.infinity.datamarket.comum.produto.GrupoProduto;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
-import com.infinity.datamarket.report.ConstantsReport;
+//import com.infinity.datamarket.report.ConstantsReport;
 
 /**
  * @author jonas
@@ -123,22 +123,22 @@ public class RelatorioProdutosPorSecaoBackBean extends BackBean {
 		
 		String raizTemplate = "C:\\MyEclipse\\workspace\\EnterpriseServer\\src\\com\\infinity\\datamarket\\templatesreports";
 		
-		System.out.println("caminho do relatorio: "+raizTemplate + File.separator + "jasper" + File.separator + NOME_RELATORIO + ConstantsReport.EXTENSAO_JASPER);
+//		System.out.println("caminho do relatorio: "+raizTemplate + File.separator + "jasper" + File.separator + NOME_RELATORIO + ConstantsReport.EXTENSAO_JASPER);
 		
 		String relatorioProdutosPorSecao = raizTemplate + File.separator + "jasper" + File.separator + NOME_RELATORIO;
 
 		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(produtos);
 		
-		try {
-			JasperPrint jPrint = JasperFillManager.fillReport(relatorioProdutosPorSecao + ConstantsReport.EXTENSAO_JASPER, parametros, ds);
-			
-			JasperExportManager.exportReportToPdfFile(jPrint, relatorioProdutosPorSecao + ConstantsReport.EXTENSAO_PDF);
-		} catch (JRException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		this.setNomeRelatorio(relatorioProdutosPorSecao + ConstantsReport.EXTENSAO_PDF);
+//		try {
+//			JasperPrint jPrint = JasperFillManager.fillReport(relatorioProdutosPorSecao + ConstantsReport.EXTENSAO_JASPER, parametros, ds);
+//			
+//			JasperExportManager.exportReportToPdfFile(jPrint, relatorioProdutosPorSecao + ConstantsReport.EXTENSAO_PDF);
+//		} catch (JRException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		this.setNomeRelatorio(relatorioProdutosPorSecao + ConstantsReport.EXTENSAO_PDF);
 		
 		return "mesma";
 	}
