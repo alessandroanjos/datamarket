@@ -65,7 +65,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="4"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="4"
 											value="#{componenteBB.id}" size="4" required="true">
 											<f:validateLength maximum="4" />
 											<f:validator validatorId="LongValidator"/>
@@ -87,7 +87,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Numero IP*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="ip" maxlength="15" size="15"
-											value="#{componenteBB.ip}" required="true" onblur="if (!verificaIP(this.value)) this.value = '';">
+											value="#{componenteBB.ip}" required="true">
 											<f:validateLength maximum="15" />
 										</h:inputText>
 									</div>
@@ -115,7 +115,7 @@
 									<h:message for="idLoja" styleClass="msgErro" />
 								</li>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" action="#{componenteBB.resetBB}" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{componenteBB.inserir}" value="Inserir"></h:commandButton>
 								</li>
 							</ul>
