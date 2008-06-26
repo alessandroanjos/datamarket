@@ -1428,6 +1428,16 @@
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>		
+		<managed-property>
+		    <property-name>idFormaTroco</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>formas</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
 	</managed-bean>
 
 	<!-- LOJA BACK BEAN -->
