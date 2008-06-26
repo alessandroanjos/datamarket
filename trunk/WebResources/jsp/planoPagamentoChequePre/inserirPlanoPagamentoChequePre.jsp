@@ -26,8 +26,17 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>	
+		<script type="text/javascript">
+			function marcaMenuTab(){
+				if(document.getElementById("abaCorrente") != undefined && document.getElementById("abaCorrente").value != ""){
+					alert(document.getElementById("abaCorrente").value);
+					selecionaMenuTab(document.getElementById("abaCorrente").value);				
+				}
+			}
+		</script>
 	</head>
-	<body>
+	<body onload="marcaMenuTab();">
+
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
@@ -52,9 +61,8 @@
 								</div>
 							</li>
 						</ul>
-<!-- xxxxxxxxxxxxxxx -->					
-		<h:form id="frmInserirPlanoPagamentoChequePre">
-<!-- xxxxxxxxxxxxxxx -->					
+					<h:form id="frmInserirPlanoPagamentoChequePre">
+						<input type="hidden" id="abaCorrente" name="abaCorrente" />
 						<div id="tabDiv0">
 							<ul>								
 								<li class="normal">
@@ -160,7 +168,7 @@
 								</li>
 							</ul>
 						</div>
-						<div id="tabDiv1" style="display:none;">
+						<div id="tabDiv1"  style="display:none;">
 							<ul>
 								<li class="normal">
 									<div>
@@ -204,8 +212,8 @@
 													<div style="vertical-align: bottom;">
 														<h:commandButton styleClass="btTxt" id="botaoInserirParcela" action="#{planoPagamentoChequePreBB.inserirParcela}" value="Inserir Parcela"></h:commandButton>
 													</div>
-													<br />
-
+												<br/>
+												<br/>												
 													<div class="listagemSimples">
 														<t:dataTable value="#{planoPagamentoChequePreBB.parcelas}"
 															var="parcela" rowClasses="rowA,rowB" width="100%">
@@ -229,12 +237,11 @@
 															</h:column>	
 															<h:column>
 																<f:facet name="header">
-																	<h:outputText value="Excluir" />
+																	<h:outputText value="Ação" />
 																</f:facet>
-																<h:commandLink  value=""
-																	action="#{planoPagamentoChequePreBB.excluirParcela}">
-																	<h:commandButton type="button" image="/images/excluir.gif"/>
-																	
+																<
+																<h:commandLink  value="Excluir" 
+																	action="#{planoPagamentoChequePreBB.excluirParcela}">																	
 																	<f:param name="idExcluir" value="#{parcela.pk.numeroEntrada}" />
 																</h:commandLink>
 															</h:column>													

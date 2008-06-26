@@ -31,7 +31,7 @@
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
 				<strong>
-					<h:outputText value="#{msgs.manterPlanoPagamentoChequePre}"></h:outputText>
+					<h:outputText value="#{msgs.consultarPlanoPagamentoChequePre}"></h:outputText>
 				</strong>
 			</div>				
 		</div>	
@@ -66,7 +66,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{planoPagamentoChequePreBB.planos}"
-									var="planosChequePre" rowClasses="rowA,rowB" width="100%">
+									var="planosChequePre" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -81,7 +81,14 @@
 											<f:param name="id" value="#{planosChequePre.id}"/>						
 										</h:commandLink>
 									</h:column>
-								</t:dataTable>																
+								</t:dataTable>	
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not planoPagamentoChequePreBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>															
 							</div>
 							<ul>
 								<li class="buttons">
