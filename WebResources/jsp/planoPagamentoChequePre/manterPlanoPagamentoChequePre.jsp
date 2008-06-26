@@ -51,10 +51,8 @@
 									<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 								</div>
 							</li>
-						</ul>
-<!-- xxxxxxxxxxxxxxx -->					
-		<h:form id="frmManterPlanoPagamentoChequePre">
-<!-- xxxxxxxxxxxxxxx -->					
+						</ul>		
+						<h:form id="frmManterPlanoPagamentoChequePre">			
 						<div id="tabDiv0">
 							<ul>								
 								<li class="normal">
@@ -205,7 +203,7 @@
 														<h:commandButton styleClass="btTxt" id="botaoInserirParcela" action="#{planoPagamentoChequePreBB.inserirParcela}" value="Inserir Parcela"></h:commandButton>
 													</div>
 													<br />
-
+													<br />
 													<div class="listagemSimples">
 														<t:dataTable value="#{planoPagamentoChequePreBB.parcelas}"
 															var="parcela" rowClasses="rowA,rowB" width="100%">
@@ -229,11 +227,10 @@
 															</h:column>	
 															<h:column>
 																<f:facet name="header">
-																	<h:outputText value="Excluir" />
+																	<h:outputText value="Ação" />
 																</f:facet>
-																<h:commandLink  value=""
-																	action="#{planoPagamentoChequePreBB.excluirParcela}">
-																	<h:commandButton type="button" image="/EnterpriseServer/images/tree/TortoiseDeleted.jpg"/>																	
+																<h:commandLink  value="Excluir" 
+																	action="#{planoPagamentoChequePreBB.excluirParcela}">																	
 																	<f:param name="idExcluir" value="#{parcela.pk.numeroEntrada}" />
 																</h:commandLink>
 															</h:column>													
