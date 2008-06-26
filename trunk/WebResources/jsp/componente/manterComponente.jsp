@@ -115,7 +115,7 @@
 									<h:message for="idLoja" styleClass="msgErro" />
 								</li>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{componenteBB.voltarConsulta}" immediate="true" value="Voltar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{componenteBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{componenteBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{componenteBB.excluir}" value="Excluir"></h:commandButton>
 								</li>
