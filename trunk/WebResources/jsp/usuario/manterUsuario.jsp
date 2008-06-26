@@ -121,7 +121,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Vendedor*"></h:outputLabel>
-										<h:selectOneRadio styleClass="field select" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
+										<h:selectOneRadio styleClass="field select" id="vendedor" readonly="true" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
 										    <f:selectItem itemLabel="Sim" itemValue="S"/>
 										    <f:selectItem itemLabel="Não" itemValue="N"/>
 										</h:selectOneRadio>
