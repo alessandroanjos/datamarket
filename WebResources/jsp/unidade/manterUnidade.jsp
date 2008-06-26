@@ -87,10 +87,9 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição Compacta*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="descricaoCompacta" maxlength="50"
-											value="#{unidadeBB.descricaoCompacta}" size="50" required="true">
-											<f:validateLength maximum="2" />
-											<f:validator validatorId="LongValidator" />
+										<h:inputText styleClass="field text ativo" id="descricaoCompacta" maxlength="20"
+											value="#{unidadeBB.descricaoCompacta}" size="20" required="true">
+											<f:validateLength maximum="20" />
 										</h:inputText>
 									</div>
 									<h:message for="descricaoCompacta" styleClass="msgErro" />

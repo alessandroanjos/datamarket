@@ -174,7 +174,8 @@ public class TipoProdutoBackBean extends BackBean{
 	}
 	
 	public String voltarConsulta(){
-		resetBB();
+//		resetBB();
+		consultar();
 		return "voltar";
 	}
 	public String voltarMenu(){

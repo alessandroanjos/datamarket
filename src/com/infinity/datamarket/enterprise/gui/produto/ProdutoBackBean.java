@@ -324,6 +324,7 @@ public class ProdutoBackBean extends BackBean{
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			resetBB();
 		} catch (ValidationException e){
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -335,7 +336,6 @@ public class ProdutoBackBean extends BackBean{
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
 		return "mesma";
 	}
 	
@@ -346,6 +346,7 @@ public class ProdutoBackBean extends BackBean{
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -353,7 +354,6 @@ public class ProdutoBackBean extends BackBean{
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
 		return "mesma";
 	}
 	
@@ -375,7 +375,8 @@ public class ProdutoBackBean extends BackBean{
 	}
 	
 	public String voltarConsulta(){
-		resetBB();
+		// resetBB();
+		consultar();
 		return "voltar";
 	}
 	public String voltarMenu(){
