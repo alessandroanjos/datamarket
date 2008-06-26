@@ -26,6 +26,7 @@
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
 	</head>
+	<body>
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
@@ -66,7 +67,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable id="componentes" value="#{autorizadoraBB.autorizadoras}"
-									var="autorizadora" rowClasses="rowA,rowB" width="100%">
+									var="autorizadora" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -93,7 +94,14 @@
 										</f:facet>
 										<h:outputText value="#{autorizadora.desagil}"/> 
 									</h:column>
-								</t:dataTable>																
+								</t:dataTable>	
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not autorizadoraBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>															
 							</div>
 							<ul>
 								<li class="buttons">
