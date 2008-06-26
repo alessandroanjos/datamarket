@@ -27,28 +27,6 @@
 			
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
-      <script type="text/javascript">
-
-      window.onload = function(){ inicializar() };
-
-      function inicializar() {
-
-      	$("input.field, select.field").each(function(i){
-      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
-      		$(this).blur(function() {this.style.backgroundColor = ""});
-      	});
-
-      	$("input.monetario").each(function(i){
-      		$(this).mask("99.99",{placeholder:" "});
-      	});
-
-      	$("input.inteiro").each(function(i){
-      		$(this).mask("99",{placeholder:" "});
-      	});
-
-      }
-
-      </script>
 		</head>
 		<body>
 			<div id="outer">
@@ -79,7 +57,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" style="float:none;" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="2"
+											<h:inputText styleClass="field text ativo" id="id" maxlength="2"
 												value="#{usuarioBB.id}" size="3" required="true">
 												<f:validateLength maximum="2" />
 												<f:validator validatorId="LongValidator"/>
@@ -132,7 +110,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Perc. Comissão"></h:outputLabel>
-											<h:inputText styleClass="field monetario" id="comissao" maxlength="5" size="5"
+											<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5"
 												value="#{usuarioBB.comissao}" required="false" dir="rtl">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
