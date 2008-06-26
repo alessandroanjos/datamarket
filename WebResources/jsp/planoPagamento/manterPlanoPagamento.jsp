@@ -53,18 +53,20 @@
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>
-										<h:message for="id" styleClass="msgErro"/>
+										
 									</div>
+									<h:message for="id" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" rendered="true"
+										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" required="true"
 											value="#{planoPagamentoBB.descricao}">
 											<f:validateLength maximum="50" />
 										</h:inputText>
-										<h:message for="descricao" styleClass="msgErro"/>
+										
 									</div>
+									<h:message for="descricao" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
@@ -77,9 +79,9 @@
 										<h:message for="status" styleClass="msgErro"/>
 									</div>								
 									<div>
-										<h:outputLabel styleClass="desc" value="Forma de Recebimento Associada"></h:outputLabel>
-										<h:selectOneMenu id="idForma" style="width: 200px;" 
-											value="#{planoPagamentoBB.idForma}"> 
+										<h:outputLabel styleClass="desc" value="Forma de Receb. Associada"></h:outputLabel>
+										<h:selectOneMenu id="idForma" styleClass="field select" style="width: 190px;" 
+											value="#{planoPagamentoBB.idForma}" required="true"> 
 												  <f:selectItems id="formaSelectItems" 
 												  value="#{planoPagamentoBB.formas}"  />   
 										</h:selectOneMenu>
@@ -90,7 +92,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Mínimo"></h:outputLabel>
 										<h:inputText styleClass="field text" id="valorMinimo" maxlength="10" size="10"
-											value="#{planoPagamentoBB.valorMinimo}" dir="rtl" required="true" onkeypress="Formata('frmInserirPlanoPagamento:valorMinimo',9,2);">
+											value="#{planoPagamentoBB.valorMinimo}" dir="rtl" required="false" onkeypress="Formata('frmInserirPlanoPagamento:valorMinimo',9,2);">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.01" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -100,7 +102,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Máximo"></h:outputLabel>
 										<h:inputText styleClass="field text" id="valorMaximo" maxlength="10" size="10"
-											value="#{planoPagamentoBB.valorMaximo}" dir="rtl" required="true" onkeypress="Formata('frmInserirPlanoPagamento:valorMaximo',9,2);">
+											value="#{planoPagamentoBB.valorMaximo}" dir="rtl" required="false" onkeypress="Formata('frmInserirPlanoPagamento:valorMaximo',9,2);">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.01" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -112,7 +114,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Perc. Desconto"></h:outputLabel>
 										<h:inputText styleClass="field text" id="percentualDesconto" maxlength="5" size="5"
-											value="#{planoPagamentoBB.percDesconto}" dir="rtl" required="true" onkeypress="Formata('frmInserirPlanoPagamento:percentualDesconto',5,2);">
+											value="#{planoPagamentoBB.percDesconto}" dir="rtl" required="false" onkeypress="Formata('frmInserirPlanoPagamento:percentualDesconto',5,2);">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -122,7 +124,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Perc. Acréscimo"></h:outputLabel>
 										<h:inputText styleClass="field text" id="percentualAcrescimo" maxlength="5" size="5"
-											value="#{planoPagamentoBB.percAcrescimo}" dir="rtl" required="true" onkeypress="Formata('frmInserirPlanoPagamento:percentualAcrescimo',5,2);">
+											value="#{planoPagamentoBB.percAcrescimo}" dir="rtl" required="false" onkeypress="Formata('frmInserirPlanoPagamento:percentualAcrescimo',5,2);">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -133,7 +135,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Inicio Validade"></h:outputLabel>
-										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10"
+										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10" required="false"
 											value="#{planoPagamentoBB.dataInicioValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirPlanoPagamento:dataInicioValidade');">
 											
 										</h:inputText>
@@ -141,15 +143,14 @@
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Final Validade"></h:outputLabel>
-										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10"
+										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10" required="false"
 											value="#{planoPagamentoBB.dataFimValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirPlanoPagamento:dataFimValidade');">
 										</h:inputText>
 										<h:message for="dataFimValidade" styleClass="msgErro"/>
 									</div>
 								</li>
 								<li class="buttons">
-																	<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{planoPagamentoBB.voltarConsulta}" value="Voltar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{planoPagamentoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{planoPagamentoBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{planoPagamentoBB.excluir}" value="Excluir"></h:commandButton>
 								</li>
