@@ -34,7 +34,8 @@ public class ComponenteBackBean extends BackBean {
 
 	
 	public String voltarConsulta(){
-		resetBB();
+//		resetBB();
+		consultar();
 		return "voltar";
 	}
 	public String voltarMenu(){
@@ -64,6 +65,9 @@ public class ComponenteBackBean extends BackBean {
 	}
 
 
+	public void validarComponentePorLoja(Componente componente){
+		
+	}
 	
 	
 	public String inserir(){
@@ -79,6 +83,8 @@ public class ComponenteBackBean extends BackBean {
 	    componente.setLoja(loja);
 	    
 		try {
+			validarComponentePorLoja(componente);
+			
 			getFachada().inserirComponente(componente);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -124,6 +130,7 @@ public class ComponenteBackBean extends BackBean {
 				filter.addProperty("descricao", getDescricao());
 				Collection col = getFachada().consultarComponentes(filter);
 				if (col == null || col.size() == 0){
+					setExisteRegistros(false);
 					this.setComponentes(null);
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -230,15 +237,15 @@ public class ComponenteBackBean extends BackBean {
 		return "mesma";
 	}
 	
-	public String resetBB(){
+	public void resetBB(){
 		this.setId(null);
 		this.setDescricao(null);
 		this.setIp(null);
 		this.setVersao("");
 		this.setPorta(null);
 		this.setIdLoja(null);
-		return "mesma";
 	}
+	
     private List<Loja> carregarLojas() {
 		
 		List<Loja> lojas = null;
