@@ -25,13 +25,14 @@
 				<div id="content" style="margin-top:20px;">
 					<div id="primarioContentContainer">
 						<div id="primarioContent">			
-							<div class="box">
+							<!-- <div class="box">
 								<h2>Bem Vindo!</h2>
 								<div class="boxContent">
 									<p>Este sistema é parte de um conjunto de aplicações que foram desenvolvidas visando <strong>gerenciar</strong>, <strong>informar</strong> e <strong>ajudar na tomada de decis&atilde;o</strong> de sua empresa.</p>
 									<p>Para usá-lo <strong>é necessário ter registrado</strong> junto ao administrador de sistema <strong>um usuário e senha</strong>.</p>
 								</div>
 							</div>			
+							 -->
 						</div>
 					</div>
 					<div id="secundarioContent">			
