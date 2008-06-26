@@ -19,10 +19,33 @@
 			<meta http-equiv="description" content="This is my page"/>
 			
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
+      <script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      	$("input.monetario").each(function(i){
+      		$(this).mask("999.99",{placeholder:" "});
+      	});
+
+      	$("input.inteiro").each(function(i){
+      		$(this).mask("9999",{placeholder:" "});
+      	});
+
+      }
+
+      </script>
 		</head>
 		<body>			
 			<div id="outer">
@@ -54,14 +77,14 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id"
-												maxlength="2" value="#{perfilBB.id}" size="2"
+											<h:inputText styleClass="field text inteiro ativo" id="id"
+												maxlength="4" value="#{perfilBB.id}" size="4"
 												required="true">
-												<f:validateLength maximum="2" />
+												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator" />
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />										
 										</div>
+										<h:message for="id" styleClass="msgErro" />										
 									</li>
 									<li class="normal">
 										<div>
@@ -69,8 +92,8 @@
 											<h:inputText styleClass="field text" id="descricao" maxlength="20" size="20" value="#{perfilBB.descricao}" required="true">
 												<f:validateLength maximum="20" />
 											</h:inputText>
-											<h:message for="descricao" styleClass="msgErro" />									
 										</div>
+										<h:message for="descricao" styleClass="msgErro" />									
 									</li>
 									<li class="normal">
 										<div>
@@ -78,22 +101,22 @@
 											<h:selectOneMenu id="perfis" styleClass="field select" value="#{perfilBB.idPerfilSuperior}" style="width: 200px;">
 												<f:selectItems id="perfilSuperiorSelectItems" value="#{perfilBB.perfis}" />
 											</h:selectOneMenu>
-											<h:message for="perfilSuperior" styleClass="msgErro" />	
 										</div>
+										<h:message for="perfilSuperior" styleClass="msgErro" />	
 									</li>
 									<li class="normal">
 										<div>
-											<h:outputLabel styleClass="desc" value="Percentual de Desconto*"></h:outputLabel>
-											<h:inputText styleClass="text field" dir="rtl" id="percentualDesconto" maxlength="6" size="6" value="#{perfilBB.percentualDesconto}" required="true" onkeypress="Formata('frmInserirPerfil:percentualDesconto',5,2);">
+											<h:outputLabel styleClass="desc" value="Perc. de Desconto*"></h:outputLabel>
+											<h:inputText styleClass="field monetario" dir="rtl" id="percentualDesconto" maxlength="6" size="6" value="#{perfilBB.percentualDesconto}" required="true">
 												<f:validateLength maximum="6" />
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
-											<h:message for="percentualDesconto" styleClass="msgErro" />							
 										</div>
+										<h:message for="percentualDesconto" styleClass="msgErro" />							
 									</li>
 								</ul>
-								<br /><br /><br /><br /><br /><br />
+								<br /><br /><br />
 							</div>
 							<div id="tabDiv1" style="display:none;">
 								<ul>
