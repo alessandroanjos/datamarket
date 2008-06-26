@@ -131,11 +131,11 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			throw new Exception("O campo Valor Máximo é obrigatório.");
 		}
 		
-		if(this.getPercDesconto() == null || this.getPercDesconto().compareTo(new BigDecimal("0")) <= 0){
+		if(this.getPercDesconto() == null || this.getPercDesconto().compareTo(new BigDecimal("0")) < 0){
 			throw new Exception("O campo Percentual de Desconto é obrigatório.");
 		}
 		
-		if(this.getPercAcrescimo() == null || this.getPercAcrescimo().compareTo(new BigDecimal("0")) <= 0){
+		if(this.getPercAcrescimo() == null || this.getPercAcrescimo().compareTo(new BigDecimal("0")) < 0){
 			throw new Exception("O campo Percentual de Acréscimo é obrigatório.");
 		}
 
@@ -363,10 +363,11 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 				Collection c = getFachada().consultarTodosPlanosChequePre();
 				if(c != null && c.size() > 0){
 					setExisteRegistros(true);
+					setPlanos(c);
 				}else{
 					setExisteRegistros(false);
-				}
-				setPlanos(c);
+					setPlanos(null);
+				}				
 			}
 		}catch(ObjectNotFoundException e){
 			setExisteRegistros(false);
@@ -382,8 +383,8 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		this.setId(null);
-		this.setDescricao(null);
+//		this.setId(null);
+//		this.setDescricao(null);
 		this.setStatus(null);
 		this.setValorMaximo(null);
 		this.setValorMinimo(null);
