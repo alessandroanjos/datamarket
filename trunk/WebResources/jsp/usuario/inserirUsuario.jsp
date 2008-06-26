@@ -81,7 +81,7 @@
 											<h:outputLabel styleClass="desc" style="float:none;" value="Código*"></h:outputLabel>
 											<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="2"
 												value="#{usuarioBB.id}" size="3" required="true">
-												<f:validateLength minimum="1" maximum="2" />
+												<f:validateLength maximum="2" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
 										</div>
@@ -102,7 +102,7 @@
 											<h:outputLabel styleClass="desc" value="Senha*"></h:outputLabel>
 											<h:inputSecret styleClass="field text" id="senha" redisplay="true" maxlength="20" size="25"
 												value="#{usuarioBB.senha}" required="true">
-												<f:validateLength minimum="6" maximum="20" />
+												<f:validateLength maximum="20" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputSecret>
 										</div>
@@ -131,9 +131,9 @@
 									</li>
 									<li class="normal">
 										<div>
-											<h:outputLabel styleClass="desc" value="Valor Comissão"></h:outputLabel>
+											<h:outputLabel styleClass="desc" value="Perc. Comissão"></h:outputLabel>
 											<h:inputText styleClass="field monetario" id="comissao" maxlength="5" size="5"
-												value="#{usuarioBB.comissao}" required="true" >
+												value="#{usuarioBB.comissao}" required="false" dir="rtl">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 												<f:validator validatorId="BigDecimalValidator"/>
