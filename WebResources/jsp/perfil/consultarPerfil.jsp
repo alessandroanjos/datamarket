@@ -25,28 +25,6 @@
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
-      <script type="text/javascript">
-
-      window.onload = function(){ inicializar() };
-
-      function inicializar() {
-
-      	$("input.field, select.field").each(function(i){
-      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
-      		$(this).blur(function() {this.style.backgroundColor = ""});
-      	});
-
-      	$("input.monetario").each(function(i){
-      		$(this).mask("999.99",{placeholder:" "});
-      	});
-
-      	$("input.inteiro").each(function(i){
-      		$(this).mask("9999",{placeholder:" "});
-      	});
-
-      }
-
-      </script>
 		</head>
 		<body>			
 			<div id="outer">

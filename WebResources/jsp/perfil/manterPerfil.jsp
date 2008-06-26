@@ -24,28 +24,6 @@
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
-      <script type="text/javascript">
-
-      window.onload = function(){ inicializar() };
-
-      function inicializar() {
-
-      	$("input.field, select.field").each(function(i){
-      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
-      		$(this).blur(function() {this.style.backgroundColor = ""});
-      	});
-
-      	$("input.monetario").each(function(i){
-      		$(this).mask("999.99",{placeholder:" "});
-      	});
-
-      	$("input.inteiro").each(function(i){
-      		$(this).mask("99",{placeholder:" "});
-      	});
-
-      }
-
-      </script>
 		</head>
 		<body>			
 			<div id="outer">
@@ -72,7 +50,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text inteiro ativo" id="id"
+											<h:inputText styleClass="field text ativo" id="id"
 												maxlength="2" value="#{perfilBB.id}" size="2"
 												required="true" readonly="true">
 												<f:validateLength maximum="2" />
@@ -102,7 +80,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Percentual de Desconto*"></h:outputLabel>
-											<h:inputText styleClass="field monetario" dir="rtl" id="percentualDesconto" maxlength="6" size="6" value="#{perfilBB.percentualDesconto}" required="true">
+											<h:inputText styleClass="field text" dir="rtl" id="percentualDesconto" maxlength="6" size="6" value="#{perfilBB.percentualDesconto}" required="true">
 												<f:validateLength maximum="6" />
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 												<f:validator validatorId="BigDecimalValidator" />
