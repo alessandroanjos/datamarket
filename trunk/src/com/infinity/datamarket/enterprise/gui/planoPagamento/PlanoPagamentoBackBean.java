@@ -47,7 +47,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 //	}
 	
 	public String voltarConsulta(){
-		resetBB();
+		consultar();
 		return "voltar";
 	}
 	public String voltarMenu(){
@@ -63,7 +63,6 @@ public class PlanoPagamentoBackBean extends BackBean {
 	public void setId(String id) {
 		this.id = id;
 	}
-
 
 	public Collection getPlanos() {
 		return planos;
@@ -93,7 +92,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		}
 		return "mesma";
@@ -128,6 +127,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 				filter.addProperty("descricao", getDescricao());
 				Collection col = getFachada().consultarPlanoPagamento(filter);
 				if (col == null || col.size() == 0){
+					setExisteRegistros(false);
 					this.setPlanos(col);
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -148,6 +148,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 				        this.setIdForma(planoPagamento.getForma().getId().toString());
 						return "proxima";
 					}else{
+						setExisteRegistros(true);
 						this.setPlanos(col);
 					}
 				}
@@ -203,7 +204,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		}
 		return "mesma";
@@ -362,7 +363,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 		this.situacaoItens = situacaoItens;
 	}
 	
-	public void preenchePlanoPagamento(PlanoPagamento plano, String acao){
+	public void preenchePlanoPagamento(PlanoPagamento plano, String acao) throws Exception{
 		PlanoPagamento planoPagamento = null;
 		
 		if(plano instanceof PlanoPagamentoChequePredatado){
@@ -380,9 +381,12 @@ public class PlanoPagamentoBackBean extends BackBean {
 		planoPagamento.setPercDesconto(this.percDesconto);
 		planoPagamento.setDataInicioValidade(this.dataInicioValidade);
 		planoPagamento.setDataFimValidade(this.dataFimValidade);
-		
-		FormaRecebimento forma = new FormaRecebimento();
-		forma.setId(new Long(this.idForma));
-		planoPagamento.setForma(forma);
+		if(this.getIdForma() != null && !this.getIdForma().equals("0")){
+			FormaRecebimento forma = new FormaRecebimento();
+			forma.setId(new Long(this.getIdForma()));
+			planoPagamento.setForma(forma);
+		}else{
+			throw new Exception("É obrigatório selecionar uma Forma de Recebimento Associada.");
+		}
 	}
 }
