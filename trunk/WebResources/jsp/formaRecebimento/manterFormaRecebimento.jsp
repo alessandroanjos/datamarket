@@ -36,8 +36,8 @@
 						</strong>
 					</div>				
 				</div>
-		<h:form id="frmManterFormaRecebimento">
-				<div id="content">
+				<h:form id="frmManterFormaRecebimento">
+					<div id="content">
 						<div id="primarioContentContainerInternas">
 							<ul>
 								<li class="normal">
@@ -49,7 +49,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
-											value="#{formaRecebimentoBB.id}" size="3" rendered="true" readonly="true">
+											value="#{formaRecebimentoBB.id}" size="3" required="true" readonly="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>
@@ -59,7 +59,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" rendered="true"
+										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" required="true"
 											value="#{formaRecebimentoBB.descricao}">
 											<f:validateLength maximum="50" />
 										</h:inputText>
@@ -68,8 +68,8 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Recebimento na Impressora"></h:outputLabel>
-										<h:inputText styleClass="field text" id="recebimentoImpressora" maxlength="50" size="50"
+										<h:outputLabel styleClass="desc" value="Recebimento na Impressora*"></h:outputLabel>
+										<h:inputText styleClass="field text" id="recebimentoImpressora" maxlength="50" size="50" required="false"
 											value="#{formaRecebimentoBB.recebimentoImpressora}">
 											<f:validateLength maximum="50" />
 										</h:inputText>
@@ -89,47 +89,62 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Valor Limite Sangria"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Valor Limite Sangria*"></h:outputLabel>
+										
 										<h:inputText styleClass="field text" id="valorLimiteSangria" maxlength="10" size="10"
 											value="#{formaRecebimentoBB.valorLimiteSangria}" dir="rtl" required="true" onkeypress="Formata('frmManterFormaRecebimento:valorLimiteSangria',9,2);">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
 										</h:inputText>
-										<h:message for="valorLimiteSangria" styleClass="msgErro"/>
+										
 									</div>
-									
+									<h:message for="valorLimiteSangria" styleClass="msgErro"/>
+								</li>
+								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Valor Maximo Troco"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Valor Maximo Troco*"></h:outputLabel>
+
 										<h:inputText styleClass="field text" id="valorMaxTroco" maxlength="10" size="10"
 											value="#{formaRecebimentoBB.valorMaxTroco}" required="true" dir="rtl" onkeypress="Formata('frmManterFormaRecebimento:valorMaxTroco',9,2);">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
-										</h:inputText>
-										<h:message for="valorMaxTroco" styleClass="msgErro"/>		
+										</h:inputText>												
 									</div>
+									<h:message for="valorMaxTroco" styleClass="msgErro"/>									
 								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Inicio Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10"
 											value="#{formaRecebimentoBB.dataInicioValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmManterFormaRecebimento:dataInicioValidade');">
-											
 										</h:inputText>
-										<h:message for="dataInicioValidade" styleClass="msgErro"/>
 									</div>
+									<h:message for="dataInicioValidade" styleClass="msgErro"/>
+								</li>
+								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Final Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10"
 											value="#{formaRecebimentoBB.dataFimValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmManterFormaRecebimento:dataFimValidade');">
-											
 										</h:inputText>
-										<h:message for="dataFimValidade" styleClass="msgErro"/>
 									</div>
+									<h:message for="dataFimValidade" styleClass="msgErro"/>									
+								</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Forma Troco"></h:outputLabel>
+										<h:selectOneMenu id="perfis" styleClass="field select"
+											value="#{formaRecebimentoBB.idFormaTroco}" required="false" style="width: 200px;">   
+												  <f:selectItems id="perfilSelectItems" 
+												  value="#{formaRecebimentoBB.formas}" />   
+										</h:selectOneMenu>
+									</div>
+									<h:message for="perfis" styleClass="msgErro"/>
 								</li>	
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+									<h:commandButton immediate="true" styleClass="btTxt" id="botaoVoltar" action="#{formaRecebimentoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{formaRecebimentoBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{formaRecebimentoBB.excluir}" value="Excluir"></h:commandButton>									
 								</li>
