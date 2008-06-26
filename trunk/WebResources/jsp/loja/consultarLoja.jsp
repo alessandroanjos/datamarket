@@ -100,7 +100,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable id="lojas" value="#{lojaBB.lojas}"
-									var="loja" rowClasses="rowA,rowB" width="100%">
+									var="loja" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -127,7 +127,14 @@
 										</f:facet>
 										<h:outputText value="#{loja.numeroPorta}" /> 
 									</h:column>
-								</t:dataTable>																
+								</t:dataTable>	
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not lojaBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>															
 							</div>
 							<ul>
 								<li class="buttons">
