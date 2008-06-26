@@ -4,12 +4,15 @@ package com.infinity.datamarket.enterprise.gui.formaRecebimento;
  * 
  */
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
@@ -38,18 +41,28 @@ public class FormaRecebimentoBackBean extends BackBean {
 
 	BigDecimal valorMaxTroco;
 
-	FormaRecebimento formaTroco;
-
 	Collection planos;
 
 	Collection formasRecebimentos;
 	
+	String idFormaTroco;
+	
 //	public FormaRecebimentoBackBean(){
 //		resetBB();
 //	}
+	
+	SelectItem[] formas;
+
+	public String getIdFormaTroco() {
+		return idFormaTroco;
+	}
+
+	public void setIdFormaTroco(String idFormaTroco) {
+		this.idFormaTroco = idFormaTroco;
+	}
 
 	public String voltarConsulta() {
-		resetBB();
+		consultar();
 		return "voltar";
 	}
 
@@ -88,14 +101,6 @@ public class FormaRecebimentoBackBean extends BackBean {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public FormaRecebimento getFormaTroco() {
-		return formaTroco;
-	}
-
-	public void setFormaTroco(FormaRecebimento formaTroco) {
-		this.formaTroco = formaTroco;
 	}
 
 	public String getId() {
@@ -139,20 +144,24 @@ public class FormaRecebimentoBackBean extends BackBean {
 	}
 
 	public String inserir() {
-		FormaRecebimento formaRecebimento = new FormaRecebimento();
-
-		formaRecebimento.setId(new Long(this.id));
-		formaRecebimento.setDescricao(this.descricao);
-		formaRecebimento.setRecebimentoImpressora(this.recebimentoImpressora);
-		formaRecebimento.setAbrirGaveta(this.abrirGaveta);
-		formaRecebimento.setValorLimiteSangria(this.valorLimiteSangria);
-		formaRecebimento.setDataInicioValidade(this.dataInicioValidade);
-		formaRecebimento.setDataFimValidade(this.dataFimValidade);
-		formaRecebimento.setValorMaxTroco(this.valorMaxTroco);
-		formaRecebimento.setFormaTroco(this.formaTroco);
-		formaRecebimento.setPlanos(this.planos);
-
 		try {
+			FormaRecebimento formaRecebimento = new FormaRecebimento();
+
+			formaRecebimento.setId(new Long(this.id));
+			formaRecebimento.setDescricao(this.descricao);
+			formaRecebimento.setRecebimentoImpressora(this.recebimentoImpressora);
+			formaRecebimento.setAbrirGaveta(this.abrirGaveta);
+			formaRecebimento.setValorLimiteSangria(this.valorLimiteSangria);
+			formaRecebimento.setDataInicioValidade(this.dataInicioValidade);
+			formaRecebimento.setDataFimValidade(this.dataFimValidade);
+			formaRecebimento.setValorMaxTroco(this.valorMaxTroco);
+			if(this.getIdFormaTroco() != null && !this.getIdFormaTroco().equals("0")){
+				FormaRecebimento formaTroco = getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco()));
+				formaRecebimento.setFormaTroco(formaTroco);	
+			}else{
+				formaRecebimento.setFormaTroco(null);
+			}			
+			formaRecebimento.setPlanos(this.planos);
 			getFachada().inserirFormaRecebimento(formaRecebimento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -195,7 +204,12 @@ public class FormaRecebimentoBackBean extends BackBean {
 						.getDataInicioValidade());
 				this.setDataFimValidade(formaRecebimento.getDataFimValidade());
 				this.setValorMaxTroco(formaRecebimento.getValorMaxTroco());
-				this.setFormaTroco(formaRecebimento.getFormaTroco());
+				if(formaRecebimento.getFormaTroco() != null){
+					this.setIdFormaTroco(formaRecebimento.getFormaTroco().getId().toString());	
+				}else{
+					this.setIdFormaTroco("0");
+				}
+				
 				this.setPlanos(formaRecebimento.getPlanos());
 
 				return "proxima";
@@ -205,6 +219,7 @@ public class FormaRecebimentoBackBean extends BackBean {
 				filter.addProperty("descricao", getDescricao());
 				Collection col = getFachada().consultarFormaRecebimento(filter);
 				if (col == null || col.size() == 0) {
+					setExisteRegistros(false);
 					this.setFormasRecebimentos(col);
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(
@@ -229,10 +244,16 @@ public class FormaRecebimentoBackBean extends BackBean {
 								.getDataFimValidade());
 						this.setValorMaxTroco(formaRecebimento
 								.getValorMaxTroco());
-						this.setFormaTroco(formaRecebimento.getFormaTroco());
+						if(formaRecebimento.getFormaTroco() != null){
+							this.setIdFormaTroco(formaRecebimento.getFormaTroco().getId().toString());	
+						}else{
+							this.setIdFormaTroco("0");
+						}
+
 						this.setPlanos(formaRecebimento.getPlanos());
 						return "proxima";
 					} else {
+						setExisteRegistros(true);
 						this.setFormasRecebimentos(col);
 					}
 				}
@@ -242,8 +263,7 @@ public class FormaRecebimentoBackBean extends BackBean {
 					this.setExisteRegistros(true);
 				}else{
 					this.setExisteRegistros(false);
-				}
-				
+				}				
 				setFormasRecebimentos(c);
 			}
 		} catch (ObjectNotFoundException e) {
@@ -268,7 +288,7 @@ public class FormaRecebimentoBackBean extends BackBean {
 		this.setDataInicioValidade(null);
 		this.setDataFimValidade(null);
 		this.setValorMaxTroco(null);
-		this.setFormaTroco(null);
+		this.setIdFormaTroco("0");
 		this.setPlanos(null);
 		return "mesma";
 	}
@@ -279,14 +299,18 @@ public class FormaRecebimentoBackBean extends BackBean {
 
 			formaRecebimento.setId(new Long(this.id));
 			formaRecebimento.setDescricao(this.descricao);
-			formaRecebimento
-					.setRecebimentoImpressora(this.recebimentoImpressora);
+			formaRecebimento.setRecebimentoImpressora(this.recebimentoImpressora);
 			formaRecebimento.setAbrirGaveta(this.abrirGaveta);
 			formaRecebimento.setValorLimiteSangria(this.valorLimiteSangria);
 			formaRecebimento.setDataInicioValidade(this.dataInicioValidade);
 			formaRecebimento.setDataFimValidade(this.dataFimValidade);
 			formaRecebimento.setValorMaxTroco(this.valorMaxTroco);
-			formaRecebimento.setFormaTroco(this.formaTroco);
+			if(this.getIdFormaTroco() != null && !this.getIdFormaTroco().equals("0")){
+				FormaRecebimento formaTroco = getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco()));
+				formaRecebimento.setFormaTroco(formaTroco);	
+			}else{
+				formaRecebimento.setFormaTroco(null);
+			}	
 			formaRecebimento.setPlanos(this.planos);
 
 			getFachada().alterarFormaRecebimento(formaRecebimento);
@@ -318,7 +342,12 @@ public class FormaRecebimentoBackBean extends BackBean {
 			formaRecebimento.setDataInicioValidade(this.dataInicioValidade);
 			formaRecebimento.setDataFimValidade(this.dataFimValidade);
 			formaRecebimento.setValorMaxTroco(this.valorMaxTroco);
-			formaRecebimento.setFormaTroco(this.formaTroco);
+			if(this.getIdFormaTroco() != null && !this.getIdFormaTroco().equals("0")){
+				FormaRecebimento formaTroco = getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco()));
+				formaRecebimento.setFormaTroco(formaTroco);	
+			}else{
+				formaRecebimento.setFormaTroco(null);
+			}	
 			formaRecebimento.setPlanos(this.planos);
 			getFachada().excluirFormaRecebimento(formaRecebimento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -346,7 +375,7 @@ public class FormaRecebimentoBackBean extends BackBean {
 		this.setDataInicioValidade(null);
 		this.setDataFimValidade(null);
 		this.setValorMaxTroco(null);
-		this.setFormaTroco(null);
+		this.setIdFormaTroco("0");
 		this.setPlanos(null);
 	}
 
@@ -357,5 +386,49 @@ public class FormaRecebimentoBackBean extends BackBean {
 	public void setFormasRecebimentos(Collection formasRecebimentos) {
 		this.formasRecebimentos = formasRecebimentos;
 	}
+	
+	public void setFormas(SelectItem[] formas) {
+		this.formas = formas;
+	}
 
+	private List<FormaRecebimento> carregarFormas() {
+		
+		List<FormaRecebimento> formas = null;
+		try {
+			formas = (ArrayList<FormaRecebimento>)getFachada().consultarTodosFormaRecebimento();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return formas;
+	}
+	
+	public SelectItem[] getFormas(){
+		SelectItem[] arrayFormas = null;
+		try {
+			List<FormaRecebimento> formas = carregarFormas();
+			arrayFormas = new SelectItem[formas.size()+1];
+			int i = 0;
+			SelectItem itemBranco = new SelectItem("0", "");
+			arrayFormas[i++] = itemBranco;
+			for(FormaRecebimento formaTmp : formas){
+				SelectItem item = new SelectItem(formaTmp.getId().toString(), formaTmp.getDescricao());
+				arrayFormas[i++] = item;
+			}
+			
+			if(this.getIdFormaTroco() == null || this.getIdFormaTroco().equals("") || this.getIdFormaTroco().equals("0")){
+				this.setIdFormaTroco((String) arrayFormas[0].getValue());				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayFormas;
+	}
 }
