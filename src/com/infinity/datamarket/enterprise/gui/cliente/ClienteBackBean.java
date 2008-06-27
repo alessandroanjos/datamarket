@@ -7,11 +7,14 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.cliente.Cliente;
+import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class ClienteBackBean extends BackBean {
@@ -22,7 +25,8 @@ public class ClienteBackBean extends BackBean {
 	
 	String id;
 	String nomeCliente;
-	String tipoPessoa = new String(Cliente.PESSOA_FISICA);
+	String idTipoPessoa = new String(Fornecedor.PESSOA_FISICA);
+	String tipoPessoa;
 	String cpfCnpj;
 	String razaoSocial;
 	String nomeFantasia;
@@ -41,11 +45,21 @@ public class ClienteBackBean extends BackBean {
 	String pessoaContato;
 	String foneContato;
 	BigDecimal valorLimiteCompras;
-//	BigDecimal valorLimiteDisponivel;
+	BigDecimal valorLimiteDisponivel;
 	Date dataNascimento;
 	Date dataCadastro = new Date(System.currentTimeMillis());
 	
 	Collection clientes;
+	
+	SelectItem[] listaTipoPessoa;
+
+	public String getIdTipoPessoa() {
+		return idTipoPessoa;
+	}
+
+	public void setIdTipoPessoa(String idTipoPessoa) {
+		this.idTipoPessoa = idTipoPessoa;
+	}
 
 	public String getId() {
 		return id;
@@ -223,13 +237,13 @@ public class ClienteBackBean extends BackBean {
 		this.valorLimiteCompras = valorLimiteCompras;
 	}
 
-//	public BigDecimal getValorLimiteDisponivel() {
-//		return valorLimiteDisponivel;
-//	}
-//
-//	public void setValorLimiteDisponivel(BigDecimal valorLimiteDisponivel) {
-//		this.valorLimiteDisponivel = valorLimiteDisponivel;
-//	}
+	public BigDecimal getValorLimiteDisponivel() {
+		return valorLimiteDisponivel;
+	}
+
+	public void setValorLimiteDisponivel(BigDecimal valorLimiteDisponivel) {
+		this.valorLimiteDisponivel = valorLimiteDisponivel;
+	}
 	
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -250,7 +264,7 @@ public class ClienteBackBean extends BackBean {
 	public void resetBB(){
 		this.setId(null);
 		this.setNomeCliente(null);
-		this.setTipoPessoa(Cliente.PESSOA_FISICA);
+		this.setIdTipoPessoa(Cliente.PESSOA_FISICA);
 		this.setCpfCnpj(null);
 		this.setRazaoSocial(null);
 		this.setNomeFantasia(null);
@@ -270,7 +284,7 @@ public class ClienteBackBean extends BackBean {
 		this.setFoneContato(null);
 		this.setValorLimiteCompras(null);
 //		this.setValorLimiteDisponivel(null);
-		this.setDataCadastro(new Date(System.currentTimeMillis()));
+		this.setDataCadastro(null);
 		this.setDataNascimento(null);
 	}
 	
@@ -286,7 +300,7 @@ public class ClienteBackBean extends BackBean {
 				Cliente cliente = getFachada().consultarClientePorPK(new Long(getId()));
 				this.setId(cliente.getId().toString());
 				this.setNomeCliente(cliente.getNomeCliente());
-				this.setTipoPessoa(cliente.getTipoPessoa());
+				this.setIdTipoPessoa(cliente.getTipoPessoa());
 				this.setCpfCnpj(cliente.getCpfCnpj());
 				this.setRazaoSocial(cliente.getRazaoSocial());
 				this.setNomeFantasia(cliente.getNomeFantasia());
@@ -305,18 +319,18 @@ public class ClienteBackBean extends BackBean {
 				this.setPessoaContato(cliente.getPessoaContato());
 				this.setFoneContato(cliente.getFoneContato());
 				this.setValorLimiteCompras(cliente.getValorLimiteCompras());
-//				this.setValorLimiteDisponivel(cliente.getValorLimiteDisponivel());
+				this.setValorLimiteDisponivel(cliente.getValorLimiteDisponivel());
 				this.setDataCadastro(cliente.getDataCadastro());
 				this.setDataNascimento(cliente.getDataNascimento());
 				
 				return "proxima";
 			}else if ((this.getNomeCliente() != null && !"".equals(this.getNomeCliente()))
 					|| (this.getCpfCnpj() != null && !"".equals(this.getCpfCnpj()))
-					|| (this.getTipoPessoa() != null && !"".equals(this.getTipoPessoa()))){
+					|| (this.getIdTipoPessoa() != null && !"".equals(this.getIdTipoPessoa()))){
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(Cliente.class);
-				filter.addProperty("tipoPessoa", this.getTipoPessoa());
-				if(this.getTipoPessoa().equals(Cliente.PESSOA_FISICA)){
+				filter.addProperty("tipoPessoa", this.getIdTipoPessoa());
+				if(this.getIdTipoPessoa().equals(Cliente.PESSOA_FISICA)){
 					filter.addProperty("nomeCliente", this.getNomeCliente());	
 				}else{
 					filter.addProperty("razaoSocial", this.getNomeCliente());
@@ -326,6 +340,7 @@ public class ClienteBackBean extends BackBean {
 				}
 				Collection col = getFachada().consultarCliente(filter);
 				if (col == null || col.size() == 0){
+					setExisteRegistros(false);
 					this.setClientes(col);
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -336,7 +351,7 @@ public class ClienteBackBean extends BackBean {
 						Cliente cliente = (Cliente)col.iterator().next();
 						this.setId(cliente.getId().toString());
 						this.setNomeCliente(cliente.getNomeCliente());
-						this.setTipoPessoa(cliente.getTipoPessoa());
+						this.setIdTipoPessoa(cliente.getTipoPessoa());
 						this.setCpfCnpj(cliente.getCpfCnpj());
 						this.setRazaoSocial(cliente.getRazaoSocial());
 						this.setNomeFantasia(cliente.getNomeFantasia());
@@ -355,36 +370,49 @@ public class ClienteBackBean extends BackBean {
 						this.setPessoaContato(cliente.getPessoaContato());
 						this.setFoneContato(cliente.getFoneContato());
 						this.setValorLimiteCompras(cliente.getValorLimiteCompras());
-//						this.setValorLimiteDisponivel(cliente.getValorLimiteDisponivel());
+						this.setValorLimiteDisponivel(cliente.getValorLimiteDisponivel());
 						this.setDataCadastro(cliente.getDataCadastro());
 						this.setDataNascimento(cliente.getDataNascimento());
 						
 						return "proxima";
 					}else{
+						setExisteRegistros(true);
 						this.setClientes(col);
 					}
 				}
 			}else{
-				this.setClientes(getFachada().consultarTodosClientes());
+				Collection c = getFachada().consultarTodosClientes();
+				if(c != null && c.size() > 0){
+					setExisteRegistros(true);
+					this.setClientes(c);	
+				}else{
+					setExisteRegistros(false);
+					this.setClientes(null);
+				}
+				
 			}
 		}catch(ObjectNotFoundException e){
+			setExisteRegistros(false);
 			this.setClientes(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);			
 		}catch(Exception e){
+			setExisteRegistros(false);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
+//		resetBB();
 		return "mesma";
 	}
 
 	public String inserir(){
 		try {
+			
+			validarCampos(this.getIdTipoPessoa());
 			
 			Cliente cliente = preencheCliente(INSERIR);
 			
@@ -410,7 +438,10 @@ public class ClienteBackBean extends BackBean {
 	}
 	
 	public String alterar(){
-		try {		
+		try {	
+			
+			validarCampos(this.getIdTipoPessoa());
+			
 			Cliente cliente = preencheCliente(ALTERAR);			
 								
 			getFachada().alterarCliente(cliente);
@@ -432,7 +463,7 @@ public class ClienteBackBean extends BackBean {
 	
 	public String excluir(){
 		try {
-			Cliente cliente = new Cliente();
+			Cliente cliente = preencheCliente(EXCLUIR);
 			
 			cliente.setId(new Long(this.getId()));
 			
@@ -459,7 +490,7 @@ public class ClienteBackBean extends BackBean {
 		
 		cliente.setId(new Long(this.getId()));
 		cliente.setNomeCliente(this.getNomeCliente());
-		cliente.setTipoPessoa(this.getTipoPessoa());
+		cliente.setTipoPessoa(this.getIdTipoPessoa());
 		cliente.setCpfCnpj(this.getCpfCnpj());
 		cliente.setRazaoSocial(this.getRazaoSocial());
 		cliente.setNomeFantasia(this.getNomeFantasia());
@@ -485,16 +516,64 @@ public class ClienteBackBean extends BackBean {
 				cliente.setValorLimiteDisponivel(new BigDecimal("0"));
 				cliente.setValorLimiteCompras(new BigDecimal("0"));
 			}	
-		}		
+		}else if(acao.equals(ALTERAR)){
+			if(this.getIdTipoPessoa().equals(Cliente.PESSOA_FISICA)){
+				cliente.setRazaoSocial(null);
+				cliente.setNomeFantasia(null);
+				cliente.setInscricaoEstadual(null);
+				cliente.setInscricaoMunicipal(null);
+
+			}else if(this.getIdTipoPessoa().equals(Cliente.PESSOA_FISICA)){
+				cliente.setNomeCliente(null);
+				cliente.setDataNascimento(null);
+			}
+			cliente.setValorLimiteDisponivel(this.getValorLimiteDisponivel());
+		}
 		return cliente;
 	}
 	
 	public String voltarConsulta(){
-		resetBB();
+		consultar();
 		return "voltar";
 	}
 	public String voltarMenu(){
 		resetBB();
 		return "voltar";
+	}
+	
+	public SelectItem[] getListaTipoPessoa() {
+		SelectItem[] lista = new SelectItem[2];
+		lista[0] = new SelectItem("F", "Física");
+		lista[1] = new SelectItem("J", "Jurídica");
+		if(this.getIdTipoPessoa() == null || this.getIdTipoPessoa().equals("")){
+			this.setIdTipoPessoa(Cliente.PESSOA_FISICA);
+		}
+		return lista;
+	}
+
+	public void setListaTipoPessoa(SelectItem[] listaTipoPessoa) {
+		this.listaTipoPessoa = listaTipoPessoa;
+	}
+
+	
+	public void validarCampos(String tipoPessoa) throws AppException{
+		if(tipoPessoa.equals(Fornecedor.PESSOA_FISICA)){
+			if(this.getNomeCliente() == null || this.getNomeCliente().equals("")){
+				throw new AppException("O Nome do Cliente é obrigatório.");
+			}
+		}else if(tipoPessoa.equals(Fornecedor.PESSOA_JURIDICA)){
+			if(this.getRazaoSocial() == null || this.getRazaoSocial().equals("")){
+				throw new AppException("O campo Razão Social é obrigatório.");
+			}
+			if(this.getNomeFantasia() == null || this.getNomeFantasia().equals("")){
+				throw new AppException("O campo Nome Fantasia é obrigatório.");
+			}
+			if(this.getInscricaoEstadual() == null || this.getInscricaoEstadual().equals("")){
+				throw new AppException("O campo Inscrição Estadual é obrigatório.");
+			}
+			if(this.getInscricaoMunicipal() == null || this.getInscricaoMunicipal().equals("")){
+				throw new AppException("O campo Inscrição Municipal é obrigatório.");
+			}
+		}		
 	}
 }
