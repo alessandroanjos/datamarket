@@ -19,7 +19,6 @@
 			<meta http-equiv="description" content="This is my page"/>
 			
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
-			<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
@@ -50,7 +49,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id"
+											<h:inputText styleClass="field text ativo" id="id" onkeypress="return SoNumero(event);"
 												maxlength="2" value="#{perfilBB.id}" size="2"
 												required="true" readonly="true">
 												<f:validateLength maximum="2" />
@@ -79,10 +78,11 @@
 									</li>
 									<li class="normal">
 										<div>
-											<h:outputLabel styleClass="desc" value="Percentual de Desconto*"></h:outputLabel>
-											<h:inputText styleClass="field text" dir="rtl" id="percentualDesconto" maxlength="6" size="6" value="#{perfilBB.percentualDesconto}" required="true">
-												<f:validateLength maximum="6" />
-												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
+											<h:outputLabel styleClass="desc" value="Perc. de Desconto*"></h:outputLabel>
+											<h:inputText styleClass="field text" dir="rtl" id="percentualDesconto" maxlength="5" size="5" onkeypress="Formata('frmInserirPerfil:percentualDesconto',4,2);"
+                      							 value="#{perfilBB.percentualDesconto}" required="true">
+												<f:validateLength maximum="5" />
+												<f:validateDoubleRange minimum="0.00" maximum="99.99" />
 												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
 											<h:message for="percentualDesconto" styleClass="msgErro" />
