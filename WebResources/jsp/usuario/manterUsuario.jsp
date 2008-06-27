@@ -21,11 +21,36 @@
 			<meta http-equiv="description" content="This is my page"/>
 			
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
-			<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
+      <script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.vendedor").each(function(i){
+      		$(this).click(function() {mostraComissao(this.value)});
+      	});
+
+       	desabilita("frmManterUsuario:comissao");
+
+      }
+
+      function mostraComissao(str,obj) {
+        //frmManterUsuario:comissao
+        var flag = new String(str);
+        if (flag.toUpperCase() == "N") {
+         	desabilita("frmManterUsuario:comissao");
+        } else {
+         	habilita("frmManterUsuario:comissao");
+        }
+      
+      }
+
+      </script>
 		</head>
 		<body>			
 			<div id="outer">
@@ -56,7 +81,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
 											value="#{usuarioBB.id}" size="3" required="true" readonly="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
@@ -76,7 +101,7 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Senha*"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Senha Numérica*"></h:outputLabel>
 										<h:inputSecret styleClass="field text" id="senha" redisplay="true" maxlength="20" size="25"
 											value="#{usuarioBB.senha}" required="true" >
 											<f:validateLength maximum="20" />
@@ -99,7 +124,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Vendedor*"></h:outputLabel>
-										<h:selectOneRadio styleClass="field select" id="vendedor" readonly="true" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
+										<h:selectOneRadio styleClass="field select vendedor" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
 										    <f:selectItem itemLabel="Sim" itemValue="S"/>
 										    <f:selectItem itemLabel="Não" itemValue="N"/>
 										</h:selectOneRadio>
@@ -108,8 +133,8 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Valor Comissão"></h:outputLabel>
-										<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5"
+										<h:outputLabel styleClass="desc" value="Perc. Comissão"></h:outputLabel>
+										<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5" onkeypress="Formata('frmManterUsuario:comissao',3,2);"
 											value="#{usuarioBB.comissao}" required="false" dir="rtl">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
