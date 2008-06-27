@@ -23,8 +23,8 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		
-		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		<t:stylesheet path="/css/default.css"></t:stylesheet>
+		<t:stylesheet path="/css/form.css"></t:stylesheet>
 	</head>
 	<body>
 	<div id="outer">
@@ -55,10 +55,9 @@
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
-											<h:selectOneRadio styleClass="field select" id="tipoPessoa" 
-												value="#{fornecedorBB.tipoPessoa}" layout="lineDirection" rendered="true">
-											    <f:selectItem itemLabel="Física" itemValue="F" />
-											    <f:selectItem itemLabel="Jurídica" itemValue="J"  />
+											<h:selectOneRadio  styleClass="field select" id="tipoPessoa" 
+												value="#{fornecedorBB.idTipoPessoa}" layout="lineDirection" required="true">
+												<f:selectItems id="tipoPessoaLista" value="#{fornecedorBB.listaTipoPessoa}"/>
 											</h:selectOneRadio>
 											<h:message for="tipoPessoa" styleClass="msgErro"/>
 										</div>
@@ -73,7 +72,7 @@
 											<h:message for="id" styleClass="msgErro" />
 										</div>												
 										<div>
-											<h:outputLabel styleClass="desc" value="Nome Fornecedor"></h:outputLabel>
+											<h:outputLabel styleClass="desc" value="Nome Fornecedor/Razão Social"></h:outputLabel>
 											<h:inputText styleClass="field text" id="nomeFornecedor" maxlength="50" size="50"
 												value="#{fornecedorBB.nomeFornecedor}">
 												<f:validateLength maximum="50" />
@@ -85,7 +84,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{fornecedorBB.fornecedores}"
-									var="fornecedor" rowClasses="rowA,rowB" width="100%">
+									var="fornecedor" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -119,6 +118,13 @@
 										<h:outputText value="#{fornecedor.dataCadastro}" /> 
 									</h:column>							
 								</t:dataTable>
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not fornecedorBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>	
 							</div>
 							<ul>
 								<li class="buttons">

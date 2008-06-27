@@ -64,26 +64,30 @@
 											<f:validateLength maximum="4" />
 											<f:validator validatorId="LongValidator" />
 										</h:inputText>
-										<h:message for="id" styleClass="msgErro"/>										
+																				
 									</div>
+									<h:message for="id" styleClass="msgErro"/>
+									
 									<div>
 										<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
-										<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false"
+										<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="true"
 											value="#{fornecedorBB.dataCadastro}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirFornecedor:dataCadastro');">			
+											<f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="#{superBB.timeZone}"/>
 										</h:inputText>
-										<h:message for="dataCadastro" styleClass="msgErro"/>
+										
 									</div>
+									<h:message for="dataCadastro" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
-										<h:selectOneRadio  styleClass="field select" id="tipoPessoa"
-											value="#{fornecedorBB.tipoPessoa}"  layout="lineDirection" rendered="true">
-										    <f:selectItem itemLabel="Física" itemValue="F" />
-										    <f:selectItem itemLabel="Jurídica" itemValue="J"/>
+										<h:selectOneRadio  styleClass="field select" id="tipoPessoa" 
+											value="#{fornecedorBB.idTipoPessoa}" layout="lineDirection" required="true">
+											<f:selectItems id="tipoPessoaLista" value="#{fornecedorBB.listaTipoPessoa}"/>
 										</h:selectOneRadio>
-										<h:message for="tipoPessoa" styleClass="msgErro"/>
+										
 									</div>
+									<h:message for="tipoPessoa" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
@@ -91,58 +95,70 @@
 										<h:inputText styleClass="field text" id="cpfCnpj" maxlength="18" size="18" value="#{fornecedorBB.cpfCnpj}" required="true">
 											<f:validateLength minimum="11" maximum="18" />
 										</h:inputText>
-										<h:message for="cpfCnpj" styleClass="msgErro" />									
+																		
 									</div>
-								</li>
-								<div>
-								<!-- PESSOA FISICA -->																
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Nome Fornecedor*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="nomeFornecedor" maxlength="50" size="50" value="#{fornecedorBB.nomeFornecedor}" required="true">
-											<f:validateLength maximum="50" />
-										</h:inputText>
-										<h:message for="nomeFornecedor" styleClass="msgErro" />									
-									</div>
-								</li>
-								<!-- PESSOA FISICA -->								
-								
-								<!-- PESSOA JURIDICA -->
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Razão Social*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="razaoSocial" maxlength="50" size="50" value="#{fornecedorBB.razaoSocial}" required="false">
-											<f:validateLength maximum="50" />
-										</h:inputText>
-										<h:message for="razaoSocial" styleClass="msgErro" />									
-									</div>
-								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Nome Fantasia*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="nomeFantasia" maxlength="50" size="50" value="#{fornecedorBB.nomeFantasia}" required="false">
-											<f:validateLength maximum="50" />
-										</h:inputText>
-										<h:message for="nomeFantasia" styleClass="msgErro" />									
-									</div>
-								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Insc. Estadual*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="inscricaoEstadual" maxlength="30" size="30" value="#{fornecedorBB.inscricaoEstadual}" required="false">
-											<f:validateLength maximum="30" />
-										</h:inputText>
-										<h:message for="inscricaoEstadual" styleClass="msgErro" />									
-									</div>
-									<div>
-										<h:outputLabel styleClass="desc" value="Insc. Municipal*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="inscricaoMunicipal" maxlength="30" size="30" value="#{fornecedorBB.inscricaoMunicipal}" required="false">
-											<f:validateLength maximum="30" />
-										</h:inputText>
-										<h:message for="inscricaoMunicipal" styleClass="msgErro" />									
-									</div>
+									<h:message for="cpfCnpj" styleClass="msgErro" />	
 								</li>
 							</ul>
+							<div id="abaPF">
+								<ul>
+									<!-- PESSOA FISICA -->																
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Nome Fornecedor*"></h:outputLabel>
+											<h:inputText styleClass="field text" id="nomeFornecedor" maxlength="50" size="50" value="#{fornecedorBB.nomeFornecedor}" required="false">
+												<f:validateLength maximum="50" />
+											</h:inputText>
+																		
+										</div>
+										<h:message for="nomeFornecedor" styleClass="msgErro" />		
+									</li>
+									<!-- PESSOA FISICA -->								
+								</ul>
+							</div>
+							<div id="abaPJ">
+								<ul>
+									<!-- PESSOA JURIDICA -->
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Razão Social*"></h:outputLabel>
+											<h:inputText styleClass="field text" id="razaoSocial" maxlength="50" size="50" value="#{fornecedorBB.razaoSocial}" required="false">
+												<f:validateLength maximum="50" />
+											</h:inputText>
+											<h:message for="razaoSocial" styleClass="msgErro" />									
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Nome Fantasia*"></h:outputLabel>
+											<h:inputText styleClass="field text" id="nomeFantasia" maxlength="50" size="50" value="#{fornecedorBB.nomeFantasia}" required="false">
+												<f:validateLength maximum="50" />
+											</h:inputText>
+																				
+										</div>
+										<h:message for="nomeFantasia" styleClass="msgErro" />
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Insc. Estadual*"></h:outputLabel>
+											<h:inputText styleClass="field text" id="inscricaoEstadual" maxlength="30" size="30" value="#{fornecedorBB.inscricaoEstadual}" required="false">
+												<f:validateLength maximum="30" />
+											</h:inputText>
+										</div>
+											<h:message for="inscricaoEstadual" styleClass="msgErro" />																			
+												</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Insc. Municipal*"></h:outputLabel>
+											<h:inputText styleClass="field text" id="inscricaoMunicipal" maxlength="30" size="30" value="#{fornecedorBB.inscricaoMunicipal}" required="false">
+												<f:validateLength maximum="30" />
+											</h:inputText>
+																			
+										</div>
+										<h:message for="inscricaoMunicipal" styleClass="msgErro" />	
+									</li>
+								</ul>
+							</div>
 						</div>
 						<div id="tabDiv1" style="display:none;">
 							<ul>
