@@ -9,7 +9,7 @@
 <div id="footer">
 	<p>
 		Todos os direitos reservados &copy; 2008 |
-		<a href="http://www.infinity.com.br" target="_blank">www.infinity.com.br</a>
+		<a href="http://www.infinitysw.com.br" target="_blank">www.infinitysw.com.br</a>
 	</p>
 </div>
 </f:verbatim>	
