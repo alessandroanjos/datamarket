@@ -1050,6 +1050,24 @@
 	</navigation-rule>
 	
 	<!-- TIPO DE PRODUTO BACK BEAN -->
+
+	<managed-bean>
+		<managed-bean-name>superBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.util.BackBean
+		</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+		<managed-property>
+		    <property-name>dataSistema</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <value></value>
+		</managed-property>
+		<managed-property>
+		    <property-name>timeZone</property-name>
+		    <property-class>java.util.TimeZone</property-class>
+		    <value></value>
+		</managed-property>
+	</managed-bean>
 	
 	<managed-bean>
 		<managed-bean-name>tipoProdutoBB</managed-bean-name>
@@ -2015,8 +2033,19 @@
 		<managed-property>
 		    <property-name>dataCadastro</property-name>
 		    <property-class>java.util.Date</property-class>
+		    <value>#{superBB.dataSistema}</value>
+		</managed-property>	
+		
+		<managed-property>
+		    <property-name>idTipoPessoa</property-name>
+		    <property-class>java.lang.String</property-class>
 		    <null-value/>
-		</managed-property>				
+		</managed-property>
+		<managed-property>
+		    <property-name>listaTipoPessoa</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>			
 		
 	</managed-bean>
 
