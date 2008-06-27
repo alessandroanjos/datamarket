@@ -453,7 +453,17 @@ public class FornecedorBackBean extends BackBean {
 		fornecedor.setFoneContato(this.getFoneContato());
 		if(acao.equals(INSERIR)){
 			fornecedor.setDataCadastro(new Date(System.currentTimeMillis()));
-		}		
+		}else if(acao.equals(ALTERAR)){
+			if(this.getIdTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
+				fornecedor.setRazaoSocial(null);
+				fornecedor.setNomeFantasia(null);
+				fornecedor.setInscricaoEstadual(null);
+				fornecedor.setInscricaoMunicipal(null);
+
+			}else if(this.getIdTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
+				fornecedor.setNomeFornecedor(null);
+			}
+		}	
 		return fornecedor;
 	}
 
@@ -534,7 +544,7 @@ public class FornecedorBackBean extends BackBean {
 				throw new AppException("O campo Nome Fantasia é obrigatório.");
 			}
 			if(this.getInscricaoEstadual() == null || this.getInscricaoEstadual().equals("")){
-				throw new AppException("O campo Inscriç!ao Estadual é obrigatório.");
+				throw new AppException("O campo Inscrição Estadual é obrigatório.");
 			}
 			if(this.getInscricaoMunicipal() == null || this.getInscricaoMunicipal().equals("")){
 				throw new AppException("O campo Inscrição Municipal é obrigatório.");

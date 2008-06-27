@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.cliente.Cliente;
@@ -133,12 +135,11 @@ public class ClientePagamentoBackBean extends BackBean {
 		this.valorPagamento = valorPagamento;
 	}
 
-	public String resetBB(){		
+	public void resetBB(){		
 		this.setId(null);		
 		this.setValorPagamento(null);
 		this.setDataPagamento(null);
 		this.setFormaRecebimento(null);		
-		return "mesma";
 	}
 	
 	public String consultar(){
@@ -174,8 +175,12 @@ public class ClientePagamentoBackBean extends BackBean {
 				
 				filter.addPropertyInterval("dataPagamento", this.getDataInicial(), IntervalObject.MAIOR_IGUAL);
 				filter.addPropertyInterval("dataPagamento", this.getDataFinal(), IntervalObject.MENOR_IGUAL);
+				
+				filter.addOrderByProperty("dataPagamento", PropertyFilter.DESC);
+				
 				Collection col = getFachada().consultarClientePagamento(filter);
 				if (col == null || col.size() == 0){
+					setExisteRegistros(false);
 					this.setClientesPagamentos(col);
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -195,25 +200,30 @@ public class ClientePagamentoBackBean extends BackBean {
 						
 						return "proxima";
 					}else{
-						this.setClientesPagamentos(col);
-						if(this.getClientesPagamentos() != null && this.getClientesPagamentos().size() == 0){
-							throw new ObjectNotFoundException("Nenhum Registro Encontrado!");
-						}
+						setExisteRegistros(true);
+						this.setClientesPagamentos(col);						
 					}
 				}
 			}else{
-				this.setClientesPagamentos(getFachada().consultarTodosClientesPagamentos());
-				if(this.getClientesPagamentos() != null && this.getClientesPagamentos().size() == 0){
-					throw new ObjectNotFoundException("Nenhum Registro Encontrado!");
+				Collection c = getFachada().consultarTodosClientesPagamentos();
+				if(c != null && c.size() > 0){
+					this.setClientesPagamentos(c);
+					setExisteRegistros(true);
+				}else{
+					this.setClientesPagamentos(null);
+					setExisteRegistros(false);
 				}
+								
 			}
 		}catch(ObjectNotFoundException e){
+			setExisteRegistros(false);
 			this.setClientes(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);			
 		}catch(Exception e){
+			setExisteRegistros(false);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -232,10 +242,16 @@ public class ClientePagamentoBackBean extends BackBean {
 			
 			// devolve ao limite disponível de compras o valor pago.
 			Cliente cli = getFachada().consultarClientePorPK(clientePagamento.getCliente().getId());
+			
 			if(cli.getValorLimiteDisponivel() == null){
 				cli.setValorLimiteDisponivel(BigDecimal.ZERO);
 			}
 			cli.setValorLimiteDisponivel(cli.getValorLimiteDisponivel().add(clientePagamento.getValorPagamento()));
+			
+			if(cli.getValorLimiteDisponivel().compareTo(cli.getValorLimiteCompras()) > 0){
+				throw new AppException("Valor ultrapassa o valor da dívida.");
+			}
+			
 			getFachada().alterarCliente(cli);
 			
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -247,6 +263,11 @@ public class ClientePagamentoBackBean extends BackBean {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Pagamento já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -418,4 +439,36 @@ public class ClientePagamentoBackBean extends BackBean {
 		this.saldoDevedor = saldoDevedor;
 	}
 	
+	
+	public void recuperaDadosCliente(ValueChangeEvent event){
+        try {
+        	UISelectOne select = (UISelectOne) event.getSource();   
+            String valor = String.valueOf(select.getValue());
+            if(!valor.equals("0")){
+    			Cliente cli = getFachada().consultarClientePorPK(new Long(valor));
+    			if(cli != null){
+    				this.setCliente(cli);
+    			}
+            }else{
+            	this.setCliente(null);
+            }
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public String voltarConsulta(){
+		resetBB();
+		consultar();
+		return "voltar";
+	}
+	public String voltarMenu(){
+		resetBB();
+		return "voltar";
+	}
+
 }
