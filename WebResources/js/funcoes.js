@@ -71,19 +71,80 @@ function openReport(url){
 
 }
 
-function SoNumero(evento) {
-	var caracCode;
-	if (evento == null) evento = event;
+function SoNumero(evt) {
+var key_code = evt.keyCode ? evt.keyCode :
+evt.charCode ? evt.charCode :
+evt.which ? evt.which : void 0;
 
+
+// Habilita teclas <DEL>, <TAB>, <ENTER>, <ESC> e <BACKSPACE>
+if (key_code == 8 || key_code == 9 || key_code == 13 || key_code == 27 || key_code == 46){
+  return true;
+}
+// Habilita teclas <HOME>, <END>, mais as quatros setas de navegação (cima, baixo, direta, esquerda)
+else if ((key_code >= 35) && (key_code <= 40)){
+  return true
+}
+// Habilita números de 0 a 9
+else if ((key_code >= 48) && (key_code <= 57)) {
+  return true
+}
+return false;
+  /*var caracCode;
+	if (evento == null) evento = event;
 	caracCode = (navigator.appName == "Netscape") ? evento.which : evento.keyCode;
+	
 	if (caracCode == 45  || caracCode == 13 || caracCode == 8 || caracCode == 0) {
 		return true;
 	}
 	if (caracCode < 48 || caracCode > 57) {
-		if (navigator.appName != "Netscape") evento.keyCode = 0;
+		if (navigator.appName != "Netscape") e.keyCode = 0;
 		return false;
-	}
+	}*/
 }
+
+
+function formataCampo(campo, Mascara, evento) { 
+  var boleanoMascara; 
+  
+  var Digitato = evento.keyCode;
+  exp = /\-|\.|\/|\(|\)| /g
+  campoSoNumeros = campo.value.toString().replace( exp, "" ); 
+  
+  var posicaoCampo = 0; 
+  var NovoValorCampo="";
+  var TamanhoMascara = campoSoNumeros.length;; 
+  
+  if (Digitato != 8) { // backspace 
+  for(i=0; i<= TamanhoMascara; i++) { 
+  boleanoMascara = ((Mascara.charAt(i) == "-") || (Mascara.charAt(i) == ".")
+  || (Mascara.charAt(i) == "/")) 
+  boleanoMascara = boleanoMascara || ((Mascara.charAt(i) == "(") 
+  || (Mascara.charAt(i) == ")") || (Mascara.charAt(i) == " ")) 
+  if (boleanoMascara) { 
+  NovoValorCampo += Mascara.charAt(i); 
+  TamanhoMascara++;
+  }else { 
+  NovoValorCampo += campoSoNumeros.charAt(posicaoCampo); 
+  posicaoCampo++; 
+  } 
+  } 
+  campo.value = NovoValorCampo;
+  return true; 
+  }else { 
+  return true; 
+  }
+}
+
+function MascaraData(data,event){
+  if(SoNumero(event)==false){
+    event.returnValue = false;
+    return false;
+  } 
+  return formataCampo(data, '00/00/0000', event);
+}
+
+
 
 function FormataData(Campo) {
 
@@ -328,5 +389,19 @@ function verificaIP (IPvalor) {
         }
     }
     return errorString;
+}
+
+function getId(strId) {
+  return document.getElementById(strId);
+}
+
+function desabilita(strId) {
+  	getId(strId).disabled = true;
+  	getId(strId).style.backgroundColor = "#dedede";
+}
+
+function habilita(strId) {
+  	getId(strId).disabled = false;
+  	getId(strId).style.backgroundColor = "white";
 }
 
