@@ -173,6 +173,8 @@ public class UsuarioBackBean extends BackBean {
 				Vendedor vendedor = new Vendedor();
 				if (this.comissao != null && !"".equals(this.comissao)){
 					vendedor.setComissao(new BigDecimal(this.comissao));
+				}else{
+					vendedor.setComissao(new BigDecimal("0.00"));
 				}
 				usuario = vendedor;
 			}else{
