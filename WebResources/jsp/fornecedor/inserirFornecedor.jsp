@@ -25,7 +25,40 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/masks.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
+
+		<script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.tipopessoa").each(function(i){
+      		$(this).click(function() {mostraCampos(this.value)});
+      	});
+
+      }
+
+      function mostraCampos(str) {
+        
+        var flag = new String(str);
+        if (flag.toUpperCase() == "F") {
+	        habilita("frmInserirFornecedor:nomeFornecedor");
+        	desabilita("frmInserirFornecedor:razaoSocial");
+        	desabilita("frmInserirFornecedor:nomeFantasia");
+        	desabilita("frmInserirFornecedor:inscricaoEstadual");
+        	desabilita("frmInserirFornecedor:inscricaoMunicipal");
+        } else {
+  	        desabilita("frmInserirFornecedor:nomeFornecedor");
+        	habilita("frmInserirFornecedor:razaoSocial");
+        	habilita("frmInserirFornecedor:nomeFantasia");
+        	habilita("frmInserirFornecedor:inscricaoEstadual");
+        	habilita("frmInserirFornecedor:inscricaoMunicipal");
+        }
+      
+      }
 		
+		
+      </script>
 	</head>
 	<body>
 	<div id="outer">
@@ -81,7 +114,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
-										<h:selectOneRadio  styleClass="field select" id="tipoPessoa" 
+										<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoa" 
 											value="#{fornecedorBB.idTipoPessoa}" layout="lineDirection" required="true">
 											<f:selectItems id="tipoPessoaLista" value="#{fornecedorBB.listaTipoPessoa}"/>
 										</h:selectOneRadio>
@@ -99,66 +132,60 @@
 									</div>
 									<h:message for="cpfCnpj" styleClass="msgErro" />	
 								</li>
-							</ul>
-							<div id="abaPF">
-								<ul>
-									<!-- PESSOA FISICA -->																
-									<li class="normal">
-										<div>
-											<h:outputLabel styleClass="desc" value="Nome Fornecedor*"></h:outputLabel>
-											<h:inputText styleClass="field text" id="nomeFornecedor" maxlength="50" size="50" value="#{fornecedorBB.nomeFornecedor}" required="false">
-												<f:validateLength maximum="50" />
-											</h:inputText>
-																		
-										</div>
-										<h:message for="nomeFornecedor" styleClass="msgErro" />		
-									</li>
-									<!-- PESSOA FISICA -->								
-								</ul>
-							</div>
-							<div id="abaPJ">
-								<ul>
-									<!-- PESSOA JURIDICA -->
-									<li class="normal">
-										<div>
-											<h:outputLabel styleClass="desc" value="Razão Social*"></h:outputLabel>
-											<h:inputText styleClass="field text" id="razaoSocial" maxlength="50" size="50" value="#{fornecedorBB.razaoSocial}" required="false">
-												<f:validateLength maximum="50" />
-											</h:inputText>
-											<h:message for="razaoSocial" styleClass="msgErro" />									
-										</div>
-									</li>
-									<li class="normal">
-										<div>
-											<h:outputLabel styleClass="desc" value="Nome Fantasia*"></h:outputLabel>
-											<h:inputText styleClass="field text" id="nomeFantasia" maxlength="50" size="50" value="#{fornecedorBB.nomeFantasia}" required="false">
-												<f:validateLength maximum="50" />
-											</h:inputText>
-																				
-										</div>
-										<h:message for="nomeFantasia" styleClass="msgErro" />
-									</li>
-									<li class="normal">
-										<div>
-											<h:outputLabel styleClass="desc" value="Insc. Estadual*"></h:outputLabel>
-											<h:inputText styleClass="field text" id="inscricaoEstadual" maxlength="30" size="30" value="#{fornecedorBB.inscricaoEstadual}" required="false">
-												<f:validateLength maximum="30" />
-											</h:inputText>
-										</div>
-											<h:message for="inscricaoEstadual" styleClass="msgErro" />																			
-												</li>
-									<li class="normal">
-										<div>
-											<h:outputLabel styleClass="desc" value="Insc. Municipal*"></h:outputLabel>
-											<h:inputText styleClass="field text" id="inscricaoMunicipal" maxlength="30" size="30" value="#{fornecedorBB.inscricaoMunicipal}" required="false">
-												<f:validateLength maximum="30" />
-											</h:inputText>
+						
+								<!-- PESSOA FISICA -->																
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Nome Fornecedor*"></h:outputLabel>
+										<h:inputText styleClass="field text" id="nomeFornecedor" maxlength="50" size="50" value="#{fornecedorBB.nomeFornecedor}" required="false">
+											<f:validateLength maximum="50" />
+										</h:inputText>
+																	
+									</div>
+									<h:message for="nomeFornecedor" styleClass="msgErro" />		
+								</li>
+								<!-- PESSOA FISICA -->								
+								
+								<!-- PESSOA JURIDICA -->
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Razão Social*"></h:outputLabel>
+										<h:inputText styleClass="field text" id="razaoSocial" maxlength="50" size="50" value="#{fornecedorBB.razaoSocial}" required="false">
+											<f:validateLength maximum="50" />
+										</h:inputText>
+										<h:message for="razaoSocial" styleClass="msgErro" />									
+									</div>
+								</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Nome Fantasia*"></h:outputLabel>
+										<h:inputText styleClass="field text" id="nomeFantasia" maxlength="50" size="50" value="#{fornecedorBB.nomeFantasia}" required="false">
+											<f:validateLength maximum="50" />
+										</h:inputText>
 																			
-										</div>
-										<h:message for="inscricaoMunicipal" styleClass="msgErro" />	
-									</li>
-								</ul>
-							</div>
+									</div>
+									<h:message for="nomeFantasia" styleClass="msgErro" />
+								</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Insc. Estadual*"></h:outputLabel>
+										<h:inputText styleClass="field text" id="inscricaoEstadual" maxlength="30" size="30" value="#{fornecedorBB.inscricaoEstadual}" required="false">
+											<f:validateLength maximum="30" />
+										</h:inputText>
+									</div>
+										<h:message for="inscricaoEstadual" styleClass="msgErro" />																			
+											</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Insc. Municipal*"></h:outputLabel>
+										<h:inputText styleClass="field text" id="inscricaoMunicipal" maxlength="30" size="30" value="#{fornecedorBB.inscricaoMunicipal}" required="false">
+											<f:validateLength maximum="30" />
+										</h:inputText>
+																		
+									</div>
+									<h:message for="inscricaoMunicipal" styleClass="msgErro" />	
+								</li>
+							</ul>
 						</div>
 						<div id="tabDiv1" style="display:none;">
 							<ul>

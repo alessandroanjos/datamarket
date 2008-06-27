@@ -23,6 +23,41 @@
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
+
+      <script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.tipopessoa").each(function(i){
+      		$(this).click(function() {mostraCampos(this.value)});
+      	});
+
+      }
+
+      function mostraCampos(str) {
+        //frmInserirCliente:comissao
+        var flag = new String(str);
+        if (flag.toUpperCase() == "F") {
+	        habilita("frmManterCliente:nomeCliente");
+        	habilita("frmManterCliente:dataNascimento");
+        	desabilita("frmManterCliente:razaoSocial");
+        	desabilita("frmManterCliente:nomeFantasia");
+        	desabilita("frmManterCliente:inscricaoEstadual");
+        	desabilita("frmManterCliente:inscricaoMunicipal");
+        } else {
+  	        desabilita("frmManterCliente:nomeCliente");
+        	desabilita("frmManterCliente:dataNascimento");
+        	habilita("frmManterCliente:razaoSocial");
+        	habilita("frmManterCliente:nomeFantasia");
+        	habilita("frmManterCliente:inscricaoEstadual");
+        	habilita("frmManterCliente:inscricaoMunicipal");
+        }
+      
+      }
+
+      </script>
 		</head>
 		<body>
 			<div id="outer">
@@ -53,8 +88,8 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id"
-												maxlength="4" value="#{clienteBB.id}" size="4"
+											<h:inputText styleClass="field text ativo" id="id" onkeypress="return SoNumero(event);"
+												maxlength="4" value="#{clienteBB.id}" size="4" readonly="true"
 												required="true">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator" />
@@ -64,7 +99,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false"
-												value="#{clienteBB.dataCadastro}" onkeypress="return SoNumero();" onkeydown="FormataData('frmManterCliente:dataCadastro');">			
+												value="#{clienteBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">			
 											</h:inputText>
 											<h:message for="dataCadastro" styleClass="msgErro"/>
 										</div>
@@ -72,10 +107,9 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
-											<h:selectOneRadio  styleClass="field select" id="tipoPessoa"
-												value="#{clienteBB.tipoPessoa}"  layout="lineDirection" rendered="true">
-											    <f:selectItem itemLabel="Física" itemValue="F" />
-											    <f:selectItem itemLabel="Jurídica" itemValue="J"/>
+											<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoa" 
+												value="#{clienteBB.idTipoPessoa}" layout="lineDirection" required="true">
+												<f:selectItems id="tipoPessoaLista" value="#{clienteBB.listaTipoPessoa}"/>
 											</h:selectOneRadio>
 											<h:message for="tipoPessoa" styleClass="msgErro"/>
 										</div>
@@ -101,7 +135,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Data de Nascimento"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataNascimento" maxlength="10" size="10"
-												value="#{clienteBB.dataNascimento}" onkeypress="return SoNumero();" onkeydown="FormataData('frmManterCliente:dataNascimento');">
+												value="#{clienteBB.dataNascimento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 												
 											</h:inputText>
 											<h:message for="dataNascimento" styleClass="msgErro"/>
@@ -111,7 +145,7 @@
 									<!-- PESSOA JURIDICA -->
 									<li class="normal">
 										<div>
-											<h:outputLabel styleClass="desc" value="Razão Social*"></h:outputLabel>
+											<h:outputLabel styleClass="desc" value="Razão Social"></h:outputLabel>
 											<h:inputText styleClass="field text" id="razaoSocial" maxlength="50" size="50" value="#{clienteBB.razaoSocial}" required="false">
 												<f:validateLength maximum="50" />
 											</h:inputText>
@@ -120,7 +154,7 @@
 									</li>
 									<li class="normal">
 										<div>
-											<h:outputLabel styleClass="desc" value="Nome Fantasia*"></h:outputLabel>
+											<h:outputLabel styleClass="desc" value="Nome Fantasia"></h:outputLabel>
 											<h:inputText styleClass="field text" id="nomeFantasia" maxlength="50" size="50" value="#{clienteBB.nomeFantasia}" required="false">
 												<f:validateLength maximum="50" />
 											</h:inputText>
@@ -129,14 +163,14 @@
 									</li>
 									<li class="normal">
 										<div>
-											<h:outputLabel styleClass="desc" value="Insc. Estadual*"></h:outputLabel>
+											<h:outputLabel styleClass="desc" value="Insc. Estadual"></h:outputLabel>
 											<h:inputText styleClass="field text" id="inscricaoEstadual" maxlength="30" size="30" value="#{clienteBB.inscricaoEstadual}" required="false">
 												<f:validateLength maximum="30" />
 											</h:inputText>
 											<h:message for="inscricaoEstadual" styleClass="msgErro" />									
 										</div>
 										<div>
-											<h:outputLabel styleClass="desc" value="Insc. Municipal*"></h:outputLabel>
+											<h:outputLabel styleClass="desc" value="Insc. Municipal"></h:outputLabel>
 											<h:inputText styleClass="field text" id="inscricaoMunicipal" maxlength="30" size="30" value="#{clienteBB.inscricaoMunicipal}" required="false">
 												<f:validateLength maximum="30" />
 											</h:inputText>
@@ -248,7 +282,7 @@
 								</div>	
 								<ul>
 									<li class="buttons">
-										<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{clienteBB.voltarConsulta}" value="Voltar"></h:commandButton>
+										<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{clienteBB.voltarConsulta}" value="Voltar"></h:commandButton>
 										<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{clienteBB.alterar}" value="Alterar"></h:commandButton>
 										<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{clienteBB.excluir}" value="Excluir"></h:commandButton>
 									</li>

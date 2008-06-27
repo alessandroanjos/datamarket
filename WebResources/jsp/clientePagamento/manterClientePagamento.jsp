@@ -22,7 +22,6 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/masks.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
 		
@@ -79,8 +78,7 @@
 						</ul>						
 						<ul>
 							<li class="buttons">
-								<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{clientePagamentoBB.voltarConsulta}" value="Voltar"></h:commandButton>
-								<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+								<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{clientePagamentoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 								<h:commandButton styleClass="btTxt" id="botaoInserir" onclick="window.print();" value="Imprimir"></h:commandButton>
 							</li>
 						</ul>
