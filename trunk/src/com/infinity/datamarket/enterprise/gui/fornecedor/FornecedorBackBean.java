@@ -6,22 +6,26 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class FornecedorBackBean extends BackBean {
 	
 	public FornecedorBackBean(){
-		resetBB();
+//		resetBB();
+		setDataCadastro(new Date(System.currentTimeMillis()));
 	}
 	
 	String id;
 	String nomeFornecedor;
-	String tipoPessoa = new String(Fornecedor.PESSOA_FISICA);
+	String idTipoPessoa = new String(Fornecedor.PESSOA_FISICA);
+	String tipoPessoa;
 	String cpfCnpj;
 	String razaoSocial;
 	String nomeFantasia;
@@ -40,6 +44,8 @@ public class FornecedorBackBean extends BackBean {
 	String pessoaContato;
 	String foneContato;
 	Date dataCadastro = new Date(System.currentTimeMillis());
+	
+	SelectItem[] listaTipoPessoa;
 	
 	Collection fornecedores;
 
@@ -179,12 +185,12 @@ public class FornecedorBackBean extends BackBean {
 		this.razaoSocial = razaoSocial;
 	}
 
-	public String getTipoPessoa() {
-		return tipoPessoa;
+	public String getIdTipoPessoa() {
+		return idTipoPessoa;
 	}
 
-	public void setTipoPessoa(String tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
+	public void setIdTipoPessoa(String idTipoPessoa) {
+		this.idTipoPessoa = idTipoPessoa;
 	}
 
 	public Date getDataCadastro() {
@@ -192,15 +198,16 @@ public class FornecedorBackBean extends BackBean {
 	}
 
 	public void setDataCadastro(Date dataCadastro) {
+		System.out.println(dataCadastro);
 		this.dataCadastro = dataCadastro;
 	}
 
-	public String resetBB(){
+	public void resetBB(){
 		this.setId(null);
-		this.setTipoPessoa(Fornecedor.PESSOA_FISICA);
+		this.setIdTipoPessoa(Fornecedor.PESSOA_FISICA);
 		this.setNomeFornecedor(null);
 		this.setNomeFantasia(null);
-		this.setDataCadastro(null);
+//		this.setDataCadastro(null);
 		this.setCpfCnpj(null);
 		this.setRazaoSocial(null);
 		this.setNomeFantasia(null);
@@ -218,8 +225,7 @@ public class FornecedorBackBean extends BackBean {
 		this.setFoneCelular(null);
 		this.setPessoaContato(null);
 		this.setFoneContato(null);
-		this.setDataCadastro(new Date(System.currentTimeMillis()));
-		return "mesma";
+		this.setDataCadastro(null);
 	}
 	
 	public String consultar(){
@@ -234,7 +240,7 @@ public class FornecedorBackBean extends BackBean {
 				Fornecedor fornecedor = getFachada().consultaFornecedorPorId(new Long(getId()));
 				this.setId(fornecedor.getId().toString());
 				this.setNomeFornecedor(fornecedor.getNomeFornecedor());
-				this.setTipoPessoa(fornecedor.getTipoPessoa());
+				this.setIdTipoPessoa(fornecedor.getTipoPessoa());
 				this.setCpfCnpj(fornecedor.getCpfCnpj());
 				this.setRazaoSocial(fornecedor.getRazaoSocial());
 				this.setNomeFantasia(fornecedor.getNomeFantasia());
@@ -257,11 +263,11 @@ public class FornecedorBackBean extends BackBean {
 				return "proxima";
 			}else if ((this.getNomeFornecedor() != null && !"".equals(this.getNomeFornecedor()))
 					|| (this.getCpfCnpj() != null && !"".equals(this.getCpfCnpj()))
-					|| (this.getTipoPessoa() != null && !"".equals(this.getTipoPessoa()))){
+					|| (this.getIdTipoPessoa() != null && !"".equals(this.getIdTipoPessoa()))){
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(Fornecedor.class);
-				filter.addProperty("tipoPessoa", this.getTipoPessoa());
-				if(this.getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
+				filter.addProperty("tipoPessoa", this.getIdTipoPessoa());
+				if(this.getIdTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
 					filter.addProperty("nomeFornecedor", this.getNomeFornecedor());	
 				}else{
 					filter.addProperty("razaoSocial", this.getNomeFornecedor());
@@ -271,6 +277,7 @@ public class FornecedorBackBean extends BackBean {
 				}
 				Collection col = getFachada().consultarFornecedor(filter);
 				if (col == null || col.size() == 0){
+					setExisteRegistros(false);
 					this.setFornecedores(col);
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -281,7 +288,7 @@ public class FornecedorBackBean extends BackBean {
 						Fornecedor fornecedor = (Fornecedor)col.iterator().next();
 						this.setId(fornecedor.getId().toString());
 						this.setNomeFornecedor(fornecedor.getNomeFornecedor());
-						this.setTipoPessoa(fornecedor.getTipoPessoa());
+						this.setIdTipoPessoa(fornecedor.getTipoPessoa());
 						this.setCpfCnpj(fornecedor.getCpfCnpj());
 						this.setRazaoSocial(fornecedor.getRazaoSocial());
 						this.setNomeFantasia(fornecedor.getNomeFantasia());
@@ -303,30 +310,43 @@ public class FornecedorBackBean extends BackBean {
 
 						return "proxima";
 					}else{
+						setExisteRegistros(true);
 						this.setFornecedores(col);
 					}
 				}
 			}else{
-				this.setFornecedores(getFachada().consultarTodosFornecedores());
+				Collection c = getFachada().consultarTodosFornecedores();
+				if(c != null && c.size() > 0){
+					setExisteRegistros(true);
+					this.setFornecedores(c);	
+				}else{
+					setExisteRegistros(false);
+					this.setFornecedores(null);
+				}
+				
 			}
 		}catch(ObjectNotFoundException e){
+			setExisteRegistros(false);
 			this.setFornecedores(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);			
 		}catch(Exception e){
+			setExisteRegistros(false);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
 		return "mesma";
 	}
 
 	public String inserir(){
 		try {
+			
+			validarCampos(this.getIdTipoPessoa());
+			
 			Fornecedor fornecedor = preencheFornecedor(INSERIR);
 			
 			getFachada().inserirFornecedor(fornecedor);
@@ -340,6 +360,11 @@ public class FornecedorBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Fornecedor já Existente!", "");
 			ctx.addMessage(null, msg);
+		} catch (AppException app){
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					app.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -351,7 +376,9 @@ public class FornecedorBackBean extends BackBean {
 	}
 	
 	public String alterar(){
-		try {		
+		try {	
+			validarCampos(this.getIdTipoPessoa());
+			
 			Fornecedor fornecedor = preencheFornecedor(ALTERAR);			
 								
 			getFachada().alterarFornecedor(fornecedor);
@@ -361,6 +388,11 @@ public class FornecedorBackBean extends BackBean {
 			ctx.addMessage(null, msg);
 			resetBB();
 			this.setFornecedores(null);
+		} catch (AppException app){
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					app.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -401,7 +433,7 @@ public class FornecedorBackBean extends BackBean {
 		
 		fornecedor.setId(new Long(this.getId()));
 		fornecedor.setNomeFornecedor(this.getNomeFornecedor());
-		fornecedor.setTipoPessoa(this.getTipoPessoa());
+		fornecedor.setTipoPessoa(this.getIdTipoPessoa());
 		fornecedor.setCpfCnpj(this.getCpfCnpj());
 		fornecedor.setRazaoSocial(this.getRazaoSocial());
 		fornecedor.setNomeFantasia(this.getNomeFantasia());
@@ -465,5 +497,62 @@ public class FornecedorBackBean extends BackBean {
 	 */
 	public void setFoneResidencial(String foneResidencial) {
 		this.foneResidencial = foneResidencial;
+	}
+
+	public SelectItem[] getListaTipoPessoa() {
+		SelectItem[] lista = new SelectItem[2];
+		lista[0] = new SelectItem("F", "Física");
+		lista[1] = new SelectItem("J", "Jurídica");
+		if(this.getIdTipoPessoa() == null || this.getIdTipoPessoa().equals("")){
+			this.setIdTipoPessoa(Fornecedor.PESSOA_FISICA);
+		}
+		return lista;
+	}
+
+	public void setListaTipoPessoa(SelectItem[] listaTipoPessoa) {
+		this.listaTipoPessoa = listaTipoPessoa;
+	}
+
+	public String getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(String tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+	
+	public void validarCampos(String tipoPessoa) throws AppException{
+		if(tipoPessoa.equals(Fornecedor.PESSOA_FISICA)){
+			if(this.getNomeFornecedor() == null || this.getNomeFornecedor().equals("")){
+				throw new AppException("O Nome do Fornecedor é obrigatório.");
+			}
+		}else if(tipoPessoa.equals(Fornecedor.PESSOA_JURIDICA)){
+			if(this.getRazaoSocial() == null || this.getRazaoSocial().equals("")){
+				throw new AppException("O campo Razão Social é obrigatório.");
+			}
+			if(this.getNomeFantasia() == null || this.getNomeFantasia().equals("")){
+				throw new AppException("O campo Nome Fantasia é obrigatório.");
+			}
+			if(this.getInscricaoEstadual() == null || this.getInscricaoEstadual().equals("")){
+				throw new AppException("O campo Inscriç!ao Estadual é obrigatório.");
+			}
+			if(this.getInscricaoMunicipal() == null || this.getInscricaoMunicipal().equals("")){
+				throw new AppException("O campo Inscrição Municipal é obrigatório.");
+			}
+		}		
+	}
+	
+	public String voltarConsulta() {
+		this.setId(null);
+		this.setIdTipoPessoa(Fornecedor.PESSOA_FISICA);
+		this.setNomeFornecedor(null);
+		this.setCpfCnpj(null);
+		consultar();
+		return "voltar";
+	}
+
+	public String voltarMenu() {
+		resetBB();
+		return "voltar";
 	}
 }
