@@ -41,13 +41,9 @@
 				<div id="content">
 				
 						<div id="primarioContentContainerInternas">
-							<ul>
-								<li class="normal">
-									<div>
-										<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
-									</div>
-								</li>
-							</ul>
+							<div>
+								<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+							</div>
 							<fieldset>
 								<legend>Opções de filtro:</legend>
 								<ul>
@@ -65,7 +61,7 @@
 										<div>
 										<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataInicial" maxlength="10" size="10"
-											value="#{clientePagamentoBB.dataInicial}" onkeypress="return SoNumero();" onkeydown="FormataData('frmConsultarClientePagamento:dataInicial');">
+											value="#{clientePagamentoBB.dataInicial}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 											
 										</h:inputText>
 										<h:message for="dataInicial" styleClass="msgErro"/>
@@ -73,7 +69,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Data Final"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFinal" maxlength="10" size="10"
-											value="#{clientePagamentoBB.dataFinal}" onkeypress="return SoNumero();" onkeydown="FormataData('frmConsultarClientePagamento:dataFinal');">
+											value="#{clientePagamentoBB.dataFinal}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 											
 										</h:inputText>
 										<h:message for="dataFinal" styleClass="msgErro"/>
@@ -83,7 +79,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{clientePagamentoBB.clientesPagamentos}"
-									var="clientePagamento" rowClasses="rowA,rowB" width="100%">
+									var="clientePagamento" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -108,7 +104,7 @@
 										<f:facet name="header">
 											<h:outputText value="CPF/CNPJ" /> 
 										</f:facet>
-										<h:outputText value="#{cliente.cpfCnpj}" /> 
+										<h:outputText value="#{clientePagamento.cliente.cpfCnpj}" /> 
 									</h:column>		
 									<h:column>
 										<f:facet name="header">
@@ -118,11 +114,18 @@
 									</h:column>		
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Valor Pago" /> 
+											<h:outputText value="Valor Pagamento"/> 
 										</f:facet>
-										<h:outputText value="#{clientePagamento.valorPagamento}" /> 
+										<h:outputText value="#{clientePagamento.valorPagamento}" dir="rtl" /> 
 									</h:column>							
 								</t:dataTable>
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not formaRecebimentoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>
 							</div>
 							<ul>
 								<li class="buttons">

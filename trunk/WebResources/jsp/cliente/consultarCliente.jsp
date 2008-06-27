@@ -43,7 +43,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+											<h:inputText styleClass="field text ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
 												value="#{clienteBB.id}" size="4" required="false">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
@@ -52,10 +52,9 @@
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
-											<h:selectOneRadio styleClass="field select" id="tipoPessoa" 
-												value="#{clienteBB.tipoPessoa}" layout="lineDirection" rendered="true">
-											    <f:selectItem itemLabel="Física" itemValue="F" />
-											    <f:selectItem itemLabel="Jurídica" itemValue="J"  />
+											<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoa" 
+												value="#{clienteBB.idTipoPessoa}" layout="lineDirection" required="true">
+												<f:selectItems id="tipoPessoaLista" value="#{clienteBB.listaTipoPessoa}"/>
 											</h:selectOneRadio>
 											<h:message for="tipoPessoa" styleClass="msgErro"/>
 										</div>
@@ -70,7 +69,7 @@
 											<h:message for="id" styleClass="msgErro" />
 										</div>												
 										<div>
-											<h:outputLabel styleClass="desc" value="Nome Cliente"></h:outputLabel>
+											<h:outputLabel styleClass="desc" value="Nome Cliente/Razão Social"></h:outputLabel>
 											<h:inputText styleClass="field text" id="nomeCliente" maxlength="50" size="50"
 												value="#{clienteBB.nomeCliente}">
 												<f:validateLength maximum="50" />
@@ -82,7 +81,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{clienteBB.clientes}"
-									var="cliente" rowClasses="rowA,rowB" width="100%">
+									var="cliente" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -116,6 +115,13 @@
 										<h:outputText value="#{cliente.dataCadastro}" /> 
 									</h:column>							
 								</t:dataTable>
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not formaRecebimentoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>	
 							</div>
 							<ul>
 								<li class="buttons">

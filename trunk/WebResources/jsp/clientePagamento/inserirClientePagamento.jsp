@@ -22,9 +22,8 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/masks.js"></script>
-		<t:stylesheet path="/EnterpriseServer/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		<t:stylesheet path="/css/default.css"></t:stylesheet>
+		<t:stylesheet path="/css/form.css"></t:stylesheet>
 		
 	</head>
 	<body>
@@ -51,34 +50,52 @@
 							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Cliente"></h:outputLabel>
-									<h:selectOneMenu id="clientes" styleClass="field select"
-										value="#{clientePagamentoBB.idCliente}" required="true" style="width: 200px;">   
+									<h:selectOneMenu id="clientes" styleClass="field select" onchange="submit();" immediate="true"
+										value="#{clientePagamentoBB.idCliente}" required="true" style="width: 200px;" valueChangeListener="#{clientePagamentoBB.recuperaDadosCliente}">   
 										  <f:selectItems id="clienteSelectItems" value="#{clientePagamentoBB.clientes}" />   
 									</h:selectOneMenu>
 									<h:message for="clientes" styleClass="msgErro" />
 								</div>
+								</li>
+							<li class="normal">
+								<div>
+									<h:outputLabel styleClass="desc" value="Limite Compras"></h:outputLabel>
+									<h:inputText styleClass="field text" id="valorLimiteCompras" maxlength="10" size="10" readonly="true"
+										value="#{clientePagamentoBB.cliente.valorLimiteCompras}">
+									</h:inputText>
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Limite Disponível"></h:outputLabel>									
+									<h:inputText styleClass="field text" id="valorLimiteDisponivel" maxlength="10" size="10" readonly="true"
+										value="#{clientePagamentoBB.cliente.valorLimiteDisponivel}">
+									</h:inputText>
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Valor Débito"></h:outputLabel>									
+									<h:inputText styleClass="field text" id="valorDebito" maxlength="10" size="10" readonly="true"
+										value="#{clientePagamentoBB.cliente.valorLimiteCompras - clientePagamentoBB.cliente.valorLimiteDisponivel}">
+									</h:inputText>
+								</div>
 							</li>																						
 							<li class="normal">
 								<div>
-									<h:outputLabel styleClass="desc" value="Data do Pagamento"></h:outputLabel>
+									<h:outputLabel styleClass="desc" value="Data Pagamento"></h:outputLabel>
 									<h:inputText styleClass="field text" id="dataPagamento" maxlength="10" size="10"
-										value="#{clientePagamentoBB.dataPagamento}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirClientePagamento:dataPagamento');"
-										required="true">
+										value="#{clientePagamentoBB.dataPagamento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''"
+										required="false">
 									</h:inputText>
 									<h:message for="dataPagamento" styleClass="msgErro"/>
 								</div>							
 								<div>
 									<h:outputLabel styleClass="desc" value="Forma de Recebimento"></h:outputLabel>
 									<h:selectOneMenu id="formas" styleClass="field select"
-										value="#{clientePagamentoBB.idFormaRecebimento}" required="true" style="width: 200px;">   
+										value="#{clientePagamentoBB.idFormaRecebimento}" required="false" style="width: 200px;">   
 										  <f:selectItems id="formaSelectItems" value="#{clientePagamentoBB.formas}" />   
 									</h:selectOneMenu>
 									<h:message for="formas" styleClass="msgErro" />
 								</div>
-							</li>
-							<li>
-								<div>
-									<h:outputLabel styleClass="desc" value="Valor do Pagamento"></h:outputLabel>
+							<div>
+									<h:outputLabel styleClass="desc" value="Valor Pagamento"></h:outputLabel>
 									<h:inputText styleClass="text field" dir="rtl" id="valorPagamento" maxlength="10" size="10" 
 										value="#{clientePagamentoBB.valorPagamento}" required="true" onkeypress="Formata('frmInserirClientePagamento:valorPagamento',9,2);">
 										<f:validateLength maximum="10" />	
