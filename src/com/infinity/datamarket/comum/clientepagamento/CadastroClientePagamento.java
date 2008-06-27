@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 
@@ -32,7 +33,11 @@ public class CadastroClientePagamento extends Cadastro {
 	}
 	
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		PropertyFilter filter = new PropertyFilter();
+		filter.setTheClass(CLASSE);
+		filter.addOrderByProperty("dataPagamento", PropertyFilter.DESC);
+		return getRepositorio().filter(filter, false);
+//		return getRepositorio().findAll(CLASSE);
 	}
 	public void inserir(ClientePagamento clientePagamento) throws AppException{
 		getRepositorio().insert(clientePagamento);
