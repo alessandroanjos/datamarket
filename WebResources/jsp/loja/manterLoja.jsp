@@ -20,7 +20,6 @@
 			<meta http-equiv="description" content="This is my page"/>
 			
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
-			<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
@@ -34,10 +33,6 @@
       	$("input.field, select.field").each(function(i){
       		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
       		$(this).blur(function() {this.style.backgroundColor = ""});
-      	});
-
-      	$("input.inteiro").each(function(i){
-      		$(this).mask("9999",{placeholder:" "});
       	});
 
       }
@@ -65,7 +60,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
 											value="#{lojaBB.id}" size="2" required="true" readonly="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator" />
@@ -90,16 +85,18 @@
 											size="15" value="#{lojaBB.numeroIp}" required="true" onblur="if (!verificaIP(this.value)) this.value = '';">
 											<f:validateLength maximum="15" />
 										</h:inputText>
-										<h:message for="ip" styleClass="msgErro" />
-									</div>								
+									</div>		
+									<h:message for="ip" styleClass="msgErro" />
+								</li>
+								<li class="normal">															
 									<div>
 										<h:outputLabel styleClass="desc" value="Porta*"></h:outputLabel>
-										<h:inputText styleClass="field text inteiro" id="numeroPorta" maxlength="4"
+										<h:inputText styleClass="field text inteiro" id="numeroPorta" maxlength="4" onkeypress="return SoNumero(event);"
 											size="4" value="#{lojaBB.numeroPorta}" required="true">
 											<f:validateLength maximum="4" />
 										</h:inputText>
-										<h:message for="numeroPorta" styleClass="msgErro" />
 									</div>
+									<h:message for="numeroPorta" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
@@ -112,7 +109,7 @@
 									<h:message for="idEstoque" styleClass="msgErro" />
 								</li>
 								<li class="buttons">
-									<h:commandButton immediate="true" styleClass="btTxt" id="botaoVoltar" action="#{lojaBB.voltarConsulta}" value="Voltar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{lojaBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{lojaBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{lojaBB.excluir}" value="Excluir"></h:commandButton>
 								</li>
