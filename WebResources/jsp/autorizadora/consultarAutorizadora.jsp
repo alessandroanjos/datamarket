@@ -22,6 +22,7 @@
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
@@ -47,7 +48,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+											<h:inputText styleClass="field text ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
 												value="#{autorizadoraBB.id}" size="4" required="false">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
@@ -67,7 +68,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable id="componentes" value="#{autorizadoraBB.autorizadoras}"
-									var="autorizadora" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
+									var="autorizadora" rowClasses="rowA,rowB" width="90%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -95,13 +96,9 @@
 										<h:outputText value="#{autorizadora.desagil}"/> 
 									</h:column>
 								</t:dataTable>	
-								<ul>
-									<li class="normal">
 										<div>
 											<h:messages rendered="#{not autorizadoraBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 										</div>
-									</li>
-								</ul>															
 							</div>
 							<ul>
 								<li class="buttons">
