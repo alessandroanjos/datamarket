@@ -2185,8 +2185,19 @@
 		<managed-property>
 		    <property-name>dataCadastro</property-name>
 		    <property-class>java.util.Date</property-class>
+		     <value>#{superBB.dataSistema}</value>
+		</managed-property>	
+		
+		<managed-property>
+		    <property-name>idTipoPessoa</property-name>
+		    <property-class>java.lang.String</property-class>
 		    <null-value/>
-		</managed-property>				
+		</managed-property>
+		<managed-property>
+		    <property-name>listaTipoPessoa</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>					
 	</managed-bean>
 	
 <!-- Autorizadora -->
