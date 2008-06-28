@@ -22,6 +22,7 @@
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
@@ -46,7 +47,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+											<h:inputText styleClass="field text ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
 												value="#{planoPagamentoChequePreBB.id}" size="4" required="false">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>

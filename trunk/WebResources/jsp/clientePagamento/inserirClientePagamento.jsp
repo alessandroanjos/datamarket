@@ -60,19 +60,19 @@
 							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Limite Compras"></h:outputLabel>
-									<h:inputText styleClass="field text" id="valorLimiteCompras" maxlength="10" size="10" readonly="true"
+									<h:inputText styleClass="field text" dir="rtl" id="valorLimiteCompras" maxlength="10" size="10" readonly="true"
 										value="#{clientePagamentoBB.cliente.valorLimiteCompras}">
 									</h:inputText>
 								</div>
 								<div>
 									<h:outputLabel styleClass="desc" value="Limite Disponível"></h:outputLabel>									
-									<h:inputText styleClass="field text" id="valorLimiteDisponivel" maxlength="10" size="10" readonly="true"
+									<h:inputText styleClass="field text" dir="rtl" id="valorLimiteDisponivel" maxlength="10" size="10" readonly="true"
 										value="#{clientePagamentoBB.cliente.valorLimiteDisponivel}">
 									</h:inputText>
 								</div>
 								<div>
 									<h:outputLabel styleClass="desc" value="Valor Débito"></h:outputLabel>									
-									<h:inputText styleClass="field text" id="valorDebito" maxlength="10" size="10" readonly="true"
+									<h:inputText styleClass="field text" dir="rtl" id="valorDebito" maxlength="10" size="10" readonly="true"
 										value="#{clientePagamentoBB.cliente.valorLimiteCompras - clientePagamentoBB.cliente.valorLimiteDisponivel}">
 									</h:inputText>
 								</div>
@@ -97,7 +97,7 @@
 							<div>
 									<h:outputLabel styleClass="desc" value="Valor Pagamento"></h:outputLabel>
 									<h:inputText styleClass="text field" dir="rtl" id="valorPagamento" maxlength="10" size="10" 
-										value="#{clientePagamentoBB.valorPagamento}" required="true" onkeypress="Formata('frmInserirClientePagamento:valorPagamento',9,2);">
+										value="#{clientePagamentoBB.valorPagamento}" required="false" onkeypress="Formata('frmInserirClientePagamento:valorPagamento',9,2);">
 										<f:validateLength maximum="10" />	
 										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>										
 										<f:validator validatorId="BigDecimalValidator" />

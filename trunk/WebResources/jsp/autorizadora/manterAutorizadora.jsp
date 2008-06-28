@@ -70,7 +70,7 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Desagil"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Deságil"></h:outputLabel>
 										<h:inputText styleClass="field text" id="desagil" maxlength="6" size="6" dir="rtl"
 											value="#{autorizadoraBB.desagil}" required="true" onkeypress="Formata('frmManterAutorizadora:desagil',5,2);">
 											<f:validateLength maximum="6" />

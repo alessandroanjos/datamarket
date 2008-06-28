@@ -68,7 +68,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
 											value="#{planoPagamentoChequePreBB.id}" size="3" required="false">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
@@ -143,7 +143,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Inicio Validade*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10" required="false"
-											value="#{planoPagamentoChequePreBB.dataInicioValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirPlanoPagamentoChequePre:dataInicioValidade');">
+											value="#{planoPagamentoChequePreBB.dataInicioValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 											
 										</h:inputText>
 										<h:message for="dataInicioValidade" styleClass="msgErro"/>
@@ -151,7 +151,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Final Validade*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10" required="false"
-											value="#{planoPagamentoChequePreBB.dataFimValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirPlanoPagamentoChequePre:dataFimValidade');">
+											value="#{planoPagamentoChequePreBB.dataFimValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 										</h:inputText>
 										<h:message for="dataFimValidade" styleClass="msgErro"/>
 									</div>
@@ -168,11 +168,15 @@
 								</li>
 							</ul>
 						</div>
+						
+
+						
+						
 						<div id="tabDiv1"  style="display:none;">
 							<ul>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Percentual de Entrada*"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Perc. Entrada*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="percentualEntrada" maxlength="5" size="5"
 											value="#{planoPagamentoChequePreBB.percentagemEntrada}" dir="rtl" required="false" onkeypress="Formata('frmInserirPlanoPagamentoChequePre:percentualEntrada',5,2);">
 											<f:validateLength maximum="5" />
@@ -182,16 +186,13 @@
 										<h:message for="percentualEntrada" styleClass="msgErro"/>
 									</div>
 								</li>
-							</ul>
-							<ul>
-								<li class="normal">							
-									<div id="primarioContentContainerInternas">
+											</ul>
 										<fieldset>
-											<legend>Parcelas</legend>
+											<legend><b>Parcelas</b></legend>
 											<ul>
 												<li class="normal">
 													<div>
-														<h:outputLabel styleClass="desc" value="Percentual da Parcela*"></h:outputLabel>
+														<h:outputLabel styleClass="desc" value="Percentual*"></h:outputLabel>
 														<h:inputText styleClass="field text" id="percentualParcela" maxlength="6" size="6"
 															value="#{planoPagamentoChequePreBB.percentagemParcela}" dir="rtl" required="false" onkeypress="return SoNumero();" onkeypress="Formata('frmInserirPlanoPagamentoChequePre:percentualParcela',5,2);">
 															<f:validateLength maximum="6" />
@@ -201,19 +202,19 @@
 														<h:message for="percentualParcela" styleClass="msgErro"/>
 													</div>
 													<div>
-														<h:outputLabel styleClass="desc" value="Quantidade de Dias*"></h:outputLabel>
+														<h:outputLabel styleClass="desc" value="Qtd. de Dias*"></h:outputLabel>
 														<h:inputText styleClass="field text ativo" id="quantidadeDiasParcela" dir="rtl" maxlength="3"
-															value="#{planoPagamentoChequePreBB.quantidadeDias}" size="3" rendered="true" onkeypress="return SoNumero();">
+															value="#{planoPagamentoChequePreBB.quantidadeDias}" size="3" rendered="true" onkeypress="return SoNumero(event);">
 															<f:validateLength maximum="3" />
 															<f:validator validatorId="LongValidator"/>
 														</h:inputText>
 														<h:message for="quantidadeDiasParcela" styleClass="msgErro"/>
 													</div>
-													<div style="vertical-align: bottom;">
-														<h:commandButton styleClass="btTxt" id="botaoInserirParcela" action="#{planoPagamentoChequePreBB.inserirParcela}" value="Inserir Parcela"></h:commandButton>
+													<div>
+														<h:commandButton styleClass="btTxt" id="botaoInserirParcela" action="#{planoPagamentoChequePreBB.inserirParcela}" value="Inserir"></h:commandButton>
 													</div>
-												<br/>
-												<br/>												
+      								</li>
+											</ul>
 													<div class="listagemSimples">
 														<t:dataTable value="#{planoPagamentoChequePreBB.parcelas}"
 															var="parcela" rowClasses="rowA,rowB" width="100%">
@@ -225,13 +226,13 @@
 															</h:column>
 															<h:column>
 																<f:facet name="header">
-																	<h:outputText value="Percentual Parcela" />
+																	<h:outputText value="Percentual" />
 																</f:facet>
 																<h:outputText value="#{parcela.percentagemParcela}" /> 
 															</h:column>
 															<h:column>
 																<f:facet name="header">
-																	<h:outputText value="Quantidade Dias" />
+																	<h:outputText value="Qtd. de dias" />
 																</f:facet>
 																<h:outputText value="#{parcela.quantidadeDias}" /> 
 															</h:column>	
@@ -247,12 +248,7 @@
 															</h:column>													
 														</t:dataTable>																
 													</div>
-												</li>
-											</ul>
 										</fieldset>								
-									</div>
-								</li>								
-							</ul>
 						</div>						
 						<ul>
 							<li class="buttons">
