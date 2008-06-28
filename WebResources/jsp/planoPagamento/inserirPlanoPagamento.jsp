@@ -48,7 +48,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
 											value="#{planoPagamentoBB.id}" size="3" required="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
@@ -68,16 +68,7 @@
 									</div>
 									<h:message for="descricao" styleClass="msgErro"/>
 								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Situação"></h:outputLabel>
-										<h:selectOneRadio  styleClass="field select" id="status" 
-											value="#{planoPagamentoBB.status}" layout="lineDirection">
-										    <f:selectItems id="situacao" value="#{planoPagamentoBB.situacaoItens}" />
-							
-										</h:selectOneRadio>
-										<h:message for="status" styleClass="msgErro"/>
-									</div>								
+								<li class="normal">						
 									<div>
 										<h:outputLabel styleClass="desc" value="Forma de Receb. Associada"></h:outputLabel>
 										<h:selectOneMenu id="idForma" styleClass="field select" style="width: 190px;" 
@@ -136,7 +127,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Inicio Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10" required="false"
-											value="#{planoPagamentoBB.dataInicioValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirPlanoPagamento:dataInicioValidade');">
+											value="#{planoPagamentoBB.dataInicioValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 											
 										</h:inputText>
 										<h:message for="dataInicioValidade" styleClass="msgErro"/>
@@ -144,10 +135,20 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Final Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10" required="false"
-											value="#{planoPagamentoBB.dataFimValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirPlanoPagamento:dataFimValidade');">
+											value="#{planoPagamentoBB.dataFimValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 										</h:inputText>
 										<h:message for="dataFimValidade" styleClass="msgErro"/>
 									</div>
+								</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Situação*"></h:outputLabel>
+										<h:selectOneRadio  styleClass="field select" id="status" 
+											value="#{planoPagamentoBB.status}" layout="lineDirection" required="true">
+										    <f:selectItems id="situacao" value="#{planoPagamentoBB.situacaoItens}" />							
+										</h:selectOneRadio>
+									</div>		
+									<h:message for="status" styleClass="msgErro"/>
 								</li>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
