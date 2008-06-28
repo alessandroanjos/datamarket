@@ -47,7 +47,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
 											value="#{autorizadoraBB.id}" size="3" required="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
@@ -69,6 +69,19 @@
 								</li>
 								<li class="normal">
 									<div>
+										<h:outputLabel styleClass="desc" value="Desagil"></h:outputLabel>
+										<h:inputText styleClass="field text" id="desagil" maxlength="6" size="6" dir="rtl"
+											value="#{autorizadoraBB.desagil}" required="true" onkeypress="Formata('frmInserirAutorizadora:desagil',5,2);">
+											<f:validateLength maximum="6" />
+											<f:validateDoubleRange  minimum="0.00" maximum="999.99"/>
+											<f:validator validatorId="BigDecimalValidator"/>
+										</h:inputText>
+										
+									</div>
+									<h:message for="desagil" styleClass="msgErro"/>
+								</li>
+								<li class="normal">
+									<div>
 										<h:outputLabel styleClass="desc" value="Ativa"></h:outputLabel>
 										<h:selectOneRadio  styleClass="field select"  id="situacao"  required="true"
 											value="#{autorizadoraBB.situacao}"  layout="lineDirection" rendered="true">
@@ -79,21 +92,8 @@
 									</div>
 									<h:message for="situacao" styleClass="msgErro"/>
 								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Desagil"></h:outputLabel>
-										<h:inputText styleClass="field text" id="desagil" maxlength="6" size="6" dir="rtl"
-											value="#{autorizadoraBB.desagil}" required="true" onkeypress="Formata('frmInserirAutorizadora:desagil',9,2);">
-											<f:validateLength maximum="6" />
-											<f:validateDoubleRange  minimum="0.00" maximum="999.99"/>
-											<f:validator validatorId="BigDecimalValidator"/>
-										</h:inputText>
-										
-									</div>
-									<h:message for="desagil" styleClass="msgErro"/>
-								</li>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{autorizadoraBB.inserir}" value="Inserir"></h:commandButton>
 								</li>
 							</ul>
