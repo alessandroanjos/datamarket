@@ -103,11 +103,11 @@
 									
 									<div>
 										<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
-										<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="true"
-											value="#{fornecedorBB.dataCadastro}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirFornecedor:dataCadastro');">			
+										<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false"
+											value="#{fornecedorBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">			
 											<f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="#{superBB.timeZone}"/>
 										</h:inputText>
-										
+										<div>
 									</div>
 									<h:message for="dataCadastro" styleClass="msgErro"/>
 								</li>

@@ -58,7 +58,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
 											value="#{planoPagamentoChequePreBB.id}" size="3" required="false" readonly="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
@@ -133,7 +133,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Inicio Validade*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10"
-											value="#{planoPagamentoChequePreBB.dataInicioValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmManterPlanoPagamentoChequePre:dataInicioValidade');">
+											value="#{planoPagamentoChequePreBB.dataInicioValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 											
 										</h:inputText>
 										<h:message for="dataInicioValidade" styleClass="msgErro"/>
@@ -141,7 +141,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Final Validade*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10"
-											value="#{planoPagamentoChequePreBB.dataFimValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmManterPlanoPagamentoChequePre:dataFimValidade');">
+											value="#{planoPagamentoChequePreBB.dataFimValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 										</h:inputText>
 										<h:message for="dataFimValidade" styleClass="msgErro"/>
 									</div>
@@ -162,7 +162,7 @@
 							<ul>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Percentual de Entrada*"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Perc. Entrada*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="percentualEntrada" maxlength="5" size="5"
 											value="#{planoPagamentoChequePreBB.percentagemEntrada}" dir="rtl" required="false" onkeypress="Formata('frmManterPlanoPagamentoChequePre:percentualEntrada',5,2);">
 											<f:validateLength maximum="5" />
@@ -181,9 +181,9 @@
 											<ul>
 												<li class="normal">
 													<div>
-														<h:outputLabel styleClass="desc" value="Percentual da Parcela*"></h:outputLabel>
+														<h:outputLabel styleClass="desc" value="Percentual*"></h:outputLabel>
 														<h:inputText styleClass="field text" id="percentualParcela" maxlength="6" size="6"
-															value="#{planoPagamentoChequePreBB.percentagemParcela}" dir="rtl" required="false" onkeypress="return SoNumero();" onkeypress="Formata('frmManterPlanoPagamentoChequePre:percentualParcela',5,2);">
+															value="#{planoPagamentoChequePreBB.percentagemParcela}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeypress="Formata('frmManterPlanoPagamentoChequePre:percentualParcela',5,2);">
 															<f:validateLength maximum="6" />
 															<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 															<f:validator validatorId="BigDecimalValidator"/>
@@ -191,9 +191,9 @@
 														<h:message for="percentualParcela" styleClass="msgErro"/>
 													</div>
 													<div>
-														<h:outputLabel styleClass="desc" value="Quantidade de Dias*"></h:outputLabel>
+														<h:outputLabel styleClass="desc" value="Qtd. de Dias*"></h:outputLabel>
 														<h:inputText styleClass="field text ativo" id="quantidadeDiasParcela" dir="rtl" maxlength="3"
-															value="#{planoPagamentoChequePreBB.quantidadeDias}" size="3" rendered="true" onkeypress="return SoNumero();">
+															value="#{planoPagamentoChequePreBB.quantidadeDias}" size="3" rendered="true" onkeypress="return SoNumero(event);">
 															<f:validateLength maximum="3" />
 															<f:validator validatorId="LongValidator"/>
 														</h:inputText>
@@ -245,7 +245,7 @@
 						</div>						
 						<ul>
 							<li class="buttons">
-								<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{planoPagamentoChequePreBB.voltarConsulta}" value="Voltar"></h:commandButton>							
+								<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{planoPagamentoChequePreBB.voltarConsulta}" value="Voltar"></h:commandButton>							
 								<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{planoPagamentoChequePreBB.alterar}" value="Alterar"></h:commandButton>
 								<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{planoPagamentoChequePreBB.excluir}" value="Excluir"></h:commandButton>
 							</li>
@@ -256,7 +256,6 @@
           </div>
 					<div class="clear"></div>
 				</div>	
-				<jsp:include page="/jsp/rodape.jsp"></jsp:include>
+	 </body>						
 	</f:view>
 </html>
-		

@@ -46,7 +46,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Número da Liberação de Dados Atual"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="numeroLote" maxlength="8"
+										<h:inputText styleClass="field text ativo" id="numeroLote" maxlength="8" onkeypress="return SoNumero(event);"
 											value="#{loteBB.numeroLote}" size="8">
 											<f:validateLength maximum="8" />
 											<f:validator validatorId="LongValidator" />
@@ -65,7 +65,7 @@
 									</div>
 								</li>								
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{loteBB.consultarLote}" value="Consultar Próxima Liberação"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{loteBB.consultarLote}" value="Próxima Liberação"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoLiberar" action="#{loteBB.liberarLote}" value="Liberar Dados"></h:commandButton>
 								</li>
 							</ul>
