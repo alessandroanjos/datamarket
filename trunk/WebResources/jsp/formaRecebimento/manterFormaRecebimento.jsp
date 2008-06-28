@@ -48,13 +48,13 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
 											value="#{formaRecebimentoBB.id}" size="3" required="true" readonly="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>
-										<h:message for="id" styleClass="msgErro"/>
 									</div>
+										<h:message for="id" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
@@ -63,8 +63,8 @@
 											value="#{formaRecebimentoBB.descricao}">
 											<f:validateLength maximum="50" />
 										</h:inputText>
-										<h:message for="descricao" styleClass="msgErro"/>
 									</div>
+										<h:message for="descricao" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
@@ -73,8 +73,8 @@
 											value="#{formaRecebimentoBB.recebimentoImpressora}">
 											<f:validateLength maximum="50" />
 										</h:inputText>
-										<h:message for="recebimentoImpressora" styleClass="msgErro"/>
 									</div>
+										<h:message for="recebimentoImpressora" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
@@ -84,8 +84,8 @@
 										    <f:selectItem itemLabel="Sim" itemValue="S" />
 										    <f:selectItem itemLabel="Não" itemValue="N"/>
 										</h:selectOneRadio>
-										<h:message for="abrirGaveta" styleClass="msgErro"/>
 									</div>
+										<h:message for="abrirGaveta" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
@@ -118,7 +118,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Inicio Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10"
-											value="#{formaRecebimentoBB.dataInicioValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmManterFormaRecebimento:dataInicioValidade');">
+											value="#{formaRecebimentoBB.dataInicioValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 										</h:inputText>
 									</div>
 									<h:message for="dataInicioValidade" styleClass="msgErro"/>
@@ -127,7 +127,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Final Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10"
-											value="#{formaRecebimentoBB.dataFimValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmManterFormaRecebimento:dataFimValidade');">
+											value="#{formaRecebimentoBB.dataFimValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 										</h:inputText>
 									</div>
 									<h:message for="dataFimValidade" styleClass="msgErro"/>									

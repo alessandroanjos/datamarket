@@ -19,7 +19,6 @@
 		<meta http-equiv="description" content="This is my page"/>
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
@@ -47,7 +46,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
 											value="#{formaRecebimentoBB.id}" size="3" required="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator"/>
@@ -117,7 +116,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Inicio Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10"
-											value="#{formaRecebimentoBB.dataInicioValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirFormaRecebimento:dataInicioValidade');">
+											value="#{formaRecebimentoBB.dataInicioValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 										</h:inputText>
 									</div>
 									<h:message for="dataInicioValidade" styleClass="msgErro"/>
@@ -126,7 +125,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Final Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10"
-											value="#{formaRecebimentoBB.dataFimValidade}" onkeypress="return SoNumero();" onkeydown="FormataData('frmInserirFormaRecebimento:dataFimValidade');">
+											value="#{formaRecebimentoBB.dataFimValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
 										</h:inputText>
 									</div>
 									<h:message for="dataFimValidade" styleClass="msgErro"/>									

@@ -20,7 +20,6 @@
 			<meta http-equiv="description" content="This is my page"/>
 			
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
-			<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
@@ -44,7 +43,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+											<h:inputText styleClass="field text ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
 												value="#{lojaBB.id}" size="4" required="false">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
@@ -71,7 +70,7 @@
 										</div>									
 										<div>
 											<h:outputLabel styleClass="desc" value="Número Porta"></h:outputLabel>
-											<h:inputText styleClass="field inteiro text" id="numeroPorta" maxlength="4" size="4"
+											<h:inputText styleClass="field inteiro text" id="numeroPorta" maxlength="4" size="4" onkeypress="return SoNumero(event);"
 												value="#{lojaBB.numeroPorta}">
 												<f:validateLength maximum="4" />
 											</h:inputText>
