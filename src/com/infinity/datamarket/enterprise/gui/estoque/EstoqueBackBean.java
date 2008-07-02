@@ -14,6 +14,7 @@ import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoquePK;
+import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -37,7 +38,7 @@ public class EstoqueBackBean extends BackBean {
 	Collection estoques;
 
 	public String voltarConsulta() {
-		resetBB();
+		consultar();
 		return "voltar";
 	}
 
@@ -99,7 +100,7 @@ public class EstoqueBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
+
 		return "mesma";
 	}
 
@@ -137,6 +138,7 @@ public class EstoqueBackBean extends BackBean {
 							FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
 					ctx.addMessage(null, msg);
+					setExisteRegistros(false);
 					return "mesma";
 				} else if (col != null) {
 					if (col.size() == 1) {
@@ -147,6 +149,7 @@ public class EstoqueBackBean extends BackBean {
 						this.setIdLoja(estoque.getPk().getLoja().getId().toString());
 						return "proxima";
 					} else {
+						setExisteRegistros(true);
 						this.setEstoques(col);
 					}
 				}
@@ -159,16 +162,15 @@ public class EstoqueBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}
-		this.setId(null);
-		this.setDescricao(null);
-		this.setIdLoja(null);
 		return "mesma";
 	}
 
@@ -191,6 +193,7 @@ public class EstoqueBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			resetBB();
 		} catch (AppException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -225,6 +228,7 @@ public class EstoqueBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -232,7 +236,7 @@ public class EstoqueBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
+		
 		return "mesma";
 	}
 
