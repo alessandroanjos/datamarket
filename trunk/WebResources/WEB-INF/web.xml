@@ -132,6 +132,9 @@
 		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
 
-
+    <icon>
+    	<large-icon id="icone">/Enterprise.ico</large-icon>
+    	
+    </icon>
 </web-app>
 

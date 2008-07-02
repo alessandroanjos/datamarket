@@ -2376,6 +2376,11 @@
 		    <property-class>java.util.Set</property-class>
 		    <null-value/>
 		</managed-property>
+		<managed-property>
+		    <property-name>abaCorrente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
 	</managed-bean>
 	
 	
