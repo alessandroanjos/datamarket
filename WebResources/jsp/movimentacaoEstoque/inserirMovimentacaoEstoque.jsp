@@ -86,7 +86,8 @@
 		</div>
 	
 		<h:form id="frmInserirMovimentacaoEstoque">
-
+			 <h:inputHidden id="codigoUsuario" value="#{loginBB.usuarioLogado.id}">
+			 </h:inputHidden>
 			
 			<div id="content">
 				<div id="primarioContentContainerInternas" >

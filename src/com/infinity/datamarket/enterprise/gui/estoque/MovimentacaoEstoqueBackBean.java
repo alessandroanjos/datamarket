@@ -33,7 +33,7 @@ import com.infinity.datamarket.enterprise.gui.util.BackBean;
 public class MovimentacaoEstoqueBackBean extends BackBean {   
 	private static final int HashSet = 0;
 	private String id;
-	private String codigoUsuario = "1";
+	private String codigoUsuario;
 	private Date dataMovimentacao;
 	private String idEstoqueSaida;
 	private String idEstoqueEntrada;
@@ -153,7 +153,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		movimentacaoEstoque.setId(new Long(this.id));
 		movimentacaoEstoque.setDataMovimentacao(new Date());
 		
-		movimentacaoEstoque.setCodigoUsuario(1);
+		movimentacaoEstoque.setCodigoUsuario(1);//Integer.parseInt(getCodigoUsuario()));
 
 		Estoque estoqueSaida = null;
 		for (Iterator iter = estoques.iterator(); iter.hasNext();) {
