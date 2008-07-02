@@ -95,7 +95,7 @@
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator" />
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro"/>										
+											<h:message for="id" styleClass="msgErro" showDetail="true" showSummary="true" tooltip="true"/>										
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
