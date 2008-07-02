@@ -34,6 +34,9 @@
 			var today=today_date.getDate();
 			var year=today_date.getFullYear();
 			var day=returnDay(today_date.getDay()+1);
+			today = new String(today);
+			if(today.length==1)
+				today="0"+today;
 			month = new String(month);
 			if(month.length==1)
 				month="0"+month;
