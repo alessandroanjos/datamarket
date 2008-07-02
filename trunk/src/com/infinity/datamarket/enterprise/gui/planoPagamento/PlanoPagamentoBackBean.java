@@ -259,8 +259,12 @@ public class PlanoPagamentoBackBean extends BackBean {
 	}
 	
 	public SelectItem[] getSituacaoItens() {
-		return new SelectItem[]{new SelectItem(Constantes.STATUS_ATIVO,"Ativo"),
-				                new SelectItem(Constantes.STATUS_INATIVO,"Inativo")};
+		SelectItem[] situacaoItens = new SelectItem[]{new SelectItem(Constantes.STATUS_ATIVO,"Ativo"),
+                new SelectItem(Constantes.STATUS_INATIVO,"Inativo")};
+		if(getStatus() == null){
+			setStatus(Constantes.STATUS_ATIVO);
+		}
+		return situacaoItens;
 	}
 	private List<FormaRecebimento> carregarFormas() {
 		
