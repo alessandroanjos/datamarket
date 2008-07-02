@@ -15,6 +15,10 @@ public class BackBean {
 	public static final String ALTERAR = "A";
 	public static final String CONSULTAR = "C";
 	public static final String EXCLUIR   = "E";
+	
+	public static final String ATIVO = "S";
+	public static final String INATIVO   = "N";
+	
 	public static Properties mensagens;
 	
 	Date dataSistema;
