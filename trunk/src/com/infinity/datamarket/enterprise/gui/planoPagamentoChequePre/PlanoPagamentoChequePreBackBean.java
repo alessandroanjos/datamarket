@@ -12,7 +12,9 @@ import java.util.TreeSet;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
+import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatado;
 import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatadoPK;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamentoChequePredatado;
@@ -31,6 +33,8 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 //		setPercentagemEntrada(BigDecimal.ZERO);
 //	}
 
+	String abaCorrente;
+	
 	BigDecimal percentualTotal = new BigDecimal(100.00).setScale(2);
 	BigDecimal percentualRestante = BigDecimal.ZERO;
 	
@@ -492,4 +496,13 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 		}
 		return "mesma";
 	}
+
+	public String getAbaCorrente() {
+		return abaCorrente;
+	}
+
+	public void setAbaCorrente(String abaCorrente) {
+		this.abaCorrente = abaCorrente;
+	}
+	
 }
