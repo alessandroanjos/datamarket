@@ -115,7 +115,7 @@
 										<f:facet name="header">
 											<h:outputText value="Fornecedor" /> 
 										</f:facet>
-										<h:outputText value="#{entradaProduto.fornecedor.nomeFantazia}" /> 
+										<h:outputText value="#{entradaProduto.fornecedor.nomeFantasia}" /> 
 									</h:column>									
 									<h:column>
 										<f:facet name="header">

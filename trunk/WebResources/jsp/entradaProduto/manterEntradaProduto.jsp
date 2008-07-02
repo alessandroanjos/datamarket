@@ -123,7 +123,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Fornecedor"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.fornecedor.nomeFantazia}" />							
+								<h:outputText value="#{entradaProdutoBB.fornecedor.nomeFantasia}" />							
 							</div>
 
 

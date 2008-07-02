@@ -246,7 +246,6 @@ public class ProdutoBackBean extends BackBean{
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
 		return "mesma";
 	}
 	
