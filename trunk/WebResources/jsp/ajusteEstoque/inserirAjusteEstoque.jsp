@@ -26,6 +26,7 @@
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>		
 		
@@ -94,7 +95,7 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="id" maxlength="5"
+								<h:inputText styleClass="field text ativo" id="id" maxlength="5" onkeypress="return SoNumero(event);"
 									value="#{ajusteEstoqueBB.id}" size="3" rendered="true">
 									<f:validateLength maximum="5" />
 									<f:validator validatorId="LongValidator" />
@@ -115,7 +116,7 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="idProduto"
+								<h:inputText styleClass="field text ativo" id="idProduto"  onkeypress="return SoNumero(event);"
 									maxlength="9" value="#{ajusteEstoqueBB.idProduto}" size="9">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
@@ -130,11 +131,14 @@
 								</h:inputText>
 								
 							</div>
-							<div>
+							<div style="padding-top:9px;">
 								<h:commandButton styleClass="btTxt" id="botaoConsultarProduto"
 								onmousedown="showPopUp(this,'frmInserirAjusteEstoque','find')"
 								onclick="return false" value="Consultar Produto "></h:commandButton>
 							</div>
+						</li>
+
+						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Qtd.Antes"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeAntes" maxlength="7"
@@ -161,6 +165,7 @@
 							</div>
 						</li>	
 
+					<ul>
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" immediate="true"
 								id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
