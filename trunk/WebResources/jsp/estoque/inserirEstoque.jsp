@@ -22,6 +22,7 @@
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>		
 	</head>
@@ -47,7 +48,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
 											value="#{estoqueBB.id}" size="2" required="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator" />
