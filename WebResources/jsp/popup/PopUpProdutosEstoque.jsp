@@ -23,6 +23,7 @@
 
 			<script type="text/javascript" src="/js/jquery.js"></script>
 			<script type="text/javascript" src="/js/global.js"></script>
+			<script type="text/javascript" src="/js/funcoes.js"></script>
 
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
@@ -46,7 +47,7 @@
 							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-									<h:inputText styleClass="field text ativo" id="idProduroEstoque"
+									<h:inputText styleClass="field text ativo" id="idProduroEstoque" onkeypress="return SoNumero(event);"
 										maxlength="4" value="#{movimentacaoEstoqueBB.idProdutoEstoque}" size="4"
 										required="false">
 										<f:validateLength maximum="4" />
