@@ -50,14 +50,14 @@
 												<t:inputText readonly="false" maxlength="10" size="10"
 													styleClass="field text" forceId="dataInicio"
 													value="#{movimentacaoEstoqueBB.dataInicio}"
-													onkeypress="FormataData('frmConsultarMovimentacaoEstoque:dataInicio');"
+													 onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''"
 													id="dataInicio" />
 											</div>	
 											<div>	
 												<h:outputLabel styleClass="desc" value=" Data Entrada Final "></h:outputLabel>
 												<t:inputText readonly="false" styleClass="field text"
 													maxlength="10" size="10" forceId="dataFinal"
-													onkeypress="FormataData('frmConsultarMovimentacaoEstoque:dataFinal');"
+													 onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''"
 													value="#{movimentacaoEstoqueBB.dataFinal}" id="dataFinal" />
 											</div>								
 									</li>

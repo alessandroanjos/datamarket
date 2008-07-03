@@ -4,11 +4,6 @@
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
 
-
-
-
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -29,7 +24,7 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		<t:stylesheet path="/css/form.css"></t:stylesheet>
 		
 		<script language="javascript">
 
@@ -103,7 +98,7 @@
 						<li class="normal">
 						    <div>
 								<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+								<h:inputText styleClass="field text ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
 									value="#{movimentacaoEstoqueBB.id}" size="4" required="true">
 									<f:validateLength maximum="4" />
 									<f:validator validatorId="LongValidator" />
@@ -136,7 +131,7 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="idProduto"
+								<h:inputText styleClass="field text ativo" id="idProduto" onkeypress="return SoNumero(event);"
 									maxlength="9" value="#{movimentacaoEstoqueBB.idProduto}" size="9">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
