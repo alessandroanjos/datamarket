@@ -8,6 +8,7 @@ import java.util.Properties;
 import java.util.TimeZone;
 
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.usuario.Usuario;
 
 public class BackBean {
 	
@@ -20,6 +21,8 @@ public class BackBean {
 	public static final String INATIVO   = "N";
 	
 	public static Properties mensagens;
+	
+	public static String codigoUsuarioLogado;
 	
 	Date dataSistema;
 	TimeZone timeZone;
@@ -69,6 +72,21 @@ public class BackBean {
 	public void setTimeZone(TimeZone timeZone) {
 		this.timeZone = timeZone;
 	}
-	
+
+	/**
+	 * @return the codigoUsuarioLogado
+	 */
+	public static String getCodigoUsuarioLogado() {
+		return codigoUsuarioLogado;
+	}
+
+	/**
+	 * @param codigoUsuarioLogado the codigoUsuarioLogado to set
+	 */
+	public static void setCodigoUsuarioLogado(String codigoUsuarioLogado) {
+		BackBean.codigoUsuarioLogado = codigoUsuarioLogado;
+	}
+
+
 	
 }

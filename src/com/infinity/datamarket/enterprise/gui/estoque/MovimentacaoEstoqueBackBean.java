@@ -147,13 +147,14 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		return "mesma";
 	}
 	public String inserir() {
+
 		
 		MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque();
 
 		movimentacaoEstoque.setId(new Long(this.id));
 		movimentacaoEstoque.setDataMovimentacao(new Date());
 		
-		movimentacaoEstoque.setCodigoUsuario(1);//Integer.parseInt(getCodigoUsuario()));
+		movimentacaoEstoque.setCodigoUsuario(Integer.parseInt(getCodigoUsuarioLogado()));
 
 		Estoque estoqueSaida = null;
 		for (Iterator iter = estoques.iterator(); iter.hasNext();) {
@@ -233,8 +234,8 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	}
 
 	static String ERRO_ESTOQUE_ENTRADA_SAIDA_IGUAL            = "Estoque saida, igual estoque entrada.";
-	static String ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO 	  = "Quantidade solicitada do produto [1], tem que ser maior que zero";
-	static String ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL =	"Produto [1], Quantidade Solicitada [2], Quantidade Disponivél [3].";
+	static String ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO 	  = "Quantidade solicitada do produto %1, tem que ser maior que zero";
+	static String ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL =	"Produto %1, Quantidade Solicitada %2, Quantidade Disponivél %3.";
 	
 	public String validaMovimentacao() {
         
@@ -252,11 +253,11 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		BigDecimal qtdMovimento = quantidade;
 		
 		if (qtdMovimento.doubleValue()<=0) {
-			return ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO.replaceAll("[1]", produto.getDescricaoCompleta());
+			return ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO.replaceFirst("%1", produto.getDescricaoCompleta());
 		} else if (qtdMovimento.doubleValue()>qtdEstoque.doubleValue()) {
-			String msgValida = ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL.replaceFirst("[1]", produto.getDescricaoCompleta());
-			msgValida = msgValida.replaceFirst("[2]", qtdMovimento.toString());
-			msgValida = msgValida.replaceFirst("[3]", qtdEstoque.toString());
+			String msgValida = ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL.replaceAll("%1", produto.getDescricaoCompleta());
+			msgValida = msgValida.replaceFirst("%2", qtdMovimento.toString());
+			msgValida = msgValida.replaceFirst("%3", qtdEstoque.toString());
 			return msgValida;
 		}
 		return "";
