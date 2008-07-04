@@ -1,3 +1,8 @@
+
+var ERRO_ENDERECO_IP   = "Endereço IP inválido!\nDigite novamente.";
+var ERRO_DATA_INVALIDA = "Data inválida!\nDigite novamente.\n\nPara sair apague/limpe o campo.";
+
+
 function Limpar(valor, validos) {
 	// retira caracteres invalidos da string
 	var result = "";
@@ -11,11 +16,14 @@ function Limpar(valor, validos) {
 	return result;
 }
 
-function Formata(campo,tammax,decimal) {
+function Formata(campo,tammax,decimal,evt) {
 	var objeto = document.getElementById(campo);
 	
-	var tecla = event.keyCode;
-
+	//var tecla = event.keyCode;
+	var tecla = evt.keyCode ? evt.keyCode :
+	evt.charCode ? evt.charCode :
+	evt.which ? evt.which : void 0;
+	
 	var vr = Limpar(objeto.value,"0123456789");
 	var tam = vr.length;
 	var dec = decimal;
@@ -48,6 +56,56 @@ function Formata(campo,tammax,decimal) {
 	}
 }
 
+function FormataCNPJ(Campo, teclapres){
+
+	var tecla = teclapres.keyCode;
+
+	var vr = new String(Campo.value);
+	vr = vr.replace(".", "");
+	vr = vr.replace(".", "");
+	vr = vr.replace("/", "");
+	vr = vr.replace("-", "");
+
+	tam = vr.length + 1 ;
+
+	
+	if (tecla != 9 && tecla != 8){
+		if (tam > 2 && tam < 6)
+			Campo.value = vr.substr(0, 2) + '.' + vr.substr(2, tam);
+		if (tam >= 6 && tam < 9)
+			Campo.value = vr.substr(0,2) + '.' + vr.substr(2,3) + '.' + vr.substr(5,tam-5);
+		if (tam >= 9 && tam < 13)
+			Campo.value = vr.substr(0,2) + '.' + vr.substr(2,3) + '.' + vr.substr(5,3) + '/' + vr.substr(8,tam-8);
+		if (tam >= 13 && tam < 15)
+			Campo.value = vr.substr(0,2) + '.' + vr.substr(2,3) + '.' + vr.substr(5,3) + '/' + vr.substr(8,4)+ '-' + vr.substr(12,tam-12);
+		}
+}
+
+function FormataCPF(Campo, teclapres){
+	var tecla;
+	if(window.event){
+		tecla = teclapres.keyCode;
+	}else{
+		tecla = teclapres.which;
+	} 
+
+	var vr = new String(Campo.value);
+	vr = vr.replace(".", "");
+	vr = vr.replace(".", "");
+	vr = vr.replace("-", "");
+
+	tam = vr.length + 1;
+	
+	if (tecla != 9 && tecla != 8){
+		if (tam > 3 && tam < 7)
+			Campo.value = vr.substr(0, 3) + '.' + vr.substr(3, tam);
+		if (tam >= 7 && tam <10)
+			Campo.value = vr.substr(0,3) + '.' + vr.substr(3,3) + '.' + vr.substr(6,tam-6);
+		if (tam >= 10 && tam < 12)
+			Campo.value = vr.substr(0,3) + '.' + vr.substr(3,3) + '.' + vr.substr(6,3) + '-' + vr.substr(9,tam-9);
+		}
+}
+
 function trocaAba(nomeForm, x, n) {
 //	trocaAba(NUMERO_ABA, QTD_ABAS)
 
@@ -66,41 +124,27 @@ function trocaAba(nomeForm, x, n) {
 
 
 function openReport(url){
-
 	window.open(url,"","top=10,left=50,height=600,width=900, menubar=no, resizable=no, scrollbars=no, status=no, toolbar=no");
-
 }
 
 function SoNumero(evt) {
-var key_code = evt.keyCode ? evt.keyCode :
-evt.charCode ? evt.charCode :
-evt.which ? evt.which : void 0;
+	var key_code = evt.keyCode ? evt.keyCode :
+	evt.charCode ? evt.charCode :
+	evt.which ? evt.which : void 0;
 
-
-// Habilita teclas <DEL>, <TAB>, <ENTER>, <ESC> e <BACKSPACE>
-if (key_code == 8 || key_code == 9 || key_code == 13 || key_code == 27 || key_code == 46){
-  return true;
-}
-// Habilita teclas <HOME>, <END>, mais as quatros setas de navegação (cima, baixo, direta, esquerda)
-else if ((key_code >= 35) && (key_code <= 40)){
-  return true
-}
-// Habilita números de 0 a 9
-else if ((key_code >= 48) && (key_code <= 57)) {
-  return true
-}
-return false;
-  /*var caracCode;
-	if (evento == null) evento = event;
-	caracCode = (navigator.appName == "Netscape") ? evento.which : evento.keyCode;
-	
-	if (caracCode == 45  || caracCode == 13 || caracCode == 8 || caracCode == 0) {
-		return true;
+	// Habilita teclas <DEL>, <TAB>, <ENTER>, <ESC> e <BACKSPACE>
+	if (key_code == 8 || key_code == 9 || key_code == 13 || key_code == 27 || key_code == 46){
+	  return true;
 	}
-	if (caracCode < 48 || caracCode > 57) {
-		if (navigator.appName != "Netscape") e.keyCode = 0;
-		return false;
-	}*/
+	// Habilita teclas <HOME>, <END>, mais as quatros setas de navegacao (cima, baixo, direta, esquerda)
+	else if ((key_code >= 35) && (key_code <= 40)){
+	  return false
+	}
+	// Habilita numeros de 0 a 9
+	else if ((key_code >= 48) && (key_code <= 57)) {
+	  return true
+	}
+	return false;
 }
 
 
@@ -168,49 +212,41 @@ function FormataData(Campo) {
 			document.getElementById(Campo).value = vr.substring(0,2) + "/" + vr.substring(2,4) + "/";
 		}
 	}
-	
-	if (vr.length == 7) {
-		document.getElementById(Campo).onblur = 	
-			function() {
-				if (isDate(document.getElementById(Campo).value) == false && document.getElementById(Campo).value != "") {
-					alert("Data Digitada inválida.");
-					document.getElementById(Campo).focus();
-					document.getElementById(Campo).select();
-				}
-			};
-	}
 }
 
 function isDate(strData){
-	var dia, mes, ano;
+	var dia, mes, ano, retorno;
+	retorno = true;
+	
 	//critica valor de um campo de data
-	if(strData.length < 10) return false;
+	if(strData.length < 10) retorno = false;
 
 	mes = strData.substr(3,2);
-	if(mes > "12" || mes == "00") return false;
+	if(mes > "12" || mes == "00") retorno = false;
 
 	dia = strData.substr(0,2);
-	if(dia=="00") return false;
+	if(dia=="00") retorno = false;
 
 	ano = strData.substr(6,4);
-	if (ano < "1900") return false;
+	if (ano < "1900") retorno = false;
 
 	if (mes=="01"||mes=="03"||mes=="05"||mes=="07"||mes=="08"||mes=="10"||mes=="12"){
 		if (dia > "31")
-		return false;
+		retorno = false;
 	}
 	if(mes=="04"||mes=="06"||mes=="09"||mes=="11"){
 		if (dia > "30")
-		return false;
+		retorno = false;
 	}
 	if(mes=="02"){
 		if((parseInt(ano) % 4) ==0){
-			if (dia > "29")	return false;
+			if (dia > "29")	retorno = false;
 		} else {
-			if (dia > "28") return false;
+			if (dia > "28") retorno = false;
 		}
 	}
-	return true;
+	if(strData == "") retorno = true;
+	return retorno;
 }
 
 
@@ -370,24 +406,28 @@ function verificaIP (IPvalor) {
     var ipPattern = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
     var ipArray = IPvalor.match(ipPattern);
 
-    if (IPvalor == "0.0.0.0")
-        errorString = false;
-    else if (IPvalor == "255.255.255.255")
-        errorString = false;
-    if (ipArray == null)
-        errorString = false;
-    else {
-        for (i = 0; i < 4; i++) {
-            if (ipArray[i] > 255) {
-                errorString = false;
-                i = 4;
-            }
-            if ((i == 0) && (ipArray[i] > 255)) {
-                errorString = false;
-                i = 4;
-            }
-        }
-    }
+    if (IPvalor == "") {
+        errorString = true;
+	} else {
+	    if (IPvalor == "0.0.0.0")
+	        errorString = false;
+	    else if (IPvalor == "255.255.255.255")
+	        errorString = false;
+	    if (ipArray == null)
+	        errorString = false;
+	    else {
+	        for (i = 0; i < 4; i++) {
+	            if (ipArray[i] > 255) {
+	                errorString = false;
+	                i = 4;
+	            }
+	            if ((i == 0) && (ipArray[i] > 255)) {
+	                errorString = false;
+	                i = 4;
+	            }
+	        }
+	    }
+	}
     return errorString;
 }
 
@@ -405,3 +445,98 @@ function habilita(strId) {
   	getId(strId).style.backgroundColor = "white";
 }
 
+function validaCNPJ(objCNPJ) {
+    erro = new String;
+	CNPJ = new String(objCNPJ.value);
+	
+	if (CNPJ.length == 0) return true;
+    if (CNPJ.length < 18) erro += "É necessario preencher corretamente o número do CNPJ! \n\n";
+    if ((CNPJ.charAt(2) != ".") || (CNPJ.charAt(6) != ".") || (CNPJ.charAt(10) != "/") || (CNPJ.charAt(15) != "-")){
+    	if (erro.length == 0) erro += "É necessario preencher corretamente o número do CNPJ! \n\n";
+    }
+    //substituir os caracteres que nï¿½o sï¿½o nï¿½meros
+   if(document.layers && parseInt(navigator.appVersion) == 4){
+       x = CNPJ.substring(0,2);
+       x += CNPJ. substring (3,6);
+       x += CNPJ. substring (7,10);
+       x += CNPJ. substring (11,15);
+       x += CNPJ. substring (16,18);
+       CNPJ = x;
+   } else {
+       CNPJ = CNPJ. replace (".","");
+       CNPJ = CNPJ. replace (".","");
+       CNPJ = CNPJ. replace ("-","");
+       CNPJ = CNPJ. replace ("/","");
+   }
+   var nonNumbers = /\D/;
+   if (nonNumbers.test(CNPJ)) erro += "A verificação de CNPJ suporta apenas números! \n\n";
+   var a = [];
+   var b = new Number;
+   var c = [6,5,4,3,2,9,8,7,6,5,4,3,2];
+   for (i=0; i<12; i++){
+		a[i] = CNPJ.charAt(i);
+		b += a[i] * c[i+1];
+   }
+   if ((x = b % 11) < 2) { a[12] = 0 } else { a[12] = 11-x }
+   b = 0;
+   for (y=0; y<13; y++) {
+	   b += (a[y] * c[y]);
+   }
+   if ((x = b % 11) < 2) { a[13] = 0; } else { a[13] = 11-x; }
+   if ((CNPJ.charAt(12) != a[12]) || (CNPJ.charAt(13) != a[13])){
+		erro +="Dígito verificador com problema!";
+   }
+   if (erro.length > 0){
+	   alert(erro);
+	   objCNPJ.select();
+	   return false;
+   }
+   return true;
+}
+
+function validaCPF(objCPF) {
+	// 'cpf' tem que ser uma string
+    erro = new String;
+	cpf = new String(objCPF.value);
+	if (cpf.length == 0) return true;
+
+	if(document.layers && parseInt(navigator.appVersion) == 4){
+	   x = cpf.substring(0,3);
+	   x += cpf. substring (4,7);
+	   x += cpf. substring (8,11);
+	   x += cpf. substring (12,14);
+	   cpf = x;
+	} else {
+	   cpf = cpf. replace (".","");
+	   cpf = cpf. replace (".","");
+	   cpf = cpf. replace ("-","");
+	}
+
+    if (cpf.length < 11) erro += "Sao necessarios 11 digitos para verificacao do CPF! \n\n";
+    var nonNumbers = /\D/;
+    if (nonNumbers.test(cpf)) erro += "A verificacao de CPF suporta apenas numeros! \n\n";
+    if (cpf == "00000000000" || cpf == "11111111111" || cpf == "22222222222" || cpf == "33333333333" || cpf == "44444444444" || cpf == "55555555555" || cpf == "66666666666" || cpf == "77777777777" || cpf == "88888888888" || cpf == "99999999999"){
+            erro += "Numero de CPF invalido!"
+   }
+   var a = [];
+   var b = new Number;
+   var c = 11;
+   for (i=0; i<11; i++){
+           a[i] = cpf.charAt(i);
+           if (i < 9) b += (a[i] * --c);
+   }
+   if ((x = b % 11) < 2) { a[9] = 0 } else { a[9] = 11-x }
+   b = 0;
+   c = 11;
+   for (y=0; y<10; y++) b += (a[y] * c--);
+   if ((x = b % 11) < 2) { a[10] = 0; } else { a[10] = 11-x; }
+   if ((cpf.charAt(9) != a[9]) || (cpf.charAt(10) != a[10])){
+           erro +="Digito verificador com problema!";
+   }
+   if (erro.length > 0){
+		alert(erro);
+		objCPF.select();
+		return false;
+   }
+   return true;
+}
