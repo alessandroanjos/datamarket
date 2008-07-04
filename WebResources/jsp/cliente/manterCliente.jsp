@@ -12,7 +12,7 @@
 		<head>
 			<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 	
-			<meta http-equiv="pragma" content="no-cache"/>
+			<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 			<meta http-equiv="cache-control" content="no-cache"/>
 			<meta http-equiv="expires" content="0"/>
 			<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -24,40 +24,53 @@
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
 
-      <script type="text/javascript">
-
-      window.onload = function(){ inicializar() };
-
-      function inicializar() {
-
-      	$("input.tipopessoa").each(function(i){
-      		$(this).click(function() {mostraCampos(this.value)});
-      	});
-
-      }
-
-      function mostraCampos(str) {
-        //frmInserirCliente:comissao
-        var flag = new String(str);
-        if (flag.toUpperCase() == "F") {
-	        habilita("frmManterCliente:nomeCliente");
-        	habilita("frmManterCliente:dataNascimento");
-        	desabilita("frmManterCliente:razaoSocial");
-        	desabilita("frmManterCliente:nomeFantasia");
-        	desabilita("frmManterCliente:inscricaoEstadual");
-        	desabilita("frmManterCliente:inscricaoMunicipal");
-        } else {
-  	        desabilita("frmManterCliente:nomeCliente");
-        	desabilita("frmManterCliente:dataNascimento");
-        	habilita("frmManterCliente:razaoSocial");
-        	habilita("frmManterCliente:nomeFantasia");
-        	habilita("frmManterCliente:inscricaoEstadual");
-        	habilita("frmManterCliente:inscricaoMunicipal");
-        }
-      
-      }
-
-      </script>
+			<script type="text/javascript">
+			
+			window.onload = function(){ inicializar() };
+			
+			function inicializar() {
+				$("input.tipopessoa").each(function(i){
+					$(this).click(function() {mostraCampos(this.value)});
+				});
+				if ($('[name=frmManterCliente:tipoPessoa]:checked').val() != "undefined") {
+					mostraCampos($('[name=frmManterCliente:tipoPessoa]:checked').val());
+				}
+			}
+			
+			function mostraCampos(str) {
+				//frmInserirCliente:comissao
+				var flag = new String(str);
+				if (flag.toUpperCase() == "F") {
+				    habilita("frmManterCliente:nomeCliente");
+					habilita("frmManterCliente:dataNascimento");
+					desabilita("frmManterCliente:razaoSocial");
+					desabilita("frmManterCliente:nomeFantasia");
+					desabilita("frmManterCliente:inscricaoEstadual");
+					desabilita("frmManterCliente:inscricaoMunicipal");
+					$("input.tipocpfcnpj").each(function(i){
+						$(this).unbind('blur');
+						$(this).unbind('keydown');
+						$(this).bind('blur',function(event){validaCPF(this);});
+						$(this).bind('keydown',function(event){FormataCPF(this,event);});
+						getId(this.id).maxLength = "14";
+					});
+				} else {
+				    desabilita("frmManterCliente:nomeCliente");
+					desabilita("frmManterCliente:dataNascimento");
+					habilita("frmManterCliente:razaoSocial");
+					habilita("frmManterCliente:nomeFantasia");
+					habilita("frmManterCliente:inscricaoEstadual");
+					habilita("frmManterCliente:inscricaoMunicipal");
+					$("input.tipocpfcnpj").each(function(i){
+						$(this).unbind('blur');
+						$(this).unbind('keydown');
+						$(this).bind('blur',function(event){validaCNPJ(this);});
+						$(this).bind('keydown',function(event){FormataCNPJ(this,event);});
+						getId(this.id).maxLength = "18";
+					});
+				}
+			}
+			</script>
 		</head>
 		<body>
 			<div id="outer">
@@ -99,7 +112,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false"
-												value="#{clienteBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">			
+												value="#{clienteBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">			
 											</h:inputText>
 											<h:message for="dataCadastro" styleClass="msgErro"/>
 										</div>
@@ -117,7 +130,8 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="CPF/CNPJ*"></h:outputLabel>
-											<h:inputText styleClass="field text" id="cpfCnpj" maxlength="18" size="18" value="#{clienteBB.cpfCnpj}" required="true">
+											<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpj" maxlength="18" size="18" value="#{clienteBB.cpfCnpj}" required="true"
+												 onkeypress="return SoNumero(event);">
 												<f:validateLength minimum="11" maximum="18" />
 											</h:inputText>
 											<h:message for="cpfCnpj" styleClass="msgErro" />									
@@ -135,8 +149,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Data de Nascimento"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataNascimento" maxlength="10" size="10"
-												value="#{clienteBB.dataNascimento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
-												
+												value="#{clienteBB.dataNascimento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 											</h:inputText>
 											<h:message for="dataNascimento" styleClass="msgErro"/>
 										</div>

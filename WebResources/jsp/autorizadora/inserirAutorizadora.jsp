@@ -14,7 +14,7 @@
 	<head>
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
-		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -71,7 +71,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Deságil"></h:outputLabel>
 										<h:inputText styleClass="field text" id="desagil" maxlength="6" size="6" dir="rtl"
-											value="#{autorizadoraBB.desagil}" required="true" onkeypress="Formata('frmInserirAutorizadora:desagil',5,2);">
+											value="#{autorizadoraBB.desagil}" required="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirAutorizadora:desagil',5,2,event);">
 											<f:validateLength maximum="6" />
 											<f:validateDoubleRange  minimum="0.00" maximum="999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>

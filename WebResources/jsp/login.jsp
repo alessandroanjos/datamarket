@@ -14,6 +14,9 @@
 <f:view>
 	<head>
 		<title>Login &nbsp;&nbsp;&nbsp;&#8212;&nbsp;&nbsp;&nbsp; Infinity | Data Market - Enterprise Server</title>
+		<meta http-equiv="pragma" content="no-cache"/>
+		<link rel="icon" xhref="favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<t:stylesheet path="/css/default.css" enabledOnUserRole="true"></t:stylesheet>

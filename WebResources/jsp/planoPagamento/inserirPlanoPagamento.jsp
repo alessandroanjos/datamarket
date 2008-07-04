@@ -15,7 +15,7 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
-		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -83,7 +83,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Mínimo"></h:outputLabel>
 										<h:inputText styleClass="field text" id="valorMinimo" maxlength="10" size="10"
-											value="#{planoPagamentoBB.valorMinimo}" dir="rtl" required="false" onkeypress="Formata('frmInserirPlanoPagamento:valorMinimo',9,2);">
+											value="#{planoPagamentoBB.valorMinimo}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirPlanoPagamento:valorMinimo',9,2,event);">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.01" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -93,7 +93,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Máximo"></h:outputLabel>
 										<h:inputText styleClass="field text" id="valorMaximo" maxlength="10" size="10"
-											value="#{planoPagamentoBB.valorMaximo}" dir="rtl" required="false" onkeypress="Formata('frmInserirPlanoPagamento:valorMaximo',9,2);">
+											value="#{planoPagamentoBB.valorMaximo}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirPlanoPagamento:valorMaximo',9,2,event);">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.01" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -105,7 +105,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Perc. Desconto"></h:outputLabel>
 										<h:inputText styleClass="field text" id="percentualDesconto" maxlength="5" size="5"
-											value="#{planoPagamentoBB.percDesconto}" dir="rtl" required="false" onkeypress="Formata('frmInserirPlanoPagamento:percentualDesconto',5,2);">
+											value="#{planoPagamentoBB.percDesconto}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirPlanoPagamento:percentualDesconto',5,2,event);">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -115,7 +115,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Perc. Acréscimo"></h:outputLabel>
 										<h:inputText styleClass="field text" id="percentualAcrescimo" maxlength="5" size="5"
-											value="#{planoPagamentoBB.percAcrescimo}" dir="rtl" required="false" onkeypress="Formata('frmInserirPlanoPagamento:percentualAcrescimo',5,2);">
+											value="#{planoPagamentoBB.percAcrescimo}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirPlanoPagamento:percentualAcrescimo',5,2,event);">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -127,7 +127,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Inicio Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10" required="false"
-											value="#{planoPagamentoBB.dataInicioValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
+											value="#{planoPagamentoBB.dataInicioValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 											
 										</h:inputText>
 										<h:message for="dataInicioValidade" styleClass="msgErro"/>
@@ -135,7 +135,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Final Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10" required="false"
-											value="#{planoPagamentoBB.dataFimValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
+											value="#{planoPagamentoBB.dataFimValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 										</h:inputText>
 										<h:message for="dataFimValidade" styleClass="msgErro"/>
 									</div>

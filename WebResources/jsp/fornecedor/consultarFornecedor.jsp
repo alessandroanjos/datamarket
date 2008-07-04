@@ -14,7 +14,7 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
-		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -67,6 +67,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="CPF/CNPJ"></h:outputLabel>
 											<h:inputText styleClass="field text ativo" id="cpfCnpj" maxlength="18"
+												 onkeydown="FormataCNPJ(this,event);" onkeypress="return SoNumero(event);" onblur="validaCNPJ(this)"
 												value="#{fornecedorBB.cpfCnpj}" size="18" required="false">
 												<f:validateLength maximum="18" />											
 											</h:inputText>

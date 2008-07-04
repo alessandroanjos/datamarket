@@ -12,7 +12,7 @@
 		<f:loadBundle basename="resources.mensagens" var="msgs"/>
 		<head>	
 			<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>	
-			<meta http-equiv="pragma" content="no-cache"/>
+			<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 			<meta http-equiv="cache-control" content="no-cache"/>
 			<meta http-equiv="expires" content="0"/>
 			<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -69,9 +69,9 @@
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Vendedor"></h:outputLabel>
-											<h:selectOneRadio styleClass="field checkbox" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
-											    <f:selectItem itemLabel="Sim" itemValue="S"/>
-											    <f:selectItem itemLabel="Não" itemValue="N"/>
+											<h:selectOneRadio  styleClass="field radio vendedor" id="vendedor" 
+												value="#{usuarioBB.idTipoUsuario}" layout="lineDirection" required="true" rendered="true">
+											    <f:selectItems id="situacao" value="#{usuarioBB.tiposUsuario}" />
 											</h:selectOneRadio>
 											<h:message for="vendedor" styleClass="msgErro" />
 										</div>

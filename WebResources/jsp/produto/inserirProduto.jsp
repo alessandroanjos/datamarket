@@ -14,13 +14,14 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
-		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
 		<meta http-equiv="description" content="This is my page"/>
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
@@ -34,6 +35,10 @@
       	$("input.field, select.field").each(function(i){
       		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
       		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      	$("input.inteiro").each(function(i){
+      		$(this).mask("9999",{placeholder:" "});
       	});
 
       }
@@ -61,7 +66,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
+										<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="4"
 											value="#{produtoBB.id}" size="4" required="true">
 											<f:validateLength maximum="4" />
 											<f:validator validatorId="LongValidator" />
@@ -93,7 +98,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Preço Padrão*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="precoPadrao" maxlength="9"
-											size="12" value="#{produtoBB.precoPadrao}" required="true" dir="rtl" onkeypress="Formata('frmInserirProduto:precoPadrao',9,2);">
+											size="12" value="#{produtoBB.precoPadrao}" required="true" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirProduto:precoPadrao',9,2,event);">
 											<f:validateDoubleRange minimum="0.01" maximum="999999.99"/>
 										</h:inputText>
 										<h:message for="precoPadrao" styleClass="msgErro" />
@@ -101,7 +106,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Preço Promocional"></h:outputLabel>
 										<h:inputText styleClass="field text" id="precoPromocional" maxlength="9"
-											size="12" value="#{produtoBB.precoPromocional}" required="false" dir="rtl" onkeypress="Formata('frmInserirProduto:precoPromocional',9,2);">
+											size="12" value="#{produtoBB.precoPromocional}" required="false" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirProduto:precoPromocional',9,2,event);">
 											<f:validateDoubleRange minimum="0.01" maximum="999999.99"/>
 										</h:inputText>
 										<h:message for="precoPromocional" styleClass="msgErro" />

@@ -14,7 +14,7 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
-		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -26,6 +26,18 @@
 				
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
+		<script type="text/javascript">
+		
+		window.onload = function(){ inicializar() };
+		
+		function inicializar() {
+			$("input.field, select.field").each(function(i){
+				$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+				$(this).blur(function() {this.style.backgroundColor = ""});
+			});
+		}
+		
+		</script>
 	</head>
 	<body>
 	<div id="outer">
@@ -57,13 +69,13 @@
 												<h:outputLabel styleClass="desc" value="Data Entrada Inicio"></h:outputLabel>
 												<t:inputText readonly="false" maxlength="10" size="10"
 													styleClass="field text data" forceId="dataInicio"
-													value="#{entradaProdutoBB.dataInicio}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''"
+													value="#{entradaProdutoBB.dataInicio}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 													id="dataInicio" />
 											</div>	
 											<div>	
 												<h:outputLabel styleClass="desc" value=" Data Entrada Final "></h:outputLabel>
 												<t:inputText readonly="false" styleClass="field text data"
-													maxlength="10" size="10" forceId="dataFinal" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''"
+													maxlength="10" size="10" forceId="dataFinal" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 													value="#{entradaProdutoBB.dataFinal}" id="dataFinal" />
 											</div>								
 									</li>

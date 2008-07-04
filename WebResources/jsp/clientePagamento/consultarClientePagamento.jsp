@@ -14,7 +14,7 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
-		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -61,7 +61,7 @@
 										<div>
 										<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataInicial" maxlength="10" size="10"
-											value="#{clientePagamentoBB.dataInicial}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
+											value="#{clientePagamentoBB.dataInicial}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 											
 										</h:inputText>
 										<h:message for="dataInicial" styleClass="msgErro"/>
@@ -69,7 +69,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Data Final"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFinal" maxlength="10" size="10"
-											value="#{clientePagamentoBB.dataFinal}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
+											value="#{clientePagamentoBB.dataFinal}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 											
 										</h:inputText>
 										<h:message for="dataFinal" styleClass="msgErro"/>

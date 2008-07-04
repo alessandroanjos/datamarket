@@ -14,7 +14,7 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
-		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -25,20 +25,18 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
-      <script type="text/javascript">
-
-      window.onload = function(){ inicializar() };
-
-      function inicializar() {
-
-      	$("input.field, select.field").each(function(i){
-      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
-      		$(this).blur(function() {this.style.backgroundColor = ""});
-      	});
-
-      }
-
-      </script>
+		<script type="text/javascript">
+		
+		window.onload = function(){ inicializar() };
+		
+		function inicializar() {
+			$("input.field, select.field").each(function(i){
+				$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+				$(this).blur(function() {this.style.backgroundColor = ""});
+			});
+		}
+		
+		</script>
 
 	</head>
 	<body>
@@ -63,7 +61,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
+										<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="2"onkeypress="return SoNumero(event);"
 											value="#{impostoBB.id}" size="2" readonly="true" required="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator" />
@@ -94,8 +92,8 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Percentual*"></h:outputLabel>
-										<h:inputText styleClass="field monetario" id="percentual" maxlength="5" onkeypress="Formata('frmManterImposto:percentual',9,2);"
-											size="5" value="#{impostoBB.percentual}" required="true">
+										<h:inputText styleClass="field monetario" id="percentual" maxlength="5"
+											size="5" value="#{impostoBB.percentual}" required="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterImposto:percentual',5,2,event);">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange minimum="00.01" maximum="99.99"/>
 										</h:inputText>

@@ -13,7 +13,7 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
-		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -22,23 +22,22 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/masks.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
-			<script type="text/javascript">
+		<script type="text/javascript">
 
       window.onload = function(){ inicializar() };
 
       function inicializar() {
-
       	$("input.tipopessoa").each(function(i){
       		$(this).click(function() {mostraCampos(this.value)});
       	});
-
+		if ($('[name=frmManterFornecedor:tipoPessoa]:checked').val() != "undefined") {
+			mostraCampos($('[name=frmManterFornecedor:tipoPessoa]:checked').val());
+		}
       }
 
       function mostraCampos(str) {
-        
         var flag = new String(str);
         if (flag.toUpperCase() == "F") {
 	        habilita("frmManterFornecedor:nomeFornecedor");
@@ -46,14 +45,27 @@
         	desabilita("frmManterFornecedor:nomeFantasia");
         	desabilita("frmManterFornecedor:inscricaoEstadual");
         	desabilita("frmManterFornecedor:inscricaoMunicipal");
+			$("input.tipocpfcnpj").each(function(i){
+				$(this).unbind('blur');
+				$(this).unbind('keydown');
+				$(this).bind('blur',function(event){validaCPF(this);});
+				$(this).bind('keydown',function(event){FormataCPF(this,event);});
+				getId(this.id).maxLength = "14";
+			});
         } else {
   	        desabilita("frmManterFornecedor:nomeFornecedor");
         	habilita("frmManterFornecedor:razaoSocial");
         	habilita("frmManterFornecedor:nomeFantasia");
         	habilita("frmManterFornecedor:inscricaoEstadual");
         	habilita("frmManterFornecedor:inscricaoMunicipal");
+			$("input.tipocpfcnpj").each(function(i){
+				$(this).unbind('blur');
+				$(this).unbind('keydown');
+				$(this).bind('blur',function(event){validaCNPJ(this);});
+				$(this).bind('keydown',function(event){FormataCNPJ(this,event);});
+				getId(this.id).maxLength = "18";
+			});
         }
-      
       }
 		
 		
@@ -103,7 +115,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false"
-											value="#{fornecedorBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">			
+											value="#{fornecedorBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">			
 											<f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="#{superBB.timeZone}"/>
 										</h:inputText>
 										<div>
@@ -124,7 +136,8 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="CPF/CNPJ*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="cpfCnpj" maxlength="18" size="18" value="#{fornecedorBB.cpfCnpj}" required="true">
+										<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpj" maxlength="18" size="18" value="#{fornecedorBB.cpfCnpj}" required="true"
+										onkeypress="return SoNumero(event);">
 											<f:validateLength minimum="11" maximum="18" />
 										</h:inputText>
 																		

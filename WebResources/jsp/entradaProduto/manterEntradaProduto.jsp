@@ -20,7 +20,6 @@
 		<meta http-equiv="description" content="This is my page" />
 
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
@@ -28,28 +27,14 @@
 
 		<script language="javascript">
 
-      window.onload = function(){ inicializar() };
-
-      function inicializar() {
-
-      	$("input.field, select.field").each(function(i){
-      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
-      		$(this).blur(function() {this.style.backgroundColor = ""});
-      	});
-
-      	$("input.monetario").each(function(i){
-      		$(this).mask("9999.99",{placeholder:" "});
-      	});
-
-      	$("input.inteiro").each(function(i){
-      		$(this).mask("999999999",{placeholder:" "});
-      	});
-
-      	$("input.data").each(function(i){
-      		$(this).mask("99/99/9999",{placeholder:" "});
-      	});
-
-      }
+		window.onload = function(){ inicializar() };
+		
+		function inicializar() {
+			$("input.field, select.field").each(function(i){
+				$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+				$(this).blur(function() {this.style.backgroundColor = ""});
+			});
+		}
 
 
 

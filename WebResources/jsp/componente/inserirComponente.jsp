@@ -13,7 +13,7 @@
 		<head>
 			<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 	
-			<meta http-equiv="pragma" content="no-cache"/>
+			<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 			<meta http-equiv="cache-control" content="no-cache"/>
 			<meta http-equiv="expires" content="0"/>
 			<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -67,9 +67,9 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Numero IP*"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Número IP*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="ip" maxlength="15" size="15"
-											value="#{componenteBB.ip}" required="true" onblur="if (!verificaIP(this.value)) this.value = '';">
+											value="#{componenteBB.ip}" required="true" onblur="if (!verificaIP(this.value)) alert(ERRO_ENDERECO_IP);" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="15" />
 										</h:inputText>
 									</div>
