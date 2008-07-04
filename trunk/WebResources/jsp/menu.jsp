@@ -15,6 +15,9 @@
 		<f:loadBundle basename="resources.mensagens" var="msgs"/>
 		<head>
 			<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
+			<meta http-equiv="pragma" content="no-cache"/>
+			<link rel="icon" xhref="favicon.ico" type="image/x-icon" />
+			<link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>

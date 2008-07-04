@@ -15,7 +15,7 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
-		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -82,7 +82,7 @@
 										<h:selectOneRadio  styleClass="field select"  id="abrirGaveta" 
 											value="#{formaRecebimentoBB.abrirGaveta}"  layout="lineDirection" rendered="true">
 										    <f:selectItem itemLabel="Sim" itemValue="S" />
-										    <f:selectItem itemLabel="Não" itemValue="N"/>
+										    <f:selectItem itemLabel="Nï¿½o" itemValue="N"/>
 										</h:selectOneRadio>
 									</div>
 										<h:message for="abrirGaveta" styleClass="msgErro"/>
@@ -92,7 +92,7 @@
 										<h:outputLabel styleClass="desc" value="Valor Limite Sangria*"></h:outputLabel>
 										
 										<h:inputText styleClass="field text" id="valorLimiteSangria" maxlength="10" size="10"
-											value="#{formaRecebimentoBB.valorLimiteSangria}" dir="rtl" required="true" onkeypress="Formata('frmManterFormaRecebimento:valorLimiteSangria',9,2);">
+											value="#{formaRecebimentoBB.valorLimiteSangria}" dir="rtl" required="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterFormaRecebimento:valorLimiteSangria',9,2,event);">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -106,7 +106,7 @@
 										<h:outputLabel styleClass="desc" value="Valor Maximo Troco*"></h:outputLabel>
 
 										<h:inputText styleClass="field text" id="valorMaxTroco" maxlength="10" size="10"
-											value="#{formaRecebimentoBB.valorMaxTroco}" required="true" dir="rtl" onkeypress="Formata('frmManterFormaRecebimento:valorMaxTroco',9,2);">
+											value="#{formaRecebimentoBB.valorMaxTroco}" required="true" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterFormaRecebimento:valorMaxTroco',9,2,event);">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -118,7 +118,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Inicio Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10"
-											value="#{formaRecebimentoBB.dataInicioValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
+											value="#{formaRecebimentoBB.dataInicioValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 										</h:inputText>
 									</div>
 									<h:message for="dataInicioValidade" styleClass="msgErro"/>
@@ -127,7 +127,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Final Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10"
-											value="#{formaRecebimentoBB.dataFimValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''">
+											value="#{formaRecebimentoBB.dataFimValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 										</h:inputText>
 									</div>
 									<h:message for="dataFimValidade" styleClass="msgErro"/>									

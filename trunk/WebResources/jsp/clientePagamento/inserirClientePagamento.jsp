@@ -13,7 +13,7 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
-		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -81,7 +81,7 @@
 								<div>
 									<h:outputLabel styleClass="desc" value="Data Pagamento"></h:outputLabel>
 									<h:inputText styleClass="field text" id="dataPagamento" maxlength="10" size="10"
-										value="#{clientePagamentoBB.dataPagamento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''"
+										value="#{clientePagamentoBB.dataPagamento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 										required="false">
 									</h:inputText>
 									<h:message for="dataPagamento" styleClass="msgErro"/>
@@ -97,7 +97,7 @@
 							<div>
 									<h:outputLabel styleClass="desc" value="Valor Pagamento"></h:outputLabel>
 									<h:inputText styleClass="text field" dir="rtl" id="valorPagamento" maxlength="10" size="10" 
-										value="#{clientePagamentoBB.valorPagamento}" required="false" onkeypress="Formata('frmInserirClientePagamento:valorPagamento',9,2);">
+										value="#{clientePagamentoBB.valorPagamento}" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata(this.id,9,2,event);">
 										<f:validateLength maximum="10" />	
 										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>										
 										<f:validator validatorId="BigDecimalValidator" />

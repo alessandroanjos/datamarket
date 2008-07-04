@@ -12,7 +12,7 @@
 		<head>
 			<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 	
-			<meta http-equiv="pragma" content="no-cache"/>
+			<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 			<meta http-equiv="cache-control" content="no-cache"/>
 			<meta http-equiv="expires" content="0"/>
 			<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -84,7 +84,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Perc. de Desconto*"></h:outputLabel>
-											<h:inputText styleClass="field text" dir="rtl" id="percentualDesconto" maxlength="5" size="5" onkeypress="Formata('frmInserirPerfil:percentualDesconto',4,2);"
+											<h:inputText styleClass="field text" dir="rtl" id="percentualDesconto" maxlength="5" size="5" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirPerfil:percentualDesconto',4,2,event);"
                       							 value="#{perfilBB.percentualDesconto}" required="true">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="99.99" />

@@ -13,7 +13,7 @@
 		<head>
 			<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 	
-			<meta http-equiv="pragma" content="no-cache"/>
+			<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 			<meta http-equiv="cache-control" content="no-cache"/>
 			<meta http-equiv="expires" content="0"/>
 			<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -24,20 +24,16 @@
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
-      <script type="text/javascript">
+			<script type="text/javascript">
+			window.onload = function(){ inicializar() };
 
-      window.onload = function(){ inicializar() };
-
-      function inicializar() {
-
-      	$("input.field, select.field").each(function(i){
-      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
-      		$(this).blur(function() {this.style.backgroundColor = ""});
-      	});
-
-      }
-
-      </script>
+			function inicializar() {
+				$("input.field, select.field").each(function(i){
+					$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+					$(this).blur(function() {this.style.backgroundColor = ""});
+				});
+			}
+			</script>
 		</head>
 		<body>			
 			<div id="outer">
@@ -82,7 +78,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Número IP*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="ip" maxlength="15"
-											size="15" value="#{lojaBB.numeroIp}" required="true" onblur="if (!verificaIP(this.value)) this.value = '';">
+											size="15" value="#{lojaBB.numeroIp}" required="true" onblur="if (!verificaIP(this.value)) alert(ERRO_ENDERECO_IP);" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="15" />
 										</h:inputText>
 									</div>		
@@ -90,7 +86,7 @@
 								</li>
 								<li class="normal">															
 									<div>
-										<h:outputLabel styleClass="desc" value="Porta*"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Número Porta*"></h:outputLabel>
 										<h:inputText styleClass="field text inteiro" id="numeroPorta" maxlength="4" onkeypress="return SoNumero(event);"
 											size="4" value="#{lojaBB.numeroPorta}" required="true">
 											<f:validateLength maximum="4" />

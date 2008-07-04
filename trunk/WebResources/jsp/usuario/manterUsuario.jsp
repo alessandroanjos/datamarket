@@ -14,7 +14,7 @@
 		<head>
 			<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 	
-			<meta http-equiv="pragma" content="no-cache"/>
+			<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 			<meta http-equiv="cache-control" content="no-cache"/>
 			<meta http-equiv="expires" content="0"/>
 			<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -30,16 +30,15 @@
       window.onload = function(){ inicializar() };
 
       function inicializar() {
-
-      	$("input.vendedor").each(function(i){
+      	$("input.ehvendedor").each(function(i){
       		$(this).click(function() {mostraComissao(this.value)});
       	});
-
-       	desabilita("frmManterUsuario:comissao");
-
+		if ($('[name=frmManterUsuario:vendedor]:checked').val() != "undefined") {
+			mostraComissao($('[name=frmManterUsuario:vendedor]:checked').val())
+		}
       }
 
-      function mostraComissao(str,obj) {
+      function mostraComissao(str) {
         //frmManterUsuario:comissao
         var flag = new String(str);
         if (flag.toUpperCase() == "N") {
@@ -124,17 +123,17 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Vendedor*"></h:outputLabel>
-										<h:selectOneRadio styleClass="field select vendedor" id="vendedor" required="true" rendered="true" value="#{usuarioBB.vendedor}" layout="lineDirection">
-										    <f:selectItem itemLabel="Sim" itemValue="S"/>
-										    <f:selectItem itemLabel="Não" itemValue="N"/>
-										</h:selectOneRadio>
+										<h:selectOneRadio  styleClass="field radio ehvendedor" id="vendedor" 
+											value="#{usuarioBB.idTipoUsuario}" layout="lineDirection" required="true" rendered="true">
+										    <f:selectItems id="situacao" value="#{usuarioBB.tiposUsuario}" />
+										</h:selectOneRadio>	
 									</div>
 									<h:message for="vendedor" styleClass="msgErro"/>
 								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Perc. Comissão"></h:outputLabel>
-										<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5" onkeypress="Formata('frmManterUsuario:comissao',3,2);"
+										<h:inputText styleClass="field text" id="comissao" maxlength="5" size="5" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterUsuario:comissao',3,2,event);"
 											value="#{usuarioBB.comissao}" required="false" dir="rtl">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>

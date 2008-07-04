@@ -14,7 +14,7 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
-		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -50,14 +50,14 @@
 												<t:inputText readonly="false" maxlength="10" size="10"
 													styleClass="field text" forceId="dataInicio"
 													value="#{movimentacaoEstoqueBB.dataInicio}"
-													 onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''"
+													onkeypress="FormataData('frmConsultarMovimentacaoEstoque:dataInicio');"
 													id="dataInicio" />
 											</div>	
 											<div>	
 												<h:outputLabel styleClass="desc" value=" Data Entrada Final "></h:outputLabel>
 												<t:inputText readonly="false" styleClass="field text"
 													maxlength="10" size="10" forceId="dataFinal"
-													 onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) this.value = ''"
+													onkeypress="FormataData('frmConsultarMovimentacaoEstoque:dataFinal');"
 													value="#{movimentacaoEstoqueBB.dataFinal}" id="dataFinal" />
 											</div>								
 									</li>

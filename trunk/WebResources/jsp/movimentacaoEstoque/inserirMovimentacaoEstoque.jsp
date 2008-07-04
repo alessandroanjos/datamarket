@@ -4,6 +4,11 @@
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
 
+
+
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,7 +18,7 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 
-		<meta http-equiv="pragma" content="no-cache"/>
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -24,7 +29,7 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/css/form.css"></t:stylesheet>
+		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
 		
 		<script language="javascript">
 
@@ -98,7 +103,7 @@
 						<li class="normal">
 						    <div>
 								<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
+								<h:inputText styleClass="field text ativo" id="id" maxlength="4"
 									value="#{movimentacaoEstoqueBB.id}" size="4" required="true">
 									<f:validateLength maximum="4" />
 									<f:validator validatorId="LongValidator" />
@@ -131,7 +136,7 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="idProduto" onkeypress="return SoNumero(event);"
+								<h:inputText styleClass="field text ativo" id="idProduto"
 									maxlength="9" value="#{movimentacaoEstoqueBB.idProduto}" size="9">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
@@ -148,7 +153,7 @@
 								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
 								<h:inputText styleClass="field text ativo" id="quantidade" maxlength="7"
 									size="7" value="#{movimentacaoEstoqueBB.quantidade}" required="false"
-									onkeypress="Formata('frmInserirMovimentacaoEstoque:quantidade',7,2);">
+									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirMovimentacaoEstoque:quantidade',7,2,event);">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
