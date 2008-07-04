@@ -371,7 +371,6 @@ public class FornecedorBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
 		return "mesma";
 	}
 	
@@ -423,7 +422,6 @@ public class FornecedorBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
 		return "mesma";
 	}
 	

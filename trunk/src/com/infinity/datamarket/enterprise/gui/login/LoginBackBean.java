@@ -106,7 +106,7 @@ public class LoginBackBean extends BackBean{
 				navigationMenus[i].setNavigationMenuItems(montaMenu(func));
 			
 			}
-			
+			setCodigoUsuarioLogado(usuario.getId().toString());
 			setUsuarioLogado(usuario);
 			setNavItens(navigationMenus);
 			
