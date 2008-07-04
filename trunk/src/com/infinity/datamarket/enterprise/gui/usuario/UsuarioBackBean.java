@@ -38,7 +38,6 @@ public class UsuarioBackBean extends BackBean {
 	String nome;
 	Perfil perfil;
 	String senha;
-	String vendedor = NAO;
 	String comissao;
 	
 	String idPerfil;
@@ -49,10 +48,36 @@ public class UsuarioBackBean extends BackBean {
 	SelectItem[] perfis;
 	SelectItem[] lojas;
 	
+	SelectItem[] tiposUsuario;
+	String idTipoUsuario;
+	
+	
 //	public UsuarioBackBean(){
 //		resetBB();
 //	}
 	
+	public String getIdTipoUsuario() {
+		return idTipoUsuario;
+	}
+
+	public void setIdTipoUsuario(String idTipoUsuario) {
+		this.idTipoUsuario = idTipoUsuario;
+	}
+
+	public SelectItem[] getTiposUsuario() {
+		SelectItem[] tipos = new SelectItem[2];
+		tipos[0] = new SelectItem(SIM,"Sim");
+		tipos[1] = new SelectItem(NAO,"Não");		
+		if(this.getIdTipoUsuario() == null){
+			this.setIdTipoUsuario(NAO);
+		}		
+		return tipos;
+	}
+
+	public void setTiposUsuario(SelectItem[] tiposUsuario) {
+		this.tiposUsuario = tiposUsuario;
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -169,7 +194,7 @@ public class UsuarioBackBean extends BackBean {
 		
 		try {
 			Usuario usuario = null;
-			if (this.vendedor.equals(SIM)){
+			if (this.getIdTipoUsuario().equals(SIM)){
 				Vendedor vendedor = new Vendedor();
 				if (this.comissao != null && !"".equals(this.comissao)){
 					vendedor.setComissao(new BigDecimal(this.comissao));
@@ -243,7 +268,7 @@ public class UsuarioBackBean extends BackBean {
 					if (vendedor.getComissao() != null){
 						this.comissao = vendedor.getComissao().toString();
 					}
-					this.vendedor = SIM;
+					this.setIdTipoUsuario(SIM);
 				}
 				this.setId(usuario.getId().toString());
 				this.setNome(usuario.getNome());
@@ -278,7 +303,7 @@ public class UsuarioBackBean extends BackBean {
 				filter.addProperty("perfil.id", new Long(getIdPerfil()));
 			}
 			
-			if (getVendedor().equals(SIM)){
+			if (this.getIdTipoUsuario().equals(SIM)){
 				filter.setTheClass(Vendedor.class);
 			}else{
 				filter.setTheClass(Usuario.class);
@@ -299,7 +324,7 @@ public class UsuarioBackBean extends BackBean {
 						if (vendedor.getComissao() != null){
 							this.comissao = vendedor.getComissao().toString();
 						}
-						this.vendedor = SIM;
+						this.setIdTipoUsuario(SIM);
 					}
 					this.setId(usuario.getId().toString());
 					this.setNome(usuario.getNome());
@@ -360,7 +385,7 @@ public class UsuarioBackBean extends BackBean {
 		try {
 			Usuario usuario = null;
 			
-			if (this.vendedor.equals(SIM)){
+			if (this.getIdTipoUsuario().equals(SIM)){
 				Vendedor vendedor = new Vendedor();
 				if (this.comissao != null && !"".equals(this.comissao)){
 					vendedor.setComissao(new BigDecimal(this.comissao));
@@ -416,7 +441,7 @@ public class UsuarioBackBean extends BackBean {
 	public String excluir(){
 		try {
 			Usuario usuario = null;
-			if (this.getVendedor().equals(SIM)){
+			if (this.getIdTipoUsuario().equals(SIM)){
 				usuario = new Vendedor();
 				if (this.comissao != null && !"".equals(this.comissao)){
 					((Vendedor)usuario).setComissao(new BigDecimal(this.comissao));
@@ -479,7 +504,7 @@ public class UsuarioBackBean extends BackBean {
 		this.setListaLojasAssociadas(null);
 		this.setLojas(null);
 //		this.setListaUsuarios(null);
-		this.setVendedor(NAO);
+		this.setIdTipoUsuario(NAO);
 		this.setComissao(null);
 	}
 
@@ -575,13 +600,5 @@ public class UsuarioBackBean extends BackBean {
 
 	public void setComissao(String comissao) {
 		this.comissao = comissao;
-	}
-
-	public String getVendedor() {
-		return vendedor;
-	}
-
-	public void setVendedor(String vendedor) {
-		this.vendedor = vendedor;
-	}	
+	}		
 }
