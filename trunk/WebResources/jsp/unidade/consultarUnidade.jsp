@@ -37,10 +37,6 @@
       		$(this).blur(function() {this.style.backgroundColor = ""});
       	});
 
-      	$("input.inteiro").each(function(i){
-      		$(this).mask("99",{placeholder:" "});
-      	});
-
       }
 
       </script>
@@ -67,7 +63,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="4"
+											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
 												value="#{unidadeBB.id}" size="4" required="false">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>

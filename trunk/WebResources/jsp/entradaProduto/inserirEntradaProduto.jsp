@@ -184,7 +184,7 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text inteiro ativo" id="idProduto" onkeypress="return SoNumero(event);"
+								<h:inputText styleClass="field text ativo" id="idProduto" onkeypress="return SoNumero(event);"
 									maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9" readonly="true" required="true">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />

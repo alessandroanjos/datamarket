@@ -49,14 +49,14 @@
 												<t:inputText readonly="false" maxlength="10" size="10"
 													styleClass="field text" forceId="dataInicio"
 													value="#{ajusteEstoqueBB.dataInicio}"
-													onkeypress="FormataData('frmConsultarAjusteEstoque:dataInicio');"
+													onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 													id="dataInicio" />
 											</div>	
 											<div>	
-												<h:outputLabel styleClass="desc" value=" Data Final "></h:outputLabel>
+												<h:outputLabel styleClass="desc" value="Data Final"></h:outputLabel>
 												<t:inputText readonly="false" styleClass="field text"
 													maxlength="10" size="10" forceId="dataFinal"
-													onkeypress="FormataData('frmConsultarAjusteEstoque:dataFinal');"
+													onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 													value="#{ajusteEstoqueBB.dataFinal}" id="dataFinal" />
 											</div>
 											<div>
@@ -72,7 +72,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{ajusteEstoqueBB.ajusteEstoques}"
-									var="ajuste" rowClasses="rowA,rowB" width="100%">
+									var="ajuste" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="N.Ajuste" /> 

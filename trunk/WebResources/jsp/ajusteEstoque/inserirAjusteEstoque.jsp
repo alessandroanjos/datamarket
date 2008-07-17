@@ -21,10 +21,9 @@
 		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>		
-		
-		
 
 	</head>
 	<script language="javascript">
@@ -38,16 +37,14 @@
             //
 
             function showPopUp(action, form, target) {
-
-                  formId=form;
-				  if (winId != null) {
-				      winId.close();
-				  }
-                  features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-				  winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
-				  // Formulário escondido
-                  hform=document.forms[form];                
-
+                formId=form;
+      				  if (winId != null) {
+      				      winId.close();
+      				  }
+                features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
+      				  winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
+      				  // Formulário escondido
+                hform=document.forms[form];                
             }
 
             // Esta função é chamada pela janela popup 
@@ -89,7 +86,7 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="id" maxlength="5"
+								<h:inputText styleClass="field text ativo" id="id" maxlength="5" onkeypress="return SoNumero(event);"
 									value="#{ajusteEstoqueBB.id}" size="3" rendered="true">
 									<f:validateLength maximum="5" />
 									<f:validator validatorId="LongValidator" />
@@ -110,8 +107,8 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="idProduto"
-									maxlength="9" value="#{ajusteEstoqueBB.idProduto}" size="9">
+								<h:inputText styleClass="field text ativo" id="idProduto" onkeypress="return SoNumero(event);"
+									maxlength="9" value="#{ajusteEstoqueBB.idProduto}" size="12">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
 								</h:inputText>
@@ -123,17 +120,19 @@
 									maxlength="50" size="50" value="#{ajusteEstoqueBB.descricao}">
 									<f:validateLength maximum="50" />
 								</h:inputText>
-								
 							</div>
-							<div>
+							<div style="position:relative; top:9px;">
 								<h:commandButton styleClass="btTxt" id="botaoConsultarProduto"
 								onmousedown="showPopUp(this,'frmInserirAjusteEstoque','find')"
-								onclick="return false" value="Consultar Produto "></h:commandButton>
+								onclick="return false" value="Consultar Produto"></h:commandButton>
 							</div>
+						</li>
+
+						<li class="normal">
 							<div>
-								<h:outputLabel styleClass="desc" value="Qtd.Antes"></h:outputLabel>
+								<h:outputLabel styleClass="desc" value="Qtd. Antes"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeAntes" maxlength="7"
-									size="7" value="#{ajusteEstoqueBB.quantidadeAntes}" 
+									size="10" value="#{ajusteEstoqueBB.quantidadeAntes}" 
 									required="true"
 									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirAjusteEstoque:quantidadeAntes',7,2,event);">
 									<f:validateLength maximum="7" />
@@ -143,9 +142,9 @@
 								<h:message for="quantidadeAntes" styleClass="msgErro" />
 							</div>
 							<div>
-								<h:outputLabel styleClass="desc" value="Qtd.Depois"></h:outputLabel>
+								<h:outputLabel styleClass="desc" value="Qtd. Depois"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeDepois" maxlength="7"
-									size="7" value="#{ajusteEstoqueBB.quantidadeDepois}" 
+									size="10" value="#{ajusteEstoqueBB.quantidadeDepois}" 
 									required="true"
 									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirAjusteEstoque:quantidadeDepois',7,2,event);">
 									<f:validateLength maximum="7" />
@@ -163,6 +162,7 @@
 								action="#{ajusteEstoqueBB.inserir}" value="Inserir"></h:commandButton>
 						</li>
 					</ul>
+
 				</div>
 				<div class="clear"></div>
 			</div>
