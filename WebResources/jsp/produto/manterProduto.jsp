@@ -48,7 +48,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text inteiro ativo" id="id" maxlength="4"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="4"
 											value="#{produtoBB.id}" size="4" required="true" readonly="true">
 											<f:validateLength maximum="4" />
 											<f:validator validatorId="LongValidator" />
@@ -148,19 +148,15 @@
 										<h:message for="idImposto" styleClass="msgErro" />
 									</div>
 								</li>
-								<li class="normal">
-									<h:panelGrid columns="5" id="formGrid2" style="width: 400px;">
-										<f:facet name="header">
-											<h:outputText styleClass="tituloTabela-left" value="Lojas associadas ao produto" />
-										</f:facet>			
-										<t:div styleClass="div-auto-scroll" style="width: 100%; height: 100px;">
-											<h:selectManyCheckbox id="listaLojas" layout="pageDirection" required="true" styleClass="label"
-												value="#{produtoBB.listaLojas}" >
-													<f:selectItems value="#{produtoBB.lojas}"/>
-											</h:selectManyCheckbox>
-										</t:div>		
-									</h:panelGrid>
-								</li>
+								<li class="normal">								
+									<div class="div-auto-scroll" style="width:400px !important; height: 142px;">
+										<h:selectManyCheckbox id="listaLojas" layout="pageDirection" required="false" styleClass="label"
+											value="#{produtoBB.listaLojas}" >
+												<f:selectItems value="#{produtoBB.lojas}"/>
+										</h:selectManyCheckbox>
+									</div>		
+									<h:message for="listaLojas" styleClass="msgErro"/>							
+								</li>	
 								<li class="buttons">
 								  <h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{produtoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{produtoBB.alterar}" value="Alterar"></h:commandButton>

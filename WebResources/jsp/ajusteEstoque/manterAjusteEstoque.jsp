@@ -45,43 +45,42 @@
 									showDetail="true" />
 							</div>
 						</li>
-						<li class="normal">
+						<li class="normal detalhes">
 							<div>
-								<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.id}"></h:outputLabel>
+								<h:outputLabel styleClass="desc" value="Código:"></h:outputLabel>
+								<h:outputText value="#{ajusteEstoqueBB.id}"></h:outputText>
 							</div>
 						</li>
-						<li class="normal">	
+						<li class="normal detalhes">	
 							<div>
-								<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
-								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.ajusteEstoque.estoque.descricao}"></h:outputLabel>
+								<h:outputLabel styleClass="desc" value="Estoque:"></h:outputLabel>
+								<h:outputText value="#{ajusteEstoqueBB.ajusteEstoque.estoque.descricao}"></h:outputText>
 							</div>
 						</li>
 
-						<li class="normal">
+						<li class="normal detalhes">
 							<div>
-								<h:outputLabel styleClass="desc" value="Código Produto"></h:outputLabel>
-								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.idProduto}"></h:outputLabel>
+								<h:outputLabel styleClass="desc" value="Código Produto:"></h:outputLabel>
+								<h:outputText value="#{ajusteEstoqueBB.idProduto}"></h:outputText>
 							</div>
 						</li>
-						<li class="normal">	
+						<li class="normal detalhes">	
 							<div>
-								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.ajusteEstoque.produto.descricaoCompleta}"></h:outputLabel>
+								<h:outputLabel styleClass="desc" value="Descrição:"></h:outputLabel>
+								<h:outputText value="#{ajusteEstoqueBB.ajusteEstoque.produto.descricaoCompleta}"></h:outputText>
 								
 							</div>
 						</li>
-						<li class="normal">	
+						<li class="normal detalhes">	
 							<div>
-								<h:outputLabel styleClass="desc" value="Qtd.Antes"></h:outputLabel>
-								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.quantidadeAntes}"></h:outputLabel>								
+								<h:outputLabel styleClass="desc" value="Qtd. Antes:"></h:outputLabel>
+								<h:outputText value="#{ajusteEstoqueBB.quantidadeAntes}"></h:outputText>								
 							</div>
 						</li>
-						<li class="normal">								
+						<li class="normal detalhes">								
 							<div>
-								<h:outputLabel styleClass="desc" value="Qtd.Depois"></h:outputLabel>
-								<h:outputLabel styleClass="desc" value="#{ajusteEstoqueBB.quantidadeDepois}"></h:outputLabel>								
-								
+								<h:outputLabel styleClass="desc" value="Qtd. Depois:"></h:outputLabel>
+								<h:outputText value="#{ajusteEstoqueBB.quantidadeDepois}"></h:outputText>								
 							</div>
 						</li>	
 

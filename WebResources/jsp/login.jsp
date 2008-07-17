@@ -26,8 +26,8 @@
 			<h:form>
 			<div id="outer">				
 				<div id="content" style="margin-top:20px;">
-					<div id="primarioContentContainer">
-						<div id="primarioContent">			
+					<div id="primarioContentContainer" style="margin-left:none;">
+						<div id="primarioContent" style="width:200px;margin: 0em 0em 0em 20em;">			
 							<!-- <div class="box">
 								<h2>Bem Vindo!</h2>
 								<div class="boxContent">
@@ -36,9 +36,6 @@
 								</div>
 							</div>			
 							 -->
-						</div>
-					</div>
-					<div id="secundarioContent">			
 						<div class="box boxA">
 							<div class="boxContent">
 								
@@ -82,6 +79,11 @@
 						</div>
 			
 						<div class="box" style="height:100px;"></div>
+
+
+						</div>
+					</div>
+					<div id="secundarioContent">			
 			
 					</div>
 					<div class="clear"></div>

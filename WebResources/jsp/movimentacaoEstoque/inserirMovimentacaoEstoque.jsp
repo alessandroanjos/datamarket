@@ -4,11 +4,6 @@
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j"%>
 
-
-
-
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -29,7 +24,7 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/EnterpriseServer/css/form.css"></t:stylesheet>
+		<t:stylesheet path="/css/form.css"></t:stylesheet>
 		
 		<script language="javascript">
 
@@ -85,12 +80,12 @@
 			</div>				
 		</div>
 	
-		<h:form id="frmInserirMovimentacaoEstoque">
-			 <h:inputHidden id="codigoUsuario" value="#{loginBB.usuarioLogado.id}">
-			 </h:inputHidden>
-			
 			<div id="content">
 				<div id="primarioContentContainerInternas" >
+<h:form id="frmInserirMovimentacaoEstoque">
+<h:inputHidden id="codigoUsuario" value="#{loginBB.usuarioLogado.id}">
+</h:inputHidden>
+
 					<ul>
 						<li class="normal">
 							<div>
@@ -100,23 +95,23 @@
 							</div>
 						</li>
 						
-						<li class="normal">
-						    <div>
+						<li class="normal" style="border-bottom:0;">
+					    <div>
 								<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+								<h:inputText styleClass="field text ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
 									value="#{movimentacaoEstoqueBB.id}" size="4" required="true">
 									<f:validateLength maximum="4" />
 									<f:validator validatorId="LongValidator" />
 								</h:inputText>
-								<h:message for="id" styleClass="msgErro" />
 							</div>
+							<h:message for="id" styleClass="msgErro" />
 						</li>
 						
 						<li class="normal">	
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque Saida"></h:outputLabel>
-								<h:selectOneMenu id="idEstoqueSaida" styleClass="field text"
-									value="#{movimentacaoEstoqueBB.idEstoqueSaida}">
+								<h:selectOneMenu id="idEstoqueSaida" styleClass="field text select"
+									value="#{movimentacaoEstoqueBB.idEstoqueSaida}" style="width:100px;">
 									<f:selectItems id="estoqueSelectItemsSaida"
 										value="#{movimentacaoEstoqueBB.estoques}" />
 								</h:selectOneMenu>
@@ -124,8 +119,8 @@
 							</div>	
 							<div>	
 								<h:outputLabel styleClass="desc" value="Estoque Entrada"></h:outputLabel>
-								<h:selectOneMenu id="idEstoqueEntrada" styleClass="field text"
-									value="#{movimentacaoEstoqueBB.idEstoqueEntrada}">
+								<h:selectOneMenu id="idEstoqueEntrada" styleClass="field text select"
+									value="#{movimentacaoEstoqueBB.idEstoqueEntrada}" style="width:100px;">
 									<f:selectItems id="estoqueSelectItemsEntrada"
 										value="#{movimentacaoEstoqueBB.estoques}" />
 								</h:selectOneMenu>
@@ -136,22 +131,22 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="idProduto"
-									maxlength="9" value="#{movimentacaoEstoqueBB.idProduto}" size="9">
+								<h:inputText styleClass="field text" id="idProduto"
+									maxlength="9" value="#{movimentacaoEstoqueBB.idProduto}" size="12">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
 								</h:inputText>
 							</div>	
 							<div>		
 								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="descricao" 
+								<h:inputText styleClass="field text" id="descricao" 
 									maxlength="50" size="50" value="#{movimentacaoEstoqueBB.descricao}">
 									<f:validateLength maximum="50" /> 
 								</h:inputText>
 							</div>	
 							<div>
 								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="quantidade" maxlength="7"
+								<h:inputText styleClass="field text" id="quantidade" maxlength="7"
 									size="7" value="#{movimentacaoEstoqueBB.quantidade}" required="false"
 									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirMovimentacaoEstoque:quantidade',7,2,event);">
 									<f:validateLength maximum="7" />
@@ -162,8 +157,7 @@
 							</div>
 						</li>	
 
-						<li class="buttons">
-						    								
+						<li class="buttons" style="position:relative; top:-15px;">
 							<h:commandButton styleClass="btTxt" id="botaoInserirProduto"
 								action="#{movimentacaoEstoqueBB.inserirProduto}"
 								value="Inserir Produto">
@@ -173,6 +167,7 @@
 								onclick="return false" value="Consultar Produto ">
 								</h:commandButton>
 						</li>
+					</ul>
 
 						<div class="listagem">
 							<t:dataTable value="#{movimentacaoEstoqueBB.arrayProduto}"
@@ -208,6 +203,7 @@
 							</t:dataTable>
 						</div>
 
+					<ul>
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" immediate="true"
 								id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
@@ -215,10 +211,10 @@
 								action="#{movimentacaoEstoqueBB.inserir}" value="Inserir"></h:commandButton>
 						</li>
 					</ul>
+</h:form>
 				</div>
 				<div class="clear"></div>
 			</div>
-		</h:form>
 	 </body>			
 	</f:view>
 </html>

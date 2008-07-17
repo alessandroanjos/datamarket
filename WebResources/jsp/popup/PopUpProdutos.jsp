@@ -23,6 +23,7 @@
 
 			<script type="text/javascript" src="/js/jquery.js"></script>
 			<script type="text/javascript" src="/js/global.js"></script>
+			<script type="text/javascript" src="/js/funcoes.js"></script>
 
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
@@ -83,14 +84,14 @@
 							<h:column>
 								<h:commandButton type="button" image="/images/tree/drop-yes.gif"
 									onclick="send('#{produto.id}','#{produto.descricaoCompleta}')"
-									alt="selecionar produto"></h:commandButton>
+									alt="selecionar produto" title="selecionar produto"></h:commandButton>
 							</h:column>
 						</t:dataTable>
 					</div>
 					<ul>
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" id="botaoCancelar"
-								onclick="window.close();" value="Cancelar"></h:commandButton>
+								onclick="self.close();" value="Cancelar"></h:commandButton>
 							<h:commandButton styleClass="btTxt" id="botaoConsultar"
 								action="#{produtoBB.consultar}" value="Consultar"></h:commandButton>
 						</li>
