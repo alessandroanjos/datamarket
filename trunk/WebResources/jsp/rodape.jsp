@@ -8,8 +8,7 @@
 <f:verbatim>
 <div id="footer">
 	<p>
-		Todos os direitos reservados &copy; 2008 |
-		<a href="http://www.infinitysw.com.br" target="_blank">www.infinitysw.com.br</a>
+		Todos os direitos reservados &copy; 2008
 	</p>
 </div>
 </f:verbatim>	
