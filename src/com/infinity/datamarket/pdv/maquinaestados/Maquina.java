@@ -111,7 +111,7 @@ public class Maquina implements Serializable{
     }
 
     private Mic getMicroOperacaoExcessao(){
-    	return ServiceLocator.getInstancia().getMic("com.xxx.pdv.mic.MicErroSistema");
+    	return ServiceLocator.getInstancia().getMic("com.infinity.datamarket.pdv.mic.MicErroSistema");
     }
 
     private class ThreadProcessaMacro extends Thread implements Serializable{
