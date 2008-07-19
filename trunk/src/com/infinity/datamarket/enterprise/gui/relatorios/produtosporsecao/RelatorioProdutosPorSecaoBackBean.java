@@ -35,15 +35,11 @@ public class RelatorioProdutosPorSecaoBackBean extends BackBean {
 	String nomeLoja;
 	String idGrupoProduto;
 	String descricaoGrupoProduto;
-	Collection produtos;
 	SelectItem[] lojas;
 	SelectItem[] grupos;
 	
-	String nomeRelatorio;
-	
 	ArrayList<String> listaSecoesSelecionadas;
-	
-	public final static String NOME_RELATORIO = "RelProdutosPorSecao";
+
 	/**
 	 * @return the descricaoGrupoProduto
 	 */
@@ -92,18 +88,6 @@ public class RelatorioProdutosPorSecaoBackBean extends BackBean {
 	public void setNomeLoja(String nomeLoja) {
 		this.nomeLoja = nomeLoja;
 	}
-	/**
-	 * @return the produtos
-	 */
-	public Collection getProdutos() {
-		return produtos;
-	}
-	/**
-	 * @param produtos the produtos to set
-	 */
-	public void setProdutos(Collection produtos) {
-		this.produtos = produtos;
-	}
 	
 	public String gerarRelatorioProdutosPorSecao(){
 		
@@ -125,7 +109,7 @@ public class RelatorioProdutosPorSecaoBackBean extends BackBean {
 		
 //		System.out.println("caminho do relatorio: "+raizTemplate + File.separator + "jasper" + File.separator + NOME_RELATORIO + ConstantsReport.EXTENSAO_JASPER);
 		
-		String relatorioProdutosPorSecao = raizTemplate + File.separator + "jasper" + File.separator + NOME_RELATORIO;
+//		String relatorioProdutosPorSecao = raizTemplate + File.separator + "jasper" + File.separator + NOME_RELATORIO;
 
 		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(produtos);
 		
@@ -247,20 +231,8 @@ public class RelatorioProdutosPorSecaoBackBean extends BackBean {
 		this.setNomeLoja(null);
 		this.setIdGrupoProduto(null);
 		this.setDescricaoGrupoProduto(null);
-		this.setProdutos(null);
 		this.setLojas(null);
 		this.setGrupos(null);
 	}
-	/**
-	 * @return the nomeRelatorio
-	 */
-	public String getNomeRelatorio() {
-		return nomeRelatorio;
-	}
-	/**
-	 * @param nomeRelatorio the nomeRelatorio to set
-	 */
-	public void setNomeRelatorio(String nomeRelatorio) {
-		this.nomeRelatorio = nomeRelatorio;
-	}
+	
 }
