@@ -145,7 +145,7 @@
 
 						<div class="listagem">
 							<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
-								var="produtoEntrada" rowClasses="rowA,rowB" width="100%">
+								var="produtoEntrada" rowClasses="rowA,rowB" width="95%">
 								<h:column>
 									<f:facet name="header">
 										<h:outputText value="Produto" />

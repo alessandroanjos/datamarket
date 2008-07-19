@@ -87,22 +87,23 @@
 											size="30" value="#{produtoBB.descricaoCompacta}" required="true">
 											<f:validateLength maximum="30" />
 										</h:inputText>
-										<h:message for="descricaoCompacta" styleClass="msgErro" />
+										
 									</div>
+									<h:message for="descricaoCompacta" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Preço Padrão*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="precoPadrao" maxlength="9"
-											size="12" value="#{produtoBB.precoPadrao}" required="true" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirProduto:precoPadrao',9,2,event);">
+										<h:inputText styleClass="field text" id="precoPadrao" maxlength="10"
+											size="10" value="#{produtoBB.precoPadrao}" required="true" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirProduto:precoPadrao',9,2,event);">
 											<f:validateDoubleRange minimum="0.01" maximum="999999.99"/>
 										</h:inputText>
 										<h:message for="precoPadrao" styleClass="msgErro" />
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Preço Promocional"></h:outputLabel>
-										<h:inputText styleClass="field text" id="precoPromocional" maxlength="9"
-											size="12" value="#{produtoBB.precoPromocional}" required="false" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirProduto:precoPromocional',9,2,event);">
+										<h:inputText styleClass="field text" id="precoPromocional" maxlength="10"
+											size="10" value="#{produtoBB.precoPromocional}" required="false" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirProduto:precoPromocional',9,2,event);">
 											<f:validateDoubleRange minimum="0.01" maximum="999999.99"/>
 										</h:inputText>
 										<h:message for="precoPromocional" styleClass="msgErro" />

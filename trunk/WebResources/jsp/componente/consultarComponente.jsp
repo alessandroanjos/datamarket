@@ -63,7 +63,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable id="componentes" value="#{componenteBB.componentes}"
-									var="componente" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
+									var="componente" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 

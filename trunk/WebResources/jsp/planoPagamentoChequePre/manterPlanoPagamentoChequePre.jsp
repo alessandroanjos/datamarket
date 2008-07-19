@@ -216,7 +216,7 @@
 													<br />
 													<div class="listagemSimples">
 														<t:dataTable value="#{planoPagamentoChequePreBB.parcelas}"
-															var="parcela" rowClasses="rowA,rowB" width="100%">
+															var="parcela" rowClasses="rowA,rowB" width="95%">
 															<h:column>
 																<f:facet name="header">
 																	<h:outputText value="Código" /> 

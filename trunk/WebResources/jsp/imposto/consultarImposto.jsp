@@ -79,7 +79,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable id="componentes" value="#{impostoBB.impostos}"
-									var="impostos" rowClasses="rowA,rowB" width="100%">
+									var="impostos" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -106,7 +106,14 @@
 										</f:facet>
 										<h:outputText value="#{impostos.percentual}" /> 
 									</h:column>
-								</t:dataTable>																
+								</t:dataTable>		
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not impostoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>														
 							</div>
 							<ul>
 								<li class="buttons">

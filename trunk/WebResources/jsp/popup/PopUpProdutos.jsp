@@ -68,7 +68,7 @@
 					</fieldset>
 					<div class="listagem">
 						<t:dataTable value="#{produtoBB.produtos}" var="produto"
-							rowClasses="rowA,rowB" width="100%">
+							rowClasses="rowA,rowB" width="95%">
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="Código" />

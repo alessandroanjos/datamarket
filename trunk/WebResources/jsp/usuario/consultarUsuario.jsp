@@ -80,7 +80,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{usuarioBB.listaUsuarios}"
-									var="usuario" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
+									var="usuario" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" style="width: 60px;" /> 

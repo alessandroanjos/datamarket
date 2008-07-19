@@ -83,7 +83,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{entradaProdutoBB.entradasProduto}"
-									var="entradaProduto" rowClasses="rowA,rowB" width="100%">
+									var="entradaProduto" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="N.Fiscal" /> 
@@ -135,6 +135,13 @@
 										<h:outputText value="#{entradaProduto.ipi}" /> 
 									</h:column>							
 								</t:dataTable>
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not entradaProdutoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>
 							</div>
 							<ul>
 								<li class="buttons">

@@ -122,7 +122,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{produtoBB.produtos}"
-									var="produto" rowClasses="rowA,rowB" width="100%">
+									var="produto" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Cód." /> 
@@ -186,6 +186,13 @@
 										<h:outputText value="#{produto.imposto.descricao}" /> 
 									</h:column>								
 								</t:dataTable>
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not produtoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>
 							</div>
 							<ul>
 								<li class="buttons">
