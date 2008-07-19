@@ -26,17 +26,31 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
+	<script type="text/javascript">
+
+      window.onload = function(){ inicializar() };
+
+      function inicializar() {
+
+      	$("input.field, select.field").each(function(i){
+      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+      		$(this).blur(function() {this.style.backgroundColor = ""});
+      	});
+
+      }
+
+      </script>
 	</head>
 	<body>
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
 				<strong>
-					<h:outputText value="#{msgs.manterProduto}"></h:outputText>
+					<h:outputText value="#{msgs.inserirProduto}"></h:outputText>
 				</strong>
 			</div>				
-		</div>
-		<h:form id="frmManterProduto">				
+		</div>	
+		<h:form id="frmInserirProduto">				
 				<div id="content">
 						<div id="primarioContentContainerInternas">
 							<ul>
@@ -73,22 +87,23 @@
 											size="30" value="#{produtoBB.descricaoCompacta}" required="true">
 											<f:validateLength maximum="30" />
 										</h:inputText>
+										
 									</div>
 									<h:message for="descricaoCompacta" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Preço Padrão*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="precoPadrao" maxlength="9"
-											size="12" value="#{produtoBB.precoPadrao}" required="true" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterProduto:precoPadrao',9,2,event);">
+										<h:inputText styleClass="field text" id="precoPadrao" maxlength="10"
+											size="10" value="#{produtoBB.precoPadrao}" required="true" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirProduto:precoPadrao',9,2,event);">
 											<f:validateDoubleRange minimum="0.01" maximum="999999.99"/>
 										</h:inputText>
 										<h:message for="precoPadrao" styleClass="msgErro" />
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Preço Promocional"></h:outputLabel>
-										<h:inputText styleClass="field text" id="precoPromocional" maxlength="9"
-											size="12" value="#{produtoBB.precoPromocional}" required="false" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterProduto:precoPromocional',9,2,event);">
+										<h:inputText styleClass="field text" id="precoPromocional" maxlength="10"
+											size="10" value="#{produtoBB.precoPromocional}" required="false" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirProduto:precoPromocional',9,2,event);">
 											<f:validateDoubleRange minimum="0.01" maximum="999999.99"/>
 										</h:inputText>
 										<h:message for="precoPromocional" styleClass="msgErro" />
@@ -156,7 +171,7 @@
 										</h:selectManyCheckbox>
 									</div>		
 									<h:message for="listaLojas" styleClass="msgErro"/>							
-								</li>	
+								</li>		
 								<li class="buttons">
 								  <h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{produtoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{produtoBB.alterar}" value="Alterar"></h:commandButton>

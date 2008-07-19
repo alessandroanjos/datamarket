@@ -48,6 +48,11 @@
 								<ul>
 									<li class="normal">
 										<div>
+											<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+									<li class="normal">
+										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 											<h:inputText styleClass="field text ativo" id="id" onkeypress="return SoNumero(event);"
 												maxlength="2" value="#{perfilBB.id}" size="2"
@@ -55,8 +60,10 @@
 												<f:validateLength maximum="2" />
 												<f:validator validatorId="LongValidator" />
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />										
+																				
+																				
 										</div>
+										<h:message for="id" styleClass="msgErro" />	
 									</li>
 									<li class="normal">
 										<div>
@@ -64,8 +71,9 @@
 											<h:inputText styleClass="field text" id="descricao" maxlength="20" size="20" value="#{perfilBB.descricao}" required="true">
 												<f:validateLength maximum="20" />
 											</h:inputText>
-											<h:message for="descricao" styleClass="msgErro" />									
+																			
 										</div>
+										<h:message for="descricao" styleClass="msgErro" />	
 									</li>
 									<li class="normal">
 										<div>
@@ -73,8 +81,9 @@
 											<h:selectOneMenu id="perfis" styleClass="field select" value="#{perfilBB.idPerfilSuperior}" style="width: 200px;">
 												<f:selectItems id="perfilSuperiorSelectItems" value="#{perfilBB.perfis}" />
 											</h:selectOneMenu>
-											<h:message for="perfilSuperior" styleClass="msgErro" />	
+											
 										</div>
+										<h:message for="perfilSuperior" styleClass="msgErro" />	
 									</li>
 									<li class="normal">
 										<div>
@@ -85,8 +94,9 @@
 												<f:validateDoubleRange minimum="0.00" maximum="99.99" />
 												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
-											<h:message for="percentualDesconto" styleClass="msgErro" />
+											
 										</div>
+										<h:message for="percentualDesconto" styleClass="msgErro" />
 									</li>
 								</ul>
 								<br /><br /><br /><br /><br /><br />
