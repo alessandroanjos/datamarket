@@ -9,7 +9,7 @@
       <property name="connection.url">jdbc:microsoft:sqlserver://localhost:1433;databasename=PDV;SelectMethod=Cursor</property> 
  -->
       <property name="connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
-	      <property name="connection.url">jdbc:jtds:sqlserver://localhost:1433/pdv</property> 
+	      <property name="connection.url">jdbc:jtds:sqlserver://localhost:1433/DATAMARKET</property> 
       
       
       <property name="connection.username">sa</property>
