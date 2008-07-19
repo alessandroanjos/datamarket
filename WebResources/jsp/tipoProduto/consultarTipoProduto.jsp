@@ -83,7 +83,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{tipoProdutoBB.tiposProduto}"
-									var="tipos" rowClasses="rowA,rowB" width="100%">
+									var="tipos" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -99,6 +99,13 @@
 										</h:commandLink>
 									</h:column>									
 								</t:dataTable>																
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not tipoProdutoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>
 							</div>
 							<ul>
 								<li class="buttons">

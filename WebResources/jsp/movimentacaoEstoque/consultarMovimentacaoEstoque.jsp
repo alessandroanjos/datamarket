@@ -65,7 +65,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{movimentacaoEstoqueBB.movimentacaoEstoque}"
-									var="movimentacao" rowClasses="rowA,rowB" width="100%">
+									var="movimentacao" rowClasses="rowA,rowB" width="95%">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="N.Entrada" /> 

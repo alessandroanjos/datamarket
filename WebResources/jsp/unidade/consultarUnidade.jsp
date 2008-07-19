@@ -83,7 +83,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{unidadeBB.unidades}"
-									var="unidade" rowClasses="rowA,rowB" width="100%">
+									var="unidade" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
@@ -111,6 +111,13 @@
 										<h:outputText value="#{unidade.abreviacao}" /> 
 									</h:column>							
 								</t:dataTable>
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not unidadeBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>
 							</div>
 							<ul>
 								<li class="buttons">

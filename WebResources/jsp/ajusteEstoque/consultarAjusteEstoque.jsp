@@ -72,7 +72,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{ajusteEstoqueBB.ajusteEstoques}"
-									var="ajuste" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
+									var="ajuste" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="N.Ajuste" /> 
@@ -125,6 +125,13 @@
 									</h:column>
 									
 								</t:dataTable>
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not ajusteEstoqueBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>
 							</div>
 							<ul>
 								<li class="buttons">

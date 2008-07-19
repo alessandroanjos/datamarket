@@ -38,7 +38,7 @@
 					<div id="primarioContentContainer">
 						<h:form id="frmConsultarLoja">
 							<fieldset>
-								<legend>Opï¿½ï¿½es de filtro:</legend>
+								<legend>Opções de filtro:</legend>
 								<ul>
 									<li class="normal">
 										<div>
@@ -81,7 +81,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable id="lojas" value="#{lojaBB.lojas}"
-									var="loja" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
+									var="loja" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 

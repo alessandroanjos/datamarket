@@ -110,7 +110,7 @@
 						<li class="normal">
 						<div class="listagem">
 							<t:dataTable value="#{movimentacaoEstoqueBB.arrayProduto}"
-								var="produtoMovimentacao" rowClasses="rowA,rowB" width="100%">
+								var="produtoMovimentacao" rowClasses="rowA,rowB" width="95%">
 								<h:column>
 									<f:facet name="header">
 										<h:outputText value="Produto" />

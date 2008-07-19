@@ -66,7 +66,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{planoPagamentoBB.planos}"
-									var="planos" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
+									var="planos" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 

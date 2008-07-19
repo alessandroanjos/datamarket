@@ -79,7 +79,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{clientePagamentoBB.clientesPagamentos}"
-									var="clientePagamento" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
+									var="clientePagamento" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
