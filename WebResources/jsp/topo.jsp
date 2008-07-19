@@ -69,6 +69,6 @@
 <div id="topo">
 	<h1>&nbsp;</h1>
 	<h2>&nbsp;</h2>
-	<div id="logoCliente"><img src="/EnterpriseServer/images/logoCliente.gif" alt="Magia dos Pães" title="Magia dos Pães" /></div>
+	<div id="logoCliente"><img src="/EnterpriseServer/images/logoCliente.gif" alt="" title="" /></div>
 </div>
 </f:verbatim>
