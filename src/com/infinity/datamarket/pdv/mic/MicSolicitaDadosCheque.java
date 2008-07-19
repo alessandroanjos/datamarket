@@ -32,7 +32,7 @@ public class MicSolicitaDadosCheque extends Mic{
 						if (Util.validacpf(CPFCNPJ) || Util.validaCnpj(CPFCNPJ)){
 							while(numeroChequeLido == null){
 								gerenciadorPerifericos.getDisplay().setMensagem("Passe o Cheque");
-								EntradaDisplay entrada2 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 15);
+								EntradaDisplay entrada2 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 30);
 								if (entrada2.getTeclaFinalizadora() == 10){
 									numeroChequeLido = entrada2.getDado();
 									if ("".equals(numeroChequeLido)){
