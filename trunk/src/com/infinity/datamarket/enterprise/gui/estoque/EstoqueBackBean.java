@@ -154,7 +154,15 @@ public class EstoqueBackBean extends BackBean {
 					}
 				}
 			} else {
-				setEstoques(getFachada().consultarTodosEstoques());
+				Collection c = getFachada().consultarTodosEstoques();
+				if(c != null & c.size() > 0){
+					setEstoques(c);	
+					setExisteRegistros(true);
+				}else{
+					setEstoques(null);
+					setExisteRegistros(false);
+				}
+				
 			}
 		} catch (ObjectNotFoundException e) {
 			this.setEstoques(null);

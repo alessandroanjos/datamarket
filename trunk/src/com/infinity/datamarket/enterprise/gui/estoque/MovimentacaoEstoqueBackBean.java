@@ -358,12 +358,14 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}
 		
 		return resetBB();
@@ -483,6 +485,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	}
     
 	public String voltarConsulta() {
+		consultar();
 		resetProdutoBB();
 		resetBB();
 		return "voltar";
