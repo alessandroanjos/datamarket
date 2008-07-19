@@ -505,7 +505,8 @@ public class PerfilBackBean extends BackBean {
 				throw new Exception("O Perfil selecionado não pode ser excluído. \n" +
 						"Existem Usuários vinculados a este Perfil.");
 			}
-			
+			perfil.setPerfilSuperior(null);
+			getFachada().alterarPerfil(perfil);	
 			getFachada().excluirPerfil(perfil);	
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,

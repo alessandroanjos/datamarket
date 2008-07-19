@@ -189,7 +189,7 @@ public class ProdutoBackBean extends BackBean{
 	}
 	
 	private void setProduto(Produto p){
-
+		setId(p.getId().toString());
 		setCodigoAutomacao(p.getCodigoAutomacao());
 		setCodigoExterno(p.getCodigoExterno());
 		setDescricaoCompacta(p.getDescricaoCompacta());
