@@ -93,7 +93,8 @@ public class UnidadeBackBean extends BackBean{
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
+					ctx.addMessage(null, msg);	
+					setExisteRegistros(false);
 				}else if (col != null){
 					if(col.size() == 1){
 						Unidade unidade = (Unidade)col.iterator().next();
@@ -107,19 +108,29 @@ public class UnidadeBackBean extends BackBean{
 					}
 				}
 			}else{
-				setUnidades(getFachada().consultarTodasUnidades());
+				Collection c = getFachada().consultarTodasUnidades();
+				if(c != null && c.size() > 0){
+					setExisteRegistros(true);
+					setUnidades(c);	
+				}else{
+					setExisteRegistros(false);
+					setUnidades(null);
+				}
+				
 			}
 		}catch(ObjectNotFoundException e){
 			setUnidades(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			ctx.addMessage(null, msg);	
+			setExisteRegistros(false);
 		}catch(Exception e){
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}
 		setId(null);
 		setDescricao(null);

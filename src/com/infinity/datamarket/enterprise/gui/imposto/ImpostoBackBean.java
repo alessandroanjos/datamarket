@@ -95,7 +95,8 @@ public class ImpostoBackBean extends BackBean{
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
+					ctx.addMessage(null, msg);	
+					setExisteRegistros(false);
 				}else if (col != null){
 					if(col.size() == 1){
 						Imposto imposto = (Imposto)col.iterator().next();
@@ -109,19 +110,29 @@ public class ImpostoBackBean extends BackBean{
 					}
 				}
 			}else{
-				setImpostos(getFachada().consultarTodosImpostos());
+				Collection c = getFachada().consultarTodosImpostos();
+				if(c != null && c.size() > 0){
+					setImpostos(c);
+					setExisteRegistros(true);
+				}else{
+					setImpostos(null);
+					setExisteRegistros(false);
+				}
+				
 			}
 		}catch(ObjectNotFoundException e){
 			setImpostos(null);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			ctx.addMessage(null, msg);	
+			setExisteRegistros(false);
 		}catch(Exception e){
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}
 		setId(null);
 		setDescricao(null);

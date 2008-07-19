@@ -50,7 +50,7 @@ public class AjusteEstoqueBackBean extends BackBean {
     AjusteEstoque ajusteEstoque;
 	
 	public String voltarConsulta() {
-		resetBB();
+		consultar();
 		return "voltar";
 	}
 

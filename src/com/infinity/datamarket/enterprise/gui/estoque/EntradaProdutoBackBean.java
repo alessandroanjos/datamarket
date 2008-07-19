@@ -339,7 +339,7 @@ public class EntradaProdutoBackBean extends BackBean {
 					filter.addPropertyInterval("dataEntrada",getDataFinal(), IntervalObject.MENOR_IGUAL);
 					return consultarFiltro(filter);
 				}
-				Collection<EntradaProduto> col = Fachada.getInstancia().consultarTodasEntradaProduto();
+				Collection col = getFachada().consultarTodasEntradaProduto();
 				setEntradasProduto(col);
  			}	
 		} catch (ObjectNotFoundException e) {
@@ -347,12 +347,14 @@ public class EntradaProdutoBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		}
 		
 		return resetBB();
