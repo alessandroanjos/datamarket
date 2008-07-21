@@ -418,17 +418,27 @@ public class EntradaProdutoBackBean extends BackBean {
 		SelectItem[] arrayFornecedores = null;
 		try {
 			List<Fornecedor> fornecedores = carregarFornecedores();
-			arrayFornecedores = new SelectItem[fornecedores.size()];
-			int i = 0;
-			for (Fornecedor fornecedorTmp : fornecedores) {
-				SelectItem item = new SelectItem(fornecedorTmp.getId().toString(),
-						fornecedorTmp.getNomeFantasia());
-				arrayFornecedores[i++] = item;
+			System.out.println("fornecedores--> "+fornecedores);
+			if(fornecedores != null){
+				System.out.println("fornecedores.size--> "+fornecedores.size());
 			}
+			if(fornecedores != null && fornecedores.size() > 0){
+				arrayFornecedores = new SelectItem[fornecedores.size()];
+				int i = 0;
+				for (Fornecedor fornecedorTmp : fornecedores) {
+					SelectItem item = new SelectItem(fornecedorTmp.getId().toString(),
+							fornecedorTmp.getNomeFantasia());
+					arrayFornecedores[i++] = item;
+				}
 
-			if (this.getIdFornecedor() == null || this.getIdFornecedor().equals("")
-					|| this.getIdFornecedor().equals("0")) {
-				this.setIdFornecedor((String) arrayFornecedores[0].getValue());
+				if (this.getIdFornecedor() == null || this.getIdFornecedor().equals("")
+						|| this.getIdFornecedor().equals("0")) {
+					this.setIdFornecedor((String) arrayFornecedores[0].getValue());
+				}
+			}else{
+				arrayFornecedores = new SelectItem[1];
+				
+				arrayFornecedores[0] = new SelectItem("0", "Sem fornecedores Cadastrados.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -437,9 +447,7 @@ public class EntradaProdutoBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		if (this.idFornecedor== null) {
-			this.idFornecedor = arrayFornecedores[0].getValue().toString();
-		}
+		System.out.println("arrayFornecedores--> "+arrayFornecedores);
 		return arrayFornecedores;
 	}
 	
@@ -461,12 +469,18 @@ public class EntradaProdutoBackBean extends BackBean {
 		SelectItem[] arrayEstoques = null;
 		try {
 			List<Estoque> estoques = carregarEstoques();
-			arrayEstoques = new SelectItem[estoques.size()];
-			int i = 0;
-			for (Estoque estoqueTmp : estoques) { 
-				SelectItem item = new SelectItem(estoqueTmp.getPk().getId().toString(),
-						estoqueTmp.getEstoqueVenda()==null?estoqueTmp.getDescricao():estoqueTmp.getEstoqueVenda());
-				arrayEstoques[i++] = item;
+			if(estoques != null){
+				arrayEstoques = new SelectItem[estoques.size()];
+				int i = 0;
+				for (Estoque estoqueTmp : estoques) { 
+					SelectItem item = new SelectItem(estoqueTmp.getPk().getId().toString(),
+							estoqueTmp.getEstoqueVenda()==null?estoqueTmp.getDescricao():estoqueTmp.getEstoqueVenda());
+					arrayEstoques[i++] = item;
+				}
+			}else{
+				arrayEstoques = new SelectItem[1];
+				
+				arrayEstoques[0] = new SelectItem("0", "Sem estoques Cadastrados.");;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
