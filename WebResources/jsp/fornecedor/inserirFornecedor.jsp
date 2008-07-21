@@ -115,7 +115,7 @@
 										<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false"
 											value="#{fornecedorBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">			
-											<f:convertDateTime pattern="dd/MM/yyyy" locale="pt-BR" timeZone="#{superBB.timeZone}"/>
+											
 										</h:inputText>
 										<div>
 									</div>

@@ -80,7 +80,7 @@
 										<h:selectOneRadio  styleClass="field select"  id="abrirGaveta" 
 											value="#{formaRecebimentoBB.abrirGaveta}"  layout="lineDirection" required="true">
 										    <f:selectItem itemLabel="Sim" itemValue="S" />
-										    <f:selectItem itemLabel="Nï¿½o" itemValue="N"/>
+										    <f:selectItem itemLabel="Não" itemValue="N"/>
 										</h:selectOneRadio>
 									</div>
 									<h:message for="abrirGaveta" styleClass="msgErro"/>

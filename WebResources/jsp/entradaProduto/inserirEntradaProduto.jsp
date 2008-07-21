@@ -278,10 +278,10 @@
 								onmousedown="showPopUp(this,'frmInserirEntradaProdutos','find')"
 								onclick="return false" value="Consultar Produto "></h:commandButton>
 						</li>
-
+<li class="normal">
 						<div class="listagem">
 							<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
-								var="produtoEntrada" rowClasses="rowA,rowB" width="95%">
+								var="produtoEntrada" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 								<h:column>
 									<f:facet name="header">
 										<h:outputText value="Produto" />
@@ -349,7 +349,7 @@
 							</t:dataTable>
 						</div>
 
-
+</li>
 
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" immediate="true"
