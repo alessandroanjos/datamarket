@@ -2043,7 +2043,7 @@
 		<managed-property>
 		    <property-name>dataCadastro</property-name>
 		    <property-class>java.util.Date</property-class>
-		    <value>#{superBB.dataSistema}</value>
+		    <null-value/>
 		</managed-property>	
 		
 		<managed-property>
@@ -2195,7 +2195,7 @@
 		<managed-property>
 		    <property-name>dataCadastro</property-name>
 		    <property-class>java.util.Date</property-class>
-		     <value>#{superBB.dataSistema}</value>
+		    <null-value/>
 		</managed-property>	
 		
 		<managed-property>
