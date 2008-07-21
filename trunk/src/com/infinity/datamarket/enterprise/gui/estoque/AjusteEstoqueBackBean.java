@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -15,8 +14,6 @@ import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.estoque.AjusteEstoque;
 import com.infinity.datamarket.comum.estoque.Estoque;
-import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
-import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
