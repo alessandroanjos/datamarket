@@ -29,9 +29,7 @@
 
 	<h:form id="menu">
 	
-		<f:subview id="topo">
-			<jsp:include page="/jsp/topo.jsp?user=#{loginBB.usuarioLogado.nome}" flush="true"></jsp:include>
-		</f:subview>
+		<jsp:include page="/jsp/topo.jsp?user=#{loginBB.usuarioLogado.nome}"></jsp:include>
 		
 		<div id="content" style="margin-top:0px;">
 			<div id="primarioContentContainer">

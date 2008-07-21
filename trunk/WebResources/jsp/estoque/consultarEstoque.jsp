@@ -46,9 +46,9 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
-												value="#{estoqueBB.id}" size="4" required="false">
-												<f:validateLength maximum="4" />
+											<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
+												value="#{estoqueBB.id}" size="2" required="false">
+												<f:validateLength maximum="2" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
 											<h:message for="id" styleClass="msgErro" />

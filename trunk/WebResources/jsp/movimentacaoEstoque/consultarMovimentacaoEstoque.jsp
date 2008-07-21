@@ -46,7 +46,7 @@
 								<ul>
 									<li class="normal">
 											<div>
-												<h:outputLabel styleClass="desc" value="Data Entrada Inicio"></h:outputLabel>
+												<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
 												<t:inputText readonly="false" maxlength="10" size="10"
 													styleClass="field text" forceId="dataInicio"
 													onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
@@ -54,7 +54,7 @@
 													id="dataInicio" />
 											</div>	
 											<div>	
-												<h:outputLabel styleClass="desc" value=" Data Entrada Final "></h:outputLabel>
+												<h:outputLabel styleClass="desc" value=" Data Final "></h:outputLabel>
 												<t:inputText readonly="false" styleClass="field text"
 													maxlength="10" size="10" forceId="dataFinal"
 													onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
@@ -65,7 +65,7 @@
 							</fieldset>	
 							<div class="listagem">
 								<t:dataTable value="#{movimentacaoEstoqueBB.movimentacaoEstoque}"
-									var="movimentacao" rowClasses="rowA,rowB" width="95%">
+									var="movimentacao" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="N.Entrada" /> 

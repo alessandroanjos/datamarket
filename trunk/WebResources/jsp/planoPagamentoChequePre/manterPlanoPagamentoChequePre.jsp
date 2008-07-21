@@ -121,7 +121,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Perc. Desconto*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="percentualDesconto" maxlength="5" size="5"
-											value="#{planoPagamentoChequePreBB.percDesconto}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterPlanoPagamentoChequePre:percentualDesconto',5,2,event);">
+											value="#{planoPagamentoChequePreBB.percDesconto}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterPlanoPagamentoChequePre:percentualDesconto',4,2,event);">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -131,7 +131,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Perc. Acréscimo*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="percentualAcrescimo" maxlength="5" size="5"
-											value="#{planoPagamentoChequePreBB.percAcrescimo}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterPlanoPagamentoChequePre:percentualAcrescimo',5,2,event);">
+											value="#{planoPagamentoChequePreBB.percAcrescimo}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterPlanoPagamentoChequePre:percentualAcrescimo',4,2,event);">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>

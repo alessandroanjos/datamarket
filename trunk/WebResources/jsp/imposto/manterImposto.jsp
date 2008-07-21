@@ -93,7 +93,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Percentual*"></h:outputLabel>
 										<h:inputText styleClass="field monetario" id="percentual" maxlength="5"
-											size="5" value="#{impostoBB.percentual}" required="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterImposto:percentual',5,2,event);">
+											size="5" value="#{impostoBB.percentual}" required="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterImposto:percentual',4,2,event);">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange minimum="00.01" maximum="99.99"/>
 										</h:inputText>

@@ -32,7 +32,7 @@
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
 				<strong>
-					<h:outputText value="#{msgs.manterClientePagamento}"></h:outputText>
+					<h:outputText value="#{msgs.consultarClientePagamento}"></h:outputText>
 				</strong>
 			</div>				
 		</div>

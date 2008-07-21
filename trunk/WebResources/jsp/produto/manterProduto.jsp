@@ -46,7 +46,7 @@
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
 				<strong>
-					<h:outputText value="#{msgs.inserirProduto}"></h:outputText>
+					<h:outputText value="#{msgs.manterProduto}"></h:outputText>
 				</strong>
 			</div>				
 		</div>	
@@ -171,7 +171,7 @@
 										</h:selectManyCheckbox>
 									</div>		
 									<h:message for="listaLojas" styleClass="msgErro"/>							
-								</li>		
+								</li>	
 								<li class="buttons">
 								  <h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{produtoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{produtoBB.alterar}" value="Alterar"></h:commandButton>
