@@ -156,7 +156,8 @@ fieldset legend {
 }
 #logoCliente {
 	position:absolute;
-	top:22px;
+/*	top:22px;*/
+        top:43px;
 	_top:43px;
 	left:27px;
 	_left:-0px;
@@ -376,7 +377,8 @@ fieldset legend {
 #primarioContentContainer
 {
 	float: right;
-	margin-left: -19em;
+/*	margin-left: -19em;*/
+margin-left: -19em;
 	width: 100%;
 }
 #primarioContent
