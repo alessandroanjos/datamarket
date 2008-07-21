@@ -259,6 +259,7 @@ public class FornecedorBackBean extends BackBean {
 				this.setPessoaContato(fornecedor.getPessoaContato());
 				this.setFoneContato(fornecedor.getFoneContato());
 				this.setDataCadastro(fornecedor.getDataCadastro());
+				setDataSistema(this.getDataCadastro());
 				
 				return "proxima";
 			}else if ((this.getNomeFornecedor() != null && !"".equals(this.getNomeFornecedor()))
@@ -307,7 +308,7 @@ public class FornecedorBackBean extends BackBean {
 						this.setPessoaContato(fornecedor.getPessoaContato());
 						this.setFoneContato(fornecedor.getFoneContato());
 						this.setDataCadastro(fornecedor.getDataCadastro());
-
+						setDataSistema(this.getDataCadastro());
 						return "proxima";
 					}else{
 						setExisteRegistros(true);
@@ -450,7 +451,7 @@ public class FornecedorBackBean extends BackBean {
 		fornecedor.setPessoaContato(this.getPessoaContato());
 		fornecedor.setFoneContato(this.getFoneContato());
 		if(acao.equals(INSERIR)){
-			fornecedor.setDataCadastro(new Date(System.currentTimeMillis()));
+			fornecedor.setDataCadastro(this.getDataSistema());
 		}else if(acao.equals(ALTERAR)){
 			if(this.getIdTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
 				fornecedor.setRazaoSocial(null);
