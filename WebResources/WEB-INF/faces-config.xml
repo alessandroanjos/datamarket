@@ -595,7 +595,7 @@
 		</navigation-case>
 	</navigation-rule>
 	
-	<navigation-rule>
+	<navigation-rule>					 
 		<from-view-id>/jsp/ajusteEstoque/consultarAjusteEstoque.jsp</from-view-id>
 		<navigation-case>
 			<from-action>#{ajusteEstoqueBB.consultar}</from-action>

@@ -213,10 +213,10 @@
 								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="quantidade" maxlength="7"
 									size="7" value="#{entradaProdutoBB.quantidade}" dir="rtl"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:quantidade',7,2,event);"
+									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:quantidade',7,3,event);"
 									required="false">
 									<f:validateLength maximum="7" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
+									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 								<h:message for="quantidade" styleClass="msgErro" />
@@ -281,7 +281,7 @@
 <li class="normal">
 						<div class="listagem">
 							<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
-								var="produtoEntrada" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
+								var="produtoEntrada" rowClasses="rowA,rowB" width="80%" renderedIfEmpty="false">
 								<h:column>
 									<f:facet name="header">
 										<h:outputText value="Produto" />

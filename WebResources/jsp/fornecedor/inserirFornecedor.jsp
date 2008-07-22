@@ -99,7 +99,7 @@
 									</div>
 								</li>
 								<li class="normal">
-									<div>
+									<!--  <div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 										<h:inputText styleClass="field text ativo" id="id"
 											maxlength="4" value="#{fornecedorBB.id}" size="4"
@@ -109,7 +109,7 @@
 										</h:inputText>
 																				
 									</div>
-									<h:message for="id" styleClass="msgErro"/>
+									<h:message for="id" styleClass="msgErro"/> -->
 									
 									<div>
 										<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>

@@ -148,9 +148,9 @@
 								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidade" maxlength="7"
 									size="7" value="#{movimentacaoEstoqueBB.quantidade}" required="false"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirMovimentacaoEstoque:quantidade',7,2,event);">
+									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirMovimentacaoEstoque:quantidade',7,3,event);">
 									<f:validateLength maximum="7" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
+									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 								<h:message for="quantidade" styleClass="msgErro" />
