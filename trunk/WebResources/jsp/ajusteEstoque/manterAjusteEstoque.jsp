@@ -48,16 +48,16 @@
 						<li class="normal detalhes">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código:"></h:outputLabel>
-								<h:outputText value="#{ajusteEstoqueBB.id}"></h:outputText>
+								<h:outputText value="#{ajusteEstoqueBB.ajusteEstoque.id}"></h:outputText>
 							</div>
 						</li>
 						<li class="normal detalhes">	
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque:"></h:outputLabel>
-								<h:outputText value="#{ajusteEstoqueBB.ajusteEstoque.estoque.descricao}"></h:outputText>
+								<h:outputText value="#{ajusteEstoqueBB.ajusteEstoque.estoque.pk.id}"></h:outputText>
+								<h:outputText value="#{ajusteEstoqueBB.ajusteEstoque.estoque.descricao}">- </h:outputText>
 							</div>
 						</li>
-
 						<li class="normal detalhes">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto:"></h:outputLabel>
@@ -70,6 +70,7 @@
 								<h:outputText value="#{ajusteEstoqueBB.ajusteEstoque.produto.descricaoCompleta}"></h:outputText>
 								
 							</div>
+							
 						</li>
 						<li class="normal detalhes">	
 							<div>

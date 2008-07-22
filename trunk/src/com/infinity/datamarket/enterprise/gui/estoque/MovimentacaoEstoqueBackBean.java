@@ -27,6 +27,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
+import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -59,7 +60,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	// para uso de filtro de consulta
     private Date dataInicio;
 	private Date dataFinal;
-
+	private String idLoja;
     
 	
 	private String idExcluir; 
@@ -344,6 +345,9 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			} else {
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(MovimentacaoEstoque.class);
+				if (idLoja!=null) {
+
+				}
 				if (getId() != null && !"".equals(getId())) {
 	            	filter.addProperty("id", getId());
 					return consultarFiltro(filter);
@@ -443,7 +447,50 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		}
 		return "mesma";
 	}
-	
+	private List<Loja> carregarLojas() {
+
+		List<Loja> lojas = null;
+		try {
+			lojas = (ArrayList<Loja>) getFachada().consultarTodosLoja();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return lojas;
+	}
+
+	public SelectItem[] getLojas() {
+		SelectItem[] arrayLojas = null;
+		try {
+			List<Loja> lojas = carregarLojas();
+			arrayLojas = new SelectItem[lojas.size()];
+			int i = 0;
+			for (Loja lojaTmp : lojas) {
+				SelectItem item = new SelectItem(lojaTmp.getId().toString(),
+						lojaTmp.getNome());
+				arrayLojas[i++] = item;
+			}
+
+			if (this.getIdLoja() == null || this.getIdLoja().equals("")
+					|| this.getIdLoja().equals("0")) {
+				this.setIdLoja((String) arrayLojas[0].getValue());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		if (this.idLoja == null) {
+			this.idLoja = arrayLojas[0].getValue().toString();
+		}
+		return arrayLojas;
+	}
+
 	private List<Estoque> carregarEstoques() {
 		try {
 			estoques = (ArrayList<Estoque>) getFachada().consultarTodosEstoques();
@@ -727,5 +774,17 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	 */
 	public void setDataInicio(Date dataInicio) {
 		this.dataInicio = dataInicio;
+	}
+	/**
+	 * @return the idLoja
+	 */
+	public String getIdLoja() {
+		return idLoja;
+	}
+	/**
+	 * @param idLoja the idLoja to set
+	 */
+	public void setIdLoja(String idLoja) {
+		this.idLoja = idLoja;
 	}
 }

@@ -128,7 +128,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 		} else if (col != null) {
 
 			if (col.size() == 1) {
-				AjusteEstoque ajusteEstoque = (AjusteEstoque)col.iterator().next();
+				this.ajusteEstoque = (AjusteEstoque)col.iterator().next();
 				this.setIdEstoque(ajusteEstoque.getEstoque().getPk().getId().toString());
 				this.setIdProduto(ajusteEstoque.getProduto().getId().toString());
 				this.setDescricao(ajusteEstoque.getProduto().getDescricaoCompleta());

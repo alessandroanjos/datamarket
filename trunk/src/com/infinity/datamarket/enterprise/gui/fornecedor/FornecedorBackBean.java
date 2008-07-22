@@ -430,7 +430,7 @@ public class FornecedorBackBean extends BackBean {
 		
 		Fornecedor fornecedor = new Fornecedor();
 		
-		fornecedor.setId(new Long(this.getId()));
+		
 		fornecedor.setNomeFornecedor(this.getNomeFornecedor());
 		fornecedor.setTipoPessoa(this.getIdTipoPessoa());
 		fornecedor.setCpfCnpj(this.getCpfCnpj());
@@ -453,6 +453,7 @@ public class FornecedorBackBean extends BackBean {
 		if(acao.equals(INSERIR)){
 			fornecedor.setDataCadastro(this.getDataSistema());
 		}else if(acao.equals(ALTERAR)){
+			fornecedor.setId(new Long(this.getId()));
 			if(this.getIdTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
 				fornecedor.setRazaoSocial(null);
 				fornecedor.setNomeFantasia(null);

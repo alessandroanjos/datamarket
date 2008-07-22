@@ -59,7 +59,7 @@
                              var form = document.forms[formId];   
                              form[formId+":idProduto"].value=idProduto; 
                              form[formId+":descricao"].value=descricao;  
-                             form[formId+":quantidadeAntes"].focus();
+                             form[formId+":quantidadeDepois"].focus();
                              winId.close();
             }
       </script>
@@ -131,12 +131,12 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Qtd. Antes"></h:outputLabel>
-								<h:inputText styleClass="field text" id="quantidadeAntes" maxlength="7"
+								<h:inputText styleClass="field text" id="quantidadeAntes" disabled="true" maxlength="7"
 									size="10" value="#{ajusteEstoqueBB.quantidadeAntes}" 
 									required="true"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirAjusteEstoque:quantidadeAntes',7,2,event);">
+									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirAjusteEstoque:quantidadeAntes',7,3,event);">
 									<f:validateLength maximum="7" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
+									<f:validateDoubleRange minimum="0.000" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 								<h:message for="quantidadeAntes" styleClass="msgErro" />
@@ -146,9 +146,9 @@
 								<h:inputText styleClass="field text" id="quantidadeDepois" maxlength="7"
 									size="10" value="#{ajusteEstoqueBB.quantidadeDepois}" 
 									required="true"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirAjusteEstoque:quantidadeDepois',7,2,event);">
+									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirAjusteEstoque:quantidadeDepois',7,3,event);">
 									<f:validateLength maximum="7" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
+									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 								<h:message for="quantidadeDepois" styleClass="msgErro" />

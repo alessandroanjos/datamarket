@@ -195,14 +195,63 @@ public class EntradaProdutoBackBean extends BackBean {
 		//EntradaProdutoPK pk = new EntradaProdutoPK();
 		
 		//pk.setId(new Long(this.id));
+		if (this.id==null) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Código Invalido!", "");
+			ctx.addMessage(null, msg);
+		}
 		entradaProduto.setId(new Long(this.id));
+		
+		if (this.numeroNota==null) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Informe numero da nota!", "");
+			ctx.addMessage(null, msg);
+		}
 		entradaProduto.setNumeroNota(this.numeroNota);
+		
+		if (this.dataEmissaoNota==null) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Informe data de emissão da nota!", "");
+			ctx.addMessage(null, msg);
+		}
 		entradaProduto.setDataEmissaoNota(this.dataEmissaoNota);
+		
+		if (this.dataEntrada==null) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Informe data de entrada da nota!", "");
+			ctx.addMessage(null, msg);
+		}
 		entradaProduto.setDataEntrada(this.dataEntrada);
+
+		if (this.frete==null) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Informe frete da nota!", "");
+			ctx.addMessage(null, msg);
+		}
 		entradaProduto.setFrete(this.frete);
+		
+		if (this.icms==null) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Informe icms da nota!", "");
+			ctx.addMessage(null, msg);
+		}
 		entradaProduto.setIcms(this.icms);
+	
 		entradaProduto.setIpi(this.ipi);
 		entradaProduto.setDesconto(this.desconto);
+		
+		if (this.valor==null) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Informe valor da nota!", "");
+			ctx.addMessage(null, msg);
+		}
 		entradaProduto.setValor(this.valor);
 		entradaProduto.setIdFornecedor(this.idFornecedor);
 
@@ -426,8 +475,13 @@ public class EntradaProdutoBackBean extends BackBean {
 				arrayFornecedores = new SelectItem[fornecedores.size()];
 				int i = 0;
 				for (Fornecedor fornecedorTmp : fornecedores) {
+					String nomeFornecedor = "";
+					if (fornecedorTmp.getNomeFantasia() != null)
+						nomeFornecedor = fornecedorTmp.getNomeFantasia();
+					else	
+						nomeFornecedor = fornecedorTmp.getNomeFornecedor();
 					SelectItem item = new SelectItem(fornecedorTmp.getId().toString(),
-							fornecedorTmp.getNomeFantasia());
+							nomeFornecedor);
 					arrayFornecedores[i++] = item;
 				}
 

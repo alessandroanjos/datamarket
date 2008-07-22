@@ -59,6 +59,14 @@
 													maxlength="10" size="10" forceId="dataFinal"
 													onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 													value="#{movimentacaoEstoqueBB.dataFinal}" id="dataFinal" />
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+												<h:selectOneMenu id="idLoja" styleClass="field select"
+													value="#{componenteBB.idLoja}" >   
+														  <f:selectItems id="lojaSelectItems" 
+														  value="#{componenteBB.lojas}" />   
+												</h:selectOneMenu> 
 											</div>								
 									</li>
 								</ul>
