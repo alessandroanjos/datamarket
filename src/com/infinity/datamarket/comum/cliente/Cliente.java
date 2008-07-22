@@ -37,7 +37,14 @@ public class Cliente extends Persistente {
 	BigDecimal valorLimiteDisponivel;
 	Date dataNascimento;
 	Date dataCadastro;
+	String referenciaComercial;
 	
+	public String getReferenciaComercial() {
+		return referenciaComercial;
+	}
+	public void setReferenciaComercial(String referenciaComercial) {
+		this.referenciaComercial = referenciaComercial;
+	}
 	public String getBairro() {
 		return bairro;
 	}

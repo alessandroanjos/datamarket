@@ -109,6 +109,10 @@
         
         <property name="dataCadastro" type="java.util.Date" update="false" insert="true">
             <column name="DATA_CADASTRO" length="10" not-null="true"/>
+        </property>
+        
+        <property name="referenciaComercial" type="java.lang.String" update="true" insert="true">
+            <column name="REF_COMERCIAL" length="1000" not-null="false"/>
         </property> 
     </class>
 
