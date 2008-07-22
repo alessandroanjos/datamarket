@@ -35,7 +35,7 @@
 			<div id="primarioContentContainer">
 				<ul>
 					<li>
-						<div style="margin-top:20px;height:200px;">
+						<div style="margin-top:20px;height:214px;">
 							<br />
 							<t:jscookMenu layout="hbr" theme="ThemeOffice" id="menuPrincipal">
 								<t:navigationMenuItems value="#{loginBB.navItens}" />
@@ -43,7 +43,7 @@
 						</div>
 					</li>
 				</ul>					
-				<div class="box" style="height:225px;"></div>			
+				<div class="box" style="height:200px;"></div>			
 			</div>
 			<div class="clear"></div>
 			</div>

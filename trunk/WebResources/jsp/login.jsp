@@ -78,7 +78,7 @@
 							</div>
 						</div>
 			
-						<div class="box" style="height:100px;"></div>
+						<div class="box" style="height:130px;"></div>
 
 
 						</div>
