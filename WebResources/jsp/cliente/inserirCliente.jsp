@@ -294,6 +294,15 @@
 												<h:message for="foneContato" styleClass="msgErro" />									
 											</div>
 										</li>
+										<li class="normal">
+											<div>
+												<h:outputLabel styleClass="desc" value="Referências Comerciais"></h:outputLabel>
+												<h:inputTextarea rows="4" id="referenciaComercial" style="width: 80%;" styleClass="field text" value="#{clienteBB.referenciaComercial}" required="false">
+													<f:validateLength maximum="1000" />
+												</h:inputTextarea>
+											</div>
+											<h:message for="referenciaComercial" styleClass="msgErro" />
+										</li>
 									</ul>
 								</div>	
 								<ul>
