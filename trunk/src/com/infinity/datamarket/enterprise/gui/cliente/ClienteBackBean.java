@@ -48,6 +48,7 @@ public class ClienteBackBean extends BackBean {
 	BigDecimal valorLimiteDisponivel;
 	Date dataNascimento;
 	Date dataCadastro = new Date(System.currentTimeMillis());
+	String referenciaComercial;
 	
 	Collection clientes;
 	
@@ -286,6 +287,7 @@ public class ClienteBackBean extends BackBean {
 //		this.setValorLimiteDisponivel(null);
 		this.setDataCadastro(null);
 		this.setDataNascimento(null);
+		this.setReferenciaComercial(null);
 	}
 	
 	public String consultar(){
@@ -322,6 +324,7 @@ public class ClienteBackBean extends BackBean {
 				this.setValorLimiteDisponivel(cliente.getValorLimiteDisponivel());
 				this.setDataCadastro(cliente.getDataCadastro());
 				this.setDataNascimento(cliente.getDataNascimento());
+				this.setReferenciaComercial(cliente.getReferenciaComercial());
 				
 				return "proxima";
 			}else if ((this.getNomeCliente() != null && !"".equals(this.getNomeCliente()))
@@ -373,6 +376,7 @@ public class ClienteBackBean extends BackBean {
 						this.setValorLimiteDisponivel(cliente.getValorLimiteDisponivel());
 						this.setDataCadastro(cliente.getDataCadastro());
 						this.setDataNascimento(cliente.getDataNascimento());
+						this.setReferenciaComercial(cliente.getReferenciaComercial());
 						
 						return "proxima";
 					}else{
@@ -510,6 +514,8 @@ public class ClienteBackBean extends BackBean {
 		cliente.setFoneContato(this.getFoneContato());
 		cliente.setValorLimiteCompras(this.getValorLimiteCompras());
 		cliente.setDataNascimento(this.getDataNascimento());
+		cliente.setReferenciaComercial(this.getReferenciaComercial());
+		
 		if(acao.equals(INSERIR)){
 			cliente.setDataCadastro(new Date(System.currentTimeMillis()));
 			if(this.getValorLimiteCompras() == null){
@@ -575,5 +581,13 @@ public class ClienteBackBean extends BackBean {
 				throw new AppException("O campo Inscrição Municipal é obrigatório.");
 			}
 		}		
+	}
+
+	public String getReferenciaComercial() {
+		return referenciaComercial;
+	}
+
+	public void setReferenciaComercial(String referenciaComercial) {
+		this.referenciaComercial = referenciaComercial;
 	}
 }
