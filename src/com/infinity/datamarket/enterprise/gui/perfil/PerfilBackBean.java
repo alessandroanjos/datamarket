@@ -138,7 +138,7 @@ public class PerfilBackBean extends BackBean {
 		try {
 			// Perfil
 			Perfil perfil = new Perfil();
-			perfil.setId(new Long(this.getId()));
+			
 			perfil.setDescricao(this.getDescricao());
 			
 			if(!this.getIdPerfilSuperior().equals("0")){

@@ -55,11 +55,10 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="C&oacute;ï¿½digo*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
-											value="#{lojaBB.id}" size="2" required="true" readonly="true">
-											<f:validateLength maximum="2" />
-											<f:validator validatorId="LongValidator" />
+										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
+										<h:inputText styleClass="field text ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
+											value="#{lojaBB.id}" size="4" required="true" disabled="true">
+											<f:validateLength maximum="4" />
 										</h:inputText>
 									</div>
 									<h:message for="id" styleClass="msgErro" />
@@ -76,7 +75,7 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Nï¿½&uacute;mero IP*"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Número IP*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="ip" maxlength="15"
 											size="15" value="#{lojaBB.numeroIp}" required="true" onblur="if (!verificaIP(this.value)) alert(ERRO_ENDERECO_IP);" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="15" />
@@ -86,11 +85,7 @@
 								</li>
 								<li class="normal">															
 									<div>
-<<<<<<< .mine
-										<h:outputLabel styleClass="desc" value="Nï¿½&uacute;mero Porta*"></h:outputLabel>
-=======
 										<h:outputLabel styleClass="desc" value="Número Porta*"></h:outputLabel>
->>>>>>> .r780
 										<h:inputText styleClass="field text inteiro" id="numeroPorta" maxlength="4" onkeypress="return SoNumero(event);"
 											size="4" value="#{lojaBB.numeroPorta}" required="true">
 											<f:validateLength maximum="4" />

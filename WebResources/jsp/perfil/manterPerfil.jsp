@@ -55,12 +55,10 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 											<h:inputText styleClass="field text ativo" id="id" onkeypress="return SoNumero(event);"
-												maxlength="2" value="#{perfilBB.id}" size="2"
-												required="true" readonly="true">
+												maxlength="4" value="#{perfilBB.id}" size="4"
+												required="true" disabled="true">
 												<f:validateLength maximum="2" />
-												<f:validator validatorId="LongValidator" />
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />										
 										</div>
 									</li>
 									<li class="normal">

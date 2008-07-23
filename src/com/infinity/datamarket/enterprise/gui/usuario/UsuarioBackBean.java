@@ -205,16 +205,11 @@ public class UsuarioBackBean extends BackBean {
 			}else{
 				usuario = new Usuario();
 			}
-			usuario.setId(new Long(this.getId()));
+			
 			usuario.setNome(this.getNome());
-			
-//			if(!this.getIdPerfil().equals("0")){
-				Perfil perfilTmp = getFachada().consultarPerfilPorPK(new Long(this.getIdPerfil()));
-				usuario.setPerfil(perfilTmp);
-//			}else{
-//				throw new Exception("É obrigatório selecionar um perfil.");
-//			}
-			
+
+			Perfil perfilTmp = getFachada().consultarPerfilPorPK(new Long(this.getIdPerfil()));
+			usuario.setPerfil(perfilTmp);
 			usuario.setSenha(this.getSenha());
 			
 			if(this.getListaLojasAssociadas() != null && this.getListaLojasAssociadas().size() > 0){
@@ -235,7 +230,8 @@ public class UsuarioBackBean extends BackBean {
 			getFachada().inserirUsuario(usuario);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Operação Realizada com Sucesso!", "");
+					"Operação Realizada com Sucesso!"+'\n'+
+					"O código gerado foi : "+id, "");
 			ctx.addMessage(null, msg);
 			resetBB();
 		} catch (ObjectExistentException e) {

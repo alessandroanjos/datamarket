@@ -8,14 +8,12 @@
 <hibernate-mapping>
     <class name="com.infinity.datamarket.comum.produto.GrupoProduto" table="GRUPO_PRODUTO" dynamic-update="false" dynamic-insert="false" lazy="false">
         
-        <id
+       <id
             name="id"
             column="ID"
-            type="java.lang.Long"
-            length="2"
-            unsaved-value="null"
+           
         >
-            <generator class="assigned">
+            <generator class="increment">
             </generator>
         </id>
 

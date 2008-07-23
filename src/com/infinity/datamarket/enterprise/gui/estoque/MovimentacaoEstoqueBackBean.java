@@ -29,6 +29,7 @@ import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class MovimentacaoEstoqueBackBean extends BackBean {   
@@ -152,7 +153,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		
 		MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque();
 
-		movimentacaoEstoque.setId(new Long(this.id));
+		//movimentacaoEstoque.setId(new Long(this.id));
 		movimentacaoEstoque.setDataMovimentacao(new Date());
 		
 		movimentacaoEstoque.setCodigoUsuario(Integer.parseInt(getCodigoUsuarioLogado()));
@@ -345,9 +346,13 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			} else {
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(MovimentacaoEstoque.class);
-				if (idLoja!=null) {
 
+				if (tipoMovimentacao.equals(TIPO_ENTRADA)) {
+					filter.addProperty("estoqueEntrada.pk.loja.id", new Long(getIdLoja()));
+				} else {
+					filter.addProperty("estoqueSaida.pk.loja.id", new Long(getIdLoja()));
 				}
+				
 				if (getId() != null && !"".equals(getId())) {
 	            	filter.addProperty("id", getId());
 					return consultarFiltro(filter);
@@ -355,7 +360,14 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 					filter.addPropertyInterval("dataMovimentacao",getDataInicio(), IntervalObject.MAIOR_IGUAL);
 					filter.addPropertyInterval("dataMovimentacao",getDataFinal(), IntervalObject.MENOR_IGUAL);
 					return consultarFiltro(filter);
+				} else {
+					FacesContext ctx = FacesContext.getCurrentInstance();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Informe o periodo", "");
+					ctx.addMessage(null, msg);
+					setExisteRegistros(false);
 				}
+				
  			}
 		} catch (ObjectNotFoundException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -390,6 +402,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 					FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);
+			setExisteRegistros(false);
 		} else if (col != null) {
 			if (col.size() == 1) {
 				MovimentacaoEstoque movimentacaoProduto = (MovimentacaoEstoque)col.iterator().next();
@@ -503,7 +516,19 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		}
 		return estoques;
 	}
-
+	
+	private static final String TIPO_ENTRADA = "E";
+	private static final String TIPO_SAIDA   = "A";
+	private String tipoMovimentacao;
+	public SelectItem[] getTipoMovimentoItens() {
+		SelectItem[] tipoMovimentoItens = new SelectItem[]{new SelectItem(TIPO_SAIDA,"Saida"),
+                new SelectItem(TIPO_ENTRADA,"Entrada")};
+		if(getTipoMovimentacao() == null){
+			setTipoMovimentacao(TIPO_SAIDA);
+		}
+		return tipoMovimentoItens;
+	}
+	
 	public SelectItem[] getEstoques() {
 		SelectItem[] arrayEstoques = null;
 		try {
@@ -786,5 +811,17 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	 */
 	public void setIdLoja(String idLoja) {
 		this.idLoja = idLoja;
+	}
+	/**
+	 * @return the tipoMovimento
+	 */
+	public String getTipoMovimentacao() {
+		return tipoMovimentacao;
+	}
+	/**
+	 * @param tipoMovimento the tipoMovimento to set
+	 */
+	public void setTipoMovimentacao(String tipoMovimentacao) {
+		this.tipoMovimentacao = tipoMovimentacao;
 	}
 }

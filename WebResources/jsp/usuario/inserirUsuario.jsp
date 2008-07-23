@@ -76,17 +76,7 @@
   										<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
   									</div>
   								</li>
-									<li class="normal">
-										<div>
-											<h:outputLabel styleClass="desc" style="float:none;" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
-												value="#{usuarioBB.id}" size="3" required="true">
-												<f:validateLength maximum="2" />
-												<f:validator validatorId="LongValidator"/>
-											</h:inputText>
-										</div>
-										<h:message for="id" styleClass="msgErro"/>
-									</li>
+
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>

@@ -492,7 +492,7 @@ public class ClienteBackBean extends BackBean {
 	public Cliente preencheCliente(String acao){
 		Cliente cliente = new Cliente();
 		
-		cliente.setId(new Long(this.getId()));
+
 		cliente.setNomeCliente(this.getNomeCliente());
 		cliente.setTipoPessoa(this.getIdTipoPessoa());
 		cliente.setCpfCnpj(this.getCpfCnpj());
