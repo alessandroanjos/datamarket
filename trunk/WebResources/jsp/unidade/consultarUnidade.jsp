@@ -51,9 +51,7 @@
 			</div>				
 		</div>
 		<h:form id="frmConsultarUnidade">
-				<f:subview id="subTopo" rendered="true">
-					<jsp:include page="/jsp/topo.jsp?tituloPagina=#{msgs.consultarUnidade}&user=#{loginBB.usuarioLogado.nome}"></jsp:include>	
-				</f:subview>					
+			
 				<div id="content">
 				
 						<div id="primarioContentContainerInternas">

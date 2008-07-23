@@ -39,7 +39,6 @@ public class TipoProdutoBackBean extends BackBean{
 	
 	public String inserir(){
 		TipoProduto tipo = new TipoProduto();
-		tipo.setId(new Long(this.getId()));
 		tipo.setDescricao(this.getDescricao());
 		try {
 			getFachada().inserirTipoProduto(tipo);

@@ -62,13 +62,11 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="4"
-											value="#{produtoBB.id}" size="4" required="true" readonly="true">
-											<f:validateLength maximum="4" />
-											<f:validator validatorId="LongValidator" />
+										<h:inputText styleClass="field text ativo" id="id" maxlength="6"
+											value="#{produtoBB.id}" size="6" required="true" disabled="true">
+											<f:validateLength maximum="6" />
 										</h:inputText>
 									</div>
-									<h:message for="id" styleClass="msgErro" />
 								</li>
 								<li class="normal">
 									<div>

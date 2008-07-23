@@ -63,11 +63,19 @@
 											<div>
 												<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
 												<h:selectOneMenu id="idLoja" styleClass="field select"
-													value="#{componenteBB.idLoja}" >   
+													value="#{movimentacaoEstoqueBB.idLoja}" >   
 														  <f:selectItems id="lojaSelectItems" 
-														  value="#{componenteBB.lojas}" />   
+														  value="#{movimentacaoEstoqueBB.lojas}" />   
 												</h:selectOneMenu> 
-											</div>								
+											</div>	
+											<div>
+												<h:outputLabel styleClass="desc" value="Tipo Movimentação"></h:outputLabel>
+												<h:selectOneRadio  styleClass="field select" id="tipoMovimentacao" 
+													value="#{movimentacaoEstoqueBB.tipoMovimentacao}" layout="lineDirection" required="true">
+												    <f:selectItems id="situacao" value="#{movimentacaoEstoqueBB.tipoMovimentoItens}" />							
+												</h:selectOneRadio>
+											</div>		
+									<h:message for="status" styleClass="msgErro"/>							
 									</li>
 								</ul>
 							</fieldset>	
@@ -96,6 +104,13 @@
 									</h:column>
 									
 								</t:dataTable>
+								<ul>
+									<li class="normal">
+										<div>
+											<h:messages rendered="#{not movimentacaoEstoqueBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									</li>
+								</ul>		
 							</div>
 							<ul>
 								<li class="buttons">

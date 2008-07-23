@@ -102,16 +102,6 @@
 									</li>
 									<li class="normal">
 										<div>
-											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" onkeypress="return SoNumero(event);"
-												maxlength="4" value="#{clienteBB.id}" size="4"
-												required="true">
-												<f:validateLength maximum="4" />
-												<f:validator validatorId="LongValidator" />
-											</h:inputText>
-											<h:message for="id" styleClass="msgErro" showDetail="true" showSummary="true" tooltip="true"/>										
-										</div>
-										<div>
 											<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false"
 												value="#{clienteBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">			

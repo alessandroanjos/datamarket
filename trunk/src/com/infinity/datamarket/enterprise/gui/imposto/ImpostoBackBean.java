@@ -43,7 +43,6 @@ public class ImpostoBackBean extends BackBean{
 	
 	public String inserir(){
 		Imposto imposto = new Imposto();
-		imposto.setId(new Long(getId()));
 		imposto.setDescricao(getDescricao());
 		imposto.setImpostoImpressora(getImpostoImpressora());
 		imposto.setPercentual(new BigDecimal(getPercentual()));

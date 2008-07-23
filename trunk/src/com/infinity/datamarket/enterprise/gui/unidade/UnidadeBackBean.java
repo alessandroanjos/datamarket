@@ -42,7 +42,6 @@ public class UnidadeBackBean extends BackBean{
 	
 	public String inserir(){
 		Unidade unidade = new Unidade();
-		unidade.setId(new Long(getId()));
 		unidade.setDescricao(getDescricao());
 		unidade.setDescricaoDisplay(getDescricaoCompacta());
 		unidade.setAbreviacao(getAbreviacao());

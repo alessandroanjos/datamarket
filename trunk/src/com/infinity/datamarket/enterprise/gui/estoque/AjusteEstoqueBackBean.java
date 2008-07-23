@@ -149,8 +149,8 @@ public class AjusteEstoqueBackBean extends BackBean {
 		try {
 			AjusteEstoque ajusteEstoque = new AjusteEstoque();
 			
-			ajusteEstoque.setId(new Long(this.id));
-			ajusteEstoque.setCodigoUsuario(1L);
+
+			ajusteEstoque.setCodigoUsuario(new Long(super.getCodigoUsuarioLogado()));
 			ajusteEstoque.setData(new Date());
 			ajusteEstoque.setQuantidadeAntes(this.quantidadeAntes);
 			ajusteEstoque.setQuantidadeDepois(this.quantidadeDepois);

@@ -44,20 +44,10 @@
 										<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 									</div>
 								</li>
+
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Cï¿½digo*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
-											value="#{componenteBB.id}" size="4" required="true">
-											<f:validateLength maximum="4" />
-											<f:validator validatorId="LongValidator"/>
-										</h:inputText>
-									</div>
-									<h:message for="id" styleClass="msgErro" />
-								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Descriï¿½ï¿½o*"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50"
 											value="#{componenteBB.descricao}" required="true">
 											<f:validateLength maximum="50" />

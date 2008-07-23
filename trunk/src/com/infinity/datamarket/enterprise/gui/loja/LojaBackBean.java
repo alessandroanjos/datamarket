@@ -107,7 +107,7 @@ public class LojaBackBean extends BackBean {
 	public String inserir(){
 		try {
 			Loja loja = new Loja();
-			loja.setId(new Long(this.id));
+
 			loja.setNome(this.nome);
 			loja.setNumeroIp(this.numeroIp);
 			loja.setNumeroPorta(this.numeroPorta);

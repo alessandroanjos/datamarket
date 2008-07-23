@@ -96,16 +96,6 @@
 						</li>
 						
 						<li class="normal" style="border-bottom:0;">
-					    <div>
-								<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
-									value="#{movimentacaoEstoqueBB.id}" size="4" required="true">
-									<f:validateLength maximum="4" />
-									<f:validator validatorId="LongValidator" />
-								</h:inputText>
-							</div>
-							<h:message for="id" styleClass="msgErro" />
-						</li>
 						
 						<li class="normal">	
 							<div>

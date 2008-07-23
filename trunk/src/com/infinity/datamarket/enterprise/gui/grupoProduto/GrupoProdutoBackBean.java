@@ -54,7 +54,6 @@ public class GrupoProdutoBackBean extends BackBean{
 			grupoSuperior.setId(new Long(idSuperior));
 			grupo.setGrupoSuperior(grupoSuperior);
 		}
-		grupo.setId(new Long(id));
 		grupo.setDescricao(descricao);
 		try {
 			getFachada().inserirGrupoProduto(grupo);

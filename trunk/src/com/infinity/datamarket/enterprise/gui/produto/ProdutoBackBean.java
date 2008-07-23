@@ -163,7 +163,6 @@ public class ProdutoBackBean extends BackBean{
 	
 	private Produto getProduto(){
 		Produto p = new Produto();
-		p.setId(new Long(getId()));
 		p.setCodigoExterno(getCodigoExterno());
 		p.setCodigoAutomacao(getCodigoAutomacao());
 		p.setDescricaoCompleta(getDescricaoCompleta());

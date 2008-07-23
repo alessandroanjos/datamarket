@@ -45,17 +45,6 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Cï¿½&oacute;digo*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
-											value="#{lojaBB.id}" size="2" required="true">
-											<f:validateLength maximum="2" />
-											<f:validator validatorId="LongValidator" />
-										</h:inputText>
-									</div>
-									<h:message for="id" styleClass="msgErro" />
-								</li>
-								<li class="normal">
-									<div>
 										<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="nome" maxlength="50"
 											size="50" value="#{lojaBB.nome}" required="true">
@@ -66,7 +55,7 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="N&uacute;ï¿½mero IP*"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Número IP*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="ip" maxlength="15"
 											size="15" value="#{lojaBB.numeroIp}" required="true" onblur="if (!verificaIP(this.value)) alert(ERRO_ENDERECO_IP);" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="15" />
@@ -76,11 +65,7 @@
 								</li>
 								<li class="normal">															
 									<div>
-<<<<<<< .mine
-										<h:outputLabel styleClass="desc" value="N&uacute;ï¿½mero Porta*"></h:outputLabel>
-=======
 										<h:outputLabel styleClass="desc" value="Número Porta*"></h:outputLabel>
->>>>>>> .r780
 										<h:inputText styleClass="field text inteiro" id="numeroPorta" maxlength="4" onkeypress="return SoNumero(event);"
 											size="4" value="#{lojaBB.numeroPorta}" required="true">
 											<f:validateLength maximum="4" />
