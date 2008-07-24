@@ -71,12 +71,16 @@
 													styleClass="field text data" forceId="dataInicio"
 													value="#{entradaProdutoBB.dataInicio}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 													id="dataInicio" />
+													<f:convertDateTime timeZone="GMT-3"/>
 											</div>	
 											<div>	
 												<h:outputLabel styleClass="desc" value=" Data Final "></h:outputLabel>
 												<t:inputText readonly="false" styleClass="field text data"
 													maxlength="10" size="10" forceId="dataFinal" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-													value="#{entradaProdutoBB.dataFinal}" id="dataFinal" />
+													value="#{entradaProdutoBB.dataFinal}" id="dataFinal">
+														<f:convertDateTime timeZone="GMT-3"/>
+													</t:inputText>
+													
 											</div>								
 									</li>
 								</ul>
