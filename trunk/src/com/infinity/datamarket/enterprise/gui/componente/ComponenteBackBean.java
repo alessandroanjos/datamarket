@@ -73,6 +73,7 @@ public class ComponenteBackBean extends BackBean {
 	public String inserir(){
 		Componente componente = new Componente();
 		
+		componente.setId(new Long(this.id));
 		componente.setDescricao(this.descricao);
 	    componente.setIp(this.ip);
 	    componente.setPorta(this.porta);

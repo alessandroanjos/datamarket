@@ -133,7 +133,7 @@ public class EntradaProdutoBackBean extends BackBean {
         
 		ProdutoEntradaProduto produtoEntrada = new ProdutoEntradaProduto();
 		ProdutoEntradaProdutoPK produtoEntradaPK = new ProdutoEntradaProdutoPK();
-		produtoEntradaPK.setId(new Long(this.id));
+		//produtoEntradaPK.setId(new Long(this.id));
 		Produto produto = null;
 		
 		try {
@@ -195,13 +195,13 @@ public class EntradaProdutoBackBean extends BackBean {
 		//EntradaProdutoPK pk = new EntradaProdutoPK();
 		
 		//pk.setId(new Long(this.id));
-		if (this.id==null) {
+		/*if (this.id==null) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Código Invalido!", "");
 			ctx.addMessage(null, msg);
-		}
-		entradaProduto.setId(new Long(this.id));
+		}*/
+		// entradaProduto.setId(new Long(this.id));
 		
 		if (this.numeroNota==null) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -243,7 +243,14 @@ public class EntradaProdutoBackBean extends BackBean {
 		}
 		entradaProduto.setIcms(this.icms);
 	
+		if (this.ipi==null) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Informe ipi da nota!", "");
+			ctx.addMessage(null, msg);
+		}
 		entradaProduto.setIpi(this.ipi);
+		
 		entradaProduto.setDesconto(this.desconto);
 		
 		if (this.valor==null) {
@@ -462,7 +469,34 @@ public class EntradaProdutoBackBean extends BackBean {
 		}
 		return fornecedores;
 	}
-
+	
+	private static final String TIPO_NOTA        = "N";
+	private static final String TIPO_DEVOLUCAO   = "D";
+	private String tipoEntrada;
+	
+	/**
+	 * @return the tipoEntrada
+	 */
+	public String getTipoEntrada() {
+		return tipoEntrada;
+	}
+	/**
+	 * @param tipoEntrada the tipoEntrada to set
+	 */
+	public void setTipoEntrada(String tipoEntrada) {
+		this.tipoEntrada = tipoEntrada;
+	}
+	/**
+	 * @return the tipoEntradaItens
+	 */
+	public SelectItem[] getTipoEntradaItens() {
+		SelectItem[] tipoEntradaItens = new SelectItem[]{new SelectItem(TIPO_NOTA,"N.Fiscal"),
+                new SelectItem(TIPO_DEVOLUCAO,"Devolução")};
+		if(getTipoEntrada() == null){
+			setTipoEntrada(TIPO_NOTA);
+		}
+		return tipoEntradaItens;
+	}
 	public SelectItem[] getFornecedores() {
 		SelectItem[] arrayFornecedores = null;
 		try {

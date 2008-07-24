@@ -10,14 +10,13 @@
         <id
             name="id"
             column="ID"
-           
+            type="java.lang.Long"
+            length="2"
+            unsaved-value="null"
         >
-            <generator class="increment">
+            <generator class="assigned">
             </generator>
         </id>
-        
-
-
 
         <property name="nome" type="java.lang.String" update="true" insert="true">
             <column name="NOME" length="50" not-null="true"/>

@@ -8,12 +8,14 @@
 <hibernate-mapping>
     <class name="com.infinity.datamarket.comum.pagamento.FormaRecebimento" table="FORMA_RECEBIMENTO" dynamic-update="true" dynamic-insert="false" lazy="false">
 
-       <id
+        <id
             name="id"
             column="ID"
-           
+            type="java.lang.Long"
+            length="3"
+            unsaved-value="null"
         >
-            <generator class="increment">
+            <generator class="assigned">
             </generator>
         </id>
 

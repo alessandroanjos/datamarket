@@ -2,10 +2,7 @@
 <!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
 <faces-config>
-	<application>
-<locale-config><default-locale id="default">pt-BR</default-locale></locale-config>
-
-</application>
+	
 	<navigation-rule>
 		<from-view-id>/jsp/login.jsp</from-view-id>
 		<navigation-case>
@@ -31,67 +28,54 @@
 			<from-outcome>inserirTipoProduto</from-outcome>
 			<to-view-id>/jsp/tipoProduto/inserirTipoProduto.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterTipoProduto</from-outcome>
 			<to-view-id>/jsp/tipoProduto/consultarTipoProduto.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>inserirUnidade</from-outcome>
 			<to-view-id>/jsp/unidade/inserirUnidade.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterUnidade</from-outcome>
 			<to-view-id>/jsp/unidade/consultarUnidade.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>inserirImposto</from-outcome>
 			<to-view-id>/jsp/imposto/inserirImposto.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterImposto</from-outcome>
 			<to-view-id>/jsp/imposto/consultarImposto.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>inserirGrupoProduto</from-outcome>
 			<to-view-id>/jsp/grupoProduto/inserirGrupoProduto.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterGrupoProduto</from-outcome>
 			<to-view-id>/jsp/grupoProduto/consultarGrupoProduto.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>inserirLoja</from-outcome>
 			<to-view-id>/jsp/loja/inserirLoja.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterLoja</from-outcome>
 			<to-view-id>/jsp/loja/consultarLoja.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>inserirFormaRecebimento</from-outcome>
 			<to-view-id>/jsp/formaRecebimento/inserirFormaRecebimento.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterFormaRecebimento</from-outcome>
 			<to-view-id>/jsp/formaRecebimento/consultarFormaRecebimento.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>inserirPlanoPagamento</from-outcome>
 			<to-view-id>/jsp/planoPagamento/inserirPlanoPagamento.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterPlanoPagamento</from-outcome>
 			<to-view-id>/jsp/planoPagamento/consultarPlanoPagamento.jsp</to-view-id>
@@ -101,22 +85,20 @@
 			<from-outcome>inserirPerfil</from-outcome>
 			<to-view-id>/jsp/perfil/inserirPerfil.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterPerfil</from-outcome>
 			<to-view-id>/jsp/perfil/consultarPerfil.jsp</to-view-id>
 		</navigation-case>	
-		
 		<navigation-case>
 			<from-outcome>inserirProduto</from-outcome>
 			<to-view-id>/jsp/produto/inserirProduto.jsp</to-view-id>
 		</navigation-case>
 
+		
 		<navigation-case>
 			<from-outcome>inserirComponente</from-outcome>
 			<to-view-id>/jsp/componente/inserirComponente.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterComponente</from-outcome>
 			<to-view-id>/jsp/componente/consultarComponente.jsp</to-view-id>
@@ -126,7 +108,6 @@
 			<from-outcome>inserirEstoque</from-outcome>
 			<to-view-id>/jsp/estoque/inserirEstoque.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterEstoque</from-outcome>
 			<to-view-id>/jsp/estoque/consultarEstoque.jsp</to-view-id>
@@ -136,7 +117,6 @@
 			<from-outcome>inserirEntradaProduto</from-outcome>
 			<to-view-id>/jsp/entradaProduto/inserirEntradaProduto.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterEntradaProduto</from-outcome>
 			<to-view-id>/jsp/entradaProduto/consultarEntradaProduto.jsp</to-view-id>
@@ -144,9 +124,8 @@
 
 		<navigation-case>
 			<from-outcome>inserirMovimentacaoEstoque</from-outcome>
-			<to-view-id>/jsp/movimentacaoEstoque/inserirMovimentacaoEstoque.jsp</to-view-id>			
+			<to-view-id>/jsp/movimentacaoEstoque/inserirMovimentacaoEstoque.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterMovimentacaoEstoque</from-outcome>
 			<to-view-id>/jsp/movimentacaoEstoque/consultarMovimentacaoEstoque.jsp</to-view-id>
@@ -155,13 +134,11 @@
 		<navigation-case>
 			<from-outcome>manterProduto</from-outcome>
 			<to-view-id>/jsp/produto/consultarProduto.jsp</to-view-id>
-		</navigation-case>	
-			
+		</navigation-case>		
 		<navigation-case>
 			<from-outcome>popUpProduto</from-outcome>
 			<to-view-id>/jsp/popup/PopUpProdutos.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>PopUpProdutosEstoque</from-outcome>
 			<to-view-id>/jsp/popup/PopUpProdutosEstoque.jsp</to-view-id>
@@ -169,9 +146,9 @@
 		
 		<navigation-case>
 			<from-outcome>inserirUsuario</from-outcome>
-			<to-view-id>/jsp/usuario/inserirUsuario.jsp</to-view-id>			
+			<to-view-id>/jsp/usuario/inserirUsuario.jsp</to-view-id>
+			
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterUsuario</from-outcome>
 			<to-view-id>/jsp/usuario/consultarUsuario.jsp</to-view-id>
@@ -186,7 +163,6 @@
 			<from-outcome>inserirCliente</from-outcome>
 			<to-view-id>/jsp/cliente/inserirCliente.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterCliente</from-outcome>
 			<to-view-id>/jsp/cliente/consultarCliente.jsp</to-view-id>
@@ -196,7 +172,6 @@
 			<from-outcome>inserirFornecedor</from-outcome>
 			<to-view-id>/jsp/fornecedor/inserirFornecedor.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterFornecedor</from-outcome>
 			<to-view-id>/jsp/fornecedor/consultarFornecedor.jsp</to-view-id>
@@ -206,53 +181,38 @@
 			<from-outcome>inserirClientePagamento</from-outcome>
 			<to-view-id>/jsp/clientePagamento/inserirClientePagamento.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterClientePagamento</from-outcome>
 			<to-view-id>/jsp/clientePagamento/consultarClientePagamento.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>inserirPlanoPagamentoChequePre</from-outcome>
 			<to-view-id>/jsp/planoPagamentoChequePre/inserirPlanoPagamentoChequePre.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterPlanoPagamentoChequePre</from-outcome>
 			<to-view-id>/jsp/planoPagamentoChequePre/consultarPlanoPagamentoChequePre.jsp</to-view-id>
-		</navigation-case>		
+		</navigation-case>
+		
 				
 		<navigation-case>
 			<from-outcome>inserirAutorizadora</from-outcome>
 			<to-view-id>/jsp/autorizadora/inserirAutorizadora.jsp</to-view-id>
 		</navigation-case>
-		
 		<navigation-case>
 			<from-outcome>manterAutorizadora</from-outcome>
 			<to-view-id>/jsp/autorizadora/consultarAutorizadora.jsp</to-view-id>
-		</navigation-case>
-		
-		<navigation-case>
-			<from-outcome>inserirTransacao</from-outcome>
-			<to-view-id>/jsp/transacao/inserirTransacao.jsp</to-view-id>
-		</navigation-case>
-		
-		<navigation-case>
-			<from-outcome>manterTransacao</from-outcome>
-			<to-view-id>/jsp/transacao/consultarTransacao.jsp</to-view-id>
 		</navigation-case>
 						
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
 			<to-view-id>/jsp/login.jsp</to-view-id>
 		</navigation-case>
-		
 	</navigation-rule>
 	
 	<navigation-rule>
 		<from-view-id>/jsp/erro.jsp</from-view-id>
 	</navigation-rule>
-	
 	
 	
 	<!-- LOTE -->
@@ -272,49 +232,6 @@
 			<from-action>#{tipoProdutoBB.voltarMenu}</from-action>
 			<from-outcome>voltar</from-outcome>
 			<to-view-id>/jsp/menu.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
-	<!-- TRANSACAO -->
-	<navigation-rule>
-		<from-view-id>/jsp/transacao/inserirTransacao.jsp</from-view-id>
-		<navigation-case>
-			<from-action>#{transacaoBB.inserir}</from-action>
-			<from-outcome>mesma</from-outcome>
-			<to-view-id>/jsp/transacao/inserirTransacao.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{transacaoBB.voltarMenu}</from-action>
-			<from-outcome>voltar</from-outcome>
-			<to-view-id>/jsp/menu.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
-	<navigation-rule>
-		<from-view-id>/jsp/transacao/consultarTransacao.jsp</from-view-id>
-		<navigation-case>
-			<from-action>#{transacaoBB.consultar}</from-action>
-			<from-outcome>mesma</from-outcome>
-			<to-view-id>/jsp/transacao/consultarTransacao.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{transacaoBB.consultar}</from-action>
-			<from-outcome>proxima</from-outcome>
-			<to-view-id>/jsp/transacao/manterTransacao.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{transacaoBB.voltarMenu}</from-action>
-			<from-outcome>voltar</from-outcome>
-			<to-view-id>/jsp/menu.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
-	<navigation-rule>
-		<from-view-id>/jsp/transacao/manterTransacao.jsp</from-view-id>
-		<navigation-case>
-			<from-action>#{transacaoBB.voltarConsulta}</from-action>
-			<from-outcome>voltar</from-outcome>
-			<to-view-id>/jsp/transacao/consultarTransacao.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
@@ -1143,12 +1060,12 @@
 		<managed-property>
 		    <property-name>dataSistema</property-name>
 		    <property-class>java.util.Date</property-class>
-			<null-value/>
+		    <value></value>
 		</managed-property>
 		<managed-property>
 		    <property-name>timeZone</property-name>
 		    <property-class>java.util.TimeZone</property-class>
-		    <null-value/>
+		    <value></value>
 		</managed-property>
 	</managed-bean>
 	
@@ -1890,6 +1807,11 @@
 		    <null-value/>
 		</managed-property>
 		<managed-property>
+		    <property-name>tipoEntrada</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
 		    <property-name>produtoEntrada</property-name>
 		    <property-class>com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto</property-class>
 		    <null-value/>
@@ -2126,7 +2048,7 @@
 		<managed-property>
 		    <property-name>dataCadastro</property-name>
 		    <property-class>java.util.Date</property-class>
-		    <value>#{superBB.dataSistema}</value>
+		    <null-value/>
 		</managed-property>	
 		
 		<managed-property>
@@ -2278,7 +2200,7 @@
 		<managed-property>
 		    <property-name>dataCadastro</property-name>
 		    <property-class>java.util.Date</property-class>
-		     <value>#{superBB.dataSistema}</value>
+		    <null-value/>
 		</managed-property>	
 		
 		<managed-property>
@@ -2290,49 +2212,9 @@
 		    <property-name>listaTipoPessoa</property-name>
 		    <property-class>javax.faces.model.SelectItem</property-class>
 		    <null-value/>
-		</managed-property>
-		
-		<managed-property>
-		    <property-name>referenciaComercial</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
 		</managed-property>					
 	</managed-bean>
 	
-	<!-- TRANSACAO BACK BEAN -->
-	
-	<managed-bean>
-		<managed-bean-name>transacaoBB</managed-bean-name>
-		<managed-bean-class>
-			com.infinity.datamarket.enterprise.gui.transacao.TransacaoBackBean
-		</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-		<managed-property>
-		    <property-name>id</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>descricao</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>descricaoCompacta</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>abreviacao</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>unidades</property-name>
-		    <property-class>java.util.Collection</property-class>
-		    <null-value/>
-		</managed-property>
-	</managed-bean>
 <!-- Autorizadora -->
 	<managed-bean>
 		<managed-bean-name>autorizadoraBB</managed-bean-name>
@@ -2512,226 +2394,6 @@
 		<managed-property>
 		    <property-name>abaCorrente</property-name>
 		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-	</managed-bean>
-	
-	<!-- TRANSACAO BACK BEAN -->
-	
-	<managed-bean>
-		<managed-bean-name>transacaoBB</managed-bean-name>
-		<managed-bean-class>
-			com.infinity.datamarket.enterprise.gui.transacao.TransacaoBackBean
-		</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-		<managed-property>
-		    <property-name>id</property-name>
-		    <property-class>com.infinity.datamarket.comum.transacao.TransacaoPK</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>idLoja</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>lojas</property-name>
-		    <property-class>javax.faces.model.SelectItem</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>idComponente</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>componentes</property-name>
-		    <property-class>javax.faces.model.SelectItem</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>idCliente</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>clientes</property-name>
-		    <property-class>javax.faces.model.SelectItem</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>idVendedor</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>idOperador</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>usuarios</property-name>
-		    <property-class>javax.faces.model.SelectItem</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>idFormaTroco</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>formas</property-name>
-		    <property-class>javax.faces.model.SelectItem</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>dataTransacao</property-name>
-		    <property-class>java.util.Date</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>nsuTransacao</property-name>
-		    <property-class>java.lang.Integer</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>numeroCupom</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>codigoProduto</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>descricaoProduto</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>quantidade</property-name>
-		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>precoVenda</property-name>
-		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>descontoItem</property-name>
-		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>valorItem</property-name>
-		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>valorSubTotalCupom</property-name>
-		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>descontoCupom</property-name>
-		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>valorTotalCupom</property-name>
-		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>valorTroco</property-name>
-		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>itensTransacao</property-name>
-		    <property-class>java.util.Collections</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>idFormaPagamento</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>valorFormaPagamento</property-name>
-		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
-		</managed-property>		
-		<managed-property>
-		    <property-name>codigoBanco</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>codigoAgencia</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>numeroConta</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>numeroCheque</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>cmc7</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>dataVencimento</property-name>
-		    <property-class>java.util.Date</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>numeroCartao</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>codigoAutorizadora</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>codigoAutorizacao</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>quantidadeParcelasCartao</property-name>
-		    <property-class>java.lang.Integer</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>cpfCnpjCliente</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>valorComissaoVendedor</property-name>
-		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
-		</managed-property>		
-		<managed-property>
-		    <property-name>dataInicial</property-name>
-		    <property-class>java.util.Date</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>dataFinal</property-name>
-		    <property-class>java.util.Date</property-class>
 		    <null-value/>
 		</managed-property>
 	</managed-bean>

@@ -47,6 +47,17 @@
 								</li>
 								<li class="normal">
 									<div>
+										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
+										<h:inputText styleClass="field text ativo" id="id" maxlength="3" onkeypress="return SoNumero(event);"
+											value="#{planoPagamentoBB.id}" size="4" required="true">
+											<f:validateLength maximum="4" />
+											<f:validator validatorId="LongValidator"/>
+										</h:inputText>												
+									</div>
+									<h:message for="id" styleClass="msgErro"/>	
+								</li>
+								<li class="normal">
+									<div>
 										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" required="true"
 											value="#{planoPagamentoBB.descricao}">

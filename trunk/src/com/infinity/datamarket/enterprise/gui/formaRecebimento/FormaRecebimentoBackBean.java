@@ -146,7 +146,8 @@ public class FormaRecebimentoBackBean extends BackBean {
 	public String inserir() {
 		try {
 			FormaRecebimento formaRecebimento = new FormaRecebimento();
-
+			
+			formaRecebimento.setId(new Long(this.id));
 			formaRecebimento.setDescricao(this.descricao);
 			formaRecebimento.setRecebimentoImpressora(this.recebimentoImpressora);
 			formaRecebimento.setAbrirGaveta(this.abrirGaveta);

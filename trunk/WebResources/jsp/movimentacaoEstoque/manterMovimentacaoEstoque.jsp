@@ -97,13 +97,14 @@
 								<h:outputText value="#{movimentacaoEstoqueBB.dataMovimentacao}" />							
 							</div>
 							<div>
-								<h:outputLabel styleClass="desc" value="Estoque Saida"></h:outputLabel>
-								<h:outputText value="#{movimentacaoEstoqueBB.idEstoqueSaida}" />			
-							</div>	
-							<div>
 								<h:outputLabel styleClass="desc" value="Estoque Entrada"></h:outputLabel>
-								<h:outputText value="#{movimentacaoEstoqueBB.idEstoqueEntrada}" />			
+								<h:outputText value="#{movimentacaoEstoqueBB.estoqueEntrada.descricao}" />			
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Estoque Saida"></h:outputLabel>
+								<h:outputText value="#{movimentacaoEstoqueBB.estoqueSaida.descricao}" />			
 							</div>	
+	
 
 
 						</li>

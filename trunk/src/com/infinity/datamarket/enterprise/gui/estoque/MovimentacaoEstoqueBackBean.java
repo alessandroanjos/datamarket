@@ -39,6 +39,8 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	private Date dataMovimentacao;
 	private String idEstoqueSaida;
 	private String idEstoqueEntrada;
+	private Estoque estoqueSaida;
+	private Estoque estoqueEntrada;
 	private Collection<MovimentacaoEstoque> movimentacaoEstoque;
     private ProdutoMovimentacaoEstoque produtoMovimentacaoEstoque;
 	// Atributos para montar os Produtos na movimentação de estoque
@@ -66,6 +68,11 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	
 	private String idExcluir; 
 
+	private static final String TIPO_ENTRADA = "E";
+	private static final String TIPO_SAIDA   = "A";
+	private String tipoMovimentacao;
+
+	
 	public String resetProdutoBB() {
 		this.setIdProduto(null);
 		this.setDescricao(null);
@@ -346,11 +353,11 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			} else {
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(MovimentacaoEstoque.class);
-
+				Loja loja = buscaLoja(getIdLoja());
 				if (tipoMovimentacao.equals(TIPO_ENTRADA)) {
-					filter.addProperty("estoqueEntrada.pk.loja.id", new Long(getIdLoja()));
+					filter.addProperty("estoqueEntrada.pk.loja", loja);
 				} else {
-					filter.addProperty("estoqueSaida.pk.loja.id", new Long(getIdLoja()));
+					filter.addProperty("estoqueSaida.pk.loja", loja);
 				}
 				
 				if (getId() != null && !"".equals(getId())) {
@@ -387,6 +394,20 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		return resetBB();
 	}
 	
+	private Loja buscaLoja(String id) {
+
+		Loja loja = null;
+		
+		try {
+			loja = getFachada().consultarLojaPorId(new Long(id));
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return loja;
+	}
+	
 	private String consultarFiltro(PropertyFilter filter) {
 
 		Collection col=null;
@@ -405,10 +426,21 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			setExisteRegistros(false);
 		} else if (col != null) {
 			if (col.size() == 1) {
+				
 				MovimentacaoEstoque movimentacaoProduto = (MovimentacaoEstoque)col.iterator().next();
+				
 				this.setId( movimentacaoProduto.getId().toString());
+				this.setDataMovimentacao(movimentacaoProduto.getDataMovimentacao());
+				
+				this.setIdEstoqueEntrada(movimentacaoProduto.getEstoqueEntrada().getPk().getId().toString());
+				this.setEstoqueEntrada(movimentacaoProduto.getEstoqueEntrada());
+				
+				this.setIdEstoqueSaida(movimentacaoProduto.getEstoqueSaida().getPk().getId().toString());
+				this.setEstoqueSaida(movimentacaoProduto.getEstoqueSaida());
+				
 				Set<ProdutoMovimentacaoEstoque> colProduto =  (Set<ProdutoMovimentacaoEstoque>) movimentacaoProduto.getProdutosMovimentacao();
 				this.setArrayProduto(colProduto);
+				
 				return "proxima";
 			} else {
 				this.setMovimentacaoEstoque(col);
@@ -517,9 +549,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		return estoques;
 	}
 	
-	private static final String TIPO_ENTRADA = "E";
-	private static final String TIPO_SAIDA   = "A";
-	private String tipoMovimentacao;
+	
 	public SelectItem[] getTipoMovimentoItens() {
 		SelectItem[] tipoMovimentoItens = new SelectItem[]{new SelectItem(TIPO_SAIDA,"Saida"),
                 new SelectItem(TIPO_ENTRADA,"Entrada")};
@@ -823,5 +853,29 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	 */
 	public void setTipoMovimentacao(String tipoMovimentacao) {
 		this.tipoMovimentacao = tipoMovimentacao;
+	}
+	/**
+	 * @return the estoqueEntrada
+	 */
+	public Estoque getEstoqueEntrada() {
+		return estoqueEntrada;
+	}
+	/**
+	 * @param estoqueEntrada the estoqueEntrada to set
+	 */
+	public void setEstoqueEntrada(Estoque estoqueEntrada) {
+		this.estoqueEntrada = estoqueEntrada;
+	}
+	/**
+	 * @return the estoqueSaida
+	 */
+	public Estoque getEstoqueSaida() {
+		return estoqueSaida;
+	}
+	/**
+	 * @param estoqueSaida the estoqueSaida to set
+	 */
+	public void setEstoqueSaida(Estoque estoqueSaida) {
+		this.estoqueSaida = estoqueSaida;
 	}
 }
