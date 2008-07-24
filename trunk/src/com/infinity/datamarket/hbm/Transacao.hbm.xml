@@ -24,6 +24,9 @@
             <column name="STATUS" length="2" not-null="false"/>
         </property>
 
+		<many-to-one name="cliente" class="com.infinity.datamarket.comum.cliente.Cliente" update="true" insert="true">
+          <column name="ID_CLIENTE" not-null="false"/>
+        </many-to-one>
     </class>    
 
 </hibernate-mapping>
