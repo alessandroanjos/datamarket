@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
+import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
+
 public class TransacaoVenda extends Transacao{
 
 	/**
@@ -25,6 +27,7 @@ public class TransacaoVenda extends Transacao{
 	private BigDecimal comissaoUsuarioVendedor;
 	private String situacao;
 	private Collection eventosTransacao;
+	private FormaRecebimento formaTroco;
 
 	public Collection getEventosTransacao() {
 		return eventosTransacao;
@@ -129,5 +132,13 @@ public class TransacaoVenda extends Transacao{
 
 	public void setComissaoUsuarioVendedor(BigDecimal comissaoUsuarioVendedor) {
 		this.comissaoUsuarioVendedor = comissaoUsuarioVendedor;
+	}
+
+	public FormaRecebimento getFormaTroco() {
+		return formaTroco;
+	}
+
+	public void setFormaTroco(FormaRecebimento formaTroco) {
+		this.formaTroco = formaTroco;
 	}
 }
