@@ -83,6 +83,7 @@
 									<h:inputText styleClass="field text" id="dataPagamento" maxlength="10" size="10"
 										value="#{clientePagamentoBB.dataPagamento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 										required="false">
+										<f:convertDateTime timeZone="GMT-3"/>
 									</h:inputText>
 									<h:message for="dataPagamento" styleClass="msgErro"/>
 								</div>							

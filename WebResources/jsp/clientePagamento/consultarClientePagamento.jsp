@@ -62,7 +62,7 @@
 										<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataInicial" maxlength="10" size="10"
 											value="#{clientePagamentoBB.dataInicial}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
-											
+											<f:convertDateTime timeZone="GMT-3"/>
 										</h:inputText>
 										<h:message for="dataInicial" styleClass="msgErro"/>
 									</div>
@@ -70,7 +70,7 @@
 										<h:outputLabel styleClass="desc" value="Data Final"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFinal" maxlength="10" size="10"
 											value="#{clientePagamentoBB.dataFinal}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
-											
+											<f:convertDateTime timeZone="GMT-3"/>
 										</h:inputText>
 										<h:message for="dataFinal" styleClass="msgErro"/>
 									</div>					
