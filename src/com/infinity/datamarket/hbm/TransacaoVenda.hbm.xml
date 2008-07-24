@@ -53,6 +53,10 @@
           <property name="comissaoUsuarioVendedor" type="java.math.BigDecimal" update="true" insert="true">
               <column name="COMISSAO_USU_VENDEDOR" length="20" not-null="false"/>
           </property>
+          
+          <many-to-one name="formaTroco" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento" update="true" insert="true" >
+              <column name="COD_FORMA_TROCO" not-null="false"/>
+	       </many-to-one>
 
 
           <set name="eventosTransacao" inverse="true" cascade="all" lazy="false">
