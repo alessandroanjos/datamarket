@@ -105,6 +105,7 @@
 											<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false"
 												value="#{clienteBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">			
+												<f:convertDateTime timeZone="GMT-3"/>
 											</h:inputText>
 											<h:message for="dataCadastro" styleClass="msgErro"/>
 										</div>
@@ -142,7 +143,7 @@
 											<h:outputLabel styleClass="desc" value="Data de Nascimento"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataNascimento" maxlength="10" size="10"
 												value="#{clienteBB.dataNascimento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
-												
+												<f:convertDateTime timeZone="GMT-3"/>
 											</h:inputText>
 											<h:message for="dataNascimento" styleClass="msgErro"/>
 										</div>
