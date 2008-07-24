@@ -93,16 +93,7 @@
 							</div>
 						</li>
 						<li class="normal">
-							<div>
-								<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
-									value="#{entradaProdutoBB.id}" size="3" rendered="true">
-									<f:validateLength maximum="2" />
-									<f:validator validatorId="LongValidator" />
-								</h:inputText>
-								<h:message for="id" styleClass="msgErro" />
-							</div>
-							
+					
 							<div>
 								<h:outputLabel styleClass="desc" value="N.Fiscal*"></h:outputLabel>
 								<h:inputText styleClass="field text" id="numeroNota"
@@ -137,7 +128,13 @@
 								</h:selectOneMenu>
 								<h:message for="idFornecedor" styleClass="errors" />
 							</div>
-
+							<div>
+								<h:outputLabel styleClass="desc" value="Tipo Entrada"></h:outputLabel>
+								<h:selectOneRadio  styleClass="field select" id="tipoEntrada" 
+									value="#{entradaProdutoBB.tipoEntrada}" layout="lineDirection" required="true">
+								    <f:selectItems id="situacao" value="#{entradaProdutoBB.tipoEntradaItens}" />							
+								</h:selectOneRadio>
+							</div>	
 						</li>
 
 						<li class="normal">
@@ -185,7 +182,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
 								<h:inputText styleClass="field text ativo" id="idProduto" onkeypress="return SoNumero(event);"
-									maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9" readonly="true" required="true">
+									maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9" required="true">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
 								</h:inputText>

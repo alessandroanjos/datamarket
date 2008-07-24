@@ -8,15 +8,16 @@
 <hibernate-mapping>
     <class name="com.infinity.datamarket.comum.componente.Componente" table="COMPONENTE" dynamic-update="false" dynamic-insert="false" lazy="false">
         
-     	<id
+        <id
             name="id"
             column="ID"
-           
+            type="java.lang.Long"
+            length="4"
+            unsaved-value="null"
         >
-            <generator class="increment">
+            <generator class="assigned">
             </generator>
         </id>
-
 
         <property name="descricao" type="java.lang.String" update="true" insert="true">
             <column name="DESCRICAO" length="50" not-null="true"/>

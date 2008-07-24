@@ -43,7 +43,18 @@
 										<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 									</div>
 								</li>
-
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
+										<h:inputText styleClass="field text ativo" id="id" maxlength="3" onkeypress="return SoNumero(event);"
+											value="#{formaRecebimentoBB.id}" size="3" required="true">
+											<f:validateLength maximum="3" />
+											<f:validator validatorId="LongValidator"/>
+										</h:inputText>												
+									</div>
+									<h:message for="id" styleClass="msgErro"/>	
+									</div>
+								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>

@@ -375,9 +375,8 @@ public class PlanoPagamentoBackBean extends BackBean {
 		}else{
 			planoPagamento = plano;
 		}
-		if (!acao.equals(INSERIR))
+
 		planoPagamento.setId(new Long(getId()));
-		
 		planoPagamento.setDescricao(this.descricao);
 		planoPagamento.setStatus(this.status);
 		planoPagamento.setValorMaximo(this.valorMaximo);
