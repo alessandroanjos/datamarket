@@ -95,13 +95,20 @@ public class MicCalculaExibeTelaParcelaPlanos extends Mic{
 					valorTotal = valorTotal.add(valorParcela);
 				}
 				
-				cal.setTime(dataAtual);
+				Date data = null;
 				
-				cal.add(Calendar.DAY_OF_MONTH, parcela.getQuantidadeDias());
+				if (parcela.getQuantidadeDias() != 0){
+					
+					cal.setTime(dataAtual);
 				
-				Date data = cal.getTime(); 
-				
-				tela.addParcela(count, valorParcela, data);
+					cal.add(Calendar.DAY_OF_MONTH, parcela.getQuantidadeDias());
+					
+					data = cal.getTime(); 
+					
+					tela.addParcela(count, valorParcela, data);
+				}else{
+					tela.addParcela(count, valorParcela, null);
+				}
 				
 				DadosChequePredatado dadoParcela = new DadosChequePredatado();
 				

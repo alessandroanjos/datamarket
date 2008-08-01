@@ -1,9 +1,11 @@
 package com.infinity.datamarket.pdv.mic;
 
+import java.text.DateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
+import java.util.Locale;
 
-import com.infinity.datamarket.comum.pagamento.DadosCheque;
 import com.infinity.datamarket.comum.pagamento.DadosChequePredatado;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
@@ -23,7 +25,8 @@ public class MicSolicitaDadosChequePredatado extends Mic{
 		String agencia = null;
 		String conta = null;
 		String numeroCheque = null;
-		
+		String dataCheque = null;
+		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM,new Locale("pt", "BR"));
 		Collection dadosCheque = (Collection) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CHEQUE_PRE);
 
 		int qtdCheques = dadosCheque.size();
@@ -74,19 +77,60 @@ public class MicSolicitaDadosChequePredatado extends Mic{
 																					EntradaDisplay entrada6 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 8);
 																					if (entrada6.getTeclaFinalizadora() == 10){
 																						numeroCheque = entrada6.getDado();
-																						if (!"".equals(numeroCheque)){																							
-																							dados.setCPFCNPJ(CPFCNPJ);
-																							dados.setAgencia(agencia);
-																							dados.setBanco(banco);
-																							dados.setConta(conta);
-																							dados.setNumeroCheque(numeroCheque);	
-																							CPFCNPJ = null;
-																							numeroChequeLido = null;
-																							banco = null;
-																							agencia = null;
-																							conta = null;
-																							numeroCheque = null;
-																							continue a;
+																						if (!"".equals(numeroCheque)){
+																							if (dados.getData() == null){
+																								while(dataCheque == null || "".equals(dataCheque)){
+																									gerenciadorPerifericos.getDisplay().setMensagem(strPre+"Data Cheque");
+																									EntradaDisplay entrada7 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_DATA, 0);
+																									if (entrada7.getTeclaFinalizadora() == 10){
+																										dataCheque = entrada7.getDado();
+																										if (!"".equals(dataCheque)){	
+																											Date data = dateFormat.parse(dataCheque);
+																											if (new Date().compareTo(data) > 0){
+																												gerenciadorPerifericos.getDisplay().setMensagem("Data Inválida");
+																												gerenciadorPerifericos.esperaVolta();
+																												dataCheque = null;
+																												continue;
+																											}
+																											dados.setData(data);
+																											dados.setCPFCNPJ(CPFCNPJ);
+																											dados.setAgencia(agencia);
+																											dados.setBanco(banco);
+																											dados.setConta(conta);
+																											dados.setNumeroCheque(numeroCheque);
+																											dados.setData(dateFormat.parse(dataCheque));
+																											CPFCNPJ = null;
+																											numeroChequeLido = null;
+																											banco = null;
+																											agencia = null;
+																											conta = null;
+																											numeroCheque = null;
+																											dataCheque = null;
+																											continue a;
+																										}else{
+																											dataCheque = null;
+																											continue;
+																										}
+																									}else{
+																										numeroCheque = null;
+																										break;
+																									}
+																								}
+																							}else{
+																								dados.setCPFCNPJ(CPFCNPJ);
+																								dados.setAgencia(agencia);
+																								dados.setBanco(banco);
+																								dados.setConta(conta);
+																								dados.setNumeroCheque(numeroCheque);																					
+																								CPFCNPJ = null;
+																								numeroChequeLido = null;
+																								banco = null;
+																								agencia = null;
+																								conta = null;
+																								numeroCheque = null;
+																								dataCheque = null;
+																								continue a;
+																							}
 																						}
 																					}else{
 																						conta = null;
@@ -111,16 +155,53 @@ public class MicSolicitaDadosChequePredatado extends Mic{
 													break;
 												}
 											}
-										}else{																
-											dados.setCPFCNPJ(CPFCNPJ);
-											dados.setNumeroChequeLido(numeroChequeLido);	
-											CPFCNPJ = null;
-											numeroChequeLido = null;
-											banco = null;
-											agencia = null;
-											conta = null;
-											numeroCheque = null;
-											continue a;
+										}else{
+											if (dados.getData() == null){
+												while(dataCheque == null || "".equals(dataCheque)){
+													gerenciadorPerifericos.getDisplay().setMensagem(strPre+"Data Cheque");
+													EntradaDisplay entrada7 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_DATA, 0);
+													if (entrada7.getTeclaFinalizadora() == 10){
+														dataCheque = entrada7.getDado();
+														if (!"".equals(dataCheque)){	
+															Date data = dateFormat.parse(dataCheque);
+															if (data.compareTo(new Date()) == -1){
+																gerenciadorPerifericos.getDisplay().setMensagem("Data Inválida");
+																gerenciadorPerifericos.esperaVolta();
+																dataCheque = null;
+																continue;
+															}
+															dados.setCPFCNPJ(CPFCNPJ);
+															dados.setNumeroChequeLido(numeroChequeLido);															
+															dados.setData(data);
+															CPFCNPJ = null;
+															numeroChequeLido = null;
+															banco = null;
+															agencia = null;
+															conta = null;
+															numeroCheque = null;
+															dataCheque = null;
+															continue a;
+														}else{
+															dataCheque = null;
+															continue;
+														}
+													}else{
+														numeroChequeLido = null;
+														break;
+													}
+												}
+											}else{
+												dados.setCPFCNPJ(CPFCNPJ);
+												dados.setNumeroChequeLido(numeroChequeLido);
+												CPFCNPJ = null;
+												numeroChequeLido = null;
+												banco = null;
+												agencia = null;
+												conta = null;
+												numeroCheque = null;
+												dataCheque = null;
+												continue a;
+											}
 										}
 									}else{
 										CPFCNPJ = null;

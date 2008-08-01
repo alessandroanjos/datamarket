@@ -21,6 +21,13 @@ import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 public class MicExibeTelaTotal extends Mic{
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
+		
+		TransacaoVenda transVenda = (TransacaoVenda) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
+		
+		if (transVenda.getEventosTransacao() == null || transVenda.getEventosTransacao().size()  == 0){
+			return ALTERNATIVA_2;
+		}
+		
 		TelaTotal tela = (TelaTotal) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_TOTAL);
 
 		tela.inicioTextoCupom();
@@ -28,7 +35,7 @@ public class MicExibeTelaTotal extends Mic{
 
 		BigDecimal subTotal = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.SUB_TOTAL);
 
-		TransacaoVenda transVenda = (TransacaoVenda) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
+		
 		BigDecimal valTotal = new BigDecimal(0);
 		if (transVenda != null && transVenda.getEventosTransacao() != null){
 			Iterator i = transVenda.getEventosTransacao().iterator();
