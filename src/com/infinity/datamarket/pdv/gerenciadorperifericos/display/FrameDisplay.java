@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.components.DateTextField;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.components.LimitedPasswordField;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.components.LimitedTextField;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.components.MoneyTextField;
@@ -210,7 +211,18 @@ public class FrameDisplay extends JPanel implements Display{
 		retorno.addKeyListener(ev);
 		return retorno;
 	}
-
+	
+	private DateTextField getDateTextField(){
+		DateTextField retorno = new DateTextField();
+		retorno.setBackground(new java.awt.Color(0, 0, 100));
+		retorno.setFont(new java.awt.Font("Courier New", 1, 24));
+		retorno.setForeground(new java.awt.Color(255, 255, 255));
+		retorno.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255)));
+		retorno.setBounds(400, 35, 390, 30);
+		retorno.addKeyListener(ev);
+		return retorno;
+	}
+	
 	public EntradaDisplay lerDados(int[] finalizadoras, int tipo, int tamanho) throws AppException{
 		remove(campo2);
 		switch(tipo){
@@ -234,6 +246,10 @@ public class FrameDisplay extends JPanel implements Display{
 				campo2 = getQuantidadeTextField();
 				break;
 			}
+			case MASCARA_DATA : {
+				campo2 = getDateTextField();
+				break;
+			}
 		}
 		add(campo2);
 		repaint();
@@ -255,7 +271,11 @@ public class FrameDisplay extends JPanel implements Display{
 						}else if (campo2 instanceof QuantidadeTextField){
 							QuantidadeTextField c = (QuantidadeTextField) campo2;
 							retorno = new String(""+c.getValor());
-						}else{
+						}else if (campo2 instanceof DateTextField){
+							DateTextField c = (DateTextField) campo2;
+							retorno = new String(""+c.getValor());
+						}
+						else{
 							retorno = new String(campo2.getText());
 							campo2.setText("");
 						}
