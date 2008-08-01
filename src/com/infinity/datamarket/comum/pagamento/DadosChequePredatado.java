@@ -37,11 +37,13 @@ public class DadosChequePredatado extends DadosCheque implements Comparable{
 	public int compareTo(Object o) {
 		if (o instanceof DadosChequePredatado){
 			DadosChequePredatado dado = (DadosChequePredatado) o;
-			if (this.data.after(dado.data)){
-				return -1;
-			}else{
-				return 1;
-			}
+			if (this.data != null && dado.data != null)
+				if (this.data.after(dado.data)){
+					return -1;
+				}else{
+					return 1;
+				}
+			return 1;
 		}
 		return 0;
 	}
