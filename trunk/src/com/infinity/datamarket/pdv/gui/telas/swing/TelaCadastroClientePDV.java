@@ -7,10 +7,12 @@ import java.awt.event.KeyListener;
 import java.text.ParseException;
 
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.MaskFormatter;
 
+import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.components.LimitedTextField;
 
 public class TelaCadastroClientePDV extends javax.swing.JFrame {
@@ -21,6 +23,10 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
     /** Creates new form TelaCadastroCliente */
     public TelaCadastroClientePDV() {
         initComponents();
+    }
+    
+    private void mostrarMensagem(String mensagem){
+    	JOptionPane.showMessageDialog(this, mensagem);
     }
     
     /** This method is called from within the constructor to
@@ -57,7 +63,21 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         kl = new KeyListener(){
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == e.VK_ENTER){
-					
+					if (jRadioButton1.isSelected()){
+						if (!Util.validacpf(jTextField1.getText())){
+							mostrarMensagem("CPF inválido");
+							return;
+						}
+					}else if (jRadioButton2.isSelected()){
+						if (!Util.validaCnpj(jTextField1.getText())){
+							mostrarMensagem("CNPJ inválido");
+							return;
+						}
+					}
+					if (jTextField2.getText() == null || jTextField2.getText().equals("")){						
+						mostrarMensagem("Nome inválido");
+						return;
+					}
 				}else if(e.getKeyCode() == e.VK_ESCAPE){
 					fechar();
 				}
@@ -327,6 +347,9 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         jRadioButton1.addKeyListener(kl);
         jRadioButton2.addKeyListener(kl);
         jTabbedPane1.addKeyListener(kl);
+        jButton1.addKeyListener(kl);
+        jButton2.addKeyListener(kl);
+        
         
 
         
