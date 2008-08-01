@@ -8,6 +8,7 @@ public interface Display {
 	public static final int MASCARA_NUMERICA = 3;
 	public static final int MASCARA_PERCENTUAL = 4;
 	public static final int MASCARA_QUANTIDADE = 5;
+	public static final int MASCARA_DATA = 6;
 
 	public abstract void setMensagem(String mens);
 	public abstract void limpaMensagem();
