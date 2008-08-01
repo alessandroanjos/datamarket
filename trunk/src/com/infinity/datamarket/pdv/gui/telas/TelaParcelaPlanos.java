@@ -156,7 +156,9 @@ public class TelaParcelaPlanos extends Tela{
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		df.setCalendar(c);
 		
-		this.planos.setText(this.planos.getText()+codigo+"   "+StringUtil.completaString(StringUtil.numeroToString(valor, 2, 0, ",", ".", true),10,' ',true)+"  "+df.format(data)+"\n");
+		String sData = data==null?"":df.format(data);
+		
+		this.planos.setText(this.planos.getText()+codigo+"   "+StringUtil.completaString(StringUtil.numeroToString(valor, 2, 0, ",", ".", true),10,' ',true)+"  "+sData+"\n");
 
 	}
 	

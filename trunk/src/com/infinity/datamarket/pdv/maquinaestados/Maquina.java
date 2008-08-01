@@ -101,7 +101,7 @@ public class Maquina implements Serializable{
         	t.printStackTrace();
         	getMicroOperacaoExcessao().exec(gerenciadorPerifericos, param);
         	gerenciadorPerifericos.getDisplay().setMensagem(estadoAtual.getDescricao());
-        	return Mic.ALTERNATIVA_2;
+        	return Mic.ALTERNATIVA_2; 
         }
         MicroOperacaoAssociada proxMicro = getProxMicro(alternativa, mic.getSaidas());
         if (proxMicro != null){
