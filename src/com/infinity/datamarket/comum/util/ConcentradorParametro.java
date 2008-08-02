@@ -10,7 +10,8 @@ public class ConcentradorParametro extends Cadastro{
 	public static final String LOTE = "LOTE";
 	public static final String LOGO_CLIENTE = "LOGO_CLIENTE";
 	public static final String PEDE_VENDEDOR = "PEDE_VENDEDOR";
-
+	public static final String IMPRIME_RECIBO = "IMPRIME_RECIBO";
+	
 	private static ConcentradorParametro instancia;
 
 	private ConcentradorParametro(){
