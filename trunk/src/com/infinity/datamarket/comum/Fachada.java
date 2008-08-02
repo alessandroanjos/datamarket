@@ -2,6 +2,8 @@ package com.infinity.datamarket.comum;
 
 import java.util.Collection;
 
+import net.sf.jasperreports.view.JasperViewer;
+
 import com.infinity.datamarket.autorizador.AutorizacaoCartaoProprio;
 import com.infinity.datamarket.autorizador.CadastroAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.cliente.CadastroCliente;
@@ -51,6 +53,7 @@ import com.infinity.datamarket.comum.totalizadores.TotalizadorNaoFiscal;
 import com.infinity.datamarket.comum.transacao.CadastroTransacao;
 import com.infinity.datamarket.comum.transacao.Transacao;
 import com.infinity.datamarket.comum.transacao.TransacaoPK;
+import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.usuario.CadastroLoja;
 import com.infinity.datamarket.comum.usuario.CadastroPerfil;
 import com.infinity.datamarket.comum.usuario.CadastroUsuario;
@@ -64,6 +67,7 @@ import com.infinity.datamarket.infocomponent.InfoComponent;
 import com.infinity.datamarket.pdv.acumulador.AcumuladorNaoFiscal;
 import com.infinity.datamarket.pdv.acumulador.CadastroAcumuladorNaoFiscal;
 import com.infinity.datamarket.pdv.maquinaestados.MacroOperacao;
+import com.infinity.datamarket.report.GerenciadorRelatorio;
 
 public class Fachada {
 
@@ -190,6 +194,20 @@ public class Fachada {
 	
 	private CadastroAcumuladorNaoFiscal getCadastroAcumuladorNaoFiscal(){
 		return CadastroAcumuladorNaoFiscal.getInstancia();
+	}
+	
+	private GerenciadorRelatorio getGerenciadorRelatorio(){
+		return GerenciadorRelatorio.getInstancia();
+	}
+	
+	public JasperViewer gerarReciboVenda(TransacaoVenda transVenda) throws AppException{
+		JasperViewer viewer = null;
+		try{
+			viewer = getGerenciadorRelatorio().gerarReciboVenda(transVenda);
+		}catch(AppException e){
+			throw new SistemaException(e);
+		}
+		return viewer;
 	}
 	
 	public Usuario loginUsuario(Long id, String senha) throws AppException{
