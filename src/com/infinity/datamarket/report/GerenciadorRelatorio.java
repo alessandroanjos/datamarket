@@ -7,14 +7,11 @@
 package com.infinity.datamarket.report;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -27,6 +24,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
+import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
 
 
@@ -37,16 +35,13 @@ import com.infinity.datamarket.comum.util.AppException;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class GerenciadorRelatorio {
+	
+	private Hashtable relatorios;
 
 	public static final String CAMINHO_RELATORIO;
-	public static final String RELATORIO_ANALITICO_DESPESA;
-	public static final String RELATORIO_ANALITICO_RECEITA;
-	public static final String RELATORIO_DESPESA_TIPO;
-	public static final String RELATORIO_RECEITA_FORMA;
-	public static final String RELATORIO_RESUMO_DIARIO_RECEITA;
-	public static final String RELATORIO_RESUMO_DIARIO_DESPESA;
-	public static final String RELATORIO_RESUMO_DIARIO_DESPESA_X_RECEITA;
-
+	
+	public static final String RECIBO_VENDA;
+	
 	static {
 		
 			
@@ -54,14 +49,8 @@ public class GerenciadorRelatorio {
 		
 			CAMINHO_RELATORIO = rs.getString("CAMINHO_RELATORIO");
 			
-			RELATORIO_ANALITICO_DESPESA = rs.getString("RELATORIO_ANALITICO_DESPESA");
-			RELATORIO_ANALITICO_RECEITA = rs.getString("RELATORIO_ANALITICO_RECEITA");
-			RELATORIO_DESPESA_TIPO = rs.getString("RELATORIO_DESPESA_TIPO");
-			RELATORIO_RECEITA_FORMA = rs.getString("RELATORIO_RECEITA_FORMA");
-			RELATORIO_RESUMO_DIARIO_RECEITA = rs.getString("RELATORIO_RESUMO_DIARIO_RECEITA");
-			RELATORIO_RESUMO_DIARIO_DESPESA = rs.getString("RELATORIO_RESUMO_DIARIO_DESPESA");
-			RELATORIO_RESUMO_DIARIO_DESPESA_X_RECEITA = rs.getString("RELATORIO_RESUMO_DIARIO_DESPESA_X_RECEITA");	
-		
+			RECIBO_VENDA = rs.getString("RECIBO_VENDA");
+			
 	}
 	
 	
@@ -89,38 +78,42 @@ public class GerenciadorRelatorio {
 	}
 	
 	private JasperReport getRelatorio(String layout) throws RelatorioException{
-		try{
-			//gerando o jasper design
-			JasperDesign desenho = JRXmlLoader.load( CAMINHO_RELATORIO+layout );
-			   
-			//compila o relatório
-			return JasperCompileManager.compileReport( desenho );
-		}catch(Exception e){
-			throw new RelatorioException(e);
-		}		
+		if (relatorios == null){
+			relatorios = new Hashtable();
+		}
+		if (relatorios.containsKey(layout)){
+			return (JasperReport) relatorios.get(layout);
+		}else{
+			try{
+				//gerando o jasper design
+				JasperDesign desenho = JRXmlLoader.load( CAMINHO_RELATORIO+layout );
+				   
+				//compila o relatório
+				JasperReport jr = JasperCompileManager.compileReport( desenho );
+				relatorios.put(layout, jr);
+				return jr;
+			}catch(Exception e){
+				throw new RelatorioException(e);
+			}
+		}
 	}
 	
-	public void gerarRelatorioAnaliticaDespesa(Date dataInicial, Date dataFinal) throws AppException{
-		
+	public JasperViewer gerarReciboVenda(TransacaoVenda transacao) throws AppException{
+		JasperViewer viewer = null;
 		try{
-			Connection con = getConnection();
-			JasperReport relatorio = getRelatorio(RELATORIO_ANALITICO_DESPESA);
-			PreparedStatement pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_DESPESAS);
-			pstm.setDate(1,new java.sql.Date(dataInicial.getTime()));
-			pstm.setDate(2,new java.sql.Date(dataFinal.getTime()));
-			ResultSet rs = pstm.executeQuery();
-	
-			//implementação da interface JRDataSource para DataSource ResultSet
-			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
-			//executa o relatório
+			JasperReport relatorio = getRelatorio(RECIBO_VENDA);
+			
+
 			Map parametros = new HashMap();
-//			parametros.put("EMPRESA", Parametros.EMPRESA);
-			parametros.put("DATA_INICIAL", dataInicial);
-			parametros.put("DATA_FINAL", dataFinal);
-			JasperPrint impressao = JasperFillManager.fillReport( relatorio , parametros,    jrRS );		
+
+//			parametros.put("DATA_INICIAL", dataInicial);
+//			parametros.put("DATA_FINAL", dataFinal);
+			
+			JasperPrint impressao = JasperFillManager.fillReport( relatorio , parametros);
+			
 			//exibe o resultado
-			JasperViewer viewer = new JasperViewer( impressao , false );
-			viewer.show();
+			viewer = new JasperViewer( impressao , false );
+			return viewer;
 		}catch(Exception e){
 			throw new RelatorioException(e);
 		}
