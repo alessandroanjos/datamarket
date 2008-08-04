@@ -68,6 +68,10 @@
                  </key>
                  <one-to-many class="com.infinity.datamarket.comum.transacao.EventoTransacao"/>
           </set>
+          
+           <property name="cpfCnpjCliente" type="java.lang.String" update="true" insert="true">
+              <column name="CPF_CNPJ_CLIENTE" length="14" not-null="false"/>
+          </property>
 
       </joined-subclass>
    </hibernate-mapping>
