@@ -28,8 +28,8 @@
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
 			<script>
-			   function send(idProduto,descricaoCompleta) {
-				    window.opener.setAtributo(idProduto,descricaoCompleta);
+			   function send(idProduto,descricaoCompleta,precoVenda) {
+				    window.opener.setAtributo(idProduto,descricaoCompleta,precoVenda);
 			   }	
 			</script>
 		</head>
@@ -83,7 +83,7 @@
 							</h:column>
 							<h:column>
 								<h:commandButton type="button" image="/images/tree/drop-yes.gif"
-									onclick="send('#{produto.id}','#{produto.descricaoCompleta}')"
+									onclick="send('#{produto.id}','#{produto.descricaoCompleta}','#{produto.precoPadrao}')"
 									alt="selecionar produto" title="selecionar produto"></h:commandButton>
 							</h:column>
 						</t:dataTable>
