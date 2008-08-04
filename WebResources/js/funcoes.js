@@ -16,6 +16,21 @@ function Limpar(valor, validos) {
 	return result;
 }
 
+function FormataPeso(campo,tammax,decimal,evt) {
+	var objeto = document.getElementById(campo);
+	
+	//var tecla = event.keyCode;
+	var tecla = evt.keyCode ? evt.keyCode :
+	evt.charCode ? evt.charCode :
+	evt.which ? evt.which : void 0;
+	
+	var vr = Limpar(objeto.value,"0123456789");
+	var tam = vr.length;
+	var dec = decimal;
+	if ( tam > dec )
+		{ objeto.value = vr.substr(0,tam-3) + "." + vr.substr(tam-3) ; }
+}
+
 function Formata(campo,tammax,decimal,evt) {
 	var objeto = document.getElementById(campo);
 	
