@@ -284,6 +284,12 @@ public class RepositoryManagerHibernate implements IRepositoryManager
                     {
                         criteria.add(Expression.le(interval.getPropertyName(), attributeValue));
                     }
+                    if(interval.getComparationType() == 5)
+                    {
+                        criteria.add(Expression.isNotNull(interval.getPropertyName()));
+                       
+                    }
+
                 } while(true);
             }
             Map orders = _filter.getOrderBy();
