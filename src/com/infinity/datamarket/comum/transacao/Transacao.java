@@ -2,7 +2,6 @@ package com.infinity.datamarket.comum.transacao;
 
 import java.io.Serializable;
 
-import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.util.Constantes;
 
 public class Transacao implements Serializable{
@@ -12,7 +11,7 @@ public class Transacao implements Serializable{
 	private static final long serialVersionUID = 3194381389822018403L;
 	private TransacaoPK pk;
 	private String status;
-	private Cliente cliente;
+	
 	private int tipoTransacao = Constantes.NUMERO_NAO_INFORMADO;
 	
 	public static final String PROCESSADO = "PR";
@@ -60,13 +59,4 @@ public class Transacao implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	
 }
