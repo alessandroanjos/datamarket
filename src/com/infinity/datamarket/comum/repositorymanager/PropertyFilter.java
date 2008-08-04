@@ -16,6 +16,7 @@ public class PropertyFilter implements IPropertyFilter{
 	    public static final int MENOR_IGUAL = 2;
 	    public static final int MAIOR = 3;
 	    public static final int MAIOR_IGUAL = 4;
+	    public static final int NAO_NULO = 5;
 
 	    public int getComparationType()
 	    {
