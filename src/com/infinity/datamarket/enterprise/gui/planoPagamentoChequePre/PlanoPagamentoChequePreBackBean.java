@@ -12,9 +12,7 @@ import java.util.TreeSet;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 
-import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatado;
 import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatadoPK;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamentoChequePredatado;
