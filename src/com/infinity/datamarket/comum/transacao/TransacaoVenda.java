@@ -28,6 +28,15 @@ public class TransacaoVenda extends Transacao{
 	private String situacao;
 	private Collection eventosTransacao;
 	private FormaRecebimento formaTroco;
+	private String cpfCnpjCliente; 
+
+	public String getCpfCnpjCliente() {
+		return cpfCnpjCliente;
+	}
+
+	public void setCpfCnpjCliente(String cpfCnpjCliente) {
+		this.cpfCnpjCliente = cpfCnpjCliente;
+	}
 
 	public Collection getEventosTransacao() {
 		return eventosTransacao;
