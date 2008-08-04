@@ -13,7 +13,7 @@ public class ProdutoItemRegistrado implements Serializable{
 	private EventoTransacaoPK pk;
 	private int idProduto;
 	private String codigoExterno;
-	private String decricaoCompleta;
+	private String descricaoCompleta;
 	private BigDecimal precoPadrao;
 	private BigDecimal precoPraticado;
 	private String impostoImpressora;
@@ -43,7 +43,7 @@ public class ProdutoItemRegistrado implements Serializable{
 		this.pk = pk;
 		this.idProduto = idProduto;
 		this.codigoExterno = codigoExterno;
-		this.decricaoCompleta = descricaoCompleta;
+		this.descricaoCompleta = descricaoCompleta;
 		this.precoPadrao = precoPadrao;
 		this.precoPraticado = precoPraticado;
 		this.impostoImpressora = impostoImpressora;
@@ -56,11 +56,11 @@ public class ProdutoItemRegistrado implements Serializable{
 	public void setCodigoExterno(String codigoExterno) {
 		this.codigoExterno = codigoExterno;
 	}
-	public String getDecricaoCompleta() {
-		return decricaoCompleta;
+	public String getDescricaoCompleta() {
+		return descricaoCompleta;
 	}
-	public void setDecricaoCompleta(String decricaoCompleta) {
-		this.decricaoCompleta = decricaoCompleta;
+	public void setDescricaoCompleta(String descricaoCompleta) {
+		this.descricaoCompleta = descricaoCompleta;
 	}
 	public int getIdProduto() {
 		return idProduto;
