@@ -2304,7 +2304,7 @@
 		</managed-property>					
 	</managed-bean>
 	
-	<!-- TRANSACAO BACK BEAN -->
+	<!-- TRANSACAO BACK BEAN 
 	
 	<managed-bean>
 		<managed-bean-name>transacaoBB</managed-bean-name>
@@ -2337,7 +2337,7 @@
 		    <property-class>java.util.Collection</property-class>
 		    <null-value/>
 		</managed-property>
-	</managed-bean>
+	</managed-bean>-->
 <!-- Autorizadora -->
 	<managed-bean>
 		<managed-bean-name>autorizadoraBB</managed-bean-name>
@@ -2575,7 +2575,12 @@
 		    <null-value/>
 		</managed-property>
 		<managed-property>
-		    <property-name>usuarios</property-name>
+		    <property-name>usuariosVendedores</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>usuariosOperadores</property-name>
 		    <property-class>javax.faces.model.SelectItem</property-class>
 		    <null-value/>
 		</managed-property>
@@ -2585,7 +2590,12 @@
 		    <null-value/>
 		</managed-property>
 		<managed-property>
-		    <property-name>formas</property-name>
+		    <property-name>formasTroco</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>formasPagamento</property-name>
 		    <property-class>javax.faces.model.SelectItem</property-class>
 		    <null-value/>
 		</managed-property>
@@ -2617,45 +2627,50 @@
 		<managed-property>
 		    <property-name>quantidade</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>1.000</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>precoVenda</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>descontoItem</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>valorItem</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>valorSubTotalCupom</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>descontoCupom</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>valorTotalCupom</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>valorTroco</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>itensTransacao</property-name>
+		    <property-class>java.util.Collections</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>itensPagamento</property-name>
 		    <property-class>java.util.Collections</property-class>
 		    <null-value/>
 		</managed-property>
@@ -2667,7 +2682,7 @@
 		<managed-property>
 		    <property-name>valorFormaPagamento</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>		
 		<managed-property>
 		    <property-name>codigoBanco</property-name>
@@ -2737,6 +2752,11 @@
 		<managed-property>
 		    <property-name>dataFinal</property-name>
 		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>abaCorrente</property-name>
+		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
