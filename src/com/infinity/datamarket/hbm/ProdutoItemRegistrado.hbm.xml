@@ -23,7 +23,7 @@
               <column name="CODIGO_EXTERNO" length="50" not-null="false"/>
           </property>
 
-          <property name="decricaoCompleta" type="java.lang.String" update="true" insert="true">
+          <property name="descricaoCompleta" type="java.lang.String" update="true" insert="true">
               <column name="DESCRICAO_COMPLETA" length="50"  not-null="false"/>
           </property>
 
