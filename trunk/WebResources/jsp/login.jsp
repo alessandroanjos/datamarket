@@ -19,11 +19,21 @@
 		<link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/default.css" enabledOnUserRole="true"></t:stylesheet>
 		<t:stylesheet path="/css/form.css" enabledOnUserRole="true"></t:stylesheet>
+		<script type="text/javascript">
+			window.onload = function(){ inicializar() };
+			function inicializar() {
+                var form = document.forms["frmInserirTransacao"];   
+
+                form["frmInserirTransacao:id"].focus();
+			}
+            </script>
 	</head>
+	<body>
 			<jsp:include page="/jsp/topo.jsp?user=Desconhecido"></jsp:include>	
-			<h:form>
+			<h:form id="frmLogin">
 			<div id="outer">				
 				<div id="content" style="margin-top:20px;">
 					<div id="primarioContentContainer" style="margin-left:none;">
@@ -89,6 +99,8 @@
 					<div class="clear"></div>
 					</div>
 				<jsp:include page="/jsp/rodape.jsp"></jsp:include>
-		</h:form>
+		</h:form>	
+	</body>
+
 	</f:view>
 </html>
