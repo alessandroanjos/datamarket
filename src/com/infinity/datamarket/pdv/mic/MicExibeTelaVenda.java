@@ -34,7 +34,7 @@ public class MicExibeTelaVenda extends Mic{
 					EventoItemRegistrado eir = (EventoItemRegistrado) ev;
 					BigDecimal precoUnitario = eir.getPreco().divide(eir.getQuantidade(), BigDecimal.ROUND_UNNECESSARY);
 					BigDecimal descontoUnitario = eir.getDesconto().divide(eir.getQuantidade(), BigDecimal.ROUND_UNNECESSARY);
-					tela.setDescricao(eir.getProdutoItemRegistrado().getDecricaoCompleta());
+					tela.setDescricao(eir.getProdutoItemRegistrado().getDescricaoCompleta());
 					tela.setQuantidade(eir.getQuantidade());
 					tela.setValorUnitario(precoUnitario.add(descontoUnitario));
 					tela.setDesconto(eir.getDesconto());
@@ -42,7 +42,7 @@ public class MicExibeTelaVenda extends Mic{
 					if (eir.getSituacao().equals(EventoItemRegistrado.ATIVO)){						
 						valTotal = valTotal.add(eir.getPreco());
 					}
-					tela.addItem(eir.getPk().getNumeroEvento(), eir.getProdutoItemRegistrado().getDecricaoCompleta(), eir.getQuantidade(), precoUnitario, eir.getDesconto(), eir.getSituacao());
+					tela.addItem(eir.getPk().getNumeroEvento(), eir.getProdutoItemRegistrado().getDescricaoCompleta(), eir.getQuantidade(), precoUnitario, eir.getDesconto(), eir.getSituacao());
 				}
 			}
 		}

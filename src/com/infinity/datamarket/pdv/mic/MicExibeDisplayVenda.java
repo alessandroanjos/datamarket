@@ -24,7 +24,7 @@ public class MicExibeDisplayVenda extends Mic{
 				EventoTransacao ev = (EventoTransacao) i.next();
 				if (ev instanceof EventoItemRegistrado){
 					EventoItemRegistrado eir = (EventoItemRegistrado) ev;
-					String desc = eir.getProdutoItemRegistrado().getDecricaoCompleta();
+					String desc = eir.getProdutoItemRegistrado().getDescricaoCompleta();
 					BigDecimal valor = eir.getPreco();
 					
 					String strPreco = StringUtil.numeroToString(valor, 2, 0, ",", ".", true);
