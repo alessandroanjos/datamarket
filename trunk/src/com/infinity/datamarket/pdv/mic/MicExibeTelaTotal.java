@@ -47,7 +47,7 @@ public class MicExibeTelaTotal extends Mic{
 						valTotal = valTotal.add(eir.getPreco());
 					}	
 					BigDecimal precoUnitario = eir.getPreco().divide(eir.getQuantidade(), BigDecimal.ROUND_UNNECESSARY);
-					tela.addItem(eir.getPk().getNumeroEvento(), eir.getProdutoItemRegistrado().getDecricaoCompleta(), eir.getQuantidade(), precoUnitario, eir.getDesconto(), eir.getSituacao());
+					tela.addItem(eir.getPk().getNumeroEvento(), eir.getProdutoItemRegistrado().getDescricaoCompleta(), eir.getQuantidade(), precoUnitario, eir.getDesconto(), eir.getSituacao());
 				}
 			}
 			

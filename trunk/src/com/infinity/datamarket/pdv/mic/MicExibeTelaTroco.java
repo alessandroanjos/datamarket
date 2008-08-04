@@ -37,7 +37,7 @@ public class MicExibeTelaTroco extends Mic{
 					if (eir.getSituacao().equals(EventoItemRegistrado.ATIVO)){
 						valTotal = valTotal.add(eir.getPreco());
 					}
-					tela.addItem(eir.getPk().getNumeroEvento(), eir.getProdutoItemRegistrado().getDecricaoCompleta(), eir.getQuantidade(), precoUnitario, eir.getDesconto(), eir.getSituacao());
+					tela.addItem(eir.getPk().getNumeroEvento(), eir.getProdutoItemRegistrado().getDescricaoCompleta(), eir.getQuantidade(), precoUnitario, eir.getDesconto(), eir.getSituacao());
 				}
 			}
 			

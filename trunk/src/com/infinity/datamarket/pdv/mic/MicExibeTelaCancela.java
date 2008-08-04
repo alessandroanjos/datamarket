@@ -35,7 +35,7 @@ public class MicExibeTelaCancela extends Mic{
 					BigDecimal precoUnitario = eir.getPreco().divide(eir.getQuantidade(), BigDecimal.ROUND_UNNECESSARY);
 					BigDecimal descontoUnitario = eir.getDesconto().divide(eir.getQuantidade(), BigDecimal.ROUND_UNNECESSARY);
 					if (item.getPk().equals(eir.getPk())){
-						tela.setDescricao("Canc "+ eir.getProdutoItemRegistrado().getDecricaoCompleta());
+						tela.setDescricao("Canc "+ eir.getProdutoItemRegistrado().getDescricaoCompleta());
 						tela.setQuantidade(eir.getQuantidade());
 						tela.setValorUnitario(precoUnitario.add(descontoUnitario));
 						tela.setDesconto(eir.getDesconto());
@@ -44,7 +44,7 @@ public class MicExibeTelaCancela extends Mic{
 					if (eir.getSituacao().equals(EventoItemRegistrado.ATIVO)){
 						valTotal = valTotal.add(eir.getPreco());
 					}
-					tela.addItem(eir.getPk().getNumeroEvento(), eir.getProdutoItemRegistrado().getDecricaoCompleta(), eir.getQuantidade(), precoUnitario, eir.getDesconto(),eir.getSituacao());
+					tela.addItem(eir.getPk().getNumeroEvento(), eir.getProdutoItemRegistrado().getDescricaoCompleta(), eir.getQuantidade(), precoUnitario, eir.getDesconto(),eir.getSituacao());
 				}
 			}
 		}
