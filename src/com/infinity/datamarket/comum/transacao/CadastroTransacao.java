@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.hibernate.HibernateException;
+
 import com.infinity.datamarket.comum.estoque.CadastroEstoque;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoquePK;
@@ -11,6 +13,7 @@ import com.infinity.datamarket.comum.estoque.EstoqueProduto;
 import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.totalizadores.CadastroTotalizadores;
 import com.infinity.datamarket.comum.totalizadores.ConstantesTotalizadoresNaoFiscais;
@@ -33,7 +36,7 @@ public class CadastroTransacao extends Cadastro{
 		return CadastroTotalizadores.getInstancia();
 	}
 
-	public void inserir(Transacao trans) throws AppException{
+	public void inserir(Transacao trans) throws AppException{		
 		getRepositorio().insert(trans);
 		if (trans instanceof TransacaoResuprimento){
 			TransacaoResuprimento transResuprimento = (TransacaoResuprimento) trans;
@@ -56,7 +59,7 @@ public class CadastroTransacao extends Cadastro{
 		}
 	}
 	
-	public void inserirES(Transacao trans) throws AppException{
+	public void inserirES(Transacao trans) throws AppException{		
 		getRepositorio().insert(trans);
 		if (trans instanceof TransacaoCancelamento){
 			TransacaoCancelamento transCanc = (TransacaoCancelamento) trans;
@@ -124,6 +127,12 @@ public class CadastroTransacao extends Cadastro{
 		return getRepositorio().filter(filter, false);
 	}
 
-
+	public void inserirCliente(ClienteTransacao cli) throws AppException{
+		getRepositorio().insert(cli);
+	}
+	
+	public void atualizarCliente(ClienteTransacao cli) throws AppException{
+		getRepositorio().update(cli);
+	}
 
 }
