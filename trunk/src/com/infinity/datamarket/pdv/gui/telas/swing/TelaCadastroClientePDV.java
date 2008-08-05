@@ -11,12 +11,14 @@ import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 import javax.swing.text.MaskFormatter;
 
+import com.infinity.datamarket.cliente.ClienteServerRemote;
 import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.components.LimitedTextField;
+import com.infinity.datamarket.pdv.util.ServerConfig;
+import com.infinity.datamarket.pdv.util.ServiceLocator;
 
 public class TelaCadastroClientePDV extends JDialog {
 
@@ -366,8 +368,37 @@ public class TelaCadastroClientePDV extends JDialog {
         });
 
         
-//        jTextField1.addKeyListener(kl);
-//        jTextField2.addKeyListener(kl);
+        jTextFieldCpfCnpj.addKeyListener(new KeyListener(){
+
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == e.VK_ENTER){
+					try{
+						ClienteServerRemote remote = (ClienteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
+						String cpfCnpj = jTextFieldCpfCnpj.getText().replace(".", "");
+				    	cpfCnpj = cpfCnpj.replace("/", "");
+				    	cpfCnpj = cpfCnpj.replace("-", "");
+						ClienteTransacao cliente = remote.consultarClienteTransacaoPorID(cpfCnpj);
+						
+					}catch(Exception ex){
+						ex.printStackTrace();
+					}
+				}
+			}
+
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+        	
+        });
+        
+        
+        jTextFieldNome.addKeyListener(kl);
         jTextFieldTelefone.addKeyListener(kl);
         jTextFieldCelular.addKeyListener(kl);
         jTextFieldInscEstadual.addKeyListener(kl);
