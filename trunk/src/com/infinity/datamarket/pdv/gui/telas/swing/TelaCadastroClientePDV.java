@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -15,6 +16,7 @@ import javax.swing.text.MaskFormatter;
 
 import com.infinity.datamarket.cliente.ClienteServerRemote;
 import com.infinity.datamarket.comum.transacao.ClienteTransacao;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.components.LimitedTextField;
 import com.infinity.datamarket.pdv.util.ServerConfig;
@@ -22,6 +24,10 @@ import com.infinity.datamarket.pdv.util.ServiceLocator;
 
 public class TelaCadastroClientePDV extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5323773017522689751L;
 	public static final int OK = 0;
 	public static final int CANCELA = 1;
 	
@@ -379,9 +385,12 @@ public class TelaCadastroClientePDV extends JDialog {
 				    	cpfCnpj = cpfCnpj.replace("-", "");
 						ClienteTransacao cliente = remote.consultarClienteTransacaoPorID(cpfCnpj);
 						
+					
+					}catch(AppException ex){
+						mostrarMensagem("Cliente não Encontrado");
 					}catch(Exception ex){
-						ex.printStackTrace();
-					}
+						mostrarMensagem("Erro de Comunicação");
+					}	
 				}
 			}
 
