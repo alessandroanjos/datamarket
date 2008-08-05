@@ -134,5 +134,9 @@ public class CadastroTransacao extends Cadastro{
 	public void atualizarCliente(ClienteTransacao cli) throws AppException{
 		getRepositorio().update(cli);
 	}
+	
+	public ClienteTransacao consultarClienteTransacaoPorID(String id) throws AppException{
+		return (ClienteTransacao) getRepositorio().findById(ClienteTransacao.class, id);
+	}
 
 }

@@ -51,6 +51,7 @@ import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernat
 import com.infinity.datamarket.comum.totalizadores.CadastroTotalizadores;
 import com.infinity.datamarket.comum.totalizadores.TotalizadorNaoFiscal;
 import com.infinity.datamarket.comum.transacao.CadastroTransacao;
+import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.transacao.Transacao;
 import com.infinity.datamarket.comum.transacao.TransacaoPK;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
@@ -5066,5 +5067,35 @@ public class Fachada {
 		}
 	}
 
+	public ClienteTransacao consultarClienteTransacaoPorID(String id) throws AppException{
+		ClienteTransacao cli = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			cli = getCadastroTransacao().consultarClienteTransacaoPorID(id);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return cli;
+	}
+	
 	
 }
