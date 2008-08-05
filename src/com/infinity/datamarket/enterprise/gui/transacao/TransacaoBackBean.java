@@ -29,6 +29,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.transacao.ConstantesEventoTransacao;
+import com.infinity.datamarket.comum.transacao.ConstantesTransacao;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoOff;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoProprio;
@@ -754,10 +755,10 @@ public class TransacaoBackBean extends BackBean {
 		this.setNumeroCupom(null);
 		this.setCodigoProduto(null);
 		this.setDescricaoProduto(null);
-		this.setPrecoVenda(null);
-		this.setQuantidade(null);
-		this.setDescontoItem(null);
-		this.setValorFormaPagamento(null);
+		this.setPrecoVenda(new BigDecimal("0.00"));
+		this.setQuantidade(new BigDecimal("0.000"));
+		this.setDescontoItem(new BigDecimal("0.00"));
+		this.setValorFormaPagamento(new BigDecimal("0.00"));
 		this.setCodigoBanco(null);
 		this.setCodigoAgencia(null);
 		this.setNumeroConta(null);
@@ -772,6 +773,10 @@ public class TransacaoBackBean extends BackBean {
 		this.setCpfCnpjCliente(null);
 		this.setItensTransacao(null);
 		this.setItensPagamento(null);
+		this.setValorSubTotalCupom(new BigDecimal("0.00"));
+		this.setDescontoCupom(new BigDecimal("0.00"));
+		this.setValorTroco(new BigDecimal("0.00"));
+		this.setValorTotalCupom(new BigDecimal("0.00"));
 	}
 	
 	public String consultar(){
@@ -871,23 +876,23 @@ public class TransacaoBackBean extends BackBean {
 		this.setDataTransacao(transacao.getPk().getDataTransacao());
 		this.setNsuTransacao(transacao.getPk().getNumeroTransacao());
 		this.setNumeroCupom(transacao.getNumeroCupom());
-		if(transacao.getCpfCnpjCliente() != null){
-			PropertyFilter filter = new PropertyFilter();
-			filter.setTheClass(Cliente.class);
-			filter.addProperty("cpfCnpj", transacao.getCpfCnpjCliente());
-			Cliente cliente = null;
-			try {
-				cliente = (Cliente)getFachada().consultarCliente(filter);
-			} catch (AppException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(cliente != null){
-				this.setIdCliente(cliente.getId().toString());	
-			}else{
-				this.setIdCliente("0");
-			}			
-		}
+//		if(transacao.getCpfCnpjCliente() != null){
+//			PropertyFilter filter = new PropertyFilter();
+//			filter.setTheClass(Cliente.class);
+//			filter.addProperty("cpfCnpj", transacao.getCpfCnpjCliente());
+//			Cliente cliente = null;
+//			try {
+//				cliente = (Cliente)getFachada().consultarCliente(filter);
+//			} catch (AppException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			if(cliente != null){
+//				this.setIdCliente(cliente.getId().toString());	
+//			}else{
+//				this.setIdCliente("0");
+//			}			
+//		}
 		this.setIdOperador(transacao.getCodigoUsuarioOperador());
 		this.setIdVendedor(transacao.getCodigoUsuarioVendedor());
 
@@ -907,18 +912,23 @@ public class TransacaoBackBean extends BackBean {
 	
 	public void validaCabecalhoTransacao() throws Exception{
 		if(this.getIdLoja() == null || (this.getIdLoja() != null && this.getIdLoja().equals("0"))){
+			this.setAbaCorrente("tabMenuDiv0");
 			throw new Exception("É necessário informar a Loja.");
 		}
 		if(this.getIdComponente() == null || (this.getIdComponente() != null && this.getIdComponente().equals("0"))){
+			this.setAbaCorrente("tabMenuDiv0");
 			throw new Exception("É necessário informar o Componente.");
 		}
 		if(this.getDataTransacao() == null || (this.getDataTransacao() != null && this.getDataTransacao().equals("0"))){
+			this.setAbaCorrente("tabMenuDiv0");
 			throw new Exception("É necessário informar a Data da Transação");
 		}
 		if(this.getNsuTransacao() == null || (this.getNsuTransacao() != null && this.getNsuTransacao().equals(""))){
+			this.setAbaCorrente("tabMenuDiv0");
 			throw new Exception("É necessário informar o Número da Transação.");
 		}
 		if(this.getNumeroCupom() == null || (this.getNumeroCupom() != null && this.getNumeroCupom().equals(""))){
+			this.setAbaCorrente("tabMenuDiv0");
 			throw new Exception("É necessário informar o Número do Cupom.");
 		}
 	}
@@ -926,20 +936,25 @@ public class TransacaoBackBean extends BackBean {
 	public Produto validarItemRegistrado() throws Exception{
 		Produto produto = null;
 		if(this.getCodigoProduto() == null || (this.getCodigoProduto() != null && this.getCodigoProduto().equals("0"))){
+			this.setAbaCorrente("tabMenuDiv1");
 			throw new Exception("É necessário informar um produto.");
 		}else{
 			produto = getFachada().consultarProdutoPorPK(new Long(this.getCodigoProduto()));
 			if(produto == null){
+				this.setAbaCorrente("tabMenuDiv1");
 				throw new Exception("O Produto informado é inválido!");
 			}
 		}
 		if(this.getPrecoVenda() == null || (this.getPrecoVenda() != null && this.getPrecoVenda().compareTo(BigDecimal.ZERO.setScale(2)) <= 0)){
+			this.setAbaCorrente("tabMenuDiv1");
 			throw new Exception("O Preço unitário do produto informado é inválido!");
 		}
 		if(this.getQuantidade() == null || (this.getQuantidade() != null && this.getQuantidade().compareTo(BigDecimal.ZERO.setScale(3)) <= 0)){
+			this.setAbaCorrente("tabMenuDiv1");
 			throw new Exception("A Quantidade informada é inválida!");
 		}
 		if(this.getDescontoItem() != null && (this.getDescontoItem().compareTo(BigDecimal.ZERO.setScale(2)) < 0 && this.getDescontoItem().compareTo(new BigDecimal("99.99")) > 0)){
+			this.setAbaCorrente("tabMenuDiv1");
 			throw new Exception("O Desconto informado é inválido!");
 		}
 		return produto;
@@ -966,6 +981,7 @@ public class TransacaoBackBean extends BackBean {
 			}
 			
 			produtoItemRegistrado.setCodigoExterno(produto.getCodigoExterno());
+			produtoItemRegistrado.setIdProduto(produto.getId().intValue());
 			produtoItemRegistrado.setDescricaoCompleta(produto.getDescricaoCompleta());
 			produtoItemRegistrado.setPrecoPadrao(produto.getPrecoPadrao());
 			valorTotalItem = this.getPrecoVenda().multiply(this.getQuantidade()).
@@ -991,12 +1007,15 @@ public class TransacaoBackBean extends BackBean {
 			
 			this.setValorSubTotalCupom(this.getValorSubTotalCupom().add(valorTotalItem));
 			
+			this.setValorTotalCupom(this.getValorSubTotalCupom().subtract(this.getDescontoCupom().subtract(this.getValorTroco())));
+			
 			this.setCodigoProduto("");
 			this.setDescricaoProduto("");
 			this.setPrecoVenda(new BigDecimal("0.00"));
 			this.setQuantidade(new BigDecimal("1.000"));
 			this.setDescontoItem(new BigDecimal("0.00"));
 			this.setValorItem(new BigDecimal("0.00"));
+			this.setAbaCorrente("tabMenuDiv1");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1018,6 +1037,7 @@ public class TransacaoBackBean extends BackBean {
 				break;
 			}
 		}
+		this.setAbaCorrente("tabMenuDiv1");
 		return "mesma";
 	}
 	
@@ -1038,6 +1058,7 @@ public class TransacaoBackBean extends BackBean {
 				
 				evItemPagamento.setCodigoForma(ConstantesFormaRecebimento.DINHEIRO.intValue());			
 				FormaRecebimento forma = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.DINHEIRO);
+				evItemPagamento.setDescricaoForma(forma.getDescricao());
 				int codigoPlano = 0;
 				Iterator it = forma.getPlanos().iterator();
 				while (it.hasNext()){
@@ -1059,6 +1080,7 @@ public class TransacaoBackBean extends BackBean {
 				
 				evItemPagamentoCheque.setCodigoForma(ConstantesFormaRecebimento.CHEQUE.intValue());			
 				FormaRecebimento forma = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.CHEQUE);
+				evItemPagamentoCheque.setDescricaoForma(forma.getDescricao());
 				int codigoPlano = 0;
 				Iterator it = forma.getPlanos().iterator();
 				while (it.hasNext()){
@@ -1089,6 +1111,7 @@ public class TransacaoBackBean extends BackBean {
 				
 				evItemPagamentoChequePreDatado.setCodigoForma(ConstantesFormaRecebimento.CHEQUE_PRE.intValue());			
 				FormaRecebimento forma = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.CHEQUE_PRE);
+				evItemPagamentoChequePreDatado.setDescricaoForma(forma.getDescricao());
 				int codigoPlano = 0;
 				Iterator it = forma.getPlanos().iterator();
 				while (it.hasNext()){
@@ -1113,6 +1136,7 @@ public class TransacaoBackBean extends BackBean {
 				
 				evItemPagamentoCartaoOff.setCodigoForma(ConstantesFormaRecebimento.CARTAO_OFF.intValue());
 				FormaRecebimento forma = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.CARTAO_OFF);
+				evItemPagamentoCartaoOff.setDescricaoForma(forma.getDescricao());
 				int codigoPlano = 0;
 				Iterator it = forma.getPlanos().iterator();
 				while (it.hasNext()){
@@ -1139,6 +1163,7 @@ public class TransacaoBackBean extends BackBean {
 				
 				evItemPagamentoCartaoProprio.setCodigoForma(ConstantesFormaRecebimento.CARTAO_PROPRIO.intValue());
 				FormaRecebimento forma = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.CARTAO_PROPRIO);
+				evItemPagamentoCartaoProprio.setDescricaoForma(forma.getDescricao());
 				int codigoPlano = 0;
 				Iterator it = forma.getPlanos().iterator();
 				while (it.hasNext()){
@@ -1160,6 +1185,7 @@ public class TransacaoBackBean extends BackBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.setAbaCorrente("tabMenuDiv2");
 		return "mesma";
 	}
 
@@ -1175,6 +1201,7 @@ public class TransacaoBackBean extends BackBean {
 				this.getItensTransacao().remove(itemPagamento);
 			}
 		}
+		this.setAbaCorrente("tabMenuDiv2");
 		return "mesma";
 	}
 	
@@ -1228,11 +1255,11 @@ public class TransacaoBackBean extends BackBean {
 		return "mesma";
 	}
 	
-	public BigDecimal calculaComissaoVendedor(String idVendedor, BigDecimal valorTotalCupom){
+	public BigDecimal calculaComissaoVendedor(String idVendedor, BigDecimal pValorTotalCupom){
 		BigDecimal comissao = BigDecimal.ZERO;
 		try {
 			Vendedor vendedor = (Vendedor)getFachada().consultarUsuarioPorId(new Long(idVendedor));
-			comissao = valorTotalCupom.multiply(vendedor.getComissao() != null ? vendedor.getComissao(): BigDecimal.ZERO).
+			comissao = pValorTotalCupom.multiply(vendedor.getComissao() != null ? vendedor.getComissao(): BigDecimal.ZERO).
 							setScale(2, BigDecimal.ROUND_DOWN).divide(new BigDecimal("100.00"), BigDecimal.ROUND_DOWN);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
@@ -1249,9 +1276,11 @@ public class TransacaoBackBean extends BackBean {
 
 			validaCabecalhoTransacao();
 			
-			if(this.getItensTransacao().size() == 0){
+			if(this.getItensTransacao() == null || (this.getItensTransacao() != null && this.getItensTransacao().size() == 0)){
+				this.setAbaCorrente("tabMenuDiv1");
 				throw new AppException("É necessário inserir os itens.");
-			}else if(this.getItensPagamento().size() == 0){
+			}else if(this.getItensPagamento() == null || (this.getItensPagamento() != null && this.getItensPagamento().size() == 0)){
+				this.setAbaCorrente("tabMenuDiv2");
 				throw new AppException("É necessário informar as formas de pagamento.");
 			}
 			
@@ -1262,13 +1291,16 @@ public class TransacaoBackBean extends BackBean {
 			transacaoPk.setNumeroTransacao(new Integer(this.getNsuTransacao()).intValue());
 			transacaoPk.setDataTransacao(this.getDataTransacao());
 			transVenda.setPk(transacaoPk);
+			transVenda.setSituacao(TransacaoVenda.ATIVO);
+			transVenda.setTipoTransacao(ConstantesTransacao.TRANSACAO_VENDA);
+			transVenda.setStatus(Transacao.PROCESSADO);
 			
 			transVenda.setNumeroCupom(this.getNumeroCupom());
 			
-			if(this.getIdCliente() != null && !this.getIdCliente().equals("0")){
-				Cliente cli = (Cliente)getFachada().consultarClientePorPK(new Long(this.getIdCliente()));
-				transVenda.setCpfCnpjCliente(cli.getCpfCnpj());
-			}
+//			if(this.getIdCliente() != null && !this.getIdCliente().equals("0")){
+//				Cliente cli = (Cliente)getFachada().consultarClientePorPK(new Long(this.getIdCliente()));
+//				transVenda.setCpfCnpjCliente(cli.getCpfCnpj());
+//			}
 			
 			if(this.getIdVendedor() != null && !this.getIdVendedor().equals("0")){
 				transVenda.setCodigoUsuarioVendedor(this.getIdVendedor());
@@ -1304,13 +1336,14 @@ public class TransacaoBackBean extends BackBean {
 			transVenda.setDataHoraInicio(new Date(System.currentTimeMillis()));
 			transVenda.setDataHoraFim(new Date(System.currentTimeMillis()));
 			
-			getFachada().inserirTransacao(transVenda);
+			getFachada().inserirTransacaoES(transVenda);
 			
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
+			this.setAbaCorrente("tabMenuDiv0");
 		} catch (ObjectExistentException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -1335,7 +1368,7 @@ public class TransacaoBackBean extends BackBean {
 		return "mesma";
 	}
 	
-	public String excluir(){
+	public String cancelar(){
 		return "mesma";
 	}
 
@@ -1352,11 +1385,12 @@ public class TransacaoBackBean extends BackBean {
         	UIInput texto = (UIInput) event.getSource();   
             String valor = String.valueOf(texto.getValue());
             if(!valor.equals("")){
-            	this.setValorItem(this.getPrecoVenda().
-            			multiply(this.getQuantidade()==null?BigDecimal.ONE:this.getQuantidade()).
-            			subtract(this.getDescontoItem()==null?BigDecimal.ZERO:this.getDescontoItem()));
-            }else{
-            	this.setValorItem(new BigDecimal("0.00"));
+            	this.setValorTotalCupom(new BigDecimal(valor).setScale(2));
+//            	this.setValorItem(this.getPrecoVenda().
+//            			multiply(this.getQuantidade()==null?BigDecimal.ONE:this.getQuantidade()).
+//            			subtract(this.getDescontoItem()==null?BigDecimal.ZERO:this.getDescontoItem()));
+//            }else{
+//            	this.setValorItem(new BigDecimal("0.00"));
             }
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
