@@ -5,28 +5,56 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
+import java.util.Date;
 
+import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.JPopupMenu;
 import javax.swing.text.MaskFormatter;
 
+import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.components.LimitedTextField;
 
-public class TelaCadastroClientePDV extends javax.swing.JFrame {
+public class TelaCadastroClientePDV extends JDialog {
 
+	public static final int OK = 0;
+	public static final int CANCELA = 1;
 	
-
+	public static int retorno = CANCELA;
 	    
     /** Creates new form TelaCadastroCliente */
-    public TelaCadastroClientePDV() {
-        initComponents();
+    private TelaCadastroClientePDV(JFrame owner) {
+        super(owner,true);
+    	initComponents();
     }
     
     private void mostrarMensagem(String mensagem){
-    	JOptionPane.showMessageDialog(this, mensagem);
+    	JOptionPane.showMessageDialog(this, mensagem,"Atenção",JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private boolean validaCampos(){
+    	if (jRadioButtonPessoaFisica.isSelected()){
+			if (!Util.validacpf(jTextFieldCpfCnpj.getText())){
+				mostrarMensagem("CPF inválido");
+				jTextFieldCpfCnpj.requestFocus();
+				return false;
+			}
+		}else if (jRadioButtonPessoaJuridica.isSelected()){
+			if (!Util.validaCnpj(jTextFieldCpfCnpj.getText())){
+				mostrarMensagem("CNPJ inválido");
+				jTextFieldCpfCnpj.requestFocus();
+				return false;
+			}
+		}
+		if (jTextFieldNome.getText() == null || jTextFieldNome.getText().length() < 3){						
+			mostrarMensagem("Nome deve ter pelo menos 3 caracteres");
+			jTextFieldNome.requestFocus();
+			return false;
+		}
+		return true;
     }
     
     /** This method is called from within the constructor to
@@ -58,28 +86,18 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new JFormattedTextField(mascaraCPF);
+        jTextFieldCpfCnpj = new JFormattedTextField(mascaraCPF);
         
         kl = new KeyListener(){
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == e.VK_ENTER){
-					if (jRadioButton1.isSelected()){
-						if (!Util.validacpf(jTextField1.getText())){
-							mostrarMensagem("CPF inválido");
-							return;
-						}
-					}else if (jRadioButton2.isSelected()){
-						if (!Util.validaCnpj(jTextField1.getText())){
-							mostrarMensagem("CNPJ inválido");
-							return;
-						}
-					}
-					if (jTextField2.getText() == null || jTextField2.getText().equals("")){						
-						mostrarMensagem("Nome inválido");
-						return;
+					if (validaCampos()){
+						retorno = OK;
+						fechar();
 					}
 				}else if(e.getKeyCode() == e.VK_ESCAPE){
-					fechar();
+					retorno = CANCELA;
+					fechar();					
 				}
 			}
 			public void keyReleased(KeyEvent e) {
@@ -93,46 +111,46 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         
         
         
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButtonPessoaFisica = new javax.swing.JRadioButton();
+        jRadioButtonPessoaJuridica = new javax.swing.JRadioButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new JFormattedTextField(mascaraTelefone);
+        jTextFieldTelefone = new JFormattedTextField(mascaraTelefone);
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new JFormattedTextField(mascaraTelefone);
+        jTextFieldCelular = new JFormattedTextField(mascaraTelefone);
         jLabel4 = new javax.swing.JLabel();
-        jTextField5 = new LimitedTextField(20);
+        jTextFieldInscEstadual = new LimitedTextField(20);
         jLabel5 = new javax.swing.JLabel();
-        jTextField6 = new LimitedTextField(20);
+        jTextFieldInscMunicipal = new LimitedTextField(20);
         jLabel6 = new javax.swing.JLabel();
-        jTextField7 = new LimitedTextField(50);
-        jTextField7.setMascara(jTextField2.ALFANUMERICO);
+        jTextFieldRazaoSocial = new LimitedTextField(50);
+        jTextFieldRazaoSocial.setMascara(jTextFieldNome.ALFANUMERICO);
         jLabel7 = new javax.swing.JLabel();
-        jTextField8 = new LimitedTextField(20);
-        jTextField8.setMascara(jTextField2.ALFANUMERICO);
+        jTextFieldContato = new LimitedTextField(20);
+        jTextFieldContato.setMascara(jTextFieldNome.ALFANUMERICO);
         jLabel16 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextAreaRefBancaria = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField9 = new LimitedTextField(50);
-        jTextField9.setMascara(jTextField2.ALFANUMERICO);
-        jComboBox1 = new javax.swing.JComboBox();
+        jTextFieldLogradouro = new LimitedTextField(50);
+        jTextFieldLogradouro.setMascara(jTextFieldNome.ALFANUMERICO);
+        jComboBoxEstado = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
-        jTextField10 = new LimitedTextField(50);
-        jTextField10.setMascara(jTextField2.ALFANUMERICO);
+        jTextFieldCidade = new LimitedTextField(50);
+        jTextFieldCidade.setMascara(jTextFieldNome.ALFANUMERICO);
         jLabel12 = new javax.swing.JLabel();
-        jTextField11 = new LimitedTextField(8);
-        jTextField12 = new LimitedTextField(6);
+        jTextFieldCep = new LimitedTextField(8);
+        jTextFieldNumero = new LimitedTextField(6);
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField13 = new LimitedTextField(50);
-        jTextField13.setMascara(jTextField2.ALFANUMERICO);
+        jTextFieldComplemento = new LimitedTextField(50);
+        jTextFieldComplemento.setMascara(jTextFieldNome.ALFANUMERICO);
         jLabel10 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jTextField2 = new LimitedTextField(50);
-        jTextField2.setMascara(jTextField2.ALFANUMERICO);
+        jTextFieldNome = new LimitedTextField(50);
+        jTextFieldNome.setMascara(jTextFieldNome.ALFANUMERICO);
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         
@@ -148,20 +166,20 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         jPanel2.setLayout(null);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("CPF/CNPJ"));
-        jPanel2.add(jTextField1);
-        jTextField1.setBounds(180, 20, 150, 20);
+        jPanel2.add(jTextFieldCpfCnpj);
+        jTextFieldCpfCnpj.setBounds(180, 20, 150, 20);
 
-        jRadioButton1.setText("F\u00edsica");
-        jRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jPanel2.add(jRadioButton1);
-        jRadioButton1.setBounds(20, 20, 60, 15);
+        jRadioButtonPessoaFisica.setText("F\u00edsica");
+        jRadioButtonPessoaFisica.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jRadioButtonPessoaFisica.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jPanel2.add(jRadioButtonPessoaFisica);
+        jRadioButtonPessoaFisica.setBounds(20, 20, 60, 15);
 
-        jRadioButton2.setText("Jur\u00eddica");
-        jRadioButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jRadioButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jPanel2.add(jRadioButton2);
-        jRadioButton2.setBounds(80, 20, 65, 15);
+        jRadioButtonPessoaJuridica.setText("Jur\u00eddica");
+        jRadioButtonPessoaJuridica.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jRadioButtonPessoaJuridica.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jPanel2.add(jRadioButtonPessoaJuridica);
+        jRadioButtonPessoaJuridica.setBounds(80, 20, 65, 15);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(10, 0, 340, 50);
@@ -172,51 +190,51 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         jPanel3.add(jLabel2);
         jLabel2.setBounds(10, 110, 50, 14);
 
-        jPanel3.add(jTextField3);
-        jTextField3.setBounds(10, 130, 85, 20);
+        jPanel3.add(jTextFieldTelefone);
+        jTextFieldTelefone.setBounds(10, 130, 85, 20);
 
         jLabel3.setText("Celular");
         jPanel3.add(jLabel3);
         jLabel3.setBounds(105, 110, 45, 14);
 
-        jPanel3.add(jTextField4);
-        jTextField4.setBounds(105, 130, 85, 20);
+        jPanel3.add(jTextFieldCelular);
+        jTextFieldCelular.setBounds(105, 130, 85, 20);
 
         jLabel4.setText("Inscri\u00e7\u00e3o Estadual");
         jPanel3.add(jLabel4);
         jLabel4.setBounds(10, 60, 120, 15);
 
-        jPanel3.add(jTextField5);
-        jTextField5.setBounds(10, 80, 155, 20);
+        jPanel3.add(jTextFieldInscEstadual);
+        jTextFieldInscEstadual.setBounds(10, 80, 155, 20);
 
         jLabel5.setText("Inscri\u00e7\u00e3o Munincipal");
         jPanel3.add(jLabel5);
         jLabel5.setBounds(175, 60, 150, 15);
 
-        jPanel3.add(jTextField6);
-        jTextField6.setBounds(175, 80, 155, 20);
+        jPanel3.add(jTextFieldInscMunicipal);
+        jTextFieldInscMunicipal.setBounds(175, 80, 155, 20);
 
-        jLabel6.setText("Nome Fantasia");
+        jLabel6.setText("Razão Social");
         jPanel3.add(jLabel6);
         jLabel6.setBounds(10, 10, 90, 14);
 
-        jPanel3.add(jTextField7);
-        jTextField7.setBounds(10, 30, 320, 20);
+        jPanel3.add(jTextFieldRazaoSocial);
+        jTextFieldRazaoSocial.setBounds(10, 30, 320, 20);
 
         jLabel7.setText("Contato");
         jPanel3.add(jLabel7);
         jLabel7.setBounds(200, 110, 70, 14);
 
-        jPanel3.add(jTextField8);
-        jTextField8.setBounds(200, 130, 130, 20);
+        jPanel3.add(jTextFieldContato);
+        jTextFieldContato.setBounds(200, 130, 130, 20);
 
         jLabel16.setText("Refer\u00eancia Banc\u00e1ria");
         jPanel3.add(jLabel16);
         jLabel16.setBounds(10, 160, 120, 14);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTextAreaRefBancaria.setColumns(20);
+        jTextAreaRefBancaria.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaRefBancaria);
 
         jPanel3.add(jScrollPane1);
         jScrollPane1.setBounds(10, 180, 320, 50);
@@ -229,29 +247,29 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         jPanel4.add(jLabel9);
         jLabel9.setBounds(10, 60, 70, 14);
 
-        jPanel4.add(jTextField9);
-        jTextField9.setBounds(10, 80, 310, 20);
+        jPanel4.add(jTextFieldLogradouro);
+        jTextFieldLogradouro.setBounds(10, 80, 310, 20);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO" }));
-        jPanel4.add(jComboBox1);
-        jComboBox1.setBounds(10, 130, 50, 20);
+        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO" }));
+        jPanel4.add(jComboBoxEstado);
+        jComboBoxEstado.setBounds(10, 130, 50, 20);
 
         jLabel11.setText("Cidade");
         jPanel4.add(jLabel11);
         jLabel11.setBounds(70, 110, 50, 14);
 
-        jPanel4.add(jTextField10);
-        jTextField10.setBounds(70, 130, 250, 20);
+        jPanel4.add(jTextFieldCidade);
+        jTextFieldCidade.setBounds(70, 130, 250, 20);
 
         jLabel12.setText("Cep");
         jPanel4.add(jLabel12);
         jLabel12.setBounds(10, 10, 25, 14);
 
-        jPanel4.add(jTextField11);
-        jTextField11.setBounds(10, 30, 70, 20);
+        jPanel4.add(jTextFieldCep);
+        jTextFieldCep.setBounds(10, 30, 70, 20);
 
-        jPanel4.add(jTextField12);
-        jTextField12.setBounds(10, 180, 50, 20);
+        jPanel4.add(jTextFieldNumero);
+        jTextFieldNumero.setBounds(10, 180, 50, 20);
 
         jLabel13.setText("N\u00famero");
         jPanel4.add(jLabel13);
@@ -261,8 +279,8 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         jPanel4.add(jLabel14);
         jLabel14.setBounds(70, 160, 90, 14);
 
-        jPanel4.add(jTextField13);
-        jTextField13.setBounds(70, 180, 250, 20);
+        jPanel4.add(jTextFieldComplemento);
+        jTextFieldComplemento.setBounds(70, 180, 250, 20);
 
         jLabel10.setText("UF");
         jPanel4.add(jLabel10);
@@ -277,8 +295,8 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
         
         jPanel1.setLayout(null);
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(10, 20, 320, 20);
+        jPanel1.add(jTextFieldNome);
+        jTextFieldNome.setBounds(10, 20, 320, 20);
         
         getContentPane().add(jPanel1);
         jPanel1.setBounds(10, 50, 340, 50);
@@ -291,12 +309,15 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         getContentPane().add(jButton2);
         jButton2.setBounds(160, 390, 90, 23);
 
-        jRadioButton1.setSelected(true);
+        jRadioButtonPessoaFisica.setSelected(true);
+        jTextFieldInscEstadual.setEnabled(false);
+		jTextFieldInscMunicipal.setEnabled(false);
+		jTextFieldRazaoSocial.setEnabled(false);
         
-        buttonGroup1.add(jRadioButton1);
-        buttonGroup1.add(jRadioButton2);
+        buttonGroup1.add(jRadioButtonPessoaFisica);
+        buttonGroup1.add(jRadioButtonPessoaJuridica);
         
-        jRadioButton1.addActionListener(new ActionListener(){
+        jRadioButtonPessoaFisica.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
 				clickRadio();
@@ -307,7 +328,7 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         	
         });
         
-        jRadioButton2.addActionListener(new ActionListener(){
+        jRadioButtonPessoaJuridica.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
 				clickRadio();
@@ -321,8 +342,9 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         jButton2.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent e) {
-				
+				retorno = CANCELA;
 				fechar();
+				
 				
 			}
 
@@ -330,22 +352,36 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
         	
         });
         
-        jTextField1.addKeyListener(kl);
-        jTextField2.addKeyListener(kl);
-        jTextField3.addKeyListener(kl);
-        jTextField4.addKeyListener(kl);
-        jTextField5.addKeyListener(kl);
-        jTextField6.addKeyListener(kl);
-        jTextField7.addKeyListener(kl);
-        jTextField8.addKeyListener(kl);
-        jTextField9.addKeyListener(kl);
-        jTextField10.addKeyListener(kl);
-        jTextField11.addKeyListener(kl);
-        jTextField12.addKeyListener(kl);
-        jTextField13.addKeyListener(kl);
-        jTextArea1.addKeyListener(kl);
-        jRadioButton1.addKeyListener(kl);
-        jRadioButton2.addKeyListener(kl);
+        jButton1.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				if (validaCampos()){
+					retorno = OK;
+					fechar();
+				}
+			}
+
+			
+        	
+        });
+
+        
+//        jTextField1.addKeyListener(kl);
+//        jTextField2.addKeyListener(kl);
+        jTextFieldTelefone.addKeyListener(kl);
+        jTextFieldCelular.addKeyListener(kl);
+        jTextFieldInscEstadual.addKeyListener(kl);
+        jTextFieldInscMunicipal.addKeyListener(kl);
+        jTextFieldRazaoSocial.addKeyListener(kl);
+        jTextFieldContato.addKeyListener(kl);
+        jTextFieldLogradouro.addKeyListener(kl);
+        jTextFieldCidade.addKeyListener(kl);
+        jTextFieldCep.addKeyListener(kl);
+        jTextFieldNumero.addKeyListener(kl);
+        jTextFieldComplemento.addKeyListener(kl);
+        jTextAreaRefBancaria.addKeyListener(kl);
+        jRadioButtonPessoaFisica.addKeyListener(kl);
+        jRadioButtonPessoaJuridica.addKeyListener(kl);
         jTabbedPane1.addKeyListener(kl);
         jButton1.addKeyListener(kl);
         jButton2.addKeyListener(kl);
@@ -360,14 +396,26 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
     }
     
     private void clickRadio(){
-    	jPanel2.remove(jTextField1);
-    	if (jRadioButton1.isSelected()){
-    		jTextField1 = new JFormattedTextField(mascaraCPF);
+    	jPanel2.remove(jTextFieldCpfCnpj);
+    	if (jRadioButtonPessoaFisica.isSelected()){
+    		jTextFieldCpfCnpj = new JFormattedTextField(mascaraCPF);
+    		jTextFieldInscEstadual.setText("");
+    		jTextFieldInscEstadual.setEnabled(false);
+    		jTextFieldInscMunicipal.setText("");
+    		jTextFieldInscMunicipal.setEnabled(false);
+    		jTextFieldRazaoSocial.setText("");
+    		jTextFieldRazaoSocial.setEnabled(false);
     	}else{
-    		jTextField1 = new JFormattedTextField(mascaraCNPJ);    		
+    		jTextFieldInscEstadual.setText("");
+    		jTextFieldInscEstadual.setEnabled(true);
+    		jTextFieldInscMunicipal.setText("");
+    		jTextFieldInscMunicipal.setEnabled(true);
+    		jTextFieldRazaoSocial.setText("");
+    		jTextFieldRazaoSocial.setEnabled(true);
+    		jTextFieldCpfCnpj = new JFormattedTextField(mascaraCNPJ);    		
     	}
-    	jPanel2.add(jTextField1);
-    	jTextField1.setBounds(180, 20, 150, 20);
+    	jPanel2.add(jTextFieldCpfCnpj);
+    	jTextFieldCpfCnpj.setBounds(180, 20, 150, 20);
     	jPanel2.repaint();
     }
     
@@ -376,20 +424,64 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TelaCadastroClientePDV tela =  new TelaCadastroClientePDV();
-                tela.setSize(370, 460);
-                tela.setVisible(true);
+            public void run() {            	
+//                if (TelaCadastroClientePDV.iniciar(new JFrame()) == TelaCadastroClientePDV.OK){
+//                	System.out.println("OK");
+//                }else{
+//                	System.out.println("CANCELA");
+//                }
+//               
             }
         });
     }
     
-    private KeyListener kl;    
+    public ClienteTransacao getClienteTransacao(){
+    	ClienteTransacao c = new ClienteTransacao();
+    	String cpfCnpj = jTextFieldCpfCnpj.getText().replace(".", "");
+    	cpfCnpj = cpfCnpj.replace("/", "");
+    	cpfCnpj = cpfCnpj.replace("-", "");
+    	c.setCpfCnpj(cpfCnpj);
+//    	c.setBairro(jt)
+    	String celular = jTextFieldTelefone.getText().replace("-", "");
+    	celular = celular.replace(" ", "");
+    	celular = celular.replace("(", "");
+    	celular = celular.replace(")", "");
+    	c.setCelular(celular);
+    	c.setCep(jTextFieldCep.getText());
+    	c.setCidade(jTextFieldCidade.getText());
+    	c.setComplemento(jTextFieldComplemento.getText());
+    	c.setDataCadastro(new Date());
+//    	c.setEmail(email)
+    	c.setEstado(jComboBoxEstado.getSelectedItem().toString());
+    	String telefone = jTextFieldTelefone.getText().replace("-", "");
+    	telefone = telefone.replace(" ", "");
+    	telefone = telefone.replace("(", "");
+    	telefone = telefone.replace(")", "");
+    	c.setFone(telefone);
+    	c.setInscricaoEstadual(jTextFieldInscEstadual.getText());
+    	c.setInscricaoMunicipal(jTextFieldInscMunicipal.getText());
+    	c.setLogradouro(jTextFieldLogradouro.getText());
+    	c.setNomeCliente(jTextFieldNome.getText());
+    	c.setNumero(jTextFieldNumero.getText());
+    	c.setPessoaContato(jTextFieldContato.getText());
+    	c.setRazaoSocial(jTextFieldRazaoSocial.getText());
+    	c.setReferenciaBancaria(jTextAreaRefBancaria.getText());
+    	c.setTipoPessoa(jRadioButtonPessoaFisica.isSelected()?c.PESSOA_FISICA:c.PESSOA_JURIDICA);
+    	return c;
+    }
+    
+    public static TelaCadastroClientePDV iniciar(JFrame owner){
+    	TelaCadastroClientePDV tela = new TelaCadastroClientePDV(owner);
+    	tela.setSize(370, 460);
+        tela.setVisible(true);
+    	return tela;
+	}
+    private transient KeyListener kl;    
     // Variables declaration - do not modify                     
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBoxEstado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -410,24 +502,24 @@ public class TelaCadastroClientePDV extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButtonPessoaFisica;
+    private javax.swing.JRadioButton jRadioButtonPessoaJuridica;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private JFormattedTextField jTextField1;
-    private LimitedTextField jTextField10;
-    private LimitedTextField jTextField11;
-    private LimitedTextField jTextField12;
-    private LimitedTextField jTextField13;
-    private LimitedTextField jTextField2;
-    private JFormattedTextField jTextField3;
-    private JFormattedTextField jTextField4;
-    private LimitedTextField jTextField5;
-    private LimitedTextField jTextField6;
-    private LimitedTextField jTextField7;
-    private LimitedTextField jTextField8;
-    private LimitedTextField jTextField9;
+    private javax.swing.JTextArea jTextAreaRefBancaria;
+    private JFormattedTextField jTextFieldCpfCnpj;
+    private LimitedTextField jTextFieldCidade;
+    private LimitedTextField jTextFieldCep;
+    private LimitedTextField jTextFieldNumero;
+    private LimitedTextField jTextFieldComplemento;
+    private LimitedTextField jTextFieldNome;
+    private JFormattedTextField jTextFieldTelefone;
+    private JFormattedTextField jTextFieldCelular;
+    private LimitedTextField jTextFieldInscEstadual;
+    private LimitedTextField jTextFieldInscMunicipal;
+    private LimitedTextField jTextFieldRazaoSocial;
+    private LimitedTextField jTextFieldContato;
+    private LimitedTextField jTextFieldLogradouro;
 
 	
 	private MaskFormatter mascaraCPF;
