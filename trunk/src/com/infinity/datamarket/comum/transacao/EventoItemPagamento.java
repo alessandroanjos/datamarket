@@ -15,6 +15,15 @@ public class EventoItemPagamento extends EventoTransacao{
 	private String formaImpressora;
 	private int codigoForma;
 	private int codigoPlano;
+	private String descricaoForma;
+	
+	public String getDescricaoForma() {
+		return descricaoForma;
+	}
+
+	public void setDescricaoForma(String descricaoForma) {
+		this.descricaoForma = descricaoForma;
+	}
 
 	public EventoItemPagamento(){
 
