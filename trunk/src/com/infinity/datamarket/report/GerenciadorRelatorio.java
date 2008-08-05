@@ -106,8 +106,16 @@ public class GerenciadorRelatorio {
 
 			Map parametros = new HashMap();
 
-//			parametros.put("DATA_INICIAL", dataInicial);
-//			parametros.put("DATA_FINAL", dataFinal);
+			parametros.put("empresa","Magia dos Pães");
+			parametros.put("loja", ""+transacao.getPk().getLoja());
+			parametros.put("componente", ""+transacao.getPk().getComponente());
+			parametros.put("data", transacao.getPk().getDataTransacao());
+			parametros.put("num_transacao", ""+transacao.getPk().getNumeroTransacao());
+			parametros.put("cupom", transacao.getNumeroCupom());
+			parametros.put("operador", transacao.getCodigoUsuarioOperador());
+			parametros.put("vendedor", transacao.getCodigoUsuarioVendedor());
+			parametros.put("desconto", transacao.getDescontoCupom());
+			parametros.put("total", transacao.getValorCupom());
 			
 			JasperPrint impressao = JasperFillManager.fillReport( relatorio , parametros);
 			
