@@ -92,19 +92,14 @@
             //funcao que troca a visibilidade dos div das formas de pagamento a transacao
             function trocaDivFormaRecebimento(){
             	var formaSelecionada = getId("frmInserirTransacao:idFormaPagamento").value;
-				switch(formaSelecionada){
-				   case "1": //dinheiro
-					break;
-				   case "2": //cheque a vista
-					break;
-				   case "3": //cheque-pre
-					break;
-				   case "4": //cartao off
-					break;
-				   case "5": //cartao proprio
-					break;
-					
-				}
+            	for(i = 1;i<=5;i++){ 
+            		var obj = getId("divForma"+i);            		
+            		if(i==formaSelecionada){
+	            		obj.style.display = "block";
+            		}else{
+	            		obj.style.display = "none";        		
+            		}            	
+            	}
             }
 		</script>
 	</head>
@@ -133,7 +128,7 @@
 						<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 					</div>
 					<h:inputHidden id="abaCorrente" value="#{transacaoBB.abaCorrente}"></h:inputHidden>
-					<div id="tabDiv0" style="height: 430px;">
+					<div id="tabDiv0" style="height: 390px;">
 						<ul>								
 							<li class="normal">
 								<div>
@@ -206,7 +201,7 @@
 							</li>							
 						</ul>
 					</div>
-					<div id="tabDiv1"  style="display:none;height: 430px;">
+					<div id="tabDiv1"  style="display:none;height: 390px;">
 						<fieldset style="height: 380px;width: 100%;">
 							<legend><b>Itens da Transação</b></legend>
 							<ul>
@@ -227,7 +222,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição Completa*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="descricaoProduto" size="39"
-											value="#{transacaoBB.descricaoProduto}" disabled="true">
+											value="#{transacaoBB.descricaoProduto}" readonly="true">
 										</h:inputText>
 									</div>
 									<div>
@@ -259,7 +254,7 @@
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Item*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="valorItem" maxlength="10" size="10" disabled="true"
+										<h:inputText styleClass="field text" id="valorItem" maxlength="10" size="10" readonly="true"
 											value="#{transacaoBB.valorItem}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorItem',9,2,event);">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
@@ -329,32 +324,129 @@
 							</div>
 						</fieldset>								
 					</div>	
-					<div id="tabDiv2"  style="display:none;height: 430px;">
+					<div id="tabDiv2" style="display:none;height: 390px;">
 						<ul>
 							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Forma Recebimento"></h:outputLabel>
 									<h:selectOneMenu id="idFormaPagamento" style="width: 200px;" 
-										value="#{transacaoBB.idFormaPagamento}" onchange="javascript:trocaDivFormaRecebimento();"> 
+										value="#{transacaoBB.idFormaPagamento}" onchange="trocaDivFormaRecebimento();"> 
 											  <f:selectItems id="formasSelectItems" value="#{transacaoBB.formasPagamento}"  />   
 									</h:selectOneMenu>
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Valor"></h:outputLabel>
+									<h:inputText styleClass="field text" id="valorFormaPagamento" maxlength="10" size="10" readonly="true"
+										value="#{transacaoBB.valorFormaPagamento}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorFormaPagamento',9,2,event);">
+										<f:validateLength maximum="10" />
+										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
+										<f:validator validatorId="BigDecimalValidator"/>
+									</h:inputText>
 								</div>		
 							</li>
 							<li class="normal">
-								<div id="divFormaDinheiro">
-									D I N H E I R O
+								<div id="divForma1">
+									<fieldset style="height: 100px;width: 100%;">
+										<ul>
+											<li class="normal">
+												&nbsp;
+											</li>
+										</ul>
+									</fieldset>
 								</div>
-								<div id="divFormaChequeAVista">
-									C H E Q U E  À  V I S T A
+								<div id="divForma2" style="display:none;">
+									<fieldset style="height: 100px;width: 100%;">
+										<ul>
+											<li class="normal">
+												<div>
+													<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
+													<h:inputText styleClass="field text" id="a" maxlength="6" size="6"
+														value="#{transacaoBB.codigoProduto}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+														<f:validateLength maximum="6" />
+													</h:inputText>
+												</div>
+											</li>
+										</ul>
+									</fieldset>
 								</div>
-								<div id="divFormaChequePre">
-									C H E Q U E  P R É - D A T A D O
+								<div id="divForma3" style="display:none;">
+									<fieldset style="height: 100px;width: 100%;">
+										<ul>
+											<li class="normal">
+												<div>
+													<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
+													<h:inputText styleClass="field text" id="a" maxlength="6" size="6"
+														value="#{transacaoBB.codigoProduto}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+														<f:validateLength maximum="6" />
+													</h:inputText>
+												</div>
+											</li>
+										</ul>
+									</fieldset>
 								</div>
-								<div id="divFormaCartaoOff">
-								    C A R T Ã O  O F F
+								<div id="divForma4" style="display:none;">
+								    <fieldset style="height: 100px;width: 100%;">
+										<ul>
+											<li class="normal">
+												<div>
+													<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
+													<h:inputText styleClass="field text" id="a" maxlength="6" size="6"
+														value="#{transacaoBB.codigoProduto}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+														<f:validateLength maximum="6" />
+													</h:inputText>
+												</div>
+											</li>
+										</ul>
+									</fieldset>
 								</div>
-								<div id="divFormaCartaoProprio">
-								    C A R T Ã O  P R Ó P R I O
+								<div id="divForma5" style="display:none;">
+								    <fieldset style="height: 100px;width: 100%;">
+										<ul>
+											<li class="normal">
+												<div>
+													<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
+													<h:inputText styleClass="field text" id="a" maxlength="6" size="6"
+														value="#{transacaoBB.codigoProduto}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+														<f:validateLength maximum="6" />
+													</h:inputText>
+												</div>
+											</li>
+										</ul>
+									</fieldset>
+								</div>
+							</li>
+							<li class="normal">
+								<div class="listagemSimples" style="overflow:auto; height:235px;">
+									<t:dataTable value="#{transacaoBB.itensPagamento}"
+										var="itemPagamento" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="Número" /> 
+											</f:facet>
+											<h:outputText style="align: center;" value="#{itemPagamento.pk.numeroEvento}" /> 
+										</h:column>
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="Forma Recebimento" />
+											</f:facet>
+											<h:outputText style="align: left;" value="#{itemPagamento.descricaoForma}" /> 
+										</h:column>
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="Valor" />
+											</f:facet>
+											<h:outputText style="align: right;" value="#{itemPagamento.valorBruto}" /> 
+										</h:column>	
+										<h:column>
+											<f:facet name="header">
+												<h:outputText style="align: center;" value="Ação" />
+											</f:facet>										
+											<h:commandLink  value="Excluir" 
+												action="#{transacaoBB.removerItemPagamento}">
+												<f:param name="idExcluirItemPagamento" value="#{itemPagamento.pk.numeroEvento}" />
+											</h:commandLink>
+										</h:column>													
+									</t:dataTable>																
 								</div>
 							</li>
 						</ul>
@@ -364,7 +456,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Sub-Total"></h:outputLabel>
 								<h:inputText styleClass="field text" id="valorSubTotalCupom" maxlength="10" size="10"
-									value="#{transacaoBB.valorSubTotalCupom}" dir="rtl" required="false" disabled="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorSubTotalCupom',9,2,event);">
+									value="#{transacaoBB.valorSubTotalCupom}" dir="rtl" required="false" readonly="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorSubTotalCupom',9,2,event);">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 									<f:validator validatorId="BigDecimalValidator"/>
@@ -372,7 +464,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
-								<h:inputText styleClass="field text" id="descontoCupom" maxlength="5" size="10"
+								<h:inputText styleClass="field text" id="descontoCupom" maxlength="5" size="10" onblur="reCalculaTotalCupom();"
 									value="#{transacaoBB.descontoCupom}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:descontoCupom',4,2,event);">
 									<f:validateLength maximum="5" />
 									<f:validateDoubleRange  minimum="0.00" maximum="99.99"/>
@@ -381,7 +473,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Troco"></h:outputLabel>
-								<h:inputText styleClass="field text" id="valorTroco" maxlength="10" size="10"
+								<h:inputText styleClass="field text" id="valorTroco" maxlength="10" size="10" onblur="reCalculaTotalCupom();"
 									value="#{transacaoBB.valorTroco}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorTroco',9,2,event);">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
@@ -397,7 +489,7 @@
 							</div>							
 							<div>
 								<h:outputLabel styleClass="desc" value="Total Cupom"></h:outputLabel>
-								<h:inputText styleClass="field text" id="valorTotalCupom" maxlength="10" size="10" disabled="true"
+								<h:inputText styleClass="field text" id="valorTotalCupom" maxlength="10" size="10" readonly="false"
 									value="#{transacaoBB.valorTotalCupom}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorTotalCupom',9,2,event);">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="999999.99"/>
