@@ -26,18 +26,13 @@ public class TransacaoVenda extends Transacao{
 	private BigDecimal descontoCupom;
 	private BigDecimal comissaoUsuarioVendedor;
 	private String situacao;
+	private ClienteTransacao cliente;
+	
 	private Collection eventosTransacao;
 	private FormaRecebimento formaTroco;
-	private String cpfCnpjCliente; 
+	
 
-	public String getCpfCnpjCliente() {
-		return cpfCnpjCliente;
-	}
-
-	public void setCpfCnpjCliente(String cpfCnpjCliente) {
-		this.cpfCnpjCliente = cpfCnpjCliente;
-	}
-
+	
 	public Collection getEventosTransacao() {
 		return eventosTransacao;
 	}
@@ -143,6 +138,14 @@ public class TransacaoVenda extends Transacao{
 		this.comissaoUsuarioVendedor = comissaoUsuarioVendedor;
 	}
 
+	public ClienteTransacao getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ClienteTransacao cliente) {
+		this.cliente = cliente;
+	}
+
 	public FormaRecebimento getFormaTroco() {
 		return formaTroco;
 	}
@@ -150,4 +153,5 @@ public class TransacaoVenda extends Transacao{
 	public void setFormaTroco(FormaRecebimento formaTroco) {
 		this.formaTroco = formaTroco;
 	}
+
 }
