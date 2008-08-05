@@ -58,7 +58,7 @@
              function setAtributo(idProduto,descricao) {
                              var form = document.forms[formId];   
                              form[formId+":idProduto"].value=idProduto; 
-                             form[formId+":descricao"].value=descricao;  
+                             form[formId+":descricao"].value=descricao; 
                              form[formId+":quantidadeDepois"].focus();
                              winId.close();
             }
@@ -108,9 +108,11 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
 								<h:inputText styleClass="field text ativo" id="descricao" 
-									maxlength="50" size="50" value="#{ajusteEstoqueBB.descricao}">
+									maxlength="50" size="50" value="#{ajusteEstoqueBB.descricao}" size="50">
 									<f:validateLength maximum="50" />
+									
 								</h:inputText>
+							
 							</div>
 							<div style="position:relative; top:9px;">
 								<h:commandButton styleClass="btTxt" id="botaoConsultarProduto"
@@ -124,7 +126,6 @@
 								<h:outputLabel styleClass="desc" value="Qtd. Antes"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeAntes" disabled="true" maxlength="7"
 									size="10" value="#{ajusteEstoqueBB.quantidadeAntes}" 
-									required="true"
 									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirAjusteEstoque:quantidadeAntes',7,3,event);">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.000" maximum="9999.999" />

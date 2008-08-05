@@ -109,8 +109,12 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		try {
 			produto = Fachada.getInstancia().consultarProdutoPorPK(new Long(this.idProduto));
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Produto inválido!", "");
+			ctx.addMessage(null, msg);
 			e.printStackTrace();
+			return "mesma";
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -118,7 +122,11 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		
 		String msgValidacao = validaMovimentacao();
 		if (msgValidacao.equals("")) {
-			msgValidacao = validaProduto(produto,new BigDecimal(this.getQuantidade()));
+			String qtd = "0";
+			if (!this.getQuantidade().equals("")) {
+				qtd = this.getQuantidade();
+			}
+			msgValidacao = validaProduto(produto,new BigDecimal(qtd));
 		}
 		if (!msgValidacao.equals("")) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -190,11 +198,11 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		
 		movimentacaoEstoque.setEstoqueEntrada(estoqueEntrada);
 		
-	    movimentacaoEstoque.setProdutosMovimentacao(arrayProduto);
+	   
 	    
 	    String msgValidacao = validaMovimentacao();
 		if (msgValidacao.equals("")) {
-			
+			 movimentacaoEstoque.setProdutosMovimentacao(arrayProduto);
 			// Validando quantidade disponivél;
 			
 			for (Iterator iter = arrayProduto.iterator(); iter.hasNext();) {
@@ -245,11 +253,14 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	static String ERRO_ESTOQUE_ENTRADA_SAIDA_IGUAL            = "Estoque saida, igual estoque entrada.";
 	static String ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO 	  = "Quantidade solicitada do produto %1, tem que ser maior que zero";
 	static String ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL =	"Produto %1, Quantidade Solicitada %2, Quantidade Disponivél %3.";
-	
+	static String ERRO_NENHUM_PRODUTO 						  = "É nescessario pelo menos um produto!";
 	public String validaMovimentacao() {
         
 		if (getIdEstoqueSaida().equals(getIdEstoqueEntrada())) {
 		   return ERRO_ESTOQUE_ENTRADA_SAIDA_IGUAL;
+		}
+		if (arrayProduto == null) {
+			return ERRO_NENHUM_PRODUTO; 
 		}
 
 		return "";
@@ -345,9 +356,15 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 					Set<ProdutoMovimentacaoEstoque> produtoMovimentacaoEstoque =  (Set<ProdutoMovimentacaoEstoque>) movimentacaoEstoque.getProdutosMovimentacao();
 					this.setArrayProduto(produtoMovimentacaoEstoque);
 				}
+				this.setId( movimentacaoEstoque.getId().toString());
 				this.setDataMovimentacao(movimentacaoEstoque.getDataMovimentacao());
+				
 				this.setIdEstoqueEntrada(movimentacaoEstoque.getEstoqueEntrada().getPk().getId().toString());
+				this.setEstoqueEntrada(movimentacaoEstoque.getEstoqueEntrada());
+				
 				this.setIdEstoqueSaida(movimentacaoEstoque.getEstoqueSaida().getPk().getId().toString());
+				this.setEstoqueSaida(movimentacaoEstoque.getEstoqueSaida());
+				
 				return "proxima";
 				
 			} else {
