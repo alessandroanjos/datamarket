@@ -35,7 +35,7 @@ public class TelaCadastroClientePDV extends JDialog {
 	    
     /** Creates new form TelaCadastroCliente */
     private TelaCadastroClientePDV(JFrame owner) {
-        super(owner,true);
+        super(owner,true);        
     	initComponents();
     }
     
@@ -80,7 +80,7 @@ public class TelaCadastroClientePDV extends JDialog {
 			mascaraCNPJ.setValidCharacters("0123456789");
 			mascaraCPF.setValidCharacters("0123456789");
 						
-			mascaraTelefone = new MaskFormatter("(##)####-####");
+			mascaraTelefone = new MaskFormatter("(##)########");
 			mascaraTelefone.setValidCharacters("0123456789");
 			
 			
@@ -117,6 +117,55 @@ public class TelaCadastroClientePDV extends JDialog {
         	
         };
         
+        klCpfCnpj = new KeyListener(){
+
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == e.VK_ENTER){
+					try{
+						ClienteServerRemote remote = (ClienteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
+						String cpfCnpj = jTextFieldCpfCnpj.getText().replace(".", "");
+				    	cpfCnpj = cpfCnpj.replace("/", "");
+				    	cpfCnpj = cpfCnpj.replace("-", "");
+						ClienteTransacao cliente = remote.consultarClienteTransacaoPorID(cpfCnpj);
+						if (cliente.getTipoPessoa().equals(ClienteTransacao.PESSOA_JURIDICA)){
+							jTextFieldInscEstadual.setText(cliente.getInscricaoEstadual());
+							jTextFieldInscMunicipal.setText(cliente.getInscricaoMunicipal());
+							jTextFieldRazaoSocial.setText(cliente.getRazaoSocial());
+						}
+						jTextFieldNome.setText(cliente.getNomeCliente());
+						jTextAreaRefBancaria.setText(cliente.getReferenciaBancaria());
+						jTextFieldCelular.setText(cliente.getCelular());
+						jTextFieldCep.setText(cliente.getCep());
+						jTextFieldCidade.setText(cliente.getCidade());
+						jTextFieldComplemento.setText(cliente.getComplemento());
+						jTextFieldContato.setText(cliente.getPessoaContato());						
+						jTextFieldLogradouro.setText(cliente.getLogradouro());
+						jTextFieldNumero.setText(cliente.getNumero());						
+						jTextFieldTelefone.setText(cliente.getFone());
+						jComboBoxEstado.setSelectedItem(cliente.getEstado());
+						jTextFieldNome.requestFocus();
+					
+					}catch(AppException ex){
+						mostrarMensagem("Cliente não Encontrado");
+					}catch(Exception ex){
+						mostrarMensagem("Erro de Comunicação");
+					}	
+				}
+			}
+
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+        	
+        };
+
+        jTextFieldCpfCnpj.addKeyListener(klCpfCnpj);
         
         
         jRadioButtonPessoaFisica = new javax.swing.JRadioButton();
@@ -374,38 +423,7 @@ public class TelaCadastroClientePDV extends JDialog {
         });
 
         
-        jTextFieldCpfCnpj.addKeyListener(new KeyListener(){
-
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == e.VK_ENTER){
-					try{
-						ClienteServerRemote remote = (ClienteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
-						String cpfCnpj = jTextFieldCpfCnpj.getText().replace(".", "");
-				    	cpfCnpj = cpfCnpj.replace("/", "");
-				    	cpfCnpj = cpfCnpj.replace("-", "");
-						ClienteTransacao cliente = remote.consultarClienteTransacaoPorID(cpfCnpj);
-						
-					
-					}catch(AppException ex){
-						mostrarMensagem("Cliente não Encontrado");
-					}catch(Exception ex){
-						mostrarMensagem("Erro de Comunicação");
-					}	
-				}
-			}
-
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-        	
-        });
-        
+        jTextFieldCpfCnpj.addKeyListener(klCpfCnpj);        
         
         jTextFieldNome.addKeyListener(kl);
         jTextFieldTelefone.addKeyListener(kl);
@@ -425,9 +443,14 @@ public class TelaCadastroClientePDV extends JDialog {
         jTabbedPane1.addKeyListener(kl);
         jButton1.addKeyListener(kl);
         jButton2.addKeyListener(kl);
-        
-        
-
+                
+        setSize(370, 460);
+        int x = getOwner().getWidth() / 2;
+        x = x - (this.getWidth() / 2);
+        int y = getOwner().getHeight() / 2;
+        y = y - (this.getHeight() / 2);
+        this.setLocation(x, y);
+    	
         
     }// </editor-fold>    
     
@@ -438,7 +461,7 @@ public class TelaCadastroClientePDV extends JDialog {
     private void clickRadio(){
     	jPanel2.remove(jTextFieldCpfCnpj);
     	if (jRadioButtonPessoaFisica.isSelected()){
-    		jTextFieldCpfCnpj = new JFormattedTextField(mascaraCPF);
+    		jTextFieldCpfCnpj = new JFormattedTextField(mascaraCPF);    		
     		jTextFieldInscEstadual.setText("");
     		jTextFieldInscEstadual.setEnabled(false);
     		jTextFieldInscMunicipal.setText("");
@@ -454,6 +477,7 @@ public class TelaCadastroClientePDV extends JDialog {
     		jTextFieldRazaoSocial.setEnabled(true);
     		jTextFieldCpfCnpj = new JFormattedTextField(mascaraCNPJ);    		
     	}
+    	jTextFieldCpfCnpj.addKeyListener(klCpfCnpj);
     	jPanel2.add(jTextFieldCpfCnpj);
     	jTextFieldCpfCnpj.setBounds(180, 20, 150, 20);
     	jPanel2.repaint();
@@ -482,22 +506,22 @@ public class TelaCadastroClientePDV extends JDialog {
     	cpfCnpj = cpfCnpj.replace("-", "");
     	c.setCpfCnpj(cpfCnpj);
 //    	c.setBairro(jt)
-    	String celular = jTextFieldTelefone.getText().replace("-", "");
-    	celular = celular.replace(" ", "");
-    	celular = celular.replace("(", "");
-    	celular = celular.replace(")", "");
-    	c.setCelular(celular);
+//    	String celular = jTextFieldCelular.getText().replace("-", "");
+//    	celular = celular.replace(" ", "");
+//    	celular = celular.replace("(", "");
+//    	celular = celular.replace(")", "");
+    	c.setCelular(jTextFieldCelular.getText());
     	c.setCep(jTextFieldCep.getText());
     	c.setCidade(jTextFieldCidade.getText());
     	c.setComplemento(jTextFieldComplemento.getText());
-    	c.setDataCadastro(new Date());
+    	c.setDataCadastro(new Date(System.currentTimeMillis()));
 //    	c.setEmail(email)
     	c.setEstado(jComboBoxEstado.getSelectedItem().toString());
-    	String telefone = jTextFieldTelefone.getText().replace("-", "");
-    	telefone = telefone.replace(" ", "");
-    	telefone = telefone.replace("(", "");
-    	telefone = telefone.replace(")", "");
-    	c.setFone(telefone);
+//    	String telefone = jTextFieldTelefone.getText().replace("-", "");
+//    	telefone = telefone.replace(" ", "");
+//    	telefone = telefone.replace("(", "");
+//    	telefone = telefone.replace(")", "");
+    	c.setFone(jTextFieldTelefone.getText());
     	c.setInscricaoEstadual(jTextFieldInscEstadual.getText());
     	c.setInscricaoMunicipal(jTextFieldInscMunicipal.getText());
     	c.setLogradouro(jTextFieldLogradouro.getText());
@@ -511,12 +535,12 @@ public class TelaCadastroClientePDV extends JDialog {
     }
     
     public static TelaCadastroClientePDV iniciar(JFrame owner){
-    	TelaCadastroClientePDV tela = new TelaCadastroClientePDV(owner);
-    	tela.setSize(370, 460);
+    	TelaCadastroClientePDV tela = new TelaCadastroClientePDV(owner);    	
         tela.setVisible(true);
     	return tela;
 	}
-    private transient KeyListener kl;    
+    private transient KeyListener kl;
+    private transient KeyListener klCpfCnpj;
     // Variables declaration - do not modify                     
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
