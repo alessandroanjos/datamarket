@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -29,7 +30,6 @@ import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
-import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class MovimentacaoEstoqueBackBean extends BackBean {   
@@ -599,6 +599,8 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	public String resetBB() {
 		this.setId(null);
 		this.setArrayProduto(null);
+		this.setDataInicio(null);
+		this.setDataFinal(null);
 		resetProdutoBB();
 		return "mesma";
 	}
@@ -894,5 +896,17 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	 */
 	public void setEstoqueSaida(Estoque estoqueSaida) {
 		this.estoqueSaida = estoqueSaida;
+	}
+	/**
+	 * @param init the init to set
+	 */
+	public void setInit(HtmlForm init) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();            
+		String param = (String)  params.get(ACAO);
+		resetBB();
+		if (param != null && VALOR_ACAO.equals(param)){
+			setMovimentacaoEstoque(null);
+		}
 	}
 }

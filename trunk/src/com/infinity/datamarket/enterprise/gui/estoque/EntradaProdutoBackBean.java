@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -951,6 +952,17 @@ public class EntradaProdutoBackBean extends BackBean {
 	public void setTotalDescontoItem(BigDecimal totalDescontoItem) {
 		this.totalDescontoItem = totalDescontoItem;
 	}
-	
+	/**
+	 * @param init the init to set
+	 */
+	public void setInit(HtmlForm init) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();            
+		String param = (String)  params.get(ACAO);
+		resetBB();
+		if (param != null && VALOR_ACAO.equals(param)){
+			setEntradasProduto(null);
+		}
+	}
 
 }

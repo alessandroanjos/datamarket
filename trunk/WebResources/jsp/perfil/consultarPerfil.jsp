@@ -36,7 +36,7 @@
 				</div>				
 				<div id="content">				
 					<div id="primarioContentContainerInternas">
-						<h:form id="frmConsultarPerfil">
+						<h:form id="frmConsultarPerfil" binding="#{perfilBB.init}">
 							<fieldset>
 								<legend>Opções de filtro:</legend>
 								<ul>

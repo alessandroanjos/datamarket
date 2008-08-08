@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UISelectOne;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -75,10 +76,31 @@ public class ClientePagamentoBackBean extends BackBean {
 			List<Cliente> clientes = carregarClientes();
 			arrayClientes = new SelectItem[clientes.size()+1];
 			int i = 0;
+			
 			arrayClientes[i++] = new SelectItem("0", "");
+			
 			for(Cliente clienteTmp : clientes){
-				SelectItem item = new SelectItem(clienteTmp.getId().toString(), clienteTmp.getTipoPessoa().equals(Cliente.PESSOA_FISICA) ? clienteTmp.getNomeCliente() : clienteTmp.getRazaoSocial());
+				
+				String nome = "";
+				
+				if (clienteTmp.getTipoPessoa().equals(Cliente.PESSOA_FISICA)){
+					nome = clienteTmp.getNomeCliente();
+				}
+				
+				if (nome == null || "".equals(nome)) {
+					nome = clienteTmp.getRazaoSocial();
+					if (nome == null || "".equals(nome)){
+						nome = clienteTmp.getNomeFantasia();
+					} else {
+						nome = "NOME NÃO INFORMADO PARA O TIPO DE CLIENTE";
+					}
+				}
+				 
+					
+				SelectItem item = new SelectItem(clienteTmp.getId().toString(), nome);
+				
 				arrayClientes[i++] = item;
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -470,5 +492,16 @@ public class ClientePagamentoBackBean extends BackBean {
 		resetBB();
 		return "voltar";
 	}
-
+	/**
+	 * @param init the init to set
+	 */
+	public void setInit(HtmlForm init) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();            
+		String param = (String)  params.get(ACAO);
+		resetBB();
+		if (param != null && VALOR_ACAO.equals(param)){
+			setClientesPagamentos(null);
+		}
+	}
 }

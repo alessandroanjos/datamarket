@@ -8,8 +8,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+	
 	<f:view>
-		<f:loadBundle basename="resources.mensagens" var="msgs"/>	
+		<f:loadBundle basename="resources.mensagens" var="msgs"/>
+			
 		<head>
 			<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 	
@@ -32,11 +34,12 @@
 						<strong>
 							<h:outputText value="#{msgs.consultarLoja}"></h:outputText>
 						</strong>
-					</div>				
+					</div>	
 				</div>	
 				<div id="content">
 					<div id="primarioContentContainer">
-						<h:form id="frmConsultarLoja">
+
+						<h:form id="frmConsultarLoja" binding="#{lojaBB.init}">
 							<fieldset>
 								<legend>Opções de filtro:</legend>
 								<ul>
@@ -93,7 +96,7 @@
 											<h:outputText value="Nome" />
 										</f:facet>
 										<h:commandLink value="#{loja.nome}" action="#{lojaBB.consultar}">
-											<f:param name="id" value="#{loja.id}"/>						
+											<f:param name="id" value="#{loja.id}"/>
 										</h:commandLink>
 									</h:column>
 									<h:column>

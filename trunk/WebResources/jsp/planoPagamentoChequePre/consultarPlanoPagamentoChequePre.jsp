@@ -36,7 +36,7 @@
 				</strong>
 			</div>				
 		</div>	
-		<h:form id="frmConsultarPlanoPagamentoChequePre">
+		<h:form id="frmConsultarPlanoPagamentoChequePre" binding="#{planoPagamentoChequePreBB.init}">
 					
 				<div id="content">
 				
