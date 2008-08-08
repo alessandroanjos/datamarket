@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 
 import com.infinity.datamarket.comum.produto.TipoProduto;
@@ -181,4 +182,17 @@ public class TipoProdutoBackBean extends BackBean{
 		resetBB();
 		return "voltar";
 	}
+	/**
+	 * @param init the init to set
+	 */
+	public void setInit(HtmlForm init) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();            
+		String param = (String)  params.get(ACAO);
+		resetBB();
+		if (param != null && VALOR_ACAO.equals(param)){
+			setTiposProduto(null);
+		}
+	}
+
 }

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 
 import com.infinity.datamarket.comum.pagamento.Autorizadora;
@@ -243,5 +244,17 @@ public class AutorizadoraBackBean extends BackBean {
 	 */
 	public void setAutorizadoras(Collection autorizadoras) {
 		this.autorizadoras = autorizadoras;
+	}
+	/**
+	 * @param init the init to set
+	 */
+	public void setInit(HtmlForm init) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();            
+		String param = (String)  params.get(ACAO);
+		resetBB();
+		if (param != null && VALOR_ACAO.equals(param)){
+			setAutorizadoras(null);
+		}
 	}
 }

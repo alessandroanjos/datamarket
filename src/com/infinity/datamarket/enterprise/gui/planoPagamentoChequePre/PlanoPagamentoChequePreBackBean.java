@@ -11,6 +11,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 
 import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatado;
@@ -502,5 +503,16 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 	public void setAbaCorrente(String abaCorrente) {
 		this.abaCorrente = abaCorrente;
 	}
-	
+	/**
+	 * @param init the init to set
+	 */
+	public void setInit(HtmlForm init) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();            
+		String param = (String)  params.get(ACAO);
+		resetBB();
+		if (param != null && VALOR_ACAO.equals(param)){
+			setPlanos(null);
+		}
+	}
 }

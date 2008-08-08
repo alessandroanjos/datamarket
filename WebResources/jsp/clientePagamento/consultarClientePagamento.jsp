@@ -36,7 +36,7 @@
 				</strong>
 			</div>				
 		</div>
-		<h:form id="frmConsultarClientePagamento">
+		<h:form id="frmConsultarClientePagamento" binding="#{clientePagamentoBB.init}">
 				
 				<div id="content">
 				

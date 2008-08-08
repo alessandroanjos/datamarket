@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
@@ -237,6 +238,8 @@ public class AjusteEstoqueBackBean extends BackBean {
 		this.setId(null);
         this.setCodigoUsuario(null);
         this.setData(null);
+        this.setDataFinal(null);
+        this.setDataInicio(null);
 		this.setIdEstoque(null);
 		this.setIdProduto(null);
 		this.setDescricao(null);
@@ -461,7 +464,18 @@ public class AjusteEstoqueBackBean extends BackBean {
 	public void setAjusteEstoque(AjusteEstoque ajusteEstoque) {
 		this.ajusteEstoque = ajusteEstoque;
 	}
-	
+	/**
+	 * @param init the init to set
+	 */
+	public void setInit(HtmlForm init) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();            
+		String param = (String)  params.get(ACAO);
+		resetBB();
+		if (param != null && VALOR_ACAO.equals(param)){
+			setAjusteEstoques(null);
+		}
+	}
 	/*private static Map<Long, ProdutoEstoqueComp> produtos;
 
 	public static void createProdutos(){        

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -430,5 +431,17 @@ public class FormaRecebimentoBackBean extends BackBean {
 			ctx.addMessage(null, msg);
 		}
 		return arrayFormas;
+	}
+	/**
+	 * @param init the init to set
+	 */
+	public void setInit(HtmlForm init) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();            
+		String param = (String)  params.get(ACAO);
+		resetBB();
+		if (param != null && VALOR_ACAO.equals(param)){
+			setFormasRecebimentos(null);
+		}
 	}
 }

@@ -52,7 +52,7 @@
 				</strong>
 			</div>				
 		</div>	
-		<h:form id="frmConsultarTipoProduto">
+		<h:form id="frmConsultarTipoProduto" binding="#{tipoProdutoBB.init}">
 					
 				<div id="content">
 				

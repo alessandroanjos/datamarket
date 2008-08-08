@@ -36,7 +36,7 @@
 				</strong>
 			</div>				
 		</div>		
-		<h:form id="frmConsultarFornecedor">
+		<h:form id="frmConsultarFornecedor" binding="#{fornecedorBB.init}">
 					
 				<div id="content">
 				
@@ -64,15 +64,14 @@
 										</div>
 									<br />
 									<br />
-										<div>
-											<h:outputLabel styleClass="desc" value="CPF/CNPJ"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="cpfCnpj" maxlength="18"
-												 onkeydown="FormataCNPJ(this,event);" onkeypress="return SoNumero(event);" onblur="validaCNPJ(this)"
-												value="#{fornecedorBB.cpfCnpj}" size="18" required="false">
-												<f:validateLength maximum="18" />											
-											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
-										</div>												
+									<div>
+										<h:outputLabel styleClass="desc" value="CPF/CNPJ*"></h:outputLabel>
+										<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpj" maxlength="18" size="18" value="#{fornecedorBB.cpfCnpj}" required="false"
+										onkeypress="return SoNumero(event);">
+											<f:validateLength minimum="11" maximum="18" />
+										</h:inputText>
+									</div>
+									<h:message for="cpfCnpj" styleClass="msgErro" />											
 										<div>
 											<h:outputLabel styleClass="desc" value="Nome Fornecedor/Razão Social"></h:outputLabel>
 											<h:inputText styleClass="field text" id="nomeFornecedor" maxlength="50" size="50"

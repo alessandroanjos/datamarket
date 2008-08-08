@@ -36,7 +36,7 @@
 				</strong>
 			</div>				
 		</div>
-		<h:form id="frmConsultarMovimentacaoEstoque">
+		<h:form id="frmConsultarMovimentacaoEstoque"  binding="#{movimentacaoEstoqueBB.init}">
 								
 				<div id="content">
 				

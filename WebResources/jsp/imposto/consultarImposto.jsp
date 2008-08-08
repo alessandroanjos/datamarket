@@ -49,7 +49,7 @@
 				</strong>
 			</div>				
 		</div>	
-		<h:form id="frmConsultarImposto">
+		<h:form id="frmConsultarImposto" binding="#{impostoBB.init}">
 				<div id="content">
 						<div id="primarioContentContainer">
 							<fieldset>

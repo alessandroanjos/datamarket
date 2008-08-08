@@ -50,7 +50,7 @@
 				</strong>
 			</div>				
 		</div>
-		<h:form id="frmConsultarUnidade">
+		<h:form id="frmConsultarUnidade" binding="#{unidadeBB.init}">
 			
 				<div id="content">
 				
@@ -119,7 +119,7 @@
 							</div>
 							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{unidadeBB.consultar}" value="Consultar"></h:commandButton>
 								</li>						
 							</ul>

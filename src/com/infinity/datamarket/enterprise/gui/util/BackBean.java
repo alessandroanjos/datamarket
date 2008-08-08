@@ -1,11 +1,17 @@
 package com.infinity.datamarket.enterprise.gui.util;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 import java.util.TimeZone;
+
+import javax.faces.component.html.HtmlForm;
+import javax.faces.event.PhaseEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PhaseListener;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.usuario.Usuario;
@@ -20,9 +26,15 @@ public class BackBean {
 	public static final String ATIVO = "S";
 	public static final String INATIVO   = "N";
 	
+	public static final String ACAO = "acao";
+	
+	public static final String VALOR_ACAO = "init";
+	
 	public static Properties mensagens;
 	
 	public static String codigoUsuarioLogado;
+	
+	public HtmlForm init;
 	
 	Date dataSistema;
 	TimeZone timeZone;
@@ -87,6 +99,17 @@ public class BackBean {
 		BackBean.codigoUsuarioLogado = codigoUsuarioLogado;
 	}
 
+	/**
+	 * @return the init
+	 */
+	public HtmlForm getInit() {
+		return init;
+	}
 
-	
+	/**
+	 * @param init the init to set
+	 */
+	public void setInit(HtmlForm init) {
+		this.init = init;
+	}
 }

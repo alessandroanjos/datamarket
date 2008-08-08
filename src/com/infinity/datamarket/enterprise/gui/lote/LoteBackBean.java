@@ -1,8 +1,10 @@
 package com.infinity.datamarket.enterprise.gui.lote;
 
 import java.util.Collection;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 
 import com.infinity.datamarket.comum.lote.DadoLote;
@@ -94,5 +96,4 @@ public class LoteBackBean extends BackBean{
 		}
 		return "mesma";
 	}
-	
 }

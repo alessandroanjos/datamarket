@@ -37,7 +37,7 @@
 			</div>				
 		</div>		
 
-		<h:form id="frmConsultarFormaRecebimento">
+		<h:form id="frmConsultarFormaRecebimento" binding="#{formaRecebimentoBB.init}">
 				
 				<div id="content">
 				

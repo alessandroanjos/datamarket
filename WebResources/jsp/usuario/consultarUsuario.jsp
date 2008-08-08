@@ -32,7 +32,7 @@
 						</strong>
 					</div>				
 				</div>	
-				<h:form id="frmConsultarUsuario">
+				<h:form id="frmConsultarUsuario" binding="#{usuarioBB.init}">
 					<div id="content">
 						<div id="primarioContentContainerInternas">
 							<fieldset>

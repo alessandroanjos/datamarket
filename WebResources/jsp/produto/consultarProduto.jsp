@@ -50,7 +50,7 @@
 				</strong>
 			</div>				
 		</div>	
-		<h:form id="frmConsultarProduto">
+		<h:form id="frmConsultarProduto" binding="#{produtoBB.init}">
 				<div id="content">
 				
 						<div id="primarioContentContainerInternas" style="width:100%;">

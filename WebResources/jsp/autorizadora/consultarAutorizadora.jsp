@@ -37,7 +37,7 @@
 			</div>				
 		</div>		
 
-		<h:form id="frmConsultarAutorizadora">
+		<h:form id="frmConsultarAutorizadora" binding="#{autorizadoraBB.init}">
 				
 				<div id="content">
 				

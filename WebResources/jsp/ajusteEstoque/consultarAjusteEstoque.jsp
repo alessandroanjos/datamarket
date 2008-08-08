@@ -35,7 +35,7 @@
 				</strong>
 			</div>				
 		</div>
-		<h:form id="frmConsultarAjusteEstoque">
+		<h:form id="frmConsultarAjusteEstoque" binding="#{ajusteEstoqueBB.init}" >
 				
 				<div id="content">
 				

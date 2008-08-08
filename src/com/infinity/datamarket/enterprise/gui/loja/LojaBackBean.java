@@ -5,11 +5,16 @@ package com.infinity.datamarket.enterprise.gui.loja;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PhaseListener;
 import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.estoque.Estoque;
@@ -29,6 +34,10 @@ public class LojaBackBean extends BackBean {
 	String numeroIp;
 	String numeroPorta;
 	String idEstoqueAtual;
+
+	public LojaBackBean() {
+		resetBB();
+	}
 	
 	private Collection lojas;
 	SelectItem[] estoques;
@@ -221,11 +230,6 @@ public class LojaBackBean extends BackBean {
 			ctx.addMessage(null, msg);
 			setExisteRegistros(false);
 		}
-//		this.setId(null);
-//		this.setNome(null);
-//		this.setNumeroIp(null);
-//		this.setNumeroPorta(null);
-//		this.setIdEstoqueAtual("0");
 		return "mesma";
 	}
 	
@@ -287,11 +291,11 @@ public class LojaBackBean extends BackBean {
 		this.setNumeroIp(null);
 		this.setNumeroPorta(null);
 		this.setIdEstoqueAtual("0");
-		//return "mesma";
 	}
 	
+	
 	public String voltarConsulta(){
-//		resetBB();
+		resetBB();
 		consultar();
 		return "voltar";
 	}
@@ -348,4 +352,16 @@ public class LojaBackBean extends BackBean {
 		return arrayEstoques;
 	}
 
+	/**
+	 * @param init the init to set
+	 */
+	public void setInit(HtmlForm init) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();            
+		String param = (String)  params.get(ACAO);
+		resetBB();
+		if (param != null && VALOR_ACAO.equals(param)){
+			setLojas(null);
+		}
+	}
 }
