@@ -191,7 +191,6 @@ public class ImpostoBackBean extends BackBean{
 		this.descricao = null;
 		this.impostoImpressora = null;
 		this.percentual = null;
-		this.impostos = null;
 		return "mesma";
 	}
 	
