@@ -188,7 +188,6 @@ public class UnidadeBackBean extends BackBean{
 		this.descricao = null;
 		this.descricaoCompacta = null;
 		this.abreviacao = null;
-		this.unidades = null;
 		return "mesma";
 	}
 	

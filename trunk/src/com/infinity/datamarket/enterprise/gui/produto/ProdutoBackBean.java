@@ -367,7 +367,7 @@ public class ProdutoBackBean extends BackBean{
 		this.idUnidade = null;
 		this.idImposto = null;
 		this.idGrupo = null;
-		this.produtos = null;
+
 
 		return "mesma";
 	}
