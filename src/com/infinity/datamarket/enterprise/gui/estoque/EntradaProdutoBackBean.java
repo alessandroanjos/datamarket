@@ -199,8 +199,7 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setIpi(this.getIpi().add(produtoEntrada.getIpi()));
 		this.setIcms(this.getIcms().add(produtoEntrada.getIcms()));
 		this.setTotalDescontoItem(getTotalDescontoItem().subtract(produtoEntrada.getDesconto()));
-		resetProdutoBB();
-		return "mesma";
+		return resetProdutoBB();
 	}
 	public String validaNota() {
 		  String msg = "";

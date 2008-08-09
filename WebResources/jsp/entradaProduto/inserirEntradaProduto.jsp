@@ -26,7 +26,9 @@
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>		
 
-		<script type="text/javascript">
+	</head>
+
+	<script language="javascript">
 
 		      window.onload = function(){ inicializar() };
 		
@@ -69,7 +71,7 @@
             }
       </script>
 
-	</head>
+
 	<body>
 	<div id="outer">
 		<div id="topoGeral">
@@ -79,10 +81,7 @@
 				</strong>
 			</div>				
 		</div>	
-
-
 		<h:form id="frmInserirEntradaProdutos" binding="#{entradaProdutoBB.init}">
-
 			<div id="content">
 				<div id="primarioContentContainerInternas">
 					<ul>
@@ -94,8 +93,7 @@
 							</div>
 						</li>
 						<li class="normal">
-					
-							<div>
+				     		<div>
 								<h:outputLabel styleClass="desc" value="N.Fiscal*"></h:outputLabel>
 								<h:inputText styleClass="field text" id="numeroNota"
 									maxlength="15" size="15" rendered="true"
@@ -183,11 +181,11 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
 								<h:inputText styleClass="field text ativo" id="idProduto" onkeypress="return SoNumero(event);"
-									maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9" required="true">
+									maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9" required="false">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
 								</h:inputText>
-								
+								<h:message for="idProduto" styleClass="errors" />
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
@@ -195,6 +193,7 @@
 									maxlength="50" size="50" value="#{entradaProdutoBB.descricao}">
 									<f:validateLength maximum="50" />
 								</h:inputText>
+								<h:message for="idEstoque" styleClass="errors" />
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
@@ -345,9 +344,8 @@
 									</h:commandLink>
 								</h:column>
 							</t:dataTable>
+						
 						</div>
-
-
 
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" immediate="true"
@@ -355,6 +353,8 @@
 							<h:commandButton styleClass="btTxt" id="botaoInserir"
 								action="#{entradaProdutoBB.inserir}" value="Inserir"></h:commandButton>
 						</li>
+
+
 					</ul>
 				</div>
 				<div class="clear"></div>
