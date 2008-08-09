@@ -50,7 +50,7 @@
 				</strong>
 			</div>				
 		</div>	
-		<h:form id="frmInserirProduto">				
+		<h:form id="frmInserirProduto" binding="#{produtoBB.init}">				
 				<div id="content">
 						<div id="primarioContentContainerInternas">
 							<ul>

@@ -39,7 +39,7 @@
 				<div id="content">					
 					<div id="primarioContentContainerInternas">
 <!-- xxxxxxxxxxxxxxx -->					
-		<h:form id="frmInserirClientePagamento">
+		<h:form id="frmInserirClientePagamento" binding="#{clientePagamentoBB.init}">
 <!-- xxxxxxxxxxxxxxx -->					
 						<ul>
 							<li class="normal">
@@ -109,7 +109,7 @@
 						</ul>						
 						<ul>
 							<li class="buttons">
-								<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+								<h:commandButton styleClass="btTxt" id="botaoLimpar"  action="#{clientePagamentoBB.resetBB}" value="Limpar"></h:commandButton>
 								<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{clientePagamentoBB.inserir}" value="Inserir"></h:commandButton>
 							</li>
 						</ul>

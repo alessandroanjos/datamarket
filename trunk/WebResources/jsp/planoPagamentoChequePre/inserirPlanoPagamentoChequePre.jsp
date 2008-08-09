@@ -63,7 +63,7 @@
 						</div>
 					</li>
 				</ul>
-				<h:form id="frmInserirPlanoPagamentoChequePre" onsubmit="javascript:getId('frmInserirPlanoPagamentoChequePre:abaCorrente').value = strAbaCorrente;">
+				<h:form id="frmInserirPlanoPagamentoChequePre" binding="#{planoPagamentoBB.init}" onsubmit="javascript:getId('frmInserirPlanoPagamentoChequePre:abaCorrente').value = strAbaCorrente;">
 					<h:inputHidden id="abaCorrente" value="#{planoPagamentoChequePreBB.abaCorrente}"></h:inputHidden>
 					<div id="tabDiv0">
 						<ul>								

@@ -89,7 +89,7 @@
 					</div>
 					<div id="primarioContentContainerInternas">
 <!-- xxxxxxxxxxxxxxx -->
-		<h:form id="frmInserirFornecedor">
+		<h:form id="frmInserirFornecedor" binding="#{fornecedorBB.init}">
 <!-- xxxxxxxxxxxxxxx -->
 						<div id="tabDiv0">
 							<ul>

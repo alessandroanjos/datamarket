@@ -14,19 +14,19 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 		
-		<meta http-equiv="pragma" content="no-cache" />
-		<meta http-equiv="cache-control" content="no-cache" />
-		<meta http-equiv="expires" content="0" />
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3" />
-		<meta http-equiv="description" content="This is my page" />
-
+		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
+		<meta http-equiv="cache-control" content="no-cache"/>
+		<meta http-equiv="expires" content="0"/>
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
+		<meta http-equiv="description" content="This is my page"/>
+		
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
-		<t:stylesheet path="/css/form.css"></t:stylesheet>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
+		<t:stylesheet path="/css/form.css"></t:stylesheet>		
 
-		<script language="javascript">
+		<script type="text/javascript">
 
 		      window.onload = function(){ inicializar() };
 		
@@ -63,7 +63,8 @@
              function setAtributo(idProduto,descricao) {
                              var form = document.forms[formId];   
                              form[formId+":idProduto"].value=idProduto; 
-                             form[formId+":descricao"].value=descricao;  
+                             form[formId+":descricao"].value=descricao;
+                             form[formId+":quantidade"].focus();  
                              winId.close();
             }
       </script>
@@ -80,10 +81,10 @@
 		</div>	
 
 
-		<h:form id="frmInserirEntradaProdutos">
+		<h:form id="frmInserirEntradaProdutos" binding="#{entradaProdutoBB.init}">
 
 			<div id="content">
-				<div id="primarioContentContainerInternas" >
+				<div id="primarioContentContainerInternas">
 					<ul>
 						<li class="normal">
 							<div>
@@ -210,10 +211,10 @@
 								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="quantidade" maxlength="7"
 									size="7" value="#{entradaProdutoBB.quantidade}" dir="rtl"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:quantidade',7,3,event);"
+									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:quantidade',7,2,event);"
 									required="false">
 									<f:validateLength maximum="7" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
+									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 								<h:message for="quantidade" styleClass="msgErro" />
@@ -275,10 +276,10 @@
 								onmousedown="showPopUp(this,'frmInserirEntradaProdutos','find')"
 								onclick="return false" value="Consultar Produto "></h:commandButton>
 						</li>
-<li class="normal">
+
 						<div class="listagem">
 							<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
-								var="produtoEntrada" rowClasses="rowA,rowB" width="80%" renderedIfEmpty="false">
+								var="produtoEntrada" rowClasses="rowA,rowB" width="95%">
 								<h:column>
 									<f:facet name="header">
 										<h:outputText value="Produto" />
@@ -295,7 +296,7 @@
 									<f:facet name="header">
 										<h:outputText value="Estoque" />
 									</f:facet>
-									<h:outputText value="#{produtoEntrada.estoque.estoqueVenda}" />
+									<h:outputText value="#{produtoEntrada.estoque.descricao}" />
 								</h:column>
 								<h:column>
 									<f:facet name="header">
@@ -305,7 +306,7 @@
 								</h:column>
 								<h:column>
 									<f:facet name="header">
-										<h:outputText value="Preço Unit." />
+										<h:outputText value="P.Unit." />
 									</f:facet>
 									<h:outputText value="#{produtoEntrada.precoUnitario}" />
 								</h:column>
@@ -346,7 +347,7 @@
 							</t:dataTable>
 						</div>
 
-</li>
+
 
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" immediate="true"

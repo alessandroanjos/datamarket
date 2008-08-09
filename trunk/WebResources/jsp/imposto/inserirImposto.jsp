@@ -47,7 +47,7 @@
 				</strong>
 			</div>				
 		</div>	
-		<h:form id="frmInserirImposto">
+		<h:form id="frmInserirImposto" binding="#{impostoBB.init}">
 				<div id="content">
 						<div id="primarioContentContainerInternas">
 							<ul>
