@@ -41,7 +41,7 @@ public class CadastroEntradaProduto extends Cadastro{
 			EstoqueProdutoPK pk = new EstoqueProdutoPK();
 			pk.setEstoque(pep.getEstoque());
 			pk.setProduto(pep.getPk().getProduto());
-			
+			pep.getPk().setId(entradaProduto.getId());
 			//consulta de estoque produto
 			try {
 				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pk);

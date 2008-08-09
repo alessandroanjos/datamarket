@@ -26,6 +26,8 @@
 				
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
+	</head>
+		
 		<script type="text/javascript">
 		
 		window.onload = function(){ inicializar() };
@@ -38,7 +40,7 @@
 		}
 		
 		</script>
-	</head>
+	
 	<body>
 	<div id="outer">
 		<div id="topoGeral">
@@ -67,18 +69,18 @@
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
-												<t:inputText readonly="false" maxlength="10" size="10"
+												<t:inputText maxlength="10" size="10"
 													styleClass="field text data" forceId="dataInicio"
 													value="#{entradaProdutoBB.dataInicio}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 													id="dataInicio" />
-													<f:convertDateTime timeZone="GMT-3"/>
+													
 											</div>	
 											<div>	
 												<h:outputLabel styleClass="desc" value=" Data Final "></h:outputLabel>
-												<t:inputText readonly="false" styleClass="field text data"
+												<t:inputText styleClass="field text data"
 													maxlength="10" size="10" forceId="dataFinal" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 													value="#{entradaProdutoBB.dataFinal}" id="dataFinal">
-														<f:convertDateTime timeZone="GMT-3"/>
+														
 													</t:inputText>
 													
 											</div>								
