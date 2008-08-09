@@ -46,6 +46,7 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 		while(it.hasNext()){
 		
 			ProdutoMovimentacaoEstoque pme = (ProdutoMovimentacaoEstoque) it.next();
+			pme.getPk().setId(movimentacaoEstoque.getId());
 			ProdutoMovimentacaoEstoquePK pk = pme.getPk();
 			pk.setId(movimentacaoEstoque.getId());
 			getRepositorio().insert(pme);
