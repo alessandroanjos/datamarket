@@ -4,16 +4,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.Fachada;
@@ -106,6 +103,8 @@ public class AjusteEstoqueBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);
+			setAjusteEstoques(null);
+			setExisteRegistros(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -132,6 +131,8 @@ public class AjusteEstoqueBackBean extends BackBean {
 					FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);
+			setAjusteEstoques(null);
+			setExisteRegistros(false);
 		} else if (col != null) {
 
 			if (col.size() == 1) {
@@ -145,6 +146,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 				return "proxima";
 			} else {
 				this.setAjusteEstoques(col);
+				return "mesma";
 			}
 			
 		}
@@ -172,7 +174,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 		
 		
 		try {
-			if (idProduto.equals("")) {
+			if (this.idProduto.equals("")) {
 				FacesContext ctx = FacesContext.getCurrentInstance();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Informe o Produto!", "");
@@ -180,6 +182,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 				return "mesma";
 			}
 			
+			recuperaQuantidadEstoque(idProduto);
 			
 			AjusteEstoque ajusteEstoque = new AjusteEstoque();
 			
@@ -464,6 +467,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 	public void setAjusteEstoque(AjusteEstoque ajusteEstoque) {
 		this.ajusteEstoque = ajusteEstoque;
 	}
+	
 	/**
 	 * @param init the init to set
 	 */
@@ -476,56 +480,48 @@ public class AjusteEstoqueBackBean extends BackBean {
 			setAjusteEstoques(null);
 		}
 	}
-	/*private static Map<Long, ProdutoEstoqueComp> produtos;
 
-	public static void createProdutos(){        
-        if (produtos == null || produtos.isEmpty()){
-        	produtos = new HashMap<Long, ProdutoEstoqueComp>();
-        }
 
-        ProdutoEstoqueComp produto = null;
-        produto = createProdutoInfo(1, "Descricao 1",1);
-        produtos.put(Long.valueOf(produto.getId()), produto);
-        produto = createProdutoInfo(2, "Descricao 2",2);
-        produtos.put(Long.valueOf(produto.getId()), produto);
-     
-    }
-
-    private static ProdutoEstoqueComp createProdutoInfo(long id, String descricao,long qtd){
-
-       ProdutoEstoqueComp produtocomp = new ProdutoEstoqueComp();
-       produtocomp.setId(id);
-       produtocomp.setDescricao(descricao);
-       produtocomp.setQtd(qtd);
-       
-       return produtocomp;
-    }
-    public static ProdutoEstoqueComp getProdutoInfo(Long id){
-        return produtos.get(id);
-    }
-    ProdutoEstoqueComp produtoComp;
-    public void buscaProdutos(ActionEvent actionEvent){
-    	if (produtos == null) {
-    		createProdutos();
-    	}
-        //String strId = (String)getDescricao().getSubmittedValue();
-        long id = 0L;
-        try{
-        	id = Long.parseLong(strId);
-        	produtoComp = getProdutoInfo(id);
-            if (produtoComp != null){
-                setComponentsValueToNull();
+	public void recuperaQuantidadEstoque(String id){
+		// TODO Auto-generated method stub
+		try {
+			   
+            String valor = id;
+            if(valor!=null && !valor.equals("0")){
+            	EstoqueProdutoPK pk = new EstoqueProdutoPK();
+            	Produto produto = getFachada().consultarProdutoPorPK(new Long(valor));
+            	Estoque estoque = null;
+            	if (produto != null) {
+	            	
+            		pk.setProduto(produto);
+	            	
+	            	for (Iterator iter = estoques.iterator(); iter.hasNext();) {
+	        			Estoque element = (Estoque) iter.next();
+	        			if (element.getPk().getId().longValue()==new Long(this.idEstoque).longValue()) {
+	        				estoque = (Estoque)element;
+	        				estoque.getPk().getLoja().setIdEstoque(estoque.getPk().getId());
+	        			}
+	        			
+	        		}
+	    			pk.setEstoque(estoque);
+	            	EstoqueProduto estoqueProduto = getFachada().consultarEstoqueProduto(pk);
+	    			
+	    			if(estoqueProduto != null){
+	    				this.setQuantidadeAntes(estoqueProduto.getQuantidade());
+	    			} else {
+	    				this.setQuantidadeAntes(BigDecimal.ZERO);
+	    			}
+            	}	
             }else{
-                // Error Message.
+            	this.setQuantidadeAntes(BigDecimal.ZERO);
             }
-        }catch(Exception exception){
-            exception.printStackTrace();
-        }
-    }
-    private void setComponentsValueToNull() {
-    	produtoComp.setId(0L);
-    	produtoComp.setDescricao(null);
-    	produtoComp.setQtd(0L);
-    }*/
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }

@@ -35,8 +35,8 @@
 					</div>				
 				</div>
 				<div id="content">
-					<div id="primarioContentContainerInternas">
-						<h:form id="frmInserirLoja">
+					<div id="primarioContentContainerInternas" >
+						<h:form id="frmInserirLoja"  binding="#{lojaBB.init}" >
 							<ul>
 								<li class="normal">
 									<div>

@@ -33,7 +33,7 @@
 				</strong>
 			</div>				
 		</div>
-		<h:form id="frmInserirFormaRecebimento">
+		<h:form id="frmInserirFormaRecebimento" binding="#{formaRecebimentoBB.init}">
 					
 				<div id="content">
 						<div id="primarioContentContainerInternas">

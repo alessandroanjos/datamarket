@@ -82,7 +82,7 @@
 	
 			<div id="content">
 				<div id="primarioContentContainerInternas" >
-<h:form id="frmInserirMovimentacaoEstoque">
+<h:form id="frmInserirMovimentacaoEstoque" binding="#{movimentacaoEstoqueBB.init}">
 <h:inputHidden id="codigoUsuario" value="#{loginBB.usuarioLogado.id}">
 </h:inputHidden>
 

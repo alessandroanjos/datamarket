@@ -92,7 +92,7 @@
 						<div class="clear"></div>
 					</div>
 					<div id="primarioContentContainerInternas">				
-						<h:form id="frmInserirCliente">
+						<h:form id="frmInserirCliente" binding="#{clienteBB.init}">
 							<div id="tabDiv0">
 								<ul>
 									<li class="normal">

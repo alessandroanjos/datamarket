@@ -68,7 +68,7 @@
 						<div class="clear"></div>
 					</div>
 					<div id="primarioContentContainerInternas">
-						<h:form id="frmInserirUsuario">
+						<h:form id="frmInserirUsuario" binding="#{usuarioBB.init}">
 							<div id="tabDiv0">						
 								<ul>
   								<li class="normal">

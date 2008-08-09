@@ -86,11 +86,11 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setIdProduto(null);
 		this.setDescricao(null);
 		this.setIdEstoque(null);
-		this.setDescontoProduto(null);
-		this.setQuantidade(null);
-		this.setIcmsProduto(null);
-		this.setIpiProduto(null);
-		this.setPrecoUnitario(null);
+		this.setDescontoProduto(BigDecimal.ZERO);
+		this.setQuantidade(BigDecimal.ZERO);
+		this.setIcmsProduto(BigDecimal.ZERO);
+		this.setIpiProduto(BigDecimal.ZERO);
+		this.setPrecoUnitario(BigDecimal.ZERO);
 		return "mesma";
 	}
 	public String excluirProdutoEntrada() {
@@ -115,23 +115,35 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
 	public String inserirProdutoEntrada() { 
 
-		/*try {
-			ArrayList<EntradaProduto> entradas = (ArrayList<EntradaProduto>) Fachada.getInstancia().consultarTodosEntradaProdutos();
-			int x = 0;
-			for (Iterator iter = entradas.iterator(); iter.hasNext();) {
-				EntradaProduto element = (EntradaProduto) iter.next();
-				x++;
-			}
-			this.id = Integer.toString(x);
-		} catch (AppException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
+
 		if (arrayProduto==null){
 			arrayProduto = new HashSet<ProdutoEntradaProduto>();
 			inicializaValoreNota();
 		}	
-        
+		
+		String msgValidacao =  validaNota();
+		
+		if (!"".equals(msgValidacao)) {
+			
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					msgValidacao, "");
+			ctx.addMessage(null, msg);
+			return "mesma";
+			
+		}
+		
+		msgValidacao =  validaProduto();
+		
+		if (!"".equals(msgValidacao)) {
+			
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					msgValidacao, "");
+			ctx.addMessage(null, msg);
+			return "mesma";
+			
+		}
 		ProdutoEntradaProduto produtoEntrada = new ProdutoEntradaProduto();
 		ProdutoEntradaProdutoPK produtoEntradaPK = new ProdutoEntradaProdutoPK();
 		//produtoEntradaPK.setId(new Long(this.id));
@@ -190,76 +202,70 @@ public class EntradaProdutoBackBean extends BackBean {
 		resetProdutoBB();
 		return "mesma";
 	}
-	
+	public String validaNota() {
+		  String msg = "";
+		if  (this.numeroNota == null || "".equals(this.numeroNota)) {
+			msg = 	"Informe numero da nota!";
+		} else if (this.dataEmissaoNota == null || "".equals(this.dataEmissaoNota)) {
+			msg = 	"Informe data de emissao da nota!";
+		} else if (this.dataEntrada == null || "".equals(this.dataEntrada)) {
+			msg = 	"Informe data de entrada da nota!";
+		} else if (this.frete == null || "".equals(this.frete)) {
+			msg = 	"Informe frete da nota!";
+		} else if (this.icms == null || "".equals(this.icms)) {
+			msg = 	"Informe icms da nota!";
+		} else if (this.ipi == null || "".equals(this.ipi)) {
+			msg = 	"Informe ipi da nota!";
+		} else if (this.desconto == null || "".equals(this.desconto)) {
+			msg = 	"Informe desconto da nota!";
+		} else if (this.valor == null || "".equals(this.valor)) {
+			msg = 	"Informe valor da nota!";
+		} else if (this.idFornecedor == null || "".equals(this.idFornecedor)) {
+			msg = 	"Informe fornecedor da nota!";
+		} else if (this.arrayProduto == null ) {
+			msg = 	"Informe pelo menos um produto na nota!";
+		}
+		
+		return msg;	  
+	}
+	public String validaProduto() {
+		  String msg = "";
+		if  (this.idProduto == null || "".equals(this.idProduto)) {
+			msg = 	"Informe produto!";
+		} else if (this.quantidade == null || "".equals(this.quantidade) || this.quantidade.equals(BigDecimal.ZERO)) {
+			msg = 	"Informe quantidade do produto deve ser informada!";
+		} else if (this.precoUnitario == null || "".equals(this.precoUnitario) || this.precoUnitario.equals(BigDecimal.ZERO)) {
+			msg = 	"Informe preço unitario do produto deve ser informado!";
+		} else if (this.icmsProduto == null || "".equals(this.icmsProduto)) {
+			msg = 	"Informe icms do produto deve ser informado ou informe zero!";
+		} else if (this.descontoProduto == null || "".equals(this.descontoProduto)) {
+			msg = 	"Informe desconto do produto deve ser informado ou informe zero!";			
+		} else if (this.ipiProduto == null || "".equals(this.ipiProduto)) {
+			msg = 	"Informe ipi do produto deve ser informado ou informe zero!";
+		}
+		
+		return msg;	  
+	}	
 	public String inserir() {
+		
 		EntradaProduto entradaProduto = new EntradaProduto();
-		//EntradaProdutoPK pk = new EntradaProdutoPK();
+
+		String msgValidacao = validaNota();
 		
-		//pk.setId(new Long(this.id));
-		/*if (this.id==null) {
+		if (!"".equals(msgValidacao)) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Código Invalido!", "");
+					msgValidacao, "");
 			ctx.addMessage(null, msg);
-		}*/
-		// entradaProduto.setId(new Long(this.id));
-		
-		if (this.numeroNota==null) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Informe numero da nota!", "");
-			ctx.addMessage(null, msg);
+			return "mesma";
 		}
 		entradaProduto.setNumeroNota(this.numeroNota);
-		
-		if (this.dataEmissaoNota==null) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Informe data de emissão da nota!", "");
-			ctx.addMessage(null, msg);
-		}
 		entradaProduto.setDataEmissaoNota(this.dataEmissaoNota);
-		
-		if (this.dataEntrada==null) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Informe data de entrada da nota!", "");
-			ctx.addMessage(null, msg);
-		}
 		entradaProduto.setDataEntrada(this.dataEntrada);
-
-		if (this.frete==null) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Informe frete da nota!", "");
-			ctx.addMessage(null, msg);
-		}
 		entradaProduto.setFrete(this.frete);
-		
-		if (this.icms==null) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Informe icms da nota!", "");
-			ctx.addMessage(null, msg);
-		}
 		entradaProduto.setIcms(this.icms);
-	
-		if (this.ipi==null) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Informe ipi da nota!", "");
-			ctx.addMessage(null, msg);
-		}
 		entradaProduto.setIpi(this.ipi);
-		
 		entradaProduto.setDesconto(this.desconto);
-		
-		if (this.valor==null) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Informe valor da nota!", "");
-			ctx.addMessage(null, msg);
-		}
 		entradaProduto.setValor(this.valor);
 		entradaProduto.setIdFornecedor(this.idFornecedor);
 
@@ -276,11 +282,6 @@ public class EntradaProdutoBackBean extends BackBean {
 		entradaProduto.setFornecedor(fornecedor);
 		entradaProduto.setProdutosEntrada(arrayProduto);
 		entradaProduto.setDesconto(this.getDesconto().add(this.getTotalDescontoItem()));
-		/*Loja loja = new Loja();
-		loja.setId(new Long(this.idLoja));
-		pk.setLoja(loja);
-		
-		estoque.setPk(pk);*/
 
 		try {
 			getFachada().inserirEntradaProduto(entradaProduto);
@@ -502,32 +503,22 @@ public class EntradaProdutoBackBean extends BackBean {
 		SelectItem[] arrayFornecedores = null;
 		try {
 			List<Fornecedor> fornecedores = carregarFornecedores();
-			System.out.println("fornecedores--> "+fornecedores);
-			if(fornecedores != null){
-				System.out.println("fornecedores.size--> "+fornecedores.size());
+			arrayFornecedores = new SelectItem[fornecedores.size()];
+			int i = 0;
+			for (Fornecedor fornecedorTmp : fornecedores) {
+				String nomeFornecedor = "";
+				if (fornecedorTmp.getNomeFantasia() != null)
+					nomeFornecedor = fornecedorTmp.getNomeFantasia();
+				else	
+					nomeFornecedor = fornecedorTmp.getNomeFornecedor();
+				SelectItem item = new SelectItem(fornecedorTmp.getId().toString(),
+						nomeFornecedor);
+				arrayFornecedores[i++] = item;
 			}
-			if(fornecedores != null && fornecedores.size() > 0){
-				arrayFornecedores = new SelectItem[fornecedores.size()];
-				int i = 0;
-				for (Fornecedor fornecedorTmp : fornecedores) {
-					String nomeFornecedor = "";
-					if (fornecedorTmp.getNomeFantasia() != null)
-						nomeFornecedor = fornecedorTmp.getNomeFantasia();
-					else	
-						nomeFornecedor = fornecedorTmp.getNomeFornecedor();
-					SelectItem item = new SelectItem(fornecedorTmp.getId().toString(),
-							nomeFornecedor);
-					arrayFornecedores[i++] = item;
-				}
 
-				if (this.getIdFornecedor() == null || this.getIdFornecedor().equals("")
-						|| this.getIdFornecedor().equals("0")) {
-					this.setIdFornecedor((String) arrayFornecedores[0].getValue());
-				}
-			}else{
-				arrayFornecedores = new SelectItem[1];
-				
-				arrayFornecedores[0] = new SelectItem("0", "Sem fornecedores Cadastrados.");
+			if (this.getIdFornecedor() == null || this.getIdFornecedor().equals("")
+					|| this.getIdFornecedor().equals("0")) {
+				this.setIdFornecedor((String) arrayFornecedores[0].getValue());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -536,7 +527,9 @@ public class EntradaProdutoBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		System.out.println("arrayFornecedores--> "+arrayFornecedores);
+		if (this.idFornecedor== null) {
+			this.idFornecedor = arrayFornecedores[0].getValue().toString();
+		}
 		return arrayFornecedores;
 	}
 	
@@ -558,18 +551,12 @@ public class EntradaProdutoBackBean extends BackBean {
 		SelectItem[] arrayEstoques = null;
 		try {
 			List<Estoque> estoques = carregarEstoques();
-			if(estoques != null){
-				arrayEstoques = new SelectItem[estoques.size()];
-				int i = 0;
-				for (Estoque estoqueTmp : estoques) { 
-					SelectItem item = new SelectItem(estoqueTmp.getPk().getId().toString(),
-							estoqueTmp.getEstoqueVenda()==null?estoqueTmp.getDescricao():estoqueTmp.getEstoqueVenda());
-					arrayEstoques[i++] = item;
-				}
-			}else{
-				arrayEstoques = new SelectItem[1];
-				
-				arrayEstoques[0] = new SelectItem("0", "Sem estoques Cadastrados.");;
+			arrayEstoques = new SelectItem[estoques.size()];
+			int i = 0;
+			for (Estoque estoqueTmp : estoques) { 
+				SelectItem item = new SelectItem(estoqueTmp.getPk().getId().toString(),
+						estoqueTmp.getEstoqueVenda()==null?estoqueTmp.getDescricao():estoqueTmp.getEstoqueVenda());
+				arrayEstoques[i++] = item;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -588,14 +575,16 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setDataEntrada(null);
 		this.setDataInicio(null);
 		this.setDataFinal(null);
-		this.setFrete(null);
-		this.setIcms(null);
-		this.setIpi(null);
-		this.setDesconto(null);
-		this.setValor(null);
+		this.setFrete(BigDecimal.ZERO);
+		this.setIcms(BigDecimal.ZERO);
+		this.setIpi(BigDecimal.ZERO);
+		this.setDesconto(BigDecimal.ZERO);
+		this.setValor(BigDecimal.ZERO);
 		this.setFornecedor(null);
 		this.setArrayProduto(null);
+		this.setTipoEntrada(TIPO_NOTA);
 		resetProdutoBB();
+		inicializaValoreNota();
 		return "mesma";
 	}
     
@@ -959,8 +948,8 @@ public class EntradaProdutoBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
 		if (param != null && VALOR_ACAO.equals(param)){
+			resetBB();
 			setEntradasProduto(null);
 		}
 	}

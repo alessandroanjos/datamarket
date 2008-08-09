@@ -364,4 +364,5 @@ public class LojaBackBean extends BackBean {
 			setLojas(null);
 		}
 	}
+
 }

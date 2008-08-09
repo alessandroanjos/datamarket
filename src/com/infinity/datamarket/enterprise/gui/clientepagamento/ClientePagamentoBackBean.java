@@ -157,8 +157,10 @@ public class ClientePagamentoBackBean extends BackBean {
 		this.valorPagamento = valorPagamento;
 	}
 
-	public void resetBB(){		
-		this.setId(null);		
+	public void resetBB(){
+		this.setId(null);	
+		this.setCliente(null);
+		this.setClientes(null);
 		this.setValorPagamento(null);
 		this.setDataPagamento(null);
 		this.setFormaRecebimento(null);		

@@ -269,18 +269,22 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	public String validaProduto(Produto produto,BigDecimal quantidade) {
 
 		EstoqueProduto estoqueProduto = buscaEstoqueProduto(produto);
-		BigDecimal qtdEstoque = estoqueProduto.getQuantidade();
-		BigDecimal qtdMovimento = quantidade;
-		
-		if (qtdMovimento.doubleValue()<=0) {
-			return ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO.replaceFirst("%1", produto.getDescricaoCompleta());
-		} else if (qtdMovimento.doubleValue()>qtdEstoque.doubleValue()) {
-			String msgValida = ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL.replaceAll("%1", produto.getDescricaoCompleta());
-			msgValida = msgValida.replaceFirst("%2", qtdMovimento.toString());
-			msgValida = msgValida.replaceFirst("%3", qtdEstoque.toString());
-			return msgValida;
+		if (estoqueProduto!=null) {
+			BigDecimal qtdEstoque = estoqueProduto.getQuantidade();
+			BigDecimal qtdMovimento = quantidade;
+			
+			if (qtdMovimento.doubleValue()<=0) {
+				return ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO.replaceFirst("%1", produto.getDescricaoCompleta());
+			} else if (qtdMovimento.doubleValue()>qtdEstoque.doubleValue()) {
+				String msgValida = ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL.replaceAll("%1", produto.getDescricaoCompleta());
+				msgValida = msgValida.replaceFirst("%2", qtdMovimento.toString());
+				msgValida = msgValida.replaceFirst("%3", qtdEstoque.toString());
+				return msgValida;
+			}
+			return "";
+		} else {
+			return "Produto não encontrado no estoque de saida!";
 		}
-		return "";
 	}
 	
     public EstoqueProduto buscaEstoqueProduto(Produto produto) {
@@ -904,8 +908,8 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
 		if (param != null && VALOR_ACAO.equals(param)){
+			resetBB();
 			setMovimentacaoEstoque(null);
 		}
 	}
