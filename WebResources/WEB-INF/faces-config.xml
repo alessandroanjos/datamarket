@@ -2555,16 +2555,6 @@
 		    <null-value/>
 		</managed-property>
 		<managed-property>
-		    <property-name>idCliente</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>clientes</property-name>
-		    <property-class>javax.faces.model.SelectItem</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
 		    <property-name>idVendedor</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
@@ -2685,28 +2675,58 @@
 		    <value>0.00</value>
 		</managed-property>		
 		<managed-property>
-		    <property-name>codigoBanco</property-name>
+		    <property-name>codigoBancoChqAvt</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
 		<managed-property>
-		    <property-name>codigoAgencia</property-name>
+		    <property-name>codigoAgenciaChqAvt</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
 		<managed-property>
-		    <property-name>numeroConta</property-name>
+		    <property-name>numeroContaChqAvt</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
 		<managed-property>
-		    <property-name>numeroCheque</property-name>
+		    <property-name>numeroChequeChqAvt</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
 		<managed-property>
-		    <property-name>cmc7</property-name>
+		    <property-name>cmc7ChqAvt</property-name>
 		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>codigoBancoChqPrz</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>codigoAgenciaChqPrz</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>numeroContaChqPrz</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>numeroChequeChqPrz</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cmc7ChqPrz</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataVencimentoChqPrz</property-name>
+		    <property-class>java.util.Date</property-class>
 		    <null-value/>
 		</managed-property>
 		<managed-property>
@@ -2730,9 +2750,14 @@
 		    <null-value/>
 		</managed-property>
 		<managed-property>
+		    <property-name>autorizadoras</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
 		    <property-name>quantidadeParcelasCartao</property-name>
 		    <property-class>java.lang.Integer</property-class>
-		    <null-value/>
+		    <value>1</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>cpfCnpjCliente</property-name>
@@ -2756,6 +2781,136 @@
 		</managed-property>
 		<managed-property>
 		    <property-name>abaCorrente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idTipoPessoa</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>listaTipoPessoa</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valorTotalRecebido</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <value>0.00</value>
+		</managed-property>	
+		<managed-property>
+		    <property-name>cpfCnpjClienteChqAvt</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cpfCnpjClienteChqPrz</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataCadastro</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idTipoPessoaCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cpfCnpjClienteCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>nomeClienteCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>razaoSocialCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>inscricaoEstadualCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>inscricaoMunicipalCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>logradouroCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>numeroCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>complementoCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>bairroCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cidadeCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>estadoCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cepCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>foneResidencialCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>foneCelularCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>pessoaContatoCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>emailCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>foneContatoCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>referenciaComercialCadastro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>abaCadastroClienteCorrente</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
