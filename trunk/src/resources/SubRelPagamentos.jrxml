@@ -148,6 +148,20 @@
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{valorBruto}]]></textFieldExpression>
 				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="-1"
+						width="197"
+						height="13"
+						key="textField-8"/>
+					<box></box>
+					<textElement textAlignment="Left">
+						<font fontName="Courier New"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{descricaoForma}]]></textFieldExpression>
+						<anchorNameExpression><![CDATA[$F{descricaoPlano} + ""]]></anchorNameExpression>
+				</textField>
 			</band>
 		</detail>
 		<columnFooter>
