@@ -15,12 +15,15 @@ public class EventoItemPagamento extends EventoTransacao{
 	private String formaImpressora;
 	private int codigoForma;
 	private int codigoPlano;
+
+	
+	private String descricaoPlano;
+
 	private String descricaoForma;
 	
 	public String getDescricaoForma() {
 		return descricaoForma;
 	}
-
 	public void setDescricaoForma(String descricaoForma) {
 		this.descricaoForma = descricaoForma;
 	}
@@ -86,5 +89,13 @@ public class EventoItemPagamento extends EventoTransacao{
 	public void setValorDesconto(BigDecimal valorDesconto) {
 		this.valorDesconto = valorDesconto;
 	}
+	public String getDescricaoPlano() {
+		return descricaoPlano;
+	}
+	public void setDescricaoPlano(String descricaoPlano) {
+		this.descricaoPlano = descricaoPlano;
+	}
+
+	
 
 }
