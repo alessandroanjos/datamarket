@@ -232,7 +232,7 @@ public class UsuarioBackBean extends BackBean {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!"+'\n'+
-					"O código gerado foi : "+id, "");
+					"O código gerado foi : "+usuario.getId(), "");
 			ctx.addMessage(null, msg);
 			resetBB();
 		} catch (ObjectExistentException e) {
