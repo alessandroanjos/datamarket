@@ -102,6 +102,8 @@ public class MicProcessaPlano extends Mic{
 			eventos.add(eventoItemPagamento);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamento);
 		}
+		eventoItemPagamento.setForma(plano.getForma().getDescricao());
+		eventoItemPagamento.setPlano(plano.getDescricao());
 		
 		gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_VENDA_ATUAL, transVenda);
 
