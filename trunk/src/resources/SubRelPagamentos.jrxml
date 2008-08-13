@@ -25,8 +25,8 @@
 
 
 	<field name="valorBruto" class="java.math.BigDecimal"/>
-	<field name="forma" class="java.lang.String"/>
-	<field name="plano" class="java.lang.String"/>
+	<field name="descricaoForma" class="java.lang.String"/>
+	<field name="descricaoPlano" class="java.lang.String"/>
 
 		<background>
 			<band height="1"  isSplitAllowed="true" >
@@ -123,19 +123,6 @@
 			<band height="13"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="0"
-						y="0"
-						width="190"
-						height="13"
-						key="textField-2"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Courier New"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{forma}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
 						x="208"
 						y="-1"
 						width="197"
@@ -145,8 +132,8 @@
 					<textElement textAlignment="Left">
 						<font fontName="Courier New"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{plano}]]></textFieldExpression>
-						<anchorNameExpression><![CDATA[$F{plano} + ""]]></anchorNameExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{descricaoPlano}]]></textFieldExpression>
+						<anchorNameExpression><![CDATA[$F{descricaoPlano} + ""]]></anchorNameExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
