@@ -5,16 +5,12 @@ package com.infinity.datamarket.enterprise.gui.loja;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PhaseListener;
 import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.estoque.Estoque;
