@@ -15,6 +15,8 @@ public class TransacaoVenda extends Transacao{
 	public static final String ATIVO = "A";
 	public static final String CANCELADO = "C";
 
+	private String vendedor;
+	private String operador;
 	
 	private String codigoUsuarioVendedor;
 	private String codigoUsuarioOperador;
@@ -152,6 +154,22 @@ public class TransacaoVenda extends Transacao{
 
 	public void setFormaTroco(FormaRecebimento formaTroco) {
 		this.formaTroco = formaTroco;
+	}
+
+	public String getOperador() {
+		return operador;
+	}
+
+	public void setOperador(String operador) {
+		this.operador = operador;
+	}
+
+	public String getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(String vendedor) {
+		this.vendedor = vendedor;
 	}
 
 }
