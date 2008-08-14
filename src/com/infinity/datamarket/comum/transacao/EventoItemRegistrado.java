@@ -17,8 +17,11 @@ public class EventoItemRegistrado extends EventoTransacao{
 	private BigDecimal preco;
 	private String situacao = ATIVO;
 	private ProdutoItemRegistrado produtoItemRegistrado;
-	//atributo que indica se o produto do evento item registrado foi incluído ("I"), alterado ("A") ou excluído ("E")
+	//atributo que indica se o produto do evento item registrado foi incluído ("I"), nao alterado ("N") ou excluído ("E")
 	private String acao;
+	public static final String ITEM_NAO_ALTERADO = "N";
+	public static final String ITEM_INSERIDO = "I";
+	public static final String ITEM_EXCLUIDO = "E";
 
 	public EventoItemRegistrado(){
 
