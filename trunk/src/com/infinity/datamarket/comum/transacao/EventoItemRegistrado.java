@@ -17,6 +17,8 @@ public class EventoItemRegistrado extends EventoTransacao{
 	private BigDecimal preco;
 	private String situacao = ATIVO;
 	private ProdutoItemRegistrado produtoItemRegistrado;
+	//atributo que indica se o produto do evento item registrado foi incluído ("I"), alterado ("A") ou excluído ("E")
+	private String acao;
 
 	public EventoItemRegistrado(){
 
@@ -61,5 +63,13 @@ public class EventoItemRegistrado extends EventoTransacao{
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
+	}
+
+	public String getAcao() {
+		return acao;
+	}
+
+	public void setAcao(String acao) {
+		this.acao = acao;
 	}
 }
