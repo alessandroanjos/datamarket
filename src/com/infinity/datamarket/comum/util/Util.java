@@ -1,5 +1,9 @@
 package com.infinity.datamarket.comum.util;
 
+import java.util.ArrayList;
+
+import javax.faces.model.SelectItem;
+
 public class Util {
 
 	public static boolean validacpf(String strCpf){ // formato XXX.XXX.XXX-XX   
@@ -103,5 +107,45 @@ public class Util {
         }else return false;              
     }   
 
+	static String[][] listaUf = new String[][]{{"	AC	","Acre	"}	,
+	{	"	AL	","Alagoas	"	}	,
+	{	"	AP	","Amapá	"	}	,
+	{	"	AM	","Amazonas"	}	,
+	{	"	BA	","Bahia	"	}	,
+	{	"	CE	","Ceará	"	}	,
+	{	"	DF	","Distrito Federal	"	}	,
+	{	"	ES	","Espírito Santo	"	}	,
+	{	"	GO	","Goiás	"	}	,
+	{	"	MA	","Maranhão	"	}	,
+	{	"	MT	","Mato Grosso	"	}	,
+	{	"	MS	","Mato Grosso do Sul"	}	,
+	{	"	MG	","Minas Gerais	"	}	,
+	{	"	PA	","Pará	"	}	,
+	{	"	PB	","Paraíba	"	}	,
+	{	"	PR	","Paraná	"	}	,
+	{	"	PE	","Pernambuco"	}	,
+	{	"	PI	","Piauí"	}	,
+	{	"	RJ	","Rio de Janeiro	"	}	,
+	{	"	RN	","Rio Grande do Norte	"	}	,
+	{	"	RS	","Rio Grande do Sul	"	}	,
+	{	"	RO	","Rondônia	"	}	,
+	{	"	RR	","Roraima	"	}	,
+	{	"	SC	","Santa Catarina	"	}	,
+	{	"	SP	","São Paulo"	}	,
+	{	"	SE	","Sergipe	"	}	,
+	{	"	TO	","Tocantins"	}};
+	
+	public  static String[][] getListaUf() {
+		return listaUf;
+	}
+	public  static SelectItem[] getListaSelectItemUf() {
+		SelectItem[] listaUf = new SelectItem[Util.getListaUf().length+1];
+		listaUf[0] = new SelectItem("","");
+		for (int i = 1; i < listaUf.length; i++) {
+			listaUf[i] = new SelectItem((String)Util.getListaUf()[i-1][0],
+										(String)Util.getListaUf()[i-1][1]);
+		}
+		return listaUf;
+	}
 	
 }

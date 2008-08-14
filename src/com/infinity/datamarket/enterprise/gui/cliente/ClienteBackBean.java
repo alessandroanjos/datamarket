@@ -16,7 +16,9 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
+import com.sun.jimi.core.encoder.jpg.util;
 
 public class ClienteBackBean extends BackBean {
 	
@@ -54,7 +56,9 @@ public class ClienteBackBean extends BackBean {
 	Collection clientes;
 	
 	SelectItem[] listaTipoPessoa;
-
+	
+	SelectItem[] listaUf;
+	
 	public String getIdTipoPessoa() {
 		return idTipoPessoa;
 	}
@@ -558,10 +562,17 @@ public class ClienteBackBean extends BackBean {
 		return lista;
 	}
 
+	public void setListaUf(SelectItem[] listaUf) {
+		this.listaUf = listaUf;
+	}
+	
+	public SelectItem[] getListaUf() {
+		return Util.getListaSelectItemUf();
+	}
+
 	public void setListaTipoPessoa(SelectItem[] listaTipoPessoa) {
 		this.listaTipoPessoa = listaTipoPessoa;
 	}
-
 	
 	public void validarCampos(String tipoPessoa) throws AppException{
 		if(tipoPessoa.equals(Fornecedor.PESSOA_FISICA)){
