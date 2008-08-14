@@ -18,6 +18,7 @@ public class Funcionalidade extends Persistente{
 	private String url;
 	private String largura;
 	private String altura;
+	
 	private Set perfis;
 	
 	private Collection funcionalidades;
@@ -187,6 +188,5 @@ public class Funcionalidade extends Persistente{
 	public void setLargura(String largura) {
 		this.largura = largura;
 	}
-	
-	
+
 }
