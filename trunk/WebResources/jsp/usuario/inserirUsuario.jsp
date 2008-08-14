@@ -91,7 +91,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Senha Numérica*"></h:outputLabel>
 											<h:inputSecret styleClass="field text" id="senha" redisplay="true" maxlength="20" size="25"
-												value="#{usuarioBB.senha}" required="true">
+												value="#{usuarioBB.senha}" required="true" onkeypress="return SoNumero(event);">
 												<f:validateLength maximum="20" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputSecret>

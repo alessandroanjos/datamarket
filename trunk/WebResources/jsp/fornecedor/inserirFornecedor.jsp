@@ -212,7 +212,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Número"></h:outputLabel>
-										<h:inputText styleClass="field text" id="numero" maxlength="10" size="10" value="#{fornecedorBB.numero}" required="false">
+										<h:inputText styleClass="field text" id="numero" maxlength="10" size="10" value="#{fornecedorBB.numero}" required="false" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="10" />
 										</h:inputText>
 										<h:message for="numero" styleClass="msgErro" />									
@@ -244,14 +244,16 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Estado"></h:outputLabel>
-										<h:inputText styleClass="field text" id="estado" maxlength="30" size="30" value="#{fornecedorBB.estado}" required="false">
-											<f:validateLength maximum="30" />
-										</h:inputText>
+										<h:selectOneMenu id="estado" styleClass="field text"
+											value="#{fornecedorBB.estado}">
+											<f:selectItems id="listaUfSelectItems"
+												value="#{fornecedorBB.listaUf}" />
+										</h:selectOneMenu>
 										<h:message for="estado" styleClass="msgErro" />									
-									</div>								
+									</div>							
 									<div>
 										<h:outputLabel styleClass="desc" value="CEP"></h:outputLabel>
-										<h:inputText styleClass="field text" id="cep" maxlength="10" size="10" value="#{fornecedorBB.cep}" required="false">
+										<h:inputText styleClass="field text" id="cep" maxlength="10" size="10" value="#{fornecedorBB.cep}" required="false" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="10" />
 										</h:inputText>
 										<h:message for="cep" styleClass="msgErro" />									
@@ -260,21 +262,21 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Residencial"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneResidencial" maxlength="13" size="13" value="#{fornecedorBB.foneResidencial}" required="false">
+										<h:inputText styleClass="field text" id="foneResidencial" maxlength="13" size="13" value="#{fornecedorBB.foneResidencial}" required="false" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="13" />
 										</h:inputText>
 										<h:message for="foneResidencial" styleClass="msgErro" />
 									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Comercial"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneComercial" maxlength="13" size="13" value="#{fornecedorBB.foneComercial}" required="false">
+										<h:inputText styleClass="field text" id="foneComercial" maxlength="13" size="13" value="#{fornecedorBB.foneComercial}" required="false" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="13" />
 										</h:inputText>
 										<h:message for="foneComercial" styleClass="msgErro" />									
 									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Celular"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneCelular" maxlength="13" size="13" value="#{fornecedorBB.foneCelular}" required="false">
+										<h:inputText styleClass="field text" id="foneCelular" maxlength="13" size="13" value="#{fornecedorBB.foneCelular}" required="false" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="13" />
 										</h:inputText>
 										<h:message for="foneCelular" styleClass="msgErro" />									
@@ -290,7 +292,7 @@
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Contato"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneContato" maxlength="13" size="13" value="#{fornecedorBB.foneContato}" required="false">
+										<h:inputText styleClass="field text" id="foneContato" maxlength="13" size="13" value="#{fornecedorBB.foneContato}" required="false" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="13" />
 										</h:inputText>
 										<h:message for="foneContato" styleClass="msgErro" />									

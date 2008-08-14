@@ -14,6 +14,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class FornecedorBackBean extends BackBean {
@@ -47,6 +48,8 @@ public class FornecedorBackBean extends BackBean {
 	Date dataCadastro = new Date(System.currentTimeMillis());
 	
 	SelectItem[] listaTipoPessoa;
+	
+	SelectItem[] listaUf;
 	
 	Collection fornecedores;
 
@@ -523,7 +526,13 @@ public class FornecedorBackBean extends BackBean {
 	public void setListaTipoPessoa(SelectItem[] listaTipoPessoa) {
 		this.listaTipoPessoa = listaTipoPessoa;
 	}
-
+	public void setListaUf(SelectItem[] listaUf) {
+		this.listaUf = listaUf;
+	}
+	
+	public SelectItem[] getListaUf() {
+		return Util.getListaSelectItemUf();
+	}
 	public String getTipoPessoa() {
 		return tipoPessoa;
 	}

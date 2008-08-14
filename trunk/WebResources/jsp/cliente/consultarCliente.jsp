@@ -24,6 +24,43 @@
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
+	<script type="text/javascript">
+		
+		window.onload = function(){ inicializar() };
+		
+		function inicializar() {
+			$("input.tipopessoa").each(function(i){
+				$(this).click(function() {mostraCampos(this.value)});
+			});
+			if ($('[name=frmConsultarCliente:tipoPessoa]:checked').val() != "undefined") {
+				mostraCampos($('[name=frmConsultarCliente:tipoPessoa]:checked').val());
+			}
+		}
+		
+		function mostraCampos(str) {
+			//frmInserirCliente:comissao
+			var flag = new String(str);
+			if (flag.toUpperCase() == "F") {
+			   
+				$("input.tipocpfcnpj").each(function(i){
+					$(this).unbind('blur');
+					$(this).unbind('keydown');
+					$(this).bind('blur',function(event){validaCPF(this);});
+					$(this).bind('keydown',function(event){FormataCPF(this,event);});
+					getId(this.id).maxLength = "14";
+				});
+			} else {
+				$("input.tipocpfcnpj").each(function(i){
+					$(this).unbind('blur');
+					$(this).unbind('keydown');
+					$(this).bind('blur',function(event){validaCNPJ(this);});
+					$(this).bind('keydown',function(event){FormataCNPJ(this,event);});
+					getId(this.id).maxLength = "18";
+				});
+			}
+		}
+		
+		</script>
 		</head>
 		<body>
 			<div id="outer">
@@ -64,8 +101,8 @@
 											<h:outputLabel styleClass="desc" value="CPF/CNPJ"></h:outputLabel>
 											<h:inputText styleClass="field text ativo" id="cpfCnpj" maxlength="18"
 												value="#{clienteBB.cpfCnpj}" size="18" required="false"
-												 onkeydown="FormataCNPJ(this,event);" onkeypress="return SoNumero(event);" onblur="validaCNPJ(this)">
-												<f:validateLength maximum="18" />											
+												onkeypress="return SoNumero(event);">
+												<f:validateLength minimum="11" maximum="18" />
 											</h:inputText>
 											<h:message for="id" styleClass="msgErro" />
 										</div>												
