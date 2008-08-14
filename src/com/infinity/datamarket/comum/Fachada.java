@@ -480,8 +480,49 @@ public class Fachada {
 			}
 		}
 	}
-
 	
+	public void atualizarTransacaoES(Transacao trans) throws AppException{
+		try{
+			if (trans instanceof TransacaoVenda){
+				TransacaoVenda transVenda = (TransacaoVenda) trans;
+				if (transVenda.getCliente() != null){
+					try{
+						RepositoryManagerHibernateUtil.beginTrasaction();
+						getCadastroTransacao().atualizarCliente(transVenda.getCliente());
+						RepositoryManagerHibernateUtil.commitTransation();
+					}catch(Exception e){					
+						RepositoryManagerHibernateUtil.beginTrasaction();
+						getCadastroTransacao().inserirCliente(transVenda.getCliente());
+						RepositoryManagerHibernateUtil.commitTransation();
+					}
+				}
+			}
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroTransacao().atualizarES(trans);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
 	public Transacao consultarTransacaoPorPK(TransacaoPK pk) throws AppException{
 		Transacao trans = null;
 		try{
