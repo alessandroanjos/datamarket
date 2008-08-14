@@ -41,7 +41,7 @@
 
         <property name="altura" type="java.lang.String" update="true" insert="true">
             <column name="ALTURA" length="4" not-null="false"/>
-        </property>      
+        </property>
         
          <set name="perfis" table="PERFIL_FUNCIONALIDADE" cascade="all" lazy="false" inverse="true">
              <key column="ID_FUNCIONALIDADE" />
