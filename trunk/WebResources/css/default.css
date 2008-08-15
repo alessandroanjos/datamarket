@@ -438,13 +438,13 @@ margin-left: -19em;
 
 /* TAB MENU inicio */
 #tabMenu {
-	width:100%;
-	font-size: 0.8em;
-	font-weight:bold;
-	line-height:normal;
-	clear:both;
-	border-bottom:2px solid #cccccc;
-	margin-top:20px;
+	width:100% !important;
+	font-size: 0.8em !important;
+	font-weight:bold !important;
+	line-height:normal !important;
+	clear:both !important;
+	border-bottom:2px solid #cccccc !important;
+	margin-top:20px !important;
 }
 #tabMenu ul
 {
