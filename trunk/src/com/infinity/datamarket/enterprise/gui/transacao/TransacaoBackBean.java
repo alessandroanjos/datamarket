@@ -5,7 +5,9 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import com.infinity.datamarket.autorizador.AutorizadorServerRemote;
+import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.componente.Componente;
+import com.infinity.datamarket.comum.fornecedor.Fornecedor;
+import com.infinity.datamarket.comum.pagamento.Autorizadora;
 import com.infinity.datamarket.comum.pagamento.ConstantesFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
@@ -28,6 +34,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
+import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.transacao.ConstantesEventoTransacao;
 import com.infinity.datamarket.comum.transacao.ConstantesTransacao;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
@@ -36,6 +43,7 @@ import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoProprio;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCheque;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoChequePredatado;
 import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
+import com.infinity.datamarket.comum.transacao.EventoTransacao;
 import com.infinity.datamarket.comum.transacao.EventoTransacaoPK;
 import com.infinity.datamarket.comum.transacao.ParcelaEventoItemPagamentoChequePredatado;
 import com.infinity.datamarket.comum.transacao.ParcelaEventoItemPagamentoChequePredatadoPK;
@@ -50,9 +58,14 @@ import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConjuntoEventoTransacao;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
+import com.infinity.datamarket.pdv.util.ServerConfig;
+import com.infinity.datamarket.pdv.util.ServiceLocator;
 
 public class TransacaoBackBean extends BackBean {
-	private static int sequencialItem = 0;
+
+	private Hashtable<String, DadosAutorizacaoCartaoProprio> listaAutorizacaoCartaoProprio = new Hashtable<String, DadosAutorizacaoCartaoProprio>(); 
+	private static int sequencialItemTransacao = 0;
+	private static int sequencialItemPagamento = 0;
 	private static int numeroParcelaChequePreDatado = 0;
 	// aba principal
 	private TransacaoPK id;
@@ -71,21 +84,29 @@ public class TransacaoBackBean extends BackBean {
 	private BigDecimal descontoItem;
 	private BigDecimal valorItem;
 	private List<EventoItemRegistrado> itensTransacao = new ArrayList<EventoItemRegistrado>();
+	private List<EventoItemRegistrado> itensTransacaoModificados = new ArrayList<EventoItemRegistrado>();
 	private List<EventoItemPagamento> itensPagamento = new ArrayList<EventoItemPagamento>();
 	
-	
+	private Date dataVencimento;
 	// aba pagamento
 	private BigDecimal valorFormaPagamento;
 	private String idFormaPagamento;
 	//cheques
 	//a vista
-	private String codigoBanco;
-	private String codigoAgencia;
-	private String numeroConta;
-	private String numeroCheque;
-	private String cmc7;
+	private String codigoBancoChqAvt;
+	private String codigoAgenciaChqAvt;
+	private String numeroContaChqAvt;
+	private String numeroChequeChqAvt;
+	private String cmc7ChqAvt;
+	private String cpfCnpjClienteChqAvt;		
 	//a prazo
-	private Date dataVencimento;
+	private String codigoBancoChqPrz;
+	private String codigoAgenciaChqPrz;
+	private String numeroContaChqPrz;
+	private String numeroChequeChqPrz;
+	private String cmc7ChqPrz;
+	private String cpfCnpjClienteChqPrz;		
+	private Date dataVencimentoChqPrz;
 	private Set parcelasChequePreDatado;
 	private BigDecimal valorEntradaChequePre;
 	private boolean parcelaEntradaChequePre;
@@ -96,6 +117,8 @@ public class TransacaoBackBean extends BackBean {
 	private Integer quantidadeParcelasCartao;
 	// cartao proprio
 	private String cpfCnpjCliente;		
+	private String idTipoPessoa = new String(Fornecedor.PESSOA_FISICA);
+	private SelectItem[] listaTipoPessoa;
 	// rodape
 	private BigDecimal valorSubTotalCupom; //soma de todos os itens
 	private BigDecimal valorTotalCupom; //valorSubTotalCupom - descontoCupom - valorTroco
@@ -106,7 +129,7 @@ public class TransacaoBackBean extends BackBean {
 	private BigDecimal valorComissaoVendedor;
 	private Date dataInicial;
 	private Date dataFinal;
-	private String idCliente;
+	private BigDecimal valorTotalRecebido;
 	
 	private SelectItem[] lojas;
 	private SelectItem[] componentes;
@@ -114,11 +137,33 @@ public class TransacaoBackBean extends BackBean {
 	private SelectItem[] formasTroco;
 	private SelectItem[] usuariosOperadores;
 	private SelectItem[] usuariosVendedores;
-	private SelectItem[] clientes;	
+	private SelectItem[] autorizadoras;	
 	
 	private Collection transacoes;
 	
 	String abaCorrente;
+	
+	private String idTipoPessoaCadastro;
+	private String cpfCnpjClienteCadastro;
+	private String nomeClienteCadastro;
+	private String razaoSocialCadastro;
+	private String inscricaoEstadualCadastro;
+	private String inscricaoMunicipalCadastro;
+	private String logradouroCadastro;
+	private String numeroCadastro;
+	private String complementoCadastro;
+	private String bairroCadastro;
+	private String cidadeCadastro;
+	private String estadoCadastro;
+	private String cepCadastro;
+	private String foneResidencialCadastro;
+	private String foneCelularCadastro;
+	private String pessoaContatoCadastro;
+	private String emailCadastro;
+	private String foneContatoCadastro;
+	private String referenciaComercialCadastro;
+	private Date dataCadastro; 
+	String abaCadastroClienteCorrente;
 
 	public String getAbaCorrente() {
 		return abaCorrente;
@@ -470,57 +515,7 @@ public class TransacaoBackBean extends BackBean {
 	public void setDataInicial(Date dataInicial) {
 		this.dataInicial = dataInicial;
 	}
-	
-	private List<Cliente> carregarClientes() {		
-		List<Cliente> clientes = null;
-		try {
-			clientes = (ArrayList<Cliente>)getFachada().consultarTodosClientes();
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
-		}
-		return clientes;
-	}
-	
-	public SelectItem[] getClientes() {
-		SelectItem[] arrayClientes = null;
-		try {
-			List<Cliente> clientes = carregarClientes();
-			arrayClientes = new SelectItem[clientes.size()+1];
-			int i = 0;
-			arrayClientes[i++] = new SelectItem("0","");
-			for(Cliente clientesTmp : clientes){
-				SelectItem item = new SelectItem(clientesTmp.getId().toString(), 
-						clientesTmp.getTipoPessoa().equals(Cliente.PESSOA_FISICA)?clientesTmp.getNomeCliente():clientesTmp.getNomeFantasia());
-				arrayClientes[i++] = item;
-			}
-			if(this.getIdCliente() == null || (this.getIdCliente() != null && this.getIdCliente().equals("0"))){
-				this.setIdCliente((String)arrayClientes[0].getValue());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
-		}
-		return arrayClientes;
-	}
-	public void setClientes(SelectItem[] clientes) {
-		this.clientes = clientes;
-	}
-
-	public String getIdCliente() {
-		return idCliente;
-	}
-
-	public void setIdCliente(String idCliente) {
-		this.idCliente = idCliente;
-	}
-	
+				
 	public String getCodigoProduto() {
 		return codigoProduto;
 	}
@@ -584,31 +579,7 @@ public class TransacaoBackBean extends BackBean {
 	public void setValorTotalCupom(BigDecimal valorTotalCupom) {
 		this.valorTotalCupom = valorTotalCupom;
 	}
-
-	public String getCmc7() {
-		return cmc7;
-	}
-
-	public void setCmc7(String cmc7) {
-		this.cmc7 = cmc7;
-	}
-
-	public String getCodigoAgencia() {
-		return codigoAgencia;
-	}
-
-	public void setCodigoAgencia(String codigoAgencia) {
-		this.codigoAgencia = codigoAgencia;
-	}
-
-	public String getCodigoBanco() {
-		return codigoBanco;
-	}
-
-	public void setCodigoBanco(String codigoBanco) {
-		this.codigoBanco = codigoBanco;
-	}
-
+	
 	public String getCpfCnpjCliente() {
 		return cpfCnpjCliente;
 	}
@@ -632,23 +603,7 @@ public class TransacaoBackBean extends BackBean {
 	public void setNumeroCartao(String numeroCartao) {
 		this.numeroCartao = numeroCartao;
 	}
-
-	public String getNumeroCheque() {
-		return numeroCheque;
-	}
-
-	public void setNumeroCheque(String numeroCheque) {
-		this.numeroCheque = numeroCheque;
-	}
-
-	public String getNumeroConta() {
-		return numeroConta;
-	}
-
-	public void setNumeroConta(String numeroConta) {
-		this.numeroConta = numeroConta;
-	}
-
+	
 	public Date getDataTransacao() {
 		return dataTransacao;
 	}
@@ -740,8 +695,6 @@ public class TransacaoBackBean extends BackBean {
 		this.setLojas(null);
 		this.setIdComponente(null);
 		this.setComponentes(null);
-		this.setIdCliente(null);
-		this.setClientes(null);
 		this.setIdVendedor(null);
 		this.setIdOperador(null);
 		this.setUsuariosVendedores(null);
@@ -759,12 +712,17 @@ public class TransacaoBackBean extends BackBean {
 		this.setQuantidade(new BigDecimal("0.000"));
 		this.setDescontoItem(new BigDecimal("0.00"));
 		this.setValorFormaPagamento(new BigDecimal("0.00"));
-		this.setCodigoBanco(null);
-		this.setCodigoAgencia(null);
-		this.setNumeroConta(null);
-		this.setNumeroCheque(null);
-		this.setNumeroCheque(null);
-		this.setCmc7(null);
+		this.setCodigoBancoChqAvt(null);
+		this.setCodigoAgenciaChqAvt(null);
+		this.setNumeroContaChqAvt(null);
+		this.setNumeroChequeChqAvt(null);
+		this.setCmc7ChqAvt(null);
+		this.setCodigoBancoChqPrz(null);
+		this.setCodigoAgenciaChqPrz(null);
+		this.setNumeroContaChqPrz(null);
+		this.setNumeroChequeChqPrz(null);
+		this.setCmc7ChqPrz(null);
+		this.setDataVencimentoChqPrz(null);
 		this.setDataVencimento(null);
 		this.setNumeroCartao(null);
 		this.setCodigoAutorizadora(null);
@@ -772,6 +730,7 @@ public class TransacaoBackBean extends BackBean {
 		this.setQuantidadeParcelasCartao(null);
 		this.setCpfCnpjCliente(null);
 		this.setItensTransacao(null);
+		this.setItensTransacaoModificados(null);
 		this.setItensPagamento(null);
 		this.setValorSubTotalCupom(new BigDecimal("0.00"));
 		this.setDescontoCupom(new BigDecimal("0.00"));
@@ -815,6 +774,7 @@ public class TransacaoBackBean extends BackBean {
 					}
 					
 					filter.addPropertyInterval("pk.dataTransacao", this.getDataInicial(), IntervalObject.MAIOR_IGUAL);
+					this.getDataFinal().setDate(this.getDataFinal().getDate()+1);
 					filter.addPropertyInterval("pk.dataTransacao", this.getDataFinal(), IntervalObject.MENOR_IGUAL);
 				}
 				
@@ -876,27 +836,31 @@ public class TransacaoBackBean extends BackBean {
 		this.setDataTransacao(transacao.getPk().getDataTransacao());
 		this.setNsuTransacao(transacao.getPk().getNumeroTransacao());
 		this.setNumeroCupom(transacao.getNumeroCupom());
-//		if(transacao.getCpfCnpjCliente() != null){
-//			PropertyFilter filter = new PropertyFilter();
-//			filter.setTheClass(Cliente.class);
-//			filter.addProperty("cpfCnpj", transacao.getCpfCnpjCliente());
-//			Cliente cliente = null;
-//			try {
-//				cliente = (Cliente)getFachada().consultarCliente(filter);
-//			} catch (AppException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			if(cliente != null){
-//				this.setIdCliente(cliente.getId().toString());	
-//			}else{
-//				this.setIdCliente("0");
-//			}			
-//		}
+
 		this.setIdOperador(transacao.getCodigoUsuarioOperador());
 		this.setIdVendedor(transacao.getCodigoUsuarioVendedor());
 
-//		this.setItensTransacao(transacao.getEventosTransacao());#JONAS#
+		if(this.getItensTransacao() == null){
+			this.setItensTransacao(new ArrayList<EventoItemRegistrado>());
+		}
+		if(this.getItensPagamento() == null){
+			this.setItensPagamento(new ArrayList<EventoItemPagamento>());
+		}
+		
+		Iterator it = transacao.getEventosTransacao().iterator();
+		while(it.hasNext()){
+			EventoTransacao evento = (EventoTransacao)it.next();
+			if(evento != null){
+				if(evento instanceof EventoItemRegistrado){
+					EventoItemRegistrado ev = (EventoItemRegistrado)evento;
+					ev.setAcao(EventoItemRegistrado.ITEM_NAO_ALTERADO);
+					this.getItensTransacao().add(ev);
+				}else if(evento instanceof EventoItemPagamento){
+					this.getItensPagamento().add((EventoItemPagamento)evento);
+				}
+			}
+		}
+
 		this.setValorSubTotalCupom(transacao.getValorCupom().add(transacao.getValorTroco()));
 		this.setDescontoCupom(transacao.getDescontoCupom());
 		this.setValorTroco(transacao.getValorTroco());
@@ -913,22 +877,27 @@ public class TransacaoBackBean extends BackBean {
 	public void validaCabecalhoTransacao() throws Exception{
 		if(this.getIdLoja() == null || (this.getIdLoja() != null && this.getIdLoja().equals("0"))){
 			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			throw new Exception("É necessário informar a Loja.");
 		}
 		if(this.getIdComponente() == null || (this.getIdComponente() != null && this.getIdComponente().equals("0"))){
 			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			throw new Exception("É necessário informar o Componente.");
 		}
 		if(this.getDataTransacao() == null || (this.getDataTransacao() != null && this.getDataTransacao().equals("0"))){
 			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			throw new Exception("É necessário informar a Data da Transação");
 		}
 		if(this.getNsuTransacao() == null || (this.getNsuTransacao() != null && this.getNsuTransacao().equals(""))){
 			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			throw new Exception("É necessário informar o Número da Transação.");
 		}
 		if(this.getNumeroCupom() == null || (this.getNumeroCupom() != null && this.getNumeroCupom().equals(""))){
 			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			throw new Exception("É necessário informar o Número do Cupom.");
 		}
 	}
@@ -937,24 +906,29 @@ public class TransacaoBackBean extends BackBean {
 		Produto produto = null;
 		if(this.getCodigoProduto() == null || (this.getCodigoProduto() != null && this.getCodigoProduto().equals("0"))){
 			this.setAbaCorrente("tabMenuDiv1");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			throw new Exception("É necessário informar um produto.");
 		}else{
 			produto = getFachada().consultarProdutoPorPK(new Long(this.getCodigoProduto()));
 			if(produto == null){
 				this.setAbaCorrente("tabMenuDiv1");
+				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 				throw new Exception("O Produto informado é inválido!");
 			}
 		}
 		if(this.getPrecoVenda() == null || (this.getPrecoVenda() != null && this.getPrecoVenda().compareTo(BigDecimal.ZERO.setScale(2)) <= 0)){
 			this.setAbaCorrente("tabMenuDiv1");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			throw new Exception("O Preço unitário do produto informado é inválido!");
 		}
 		if(this.getQuantidade() == null || (this.getQuantidade() != null && this.getQuantidade().compareTo(BigDecimal.ZERO.setScale(3)) <= 0)){
 			this.setAbaCorrente("tabMenuDiv1");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			throw new Exception("A Quantidade informada é inválida!");
 		}
 		if(this.getDescontoItem() != null && (this.getDescontoItem().compareTo(BigDecimal.ZERO.setScale(2)) < 0 && this.getDescontoItem().compareTo(new BigDecimal("99.99")) > 0)){
 			this.setAbaCorrente("tabMenuDiv1");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			throw new Exception("O Desconto informado é inválido!");
 		}
 		return produto;
@@ -974,7 +948,7 @@ public class TransacaoBackBean extends BackBean {
 			produtoItemRegistrado.getPk().setComponente(Integer.parseInt(this.getIdComponente()));
 			produtoItemRegistrado.getPk().setNumeroTransacao(this.getNsuTransacao().intValue());
 			produtoItemRegistrado.getPk().setDataTransacao(this.getDataTransacao());
-			produtoItemRegistrado.getPk().setNumeroEvento(++sequencialItem);
+			produtoItemRegistrado.getPk().setNumeroEvento(++sequencialItemTransacao);
 			
 			if(produto == null){
 				produto = getFachada().consultarProdutoPorPK(new Long(this.getCodigoProduto()));	
@@ -999,6 +973,12 @@ public class TransacaoBackBean extends BackBean {
 											 valorTotalItem, 
 											 produtoItemRegistrado);
 			
+//			if(this.getOperacao().equals("I")){
+			eventoItemRegistrado.setAcao("I");
+//			}else if(this.getOperacao().equals("A")){
+//				eventoItemRegistrado.setAcao("A");
+//			}
+			
 			if(this.getItensTransacao() == null){
 				this.setItensTransacao(new ArrayList<EventoItemRegistrado>());
 			}
@@ -1009,6 +989,26 @@ public class TransacaoBackBean extends BackBean {
 			
 			this.setValorTotalCupom(this.getValorSubTotalCupom().subtract(this.getDescontoCupom().subtract(this.getValorTroco())));
 			
+//			if(this.getValorTotalRecebido() != null && !this.getValorTotalRecebido().equals(BigDecimal.ZERO) && this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
+//				this.setValorTroco(this.getValorTotalRecebido().
+//						subtract(this.getValorSubTotalCupom().
+//								subtract((this.getDescontoCupom() != null && !this.getDescontoCupom().equals(BigDecimal.ZERO) ? this.getDescontoCupom(): BigDecimal.ZERO))));
+//			}
+//			if(this.getValorTotalRecebido() != null && !this.getValorTotalRecebido().equals(BigDecimal.ZERO) && this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
+//				this.setValorTroco(this.getValorTotalRecebido().
+//						subtract(this.getValorSubTotalCupom().
+//								subtract((this.getDescontoCupom() != null && !this.getDescontoCupom().equals(BigDecimal.ZERO) ? this.getDescontoCupom(): BigDecimal.ZERO))));
+//				this.setValorTotalCupom(this.getValorTotalRecebido().
+//						subtract(this.getValorSubTotalCupom().
+//								subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO).
+//										subtract(this.getValorTroco()))));
+//			}else{
+//				this.setValorTroco(new BigDecimal("0.00"));
+//				this.setValorTotalCupom(this.getValorSubTotalCupom().
+//								subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO).
+//										subtract(this.getValorTroco())));
+//			}
+			atualizarTotais();
 			this.setCodigoProduto("");
 			this.setDescricaoProduto("");
 			this.setPrecoVenda(new BigDecimal("0.00"));
@@ -1016,11 +1016,33 @@ public class TransacaoBackBean extends BackBean {
 			this.setDescontoItem(new BigDecimal("0.00"));
 			this.setValorItem(new BigDecimal("0.00"));
 			this.setAbaCorrente("tabMenuDiv1");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		return "mesma";
+	}
+	
+	public void atualizarTotais(){
+		BigDecimal valorLiquido = BigDecimal.ZERO;
+		BigDecimal valorTroco = BigDecimal.ZERO;
+//		calculo do valor total do cupom
+		if(this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
+			valorLiquido = this.getValorTotalRecebido().subtract(this.getValorSubTotalCupom());
+		}else{
+			valorLiquido = this.getValorSubTotalCupom();
+		}
+		if(this.getDescontoCupom().compareTo(BigDecimal.ZERO) > 0){
+		   valorLiquido = valorLiquido.subtract(this.getDescontoCupom());
+		}
+		this.setValorTotalCupom(valorLiquido);
+		
+		//calcula o valor do troco
+		if(this.getValorTotalRecebido().compareTo(valorLiquido) > 0){
+			valorTroco = this.getValorTotalRecebido().subtract(valorLiquido);
+		}
+		this.setValorTroco(valorTroco);
 	}
 
 	public String removerItemTransacao(){
@@ -1028,29 +1050,107 @@ public class TransacaoBackBean extends BackBean {
 		Map params = context.getExternalContext().getRequestParameterMap();  
 		String param = (String)  params.get("idExcluirItemRegistrado");
 
+		if(this.getItensTransacaoModificados() == null){
+			this.setItensTransacaoModificados(new ArrayList<EventoItemRegistrado>());
+		}
+		
 		Iterator i = this.getItensTransacao().iterator();
 		while(i.hasNext()){
 			EventoItemRegistrado itemTransacao = (EventoItemRegistrado) i.next();
 			if (itemTransacao.getPk().getNumeroEvento() == Integer.parseInt(param)){
 				this.getItensTransacao().remove(itemTransacao);
 				this.setValorSubTotalCupom(this.getValorSubTotalCupom().subtract(itemTransacao.getPreco()));
+				this.setValorTotalCupom(this.getValorSubTotalCupom().subtract(this.getDescontoCupom().subtract(this.getValorTroco())));
+				//incluir na lista de itens alterados/excluidos
+				itemTransacao.setAcao("E");
+				this.getItensTransacaoModificados().add(itemTransacao);
 				break;
 			}
 		}
+//		if(this.getValorTotalRecebido() != null && !this.getValorTotalRecebido().equals(BigDecimal.ZERO) && this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
+//			this.setValorTroco(this.getValorTotalRecebido().
+//					subtract(this.getValorSubTotalCupom().
+//							subtract((this.getDescontoCupom() != null && !this.getDescontoCupom().equals(BigDecimal.ZERO) ? this.getDescontoCupom(): BigDecimal.ZERO))));
+//			this.setValorTotalCupom(this.getValorTotalRecebido().
+//					subtract(this.getValorSubTotalCupom().
+//							subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO).
+//									subtract(this.getValorTroco()))));
+//		}else{
+//			this.setValorTroco(new BigDecimal("0.00"));
+//			this.setValorTotalCupom(this.getValorSubTotalCupom().
+//							subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO).
+//									subtract(this.getValorTroco())));
+//		}
+		atualizarTotais();
 		this.setAbaCorrente("tabMenuDiv1");
+		this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		return "mesma";
+	}
+	
+	public void validarInclusaoItemPagamento() throws AppException{
+		if(this.getValorFormaPagamento() == null || (this.getValorFormaPagamento() != null && this.getValorFormaPagamento().equals(""))){
+			throw new AppException("É necessário informar o Valor do Pagamento.");
+		}							
+		if(this.getIdFormaPagamento().equals(ConstantesFormaRecebimento.CHEQUE.toString())){
+			if(this.getCodigoBancoChqAvt() == null && this.getCodigoAgenciaChqAvt() == null && this.getNumeroContaChqAvt() == null
+					&& this.getNumeroChequeChqAvt() == null && this.getCpfCnpjClienteChqAvt() == null && this.getCmc7ChqAvt() == null){
+				throw new AppException("É necessário informar os dados do Cheque.");	
+			}else{
+				if(this.getCmc7ChqAvt() == null){
+					if(this.getCodigoBancoChqAvt() == null){
+						throw new AppException("É necessário informar o Código do Banco.");
+					}
+					if(this.getCodigoAgenciaChqAvt() == null){
+						throw new AppException("É necessário informar o Código da Agência.");
+					}
+					if(this.getNumeroContaChqAvt() == null){
+						throw new AppException("É necessário informar o Número da Conta.");
+					}
+					if(this.getNumeroChequeChqAvt() == null){
+						throw new AppException("É necessário informar o Número do Cheque.");
+					}
+					if(this.getCpfCnpjClienteChqAvt() == null){
+						throw new AppException("É necessário informar o CPF/CNPJ do Cliente.");
+					}
+				}					
+			}
+		}else if(this.getIdFormaPagamento().equals(ConstantesFormaRecebimento.CHEQUE_PRE.toString())){
+			if(this.getParcelasChequePreDatado() == null || (this.getParcelasChequePreDatado() != null && this.getParcelasChequePreDatado().size() <= 0)){
+				throw new AppException("É necessário informar as Parcelas do Plano.");
+			}
+		}else if(this.getIdFormaPagamento().equals(ConstantesFormaRecebimento.CARTAO_OFF.toString())){
+			if(this.getNumeroCartao() == null || (this.getNumeroCartao() != null && this.getNumeroCartao().equals(""))){
+				throw new AppException("É necessário informar o Número do Cartão.");
+			}
+			if(this.getCodigoAutorizadora() == null || (this.getCodigoAutorizadora() != null && this.getCodigoAutorizadora().equals("0"))){
+				throw new AppException("É necessário informar a Autorizadora.");
+			}
+			if(this.getCodigoAutorizacao() == null || (this.getCodigoAutorizacao() != null && this.getCodigoAutorizacao().equals(""))){
+				throw new AppException("É necessário informar o Código da Autorização.");
+			}
+			if(this.getQuantidadeParcelasCartao() == null || (this.getQuantidadeParcelasCartao() != null && (this.getQuantidadeParcelasCartao().equals("") || this.getQuantidadeParcelasCartao().equals("0")))){
+				throw new AppException("É necessário informar a Quantidade de Parcelas.");
+			}
+		}else if(this.getIdFormaPagamento().equals(ConstantesFormaRecebimento.CARTAO_PROPRIO.toString())){
+			if(this.getCpfCnpjCliente() == null || (this.getCpfCnpjCliente() != null && this.getCpfCnpjCliente().equals(""))){
+				throw new AppException("É necessário informar o CPF/CNPJ do Cliente.");
+			}
+		}		
 	}
 	
 	public String inserirItemPagamento(){
 		if(this.getItensPagamento() == null){
 			this.setItensPagamento(new ArrayList<EventoItemPagamento>());
-		}
-		try {
+		}		
+		try {			
+			validarInclusaoItemPagamento();
+			
 			EventoTransacaoPK eventoPk = new EventoTransacaoPK();
 			eventoPk.setLoja(Integer.parseInt(this.getIdLoja()));
 			eventoPk.setComponente(Integer.parseInt(this.getIdComponente()));
 			eventoPk.setDataTransacao(this.getDataTransacao());
 			eventoPk.setNumeroTransacao(this.getNsuTransacao());
+			eventoPk.setNumeroEvento(++sequencialItemPagamento);
 			if(this.getIdFormaPagamento().equals(ConstantesFormaRecebimento.DINHEIRO.toString())){
 				EventoItemPagamento evItemPagamento = new EventoItemPagamento();				
 				evItemPagamento.setPk(eventoPk);
@@ -1073,6 +1173,8 @@ public class TransacaoBackBean extends BackBean {
 				evItemPagamento.setValorDesconto(BigDecimal.ZERO);
 				evItemPagamento.setValorBruto(this.getValorFormaPagamento());				
 				this.getItensPagamento().add(evItemPagamento);
+				this.setValorTotalRecebido(this.getValorTotalRecebido().add(evItemPagamento.getValorBruto()));
+				//limpar campos
 			}else if(this.getIdFormaPagamento().equals(ConstantesFormaRecebimento.CHEQUE.toString())){
 				EventoItemPagamentoCheque evItemPagamentoCheque = new EventoItemPagamentoCheque();				
 				evItemPagamentoCheque.setPk(eventoPk);
@@ -1094,16 +1196,24 @@ public class TransacaoBackBean extends BackBean {
 				evItemPagamentoCheque.setValorAcrescimo(BigDecimal.ZERO);
 				evItemPagamentoCheque.setValorDesconto(BigDecimal.ZERO);
 				evItemPagamentoCheque.setValorBruto(this.getValorFormaPagamento());
-				if(this.getCmc7() != null && !this.getCmc7().equals("")){
-					evItemPagamentoCheque.setNumeroChequeLido(this.getCmc7());
+				if(this.getCmc7ChqAvt() != null && !this.getCmc7ChqAvt().equals("")){
+					evItemPagamentoCheque.setNumeroChequeLido(this.getCmc7ChqAvt());
 				}else{
-					evItemPagamentoCheque.setBanco(this.getCodigoBanco());
-					evItemPagamentoCheque.setAgencia(this.getCodigoAgencia());
-					evItemPagamentoCheque.setConta(this.getNumeroConta());
-					evItemPagamentoCheque.setNumeroCheque(this.getNumeroCheque());
-					evItemPagamentoCheque.setCPFCNPJ(this.getCpfCnpjCliente());
+					evItemPagamentoCheque.setBanco(this.getCodigoBancoChqAvt());
+					evItemPagamentoCheque.setAgencia(this.getCodigoAgenciaChqAvt());
+					evItemPagamentoCheque.setConta(this.getNumeroContaChqAvt());
+					evItemPagamentoCheque.setNumeroCheque(this.getNumeroChequeChqAvt());
+					evItemPagamentoCheque.setCPFCNPJ(this.getCpfCnpjClienteChqAvt());
 				}
 				this.getItensPagamento().add(evItemPagamentoCheque);
+				this.setValorTotalRecebido(this.getValorTotalRecebido().add(evItemPagamentoCheque.getValorBruto()));
+				this.setCodigoBancoChqAvt(null);
+				this.setCodigoAgenciaChqAvt(null);
+				this.setNumeroContaChqAvt(null);
+				this.setNumeroChequeChqAvt(null);
+				this.setCpfCnpjClienteChqAvt(null);
+				this.setCmc7ChqAvt(null);
+				this.setIdTipoPessoa(Cliente.PESSOA_FISICA);
 			}else if(this.getIdFormaPagamento().equals(ConstantesFormaRecebimento.CHEQUE_PRE.toString())){
 				EventoItemPagamentoChequePredatado evItemPagamentoChequePreDatado = new EventoItemPagamentoChequePredatado();				
 				evItemPagamentoChequePreDatado.setPk(eventoPk);
@@ -1129,6 +1239,14 @@ public class TransacaoBackBean extends BackBean {
 				evItemPagamentoChequePreDatado.setParcelas(this.getParcelasChequePreDatado());
 				
 				this.getItensPagamento().add(evItemPagamentoChequePreDatado);
+				this.setValorTotalRecebido(this.getValorTotalRecebido().add(evItemPagamentoChequePreDatado.getValorBruto()));
+				this.setCodigoBancoChqPrz(null);
+				this.setCodigoAgenciaChqPrz(null);
+				this.setNumeroContaChqPrz(null);
+				this.setNumeroChequeChqPrz(null);
+				this.setCpfCnpjClienteChqPrz(null);
+				this.setCmc7ChqPrz(null);
+				this.setIdTipoPessoa(Cliente.PESSOA_FISICA);
 			}else if(this.getIdFormaPagamento().equals(ConstantesFormaRecebimento.CARTAO_OFF.toString())){
 				EventoItemPagamentoCartaoOff evItemPagamentoCartaoOff = new EventoItemPagamentoCartaoOff();				
 				evItemPagamentoCartaoOff.setPk(eventoPk);
@@ -1156,6 +1274,11 @@ public class TransacaoBackBean extends BackBean {
 				evItemPagamentoCartaoOff.setQuantidadeParcelas(this.getQuantidadeParcelasCartao());
 				
 				this.getItensPagamento().add(evItemPagamentoCartaoOff);
+				this.setValorTotalRecebido(this.getValorTotalRecebido().add(evItemPagamentoCartaoOff.getValorBruto()));
+				this.setNumeroCartao(null);
+				this.setCodigoAutorizadora("0");
+				this.setCodigoAutorizacao(null);
+				this.setQuantidadeParcelasCartao(1);
 			}else if(this.getIdFormaPagamento().equals(ConstantesFormaRecebimento.CARTAO_PROPRIO.toString())){
 				EventoItemPagamentoCartaoProprio evItemPagamentoCartaoProprio = new EventoItemPagamentoCartaoProprio();				
 				evItemPagamentoCartaoProprio.setPk(eventoPk);
@@ -1179,16 +1302,92 @@ public class TransacaoBackBean extends BackBean {
 				evItemPagamentoCartaoProprio.setValorBruto(this.getValorFormaPagamento());
 				evItemPagamentoCartaoProprio.setAutorizacao(this.getCpfCnpjCliente());
 				
+				//consultar saldo/situacao do cliente				
+				DadosAutorizacaoCartaoProprio dadosAutorizacao = buscaAutorizacaoCartaoProprio(this.getCpfCnpjCliente(), this.getValorFormaPagamento());				
+				this.getListaAutorizacaoCartaoProprio().put(new Integer(eventoPk.getNumeroEvento()).toString(), dadosAutorizacao);
+				
 				this.getItensPagamento().add(evItemPagamentoCartaoProprio);
-			}
+				this.setValorTotalRecebido(this.getValorTotalRecebido().add(evItemPagamentoCartaoProprio.getValorBruto()));
+				this.setCpfCnpjCliente(null);
+			}			
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		}
+		this.setValorFormaPagamento(new BigDecimal("0.00"));
 		this.setAbaCorrente("tabMenuDiv2");
+		this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+		
+		if(this.getValorTotalRecebido() != null && !this.getValorTotalRecebido().equals(BigDecimal.ZERO) && this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
+			this.setValorTroco(this.getValorTotalRecebido().
+					subtract(this.getValorSubTotalCupom().
+							subtract((this.getDescontoCupom() != null && !this.getDescontoCupom().equals(BigDecimal.ZERO) ? this.getDescontoCupom(): BigDecimal.ZERO))));
+		}
+		
+		BigDecimal valorTemp = BigDecimal.ZERO;
+		
+		if(this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
+			valorTemp = this.getValorTotalRecebido().subtract(this.getValorSubTotalCupom());
+		}else{
+			valorTemp = this.getValorSubTotalCupom();
+		}
+		
+		this.setValorTotalCupom(valorTemp.
+							subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO).
+									subtract(this.getValorTroco())));
 		return "mesma";
 	}
 
+	public DadosAutorizacaoCartaoProprio buscaAutorizacaoCartaoProprio(String cpfCnpj, BigDecimal valor){
+		DadosAutorizacaoCartaoProprio dados = null;
+		try {
+			if((cpfCnpj != null && !cpfCnpj.equals("")) && (valor != null && !valor.equals(new BigDecimal("0.00")))){
+				AutorizadorServerRemote obj = (AutorizadorServerRemote)ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
+				dados = obj.autorizaTransacaoCartaoProprio(cpfCnpj, valor);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dados;
+	}
+	
+	public void confirmaAutorizacaoCartaoProprio(Hashtable<String, DadosAutorizacaoCartaoProprio> listaAutorizacaoCartaoProprio){
+		try {
+			if(listaAutorizacaoCartaoProprio.size() > 0){
+				AutorizadorServerRemote obj = (AutorizadorServerRemote)ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
+				Enumeration<DadosAutorizacaoCartaoProprio> enumLista = listaAutorizacaoCartaoProprio.elements();
+				while(enumLista.hasMoreElements()){
+					DadosAutorizacaoCartaoProprio dados = (DadosAutorizacaoCartaoProprio) enumLista.nextElement();
+					obj.confirmaTransacaoCartaoProprio(new Long(dados.getAutrizacao()));
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void desfazAutorizacaoCartaoProprio(Hashtable<String, DadosAutorizacaoCartaoProprio> listaAutorizacaoCartaoProprio){
+		try {
+			if(listaAutorizacaoCartaoProprio.size() > 0){				
+				AutorizadorServerRemote obj = (AutorizadorServerRemote)ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
+				Enumeration<DadosAutorizacaoCartaoProprio> enumLista = listaAutorizacaoCartaoProprio.elements();
+				while(enumLista.hasMoreElements()){
+					DadosAutorizacaoCartaoProprio dados = (DadosAutorizacaoCartaoProprio) enumLista.nextElement();
+					obj.desfazTransacaoCartaoProprio(new Long(dados.getAutrizacao()));
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public String removerItemPagamento(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();  
@@ -1198,10 +1397,28 @@ public class TransacaoBackBean extends BackBean {
 		while(i.hasNext()){
 			EventoItemPagamento itemPagamento = (EventoItemPagamento) i.next();
 			if (itemPagamento.getPk().getNumeroEvento() == Integer.parseInt(param)){
-				this.getItensTransacao().remove(itemPagamento);
+				this.getItensPagamento().remove(itemPagamento);
+				this.setValorTotalRecebido(this.getValorTotalRecebido().subtract(itemPagamento.getValorBruto()));
+				break;
 			}
 		}
+		if(this.getValorTotalRecebido() != null && !this.getValorTotalRecebido().equals(BigDecimal.ZERO) && this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
+			this.setValorTroco(this.getValorTotalRecebido().
+					subtract(this.getValorSubTotalCupom().
+							subtract((this.getDescontoCupom() != null && !this.getDescontoCupom().equals(BigDecimal.ZERO) ? this.getDescontoCupom(): BigDecimal.ZERO))));
+			this.setValorTotalCupom(this.getValorTotalRecebido().
+					subtract(this.getValorSubTotalCupom().
+							subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO).
+									subtract(this.getValorTroco()))));
+		}else{
+			this.setValorTroco(new BigDecimal("0.00"));
+			this.setValorTotalCupom(this.getValorSubTotalCupom().
+							subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO).
+									subtract(this.getValorTroco())));
+		}		
+		
 		this.setAbaCorrente("tabMenuDiv2");
+		this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		return "mesma";
 	}
 	
@@ -1214,16 +1431,16 @@ public class TransacaoBackBean extends BackBean {
 		pk.setNumeroParcela(++numeroParcelaChequePreDatado);
 		ParcelaEventoItemPagamentoChequePredatado parcela = new ParcelaEventoItemPagamentoChequePredatado();
 		parcela.setPk(pk);
-		if(this.getCmc7() != null && !this.getCmc7().equals("")){
-			parcela.setNumeroChequeLido(this.getCmc7());
+		if(this.getCmc7ChqPrz() != null && !this.getCmc7ChqPrz().equals("")){
+			parcela.setNumeroChequeLido(this.getCmc7ChqPrz());
 		}else{
-			parcela.setBanco(this.getCodigoBanco());
-			parcela.setAgencia(this.getCodigoAgencia());
-			parcela.setConta(this.getNumeroConta());
-			parcela.setNumeroCheque(this.getNumeroCheque());
-			parcela.setCPFCNPJ(this.getCpfCnpjCliente());
+			parcela.setBanco(this.getCodigoBancoChqPrz());
+			parcela.setAgencia(this.getCodigoAgenciaChqPrz());
+			parcela.setConta(this.getNumeroContaChqPrz());
+			parcela.setNumeroCheque(this.getNumeroChequeChqPrz());
+			parcela.setCPFCNPJ(this.getCpfCnpjClienteChqPrz());
 		}
-		parcela.setData(this.getDataVencimento());
+		parcela.setData(this.getDataVencimentoChqPrz());
 		if(this.isParcelaEntradaChequePre()){
 			parcela.setEntrada(Constantes.SIM);	
 		}else{
@@ -1278,10 +1495,18 @@ public class TransacaoBackBean extends BackBean {
 			
 			if(this.getItensTransacao() == null || (this.getItensTransacao() != null && this.getItensTransacao().size() == 0)){
 				this.setAbaCorrente("tabMenuDiv1");
-				throw new AppException("É necessário inserir os itens.");
+				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+				throw new AppException("É necessário inserir os itens da transação de venda.");
 			}else if(this.getItensPagamento() == null || (this.getItensPagamento() != null && this.getItensPagamento().size() == 0)){
 				this.setAbaCorrente("tabMenuDiv2");
+				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 				throw new AppException("É necessário informar as formas de pagamento.");
+			}
+			
+			if(this.getValorTotalCupom().compareTo(this.getValorTotalRecebido()) < 0){
+				this.setAbaCorrente("tabMenuDiv2");
+				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+				throw new AppException("O Valor Recebido deve ser maior ou igual ao Valor Total do Cupom.");
 			}
 			
 			TransacaoVenda transVenda = new TransacaoVenda();
@@ -1296,11 +1521,8 @@ public class TransacaoBackBean extends BackBean {
 			transVenda.setStatus(Transacao.PROCESSADO);
 			
 			transVenda.setNumeroCupom(this.getNumeroCupom());
-			
-//			if(this.getIdCliente() != null && !this.getIdCliente().equals("0")){
-//				Cliente cli = (Cliente)getFachada().consultarClientePorPK(new Long(this.getIdCliente()));
-//				transVenda.setCpfCnpjCliente(cli.getCpfCnpj());
-//			}
+					
+			transVenda.setCliente(preencheCliente());
 			
 			if(this.getIdVendedor() != null && !this.getIdVendedor().equals("0")){
 				transVenda.setCodigoUsuarioVendedor(this.getIdVendedor());
@@ -1338,37 +1560,271 @@ public class TransacaoBackBean extends BackBean {
 			
 			getFachada().inserirTransacaoES(transVenda);
 			
+			this.confirmaAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
+			
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
 			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (ObjectExistentException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Transação de Venda já Existente!", "");
 			ctx.addMessage(null, msg);
+			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (AppException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
 			ctx.addMessage(null, msg);
+			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		}
 		resetBB();
 		return "mesma";
 	}
 	
 	public String alterar(){
+		try {
+
+			validaCabecalhoTransacao();
+			
+			if(this.getItensTransacao() == null || (this.getItensTransacao() != null && this.getItensTransacao().size() == 0)){
+				this.setAbaCorrente("tabMenuDiv1");
+				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+				throw new AppException("É necessário inserir os itens da transação de venda.");
+			}else if(this.getItensPagamento() == null || (this.getItensPagamento() != null && this.getItensPagamento().size() == 0)){
+				this.setAbaCorrente("tabMenuDiv2");
+				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+				throw new AppException("É necessário informar as formas de pagamento.");
+			}
+			
+			if(this.getValorTotalCupom().compareTo(this.getValorTotalRecebido()) < 0){
+				this.setAbaCorrente("tabMenuDiv2");
+				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+				throw new AppException("O Valor Recebido deve ser maior ou igual ao Valor Total do Cupom.");
+			}
+			
+			TransacaoVenda transVenda = new TransacaoVenda();
+			TransacaoPK transacaoPk = new TransacaoPK();
+			transacaoPk.setLoja(new Integer(this.getIdLoja()).intValue());
+			transacaoPk.setComponente(new Integer(this.getIdComponente()).intValue());
+			transacaoPk.setNumeroTransacao(new Integer(this.getNsuTransacao()).intValue());
+			transacaoPk.setDataTransacao(this.getDataTransacao());
+			transVenda.setPk(transacaoPk);
+			transVenda.setSituacao(TransacaoVenda.ATIVO);
+			transVenda.setTipoTransacao(ConstantesTransacao.TRANSACAO_VENDA);
+			transVenda.setStatus(Transacao.PROCESSADO);
+			
+			transVenda.setNumeroCupom(this.getNumeroCupom());
+					
+			transVenda.setCliente(preencheCliente());
+			
+			if(this.getIdVendedor() != null && !this.getIdVendedor().equals("0")){
+				transVenda.setCodigoUsuarioVendedor(this.getIdVendedor());
+				//inserir valor da comissao do vendedor
+				transVenda.setComissaoUsuarioVendedor(this.calculaComissaoVendedor(this.getIdVendedor(), this.getValorTotalCupom()));
+			}else{
+				transVenda.setComissaoUsuarioVendedor(BigDecimal.ZERO);
+			}
+			
+			if(this.getIdOperador() != null && !this.getIdOperador().equals("0")){
+				transVenda.setCodigoUsuarioOperador(this.getIdOperador());
+			}
+			
+			transVenda.setDescontoCupom(this.getDescontoCupom());
+			transVenda.setValorCupom(this.getValorTotalCupom());
+			transVenda.setValorTroco(this.getValorTroco());
+			transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));
+						
+			ConjuntoEventoTransacao conj = new ConjuntoEventoTransacao();
+			
+			Iterator itItensTransacao = this.getItensTransacao().iterator();
+			while(itItensTransacao.hasNext()){
+				conj.add((EventoItemRegistrado)itItensTransacao.next());
+			}
+			
+			itItensTransacao = this.getItensTransacaoModificados().iterator();
+			while(itItensTransacao.hasNext()){
+				conj.add((EventoItemRegistrado)itItensTransacao.next());
+			}
+
+			Iterator itItensPagamento = this.getItensPagamento().iterator();
+			while(itItensPagamento.hasNext()){
+				conj.add((EventoItemPagamento)itItensPagamento.next());
+			}
+
+			transVenda.setEventosTransacao(conj);
+			
+			transVenda.setDataHoraInicio(new Date(System.currentTimeMillis()));
+			transVenda.setDataHoraFim(new Date(System.currentTimeMillis()));
+			
+			getFachada().atualizarTransacaoES(transVenda);
+			
+			this.confirmaAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
+			
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Operação Realizada com Sucesso!", "");
+			ctx.addMessage(null, msg);
+			resetBB();
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+		} catch (ObjectExistentException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Transação de Venda já Existente!", "");
+			ctx.addMessage(null, msg);
+			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+		} catch (Exception e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+		}
+		resetBB();
 		return "mesma";
 	}
 	
 	public String cancelar(){
+		try {
+
+			validaCabecalhoTransacao();
+			
+//			if(this.getItensTransacao() == null || (this.getItensTransacao() != null && this.getItensTransacao().size() == 0)){
+//				this.setAbaCorrente("tabMenuDiv1");
+//				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+//				throw new AppException("É necessário inserir os itens da transação de venda.");
+//			}else if(this.getItensPagamento() == null || (this.getItensPagamento() != null && this.getItensPagamento().size() == 0)){
+//				this.setAbaCorrente("tabMenuDiv2");
+//				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+//				throw new AppException("É necessário informar as formas de pagamento.");
+//			}
+//			
+//			if(this.getValorTotalCupom().compareTo(this.getValorTotalRecebido()) < 0){
+//				this.setAbaCorrente("tabMenuDiv2");
+//				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+//				throw new AppException("O Valor Recebido deve ser maior ou igual ao Valor Total do Cupom.");
+//			}
+			
+			TransacaoVenda transVenda = new TransacaoVenda();
+			TransacaoPK transacaoPk = new TransacaoPK();
+			transacaoPk.setLoja(new Integer(this.getIdLoja()).intValue());
+			transacaoPk.setComponente(new Integer(this.getIdComponente()).intValue());
+			transacaoPk.setNumeroTransacao(new Integer(this.getNsuTransacao()).intValue());
+			transacaoPk.setDataTransacao(this.getDataTransacao());
+			transVenda.setPk(transacaoPk);
+			transVenda.setSituacao(TransacaoVenda.CANCELADO);
+			transVenda.setTipoTransacao(ConstantesTransacao.TRANSACAO_VENDA);
+			transVenda.setStatus(Transacao.PROCESSADO);
+			
+			transVenda.setNumeroCupom(this.getNumeroCupom());
+					
+			transVenda.setCliente(preencheCliente());
+			
+			if(this.getIdVendedor() != null && !this.getIdVendedor().equals("0")){
+				transVenda.setCodigoUsuarioVendedor(this.getIdVendedor());
+				//inserir valor da comissao do vendedor
+				transVenda.setComissaoUsuarioVendedor(this.calculaComissaoVendedor(this.getIdVendedor(), this.getValorTotalCupom()));
+			}else{
+				transVenda.setComissaoUsuarioVendedor(BigDecimal.ZERO);
+			}
+			
+			if(this.getIdOperador() != null && !this.getIdOperador().equals("0")){
+				transVenda.setCodigoUsuarioOperador(this.getIdOperador());
+			}
+			
+			transVenda.setDescontoCupom(this.getDescontoCupom());
+			transVenda.setValorCupom(this.getValorTotalCupom());
+			transVenda.setValorTroco(this.getValorTroco());
+			transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));
+						
+			ConjuntoEventoTransacao conj = new ConjuntoEventoTransacao();
+			
+			Iterator itItensTransacao = this.getItensTransacao().iterator();
+			while(itItensTransacao.hasNext()){
+				conj.add((EventoItemRegistrado)itItensTransacao.next());
+			}
+			
+			itItensTransacao = this.getItensTransacaoModificados().iterator();
+			while(itItensTransacao.hasNext()){
+				conj.add((EventoItemRegistrado)itItensTransacao.next());
+			}
+
+			Iterator itItensPagamento = this.getItensPagamento().iterator();
+			while(itItensPagamento.hasNext()){
+				conj.add((EventoItemPagamento)itItensPagamento.next());
+			}
+
+			transVenda.setEventosTransacao(conj);
+			
+			transVenda.setDataHoraInicio(new Date(System.currentTimeMillis()));
+			transVenda.setDataHoraFim(new Date(System.currentTimeMillis()));
+			
+			getFachada().atualizarTransacaoES(transVenda);
+			
+			this.confirmaAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
+			
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Operação Realizada com Sucesso!", "");
+			ctx.addMessage(null, msg);
+			resetBB();
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+		} catch (ObjectExistentException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Transação de Venda já Existente!", "");
+			ctx.addMessage(null, msg);
+			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+		} catch (Exception e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+		}
+		resetBB();
 		return "mesma";
 	}
 
@@ -1406,4 +1862,459 @@ public class TransacaoBackBean extends BackBean {
 		this.itensPagamento = itensPagamento;
 	}
 
+	public String getCmc7ChqAvt() {
+		return cmc7ChqAvt;
+	}
+
+	public void setCmc7ChqAvt(String cmc7ChqAvt) {
+		this.cmc7ChqAvt = cmc7ChqAvt;
+	}
+
+	public String getCmc7ChqPrz() {
+		return cmc7ChqPrz;
+	}
+
+	public void setCmc7ChqPrz(String cmc7ChqPrz) {
+		this.cmc7ChqPrz = cmc7ChqPrz;
+	}
+
+	public String getCodigoAgenciaChqAvt() {
+		return codigoAgenciaChqAvt;
+	}
+
+	public void setCodigoAgenciaChqAvt(String codigoAgenciaChqAvt) {
+		this.codigoAgenciaChqAvt = codigoAgenciaChqAvt;
+	}
+
+	public String getCodigoAgenciaChqPrz() {
+		return codigoAgenciaChqPrz;
+	}
+
+	public void setCodigoAgenciaChqPrz(String codigoAgenciaChqPrz) {
+		this.codigoAgenciaChqPrz = codigoAgenciaChqPrz;
+	}
+
+	public String getCodigoBancoChqAvt() {
+		return codigoBancoChqAvt;
+	}
+
+	public void setCodigoBancoChqAvt(String codigoBancoChqAvt) {
+		this.codigoBancoChqAvt = codigoBancoChqAvt;
+	}
+
+	public String getCodigoBancoChqPrz() {
+		return codigoBancoChqPrz;
+	}
+
+	public void setCodigoBancoChqPrz(String codigoBancoChqPrz) {
+		this.codigoBancoChqPrz = codigoBancoChqPrz;
+	}
+
+	public Date getDataVencimentoChqPrz() {
+		return dataVencimentoChqPrz;
+	}
+
+	public void setDataVencimentoChqPrz(Date dataVencimentoChqPrz) {
+		this.dataVencimentoChqPrz = dataVencimentoChqPrz;
+	}
+
+	public String getNumeroChequeChqAvt() {
+		return numeroChequeChqAvt;
+	}
+
+	public void setNumeroChequeChqAvt(String numeroChequeChqAvt) {
+		this.numeroChequeChqAvt = numeroChequeChqAvt;
+	}
+
+	public String getNumeroChequeChqPrz() {
+		return numeroChequeChqPrz;
+	}
+
+	public void setNumeroChequeChqPrz(String numeroChequeChqPrz) {
+		this.numeroChequeChqPrz = numeroChequeChqPrz;
+	}
+
+	public String getNumeroContaChqAvt() {
+		return numeroContaChqAvt;
+	}
+
+	public void setNumeroContaChqAvt(String numeroContaChqAvt) {
+		this.numeroContaChqAvt = numeroContaChqAvt;
+	}
+
+	public String getNumeroContaChqPrz() {
+		return numeroContaChqPrz;
+	}
+
+	public void setNumeroContaChqPrz(String numeroContaChqPrz) {
+		this.numeroContaChqPrz = numeroContaChqPrz;
+	}
+
+	private List<Autorizadora> carregarAutorizadoras() {		
+		List<Autorizadora> autorizadoras = null;
+		try {
+			autorizadoras = (ArrayList<Autorizadora>)getFachada().consultarTodasAutorizadoras();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return autorizadoras;
+	}
+	
+	public SelectItem[] getAutorizadoras() {
+		SelectItem[] arrayAutorizadoras = null;
+		try {
+			List<Autorizadora> autorizadoras = carregarAutorizadoras();
+			arrayAutorizadoras = new SelectItem[autorizadoras.size()+1];
+			int i = 0;
+			arrayAutorizadoras[i++] = new SelectItem("0","");
+			for(Autorizadora autorizadorasTmp : autorizadoras){
+				SelectItem item = new SelectItem(autorizadorasTmp.getId().toString(), autorizadorasTmp.getDescricao());
+				arrayAutorizadoras[i++] = item;
+			}
+			if(this.getCodigoAutorizadora() == null || (this.getCodigoAutorizadora() != null && this.getCodigoAutorizadora().equals("0"))){
+				this.setCodigoAutorizadora((String)arrayAutorizadoras[0].getValue());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayAutorizadoras;
+	}
+
+
+	public void setAutorizadoras(SelectItem[] autorizadoras) {
+		this.autorizadoras = autorizadoras;
+	}
+
+	public String getIdTipoPessoa() {
+		return idTipoPessoa;
+	}
+
+	public void setIdTipoPessoa(String idTipoPessoa) {
+		this.idTipoPessoa = idTipoPessoa;
+	}
+
+	public SelectItem[] getListaTipoPessoa() {
+		SelectItem[] lista = new SelectItem[2];
+		lista[0] = new SelectItem("F", "Física");
+		lista[1] = new SelectItem("J", "Jurídica");
+		if(this.getIdTipoPessoa() == null || this.getIdTipoPessoa().equals("")){
+			this.setIdTipoPessoa(Cliente.PESSOA_FISICA);
+		}
+		if(this.getIdTipoPessoaCadastro() == null || this.getIdTipoPessoaCadastro().equals("")){
+			this.setIdTipoPessoaCadastro(Cliente.PESSOA_FISICA);
+		}
+		return lista;
+	}
+
+	public void setListaTipoPessoa(SelectItem[] listaTipoPessoa) {
+		this.listaTipoPessoa = listaTipoPessoa;
+	}
+
+	public BigDecimal getValorTotalRecebido() {
+		return valorTotalRecebido;
+	}
+
+	public void setValorTotalRecebido(BigDecimal valorTotalRecebido) {
+		this.valorTotalRecebido = valorTotalRecebido;
+	}
+
+	public String getCpfCnpjClienteChqAvt() {
+		return cpfCnpjClienteChqAvt;
+	}
+
+	public void setCpfCnpjClienteChqAvt(String cpfCnpjClienteChqAvt) {
+		this.cpfCnpjClienteChqAvt = cpfCnpjClienteChqAvt;
+	}
+
+	public String getCpfCnpjClienteChqPrz() {
+		return cpfCnpjClienteChqPrz;
+	}
+
+	public void setCpfCnpjClienteChqPrz(String cpfCnpjClienteChqPrz) {
+		this.cpfCnpjClienteChqPrz = cpfCnpjClienteChqPrz;
+	}
+
+	public Hashtable<String, DadosAutorizacaoCartaoProprio> getListaAutorizacaoCartaoProprio() {
+		return listaAutorizacaoCartaoProprio;
+	}
+
+	public void setListaAutorizacaoCartaoProprio(
+			Hashtable<String, DadosAutorizacaoCartaoProprio> listaAutorizacaoCartaoProprio) {
+		this.listaAutorizacaoCartaoProprio = listaAutorizacaoCartaoProprio;
+	}
+
+	public String getAbaCadastroClienteCorrente() {
+		return abaCadastroClienteCorrente;
+	}
+
+	public void setAbaCadastroClienteCorrente(String abaCadastroClienteCorrente) {
+		this.abaCadastroClienteCorrente = abaCadastroClienteCorrente;
+	}
+
+	public String getBairroCadastro() {
+		return bairroCadastro;
+	}
+
+	public void setBairroCadastro(String bairroCadastro) {
+		this.bairroCadastro = bairroCadastro;
+	}
+
+	public String getCepCadastro() {
+		return cepCadastro;
+	}
+
+	public void setCepCadastro(String cepCadastro) {
+		this.cepCadastro = cepCadastro;
+	}
+
+	public String getCidadeCadastro() {
+		return cidadeCadastro;
+	}
+
+	public void setCidadeCadastro(String cidadeCadastro) {
+		this.cidadeCadastro = cidadeCadastro;
+	}
+
+	public String getComplementoCadastro() {
+		return complementoCadastro;
+	}
+
+	public void setComplementoCadastro(String complementoCadastro) {
+		this.complementoCadastro = complementoCadastro;
+	}
+
+	public String getCpfCnpjClienteCadastro() {
+		return cpfCnpjClienteCadastro;
+	}
+
+	public void setCpfCnpjClienteCadastro(String cpfCnpjClienteCadastro) {
+		this.cpfCnpjClienteCadastro = cpfCnpjClienteCadastro;
+	}
+
+	public String getEmailCadastro() {
+		return emailCadastro;
+	}
+
+	public void setEmailCadastro(String emailCadastro) {
+		this.emailCadastro = emailCadastro;
+	}
+
+	public String getEstadoCadastro() {
+		return estadoCadastro;
+	}
+
+	public void setEstadoCadastro(String estadoCadastro) {
+		this.estadoCadastro = estadoCadastro;
+	}
+
+	public String getFoneCelularCadastro() {
+		return foneCelularCadastro;
+	}
+
+	public void setFoneCelularCadastro(String foneCelularCadastro) {
+		this.foneCelularCadastro = foneCelularCadastro;
+	}
+
+	public String getFoneContatoCadastro() {
+		return foneContatoCadastro;
+	}
+
+	public void setFoneContatoCadastro(String foneContatoCadastro) {
+		this.foneContatoCadastro = foneContatoCadastro;
+	}
+
+	public String getFoneResidencialCadastro() {
+		return foneResidencialCadastro;
+	}
+
+	public void setFoneResidencialCadastro(String foneResidencialCadastro) {
+		this.foneResidencialCadastro = foneResidencialCadastro;
+	}
+
+	public String getIdTipoPessoaCadastro() {
+		return idTipoPessoaCadastro;
+	}
+
+	public void setIdTipoPessoaCadastro(String idTipoPessoaCadastro) {
+		this.idTipoPessoaCadastro = idTipoPessoaCadastro;
+	}
+
+	public String getInscricaoEstadualCadastro() {
+		return inscricaoEstadualCadastro;
+	}
+
+	public void setInscricaoEstadualCadastro(String inscricaoEstadualCadastro) {
+		this.inscricaoEstadualCadastro = inscricaoEstadualCadastro;
+	}
+
+	public String getInscricaoMunicipalCadastro() {
+		return inscricaoMunicipalCadastro;
+	}
+
+	public void setInscricaoMunicipalCadastro(String inscricaoMunicipalCadastro) {
+		this.inscricaoMunicipalCadastro = inscricaoMunicipalCadastro;
+	}
+
+	public String getLogradouroCadastro() {
+		return logradouroCadastro;
+	}
+
+	public void setLogradouroCadastro(String logradouroCadastro) {
+		this.logradouroCadastro = logradouroCadastro;
+	}
+
+	public String getNomeClienteCadastro() {
+		return nomeClienteCadastro;
+	}
+
+	public void setNomeClienteCadastro(String nomeClienteCadastro) {
+		this.nomeClienteCadastro = nomeClienteCadastro;
+	}
+
+	public String getNumeroCadastro() {
+		return numeroCadastro;
+	}
+
+	public void setNumeroCadastro(String numeroCadastro) {
+		this.numeroCadastro = numeroCadastro;
+	}
+
+	public String getPessoaContatoCadastro() {
+		return pessoaContatoCadastro;
+	}
+
+	public void setPessoaContatoCadastro(String pessoaContatoCadastro) {
+		this.pessoaContatoCadastro = pessoaContatoCadastro;
+	}
+
+	public String getRazaoSocialCadastro() {
+		return razaoSocialCadastro;
+	}
+
+	public void setRazaoSocialCadastro(String razaoSocialCadastro) {
+		this.razaoSocialCadastro = razaoSocialCadastro;
+	}
+
+	public String getReferenciaComercialCadastro() {
+		return referenciaComercialCadastro;
+	}
+
+	public void setReferenciaComercialCadastro(String referenciaComercialCadastro) {
+		this.referenciaComercialCadastro = referenciaComercialCadastro;
+	}
+	
+	public String buscaClientePorCpfCnpj() throws Exception{
+		try {
+			String cpfCnpj = "";
+			if(this.getCpfCnpjClienteCadastro() != null && !this.getCpfCnpjClienteCadastro().equals("")){
+				cpfCnpj = this.getCpfCnpjClienteCadastro().trim().replace(".", "").replace("-", "");
+			}else{
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Para consultar o Cliente é necessário informar o CPF/CNPJ.", "");
+				ctx.addMessage(null, msg);
+				this.setAbaCorrente("tabMenuDiv3");
+				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+				return "mesma";
+			}
+			ClienteTransacao cli = getFachada().consultarClienteTransacaoPorID(cpfCnpj);
+			if(cli != null){
+				this.setCpfCnpjClienteCadastro(cli.getCpfCnpj());
+				this.setNomeClienteCadastro(cli.getNomeCliente());
+				this.setDataCadastro(cli.getDataCadastro());
+				this.setIdTipoPessoaCadastro(cli.getTipoPessoa());
+				this.setRazaoSocialCadastro(cli.getRazaoSocial());
+				this.setInscricaoEstadualCadastro(cli.getInscricaoEstadual());
+				this.setInscricaoMunicipalCadastro(cli.getInscricaoMunicipal());
+				this.setLogradouroCadastro(cli.getLogradouro());
+				this.setNumeroCadastro(cli.getNumero());
+				this.setComplementoCadastro(cli.getComplemento());
+				this.setBairroCadastro(cli.getBairro());
+				this.setCidadeCadastro(cli.getCidade());
+				this.setEstadoCadastro(cli.getEstado());
+				this.setCepCadastro(cli.getCep());
+				this.setFoneResidencialCadastro(cli.getFone());
+				this.setFoneCelularCadastro(cli.getCelular());
+				this.setPessoaContatoCadastro(cli.getPessoaContato());
+				this.setReferenciaComercialCadastro(cli.getReferenciaBancaria());
+				this.setEmailCadastro(cli.getEmail());
+				this.setAbaCorrente("tabMenuDiv3");
+				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+			}
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Cliente não encontrado para o CPF/CNPJ informado.", "");
+			ctx.addMessage(null, msg);
+			this.setAbaCorrente("tabMenuDiv3");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+			return "mesma";
+		}
+		return "mesma";
+	}
+	
+	public ClienteTransacao preencheCliente(){
+		ClienteTransacao cli = null;
+		if(this.getCpfCnpjClienteCadastro() != null && !this.getCpfCnpjClienteCadastro().equals("")){
+			cli = new ClienteTransacao();
+			cli.setCpfCnpj(this.getCpfCnpjClienteCadastro());
+			cli.setDataCadastro(this.getDataCadastro());
+			cli.setNomeCliente(this.getNomeClienteCadastro());
+			if(this.getIdTipoPessoaCadastro().equals(Cliente.PESSOA_FISICA)){
+				cli.setTipoPessoa(Cliente.PESSOA_FISICA);
+			}else{
+				cli.setTipoPessoa(Cliente.PESSOA_JURIDICA);
+				cli.setRazaoSocial(this.getRazaoSocialCadastro());
+				cli.setInscricaoEstadual(this.getInscricaoEstadualCadastro());
+				cli.setInscricaoMunicipal(this.getInscricaoMunicipalCadastro());
+			}
+			cli.setLogradouro(this.getLogradouroCadastro());
+			cli.setNumero(this.getNumeroCadastro());
+			cli.setComplemento(this.getComplementoCadastro());
+			cli.setBairro(this.getBairroCadastro());
+			cli.setCidade(this.getCidadeCadastro());
+			cli.setEstado(this.getEstadoCadastro());
+			cli.setCep(this.getCepCadastro());
+			cli.setFone(this.getFoneResidencialCadastro());
+			cli.setCelular(this.getFoneCelularCadastro());
+			cli.setPessoaContato(this.getPessoaContatoCadastro());
+			cli.setReferenciaBancaria(this.getReferenciaComercialCadastro());
+			cli.setEmail(this.getEmailCadastro());			
+		}
+		return cli;
+	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	
+//	public String retornaOperacao() {
+//		FacesContext context = FacesContext.getCurrentInstance();
+//		Map params = context.getExternalContext().getRequestParameterMap();            
+//		String param = (String)  params.get("operacao");
+//		return param;
+//	}
+
+	public List<EventoItemRegistrado> getItensTransacaoModificados() {
+		return itensTransacaoModificados;
+	}
+
+	public void setItensTransacaoModificados(
+			List<EventoItemRegistrado> itensTransacaoModificados) {
+		this.itensTransacaoModificados = itensTransacaoModificados;
+	}
 }
