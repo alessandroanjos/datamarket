@@ -30,11 +30,25 @@
 		<script type="text/javascript">
 			window.onload = function(){ inicializar() };
 			function inicializar() {
+				$("input.tipopessoa").each(function(i){
+					$(this).click(function() {mostraCampos(this.value)});
+				});
+				if ($('[name=frmInserirTransacao:idTipoPessoaCadastro]:checked').val() != "undefined") {
+					mostraCampos($('[name=frmInserirTransacao:idTipoPessoaCadastro]:checked').val());
+				}
+				//tipoPessoaChqPrz
 				strAbaCorrente = getId("frmInserirTransacao:abaCorrente").value;
 				if(strAbaCorrente != ""){							
 					selecionaMenuTab(strAbaCorrente);
 				}else{
 					selecionaMenuTab("tabMenuDiv0");
+				}
+				
+				strAbaCadastroClienteCorrente = getId("frmInserirTransacao:abaCadastroClienteCorrente").value;
+				if(strAbaCorrente != ""){							
+					selecionaMenuTabInterno(strAbaCadastroClienteCorrente);
+				}else{
+					selecionaMenuTabInterno("tabMenuDivInterno0");
 				}									
 			}
 			
@@ -67,6 +81,8 @@
                              winId.close();
                              reCalculaPrecoItem();
                              form[formId+":precoVenda"].focus();
+                             selecionaMenuTab("tabMenuDiv1");
+                            // selecionaMenuTabInterno("tabMenuDivInterno0");
             }
             
             function reCalculaPrecoItem(){
@@ -81,12 +97,59 @@
                         
             function reCalculaTotalCupom(){
             	var valorSubTotalCupom = parseFloat(getId("frmInserirTransacao:valorSubTotalCupom").value);
+            	var valorTotalRecebido = parseFloat(getId("frmInserirTransacao:valorTotalRecebido").value);
             	var descontoCupom = parseFloat(getId("frmInserirTransacao:descontoCupom").value);
             	var valorTroco = parseFloat(getId("frmInserirTransacao:valorTroco").value);            	
             	var valorTotalCupom = parseFloat(getId("frmInserirTransacao:valorTotalCupom").value);            
+
+				var valorLiquido = parseFloat("0");
+				var valorTroco = parseFloat("0");
+				
+				//calculo do valor total do cupom
+				if(valorTotalRecebido > valorSubTotalCupom){
+				   valorLiquido = valorTotalRecebido - valorSubTotalCupom;
+				}else{
+				   valorLiquido = valorSubTotalCupom;
+				}
+				if(descontoCupom > 0){
+				   valorLiquido = valorLiquido - descontoCupom;
+				}
+				getId("frmInserirTransacao:valorTotalCupom").value = valorLiquido.toFixed(2);
+				
+				//calcula o valor do troco
+				if(valorTotalRecebido > valorLiquido){
+				   valorTroco = valorTotalRecebido - valorLiquido;
+				}
+				getId("frmInserirTransacao:valorTroco").value = valorTroco.toFixed(2);
+				
+/*
+				if(valorSubTotalCupom > valorTotalRecebido){
+				   valorTotalCupom = valorTotalRecebido - valorSubTotalCupom;
+				}else{
+				   valorTotalCupom = valorSubTotalCupom;
+				}
+
+				if(valorTotalRecebido > valorSubTotalCupom){
+				   valorLiquido = valorTotalRecebido - valorSubTotalCupom;
+				}else{
+				   valorLiquido = valorSubTotalCupom;
+				}
+
+				valorTroco = valorLiquido - descontoCupom;
+				getId("frmInserirTransacao:valorTroco").value = valorTotalCupom.toFixed(2);
             
             	valorTotalCupom = valorSubTotalCupom - descontoCupom - valorTroco;
 				getId("frmInserirTransacao:valorTotalCupom").value = valorTotalCupom.toFixed(2);
+*/				
+            }
+            
+            function reCalculaTotalRecebido(){
+            	var valorTotalRecebido = parseFloat(getId("frmInserirTransacao:valorTotalRecebido").value);
+            	var valorFormaPagamento = parseFloat(getId("frmInserirTransacao:valorFormaPagamento").value);
+            
+            	valorTotalRecebido = valorTotalRecebido + valorFormaPagamento;
+				getId("frmInserirTransacao:valorTotalRecebido").value = valorTotalRecebido.toFixed(2);
+				reCalculaTotalCupom();
             }
             
             //funcao que troca a visibilidade dos div das formas de pagamento a transacao
@@ -101,6 +164,35 @@
             		}            	
             	}
             }
+            
+			function mostraCampos(str) {
+				var flag = new String(str);
+				if (flag.toUpperCase() == "F") {
+				    habilita("frmInserirTransacao:nomeClienteCadastro");
+					desabilita("frmInserirTransacao:razaoSocialCadastro");
+					desabilita("frmInserirTransacao:inscricaoEstadualCadastro");
+					desabilita("frmInserirTransacao:inscricaoMunicipalCadastro");				
+					$("input.tipocpfcnpj").each(function(i){
+						$(this).unbind('blur');
+						$(this).unbind('keydown');
+						$(this).bind('blur',function(event){validaCPF(this);});
+						$(this).bind('keydown',function(event){FormataCPF(this,event);});
+						getId(this.id).maxLength = "14";
+					});
+				} else {
+				   	desabilita("frmInserirTransacao:nomeClienteCadastro");
+					habilita("frmInserirTransacao:razaoSocialCadastro");
+					habilita("frmInserirTransacao:inscricaoEstadualCadastro");
+					habilita("frmInserirTransacao:inscricaoMunicipalCadastro");
+					$("input.tipocpfcnpj").each(function(i){
+						$(this).unbind('blur');
+						$(this).unbind('keydown');
+						$(this).bind('blur',function(event){validaCNPJ(this);});
+						$(this).bind('keydown',function(event){FormataCNPJ(this,event);});
+						getId(this.id).maxLength = "18";
+					});
+				}
+			}
 		</script>
 	</head>
 	<body>
@@ -114,19 +206,21 @@
 			</div>				
 		</div>	
 		<div id="content">
-			<div id="tabMenu">
+			<div class="tabMenu">
 				<ul>
 					<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Transação</a></span></li>
 					<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)"><span><a href="#">Itens</a></span></li>
 					<li id="tabMenuDiv2" onclick="selecionaMenuTab(this.id)"><span><a href="#">Pagamento</a></span></li>
+					<li id="tabMenuDiv3" onclick="selecionaMenuTab(this.id)"><span><a href="#">Cliente</a></span></li>
 				</ul>
 				<div class="clear"></div>
 			</div>
 			<div id="primarioContentContainerInternas">
-				<h:form id="frmInserirTransacao" onsubmit="javascript:getId('frmInserirTransacao:abaCorrente').value = strAbaCorrente;">
+				<h:form id="frmInserirTransacao" onsubmit="javascript:getId('frmInserirTransacao:abaCorrente').value = strAbaCorrente;getId('frmInserirTransacao:abaCadastroClienteCorrente').value = strAbaCadastroClienteCorrente;">
 					<div>
 						<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 					</div>
+					<h:inputHidden id="abaCadastroClienteCorrente" value="#{transacaoBB.abaCadastroClienteCorrente}"></h:inputHidden>
 					<h:inputHidden id="abaCorrente" value="#{transacaoBB.abaCorrente}"></h:inputHidden>
 					<div id="tabDiv0" style="height: 390px;">
 						<ul>								
@@ -174,15 +268,7 @@
 										<f:validator validatorId="LongValidator"/>
 									</h:inputText>
 								</div>
-							</li>	
-							<li class="normal">
-								<div>
-									<h:outputLabel styleClass="desc" value="Cliente"></h:outputLabel>
-									<h:selectOneMenu id="idCliente" style="width: 180px;" value="#{transacaoBB.idCliente}"> 
-										<f:selectItems id="clientesSelectItems" value="#{transacaoBB.clientes}" />   
-									</h:selectOneMenu>
-								</div>
-							</li>	
+							</li>							
 							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Vendedor"></h:outputLabel>
@@ -202,8 +288,6 @@
 						</ul>
 					</div>
 					<div id="tabDiv1"  style="display:none;height: 390px;">
-						<fieldset style="height: 380px;width: 100%;">
-							<legend><b>Itens da Transação</b></legend>
 							<ul>
 								<li class="normal">
 									<div>
@@ -245,10 +329,10 @@
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
-										<h:inputText styleClass="field text" id="descontoItem" maxlength="5" size="10"
-											value="#{transacaoBB.descontoItem}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:descontoItem',4,2,event);" onblur="reCalculaPrecoItem();">
-											<f:validateLength maximum="5" />
-											<f:validateDoubleRange  minimum="0.00" maximum="99.99"/>
+										<h:inputText styleClass="field text" id="descontoItem" maxlength="10" size="10"
+											value="#{transacaoBB.descontoItem}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:descontoItem',9,2,event);" onblur="reCalculaPrecoItem();">
+											<f:validateLength maximum="10" />
+											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
 										</h:inputText>
 									</div>
@@ -322,7 +406,7 @@
 									</h:column>													
 								</t:dataTable>																
 							</div>
-						</fieldset>								
+					
 					</div>	
 					<div id="tabDiv2" style="display:none;height: 390px;">
 						<ul>
@@ -336,83 +420,194 @@
 								</div>
 								<div>
 									<h:outputLabel styleClass="desc" value="Valor"></h:outputLabel>
-									<h:inputText styleClass="field text" id="valorFormaPagamento" maxlength="10" size="10" readonly="true"
+									<h:inputText styleClass="field text" id="valorFormaPagamento" maxlength="10" size="10" readonly="false"
 										value="#{transacaoBB.valorFormaPagamento}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorFormaPagamento',9,2,event);">
 										<f:validateLength maximum="10" />
 										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 										<f:validator validatorId="BigDecimalValidator"/>
 									</h:inputText>
 								</div>		
+								<div style="position:relative; top:9px;">
+									<h:commandButton styleClass="btTxt" id="botaoInserirItemPagamento" action="#{transacaoBB.inserirItemPagamento}" value="Inserir"></h:commandButton>
+								</div>
 							</li>
 							<li class="normal">
 								<div id="divForma1">
-									<fieldset style="height: 100px;width: 100%;">
-										<ul>
-											<li class="normal">
-												&nbsp;
-											</li>
-										</ul>
-									</fieldset>
+									&nbsp;
 								</div>
-								<div id="divForma2" style="display:none;">
-									<fieldset style="height: 100px;width: 100%;">
-										<ul>
-											<li class="normal">
-												<div>
-													<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-													<h:inputText styleClass="field text" id="a" maxlength="6" size="6"
-														value="#{transacaoBB.codigoProduto}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
-														<f:validateLength maximum="6" />
-													</h:inputText>
-												</div>
-											</li>
-										</ul>
-									</fieldset>
+								<div id="divForma2" style="display:none;">									
+									<ul>
+										<li class="normal">
+											<div>
+												<h:outputLabel styleClass="desc" value="Banco"></h:outputLabel>
+												<h:inputText styleClass="field text" id="codigoBancoChqAvt" maxlength="3" size="8"
+													value="#{transacaoBB.codigoBancoChqAvt}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="3" />
+												</h:inputText>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Agência"></h:outputLabel>
+												<h:inputText styleClass="field text" id="codigoAgenciaChqAvt" maxlength="6" size="8"
+													value="#{transacaoBB.codigoAgenciaChqAvt}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="6" />
+												</h:inputText>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Num. Conta"></h:outputLabel>
+												<h:inputText styleClass="field text" id="numeroContaChqAvt" maxlength="8" size="8"
+													value="#{transacaoBB.numeroContaChqAvt}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="8" />
+												</h:inputText>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Num. Cheque"></h:outputLabel>
+												<h:inputText styleClass="field text" id="numeroChequeChqAvt" maxlength="6" size="8"
+													value="#{transacaoBB.numeroChequeChqAvt}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="6" />
+												</h:inputText>
+											</div>
+											<br />
+											<br />
+											<div>
+												<h:outputLabel styleClass="desc" value="CMC7"></h:outputLabel>
+												<h:inputText styleClass="field text" id="cmc7ChqAvt" maxlength="30" size="30"
+													value="#{transacaoBB.cmc7ChqAvt}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="30" />
+												</h:inputText>
+											</div>											
+											<div>
+												<h:outputLabel styleClass="desc" value="Tipo Cliente"></h:outputLabel>
+												<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoaChqAvt" 
+													value="#{transacaoBB.idTipoPessoa}" layout="lineDirection" required="false">
+													<f:selectItems id="tipoPessoaListaChqAvt" value="#{transacaoBB.listaTipoPessoa}"/>
+												</h:selectOneRadio>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="CPF/CNPJ Cliente"></h:outputLabel>
+												<h:inputText styleClass="field text" id="cpfCnpjClienteChqAvt" maxlength="14" size="14"
+													value="#{transacaoBB.cpfCnpjClienteChqAvt}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="14" />
+												</h:inputText>
+											</div>											
+										</li>
+									</ul>
 								</div>
 								<div id="divForma3" style="display:none;">
-									<fieldset style="height: 100px;width: 100%;">
-										<ul>
-											<li class="normal">
-												<div>
-													<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-													<h:inputText styleClass="field text" id="a" maxlength="6" size="6"
-														value="#{transacaoBB.codigoProduto}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
-														<f:validateLength maximum="6" />
-													</h:inputText>
-												</div>
-											</li>
-										</ul>
-									</fieldset>
+									<ul>
+										<li class="normal">
+											<div>
+												<h:outputLabel styleClass="desc" value="Banco"></h:outputLabel>
+												<h:inputText styleClass="field text" id="codigoBancoChqPrz" maxlength="3" size="8"
+													value="#{transacaoBB.codigoBancoChqPrz}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="3" />
+												</h:inputText>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Agência"></h:outputLabel>
+												<h:inputText styleClass="field text" id="codigoAgenciaChqPrz" maxlength="6" size="8"
+													value="#{transacaoBB.codigoAgenciaChqPrz}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="6" />
+												</h:inputText>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Num. Conta"></h:outputLabel>
+												<h:inputText styleClass="field text" id="numeroContaChqPrz" maxlength="8" size="8"
+													value="#{transacaoBB.numeroContaChqPrz}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="8" />
+												</h:inputText>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Num. Cheque"></h:outputLabel>
+												<h:inputText styleClass="field text" id="numeroChequeChqPrz" maxlength="6" size="8"
+													value="#{transacaoBB.numeroChequeChqPrz}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="6" />
+												</h:inputText>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Data Vencimento"></h:outputLabel>
+												<h:inputText styleClass="field text" id="dataVencimento" maxlength="10" size="10" required="false"
+													value="#{transacaoBB.dataVencimentoChqPrz}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
+													<f:convertDateTime timeZone="GMT-3"/>
+												</h:inputText>
+											</div>
+											<br />
+											<br />
+											<div>
+												<h:outputLabel styleClass="desc" value="CMC7"></h:outputLabel>
+												<h:inputText styleClass="field text" id="cmc7ChqPrz" maxlength="30" size="30"
+													value="#{transacaoBB.cmc7ChqPrz}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="30" />
+												</h:inputText>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Tipo Cliente"></h:outputLabel>
+												<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoaChqPrz" 
+													value="#{transacaoBB.idTipoPessoa}" layout="lineDirection" required="false">
+													<f:selectItems id="tipoPessoaListaChqPrz" value="#{transacaoBB.listaTipoPessoa}"/>
+												</h:selectOneRadio>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="CPF/CNPJ Cliente"></h:outputLabel>
+												<h:inputText styleClass="field text" id="cpfCnpjClienteChqPrz" maxlength="14" size="14"
+													value="#{transacaoBB.cpfCnpjClienteChqPrz}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="14" />
+												</h:inputText>
+											</div>										
+										</li>
+									</ul>
 								</div>
 								<div id="divForma4" style="display:none;">
-								    <fieldset style="height: 100px;width: 100%;">
-										<ul>
-											<li class="normal">
-												<div>
-													<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-													<h:inputText styleClass="field text" id="a" maxlength="6" size="6"
-														value="#{transacaoBB.codigoProduto}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
-														<f:validateLength maximum="6" />
-													</h:inputText>
-												</div>
-											</li>
-										</ul>
-									</fieldset>
+									<ul>
+										<li class="normal">
+											<div>
+												<h:outputLabel styleClass="desc" value="Número Cartão"></h:outputLabel>
+												<h:inputText styleClass="field text" id="numeroCartao" maxlength="19" size="20"
+													value="#{transacaoBB.numeroCartao}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="19" />
+												</h:inputText>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Autorizadora"></h:outputLabel>
+												<h:selectOneMenu id="codigoAutorizadora" style="width: 180px;" value="#{transacaoBB.codigoAutorizadora}"> 
+													<f:selectItems id="autorizadoraSelectItems" value="#{transacaoBB.autorizadoras}" />   
+												</h:selectOneMenu>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Num. Autorização"></h:outputLabel>
+												<h:inputText styleClass="field text" id="numeroAutorizacao" maxlength="6" size="8"
+													value="#{transacaoBB.codigoAutorizacao}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="6" />
+												</h:inputText>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Num. Parcelas"></h:outputLabel>
+												<h:inputText styleClass="field text" id="numeroParcelas" maxlength="2" size="6"
+													value="#{transacaoBB.quantidadeParcelasCartao}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="2" />
+												</h:inputText>
+											</div>
+										</li>
+									</ul>
 								</div>
 								<div id="divForma5" style="display:none;">
-								    <fieldset style="height: 100px;width: 100%;">
-										<ul>
-											<li class="normal">
-												<div>
-													<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-													<h:inputText styleClass="field text" id="a" maxlength="6" size="6"
-														value="#{transacaoBB.codigoProduto}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
-														<f:validateLength maximum="6" />
-													</h:inputText>
-												</div>
-											</li>
-										</ul>
-									</fieldset>
+									<ul>
+										<li class="normal">
+											<div>
+												<h:outputLabel styleClass="desc" value="Tipo Cliente"></h:outputLabel>
+												<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoa" 
+													value="#{transacaoBB.idTipoPessoa}" layout="lineDirection" required="false">
+													<f:selectItems id="tipoPessoaLista" value="#{transacaoBB.listaTipoPessoa}"/>
+												</h:selectOneRadio>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="CPF/CNPJ Cliente"></h:outputLabel>
+												<h:inputText styleClass="field text" id="cpfCnpjClienteCartaoProprio" maxlength="14" size="14"
+													value="#{transacaoBB.cpfCnpjCliente}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="14" />
+												</h:inputText>
+											</div>
+										</li>
+									</ul>
 								</div>
 							</li>
 							<li class="normal">
@@ -450,7 +645,179 @@
 								</div>
 							</li>
 						</ul>
-					</div>					
+					</div>
+					<div id="tabDiv3" style="display:none;height: 390px;">			
+						
+						<div class="tabMenu">
+							<ul>
+								<li id="tabMenuDivInterno0" class="current" onclick="selecionaMenuTabInterno(this.id)"><span><a href="#">Dados Cliente</a></span></li>
+								<li id="tabMenuDivInterno1" onclick="selecionaMenuTabInterno(this.id)"><span><a href="#">Endereço</a></span></li>
+							</ul>
+							<div class="clear"></div>							
+						</div>
+						<div id="primarioContentContainerInternas">
+							<div id="tabDivInterno0" style="width: 100%;">
+								<ul>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Tipo Pessoa"></h:outputLabel>
+											<h:selectOneRadio  styleClass="field select tipopessoa" id="idTipoPessoaCadastro" 
+												value="#{transacaoBB.idTipoPessoaCadastro}" layout="lineDirection" required="false">
+												<f:selectItems id="tipoPessoaLista" value="#{transacaoBB.listaTipoPessoa}"/>
+											</h:selectOneRadio>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="CPF/CNPJ"></h:outputLabel>
+											<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteCadastro" maxlength="18" size="18" value="#{transacaoBB.cpfCnpjClienteCadastro}" required="false"
+											 onkeypress="return SoNumero(event);">
+												<f:validateLength minimum="11" maximum="18" />
+											</h:inputText>								
+										</div>
+										<div style="position:relative; top:9px;">
+											<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{transacaoBB.buscaClientePorCpfCnpj}" value="Consultar"></h:commandButton>
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Nome Cliente"></h:outputLabel>
+											<h:inputText styleClass="field text" id="nomeClienteCadastro" maxlength="50" size="50" value="#{transacaoBB.nomeClienteCadastro}" required="false">
+												<f:validateLength maximum="50" />
+											</h:inputText>								
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
+											<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false"
+												value="#{transacaoBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">			
+												<f:convertDateTime timeZone="GMT-3"/>
+											</h:inputText>
+										</div>
+									</li>										
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Razão Social"></h:outputLabel>
+											<h:inputText styleClass="field text" id="razaoSocialCadastro" maxlength="50" size="50" value="#{transacaoBB.razaoSocialCadastro}" required="false">
+												<f:validateLength maximum="50" />
+											</h:inputText>								
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Insc. Estadual"></h:outputLabel>
+											<h:inputText styleClass="field text" id="inscricaoEstadualCadastro" maxlength="30" size="30" value="#{transacaoBB.inscricaoEstadualCadastro}" required="false">
+												<f:validateLength maximum="30" />
+											</h:inputText>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Insc. Municipal"></h:outputLabel>
+											<h:inputText styleClass="field text" id="inscricaoMunicipalCadastro" maxlength="30" size="30" value="#{transacaoBB.inscricaoMunicipalCadastro}" required="false">
+												<f:validateLength maximum="30" />
+											</h:inputText>					
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="E-mail"></h:outputLabel>
+											<h:inputText styleClass="field text" id="emailCadastro" maxlength="50" size="50" value="#{transacaoBB.emailCadastro}" required="false">
+												<f:validateLength maximum="50" />
+											</h:inputText>
+										</div>
+									</li>
+									
+								</ul>
+							</div>
+							<div id="tabDivInterno1" style="display:none;width: 100%;">
+								<ul>
+									<li class="normal">
+										<div style="width: 100%;">
+											<h:outputLabel styleClass="desc" value="Logradouro"></h:outputLabel>
+											<h:inputTextarea rows="3" id="logradouroCadastro" style="width: 90%;" styleClass="field text" value="#{transacaoBB.logradouroCadastro}" required="false">
+												<f:validateLength maximum="200" />
+											</h:inputTextarea>	
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Número"></h:outputLabel>
+											<h:inputText styleClass="field text" id="numeroCadastro" maxlength="10" size="10" value="#{transacaoBB.numeroCadastro}" required="false">
+												<f:validateLength maximum="10" />
+											</h:inputText>						
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Complemento"></h:outputLabel>
+											<h:inputText styleClass="field text" id="complementoCadastro" maxlength="20" size="20" value="#{transacaoBB.complementoCadastro}" required="false">
+												<f:validateLength maximum="20" />
+												</h:inputText>							
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Bairro"></h:outputLabel>
+											<h:inputText styleClass="field text" id="bairroCadastro" maxlength="30" size="30" value="#{transacaoBB.bairroCadastro}" required="false">
+												<f:validateLength maximum="30" />
+											</h:inputText>					
+										</div>								
+										<div>
+											<h:outputLabel styleClass="desc" value="Cidade"></h:outputLabel>
+											<h:inputText styleClass="field text" id="cidadeCadastro" maxlength="30" size="30" value="#{transacaoBB.cidadeCadastro}" required="false">
+												<f:validateLength maximum="30" />
+											</h:inputText>
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Estado"></h:outputLabel>
+											<h:inputText styleClass="field text" id="estadoCadastro" maxlength="30" size="30" value="#{transacaoBB.estadoCadastro}" required="false">
+												<f:validateLength maximum="30" />
+											</h:inputText>					
+										</div>								
+										<div>
+											<h:outputLabel styleClass="desc" value="CEP"></h:outputLabel>
+											<h:inputText styleClass="field text" id="cepCadastro" maxlength="10" size="10" value="#{transacaoBB.cepCadastro}" required="false">
+												<f:validateLength maximum="10" />
+											</h:inputText>	
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Fone"></h:outputLabel>
+											<h:inputText styleClass="field text" id="foneResidencialCadastro" maxlength="13" size="13" value="#{transacaoBB.foneResidencialCadastro}" required="false">
+												<f:validateLength maximum="13" />
+											</h:inputText>
+										</div>								
+										<div>
+											<h:outputLabel styleClass="desc" value="Fone Celular"></h:outputLabel>
+											<h:inputText styleClass="field text" id="foneCelularCadastro" maxlength="13" size="13" value="#{transacaoBB.foneCelularCadastro}" required="false">
+												<f:validateLength maximum="13" />
+											</h:inputText>		
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Nome Contato"></h:outputLabel>
+											<h:inputText styleClass="field text" id="pessoaContatoCadastro" maxlength="50" size="50" value="#{transacaoBB.pessoaContatoCadastro}" required="false">
+												<f:validateLength maximum="50" />
+											</h:inputText>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Fone Contato"></h:outputLabel>
+											<h:inputText styleClass="field text" id="foneContatoCadastro" maxlength="13" size="13" value="#{transacaoBB.foneContatoCadastro}" required="false">
+												<f:validateLength maximum="13" />
+											</h:inputText>
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Referências Comerciais"></h:outputLabel>
+											<h:inputTextarea rows="3" id="referenciaComercialCadastro" style="width: 90%;" styleClass="field text" value="#{transacaoBB.referenciaComercialCadastro}" required="false">
+												<f:validateLength maximum="1000" />
+											</h:inputTextarea>
+										</div>
+									</li>
+								</ul>
+							</div>	
+							<div class="clear"></div>						
+						</div>
+					</div>			
 					<ul>
 						<li class="normal">
 							<div>
@@ -463,11 +830,20 @@
 								</h:inputText>
 							</div>
 							<div>
+								<h:outputLabel styleClass="desc" value="Total Recebido"></h:outputLabel>
+								<h:inputText styleClass="field text" id="valorTotalRecebido" maxlength="10" size="10"
+									value="#{transacaoBB.valorTotalRecebido}" dir="rtl" required="false" readonly="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorTotalRecebido',9,2,event);">
+									<f:validateLength maximum="10" />
+									<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
+									<f:validator validatorId="BigDecimalValidator"/>
+								</h:inputText>
+							</div>
+							<div>
 								<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
-								<h:inputText styleClass="field text" id="descontoCupom" maxlength="5" size="10" onblur="reCalculaTotalCupom();"
-									value="#{transacaoBB.descontoCupom}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:descontoCupom',4,2,event);">
-									<f:validateLength maximum="5" />
-									<f:validateDoubleRange  minimum="0.00" maximum="99.99"/>
+								<h:inputText styleClass="field text" id="descontoCupom" maxlength="10" size="10" onblur="reCalculaTotalCupom();"
+									value="#{transacaoBB.descontoCupom}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:descontoCupom',9,2,event);">
+									<f:validateLength maximum="10" />
+									<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 									<f:validator validatorId="BigDecimalValidator"/>
 								</h:inputText>
 							</div>
