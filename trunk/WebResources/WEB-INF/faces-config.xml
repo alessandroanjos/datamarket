@@ -312,6 +312,11 @@
 	<navigation-rule>
 		<from-view-id>/jsp/transacao/manterTransacao.jsp</from-view-id>
 		<navigation-case>
+			<from-action>#{transacaoBB.atualizar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/transacao/manterTransacao.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
 			<from-action>#{transacaoBB.voltarConsulta}</from-action>
 			<from-outcome>voltar</from-outcome>
 			<to-view-id>/jsp/transacao/consultarTransacao.jsp</to-view-id>
