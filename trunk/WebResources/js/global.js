@@ -1,4 +1,5 @@
 var strAbaCorrente = "";
+var strAbaCadastroClienteCorrente = "";
 function autofocus(field, limit, next, evt) {
 	evt = (evt) ? evt : event;
 	var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode : 
@@ -29,3 +30,13 @@ function selecionaMenuTab(alvo) {
 	strAbaCorrente = alvo;
 }
 
+function selecionaMenuTabInterno(alvo) {
+	$("li#"+alvo).siblings().each(function(i){
+		$("li#"+this.id).removeClass("current");
+		var idObj = new String(this.id).replace("Menu","");
+		$("div#"+idObj.toString()).hide();
+	});
+	$("li#"+alvo).addClass('current');
+	$("div#"+alvo.replace("Menu","")).show();
+	strAbaCadastroClienteCorrente = alvo;
+}
