@@ -161,8 +161,11 @@ public class ProdutoBackBean extends BackBean{
 	}
 
 	
-	private Produto getProduto(){
+	private Produto getProduto(String operacao){
 		Produto p = new Produto();
+		if (!operacao.equals(this.INSERIR)) {
+			p.setId(new Long(this.getId()));
+		}
 		p.setCodigoExterno(getCodigoExterno());
 		p.setCodigoAutomacao(getCodigoAutomacao());
 		p.setDescricaoCompleta(getDescricaoCompleta());
@@ -227,7 +230,7 @@ public class ProdutoBackBean extends BackBean{
 
 	public String inserir(){
 		try {
-			getFachada().inserirProduto(getProduto());
+			getFachada().inserirProduto(getProduto(this.INSERIR));
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -317,7 +320,7 @@ public class ProdutoBackBean extends BackBean{
 	
 	public String alterar(){
 		try {
-			getFachada().alterarProduto(getProduto());
+			getFachada().alterarProduto(getProduto(this.ALTERAR));
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -339,7 +342,7 @@ public class ProdutoBackBean extends BackBean{
 	
 	public String excluir(){
 		try {
-			getFachada().excluirProduto(getProduto());
+			getFachada().excluirProduto(getProduto(this.EXCLUIR));
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");

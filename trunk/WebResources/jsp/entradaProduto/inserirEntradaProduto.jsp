@@ -339,7 +339,7 @@
 									</f:facet>
 									<h:commandLink  value=""
 										action="#{entradaProdutoBB.excluirProdutoEntrada}">
-										<h:commandButton type="button" image="images/tree/TortoiseDeleted.ico"/>
+										<h:commandButton type="button" image="/EnterpriseServer/images/tree/TortoiseDeleted.ico"/>
 										<f:param name="idExcluir" value="#{produtoEntrada.pk.produto.id}" />
 									</h:commandLink>
 								</h:column>

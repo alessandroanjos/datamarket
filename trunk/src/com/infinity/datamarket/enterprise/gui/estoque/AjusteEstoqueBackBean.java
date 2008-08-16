@@ -9,8 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UISelectOne;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.Fachada;
@@ -174,6 +176,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 		
 		
 		try {
+			
 			if (this.idProduto.equals("")) {
 				FacesContext ctx = FacesContext.getCurrentInstance();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -220,10 +223,18 @@ public class AjusteEstoqueBackBean extends BackBean {
 					"Ajuste de estoque já existente!", "");
 			ctx.addMessage(null, msg);
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			// TODO Auto-generated catch block
+			if  (e instanceof ObjectNotFoundException) {
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Produto não encontrado!", "");
+				ctx.addMessage(null, msg);
+			} else {
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						e.getMessage(), "");
+				ctx.addMessage(null, msg);
+			}	
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -231,7 +242,6 @@ public class AjusteEstoqueBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
 		return "mesma";
 	}
 
@@ -475,21 +485,39 @@ public class AjusteEstoqueBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
+
 		if (param != null && VALOR_ACAO.equals(param)){
+			resetBB();
 			setAjusteEstoques(null);
 		}
 	}
 
-
-	public void recuperaQuantidadEstoque(String id){
+	public List getAutoComplete(){
+	    try {
+	        //UISelectOne select = (UISelectOne) event.getSource(); 
+			String pref = "teste ";//String.valueOf(select.getValue());
+			ArrayList<String> lista = new ArrayList<String>();
+			lista.add(pref+1);
+			lista.add(pref+2);
+			lista.add(pref+3);
+	//		collecting some data that begins with "pref" letters.
+			return lista;
+	     } catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		}
+		return null;
+	}
+	public void recuperaQuantidadEstoque(String id) throws Exception{
 		// TODO Auto-generated method stub
 		try {
 			   
             String valor = id;
+            Produto produto = getFachada().consultarProdutoPorPK(new Long(valor));
+           
             if(valor!=null && !valor.equals("0")){
             	EstoqueProdutoPK pk = new EstoqueProdutoPK();
-            	Produto produto = getFachada().consultarProdutoPorPK(new Long(valor));
+            	
             	Estoque estoque = null;
             	if (produto != null) {
 	            	
@@ -511,7 +539,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 	    			} else {
 	    				this.setQuantidadeAntes(BigDecimal.ZERO);
 	    			}
-            	}	
+            	}
             }else{
             	this.setQuantidadeAntes(BigDecimal.ZERO);
             }
@@ -520,7 +548,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 			e.printStackTrace();
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
 	}
 	

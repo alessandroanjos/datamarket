@@ -114,7 +114,7 @@
 									
 									<div>
 										<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
-										<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false"
+										<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="true"
 											value="#{fornecedorBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">			
 											
 										</h:inputText>
@@ -263,22 +263,22 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Residencial"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneResidencial" maxlength="13" size="13" value="#{fornecedorBB.foneResidencial}" required="false" onkeypress="return SoNumero(event);">
-											<f:validateLength maximum="13" />
+										<h:inputText styleClass="field text" id="foneResidencial" maxlength="12" size="12" value="#{fornecedorBB.foneResidencial}" required="false" onkeypress="return SoNumero(event);">
+											<f:validateLength maximum="12" />
 										</h:inputText>
 										<h:message for="foneResidencial" styleClass="msgErro" />
 									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Comercial"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneComercial" maxlength="13" size="13" value="#{fornecedorBB.foneComercial}" required="false" onkeypress="return SoNumero(event);">
-											<f:validateLength maximum="13" />
+										<h:inputText styleClass="field text" id="foneComercial" maxlength="12" size="12" value="#{fornecedorBB.foneComercial}" required="false" onkeypress="return SoNumero(event);">
+											<f:validateLength maximum="12" />
 										</h:inputText>
 										<h:message for="foneComercial" styleClass="msgErro" />									
 									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Celular"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneCelular" maxlength="13" size="13" value="#{fornecedorBB.foneCelular}" required="false" onkeypress="return SoNumero(event);">
-											<f:validateLength maximum="13" />
+										<h:inputText styleClass="field text" id="foneCelular" maxlength="12" size="12" value="#{fornecedorBB.foneCelular}" required="false" onkeypress="return SoNumero(event);">
+											<f:validateLength maximum="12" />
 										</h:inputText>
 										<h:message for="foneCelular" styleClass="msgErro" />									
 									</div>
@@ -293,8 +293,8 @@
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Fone Contato"></h:outputLabel>
-										<h:inputText styleClass="field text" id="foneContato" maxlength="13" size="13" value="#{fornecedorBB.foneContato}" required="false" onkeypress="return SoNumero(event);">
-											<f:validateLength maximum="13" />
+										<h:inputText styleClass="field text" id="foneContato" maxlength="12" size="12" value="#{fornecedorBB.foneContato}" required="false" onkeypress="return SoNumero(event);">
+											<f:validateLength maximum="12" />
 										</h:inputText>
 										<h:message for="foneContato" styleClass="msgErro" />									
 									</div>
