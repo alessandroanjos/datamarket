@@ -27,13 +27,14 @@ import com.infinity.datamarket.enterprise.gui.util.BackBean;
 public class ClientePagamentoBackBean extends BackBean {
 	
 	public ClientePagamentoBackBean(){
+		setDataPagamento(new Date(System.currentTimeMillis()));
 	}
 	
 	String id;
 	Cliente cliente;
 	BigDecimal valorPagamento;
 	BigDecimal saldoDevedor;
-	Date dataPagamento;
+	Date dataPagamento = new Date(System.currentTimeMillis());;
 	FormaRecebimento formaRecebimento;
 	
 	Date dataInicial;
@@ -162,8 +163,10 @@ public class ClientePagamentoBackBean extends BackBean {
 		this.setCliente(null);
 		this.setClientes(null);
 		this.setValorPagamento(null);
-		this.setDataPagamento(null);
-		this.setFormaRecebimento(null);		
+		this.setDataPagamento(new Date(System.currentTimeMillis()));
+		this.setFormaRecebimento(null);	
+		this.setDataFinal(null);
+		this.setDataInicial(null);
 	}
 	
 	public String consultar(){
@@ -192,6 +195,10 @@ public class ClientePagamentoBackBean extends BackBean {
 				filter.setTheClass(ClientePagamento.class);
 				
 				filter.addProperty("cliente", this.getCliente());
+				
+				if(this.getDataInicial() == null || this.getDataFinal() == null ){
+					throw new Exception("Periodo deve ser informado!");
+				}
 				
 				if(this.getDataInicial().after(this.getDataFinal())){
 					throw new Exception("A Data Final deve ser maior que a Data Inicial.");
@@ -260,7 +267,25 @@ public class ClientePagamentoBackBean extends BackBean {
 
 	public String inserir(){
 		try {
+			if (this.getCliente() == null) {
+				throw new AppException("Selecione cliente para o pagamento.");
+			}
 			ClientePagamento clientePagamento = preencheClientePagamento(INSERIR);
+			
+			if((clientePagamento.getValorPagamento() == null || 
+				    clientePagamento.getValorPagamento().equals(BigDecimal.ZERO)) && 
+				   (clientePagamento.getDataPagamento() == null)){
+					throw new AppException("Informe data e valor do pagamento.");
+			}
+			
+			if((clientePagamento.getValorPagamento() == null || 
+					    clientePagamento.getValorPagamento().equals(BigDecimal.ZERO))){
+					throw new AppException("Informe o valor do pagamento.");
+			}
+			
+			if(clientePagamento.getDataPagamento() == null) {
+					throw new AppException("Informe o data do pagamento.");
+			}
 			
 			getFachada().inserirClientePagamento(clientePagamento);
 			
@@ -270,11 +295,17 @@ public class ClientePagamentoBackBean extends BackBean {
 			if(cli.getValorLimiteDisponivel() == null){
 				cli.setValorLimiteDisponivel(BigDecimal.ZERO);
 			}
+			
+			
+			if((clientePagamento.getValorPagamento() == null || 
+				    clientePagamento.getValorPagamento().equals(BigDecimal.ZERO)))
 			cli.setValorLimiteDisponivel(cli.getValorLimiteDisponivel().add(clientePagamento.getValorPagamento()));
 			
 			if(cli.getValorLimiteDisponivel().compareTo(cli.getValorLimiteCompras()) > 0){
 				throw new AppException("Valor ultrapassa o valor da dívida.");
 			}
+			
+			
 			
 			getFachada().alterarCliente(cli);
 			
@@ -299,7 +330,7 @@ public class ClientePagamentoBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
+
 		return "mesma";
 	}
 	
@@ -487,6 +518,7 @@ public class ClientePagamentoBackBean extends BackBean {
 	
 	public String voltarConsulta(){
 		resetBB();
+		this.setIdCliente("0");
 		consultar();
 		return "voltar";
 	}
@@ -501,8 +533,8 @@ public class ClientePagamentoBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
 		if (param != null && VALOR_ACAO.equals(param)){
+			resetBB();
 			setClientesPagamentos(null);
 		}
 	}

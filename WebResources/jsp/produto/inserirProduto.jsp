@@ -102,7 +102,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Código Externo*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="codigoExterno" maxlength="15"
-											size="17" value="#{produtoBB.codigoExterno}" required="true">
+											size="17" value="#{produtoBB.codigoExterno}" onkeypress="return SoNumero(event);" required="true">
 											<f:validateLength maximum="15" />
 										</h:inputText>
 										<h:message for="codigoExterno" styleClass="msgErro" />
@@ -110,7 +110,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Código Automação*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="codigoAutomacao" maxlength="15"
-											size="17" value="#{produtoBB.codigoAutomacao}" required="true">
+											size="17" value="#{produtoBB.codigoAutomacao}" onkeypress="return SoNumero(event);" required="true">
 											<f:validateLength maximum="15" />
 										</h:inputText>
 										<h:message for="codigoAutomacao" styleClass="msgErro" />

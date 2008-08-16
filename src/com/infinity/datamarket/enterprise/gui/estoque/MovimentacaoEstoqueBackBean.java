@@ -116,9 +116,17 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			e.printStackTrace();
 			return "mesma";
 		} catch (AppException e) {
+
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if  (e instanceof ObjectNotFoundException) {
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Produto não encontrado!", "");
+				ctx.addMessage(null, msg);
+				return "mesma";	
+			}
 		}
+		setDescricao(produto.getDescricaoCompleta());
 		
 		String msgValidacao = validaMovimentacao();
 		if (msgValidacao.equals("")) {

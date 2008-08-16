@@ -10,12 +10,16 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.hibernate.HibernateException;
+import org.hibernate.exception.ConstraintViolationException;
+
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.SistemaException;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 import com.sun.jimi.core.encoder.jpg.util;
@@ -24,6 +28,7 @@ public class ClienteBackBean extends BackBean {
 	
 	public ClienteBackBean(){
 		resetBB();
+		setDataCadastro(new Date(System.currentTimeMillis()));
 	}
 	
 	String id;
@@ -290,7 +295,7 @@ public class ClienteBackBean extends BackBean {
 		this.setFoneContato(null);
 		this.setValorLimiteCompras(null);
 //		this.setValorLimiteDisponivel(null);
-		this.setDataCadastro(null);
+		this.setDataCadastro(new Date(System.currentTimeMillis()));
 		this.setDataNascimento(null);
 		this.setReferenciaComercial(null);
 	}
@@ -436,13 +441,28 @@ public class ClienteBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Cliente já Existente!", "");
 			ctx.addMessage(null, msg);
+		} catch (SistemaException e) {
+			if (e.getCause()!=null 
+					&& e.getCause().getCause()!=null 
+					&& e.getCause().getCause().getCause() != null 
+					&& e.getCause().getCause().getCause() instanceof ConstraintViolationException) {
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Cliente já cadastrado!", "");
+				ctx.addMessage(null, msg);
+			} else {
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Erro de Sistema!", "");
+				ctx.addMessage(null, msg);
+			}
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
+
 		return "mesma";
 	}
 	
@@ -528,6 +548,7 @@ public class ClienteBackBean extends BackBean {
 				cliente.setValorLimiteCompras(new BigDecimal("0"));
 			}	
 		}else if(acao.equals(ALTERAR)){
+			cliente.setId(new Long(getId()));
 			if(this.getIdTipoPessoa().equals(Cliente.PESSOA_FISICA)){
 				cliente.setRazaoSocial(null);
 				cliente.setNomeFantasia(null);
@@ -609,8 +630,8 @@ public class ClienteBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
 		if (param != null && VALOR_ACAO.equals(param)){
+			resetBB();
 			setClientes(null);
 		}
 	}

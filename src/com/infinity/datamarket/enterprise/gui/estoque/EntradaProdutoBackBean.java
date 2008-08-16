@@ -15,6 +15,8 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.omg.CORBA.portable.ApplicationException;
+
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
@@ -31,11 +33,14 @@ import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class EntradaProdutoBackBean extends BackBean {   
 	private static final int HashSet = 0;
-	
+	public EntradaProdutoBackBean() {
+		// TODO Auto-generated constructor stub
+		setDataEntrada(new Date(System.currentTimeMillis()));
+	}
 	private String id;
 	private String numeroNota;
 	private Date dataEmissaoNota;
-	private Date dataEntrada;
+	private Date dataEntrada = new Date(System.currentTimeMillis());
 	private BigDecimal frete = BigDecimal.ZERO;
 	private BigDecimal icms  = BigDecimal.ZERO;
 	private BigDecimal ipi	 = BigDecimal.ZERO;
@@ -156,8 +161,15 @@ public class EntradaProdutoBackBean extends BackBean {
 			e.printStackTrace();
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if  (e instanceof ObjectNotFoundException) {
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Produto não encontrado!", "");
+				ctx.addMessage(null, msg);
+				return "mesma";	
+			}
 		}
+		setDescricao(produto.getDescricaoCompleta());
 		produtoEntradaPK.setProduto(produto);
 		produtoEntrada.setPk(produtoEntradaPK);
 		Estoque estoque = null;
@@ -571,7 +583,7 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setId(null);
 		this.setNumeroNota(null);
 		this.setDataEmissaoNota(null);
-		this.setDataEntrada(null);
+		this.setDataEntrada(new Date(System.currentTimeMillis()));
 		this.setDataInicio(null);
 		this.setDataFinal(null);
 		this.setFrete(BigDecimal.ZERO);
