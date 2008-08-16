@@ -64,6 +64,8 @@ public class LoginBackBean extends BackBean{
 
 	public String logout(){
 		resetBB();
+		this.setCodigoUsuarioLogado(null);
+		this.setUsuario(null);
 		return "logout";
 	}
 
