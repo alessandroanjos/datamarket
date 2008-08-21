@@ -2,6 +2,9 @@ package com.infinity.datamarket.enterprise.gui.transacao;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -130,6 +133,8 @@ public class TransacaoBackBean extends BackBean {
 	private Date dataInicial;
 	private Date dataFinal;
 	private BigDecimal valorTotalRecebido;
+	private String idSituacao = TransacaoVenda.ATIVO;
+	private SelectItem[] listaSituacao;
 	
 	private SelectItem[] lojas;
 	private SelectItem[] componentes;
@@ -162,7 +167,6 @@ public class TransacaoBackBean extends BackBean {
 	private String emailCadastro;
 	private String foneContatoCadastro;
 	private String referenciaComercialCadastro;
-	private Date dataCadastro; 
 	String abaCadastroClienteCorrente;
 
 	public String getAbaCorrente() {
@@ -681,7 +685,8 @@ public class TransacaoBackBean extends BackBean {
 	}
 	
 	public String voltarConsulta(){
-		consultar();
+		resetBB();
+//		consultar();
 		return "voltar";
 	}
 	public String voltarMenu(){
@@ -691,15 +696,15 @@ public class TransacaoBackBean extends BackBean {
 
 	public void resetBB(){
 		this.setId(null);
-		this.setIdLoja(null);
+		this.setIdLoja("0");
 		this.setLojas(null);
-		this.setIdComponente(null);
+		this.setIdComponente("0");
 		this.setComponentes(null);
-		this.setIdVendedor(null);
-		this.setIdOperador(null);
+		this.setIdVendedor("0");
+		this.setIdOperador("0");
 		this.setUsuariosVendedores(null);
 		this.setUsuariosOperadores(null);
-		this.setIdFormaTroco(null);
+		this.setIdFormaTroco("0");
 		this.setIdFormaPagamento(null);
 		this.setFormasTroco(null);
 		this.setFormasPagamento(null);
@@ -712,6 +717,8 @@ public class TransacaoBackBean extends BackBean {
 		this.setQuantidade(new BigDecimal("0.000"));
 		this.setDescontoItem(new BigDecimal("0.00"));
 		this.setValorFormaPagamento(new BigDecimal("0.00"));
+		this.setIdTipoPessoa(Cliente.PESSOA_FISICA);
+		this.setCpfCnpjClienteChqAvt(null);
 		this.setCodigoBancoChqAvt(null);
 		this.setCodigoAgenciaChqAvt(null);
 		this.setNumeroContaChqAvt(null);
@@ -723,6 +730,7 @@ public class TransacaoBackBean extends BackBean {
 		this.setNumeroChequeChqPrz(null);
 		this.setCmc7ChqPrz(null);
 		this.setDataVencimentoChqPrz(null);
+		this.setCpfCnpjClienteChqPrz(null);
 		this.setDataVencimento(null);
 		this.setNumeroCartao(null);
 		this.setCodigoAutorizadora(null);
@@ -733,16 +741,53 @@ public class TransacaoBackBean extends BackBean {
 		this.setItensTransacaoModificados(null);
 		this.setItensPagamento(null);
 		this.setValorSubTotalCupom(new BigDecimal("0.00"));
+		this.setValorTotalRecebido(new BigDecimal("0.00"));
 		this.setDescontoCupom(new BigDecimal("0.00"));
 		this.setValorTroco(new BigDecimal("0.00"));
 		this.setValorTotalCupom(new BigDecimal("0.00"));
+		this.setIdTipoPessoaCadastro(Cliente.PESSOA_FISICA);
+		this.setCpfCnpjClienteCadastro(null);
+		this.setNomeClienteCadastro(null);
+		this.setRazaoSocialCadastro(null);
+		this.setInscricaoEstadualCadastro(null);
+		this.setInscricaoMunicipalCadastro(null);
+		this.setEmailCadastro(null);
+		this.setLogradouroCadastro(null);
+		this.setNumeroCadastro(null);
+		this.setComplementoCadastro(null);
+		this.setBairroCadastro(null);
+		this.setCidadeCadastro(null);
+		this.setEstadoCadastro(null);
+		this.setCepCadastro(null);
+		this.setFoneResidencialCadastro(null);
+		this.setFoneCelularCadastro(null);
+		this.setPessoaContatoCadastro(null);
+		this.setFoneContatoCadastro(null);
+		this.setReferenciaComercialCadastro(null);
 	}
 	
 	public String consultar(){
 		try{
 			FacesContext context = FacesContext.getCurrentInstance();
-			Map params = context.getExternalContext().getRequestParameterMap();            
-			TransacaoPK param = (TransacaoPK)  params.get("id");
+			Map params = context.getExternalContext().getRequestParameterMap();
+			TransacaoPK param = null;
+			if(params != null){
+				param = new TransacaoPK();
+				if(params.get("transacao_loja") != null && !params.get("transacao_loja").equals("")){
+					param.setLoja(Integer.parseInt(params.get("transacao_loja").toString()));
+				}
+				if(params.get("transacao_componente") != null && !params.get("transacao_componente").equals("")){
+					param.setComponente(Integer.parseInt(params.get("transacao_componente").toString()));
+				}
+				if(params.get("transacao_dataTransacao") != null && !params.get("transacao_dataTransacao").equals("")){
+					DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+					System.out.println(dt.parse((String)params.get("transacao_dataTransacao")));
+					param.setDataTransacao(dt.parse((String)params.get("transacao_dataTransacao")));
+				}
+				if(params.get("transacao_numeroTransacao") != null && !params.get("transacao_numeroTransacao").equals("")){
+					param.setNumeroTransacao(new Integer(params.get("transacao_numeroTransacao").toString()).intValue());
+				}
+			}
 			if (param != null){
 				setId(param);
 			}
@@ -759,15 +804,24 @@ public class TransacaoBackBean extends BackBean {
 					|| (this.getDataInicial() != null && this.getDataFinal() != null)){
 				
 				PropertyFilter filter = new PropertyFilter();
+				
+				TransacaoPK transPk = new TransacaoPK();
+				
 				if (this.getIdLoja() != null && !this.getIdLoja().equals("0")){	
-					filter.addProperty("pk.loja", this.getIdLoja());
+					transPk.setLoja(Integer.parseInt(this.getIdLoja()));
+//					filter.addProperty("pk.loja", this.getIdLoja());
 				}
 				if (this.getIdComponente() != null && !this.getIdComponente().equals("0")){	
-					filter.addProperty("pk.componente", this.getIdComponente());
+					transPk.setComponente(Integer.parseInt(this.getIdComponente()));
+//					filter.addProperty("pk.componente", this.getIdComponente());
 				}
-				if (this.getNumeroCupom() != null && !this.getNumeroCupom().equals("")){
-					filter.addProperty("pk.numeroCupom", this.getNumeroCupom());
+				if (this.getNsuTransacao() != null && !this.getNsuTransacao().equals("")){
+					transPk.setNumeroTransacao(this.getNsuTransacao().intValue());
+//					filter.addProperty("pk.numeroTransacao", this.getNsuTransacao());
 				}
+				
+				filter.addProperty("pk", transPk);
+				
 				if (this.getDataInicial() != null && this.getDataFinal() != null){	
 					if(this.getDataInicial().after(this.getDataFinal())){
 						throw new Exception("A Data Final deve ser maior que a Data Inicial.");
@@ -776,6 +830,10 @@ public class TransacaoBackBean extends BackBean {
 					filter.addPropertyInterval("pk.dataTransacao", this.getDataInicial(), IntervalObject.MAIOR_IGUAL);
 					this.getDataFinal().setDate(this.getDataFinal().getDate()+1);
 					filter.addPropertyInterval("pk.dataTransacao", this.getDataFinal(), IntervalObject.MENOR_IGUAL);
+				}
+				
+				if(this.getIdSituacao() != null && !this.getIdSituacao().equals("0")){
+					filter.addProperty("situacao", this.getIdSituacao());
 				}
 				
 				filter.setTheClass(Transacao.class);
@@ -856,7 +914,10 @@ public class TransacaoBackBean extends BackBean {
 					ev.setAcao(EventoItemRegistrado.ITEM_NAO_ALTERADO);
 					this.getItensTransacao().add(ev);
 				}else if(evento instanceof EventoItemPagamento){
-					this.getItensPagamento().add((EventoItemPagamento)evento);
+					EventoItemPagamento ev = (EventoItemPagamento)evento;
+					ev.setDescricaoForma(ConstantesFormaRecebimento.retornaDescricaoFormaRecebimento(ev.getCodigoForma()));	
+					this.setValorTotalRecebido(this.getValorTotalRecebido().add(ev.getValorBruto()));
+					this.getItensPagamento().add(ev);
 				}
 			}
 		}
@@ -864,6 +925,7 @@ public class TransacaoBackBean extends BackBean {
 		this.setValorSubTotalCupom(transacao.getValorCupom().add(transacao.getValorTroco()));
 		this.setDescontoCupom(transacao.getDescontoCupom());
 		this.setValorTroco(transacao.getValorTroco());
+		
 		if(transacao.getFormaTroco() != null){
 			this.setIdFormaTroco(transacao.getFormaTroco().getId().toString());	
 		}else{
@@ -987,7 +1049,7 @@ public class TransacaoBackBean extends BackBean {
 			
 			this.setValorSubTotalCupom(this.getValorSubTotalCupom().add(valorTotalItem));
 			
-			this.setValorTotalCupom(this.getValorSubTotalCupom().subtract(this.getDescontoCupom().subtract(this.getValorTroco())));
+			this.setValorTotalCupom(this.getValorSubTotalCupom().subtract(this.getDescontoCupom()).subtract(this.getValorTroco()));
 			
 //			if(this.getValorTotalRecebido() != null && !this.getValorTotalRecebido().equals(BigDecimal.ZERO) && this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
 //				this.setValorTroco(this.getValorTotalRecebido().
@@ -1042,7 +1104,7 @@ public class TransacaoBackBean extends BackBean {
 		if(this.getValorTotalRecebido().compareTo(valorLiquido) > 0){
 			valorTroco = this.getValorTotalRecebido().subtract(valorLiquido);
 		}
-		this.setValorTroco(valorTroco);
+		this.setValorTroco(valorTroco.setScale(2));
 	}
 
 	public String removerItemTransacao(){
@@ -1060,7 +1122,7 @@ public class TransacaoBackBean extends BackBean {
 			if (itemTransacao.getPk().getNumeroEvento() == Integer.parseInt(param)){
 				this.getItensTransacao().remove(itemTransacao);
 				this.setValorSubTotalCupom(this.getValorSubTotalCupom().subtract(itemTransacao.getPreco()));
-				this.setValorTotalCupom(this.getValorSubTotalCupom().subtract(this.getDescontoCupom().subtract(this.getValorTroco())));
+				this.setValorTotalCupom(this.getValorSubTotalCupom().subtract(this.getDescontoCupom()).subtract(this.getValorTroco()));
 				//incluir na lista de itens alterados/excluidos
 				itemTransacao.setAcao("E");
 				this.getItensTransacaoModificados().add(itemTransacao);
@@ -1323,22 +1385,23 @@ public class TransacaoBackBean extends BackBean {
 		this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		
 		if(this.getValorTotalRecebido() != null && !this.getValorTotalRecebido().equals(BigDecimal.ZERO) && this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
-			this.setValorTroco(this.getValorTotalRecebido().
-					subtract(this.getValorSubTotalCupom().
-							subtract((this.getDescontoCupom() != null && !this.getDescontoCupom().equals(BigDecimal.ZERO) ? this.getDescontoCupom(): BigDecimal.ZERO))));
+			this.setValorTroco(
+					this.getValorTotalRecebido().
+						subtract(this.getValorSubTotalCupom()).
+							subtract((this.getDescontoCupom() != null && !this.getDescontoCupom().equals(BigDecimal.ZERO) ? this.getDescontoCupom(): BigDecimal.ZERO)));
 		}
 		
 		BigDecimal valorTemp = BigDecimal.ZERO;
 		
 		if(this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
-			valorTemp = this.getValorTotalRecebido().subtract(this.getValorSubTotalCupom());
+			valorTemp = this.getValorTotalRecebido();
 		}else{
 			valorTemp = this.getValorSubTotalCupom();
 		}
 		
 		this.setValorTotalCupom(valorTemp.
-							subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO).
-									subtract(this.getValorTroco())));
+							subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO)).
+							subtract(this.getValorTroco()));
 		return "mesma";
 	}
 
@@ -1404,17 +1467,17 @@ public class TransacaoBackBean extends BackBean {
 		}
 		if(this.getValorTotalRecebido() != null && !this.getValorTotalRecebido().equals(BigDecimal.ZERO) && this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
 			this.setValorTroco(this.getValorTotalRecebido().
-					subtract(this.getValorSubTotalCupom().
-							subtract((this.getDescontoCupom() != null && !this.getDescontoCupom().equals(BigDecimal.ZERO) ? this.getDescontoCupom(): BigDecimal.ZERO))));
+					subtract(this.getValorSubTotalCupom()).
+							subtract((this.getDescontoCupom() != null && !this.getDescontoCupom().equals(BigDecimal.ZERO) ? this.getDescontoCupom(): BigDecimal.ZERO)));
 			this.setValorTotalCupom(this.getValorTotalRecebido().
-					subtract(this.getValorSubTotalCupom().
-							subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO).
-									subtract(this.getValorTroco()))));
+					subtract(this.getValorSubTotalCupom()).
+							subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO)).
+									subtract(this.getValorTroco()));
 		}else{
 			this.setValorTroco(new BigDecimal("0.00"));
 			this.setValorTotalCupom(this.getValorSubTotalCupom().
-							subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO).
-									subtract(this.getValorTroco())));
+							subtract((this.getDescontoCupom() != null ? this.getDescontoCupom() : BigDecimal.ZERO)).
+									subtract(this.getValorTroco()));
 		}		
 		
 		this.setAbaCorrente("tabMenuDiv2");
@@ -1503,7 +1566,7 @@ public class TransacaoBackBean extends BackBean {
 				throw new AppException("É necessário informar as formas de pagamento.");
 			}
 			
-			if(this.getValorTotalCupom().compareTo(this.getValorTotalRecebido()) < 0){
+			if(this.getValorTotalRecebido().compareTo(this.getValorTotalCupom()) < 0){
 				this.setAbaCorrente("tabMenuDiv2");
 				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 				throw new AppException("O Valor Recebido deve ser maior ou igual ao Valor Total do Cupom.");
@@ -2228,8 +2291,7 @@ public class TransacaoBackBean extends BackBean {
 			ClienteTransacao cli = getFachada().consultarClienteTransacaoPorID(cpfCnpj);
 			if(cli != null){
 				this.setCpfCnpjClienteCadastro(cli.getCpfCnpj());
-				this.setNomeClienteCadastro(cli.getNomeCliente());
-				this.setDataCadastro(cli.getDataCadastro());
+				this.setNomeClienteCadastro(cli.getNomeCliente());				
 				this.setIdTipoPessoaCadastro(cli.getTipoPessoa());
 				this.setRazaoSocialCadastro(cli.getRazaoSocial());
 				this.setInscricaoEstadualCadastro(cli.getInscricaoEstadual());
@@ -2268,7 +2330,7 @@ public class TransacaoBackBean extends BackBean {
 		if(this.getCpfCnpjClienteCadastro() != null && !this.getCpfCnpjClienteCadastro().equals("")){
 			cli = new ClienteTransacao();
 			cli.setCpfCnpj(this.getCpfCnpjClienteCadastro());
-			cli.setDataCadastro(this.getDataCadastro());
+			cli.setDataCadastro(new Date(System.currentTimeMillis()));
 			cli.setNomeCliente(this.getNomeClienteCadastro());
 			if(this.getIdTipoPessoaCadastro().equals(Cliente.PESSOA_FISICA)){
 				cli.setTipoPessoa(Cliente.PESSOA_FISICA);
@@ -2294,21 +2356,6 @@ public class TransacaoBackBean extends BackBean {
 		return cli;
 	}
 
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-	
-//	public String retornaOperacao() {
-//		FacesContext context = FacesContext.getCurrentInstance();
-//		Map params = context.getExternalContext().getRequestParameterMap();            
-//		String param = (String)  params.get("operacao");
-//		return param;
-//	}
-
 	public List<EventoItemRegistrado> getItensTransacaoModificados() {
 		return itensTransacaoModificados;
 	}
@@ -2316,5 +2363,27 @@ public class TransacaoBackBean extends BackBean {
 	public void setItensTransacaoModificados(
 			List<EventoItemRegistrado> itensTransacaoModificados) {
 		this.itensTransacaoModificados = itensTransacaoModificados;
+	}
+	
+	public String getIdSituacao() {
+		return idSituacao;
+	}
+
+	public void setIdSituacao(String idSituacao) {
+		this.idSituacao = idSituacao;
+	}
+
+	public void setListaSituacao(SelectItem[] listaSituacao) {
+		this.listaSituacao = listaSituacao;
+	}
+
+	public SelectItem[] getListaSituacao() {
+		SelectItem[] lista = new SelectItem[2];
+		lista[0] = new SelectItem(TransacaoVenda.ATIVO, "Ativa");
+		lista[1] = new SelectItem(TransacaoVenda.CANCELADO, "Cancelada");
+		if(this.getIdSituacao() == null || this.getIdSituacao().equals("")){
+			this.setIdSituacao(TransacaoVenda.ATIVO);
+		}
+		return lista;
 	}
 }
