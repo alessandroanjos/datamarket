@@ -158,7 +158,8 @@
 								<h:outputLabel styleClass="desc" value="Desc"></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="desconto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.desconto}" dir="rtl"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:frete',7,2,event);">
+									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:desconto',7,2,event);"
+									required="false">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
@@ -337,9 +338,9 @@
 									<f:facet name="header">
 										<h:outputText value="Excluir" />
 									</f:facet>
-									<h:commandLink  value=""
-										action="#{entradaProdutoBB.excluirProdutoEntrada}">
-										<h:commandButton type="button" image="/EnterpriseServer/images/tree/TortoiseDeleted.ico"/>
+									<h:commandLink  value="" 
+										action="#{entradaProdutoBB.excluirProdutoEntrada}"   >
+										<h:commandButton  image="images/tree/TortoiseDeleted.gif" alt="" title="" />
 										<f:param name="idExcluir" value="#{produtoEntrada.pk.produto.id}" />
 									</h:commandLink>
 								</h:column>

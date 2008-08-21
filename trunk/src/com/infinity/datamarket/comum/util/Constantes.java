@@ -6,4 +6,5 @@ public class Constantes {
 	public static final String STATUS_INATIVO = "I";
 	public static final String SIM = "S";
 	public static final String NAO = "N";
+	public static final String FORMA_CHEQUE_PRE = "3";
 }

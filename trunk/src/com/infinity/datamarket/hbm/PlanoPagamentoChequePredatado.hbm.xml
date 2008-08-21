@@ -14,7 +14,7 @@
           <property name="percentagemEntrada" type="java.math.BigDecimal" update="true" insert="true">
               <column name="PERCENTAGEM_ENTRADA" length="20" not-null="false"/>
           </property>
-         
+
           <set name="parcelas" inverse="true" cascade="all" lazy="false" order-by="NUM_ENTRADA">
 	        <key>
 	            <column name="ID_PLANO"/>

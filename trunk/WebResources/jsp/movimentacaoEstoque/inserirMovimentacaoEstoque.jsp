@@ -186,7 +186,7 @@
 									</f:facet>
 									<h:commandLink  value=""
 										action="#{movimentacaoEstoqueBB.excluirProduto}">
-										<h:commandButton type="button" image="images/tree/TortoiseDeleted.ico"/>
+										<h:commandButton type="button" image="/images/tree/TortoiseDeleted.gif"/>
 										<f:param name="idExcluir" value="#{produtoMovimentacao.produto.id}" />
 									</h:commandLink>
 								</h:column>

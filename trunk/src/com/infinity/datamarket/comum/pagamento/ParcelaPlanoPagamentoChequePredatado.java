@@ -13,6 +13,7 @@ public class ParcelaPlanoPagamentoChequePredatado implements Serializable, Compa
 	
 	private BigDecimal percentagemParcela;
 	private int quantidadeDias;
+	private String dataProgramada;
 	
 	public BigDecimal getPercentagemParcela() {
 		return percentagemParcela;
@@ -43,5 +44,17 @@ public class ParcelaPlanoPagamentoChequePredatado implements Serializable, Compa
 			ret = 0;	
 		}		
 		return ret;
+	}
+	/**
+	 * @return the dataProgramada
+	 */
+	public String getDataProgramada() {
+		return dataProgramada;
+	}
+	/**
+	 * @param dataProgramada the dataProgramada to set
+	 */
+	public void setDataProgramada(String dataProgramada) {
+		this.dataProgramada = dataProgramada;
 	}
 }
