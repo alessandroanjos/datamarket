@@ -2813,12 +2813,7 @@
 		    <property-name>cpfCnpjClienteChqPrz</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>dataCadastro</property-name>
-		    <property-class>java.util.Date</property-class>
-		    <null-value/>
-		</managed-property>
+		</managed-property>		
 		<managed-property>
 		    <property-name>idTipoPessoaCadastro</property-name>
 		    <property-class>java.lang.String</property-class>
@@ -2917,6 +2912,16 @@
 		<managed-property>
 		    <property-name>abaCadastroClienteCorrente</property-name>
 		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idSituacao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>listaSituacao</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
