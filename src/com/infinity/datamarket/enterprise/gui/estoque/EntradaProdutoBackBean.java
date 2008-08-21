@@ -41,11 +41,12 @@ public class EntradaProdutoBackBean extends BackBean {
 	private String numeroNota;
 	private Date dataEmissaoNota;
 	private Date dataEntrada = new Date(System.currentTimeMillis());
-	private BigDecimal frete = BigDecimal.ZERO;
-	private BigDecimal icms  = BigDecimal.ZERO;
-	private BigDecimal ipi	 = BigDecimal.ZERO;
-	private BigDecimal desconto = BigDecimal.ZERO;
-	private BigDecimal valor    = BigDecimal.ZERO;
+	private BigDecimal frete = null;
+	private BigDecimal icms  = null;
+	private BigDecimal ipi	 = null;
+	private BigDecimal desconto = null;
+	private BigDecimal valor    = null;
+	private BigDecimal valorNota= null;
 	private String idFornecedor;
 	private Fornecedor fornecedor;
 	private ProdutoEntradaProduto produtoEntrada;
@@ -59,13 +60,13 @@ public class EntradaProdutoBackBean extends BackBean {
 	private Set<ProdutoEntradaProduto> arrayProduto; 
 	private String idEstoque;
 	private String idLoja;
-	private BigDecimal quantidade        = BigDecimal.ZERO;
-	private BigDecimal precoUnitario     = BigDecimal.ZERO;
-	private BigDecimal descontoProduto   = BigDecimal.ZERO;
-	private BigDecimal icmsProduto       = BigDecimal.ZERO;	
-	private BigDecimal ipiProduto	     = BigDecimal.ZERO;
-	private BigDecimal total		     = BigDecimal.ZERO;
-	private BigDecimal totalDescontoItem = BigDecimal.ZERO;
+	private BigDecimal quantidade        = null;
+	private BigDecimal precoUnitario     = null;
+	private BigDecimal descontoProduto   = null;
+	private BigDecimal icmsProduto       = null;	
+	private BigDecimal ipiProduto	     = null;
+	private BigDecimal total		     = null;
+	private BigDecimal totalDescontoItem = null;
 	private List<Estoque> estoques = null; 
     
 	// para uso de filtro de consulta
@@ -91,11 +92,11 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setIdProduto(null);
 		this.setDescricao(null);
 		this.setIdEstoque(null);
-		this.setDescontoProduto(BigDecimal.ZERO);
-		this.setQuantidade(BigDecimal.ZERO);
-		this.setIcmsProduto(BigDecimal.ZERO);
-		this.setIpiProduto(BigDecimal.ZERO);
-		this.setPrecoUnitario(BigDecimal.ZERO);
+		this.setDescontoProduto(null);
+		this.setQuantidade(null);
+		this.setIcmsProduto(null);
+		this.setIpiProduto(null);
+		this.setPrecoUnitario(null);
 		return "mesma";
 	}
 	public String excluirProdutoEntrada() {
@@ -107,9 +108,22 @@ public class EntradaProdutoBackBean extends BackBean {
 		for (Iterator iter = arrayProduto.iterator(); iter.hasNext();) {
 			ProdutoEntradaProduto produtoTmp = (ProdutoEntradaProduto) iter.next();
 			if (produtoTmp.getPk().getProduto().getId().equals(new Long(param))) {
-				this.setValor(getValor().subtract(produtoTmp.getTotal()));
+				
+				if (getValor().longValue()-produtoTmp.getTotal().longValue()>0) {
+					this.setValorNota(getValor().subtract(produtoTmp.getTotal()));
+				} else {
+					this.setValorNota(BigDecimal.ZERO);
+				}
+				
+				this.setValor(getValorNota());
+				
+				if (getValor().longValue() >= (this.getDesconto().longValue() - getValor().longValue()))
+				this.setValor(getValor().subtract(this.getDesconto()));
+				
 				this.setIpi(getIpi().subtract(produtoTmp.getIpi()));
 				this.setIcms(getIcms().subtract(produtoTmp.getIcms()));
+				if (this.getDescontoProduto()==null)
+					this.setDescontoProduto(BigDecimal.ZERO);
 				this.setTotalDescontoItem(getTotalDescontoItem().subtract(this.getDescontoProduto()));
 				arrayProduto.remove(produtoTmp);
 				break;
@@ -182,7 +196,10 @@ public class EntradaProdutoBackBean extends BackBean {
 		}
 
 		produtoEntrada.setEstoque(estoque);
-        
+		if (this.ipiProduto == null) this.ipiProduto = BigDecimal.ZERO;
+		if (this.icmsProduto == null) this.icmsProduto = BigDecimal.ZERO;
+		if (this.descontoProduto == null) this.descontoProduto = BigDecimal.ZERO;
+		if (this.desconto == null) this.desconto = BigDecimal.ZERO;
         produtoEntrada.setIpi(this.ipiProduto);
         produtoEntrada.setIcms(this.icmsProduto);
 		produtoEntrada.setDesconto(this.descontoProduto);
@@ -195,7 +212,12 @@ public class EntradaProdutoBackBean extends BackBean {
 		for (Iterator iter = arrayProduto.iterator(); iter.hasNext();) {
 			ProdutoEntradaProduto produtoTmp = (ProdutoEntradaProduto) iter.next();
 			if (produtoTmp.getPk().getProduto().getId().equals(produtoEntrada.getPk().getProduto().getId())) {
-				this.setValor(getValor().subtract(produtoTmp.getTotal()));
+				this.setValorNota(getValor().subtract(produtoTmp.getTotal()));
+				this.setValor(getValorNota());
+				
+				if (getValor().longValue() >= (this.getDesconto().longValue() - getValor().longValue()))
+				this.setValor(getValor().subtract(this.getDesconto()));
+				
 				this.setIpi(getIpi().subtract(produtoTmp.getIpi()));
 				this.setIcms(getIcms().subtract(produtoTmp.getIcms()));
 				this.setTotalDescontoItem(getTotalDescontoItem().subtract(produtoEntrada.getDesconto()));
@@ -207,7 +229,12 @@ public class EntradaProdutoBackBean extends BackBean {
 
 		produtoEntrada.getPk().setNumeroEntrada(i);
 		arrayProduto.add(produtoEntrada);
-		this.setValor(this.getValor().add(produtoEntrada.getTotal()));
+		this.setValorNota(getValor().add(produtoEntrada.getTotal()));
+		this.setValor(getValorNota());
+		
+		if (getValor().longValue() >= (this.getDesconto().longValue() - getValor().longValue()))
+		this.setValor(getValor().subtract(this.getDesconto()));
+		
 		this.setIpi(this.getIpi().add(produtoEntrada.getIpi()));
 		this.setIcms(this.getIcms().add(produtoEntrada.getIcms()));
 		this.setTotalDescontoItem(getTotalDescontoItem().subtract(produtoEntrada.getDesconto()));
@@ -221,14 +248,14 @@ public class EntradaProdutoBackBean extends BackBean {
 			msg = 	"Informe data de emissao da nota!";
 		} else if (this.dataEntrada == null || "".equals(this.dataEntrada)) {
 			msg = 	"Informe data de entrada da nota!";
-		} else if (this.frete == null || "".equals(this.frete)) {
+		/*} else if (this.frete == null || "".equals(this.frete)) {
 			msg = 	"Informe frete da nota!";
 		} else if (this.icms == null || "".equals(this.icms)) {
 			msg = 	"Informe icms da nota!";
 		} else if (this.ipi == null || "".equals(this.ipi)) {
 			msg = 	"Informe ipi da nota!";
 		} else if (this.desconto == null || "".equals(this.desconto)) {
-			msg = 	"Informe desconto da nota!";
+			msg = 	"Informe desconto da nota!";*/
 		} else if (this.valor == null || "".equals(this.valor)) {
 			msg = 	"Informe valor da nota!";
 		} else if (this.idFornecedor == null || "".equals(this.idFornecedor)) {
@@ -236,25 +263,30 @@ public class EntradaProdutoBackBean extends BackBean {
 		} else if (this.arrayProduto == null ) {
 			msg = 	"Informe pelo menos um produto na nota!";
 		}
-		
 		return msg;	  
 	}
 	public String validaProduto() {
-		  String msg = "";
+		
+		String msg = "";
 		if  (this.idProduto == null || "".equals(this.idProduto)) {
 			msg = 	"Informe produto!";
 		} else if (this.quantidade == null || "".equals(this.quantidade) || this.quantidade.equals(BigDecimal.ZERO)) {
 			msg = 	"Informe quantidade do produto deve ser informada!";
 		} else if (this.precoUnitario == null || "".equals(this.precoUnitario) || this.precoUnitario.equals(BigDecimal.ZERO)) {
 			msg = 	"Informe preço unitario do produto deve ser informado!";
-		} else if (this.icmsProduto == null || "".equals(this.icmsProduto)) {
+		/*} else if (this.icmsProduto == null || "".equals(this.icmsProduto)) {
 			msg = 	"Informe icms do produto deve ser informado ou informe zero!";
 		} else if (this.descontoProduto == null || "".equals(this.descontoProduto)) {
 			msg = 	"Informe desconto do produto deve ser informado ou informe zero!";			
 		} else if (this.ipiProduto == null || "".equals(this.ipiProduto)) {
-			msg = 	"Informe ipi do produto deve ser informado ou informe zero!";
+			msg = 	"Informe ipi do produto deve ser informado ou informe zero!";*/
+		} else if (this.descontoProduto != null && "".equals(this.descontoProduto)) {
+			BigDecimal tmpTotalProduto = this.precoUnitario.multiply(this.quantidade);
+			if (this.descontoProduto.longValue() > tmpTotalProduto.longValue()) {
+				msg = 	"Desconto do produto deve ser menor que o total do produto!";	
+			}
 		}
-		
+	
 		return msg;	  
 	}	
 	public String inserir() {
@@ -270,14 +302,31 @@ public class EntradaProdutoBackBean extends BackBean {
 			ctx.addMessage(null, msg);
 			return "mesma";
 		}
+		
+	    if (this.desconto != null && !"".equals(this.desconto)) {
+	    	BigDecimal tmpValor = valorNota;
+			if (tmpValor.subtract(this.desconto).longValueExact() <= this.desconto.longValueExact()) {
+				msgValidacao = 	"Desconto da nota deve ser menor que o total da nota!";	
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						msgValidacao, "");
+				ctx.addMessage(null, msg);
+				return "mesma";
+			}
+		}
+	    
 		entradaProduto.setNumeroNota(this.numeroNota);
 		entradaProduto.setDataEmissaoNota(this.dataEmissaoNota);
 		entradaProduto.setDataEntrada(this.dataEntrada);
 		entradaProduto.setFrete(this.frete);
 		entradaProduto.setIcms(this.icms);
 		entradaProduto.setIpi(this.ipi);
-		entradaProduto.setDesconto(this.desconto);
-		entradaProduto.setValor(this.valor);
+		if (this.desconto == null) {
+			entradaProduto.setDesconto(BigDecimal.ZERO);	
+		} else {
+		    entradaProduto.setDesconto(this.desconto);
+		}
+		entradaProduto.setValor(this.valorNota.subtract(getDesconto()));
 		entradaProduto.setIdFornecedor(this.idFornecedor);
 
 		Fornecedor fornecedor = null;
@@ -292,7 +341,7 @@ public class EntradaProdutoBackBean extends BackBean {
 		} 
 		entradaProduto.setFornecedor(fornecedor);
 		entradaProduto.setProdutosEntrada(arrayProduto);
-		entradaProduto.setDesconto(this.getDesconto().add(this.getTotalDescontoItem()));
+		entradaProduto.setDesconto(this.getDesconto());
 
 		try {
 			getFachada().inserirEntradaProduto(entradaProduto);
@@ -586,11 +635,11 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setDataEntrada(new Date(System.currentTimeMillis()));
 		this.setDataInicio(null);
 		this.setDataFinal(null);
-		this.setFrete(BigDecimal.ZERO);
-		this.setIcms(BigDecimal.ZERO);
-		this.setIpi(BigDecimal.ZERO);
-		this.setDesconto(BigDecimal.ZERO);
-		this.setValor(BigDecimal.ZERO);
+		this.setFrete(null);
+		this.setIcms(null);
+		this.setIpi(null);
+		this.setDesconto(null);
+		this.setValor(null);
 		this.setFornecedor(null);
 		this.setArrayProduto(null);
 		this.setTipoEntrada(TIPO_NOTA);
@@ -888,8 +937,14 @@ public class EntradaProdutoBackBean extends BackBean {
 	public void setTotal(BigDecimal total) {
 		this.total = this.precoUnitario;
 		this.total = total.multiply(this.quantidade);
-		this.total = this.total.subtract(this.descontoProduto);
+		
+		if (this.descontoProduto != null) 
+			this.total = this.total.subtract(this.descontoProduto);
+		
+		if (this.ipiProduto != null) 
 		this.total = this.total.add(this.ipiProduto);
+		
+		if (this.icmsProduto != null) 
 		this.total = this.total.add(this.icmsProduto);
 	}
 	/**
@@ -944,7 +999,7 @@ public class EntradaProdutoBackBean extends BackBean {
 	 * @return the totalDescontoItem
 	 */
 	public BigDecimal getTotalDescontoItem() {
-		return totalDescontoItem;
+		return totalDescontoItem==null?BigDecimal.ZERO:totalDescontoItem;
 	}
 	/**
 	 * @param totalDescontoItem the totalDescontoItem to set
@@ -963,6 +1018,18 @@ public class EntradaProdutoBackBean extends BackBean {
 			resetBB();
 			setEntradasProduto(null);
 		}
+	}
+	/**
+	 * @return the valorNota
+	 */
+	public BigDecimal getValorNota() {
+		return valorNota;
+	}
+	/**
+	 * @param valorNota the valorNota to set
+	 */
+	public void setValorNota(BigDecimal valorNota) {
+		this.valorNota = valorNota;
 	}
 
 }

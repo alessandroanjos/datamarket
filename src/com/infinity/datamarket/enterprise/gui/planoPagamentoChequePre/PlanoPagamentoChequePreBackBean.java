@@ -13,6 +13,7 @@ import java.util.TreeSet;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatado;
 import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatadoPK;
@@ -20,6 +21,7 @@ import com.infinity.datamarket.comum.pagamento.PlanoPagamentoChequePredatado;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.planoPagamento.PlanoPagamentoBackBean;
 
 /**
@@ -41,6 +43,8 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 	BigDecimal percentagemParcela = BigDecimal.ZERO;
 	int quantidadeDias;
 	int numParcela = 0;
+	String dataProgramada;
+	SelectItem[] dataProgramadaSimNao;
 	SortedSet<ParcelaPlanoPagamentoChequePredatado> parcelas = new TreeSet<ParcelaPlanoPagamentoChequePredatado>(); 
 
 	public SortedSet<ParcelaPlanoPagamentoChequePredatado> getParcelas() {
@@ -112,6 +116,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 	public void resetBB(){
 		super.resetBB();
 //		this.setPercentagemEntrada(null);
+		this.setDataProgramada(Constantes.NAO);
 		this.setParcelas(null);
 	}
 	
@@ -134,13 +139,13 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			throw new Exception("O campo Valor Máximo é obrigatório.");
 		}
 		
-		if(this.getPercDesconto() == null || this.getPercDesconto().compareTo(new BigDecimal("0")) < 0){
+		/*if(this.getPercDesconto() == null || this.getPercDesconto().compareTo(new BigDecimal("0")) < 0){
 			throw new Exception("O campo Percentual de Desconto é obrigatório.");
 		}
 		
 		if(this.getPercAcrescimo() == null || this.getPercAcrescimo().compareTo(new BigDecimal("0")) < 0){
 			throw new Exception("O campo Percentual de Acréscimo é obrigatório.");
-		}
+		}*/
 
 		if(this.getDataInicioValidade() == null || this.getDataInicioValidade().equals("")){
 			throw new Exception("É necessário informar a Data Inicial de Validade.");
@@ -161,7 +166,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 	
 	public String inserir(){
 		try {	
-			
+			setIdForma(Constantes.FORMA_CHEQUE_PRE);
 			validarBackBean();
 			
 			PlanoPagamentoChequePredatado planoPre = new PlanoPagamentoChequePredatado();
@@ -210,7 +215,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 	
 	public String alterar(){
 		try {
-			
+			setIdForma(Constantes.FORMA_CHEQUE_PRE);
 			validarBackBean();
 			
 			BigDecimal totalPercentagem = BigDecimal.ZERO;
@@ -260,6 +265,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 
 	public String excluir(){
 		try {
+			setIdForma(Constantes.FORMA_CHEQUE_PRE);
 			PlanoPagamentoChequePredatado planoPre = new PlanoPagamentoChequePredatado();
 			
 			preenchePlanoPagamento(planoPre, ALTERAR);
@@ -463,7 +469,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		}
-		this.setPercentagemParcela(BigDecimal.ZERO);
+		this.setPercentagemParcela(null);
 		this.setQuantidadeDias(0);
 		return "mesma";
 	}
@@ -510,9 +516,31 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
 		if (param != null && VALOR_ACAO.equals(param)){
+			resetBB();
 			setPlanos(null);
 		}
+	}
+
+	public SelectItem[] getDataProgramadaSimNao() {
+		SelectItem[] dataProgramadaSimNao = new SelectItem[]{new SelectItem(Constantes.SIM,"Sim"),
+                new SelectItem(Constantes.NAO,"Não")};
+		if(getDataProgramada() == null){
+			setDataProgramada(Constantes.NAO);
+		}
+		return dataProgramadaSimNao;
+	}
+	/**
+	 * @return the dataProgramada
+	 */
+	public String getDataProgramada() {
+		return dataProgramada;
+	}
+
+	/**
+	 * @param dataProgramada the dataProgramada to set
+	 */
+	public void setDataProgramada(String dataProgramada) {
+		this.dataProgramada = dataProgramada;
 	}
 }

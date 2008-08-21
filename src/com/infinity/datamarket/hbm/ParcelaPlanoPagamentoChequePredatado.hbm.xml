@@ -16,7 +16,9 @@
 		<property name="percentagemParcela" type="java.math.BigDecimal" update="true" insert="true">
               <column name="PERCENTAGEM_PARCELA" length="20" not-null="false"/>
         </property>
-        
+        <property name="dataProgramada" type="java.lang.String" update="true" insert="true">
+              <column name="DATA_PROGRAMADA" length="1" not-null="false"/>
+        </property>
         <property name="quantidadeDias" type="int" update="true" insert="true">
               <column name="QTD_DIAS" length="20" not-null="false"/>
         </property>
