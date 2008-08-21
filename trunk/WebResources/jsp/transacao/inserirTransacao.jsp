@@ -101,46 +101,19 @@
             	var descontoCupom = parseFloat(getId("frmInserirTransacao:descontoCupom").value);
             	var valorTroco = parseFloat(getId("frmInserirTransacao:valorTroco").value);            	
             	var valorTotalCupom = parseFloat(getId("frmInserirTransacao:valorTotalCupom").value);            
-
+				var valorTemp = parseFloat("0");
 				var valorLiquido = parseFloat("0");
 				var valorTroco = parseFloat("0");
 				
-				//calculo do valor total do cupom
-				if(valorTotalRecebido > valorSubTotalCupom){
-				   valorLiquido = valorTotalRecebido - valorSubTotalCupom;
-				}else{
-				   valorLiquido = valorSubTotalCupom;
-				}
-				if(descontoCupom > 0){
-				   valorLiquido = valorLiquido - descontoCupom;
-				}
+				//calculo do valor total do cupom				
+ 				valorLiquido = valorSubTotalCupom - descontoCupom;
+				
+				//calculo do valor do troco
+			    valorTroco = valorTotalRecebido - valorLiquido;
+				
 				getId("frmInserirTransacao:valorTotalCupom").value = valorLiquido.toFixed(2);
 				
-				//calcula o valor do troco
-				if(valorTotalRecebido > valorLiquido){
-				   valorTroco = valorTotalRecebido - valorLiquido;
-				}
 				getId("frmInserirTransacao:valorTroco").value = valorTroco.toFixed(2);
-				
-/*
-				if(valorSubTotalCupom > valorTotalRecebido){
-				   valorTotalCupom = valorTotalRecebido - valorSubTotalCupom;
-				}else{
-				   valorTotalCupom = valorSubTotalCupom;
-				}
-
-				if(valorTotalRecebido > valorSubTotalCupom){
-				   valorLiquido = valorTotalRecebido - valorSubTotalCupom;
-				}else{
-				   valorLiquido = valorSubTotalCupom;
-				}
-
-				valorTroco = valorLiquido - descontoCupom;
-				getId("frmInserirTransacao:valorTroco").value = valorTotalCupom.toFixed(2);
-            
-            	valorTotalCupom = valorSubTotalCupom - descontoCupom - valorTroco;
-				getId("frmInserirTransacao:valorTotalCupom").value = valorTotalCupom.toFixed(2);
-*/				
             }
             
             function reCalculaTotalRecebido(){
@@ -206,7 +179,7 @@
 			</div>				
 		</div>	
 		<div id="content">
-			<div class="tabMenu">
+			<div id="tabMenu">
 				<ul>
 					<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Transação</a></span></li>
 					<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)"><span><a href="#">Itens</a></span></li>
@@ -648,7 +621,7 @@
 					</div>
 					<div id="tabDiv3" style="display:none;height: 390px;">			
 						
-						<div class="tabMenu">
+						<div id="tabMenu">
 							<ul>
 								<li id="tabMenuDivInterno0" class="current" onclick="selecionaMenuTabInterno(this.id)"><span><a href="#">Dados Cliente</a></span></li>
 								<li id="tabMenuDivInterno1" onclick="selecionaMenuTabInterno(this.id)"><span><a href="#">Endereço</a></span></li>
@@ -668,8 +641,8 @@
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="CPF/CNPJ"></h:outputLabel>
-											<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteCadastro" maxlength="18" size="18" value="#{transacaoBB.cpfCnpjClienteCadastro}" required="false"
-											 onkeypress="return SoNumero(event);">
+											<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteCadastro" maxlength="18" size="18" 
+											value="#{transacaoBB.cpfCnpjClienteCadastro}" required="false" onkeypress="return SoNumero(event);">
 												<f:validateLength minimum="11" maximum="18" />
 											</h:inputText>								
 										</div>
@@ -683,14 +656,7 @@
 											<h:inputText styleClass="field text" id="nomeClienteCadastro" maxlength="50" size="50" value="#{transacaoBB.nomeClienteCadastro}" required="false">
 												<f:validateLength maximum="50" />
 											</h:inputText>								
-										</div>
-										<div>
-											<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
-											<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="false"
-												value="#{transacaoBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">			
-												<f:convertDateTime timeZone="GMT-3"/>
-											</h:inputText>
-										</div>
+										</div>									
 									</li>										
 									<li class="normal">
 										<div>
