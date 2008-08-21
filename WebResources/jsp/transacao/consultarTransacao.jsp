@@ -44,26 +44,51 @@
 						<div id="primarioContentContainer">
 							<fieldset>
 								<legend>Opções de filtro:</legend>
-								<ul>
+								<ul>								
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
-												value="#{autorizadoraBB.id}" size="4" required="false">
-												<f:validateLength maximum="4" />
-												<f:validator validatorId="LongValidator"/>
-											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{transacaoBB.idLoja}"> 
+												<f:selectItems id="lojasSelectItems" value="#{transacaoBB.lojas}" />   
+											</h:selectOneMenu>
+										</div>									
+										<div>
+											<h:outputLabel styleClass="desc" value="Componente"></h:outputLabel>
+											<h:selectOneMenu id="idComponente" style="width: 200px;" value="#{transacaoBB.idComponente}"> 
+												<f:selectItems id="componentesSelectItems" value="#{transacaoBB.componentes}" />   
+											</h:selectOneMenu>
 										</div>
 										<div>
-											<h:outputLabel styleClass="desc" value="Descrição"></h:outputLabel>
-											<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50"
-												value="#{autorizadoraBB.descricao}">
-												<f:validateLength maximum="50" />
+											<h:outputLabel styleClass="desc" value="Número Transação"></h:outputLabel>
+											<h:inputText styleClass="field text ativo" id="nsuTransacao" maxlength="6" onkeypress="return SoNumero(event);"
+												value="#{transacaoBB.nsuTransacao}" size="6" required="false">
+												<f:validateLength maximum="6" />
+												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
-											<h:message for="descricao" styleClass="msgErro" />
+										</div>	
+										<br />															
+										<br />
+										<div>
+											<h:outputLabel styleClass="desc" value="Data Início"></h:outputLabel>
+											<h:inputText styleClass="field text" id="dataInicial" maxlength="10" size="10" required="false"
+												value="#{transacaoBB.dataInicial}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
+												<f:convertDateTime timeZone="GMT-3"/>
+											</h:inputText>
 										</div>
-									</li>
+										<div>
+											<h:outputLabel styleClass="desc" value="Data Fim"></h:outputLabel>
+											<h:inputText styleClass="field text" id="dataFinal" maxlength="10" size="10" required="false"
+												value="#{transacaoBB.dataFinal}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
+												<f:convertDateTime timeZone="GMT-3"/>
+											</h:inputText>										
+										</div>
+										<div>	
+											<h:outputLabel styleClass="desc" value="Situacao"></h:outputLabel>
+											<h:selectOneMenu id="idSituacao" style="width: 200px;" value="#{transacaoBB.idSituacao}"> 
+												<f:selectItems id="situacaoSelectItems" value="#{transacaoBB.listaSituacao}" />   
+											</h:selectOneMenu>
+										</div>
+									</li>	
 								</ul>
 							</fieldset>	
 							<div class="listagem">
@@ -71,38 +96,53 @@
 									var="transacao" rowClasses="rowA,rowB" width="90%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Código" /> 
+											<h:outputText value="Número Transação" /> 
 										</f:facet>
-										<h:outputText value="#{transacao.id}" /> 
+										<h:commandLink value="#{transacao.pk.numeroTransacao}" action="#{transacaoBB.consultar}">
+											<f:param name="transacao_loja" value="#{transacao.pk.loja}"/>						
+											<f:param name="transacao_componente" value="#{transacao.pk.componente}"/>
+											<f:param name="transacao_dataTransacao" value="#{transacao.pk.dataTransacao}"/>
+											<f:param name="transacao_numeroTransacao" value="#{transacao.pk.numeroTransacao}"/>
+										</h:commandLink>										
 									</h:column>
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Descrição" />
+											<h:outputText value="Loja" />
 										</f:facet>
-										<h:commandLink value="#{transacao.descricao}" action="#{transacaoBB.consultar}">
-											<f:param name="id" value="#{transacao.id}"/>						
-										</h:commandLink>
+										<h:outputText value="#{transacao.pk.loja}" /> 
 									</h:column>
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Ativa" /> 
+											<h:outputText value="Componente" />
+										</f:facet>
+										<h:outputText value="#{transacao.pk.componente}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Data Transação" />
+										</f:facet>
+										<h:outputText value="#{transacao.pk.dataTransacao}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Valor" />
+										</f:facet>
+										<h:outputText value="#{transacao.valorCupom}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Situação" />
 										</f:facet>
 										<h:outputText value="#{transacao.situacao}" /> 
-									</h:column>
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Desagil" /> 
-										</f:facet>
-										<h:outputText value="#{transacao.desagil}"/> 
-									</h:column>
+									</h:column>									
 								</t:dataTable>	
-										<div>
-											<h:messages rendered="#{not transacaoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
-										</div>
+								<div>
+									<h:messages rendered="#{not transacaoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+								</div>
 							</div>
 							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton immediate="true" styleClass="btTxt" id="botaoLimpar" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{transacaoBB.consultar}" value="Consultar"></h:commandButton>
 								</li>						
 							</ul>
