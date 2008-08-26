@@ -13,7 +13,7 @@
            <key-property name="loja" column="LOJA" type="integer"/>
            <key-property name="componente" column="COMPONENTE" type="integer"/>
            <key-property name="numeroTransacao" column="NUM_TRANSACAO" type="integer"/>
-           <key-property name="dataTransacao" column="DATA_TRANSACAO" type="date"/>
+           <key-property name="dataTransacao" column="DATA_TRANSACAO" type="date" length="8"/>
          </composite-id>
 
         <property name="tipoTransacao" type="int" update="true" insert="true">
