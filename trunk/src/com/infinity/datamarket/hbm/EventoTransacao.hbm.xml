@@ -5,13 +5,13 @@
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
    <hibernate-mapping>
-      <class name="com.infinity.datamarket.comum.transacao.EventoTransacao" table="EVENTO_TRANSACAO" lazy="false">
+      <class name="com.infinity.datamarket.comum.transacao.EventoTransacao" table="EVENTO_TRANSACAO" dynamic-update="true" dynamic-insert="true" lazy="false">
 
          <composite-id name="pk" class="com.infinity.datamarket.comum.transacao.EventoTransacaoPK">
            <key-property name="loja" column="LOJA" type="integer"/>
            <key-property name="componente" column="COMPONENTE" type="integer"/>
            <key-property name="numeroTransacao" column="NUM_TRANSACAO" type="integer"/>
-           <key-property name="dataTransacao" column="DATA_TRANSACAO" type="java.util.Date"/>
+           <key-property name="dataTransacao" column="DATA_TRANSACAO" type="date" length="8"/>
            <key-property name="numeroEvento" column="NUM_EVENTO" type="integer"/>
          </composite-id>
 
