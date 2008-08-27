@@ -30,13 +30,31 @@
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
 			<script type="text/javascript">
-		window.onload = function(){ inicializar() };
-		function inicializar() {
-				strAbaCorrente = getId("frmManterPlanoPagamentoChequePre:abaCorrente").value;
-				if(strAbaCorrente != ""){							
-					selecionaMenuTab(strAbaCorrente);
-				}									
-		}
+				window.onload = function(){ inicializar() };
+				function inicializar() {
+						$("input.dataProgramada").each(function(i){
+							$(this).click(function() {mostraCampos(this.value)});
+						});
+						if ($('[name=frmInserirPlanoPagamentoChequePre:dataProgramada]:checked').val() != "undefined") {
+							mostraCampos($('[name=frmInserirPlanoPagamentoChequePre:dataProgramada]:checked').val());
+						}
+						strAbaCorrente = getId("frmInserirPlanoPagamentoChequePre:abaCorrente").value;
+						if(strAbaCorrente != ""){							
+							selecionaMenuTab(strAbaCorrente);
+						}
+
+				}
+
+		
+		        function mostraCampos(str) {
+					var flag = new String(str);
+					if (flag.toUpperCase() == "N") {
+					    habilita("frmInserirPlanoPagamentoChequePre:quantidadeDiasParcela");
+					} else {
+						desabilita("frmInserirPlanoPagamentoChequePre:quantidadeDiasParcela");
+					    getId("frmInserirPlanoPagamentoChequePre:quantidadeDiasParcela").value = "0";
+					}
+		      }		
 		</script>
 		</head>
 		<body>
@@ -234,7 +252,7 @@
 													<li class="normal">
 														<div>
 															<h:outputLabel styleClass="desc" value="Data Programada*"></h:outputLabel>
-															<h:selectOneRadio styleClass="field select"
+															<h:selectOneRadio onclick="mostraCampos(this.value);" styleClass="field select tipopessoa"
 																id="dataProgramada"
 																value="#{planoPagamentoChequePreBB.dataProgramada}"
 																layout="lineDirection">
