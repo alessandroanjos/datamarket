@@ -22,7 +22,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
-import org.hibernate.exception.ConstraintViolationException;
 
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Persistente;
