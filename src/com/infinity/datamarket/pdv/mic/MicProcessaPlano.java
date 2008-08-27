@@ -84,6 +84,7 @@ public class MicProcessaPlano extends Mic{
 			eventos.add(eventoItemPagamentoChequePredatado);
 			Collection parcelas = dadosToParcelas(dadosParcelas,eventoItemPagamentoChequePredatado.getPk());
 			eventoItemPagamentoChequePredatado.setParcelas(parcelas);
+			eventoItemPagamento = eventoItemPagamentoChequePredatado;
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamentoChequePredatado);
 		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.CARTAO_OFF)){
 			DadosCartaoOff dados = (DadosCartaoOff) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CARTAO_OFF);
@@ -100,9 +101,10 @@ public class MicProcessaPlano extends Mic{
 		}else{
 			eventoItemPagamento = new EventoItemPagamento(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo);
 			eventos.add(eventoItemPagamento);
+			
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamento);
 		}
-		eventoItemPagamento.setDescricaoForma(plano.getForma().getDescricao());
+		eventoItemPagamento.setDescricaoForma(plano.getForma().getDescricao()); 
 		eventoItemPagamento.setDescricaoPlano(plano.getDescricao());
 		
 		gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_VENDA_ATUAL, transVenda);
