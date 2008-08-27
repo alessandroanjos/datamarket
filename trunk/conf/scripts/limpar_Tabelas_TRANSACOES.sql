@@ -1,0 +1,13 @@
+delete from transacao_entrada_operador
+delete from evento_item_pagamento_cheque
+delete from parc_eve_item_pag_cheque_pre
+delete from evento_item_pag_cheque_pre
+delete from evento_item_pag_cartao_proprio
+delete from evento_item_pag_cartao_off
+delete from evento_item_pagamento
+delete from produto_item_registrado
+delete from evento_item_registrado
+delete from evento_transacao
+delete from transacao_venda
+delete from transacao_cancelamento
+delete from transacao
