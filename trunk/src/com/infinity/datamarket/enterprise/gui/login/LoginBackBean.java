@@ -171,7 +171,7 @@ public class LoginBackBean extends BackBean{
 										".faces?"+ACAO+"="+VALOR_ACAO+																				
 										"\",\"\",\"top=50,left=50,status=no,toolbar=no,menubar=no,location=no,resize=no,height=" +
 										funcAux.getAltura() + ",width=" + funcAux.getLargura() + "\")");
-						System.out.println(subMenuAux.getAction());
+//						System.out.println(subMenuAux.getAction());
 					}					
 				}
 				
