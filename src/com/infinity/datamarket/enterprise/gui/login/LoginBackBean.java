@@ -151,11 +151,10 @@ public class LoginBackBean extends BackBean{
 				Funcionalidade funcAux = (Funcionalidade) listaAux.next();
                 
 				if (!checkPermissao(funcAux)) {
-					
-                	continue;
+				   	continue;
                 }
 				
-				Collection funcFilha   =  getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(funcAux);
+				Collection funcFilha = getFachada().consultarFuncionalidadesPorFuncionalidadeSuperior(funcAux);
 				
 				funcAux.setFuncionalidadesFilhas(funcFilha);
 				
