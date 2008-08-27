@@ -67,8 +67,7 @@ import com.infinity.datamarket.pdv.util.ServiceLocator;
 public class TransacaoBackBean extends BackBean {
 
 	private Hashtable<String, DadosAutorizacaoCartaoProprio> listaAutorizacaoCartaoProprio = new Hashtable<String, DadosAutorizacaoCartaoProprio>(); 
-	private static int sequencialItemTransacao = 0;
-	private static int sequencialItemPagamento = 0;
+	private static int sequencialEventoTransacao = 0;
 	private static int numeroParcelaChequePreDatado = 0;
 	// aba principal
 	private TransacaoPK id;
@@ -904,7 +903,7 @@ public class TransacaoBackBean extends BackBean {
 		if(this.getItensPagamento() == null){
 			this.setItensPagamento(new ArrayList<EventoItemPagamento>());
 		}
-		
+		sequencialEventoTransacao = transacao.getEventosTransacao().size();
 		Iterator it = transacao.getEventosTransacao().iterator();
 		while(it.hasNext()){
 			EventoTransacao evento = (EventoTransacao)it.next();
@@ -912,7 +911,7 @@ public class TransacaoBackBean extends BackBean {
 				if(evento instanceof EventoItemRegistrado){
 					EventoItemRegistrado ev = (EventoItemRegistrado)evento;
 					ev.setAcao(EventoItemRegistrado.ITEM_NAO_ALTERADO);
-					this.getItensTransacao().add(ev);
+					this.getItensTransacao().add(ev);									
 				}else if(evento instanceof EventoItemPagamento){
 					EventoItemPagamento ev = (EventoItemPagamento)evento;
 					ev.setDescricaoForma(ConstantesFormaRecebimento.retornaDescricaoFormaRecebimento(ev.getCodigoForma()));	
@@ -1010,7 +1009,7 @@ public class TransacaoBackBean extends BackBean {
 			produtoItemRegistrado.getPk().setComponente(Integer.parseInt(this.getIdComponente()));
 			produtoItemRegistrado.getPk().setNumeroTransacao(this.getNsuTransacao().intValue());
 			produtoItemRegistrado.getPk().setDataTransacao(this.getDataTransacao());
-			produtoItemRegistrado.getPk().setNumeroEvento(++sequencialItemTransacao);
+			produtoItemRegistrado.getPk().setNumeroEvento(++sequencialEventoTransacao);
 			
 			if(produto == null){
 				produto = getFachada().consultarProdutoPorPK(new Long(this.getCodigoProduto()));	
@@ -1090,14 +1089,15 @@ public class TransacaoBackBean extends BackBean {
 		BigDecimal valorLiquido = BigDecimal.ZERO;
 		BigDecimal valorTroco = BigDecimal.ZERO;
 //		calculo do valor total do cupom
-		if(this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
-			valorLiquido = this.getValorTotalRecebido().subtract(this.getValorSubTotalCupom());
-		}else{
-			valorLiquido = this.getValorSubTotalCupom();
-		}
-		if(this.getDescontoCupom().compareTo(BigDecimal.ZERO) > 0){
-		   valorLiquido = valorLiquido.subtract(this.getDescontoCupom());
-		}
+//		if(this.getValorTotalRecebido().compareTo(this.getValorSubTotalCupom()) > 0){
+//			valorLiquido = this.getValorTotalRecebido().subtract(this.getValorSubTotalCupom());
+//		}else{
+//			valorLiquido = this.getValorSubTotalCupom();
+//		}
+//		if(this.getDescontoCupom().compareTo(BigDecimal.ZERO) > 0){
+//		   valorLiquido = valorLiquido.subtract(this.getDescontoCupom());
+//		}
+		valorLiquido = this.getValorSubTotalCupom().subtract(this.getDescontoCupom());
 		this.setValorTotalCupom(valorLiquido);
 		
 		//calcula o valor do troco
@@ -1122,7 +1122,7 @@ public class TransacaoBackBean extends BackBean {
 			if (itemTransacao.getPk().getNumeroEvento() == Integer.parseInt(param)){
 				this.getItensTransacao().remove(itemTransacao);
 				this.setValorSubTotalCupom(this.getValorSubTotalCupom().subtract(itemTransacao.getPreco()));
-				this.setValorTotalCupom(this.getValorSubTotalCupom().subtract(this.getDescontoCupom()).subtract(this.getValorTroco()));
+//				this.setValorTotalCupom(this.getValorSubTotalCupom().subtract(this.getDescontoCupom()));
 				//incluir na lista de itens alterados/excluidos
 				itemTransacao.setAcao("E");
 				this.getItensTransacaoModificados().add(itemTransacao);
@@ -1212,7 +1212,7 @@ public class TransacaoBackBean extends BackBean {
 			eventoPk.setComponente(Integer.parseInt(this.getIdComponente()));
 			eventoPk.setDataTransacao(this.getDataTransacao());
 			eventoPk.setNumeroTransacao(this.getNsuTransacao());
-			eventoPk.setNumeroEvento(++sequencialItemPagamento);
+			eventoPk.setNumeroEvento(++sequencialEventoTransacao);
 			if(this.getIdFormaPagamento().equals(ConstantesFormaRecebimento.DINHEIRO.toString())){
 				EventoItemPagamento evItemPagamento = new EventoItemPagamento();				
 				evItemPagamento.setPk(eventoPk);
@@ -1606,16 +1606,30 @@ public class TransacaoBackBean extends BackBean {
 						
 			ConjuntoEventoTransacao conj = new ConjuntoEventoTransacao();
 			
+			Collection<EventoTransacao> c = new ArrayList<EventoTransacao>();
+			
+//			Iterator itItensTransacao = this.getItensTransacao().iterator();
+//			while(itItensTransacao.hasNext()){
+//				conj.add((EventoItemRegistrado)itItensTransacao.next());
+//			}
+//
+//			Iterator itItensPagamento = this.getItensPagamento().iterator();
+//			while(itItensPagamento.hasNext()){
+//				conj.add((EventoItemPagamento)itItensPagamento.next());
+//			}
+
 			Iterator itItensTransacao = this.getItensTransacao().iterator();
 			while(itItensTransacao.hasNext()){
-				conj.add((EventoItemRegistrado)itItensTransacao.next());
+				c.add((EventoItemRegistrado)itItensTransacao.next());
 			}
 
 			Iterator itItensPagamento = this.getItensPagamento().iterator();
 			while(itItensPagamento.hasNext()){
-				conj.add((EventoItemPagamento)itItensPagamento.next());
+				c.add((EventoItemPagamento)itItensPagamento.next());
 			}
 
+			conj.addAll(c);
+			
 			transVenda.setEventosTransacao(conj);
 			
 			transVenda.setDataHoraInicio(new Date(System.currentTimeMillis()));
@@ -1676,7 +1690,7 @@ public class TransacaoBackBean extends BackBean {
 				throw new AppException("É necessário informar as formas de pagamento.");
 			}
 			
-			if(this.getValorTotalCupom().compareTo(this.getValorTotalRecebido()) < 0){
+			if(this.getValorTotalCupom().compareTo(this.getValorTotalRecebido()) > 0){
 				this.setAbaCorrente("tabMenuDiv2");
 				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 				throw new AppException("O Valor Recebido deve ser maior ou igual ao Valor Total do Cupom.");
@@ -1716,27 +1730,59 @@ public class TransacaoBackBean extends BackBean {
 						
 			ConjuntoEventoTransacao conj = new ConjuntoEventoTransacao();
 			
-			Iterator itItensTransacao = this.getItensTransacao().iterator();
-			while(itItensTransacao.hasNext()){
-				conj.add((EventoItemRegistrado)itItensTransacao.next());
+//			if(this.getItensTransacao() != null){
+//				Iterator itItensTransacao = this.getItensTransacao().iterator();
+//				while(itItensTransacao.hasNext()){
+//					conj.add((EventoItemRegistrado)itItensTransacao.next());
+//				}
+//			}
+//			
+//			if(this.getItensTransacaoModificados() != null){
+//				Iterator itItensTransacao = this.getItensTransacaoModificados().iterator();
+//				while(itItensTransacao.hasNext()){
+//					conj.add((EventoItemRegistrado)itItensTransacao.next());
+//				}
+//			}
+//
+//			if(this.getItensPagamento() != null){
+//				Iterator itItensPagamento = this.getItensPagamento().iterator();
+//				while(itItensPagamento.hasNext()){
+//					conj.add((EventoItemPagamento)itItensPagamento.next());
+//				}
+//			}
+			
+			Collection<EventoTransacao> c = new ArrayList<EventoTransacao>();
+
+			if(this.getItensTransacao() != null){
+				Iterator itItensTransacao = this.getItensTransacao().iterator();
+				while(itItensTransacao.hasNext()){
+					c.add((EventoItemRegistrado)itItensTransacao.next());
+				}
 			}
 			
-			itItensTransacao = this.getItensTransacaoModificados().iterator();
-			while(itItensTransacao.hasNext()){
-				conj.add((EventoItemRegistrado)itItensTransacao.next());
-			}
+//			if(this.getItensTransacaoModificados() != null){
+//				Iterator itItensTransacao = this.getItensTransacaoModificados().iterator();
+//				while(itItensTransacao.hasNext()){
+//					c.add((EventoItemRegistrado)itItensTransacao.next());
+//				}
+//			}
 
-			Iterator itItensPagamento = this.getItensPagamento().iterator();
-			while(itItensPagamento.hasNext()){
-				conj.add((EventoItemPagamento)itItensPagamento.next());
+			if(this.getItensPagamento() != null){
+				Iterator itItensPagamento = this.getItensPagamento().iterator();
+				while(itItensPagamento.hasNext()){
+					c.add((EventoItemPagamento)itItensPagamento.next());
+				}
 			}
+			
+			conj.addAll(c);
 
 			transVenda.setEventosTransacao(conj);
+//			transVenda.setEventosTransacao(new ConjuntoEventoTransacao());
 			
 			transVenda.setDataHoraInicio(new Date(System.currentTimeMillis()));
 			transVenda.setDataHoraFim(new Date(System.currentTimeMillis()));
 			
-			getFachada().atualizarTransacaoES(transVenda);
+			getFachada().atualizarTransacaoES(transVenda, this.getItensTransacaoModificados());
 			
 			this.confirmaAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			
@@ -1772,7 +1818,6 @@ public class TransacaoBackBean extends BackBean {
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		}
-		resetBB();
 		return "mesma";
 	}
 	
@@ -1851,7 +1896,7 @@ public class TransacaoBackBean extends BackBean {
 			transVenda.setDataHoraInicio(new Date(System.currentTimeMillis()));
 			transVenda.setDataHoraFim(new Date(System.currentTimeMillis()));
 			
-			getFachada().atualizarTransacaoES(transVenda);
+			getFachada().atualizarTransacaoES(transVenda, null);
 			
 			this.confirmaAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			
@@ -2385,5 +2430,15 @@ public class TransacaoBackBean extends BackBean {
 			this.setIdSituacao(TransacaoVenda.ATIVO);
 		}
 		return lista;
+	}
+	
+	public static void main(String[] args) {
+		DateFormat f = new SimpleDateFormat("yyyy-MM-dd 00:00:00.000");
+		try {
+			System.out.println(f.parse("2008-08-20 00:00:00.000"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
