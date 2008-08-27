@@ -22,7 +22,12 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/default.css" enabledOnUserRole="true"></t:stylesheet>
 		<t:stylesheet path="/css/form.css" enabledOnUserRole="true"></t:stylesheet>
-		
+		<script type="text/javascript">
+			window.onload = function(){ inicializar() };
+			function inicializar() {
+				getId("frmLogin:id").focus();
+			}
+		</script>
 	</head>
 	<body>
 			<jsp:include page="/jsp/topo.jsp?user=Desconhecido"></jsp:include>	
