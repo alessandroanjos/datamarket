@@ -22,7 +22,6 @@ import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.SistemaException;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
-import com.sun.jimi.core.encoder.jpg.util;
 
 public class ClienteBackBean extends BackBean {
 	
@@ -313,7 +312,7 @@ public class ClienteBackBean extends BackBean {
 				this.setId(cliente.getId().toString());
 				this.setNomeCliente(cliente.getNomeCliente());
 				this.setIdTipoPessoa(cliente.getTipoPessoa());
-				this.setCpfCnpj(cliente.getCpfCnpj());
+				this.setCpfCnpj(formataCpfCnpj(cliente.getCpfCnpj()));
 				this.setRazaoSocial(cliente.getRazaoSocial());
 				this.setNomeFantasia(cliente.getNomeFantasia());
 				this.setInscricaoEstadual(cliente.getInscricaoEstadual());
@@ -365,7 +364,7 @@ public class ClienteBackBean extends BackBean {
 						this.setId(cliente.getId().toString());
 						this.setNomeCliente(cliente.getNomeCliente());
 						this.setIdTipoPessoa(cliente.getTipoPessoa());
-						this.setCpfCnpj(cliente.getCpfCnpj());
+						this.setCpfCnpj(formataCpfCnpj(cliente.getCpfCnpj()));
 						this.setRazaoSocial(cliente.getRazaoSocial());
 						this.setNomeFantasia(cliente.getNomeFantasia());
 						this.setInscricaoEstadual(cliente.getInscricaoEstadual());
@@ -517,10 +516,15 @@ public class ClienteBackBean extends BackBean {
 	public Cliente preencheCliente(String acao){
 		Cliente cliente = new Cliente();
 		
-
 		cliente.setNomeCliente(this.getNomeCliente());
 		cliente.setTipoPessoa(this.getIdTipoPessoa());
-		cliente.setCpfCnpj(this.getCpfCnpj());
+		String cpfCnpj = "";
+		if(this.getCpfCnpj() != null && !this.getCpfCnpj().equals("")){
+			cpfCnpj = this.getCpfCnpj().replace(".", "");
+			cpfCnpj = cpfCnpj.replace("-", "");
+			cpfCnpj = cpfCnpj.replace("/", "");
+		}
+		cliente.setCpfCnpj(cpfCnpj);
 		cliente.setRazaoSocial(this.getRazaoSocial());
 		cliente.setNomeFantasia(this.getNomeFantasia());
 		cliente.setInscricaoEstadual(this.getInscricaoEstadual());
@@ -635,4 +639,9 @@ public class ClienteBackBean extends BackBean {
 			setClientes(null);
 		}
 	}
+	
+//	public static void main(String[] args) {
+////		System.out.println(new ClienteBackBean().formataCpfCnpj("02882755430"));
+////		System.out.println(new ClienteBackBean().formataCpfCnpj("06299214000197"));
+//	}
 }
