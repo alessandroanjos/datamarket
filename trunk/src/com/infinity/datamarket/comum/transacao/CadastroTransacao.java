@@ -107,9 +107,9 @@ public class CadastroTransacao extends Cadastro{
 		}
 	}
 	
-	public void atualizarES(Transacao trans) throws AppException{
+	public void atualizarES(Transacao trans, Collection<EventoItemRegistrado> itensRegistradosRemovidos) throws AppException{
 		BigDecimal quantidade = BigDecimal.ONE;
-		getRepositorio().update(trans);
+		atualizar(trans, itensRegistradosRemovidos);
 		if (trans instanceof TransacaoCancelamento){
 			TransacaoCancelamento transCanc = (TransacaoCancelamento) trans;
 			TransacaoPK pk = new TransacaoPK(transCanc.getLojaCancelada(),transCanc.getComponenteCancelado(), transCanc.getNumeroTransacaoCancelada(),transCanc.getDataTransacaoCancelada());
@@ -119,6 +119,13 @@ public class CadastroTransacao extends Cadastro{
 		}else if (trans instanceof TransacaoVenda){
 			TransacaoVenda transVenda = (TransacaoVenda) trans;
 			if(transVenda.getSituacao().equals(TransacaoVenda.ATIVO)){
+				if(itensRegistradosRemovidos != null){
+					Iterator<EventoItemRegistrado> it = itensRegistradosRemovidos.iterator();
+					while(it.hasNext()){
+						EventoTransacaoPK evTransPK = it.next().getPk();
+						
+					}
+				}
 				Collection col = transVenda.getEventosTransacao();
 				if (col != null && col.size() > 0){
 					Iterator i = col.iterator();
@@ -205,13 +212,30 @@ public class CadastroTransacao extends Cadastro{
 	}
 
 	public Transacao consultarPorPK(TransacaoPK pk) throws AppException{
-		return (Transacao) getRepositorio().findById(Transacao.class, pk);
+		Transacao trans = (Transacao) getRepositorio().findById(Transacao.class, pk);
+		return trans;
 	}
 	
 	private void atualizar(Transacao trans) throws AppException{
+//		getRepositorio().evict(trans);
+//		getRepositorio().insertOrUpdate(trans);
 		getRepositorio().update(trans);
 	}
-	
+
+	private void atualizar(Transacao trans, Collection<EventoItemRegistrado> itensRegistradosRemovidos) throws AppException{
+//		getRepositorio().evict(trans);
+//		getRepositorio().insertOrUpdate(trans);
+		if(itensRegistradosRemovidos != null){
+			Iterator<EventoItemRegistrado> it = itensRegistradosRemovidos.iterator();
+			while(it.hasNext()){
+				EventoTransacaoPK evTransPK = it.next().getPk();
+				getRepositorio().removeById(EventoItemRegistrado.class, evTransPK);
+//				getRepositorio().removeById(EventoTransacao.class, evTransPK);
+			}
+		}
+		getRepositorio().update(trans);
+	}
+
 	public void atualizaTransacaoProcessada(Transacao trans) throws AppException{
 		trans.setStatus(Transacao.PROCESSADO);
 		atualizar(trans);
