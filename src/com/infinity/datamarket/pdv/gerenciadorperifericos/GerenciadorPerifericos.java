@@ -237,12 +237,21 @@ public class GerenciadorPerifericos implements Serializable{
 
 	public int incrementaNumeroTransacao(){
 		Integer num = (Integer) cmos.ler(CMOS.NUMERO_TRANSACAO);
-		int novo = 0;
+		int novo = 1;
 		if (num != null){
 			novo = num.intValue() + 1;
 		}
 		cmos.gravar(CMOS.NUMERO_TRANSACAO, new Integer(novo));
 		return novo;
+	}
+
+	public void decrementaNumeroTransacao(){
+		Integer num = (Integer) cmos.ler(CMOS.NUMERO_TRANSACAO);
+		int novo = 1;
+		if (num != null){
+			novo = num.intValue() - 1;
+		}
+		cmos.gravar(CMOS.NUMERO_TRANSACAO, new Integer(novo));
 	}
 
 
