@@ -15,6 +15,8 @@ public class MicVoltaVenda extends Mic{
 		if(transVenda.getEventosTransacao() != null && transVenda.getEventosTransacao().size() > 0){
 			return ALTERNATIVA_2;
 		}
+		
+		gerenciadorPerifericos.decrementaNumeroTransacao();
 
 		return ALTERNATIVA_1;
 	}
