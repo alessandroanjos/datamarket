@@ -52,6 +52,7 @@ import com.infinity.datamarket.comum.totalizadores.CadastroTotalizadores;
 import com.infinity.datamarket.comum.totalizadores.TotalizadorNaoFiscal;
 import com.infinity.datamarket.comum.transacao.CadastroTransacao;
 import com.infinity.datamarket.comum.transacao.ClienteTransacao;
+import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
 import com.infinity.datamarket.comum.transacao.Transacao;
 import com.infinity.datamarket.comum.transacao.TransacaoPK;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
@@ -481,7 +482,7 @@ public class Fachada {
 		}
 	}
 	
-	public void atualizarTransacaoES(Transacao trans) throws AppException{
+	public void atualizarTransacaoES(Transacao trans, Collection<EventoItemRegistrado> itensRegistradosRemovidos) throws AppException{
 		try{
 			if (trans instanceof TransacaoVenda){
 				TransacaoVenda transVenda = (TransacaoVenda) trans;
@@ -498,7 +499,7 @@ public class Fachada {
 				}
 			}
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			getCadastroTransacao().atualizarES(trans);
+			getCadastroTransacao().atualizarES(trans, itensRegistradosRemovidos);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
@@ -527,7 +528,7 @@ public class Fachada {
 		Transacao trans = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			getCadastroTransacao().consultarPorPK(pk);
+			trans = getCadastroTransacao().consultarPorPK(pk);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
