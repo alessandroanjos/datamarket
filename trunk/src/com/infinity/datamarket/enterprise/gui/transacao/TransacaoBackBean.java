@@ -194,8 +194,9 @@ public class TransacaoBackBean extends BackBean {
 		SelectItem[] arrayComponentes = null;
 		try {
 			List<Componente> componentes = carregarComponentes();
-			arrayComponentes = new SelectItem[componentes.size()];
+			arrayComponentes = new SelectItem[componentes.size()+1];
 			int i = 0;
+			arrayComponentes[0] = new SelectItem("0", "");
 			for(Componente componentesTmp : componentes){
 				SelectItem item = new SelectItem(componentesTmp.getId().toString(), componentesTmp.getDescricao());
 				arrayComponentes[i++] = item;
@@ -445,8 +446,9 @@ public class TransacaoBackBean extends BackBean {
 			
 			filter.addProperty("lojas", loja);
 			List<Usuario> usuariosVendedores = carregarUsuarios(filter);
-			arrayUsuarios = new SelectItem[usuariosVendedores.size()];
+			arrayUsuarios = new SelectItem[usuariosVendedores.size()+1];
 			int i = 0;
+			arrayUsuarios[0] = new SelectItem("0", "");
 			for(Usuario usuariosTmp : usuariosVendedores){
 				SelectItem item = new SelectItem(usuariosTmp.getId().toString(), usuariosTmp.getNome());
 				arrayUsuarios[i++] = item;
@@ -978,10 +980,14 @@ public class TransacaoBackBean extends BackBean {
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			throw new Exception("É necessário informar o Componente.");
 		}
-		if(this.getDataTransacao() == null || (this.getDataTransacao() != null && this.getDataTransacao().equals("0"))){
+		if(this.getDataTransacao() == null || (this.getDataTransacao() != null && this.getDataTransacao().equals(""))){
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			throw new Exception("É necessário informar a Data da Transação");
+		}else if(this.getDataTransacao().after(new Date(System.currentTimeMillis()))){
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+			throw new Exception("A Data da Transação não pode ser maior que a Data Atual");
 		}
 		if(this.getNsuTransacao() == null || (this.getNsuTransacao() != null && this.getNsuTransacao().equals(""))){
 			this.setAbaCorrente("tabMenuDiv0");
@@ -2471,9 +2477,9 @@ public class TransacaoBackBean extends BackBean {
 	}
 	
 	public static void main(String[] args) {
-		DateFormat f = new SimpleDateFormat("yyyy-MM-dd 00:00:00.000");
+		DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
 		try {
-			System.out.println(f.parse("2008-08-20 00:00:00.000"));
+			System.out.println(f.parse("27/08/2008").after(new Date(System.currentTimeMillis())));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
