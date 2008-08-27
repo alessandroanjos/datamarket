@@ -122,8 +122,32 @@ public class CadastroTransacao extends Cadastro{
 				if(itensRegistradosRemovidos != null){
 					Iterator<EventoItemRegistrado> it = itensRegistradosRemovidos.iterator();
 					while(it.hasNext()){
-						EventoTransacaoPK evTransPK = it.next().getPk();
-						
+						EventoItemRegistrado evir = it.next();
+						Loja l = CadastroLoja.getInstancia().consultarPorId(new Long(evir.getPk().getLoja()));
+						EstoqueProdutoPK pk = new EstoqueProdutoPK();
+						EstoquePK epk = new EstoquePK();
+						epk.setLoja(l);
+						epk.setId(l.getIdEstoque());
+						Estoque e = new Estoque();
+						e.setPk(epk);
+						pk.setEstoque(e);
+						Produto p = new Produto();
+						p.setId(new Long(evir.getProdutoItemRegistrado().getIdProduto()));
+						pk.setProduto(p);
+						try{
+							EstoqueProduto estoqueProduto = CadastroEstoque.getInstancia().consultarEstoqueProduto(pk);
+							quantidade = estoqueProduto.getQuantidade().add(evir.getQuantidade());
+							estoqueProduto.setQuantidade(quantidade);
+							getRepositorio().update(estoqueProduto);
+						}catch(ObjectNotFoundException ex){
+							EstoqueProduto estoqueProduto = new EstoqueProduto();
+							estoqueProduto.setPk(pk);
+							estoqueProduto.setQuantidade(evir.getQuantidade());
+							getRepositorio().insert(estoqueProduto);
+						}catch(Exception ex){
+							System.out.println("Estoque da loja "+evir.getPk().getLoja()+" não foi atualizado");
+							ex.printStackTrace();
+						}
 					}
 				}
 				Collection col = transVenda.getEventosTransacao();
