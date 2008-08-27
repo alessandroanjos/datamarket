@@ -11,7 +11,7 @@
            <key-property name="loja" column="LOJA" type="integer"/>
            <key-property name="componente" column="COMPONENTE" type="integer"/>
            <key-property name="numeroTransacao" column="NUM_TRANSACAO" type="integer"/>
-           <key-property name="dataTransacao" column="DATA_TRANSACAO" type="java.util.Date"/>
+           <key-property name="dataTransacao" column="DATA_TRANSACAO" type="date" length="8"/>
            <key-property name="numeroEvento" column="NUM_EVENTO" type="integer"/>
            <key-property name="numeroParcela" column="NUM_PARCELA" type="integer"/>
          </composite-id>
