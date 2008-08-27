@@ -933,6 +933,38 @@ public class TransacaoBackBean extends BackBean {
 		this.setValorTotalCupom(transacao.getValorCupom());
 		
 		this.setValorComissaoVendedor(transacao.getComissaoUsuarioVendedor());
+		
+		if(transacao.getCliente() != null){
+			ClienteTransacao cliTrans = transacao.getCliente();
+			if(cliTrans.getCpfCnpj() != null && !cliTrans.getCpfCnpj().equals("")){
+				this.setCpfCnpjClienteCadastro(formataCpfCnpj(cliTrans.getCpfCnpj()));
+			}else{
+				this.setCpfCnpjClienteCadastro("");
+			}
+			
+			if(cliTrans.getTipoPessoa() != null && cliTrans.getTipoPessoa().equals(Cliente.PESSOA_FISICA)){
+				this.setIdTipoPessoaCadastro(Cliente.PESSOA_FISICA);
+				this.setNomeClienteCadastro(cliTrans.getNomeCliente());
+			}else if(cliTrans.getTipoPessoa() != null && cliTrans.getTipoPessoa().equals(Cliente.PESSOA_JURIDICA)){
+				this.setIdTipoPessoaCadastro(Cliente.PESSOA_JURIDICA);
+				this.setRazaoSocialCadastro(cliTrans.getRazaoSocial());
+				this.setInscricaoEstadualCadastro(cliTrans.getInscricaoEstadual());
+				this.setInscricaoMunicipalCadastro(cliTrans.getInscricaoMunicipal());
+			}
+
+			this.setLogradouroCadastro(cliTrans.getLogradouro());
+			this.setNumeroCadastro(cliTrans.getNumero());
+			this.setComplementoCadastro(cliTrans.getComplemento());
+			this.setBairroCadastro(cliTrans.getBairro());
+			this.setCidadeCadastro(cliTrans.getCidade());
+			this.setEstadoCadastro(cliTrans.getEstado());
+			this.setCepCadastro(cliTrans.getCep());
+			this.setFoneResidencialCadastro(cliTrans.getFone());
+			this.setFoneCelularCadastro(cliTrans.getCelular());
+			this.setPessoaContatoCadastro(cliTrans.getPessoaContato());
+			this.setReferenciaComercialCadastro(cliTrans.getReferenciaBancaria());
+			this.setEmailCadastro(cliTrans.getEmail());
+		}		
 	}
 	
 	public void validaCabecalhoTransacao() throws Exception{
@@ -2374,7 +2406,13 @@ public class TransacaoBackBean extends BackBean {
 		ClienteTransacao cli = null;
 		if(this.getCpfCnpjClienteCadastro() != null && !this.getCpfCnpjClienteCadastro().equals("")){
 			cli = new ClienteTransacao();
-			cli.setCpfCnpj(this.getCpfCnpjClienteCadastro());
+			String cpfCnpj = "";
+			if(this.getCpfCnpjClienteCadastro() != null && !this.getCpfCnpjClienteCadastro().equals("")){
+				cpfCnpj = this.getCpfCnpjClienteCadastro().replace(".", "");
+				cpfCnpj = cpfCnpj.replace("-", "");
+				cpfCnpj = cpfCnpj.replace("/", "");
+			}
+			cli.setCpfCnpj(cpfCnpj);
 			cli.setDataCadastro(new Date(System.currentTimeMillis()));
 			cli.setNomeCliente(this.getNomeClienteCadastro());
 			if(this.getIdTipoPessoaCadastro().equals(Cliente.PESSOA_FISICA)){
