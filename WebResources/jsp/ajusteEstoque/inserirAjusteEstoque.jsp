@@ -31,6 +31,17 @@
             var formId; // referência ao formulário principal
 
             var winId;  // referência à janela popup
+            
+            window.onload = function(){ inicializar() };
+		
+		      function inicializar() {
+		
+		      			strQuantidadeAntes = getId("frmInserirAjusteEstoque:quantidadeAntes").value;
+						if(strQuantidadeAntes != ""){							
+							getId("frmInserirAjusteEstoque:quantidadeDepois").focus();
+						}
+		
+		      }
 
             // Esta função faz a chamada da janela popup.
 
@@ -59,8 +70,10 @@
                              var form = document.forms[formId]; 
                              form[formId+":idProduto"].value=idProduto; 
                              form[formId+":descricao"].value=descricao; 
-                             form[formId+":quantidadeDepois"].focus();
                              winId.close();
+                             form.action = "/EnterpriseServer/jsp/ajusteEstoque/inserirAjusteEstoque.faces?acao=buscaQtdAntes&idEstoque"+form[formId+":idEstoque"].value;
+                             form.submit();
+                             form[formId+":quantidadeDepois"].focus();
             }
       </script>
 	<body>
@@ -86,10 +99,11 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
-								<h:selectOneMenu id="idEstoque" styleClass="field text"
-									value="#{ajusteEstoqueBB.idEstoque}">
-									<f:selectItems id="estoqueSelectItems"
-										value="#{ajusteEstoqueBB.estoques}" />
+								<h:selectOneMenu id="idEstoque" styleClass="field select" onchange="submit();" immediate="true"
+									value="#{ajusteEstoqueBB.idEstoque}" valueChangeListener="#{ajusteEstoqueBB.recuperaQuantidadeAntes}">
+									<f:selectItems id="estoqueSelectItems" 
+										value="#{ajusteEstoqueBB.estoques}"  />
+										
 								</h:selectOneMenu>
 								<h:message for="idEstoque" styleClass="errors" />
 							</div>
@@ -117,7 +131,7 @@
 								onmousedown="showPopUp(this,'frmInserirAjusteEstoque','find')"
 								onclick="return false" value="Consultar Produto"></h:commandButton>
 							</div>
-						<!-- </li>
+						</li>
 
 						<li class="normal">
 							 <div>
@@ -130,7 +144,7 @@
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 								<h:message for="quantidadeAntes" styleClass="msgErro" />
-							</div> -->
+							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Qtd. Depois"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeDepois" maxlength="7"
