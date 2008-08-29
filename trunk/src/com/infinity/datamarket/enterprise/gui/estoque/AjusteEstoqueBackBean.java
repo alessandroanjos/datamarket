@@ -15,7 +15,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.jboss.cache.aop.collection.CachedSetImpl;
+
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.estoque.AjusteEstoque;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoqueProduto;
@@ -167,11 +170,42 @@ public class AjusteEstoqueBackBean extends BackBean {
 		}
 		id.setEstoque(estoque);
 		Produto produto = Fachada.getInstancia().consultarProdutoPorPK(new Long(getIdProduto()));
-		id.setProduto(produto);
-		EstoqueProduto estoqueProduto = Fachada.getInstancia().consultarEstoqueProduto(id);
-		this.setQuantidadeAntes(estoqueProduto.getQuantidade());
+		if (produto != null) {
+			id.setProduto(produto);
+			this.setDescricao(produto.getDescricaoCompleta());
+			EstoqueProduto estoqueProduto = Fachada.getInstancia().consultarEstoqueProduto(id);
+			if (estoqueProduto.getQuantidade()!=null) {
+				this.setQuantidadeAntes(estoqueProduto.getQuantidade());
+			}	else {
+				this.setQuantidadeAntes(BigDecimal.ZERO);
+			}
+		}	
 		return "mesma";
 	}
+	public void recuperaQuantidadeAntes(ValueChangeEvent event){
+        try {
+        	UISelectOne select = (UISelectOne) event.getSource();   
+            String valor = String.valueOf(select.getValue());
+            if(!valor.equals("0")){
+            	setIdEstoque(valor);
+            	FacesContext context = FacesContext.getCurrentInstance();
+        		Map params = context.getExternalContext().getRequestParameterMap();
+            	String paramProduto = (String)  params.get(PRODUTO);
+				setIdProduto(paramProduto);
+
+    			if (this.idProduto!=null && !paramProduto.equals("")) {
+    				buscaQuantidadeAntes();
+    			}
+            }
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public String inserir() {
 		
 		
@@ -184,8 +218,22 @@ public class AjusteEstoqueBackBean extends BackBean {
 				ctx.addMessage(null, msg);
 				return "mesma";
 			}
-			
-			recuperaQuantidadEstoque(idProduto);
+
+			if (this.quantidadeDepois==null) {
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Informe a quantidade depois!", "");
+				ctx.addMessage(null, msg);
+				return "mesma";
+			}
+
+			if (recuperaQuantidadEstoque(idProduto).equals("mesma")) {
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Produto inválido!", "");
+				ctx.addMessage(null, msg);
+				return "mesma";
+			}
 			
 			AjusteEstoque ajusteEstoque = new AjusteEstoque();
 			
@@ -478,6 +526,9 @@ public class AjusteEstoqueBackBean extends BackBean {
 		this.ajusteEstoque = ajusteEstoque;
 	}
 	
+	private String BUSCA_QTD_ANTES = "buscaQtdAntes";
+	private String ESTOQUE = "frmInserirAjusteEstoque:idEstoque";
+	private String PRODUTO = "frmInserirAjusteEstoque:idProduto";
 	/**
 	 * @param init the init to set
 	 */
@@ -485,10 +536,24 @@ public class AjusteEstoqueBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-
+		
 		if (param != null && VALOR_ACAO.equals(param)){
 			resetBB();
 			setAjusteEstoques(null);
+		} else if (param != null && BUSCA_QTD_ANTES.equals(param)) {
+			try {
+				String paramEstoque = (String)  params.get(ESTOQUE);
+				setIdEstoque(paramEstoque);
+				String paramProduto = (String)  params.get(PRODUTO);
+				setIdProduto(paramProduto);
+				buscaQuantidadeAntes();
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (AppException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -508,13 +573,18 @@ public class AjusteEstoqueBackBean extends BackBean {
 		}
 		return null;
 	}
-	public void recuperaQuantidadEstoque(String id) throws Exception{
+	public String recuperaQuantidadEstoque(String id) throws Exception{
 		// TODO Auto-generated method stub
 		try {
 			   
             String valor = id;
+            if (valor == null || valor.equals("")) {
+            	return "mesma";
+            }
             Produto produto = getFachada().consultarProdutoPorPK(new Long(valor));
-           
+            if (produto == null) {
+            	return "mesma";
+            }
             if(valor!=null && !valor.equals("0")){
             	EstoqueProdutoPK pk = new EstoqueProdutoPK();
             	
@@ -550,6 +620,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 			// TODO Auto-generated catch block
 
 		}
+		return "";
 	}
 	
 }
