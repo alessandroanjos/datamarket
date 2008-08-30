@@ -196,7 +196,7 @@ public class TransacaoBackBean extends BackBean {
 			List<Componente> componentes = carregarComponentes();
 			arrayComponentes = new SelectItem[componentes.size()+1];
 			int i = 0;
-			arrayComponentes[0] = new SelectItem("0", "");
+			arrayComponentes[i++] = new SelectItem("0", "");
 			for(Componente componentesTmp : componentes){
 				SelectItem item = new SelectItem(componentesTmp.getId().toString(), componentesTmp.getDescricao());
 				arrayComponentes[i++] = item;
@@ -448,7 +448,7 @@ public class TransacaoBackBean extends BackBean {
 			List<Usuario> usuariosVendedores = carregarUsuarios(filter);
 			arrayUsuarios = new SelectItem[usuariosVendedores.size()+1];
 			int i = 0;
-			arrayUsuarios[0] = new SelectItem("0", "");
+			arrayUsuarios[i++] = new SelectItem("0", "");
 			for(Usuario usuariosTmp : usuariosVendedores){
 				SelectItem item = new SelectItem(usuariosTmp.getId().toString(), usuariosTmp.getNome());
 				arrayUsuarios[i++] = item;
