@@ -84,7 +84,7 @@
 					</div>				
 				</div>
 				<div id="content">
-					<div id="tabMenu">
+					<div class="tabMenu">
 						<ul>
 							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Dados Cliente</a></span></li>
 							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)"><span><a href="#">Endereço</a></span></li>

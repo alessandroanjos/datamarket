@@ -68,7 +68,7 @@
 					</div>
 				</div>
 				<div id="content">
-					<div id="tabMenu">
+					<div class="tabMenu">
 						<ul>
 							<li id="tabMenuDiv0" class="current"
 								onclick="selecionaMenuTab(this.id)">
