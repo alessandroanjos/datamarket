@@ -269,7 +269,7 @@
 											value="#{transacaoBB.codigoProduto}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="6" />
 										</h:inputText>
-										<h:commandButton styleClass="btTxt" id="botaoConsultarProduto"
+										<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
 											onmousedown="showPopUp(this,'frmManterTransacao','find')"
 											onclick="return false" value="Consultar">
 										</h:commandButton>
@@ -317,9 +317,7 @@
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
 										</h:inputText>
-									</div>
-									<div style="position:relative; top:9px;">
-										<h:commandButton onclick="reCalculaPrecoItem();" styleClass="btTxt" id="botaoInserirItemTransacao" action="#{transacaoBB.inserirItemTransacao}" value="Inserir"></h:commandButton>
+										<h:commandButton image="/images/adicionar.png" alt="Inserir Produto" onclick="reCalculaPrecoItem();" styleClass="btTxt" id="botaoInserirItemTransacao" action="#{transacaoBB.inserirItemTransacao}" value="Inserir"></h:commandButton>
 									</div>
   								</li>
 							</ul>
@@ -399,10 +397,8 @@
 										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 										<f:validator validatorId="BigDecimalValidator"/>
 									</h:inputText>
+									<h:commandButton image="/images/adicionar.png" alt="Inserir Forma de Recebimento" styleClass="btTxt" id="botaoInserirItemPagamento" action="#{transacaoBB.inserirItemPagamento}" value="Inserir"></h:commandButton>
 								</div>		
-								<div style="position:relative; top:9px;">
-									<h:commandButton styleClass="btTxt" id="botaoInserirItemPagamento" action="#{transacaoBB.inserirItemPagamento}" value="Inserir"></h:commandButton>
-								</div>
 							</li>
 							<li class="normal">
 								<div id="divForma1">
@@ -609,8 +605,9 @@
 											<f:facet name="header">
 												<h:outputText style="align: center;" value="Ação" />
 											</f:facet>										
-											<h:commandLink  value="Excluir" 
+											<h:commandLink  value="" 
 												action="#{transacaoBB.removerItemPagamento}">
+												<h:commandButton type="button" image="/images/excluir.png"/>
 												<f:param name="idExcluirItemPagamento" value="#{itemPagamento.pk.numeroEvento}" />
 											</h:commandLink>
 										</h:column>													
@@ -644,11 +641,11 @@
 											<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteCadastro" maxlength="18" size="18" value="#{transacaoBB.cpfCnpjClienteCadastro}" required="false"
 											 onkeypress="return SoNumero(event);">
 												<f:validateLength minimum="11" maximum="18" />
-											</h:inputText>								
+											</h:inputText>
+											<h:commandButton image="/images/pesquisa.png" alt="Pesquisar" styleClass="btTxt" id="botaoConsultar" action="#{transacaoBB.buscaClientePorCpfCnpj}" value=""></h:commandButton>								
 										</div>
-										<div style="position:relative; top:9px;">
-											<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{transacaoBB.buscaClientePorCpfCnpj}" value="Consultar"></h:commandButton>
-										</div>
+
+
 									</li>
 									<li class="normal">
 										<div>

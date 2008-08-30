@@ -187,6 +187,10 @@
 									<f:validator validatorId="LongValidator" />
 								</h:inputText>
 								<h:message for="idProduto" styleClass="errors" />
+
+									<h:commandButton  image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
+									onmousedown="showPopUp(this,'frmInserirEntradaProdutos','find')"
+									onclick="return false" value="Consultar Produto "></h:commandButton>
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
@@ -266,17 +270,11 @@
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 								<h:message for="ipiProduto" styleClass="msgErro" />
-							</div>								
+								<h:commandButton image="/images/adicionar.png" alt="Inserir Produto" id="botaoInserirProduto"
+									action="#{entradaProdutoBB.inserirProdutoEntrada}">
+								</h:commandButton>
+							</div>	
 						</li>	
-						<li class="buttons">
-							<h:commandButton styleClass="btTxt" id="botaoInserirProduto"
-								action="#{entradaProdutoBB.inserirProdutoEntrada}"
-								value="Inserir Produto"></h:commandButton>
-							<h:commandButton styleClass="btTxt" id="botaoConsultarProduto"
-								onmousedown="showPopUp(this,'frmInserirEntradaProdutos','find')"
-								onclick="return false" value="Consultar Produto "></h:commandButton>
-						</li>
-
 						<div class="listagem">
 							<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
 								var="produtoEntrada" rowClasses="rowA,rowB" width="95%">
@@ -334,13 +332,14 @@
 									</f:facet>
 									<h:outputText value="#{produtoEntrada.total}" />
 								</h:column>																
-								<h:column>
+								<h:column >
 									<f:facet name="header">
-										<h:outputText value="Excluir" />
+										<h:outputText value="" />
 									</f:facet>
-									<h:commandLink  value="" 
+									<h:commandLink value="" 
 										action="#{entradaProdutoBB.excluirProdutoEntrada}"   >
-										<h:commandButton  image="images/tree/TortoiseDeleted.gif" alt="" title="" />
+	
+ 									   <h:commandButton style="" image="/images/excluir.png" alt="Excluir Produto" title="" />
 										<f:param name="idExcluir" value="#{produtoEntrada.pk.produto.id}" />
 									</h:commandLink>
 								</h:column>

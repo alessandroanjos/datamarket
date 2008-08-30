@@ -455,7 +455,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			if(percentualParcelasParcial.floatValue() > this.getPercentualTotal().floatValue()){
 				// nao pode adicionar a parcela, pois, o percentual estoura os 100% disponiveis.
 				throw new Exception("O percentual não deve ultrapassar 100%. O Percentual restante é "+this.getPercentualRestante().setScale(2).toString());
-			}else if(parcela.getQuantidadeDias() <= quantidadeDiasParcelaAnterior){
+			}else if((this.dataProgramada.equals(Constantes.SIM)) && (parcela.getQuantidadeDias() <= quantidadeDiasParcelaAnterior)){
 				// a quantidade de dias da parcela nao pode ser inferior a da ultima parcela
 				throw new Exception("A Quantidade de Dias da Parcela não deve ser menor ou igual a da parcela anterior.");
 			}else{
