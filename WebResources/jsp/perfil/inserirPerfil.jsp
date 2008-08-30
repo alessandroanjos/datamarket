@@ -36,7 +36,7 @@
 					</div>				
 				</div>
 				<div id="content">
-					<div id="tabMenu">
+					<div class="tabMenu">
 						<ul>
 							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Geral</a></span></li>
 							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)"><span><a href="#">Operações</a></span></li>

@@ -33,18 +33,18 @@
 				$("input.tipopessoa").each(function(i){
 					$(this).click(function() {mostraCampos(this.value)});
 				});
-				if ($('[name=frmInserirTransacao:idTipoPessoaCadastro]:checked').val() != "undefined") {
-					mostraCampos($('[name=frmInserirTransacao:idTipoPessoaCadastro]:checked').val());
+				if ($('[name=frmManterTransacao:idTipoPessoaCadastro]:checked').val() != "undefined") {
+					mostraCampos($('[name=frmManterTransacao:idTipoPessoaCadastro]:checked').val());
 				}
 				//tipoPessoaChqPrz
-				strAbaCorrente = getId("frmInserirTransacao:abaCorrente").value;
+				strAbaCorrente = getId("frmManterTransacao:abaCorrente").value;
 				if(strAbaCorrente != ""){							
 					selecionaMenuTab(strAbaCorrente);
 				}else{
 					selecionaMenuTab("tabMenuDiv0");
 				}
 				
-				strAbaCadastroClienteCorrente = getId("frmInserirTransacao:abaCadastroClienteCorrente").value;
+				strAbaCadastroClienteCorrente = getId("frmManterTransacao:abaCadastroClienteCorrente").value;
 				if(strAbaCorrente != ""){							
 					selecionaMenuTabInterno(strAbaCadastroClienteCorrente);
 				}else{
@@ -86,21 +86,21 @@
             }
             
             function reCalculaPrecoItem(){
-            	var precoVenda = parseFloat(getId("frmInserirTransacao:precoVenda").value);
-            	var quantidade = parseFloat(getId("frmInserirTransacao:quantidade").value);
-            	var descontoItem = parseFloat(getId("frmInserirTransacao:descontoItem").value);
-            	var valorItem = parseFloat(getId("frmInserirTransacao:valorItem").value);          	
+            	var precoVenda = parseFloat(getId("frmManterTransacao:precoVenda").value);
+            	var quantidade = parseFloat(getId("frmManterTransacao:quantidade").value);
+            	var descontoItem = parseFloat(getId("frmManterTransacao:descontoItem").value);
+            	var valorItem = parseFloat(getId("frmManterTransacao:valorItem").value);          	
             	//calculando o valor do item
             	valorItem = (precoVenda*quantidade)-descontoItem;
-            	getId("frmInserirTransacao:valorItem").value = valorItem.toFixed(2);
+            	getId("frmManterTransacao:valorItem").value = valorItem.toFixed(2);
             }
                         
             function reCalculaTotalCupom(){
-            	var valorSubTotalCupom = parseFloat(getId("frmInserirTransacao:valorSubTotalCupom").value);
-            	var valorTotalRecebido = parseFloat(getId("frmInserirTransacao:valorTotalRecebido").value);
-            	var descontoCupom = parseFloat(getId("frmInserirTransacao:descontoCupom").value);
-            	var valorTroco = parseFloat(getId("frmInserirTransacao:valorTroco").value);            	
-            	var valorTotalCupom = parseFloat(getId("frmInserirTransacao:valorTotalCupom").value);            
+            	var valorSubTotalCupom = parseFloat(getId("frmManterTransacao:valorSubTotalCupom").value);
+            	var valorTotalRecebido = parseFloat(getId("frmManterTransacao:valorTotalRecebido").value);
+            	var descontoCupom = parseFloat(getId("frmManterTransacao:descontoCupom").value);
+            	var valorTroco = parseFloat(getId("frmManterTransacao:valorTroco").value);            	
+            	var valorTotalCupom = parseFloat(getId("frmManterTransacao:valorTotalCupom").value);            
 				var valorTemp = parseFloat("0");
 				var valorLiquido = parseFloat("0");
 				var valorTroco = parseFloat("0");
@@ -111,23 +111,23 @@
 				//calculo do valor do troco
 			    valorTroco = valorTotalRecebido - valorLiquido;
 				
-				getId("frmInserirTransacao:valorTotalCupom").value = valorLiquido.toFixed(2);
+				getId("frmManterTransacao:valorTotalCupom").value = valorLiquido.toFixed(2);
 				
-				getId("frmInserirTransacao:valorTroco").value = valorTroco.toFixed(2);
+				getId("frmManterTransacao:valorTroco").value = valorTroco.toFixed(2);
             }
             
             function reCalculaTotalRecebido(){
-            	var valorTotalRecebido = parseFloat(getId("frmInserirTransacao:valorTotalRecebido").value);
-            	var valorFormaPagamento = parseFloat(getId("frmInserirTransacao:valorFormaPagamento").value);
+            	var valorTotalRecebido = parseFloat(getId("frmManterTransacao:valorTotalRecebido").value);
+            	var valorFormaPagamento = parseFloat(getId("frmManterTransacao:valorFormaPagamento").value);
             
             	valorTotalRecebido = valorTotalRecebido + valorFormaPagamento;
-				getId("frmInserirTransacao:valorTotalRecebido").value = valorTotalRecebido.toFixed(2);
+				getId("frmManterTransacao:valorTotalRecebido").value = valorTotalRecebido.toFixed(2);
 				reCalculaTotalCupom();
             }
             
             //funcao que troca a visibilidade dos div das formas de pagamento a transacao
             function trocaDivFormaRecebimento(){
-            	var formaSelecionada = getId("frmInserirTransacao:idFormaPagamento").value;
+            	var formaSelecionada = getId("frmManterTransacao:idFormaPagamento").value;
             	for(i = 1;i<=5;i++){ 
             		var obj = getId("divForma"+i);            		
             		if(i==formaSelecionada){
@@ -141,10 +141,10 @@
 			function mostraCampos(str) {
 				var flag = new String(str);
 				if (flag.toUpperCase() == "F") {
-				    habilita("frmInserirTransacao:nomeClienteCadastro");
-					desabilita("frmInserirTransacao:razaoSocialCadastro");
-					desabilita("frmInserirTransacao:inscricaoEstadualCadastro");
-					desabilita("frmInserirTransacao:inscricaoMunicipalCadastro");				
+				    habilita("frmManterTransacao:nomeClienteCadastro");
+					desabilita("frmManterTransacao:razaoSocialCadastro");
+					desabilita("frmManterTransacao:inscricaoEstadualCadastro");
+					desabilita("frmManterTransacao:inscricaoMunicipalCadastro");				
 					$("input.tipocpfcnpj").each(function(i){
 						$(this).unbind('blur');
 						$(this).unbind('keydown');
@@ -153,10 +153,10 @@
 						getId(this.id).maxLength = "14";
 					});
 				} else {
-				   	desabilita("frmInserirTransacao:nomeClienteCadastro");
-					habilita("frmInserirTransacao:razaoSocialCadastro");
-					habilita("frmInserirTransacao:inscricaoEstadualCadastro");
-					habilita("frmInserirTransacao:inscricaoMunicipalCadastro");
+				   	desabilita("frmManterTransacao:nomeClienteCadastro");
+					habilita("frmManterTransacao:razaoSocialCadastro");
+					habilita("frmManterTransacao:inscricaoEstadualCadastro");
+					habilita("frmManterTransacao:inscricaoMunicipalCadastro");
 					$("input.tipocpfcnpj").each(function(i){
 						$(this).unbind('blur');
 						$(this).unbind('keydown');
@@ -174,12 +174,12 @@
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
 				<strong>
-					<h:outputText value="#{msgs.inserirTransacao}"></h:outputText>
+					<h:outputText value="#{msgs.manterTransacao}"></h:outputText>
 				</strong>
 			</div>				
 		</div>	
 		<div id="content">
-			<div id="tabMenu">
+			<div class="tabMenu">
 				<ul>
 					<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Transação</a></span></li>
 					<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)"><span><a href="#">Itens</a></span></li>
@@ -189,7 +189,7 @@
 				<div class="clear"></div>
 			</div>
 			<div id="primarioContentContainerInternas">
-				<h:form id="frmInserirTransacao" onsubmit="javascript:getId('frmInserirTransacao:abaCorrente').value = strAbaCorrente;getId('frmInserirTransacao:abaCadastroClienteCorrente').value = strAbaCadastroClienteCorrente;">
+				<h:form id="frmManterTransacao" onsubmit="javascript:getId('frmManterTransacao:abaCorrente').value = strAbaCorrente;getId('frmManterTransacao:abaCadastroClienteCorrente').value = strAbaCadastroClienteCorrente;">
 					<div>
 						<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 					</div>
@@ -270,7 +270,7 @@
 											<f:validateLength maximum="6" />
 										</h:inputText>
 										<h:commandButton styleClass="btTxt" id="botaoConsultarProduto"
-											onmousedown="showPopUp(this,'frmInserirTransacao','find')"
+											onmousedown="showPopUp(this,'frmManterTransacao','find')"
 											onclick="return false" value="Consultar">
 										</h:commandButton>
 									</div>
@@ -285,7 +285,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Unit.*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="precoVenda" maxlength="10" size="10"
-											value="#{transacaoBB.precoVenda}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:precoVenda',9,2,event);" onblur="reCalculaPrecoItem();">
+											value="#{transacaoBB.precoVenda}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterTransacao:precoVenda',9,2,event);" onblur="reCalculaPrecoItem();">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -294,7 +294,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Quantidade*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="quantidade" maxlength="9" size="9"
-											value="#{transacaoBB.quantidade}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="FormataPeso('frmInserirTransacao:quantidade',7,3,event);" onblur="reCalculaPrecoItem();">
+											value="#{transacaoBB.quantidade}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="FormataPeso('frmManterTransacao:quantidade',7,3,event);" onblur="reCalculaPrecoItem();">
 											<f:validateLength maximum="9" />
 											<f:validateDoubleRange  minimum="0.000" maximum="999.999"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -303,7 +303,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
 										<h:inputText styleClass="field text" id="descontoItem" maxlength="10" size="10"
-											value="#{transacaoBB.descontoItem}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:descontoItem',9,2,event);" onblur="reCalculaPrecoItem();">
+											value="#{transacaoBB.descontoItem}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterTransacao:descontoItem',9,2,event);" onblur="reCalculaPrecoItem();">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -312,7 +312,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Item*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="valorItem" maxlength="10" size="10" readonly="true"
-											value="#{transacaoBB.valorItem}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorItem',9,2,event);">
+											value="#{transacaoBB.valorItem}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterTransacao:valorItem',9,2,event);">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -394,7 +394,7 @@
 								<div>
 									<h:outputLabel styleClass="desc" value="Valor"></h:outputLabel>
 									<h:inputText styleClass="field text" id="valorFormaPagamento" maxlength="10" size="10" readonly="false"
-										value="#{transacaoBB.valorFormaPagamento}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorFormaPagamento',9,2,event);">
+										value="#{transacaoBB.valorFormaPagamento}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterTransacao:valorFormaPagamento',9,2,event);">
 										<f:validateLength maximum="10" />
 										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 										<f:validator validatorId="BigDecimalValidator"/>
@@ -621,15 +621,15 @@
 					</div>
 					<div id="tabDiv3" style="display:none;height: 390px;">			
 						
-						<div id="tabMenu">
+						<div class="tabMenuDois">
 							<ul>
-								<li id="tabMenuDivInterno0" class="current" onclick="selecionaMenuTabInterno(this.id)"><span><a href="#">Dados Cliente</a></span></li>
-								<li id="tabMenuDivInterno1" onclick="selecionaMenuTabInterno(this.id)"><span><a href="#">Endereço</a></span></li>
+								<li id="tabMenuIntDiv0" class="current" onclick="selecionaMenuIntTab(this.id)"><span><a href="#">Dados Cliente</a></span></li>
+								<li id="tabMenuIntDiv1" onclick="selecionaMenuIntTab(this.id)d"><span><a href="#">Endereço</a></span></li>
 							</ul>
 							<div class="clear"></div>							
 						</div>
 						<div id="primarioContentContainerInternas">
-							<div id="tabDivInterno0" style="width: 100%;">
+							<div id="tabIntDiv0" style="width: 100%;">
 								<ul>
 									<li class="normal">
 										<div>
@@ -691,7 +691,7 @@
 									
 								</ul>
 							</div>
-							<div id="tabDivInterno1" style="display:none;width: 100%;">
+							<div id="tabIntDiv1" style="display:none;width: 100%;">
 								<ul>
 									<li class="normal">
 										<div style="width: 100%;">
@@ -789,7 +789,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Sub-Total"></h:outputLabel>
 								<h:inputText styleClass="field text" id="valorSubTotalCupom" maxlength="10" size="10"
-									value="#{transacaoBB.valorSubTotalCupom}" dir="rtl" required="false" readonly="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorSubTotalCupom',9,2,event);">
+									value="#{transacaoBB.valorSubTotalCupom}" dir="rtl" required="false" readonly="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterTransacao:valorSubTotalCupom',9,2,event);">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 									<f:validator validatorId="BigDecimalValidator"/>
@@ -798,7 +798,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Total Recebido"></h:outputLabel>
 								<h:inputText styleClass="field text" id="valorTotalRecebido" maxlength="10" size="10"
-									value="#{transacaoBB.valorTotalRecebido}" dir="rtl" required="false" readonly="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorTotalRecebido',9,2,event);">
+									value="#{transacaoBB.valorTotalRecebido}" dir="rtl" required="false" readonly="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterTransacao:valorTotalRecebido',9,2,event);">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 									<f:validator validatorId="BigDecimalValidator"/>
@@ -807,7 +807,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
 								<h:inputText styleClass="field text" id="descontoCupom" maxlength="10" size="10" onblur="reCalculaTotalCupom();"
-									value="#{transacaoBB.descontoCupom}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:descontoCupom',9,2,event);">
+									value="#{transacaoBB.descontoCupom}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterTransacao:descontoCupom',9,2,event);">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 									<f:validator validatorId="BigDecimalValidator"/>
@@ -816,7 +816,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Troco"></h:outputLabel>
 								<h:inputText styleClass="field text" id="valorTroco" maxlength="10" size="10" onblur="reCalculaTotalCupom();"
-									value="#{transacaoBB.valorTroco}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorTroco',9,2,event);">
+									value="#{transacaoBB.valorTroco}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterTransacao:valorTroco',9,2,event);">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 									<f:validator validatorId="BigDecimalValidator"/>
@@ -832,7 +832,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Total Cupom"></h:outputLabel>
 								<h:inputText styleClass="field text" id="valorTotalCupom" maxlength="10" size="10" readonly="false"
-									value="#{transacaoBB.valorTotalCupom}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorTotalCupom',9,2,event);">
+									value="#{transacaoBB.valorTotalCupom}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterTransacao:valorTotalCupom',9,2,event);">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="999999.99"/>
 									<f:validator validatorId="BigDecimalValidator"/>

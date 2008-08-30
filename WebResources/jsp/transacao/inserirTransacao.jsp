@@ -179,7 +179,7 @@
 			</div>				
 		</div>	
 		<div id="content">
-			<div id="tabMenu">
+			<div class="tabMenu">
 				<ul>
 					<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Transação</a></span></li>
 					<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)"><span><a href="#">Itens</a></span></li>
@@ -621,15 +621,15 @@
 					</div>
 					<div id="tabDiv3" style="display:none;height: 390px;">			
 						
-						<div id="tabMenu">
+						<div class="tabMenuDois">
 							<ul>
-								<li id="tabMenuDivInterno0" class="current" onclick="selecionaMenuTabInterno(this.id)"><span><a href="#">Dados Cliente</a></span></li>
-								<li id="tabMenuDivInterno1" onclick="selecionaMenuTabInterno(this.id)"><span><a href="#">Endereço</a></span></li>
+								<li id="tabMenuIntDiv0" class="current" onclick="selecionaMenuIntTab(this.id)"><span><a href="#">Dados Cliente</a></span></li>
+								<li id="tabMenuIntDiv1" onclick="selecionaMenuIntTab(this.id)"><span><a href="#">Endereço</a></span></li>
 							</ul>
 							<div class="clear"></div>							
 						</div>
 						<div id="primarioContentContainerInternas">
-							<div id="tabDivInterno0" style="width: 100%;">
+							<div id="tabIntDiv0">
 								<ul>
 									<li class="normal">
 										<div>
@@ -691,7 +691,7 @@
 									
 								</ul>
 							</div>
-							<div id="tabDivInterno1" style="display:none;width: 100%;">
+							<div id="tabIntDiv1" style="display:none;">
 								<ul>
 									<li class="normal">
 										<div style="width: 100%;">
@@ -784,7 +784,7 @@
 							<div class="clear"></div>						
 						</div>
 					</div>			
-					<ul>
+					<ul>						
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Sub-Total"></h:outputLabel>
