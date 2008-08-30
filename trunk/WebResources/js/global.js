@@ -40,3 +40,14 @@ function selecionaMenuTabInterno(alvo) {
 	$("div#"+alvo.replace("Menu","")).show();
 	strAbaCadastroClienteCorrente = alvo;
 }
+
+function selecionaMenuIntTab(alvo) {
+	$("td#"+alvo).siblings().each(function(i){
+		$("td#"+this.id).removeClass("current");
+		var idObj = new String(this.id).replace("Menu","");
+		$("div#"+idObj.toString()).hide();
+	});
+	$("td#"+alvo).addClass('current');
+	$("div#"+alvo.replace("Menu","")).show();
+	strAbaCadastroClienteCorrente = alvo;
+}
