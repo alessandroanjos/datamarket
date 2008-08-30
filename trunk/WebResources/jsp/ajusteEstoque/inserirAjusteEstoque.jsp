@@ -124,10 +124,7 @@
 									<f:validateLength maximum="50" />
 									
  							    </h:inputText>
-							
-							</div>
-							<div style="position:relative; top:9px;">
-								<h:commandButton styleClass="btTxt" id="botaoConsultarProduto"
+								<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Produto"  styleClass="btTxt" id="botaoConsultarProduto"
 								onmousedown="showPopUp(this,'frmInserirAjusteEstoque','find')"
 								onclick="return false" value="Consultar Produto"></h:commandButton>
 							</div>
@@ -135,7 +132,7 @@
 
 						<li class="normal">
 							 <div>
-								<h:outputLabel styleClass="desc" value="Qtd. Antes"></h:outputLabel>
+								<h:outputLabel styleClass="desc" value="Qtd. Atual"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeAntes"  readonly="true" maxlength="7"
 									size="10" value="#{ajusteEstoqueBB.quantidadeAntes}" 
 									onkeypress="return SoNumero(event);"  onkeydown="Formata('frmInserirAjusteEstoque:quantidadeAntes',7,3,event);">

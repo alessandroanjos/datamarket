@@ -48,7 +48,7 @@
 		
 		        function mostraCampos(str) {
 					var flag = new String(str);
-					if (flag.toUpperCase() == "N") {
+					if (flag.toUpperCase() == "S") {
 					    habilita("frmInserirPlanoPagamentoChequePre:quantidadeDiasParcela");
 					} else {
 						desabilita("frmInserirPlanoPagamentoChequePre:quantidadeDiasParcela");

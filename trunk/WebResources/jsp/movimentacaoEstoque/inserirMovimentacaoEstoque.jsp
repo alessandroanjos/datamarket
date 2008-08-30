@@ -126,6 +126,11 @@
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
 								</h:inputText>
+								
+							<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
+								onmousedown="showPopUp(this,'frmInserirMovimentacaoEstoque','find')"
+								onclick="return false" value="Consultar Produto ">
+								</h:commandButton>
 							</div>	
 							<div>		
 								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
@@ -144,19 +149,13 @@
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 								<h:message for="quantidade" styleClass="msgErro" />
+								<h:commandButton image="/images/adicionar.png" alt="Inserir Produto" id="botaoInserirProduto"
+									action="#{movimentacaoEstoqueBB.inserirProduto}">
+								</h:commandButton>
 							</div>
 						</li>	
 
-						<li class="buttons" style="position:relative; top:-15px;">
-							<h:commandButton styleClass="btTxt" id="botaoInserirProduto"
-								action="#{movimentacaoEstoqueBB.inserirProduto}"
-								value="Inserir Produto">
-								</h:commandButton>
-							<h:commandButton styleClass="btTxt" id="botaoConsultarProduto"
-								onmousedown="showPopUp(this,'frmInserirMovimentacaoEstoque','find')"
-								onclick="return false" value="Consultar Produto ">
-								</h:commandButton>
-						</li>
+
 					</ul>
 
 						<div class="listagem">
@@ -186,7 +185,7 @@
 									</f:facet>
 									<h:commandLink  value=""
 										action="#{movimentacaoEstoqueBB.excluirProduto}">
-										<h:commandButton type="button" image="/images/tree/TortoiseDeleted.gif"/>
+										<h:commandButton type="button" image="/images/excluir.png"/>
 										<f:param name="idExcluir" value="#{produtoMovimentacao.produto.id}" />
 									</h:commandLink>
 								</h:column>

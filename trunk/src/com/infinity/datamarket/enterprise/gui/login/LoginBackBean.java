@@ -95,7 +95,7 @@ public class LoginBackBean extends BackBean{
 
 	public void setNavItems(Usuario usu) {
 
-		if ((navItens==null)||(!usu.getId().equals(usuarioLogado.getId()))) {
+		if ((navItens==null)||usuarioLogado==null||(!usu.getId().equals(usuarioLogado.getId()))) {
 			
 			Object[] funcSuperior = buscaFuncionalidadeSuperiores(usu); 
 			

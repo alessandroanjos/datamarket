@@ -248,6 +248,8 @@ public class EntradaProdutoBackBean extends BackBean {
 			msg = 	"Informe data de emissao da nota!";
 		} else if (this.dataEntrada == null || "".equals(this.dataEntrada)) {
 			msg = 	"Informe data de entrada da nota!";
+		} else if (this.idFornecedor == null || "0".equals(this.idFornecedor)) {
+			msg = 	"Informe fornecedor da nota!";
 		/*} else if (this.frete == null || "".equals(this.frete)) {
 			msg = 	"Informe frete da nota!";
 		} else if (this.icms == null || "".equals(this.icms)) {
@@ -563,8 +565,9 @@ public class EntradaProdutoBackBean extends BackBean {
 		SelectItem[] arrayFornecedores = null;
 		try {
 			List<Fornecedor> fornecedores = carregarFornecedores();
-			arrayFornecedores = new SelectItem[fornecedores.size()];
+			arrayFornecedores = new SelectItem[fornecedores.size()+1];
 			int i = 0;
+			arrayFornecedores[i++] = new SelectItem("0", "");
 			for (Fornecedor fornecedorTmp : fornecedores) {
 				String nomeFornecedor = "";
 				if (fornecedorTmp.getNomeFantasia() != null)
