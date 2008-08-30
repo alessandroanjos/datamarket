@@ -437,7 +437,7 @@ margin-left: -19em;
 
 
 /* TAB MENU inicio */
-#tabMenu {
+.tabMenu {
 	width:100% !important;
 	font-size: 0.8em !important;
 	font-weight:bold !important;
@@ -446,26 +446,26 @@ margin-left: -19em;
 	border-bottom:2px solid #cccccc !important;
 	margin-top:20px !important;
 }
-#tabMenu ul
+.tabMenu ul
 {
 	margin-bottom: 0 !important;
 	padding-left: 0 !important;
 	line-height: normal !important;
 	height:26px !important;
 }
-#tabMenu li {
+.tabMenu li {
 	display:block !important;
 	float:left !important;
 	background: url(../images/tabmenubg.gif) top left repeat-x !important;
 	position:relative !important;
 	margin-right:-2px !important;
 }
-#tabMenu li span {
+.tabMenu li span {
 	display:block !important;
 	float:left !important;
 	background: url(../images/tabmenubgleft.gif) top left no-repeat !important;
 }
-#tabMenu li a {
+.tabMenu li a {
 	display:block !important;
 	float:left !important;
 	text-decoration:none !important;
@@ -474,19 +474,72 @@ margin-left: -19em;
 	background: url(../images/tabmenubgright.gif) top right no-repeat !important;
 	height:17px !important;
 }
-#tabMenu li.current {
+.tabMenu li.current {
 	background: url(../images/tabmenubgcurrent.gif) top left repeat-x !important;
 	margin-right: 0px !important;
 }
-#tabMenu li.current span {
+.tabMenu li.current span {
 	background: url(../images/tabmenubgcurrentleft.gif) top left no-repeat !important;
 }
-#tabMenu li.current a {
+.tabMenu li.current a {
 	background: url(../images/tabmenubgcurrentright.gif) top right no-repeat !important;
 	color:#e8e8e8 !important;
 	padding: 10px 9px 0px 9px !important;
 	height:20px !important;
+}`
+
+.tabMenuDois {
+	width:100% !important;
+	font-size: 0.8em !important;
+	font-weight:bold !important;
+	line-height:normal !important;
+	clear:both !important;
+	border-bottom:2px solid #cccccc !important;
+	margin-top:0px !important;
 }
+.tabMenuDois tr
+{
+	margin-bottom: 0 !important;
+	padding-left: 0 !important;
+	line-height: normal !important;
+	height:26px !important;
+}
+.tabMenuDois td {
+	display:block !important;
+	float:left !important;
+	background: url(../images/tabmenuintbg.gif) top left repeat-x !important;
+	position:relative !important;
+	margin-right:-2px !important;
+	padding:0 !important;
+}
+.tabMenuDois td span {
+	display:block !important;
+	float:left !important;
+	background: url(../images/tabmenubgleft.gif) top left no-repeat !important;
+}
+.tabMenuDois td a {
+	display:block !important;
+	float:left !important;
+	text-decoration:none !important;
+	color:#777 !important;
+	padding: 13px 9px 0px 9px !important;
+	background: url(../images/tabmenubgright.gif) top right no-repeat !important;
+	height:17px !important;
+}
+.tabMenuDois td.current {
+	background: url(../images/tabmenuintbgcurrent.gif) top left repeat-x !important;
+	margin-right: 0px !important;
+}
+.tabMenuDois td.current span {
+	background: url(../images/tabmenubgcurrentleft.gif) top left no-repeat !important;
+}
+.tabMenuDois td.current a {
+	background: url(../images/tabmenubgcurrentright.gif) top right no-repeat !important;
+	color:#eaeaea !important;
+	padding: 10px 9px 0px 9px !important;
+	height:20px !important;
+}
+
 /* TAB MENU fim */
 
 
