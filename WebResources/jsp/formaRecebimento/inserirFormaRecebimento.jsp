@@ -22,20 +22,19 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/css/form.css"></t:stylesheet>		
+		<t:stylesheet path="/css/form.css"></t:stylesheet>	
 	</head>
-	<body>
-	<div id="outer">
-		<div id="topoGeral">
-			<div id="tituloPaginaGeral">
-				<strong>
-					<h:outputText value="#{msgs.inserirFormaRecebimento}"></h:outputText>
-				</strong>
-			</div>				
-		</div>
+		<body>
+			<div id="outer">
+				<div id="topoGeral">
+					<div id="tituloPaginaGeral">
+						<strong>
+							<h:outputText value="#{msgs.inserirFormaRecebimento}"></h:outputText>
+						</strong>
+					</div>				
+				</div>
 		<h:form id="frmInserirFormaRecebimento" binding="#{formaRecebimentoBB.init}">
-					
-				<div id="content">
+			<div id="content">
 						<div id="primarioContentContainerInternas">
 							<ul>
 								<li class="normal">
@@ -51,7 +50,7 @@
 											<f:validateLength maximum="3" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>												
-									</div>
+								
 									<h:message for="id" styleClass="msgErro"/>	
 									</div>
 								</li>
