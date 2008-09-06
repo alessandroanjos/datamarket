@@ -30,6 +30,14 @@
 		<script type="text/javascript">
 			window.onload = function(){ inicializar() };
 			function inicializar() {
+				trocaDivFormaRecebimento();
+				
+				if(getId("frmInserirTransacao:valorTroco").value == 0){
+					desabilita("frmInserirTransacao:idFormaTroco");
+				}else{
+					habilita("frmInserirTransacao:idFormaTroco");				
+				}
+				
 				$("input.tipopessoa").each(function(i){
 					$(this).click(function() {mostraCampos(this.value)});
 				});
@@ -457,7 +465,7 @@
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="CPF/CNPJ Cliente"></h:outputLabel>
-												<h:inputText styleClass="field text" id="cpfCnpjClienteChqAvt" maxlength="14" size="14"
+												<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteChqAvt" maxlength="14" size="14"
 													value="#{transacaoBB.cpfCnpjClienteChqAvt}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="14" />
 												</h:inputText>
@@ -521,7 +529,7 @@
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="CPF/CNPJ Cliente"></h:outputLabel>
-												<h:inputText styleClass="field text" id="cpfCnpjClienteChqPrz" maxlength="14" size="14"
+												<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteChqPrz" maxlength="14" size="14"
 													value="#{transacaoBB.cpfCnpjClienteChqPrz}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="14" />
 												</h:inputText>
@@ -574,7 +582,7 @@
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="CPF/CNPJ Cliente"></h:outputLabel>
-												<h:inputText styleClass="field text" id="cpfCnpjClienteCartaoProprio" maxlength="14" size="14"
+												<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteCartaoProprio" maxlength="18" size="18"
 													value="#{transacaoBB.cpfCnpjCliente}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="14" />
 												</h:inputText>
@@ -621,14 +629,21 @@
 						</ul>
 					</div>
 					<div id="tabDiv3" style="display:none;height: 390px;">			
-						
+						<!-- 
 						<div class="tabMenuDois">
 							<ul>
 								<li id="tabMenuIntDiv0" class="current" onclick="selecionaMenuIntTab(this.id)"><span><a href="#">Dados Cliente</a></span></li>
 								<li id="tabMenuIntDiv1" onclick="selecionaMenuIntTab(this.id)"><span><a href="#">Endereço</a></span></li>
 							</ul>
 							<div class="clear"></div>							
-						</div>
+						</div> -->
+									<table class="tabMenuDois" cellspacing="0" cellpadding="0" border="0">
+				<tr>
+                    <td id="tabMenuIntDiv0" class="current" onclick="selecionaMenuIntTab(this.id)"><span><a href="#">Dados Cliente</a></span></td>
+                    <td id="tabMenuIntDiv1" onclick="selecionaMenuIntTab(this.id)"><span><a href="#">Endereço</a></span></td>
+				</tr>
+			</table>
+						
 						<div id="primarioContentContainerInternas">
 							<div id="tabIntDiv0">
 								<ul>
@@ -783,8 +798,11 @@
 							</div>	
 							<div class="clear"></div>						
 						</div>
-					</div>			
-					<ul>						
+					</div>
+					<ul>		
+						<li>
+							<hr dir="ltr" class="linha" />				
+						</li>
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Sub-Total"></h:outputLabel>
