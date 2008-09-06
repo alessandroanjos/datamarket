@@ -79,7 +79,7 @@
 						<ul>
 							<li class="buttons">
 								<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{clientePagamentoBB.voltarConsulta}" value="Voltar"></h:commandButton>
-								<h:commandButton styleClass="btTxt" id="botaoInserir" onclick="window.print();" value="Imprimir"></h:commandButton>
+								<h:commandButton styleClass="btTxt" id="botaoImprimir" onclick="window.print();" value="Imprimir"></h:commandButton>
 							</li>
 						</ul>
 <!-- xxxxxxxxxxxxxxx -->					

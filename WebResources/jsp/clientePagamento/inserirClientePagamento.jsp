@@ -111,6 +111,7 @@
 							<li class="buttons">
 								<h:commandButton styleClass="btTxt" id="botaoLimpar"  action="#{clientePagamentoBB.resetBB}" value="Limpar"></h:commandButton>
 								<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{clientePagamentoBB.inserir}" value="Inserir"></h:commandButton>
+								<h:commandButton styleClass="btTxt" id="botaoImprimir" onclick="window.print();" value="Imprimir"></h:commandButton>
 							</li>
 						</ul>
 <!-- xxxxxxxxxxxxxxx -->					
