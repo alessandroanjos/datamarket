@@ -544,14 +544,17 @@ public class ClienteBackBean extends BackBean {
 		cliente.setValorLimiteCompras(this.getValorLimiteCompras());
 		cliente.setDataNascimento(this.getDataNascimento());
 		cliente.setReferenciaComercial(this.getReferenciaComercial());
-		if (this.valorLimiteCompras == null) {
-			setValorLimiteCompras(BigDecimal.ZERO);
+		if (this.getValorLimiteCompras() == null) {
+			cliente.setValorLimiteCompras(this.getValorLimiteCompras());
 			cliente.setValorLimiteDisponivel(BigDecimal.ZERO);
+		}else{
+			cliente.setValorLimiteCompras(this.getValorLimiteCompras());
+			cliente.setValorLimiteDisponivel(this.getValorLimiteCompras());
 		}
-		cliente.setValorLimiteCompras(this.valorLimiteCompras);
-		if(this.getValorLimiteDisponivel() == null){
-			cliente.setValorLimiteDisponivel(new BigDecimal("0"));
-		}	
+		
+//		if(this.getValorLimiteDisponivel() == null){
+//			cliente.setValorLimiteDisponivel(new BigDecimal("0"));
+//		}	
 		if(acao.equals(INSERIR)){
 			cliente.setDataCadastro(new Date(System.currentTimeMillis()));
 

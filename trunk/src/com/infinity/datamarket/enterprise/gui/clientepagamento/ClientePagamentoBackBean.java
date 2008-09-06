@@ -159,7 +159,8 @@ public class ClientePagamentoBackBean extends BackBean {
 	}
 
 	public void resetBB(){
-		this.setId(null);	
+		this.setId(null);
+		this.setIdCliente("0");
 		this.setCliente(null);
 		this.setClientes(null);
 		this.setValorPagamento(null);
@@ -270,6 +271,11 @@ public class ClientePagamentoBackBean extends BackBean {
 			if (this.getCliente() == null) {
 				throw new AppException("Selecione cliente para o pagamento.");
 			}
+			
+			if(this.getValorPagamento().setScale(2).equals(BigDecimal.ZERO.setScale(2))){
+				throw new AppException("O Valor do Pagamento deve ser maior que 0 (zero).");
+			}
+			
 			ClientePagamento clientePagamento = preencheClientePagamento(INSERIR);
 			
 			if((clientePagamento.getValorPagamento() == null || 
@@ -287,6 +293,13 @@ public class ClientePagamentoBackBean extends BackBean {
 					throw new AppException("Informe o data do pagamento.");
 			}
 			
+			BigDecimal valorLimiteCompras = this.getCliente().getValorLimiteCompras();
+			BigDecimal valorLimiteAtualizado = this.getCliente().getValorLimiteDisponivel().add(this.getValorPagamento());
+			
+			if(valorLimiteAtualizado.compareTo(valorLimiteCompras) > 0){
+				throw new AppException("Valor ultrapassa o valor da dívida.");
+			}
+			
 			getFachada().inserirClientePagamento(clientePagamento);
 			
 			// devolve ao limite disponível de compras o valor pago.
@@ -294,19 +307,12 @@ public class ClientePagamentoBackBean extends BackBean {
 			
 			if(cli.getValorLimiteDisponivel() == null){
 				cli.setValorLimiteDisponivel(BigDecimal.ZERO);
-			}
+			}			
 			
-			
-			if((clientePagamento.getValorPagamento() == null || 
-				    clientePagamento.getValorPagamento().equals(BigDecimal.ZERO)))
-			cli.setValorLimiteDisponivel(cli.getValorLimiteDisponivel().add(clientePagamento.getValorPagamento()));
-			
-			if(cli.getValorLimiteDisponivel().compareTo(cli.getValorLimiteCompras()) > 0){
-				throw new AppException("Valor ultrapassa o valor da dívida.");
-			}
-			
-			
-			
+			if(clientePagamento.getValorPagamento() != null && clientePagamento.getValorPagamento().compareTo(BigDecimal.ZERO) > 0){
+				cli.setValorLimiteDisponivel(cli.getValorLimiteDisponivel().add(clientePagamento.getValorPagamento()));	
+			}			
+									
 			getFachada().alterarCliente(cli);
 			
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -503,6 +509,11 @@ public class ClientePagamentoBackBean extends BackBean {
     			Cliente cli = getFachada().consultarClientePorPK(new Long(valor));
     			if(cli != null){
     				this.setCliente(cli);
+    				if(cli.getValorLimiteCompras() != null && cli.getValorLimiteDisponivel() != null){
+    					if(cli.getValorLimiteCompras().equals(cli.getValorLimiteDisponivel())){
+    						throw new AppException("O Cliente não possui débitos.");
+    					}
+    				}
     			}
             }else{
             	this.setCliente(null);
@@ -511,8 +522,11 @@ public class ClientePagamentoBackBean extends BackBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (AppException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		}
 	}
 	
