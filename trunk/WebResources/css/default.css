@@ -650,11 +650,10 @@ td.ThemeOfficeMainFolderText,td.ThemeOfficeMainItemText
 }
 
 .detalhes label, .detalhes span {
-  display: inline !important;
+    display: inline !important;
 }
 
-.linha
-{
-size: 3em;
-color: black;
+.linha {
+	size: 100%;
+	color: black;
 }
