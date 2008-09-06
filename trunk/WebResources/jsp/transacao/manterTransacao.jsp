@@ -30,6 +30,14 @@
 		<script type="text/javascript">
 			window.onload = function(){ inicializar() };
 			function inicializar() {
+				trocaDivFormaRecebimento();
+				
+				if(getId("frmManterTransacao:valorTroco").value == 0){
+					desabilita("frmManterTransacao:idFormaTroco");
+				}else{
+					habilita("frmManterTransacao:idFormaTroco");				
+				}
+				
 				$("input.tipopessoa").each(function(i){
 					$(this).click(function() {mostraCampos(this.value)});
 				});
@@ -271,7 +279,7 @@
 										</h:inputText>
 										<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
 											onmousedown="showPopUp(this,'frmManterTransacao','find')"
-											onclick="return false" value="Consultar">
+											onclick="return false" value="">
 										</h:commandButton>
 									</div>
 									<br />
@@ -317,7 +325,10 @@
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
 										</h:inputText>
-										<h:commandButton image="/images/adicionar.png" alt="Inserir Produto" onclick="reCalculaPrecoItem();" styleClass="btTxt" id="botaoInserirItemTransacao" action="#{transacaoBB.inserirItemTransacao}" value="Inserir"></h:commandButton>
+										<h:commandButton image="/images/adicionar.png" alt="Inserir" onclick="reCalculaPrecoItem();" styleClass="btTxt" id="botaoInserirItemTransacao" action="#{transacaoBB.inserirItemTransacao}" value="Inserir"></h:commandButton>
+									</div>
+									<div style="position:relative; top:9px;">
+										
 									</div>
   								</li>
 							</ul>
@@ -397,8 +408,9 @@
 										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 										<f:validator validatorId="BigDecimalValidator"/>
 									</h:inputText>
+								
 									<h:commandButton image="/images/adicionar.png" alt="Inserir Forma de Recebimento" styleClass="btTxt" id="botaoInserirItemPagamento" action="#{transacaoBB.inserirItemPagamento}" value="Inserir"></h:commandButton>
-								</div>		
+								</div>
 							</li>
 							<li class="normal">
 								<div id="divForma1">
@@ -453,7 +465,7 @@
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="CPF/CNPJ Cliente"></h:outputLabel>
-												<h:inputText styleClass="field text" id="cpfCnpjClienteChqAvt" maxlength="14" size="14"
+												<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteChqAvt" maxlength="14" size="14"
 													value="#{transacaoBB.cpfCnpjClienteChqAvt}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="14" />
 												</h:inputText>
@@ -517,7 +529,7 @@
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="CPF/CNPJ Cliente"></h:outputLabel>
-												<h:inputText styleClass="field text" id="cpfCnpjClienteChqPrz" maxlength="14" size="14"
+												<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteChqPrz" maxlength="14" size="14"
 													value="#{transacaoBB.cpfCnpjClienteChqPrz}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="14" />
 												</h:inputText>
@@ -570,7 +582,7 @@
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="CPF/CNPJ Cliente"></h:outputLabel>
-												<h:inputText styleClass="field text" id="cpfCnpjClienteCartaoProprio" maxlength="14" size="14"
+												<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteCartaoProprio" maxlength="18" size="18"
 													value="#{transacaoBB.cpfCnpjCliente}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="14" />
 												</h:inputText>
@@ -617,16 +629,23 @@
 						</ul>
 					</div>
 					<div id="tabDiv3" style="display:none;height: 390px;">			
-						
+						<!-- 
 						<div class="tabMenuDois">
 							<ul>
 								<li id="tabMenuIntDiv0" class="current" onclick="selecionaMenuIntTab(this.id)"><span><a href="#">Dados Cliente</a></span></li>
-								<li id="tabMenuIntDiv1" onclick="selecionaMenuIntTab(this.id)d"><span><a href="#">Endereço</a></span></li>
+								<li id="tabMenuIntDiv1" onclick="selecionaMenuIntTab(this.id)"><span><a href="#">Endereço</a></span></li>
 							</ul>
 							<div class="clear"></div>							
-						</div>
+						</div> -->
+									<table class="tabMenuDois" cellspacing="0" cellpadding="0" border="0">
+				<tr>
+                    <td id="tabMenuIntDiv0" class="current" onclick="selecionaMenuIntTab(this.id)"><span><a href="#">Dados Cliente</a></span></td>
+                    <td id="tabMenuIntDiv1" onclick="selecionaMenuIntTab(this.id)"><span><a href="#">Endereço</a></span></td>
+				</tr>
+			</table>
+						
 						<div id="primarioContentContainerInternas">
-							<div id="tabIntDiv0" style="width: 100%;">
+							<div id="tabIntDiv0">
 								<ul>
 									<li class="normal">
 										<div>
@@ -638,13 +657,12 @@
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="CPF/CNPJ"></h:outputLabel>
-											<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteCadastro" maxlength="18" size="18" value="#{transacaoBB.cpfCnpjClienteCadastro}" required="false"
-											 onkeypress="return SoNumero(event);">
+											<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteCadastro" maxlength="18" size="18" 
+											value="#{transacaoBB.cpfCnpjClienteCadastro}" required="false" onkeypress="return SoNumero(event);">
 												<f:validateLength minimum="11" maximum="18" />
-											</h:inputText>
-											<h:commandButton image="/images/pesquisa.png" alt="Pesquisar" styleClass="btTxt" id="botaoConsultar" action="#{transacaoBB.buscaClientePorCpfCnpj}" value=""></h:commandButton>								
+											</h:inputText>	
+											<h:commandButton image="/images/pesquisa.png" alt="Pesquisar" styleClass="btTxt" id="botaoConsultar" action="#{transacaoBB.buscaClientePorCpfCnpj}" value=""></h:commandButton>							
 										</div>
-
 
 									</li>
 									<li class="normal">
@@ -688,7 +706,7 @@
 									
 								</ul>
 							</div>
-							<div id="tabIntDiv1" style="display:none;width: 100%;">
+							<div id="tabIntDiv1" style="display:none;">
 								<ul>
 									<li class="normal">
 										<div style="width: 100%;">
@@ -780,8 +798,11 @@
 							</div>	
 							<div class="clear"></div>						
 						</div>
-					</div>			
-					<ul>
+					</div>
+					<ul>		
+						<li>
+							<hr dir="ltr" class="linha" />				
+						</li>
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Sub-Total"></h:outputLabel>
