@@ -45,7 +45,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="4" onkeypress="return SoNumero(event);"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="4" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
 											value="#{componenteBB.id}" size="4" required="true" disabled="true" >
 											<f:validateLength maximum="4" />
 										</h:inputText>
@@ -65,7 +65,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Número IP*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="ip" maxlength="15" size="15"
-											value="#{componenteBB.ip}" required="true" onblur="if (!verificaIP(this.value)) alert(ERRO_ENDERECO_IP);" onkeypress="return SoNumero(event);">
+											value="#{componenteBB.ip}" required="true" onblur="if (!verificaIP(this.value)) alert(ERRO_ENDERECO_IP);" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="15" />
 										</h:inputText>
 									</div>
@@ -74,7 +74,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Porta*"></h:outputLabel>
-										<h:inputText styleClass="field text inteiro" id="porta" maxlength="4" size="4" onkeypress="return SoNumero(event);"
+										<h:inputText styleClass="field text inteiro" id="porta" maxlength="4" size="4" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
 											value="#{componenteBB.porta}" required="true">
 											<f:validateLength maximum="4" />
 										</h:inputText>

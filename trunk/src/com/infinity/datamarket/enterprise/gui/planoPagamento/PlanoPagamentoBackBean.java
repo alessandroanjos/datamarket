@@ -15,6 +15,9 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.hibernate.HibernateException;
+import org.hibernate.exception.ConstraintViolationException;
+
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamentoChequePredatado;
@@ -237,11 +240,20 @@ public class PlanoPagamentoBackBean extends BackBean {
 			ctx.addMessage(null, msg);
 			resetBB();
 		} catch (Exception e) {
-			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			if (e.getCause().getCause() instanceof HibernateException) {
+				if (e.getCause().getCause().getCause() instanceof ConstraintViolationException) {
+					FacesContext ctx = FacesContext.getCurrentInstance();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Existe informções relcionadas com o plano que deseja excluir!", "");
+					ctx.addMessage(null, msg);
+				}
+			} else {
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Erro de Sistema", "");
+				ctx.addMessage(null, msg);
+				e.printStackTrace();
+			}
 		}
 		return "mesma";
 	}

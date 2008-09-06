@@ -2,10 +2,12 @@
 <!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
 <faces-config>
-	<application>
-<locale-config><default-locale id="default">pt-BR</default-locale></locale-config>
 
-</application>
+	<application>
+		<locale-config><default-locale id="default">pt-BR</default-locale></locale-config>
+	</application>
+	
+
 	<navigation-rule>
 		<from-view-id>/jsp/login.jsp</from-view-id>
 		<navigation-case>
@@ -512,6 +514,7 @@
 			<from-action>#{lojaBB.consultar}</from-action>
 			<from-outcome>mesma</from-outcome>
 			<to-view-id>/jsp/loja/consultarLoja.jsp</to-view-id>
+			
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{lojaBB.consultar}</from-action>
@@ -1138,7 +1141,7 @@
 	</navigation-rule>
 	
 	<!-- TIPO DE PRODUTO BACK BEAN -->
-
+    
 	<managed-bean>
 		<managed-bean-name>superBB</managed-bean-name>
 		<managed-bean-class>
@@ -2524,6 +2527,12 @@
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
+		<managed-property>
+		    <property-name>dataProgramada</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		
 	</managed-bean>
 	
 	<!-- TRANSACAO BACK BEAN -->

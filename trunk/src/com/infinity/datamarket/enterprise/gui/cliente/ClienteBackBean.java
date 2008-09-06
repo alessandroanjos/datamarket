@@ -544,13 +544,17 @@ public class ClienteBackBean extends BackBean {
 		cliente.setValorLimiteCompras(this.getValorLimiteCompras());
 		cliente.setDataNascimento(this.getDataNascimento());
 		cliente.setReferenciaComercial(this.getReferenciaComercial());
-		
+		if (this.valorLimiteCompras == null) {
+			setValorLimiteCompras(BigDecimal.ZERO);
+			cliente.setValorLimiteDisponivel(BigDecimal.ZERO);
+		}
+		cliente.setValorLimiteCompras(this.valorLimiteCompras);
+		if(this.getValorLimiteDisponivel() == null){
+			cliente.setValorLimiteDisponivel(new BigDecimal("0"));
+		}	
 		if(acao.equals(INSERIR)){
 			cliente.setDataCadastro(new Date(System.currentTimeMillis()));
-			if(this.getValorLimiteCompras() == null){
-				cliente.setValorLimiteDisponivel(new BigDecimal("0"));
-				cliente.setValorLimiteCompras(new BigDecimal("0"));
-			}	
+
 		}else if(acao.equals(ALTERAR)){
 			cliente.setId(new Long(getId()));
 			if(this.getIdTipoPessoa().equals(Cliente.PESSOA_FISICA)){
@@ -563,7 +567,16 @@ public class ClienteBackBean extends BackBean {
 				cliente.setNomeCliente(null);
 				cliente.setDataNascimento(null);
 			}
-			cliente.setValorLimiteDisponivel(this.getValorLimiteDisponivel());
+			if (this.valorLimiteCompras == null) {
+				cliente.setValorLimiteCompras(BigDecimal.ZERO);
+				cliente.setValorLimiteDisponivel(BigDecimal.ZERO);
+			}
+			if (this.getValorLimiteDisponivel()==null) {
+				cliente.setValorLimiteDisponivel(BigDecimal.ZERO);
+			} else {
+				cliente.setValorLimiteDisponivel(this.getValorLimiteDisponivel());	
+			}
+			
 		}
 		return cliente;
 	}

@@ -146,7 +146,9 @@
 								<h:outputLabel styleClass="desc" value="Frete"></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="frete" maxlength="7"
 									size="7" value="#{entradaProdutoBB.frete}" dir="rtl"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:frete',7,2,event);">
+									onfocus="this.select();" onclick="this.select();"
+									onkeypress="return SoNumero(event);" 
+									onkeydown="Formata('frmInserirEntradaProdutos:frete',7,2,event);">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
@@ -158,6 +160,7 @@
 								<h:outputLabel styleClass="desc" value="Desc"></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="desconto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.desconto}" dir="rtl"
+									onfocus="this.select();" onclick="this.select();"
 									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:desconto',7,2,event);"
 									required="false">
 									<f:validateLength maximum="7" />
@@ -181,7 +184,7 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="idProduto" onkeypress="return SoNumero(event);"
+								<h:inputText styleClass="field text ativo" id="idProduto" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
 									maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9" required="false">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
@@ -215,6 +218,7 @@
 								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="quantidade" maxlength="7"
 									size="7" value="#{entradaProdutoBB.quantidade}" dir="rtl"
+									onfocus="this.select();" onclick="this.select();"
 									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:quantidade',7,2,event);"
 									required="false">
 									<f:validateLength maximum="7" />
@@ -227,6 +231,7 @@
 								<h:outputLabel styleClass="desc" value="Unitário"></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="precoUnitario" maxlength="7"
 									size="7" value="#{entradaProdutoBB.precoUnitario}" dir="rtl"
+									onfocus="this.select();" onclick="this.select();"
 									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:precoUnitario',7,2,event);"
 									required="false">
 									<f:validateLength maximum="7" />
@@ -239,6 +244,7 @@
 								<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="descontoProduto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.descontoProduto}" dir="rtl"
+									onfocus="this.select();" onclick="this.select();"
 									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:descontoProduto',7,2,event);"
 									required="false">
 									<f:validateLength maximum="7" />
@@ -251,6 +257,7 @@
 								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="icmsProduto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.icmsProduto}" dir="rtl"
+									onfocus="this.select();" onclick="this.select();"
 									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:icmsProduto',7,2,event);"
 									required="false">
 									<f:validateLength maximum="7" />
@@ -263,6 +270,7 @@
 								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="ipiProduto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.ipiProduto}" dir="rtl"
+									onfocus="this.select();" onclick="this.select();"
 									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:ipiProduto',7,2,event);"
 									required="false">
 									<f:validateLength maximum="7" />
