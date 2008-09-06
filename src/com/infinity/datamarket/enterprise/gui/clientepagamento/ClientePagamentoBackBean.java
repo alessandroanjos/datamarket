@@ -198,7 +198,7 @@ public class ClientePagamentoBackBean extends BackBean {
 				filter.addProperty("cliente", this.getCliente());
 				
 				if(this.getDataInicial() == null || this.getDataFinal() == null ){
-					throw new Exception("Periodo deve ser informado!");
+					throw new Exception("O Período deve ser informado!");
 				}
 				
 				if(this.getDataInicial().after(this.getDataFinal())){
