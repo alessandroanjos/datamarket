@@ -489,7 +489,6 @@ margin-left: -19em;
 }`
 
 .tabMenuDois {
-	width:100% !important;
 	font-size: 0.8em !important;
 	font-weight:bold !important;
 	line-height:normal !important;
@@ -652,4 +651,10 @@ td.ThemeOfficeMainFolderText,td.ThemeOfficeMainItemText
 
 .detalhes label, .detalhes span {
   display: inline !important;
+}
+
+.linha
+{
+size: 3em;
+color: black;
 }
