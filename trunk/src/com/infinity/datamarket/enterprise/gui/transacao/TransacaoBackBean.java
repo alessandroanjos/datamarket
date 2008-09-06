@@ -219,6 +219,12 @@ public class TransacaoBackBean extends BackBean {
 		List<FormaRecebimento> formasTroco = null;
 		try {
 			formasTroco = (ArrayList<FormaRecebimento>)getFachada().consultarFormaRecebimento(filter);
+			for (Iterator iter = formasTroco.iterator(); iter.hasNext();) {
+				FormaRecebimento forma = (FormaRecebimento) iter.next();
+				if(forma != null && forma.getId().equals(ConstantesFormaRecebimento.CHEQUE_PRE)){
+					iter.remove();
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -262,10 +268,12 @@ public class TransacaoBackBean extends BackBean {
 			filter.addPropertyInterval("formaTroco", null, IntervalObject.NAO_NULO);
 			
 			List<FormaRecebimento> formasTroco = carregarFormas(filter);
-			arrayFormas = new SelectItem[formasTroco.size()];
+			arrayFormas = new SelectItem[formasTroco.size()+1];
 			int i = 0;
+			SelectItem item = new SelectItem("0", "");
+			arrayFormas[i++] = item;
 			for(FormaRecebimento formasTmp : formasTroco){
-				SelectItem item = new SelectItem(formasTmp.getId().toString(), formasTmp.getDescricao());
+				item = new SelectItem(formasTmp.getId().toString(), formasTmp.getDescricao());
 				arrayFormas[i++] = item;
 			}
 		} catch (Exception e) {
@@ -1188,7 +1196,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 	
 	public void validarInclusaoItemPagamento() throws AppException{
-		if(this.getValorFormaPagamento() == null || (this.getValorFormaPagamento() != null && this.getValorFormaPagamento().equals(""))){
+		if(this.getValorFormaPagamento() == null || (this.getValorFormaPagamento() != null && (this.getValorFormaPagamento().equals("") || this.getValorFormaPagamento().equals(BigDecimal.ZERO.setScale(2))))){
 			throw new AppException("É necessário informar o Valor do Pagamento.");
 		}							
 		if(this.getIdFormaPagamento().equals(ConstantesFormaRecebimento.CHEQUE.toString())){
@@ -1447,8 +1455,8 @@ public class TransacaoBackBean extends BackBean {
 		DadosAutorizacaoCartaoProprio dados = null;
 		try {
 			if((cpfCnpj != null && !cpfCnpj.equals("")) && (valor != null && !valor.equals(new BigDecimal("0.00")))){
-				AutorizadorServerRemote obj = (AutorizadorServerRemote)ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
-				dados = obj.autorizaTransacaoCartaoProprio(cpfCnpj, valor);
+				AutorizadorServerRemote obj = (AutorizadorServerRemote)ServiceLocator.getJNDIObject(ServerConfig.AUTORIZADOR_SERVER_JNDI);
+				dados = obj.autorizaTransacaoCartaoProprio(cpfCnpj.replace(".", "").replace("-", "").replace("/", ""), valor);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -1610,6 +1618,13 @@ public class TransacaoBackBean extends BackBean {
 				throw new AppException("O Valor Recebido deve ser maior ou igual ao Valor Total do Cupom.");
 			}
 			
+			if(this.getValorTroco() == null || (this.getValorTroco() != null && !this.getValorTroco().equals(BigDecimal.ZERO.setScale(2)))){
+				if(this.getIdFormaTroco() == null || (this.getIdFormaTroco() != null && this.getIdFormaTroco().equals("0"))){
+					this.setAbaCorrente("tabMenuDiv1");
+					throw new AppException("Não existe Forma de Troco associada.");
+				}
+			}
+			
 			TransacaoVenda transVenda = new TransacaoVenda();
 			TransacaoPK transacaoPk = new TransacaoPK();
 			transacaoPk.setLoja(new Integer(this.getIdLoja()).intValue());
@@ -1698,7 +1713,7 @@ public class TransacaoBackBean extends BackBean {
 					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
-			this.setAbaCorrente("tabMenuDiv0");
+//			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -1709,7 +1724,7 @@ public class TransacaoBackBean extends BackBean {
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		}
-		resetBB();
+		
 		return "mesma";
 	}
 	
@@ -2361,7 +2376,7 @@ public class TransacaoBackBean extends BackBean {
 		try {
 			String cpfCnpj = "";
 			if(this.getCpfCnpjClienteCadastro() != null && !this.getCpfCnpjClienteCadastro().equals("")){
-				cpfCnpj = this.getCpfCnpjClienteCadastro().trim().replace(".", "").replace("-", "");
+				cpfCnpj = this.getCpfCnpjClienteCadastro().trim().replace(".", "").replace("-", "").replace("/", "");
 			}else{
 				FacesContext ctx = FacesContext.getCurrentInstance();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -2373,7 +2388,7 @@ public class TransacaoBackBean extends BackBean {
 			}
 			ClienteTransacao cli = getFachada().consultarClienteTransacaoPorID(cpfCnpj);
 			if(cli != null){
-				this.setCpfCnpjClienteCadastro(cli.getCpfCnpj());
+				this.setCpfCnpjClienteCadastro(formataCpfCnpj(cli.getCpfCnpj()));
 				this.setNomeClienteCadastro(cli.getNomeCliente());				
 				this.setIdTipoPessoaCadastro(cli.getTipoPessoa());
 				this.setRazaoSocialCadastro(cli.getRazaoSocial());
