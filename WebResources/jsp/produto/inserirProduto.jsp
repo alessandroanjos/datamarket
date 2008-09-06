@@ -128,7 +128,8 @@
 												value="#{produtoBB.precoPromocional}" required="false"
 												dir="rtl" 
 												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return SoNumero(event);" 												onkeydown="Formata('frmInserirProduto:precoPromocional',9,2,event);">
+												onkeypress="return SoNumero(event);" 												
+												onkeydown="Formata('frmInserirProduto:precoPromocional',9,2,event);">
 												<f:validateDoubleRange minimum="0.01" maximum="999999.99" />
 											</h:inputText>
 											<h:message for="precoPromocional" styleClass="msgErro" />
