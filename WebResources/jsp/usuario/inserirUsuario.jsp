@@ -91,7 +91,9 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Senha Numérica*"></h:outputLabel>
 											<h:inputSecret styleClass="field text" id="senha" redisplay="true" maxlength="10" size="12"
-												value="#{usuarioBB.senha}" required="true" onkeypress="return SoNumero(event);">
+												value="#{usuarioBB.senha}" required="true" 
+												onfocus="this.select();" onclick="this.select();"
+												onkeypress="return SoNumero(event);">
 												<f:validateLength maximum="10" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputSecret>
@@ -122,7 +124,9 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Perc. Comissão"></h:outputLabel>
-											<h:inputText styleClass="field text comissao" id="comissao" maxlength="5" size="5" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirUsuario:comissao',4,2,event);"
+											<h:inputText styleClass="field text comissao" id="comissao" maxlength="5" size="5" 
+												onfocus="this.select();" onclick="this.select();"
+												onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirUsuario:comissao',4,2,event);"
 												value="#{usuarioBB.comissao}" required="false" dir="rtl">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange  minimum="0.00" maximum="99.99"/>

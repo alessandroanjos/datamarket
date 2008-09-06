@@ -113,6 +113,8 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
 								<h:inputText styleClass="field text ativo" id="idProduto" 
+									onfocus="this.select();" onclick="this.select();"
+									onkeypress="return SoNumero(event);" 								
 									maxlength="9" value="#{ajusteEstoqueBB.idProduto}" size="12">
 								</h:inputText>
 								
@@ -135,7 +137,7 @@
 								<h:outputLabel styleClass="desc" value="Qtd. Atual"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeAntes"  readonly="true" maxlength="7"
 									size="10" value="#{ajusteEstoqueBB.quantidadeAntes}" 
-									onkeypress="return SoNumero(event);"  onkeydown="Formata('frmInserirAjusteEstoque:quantidadeAntes',7,3,event);">
+									onkeypress="return SoNumero(event);" onfocus="this.select();" onclick="this.select();" onkeydown="Formata('frmInserirAjusteEstoque:quantidadeAntes',7,3,event);">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.000" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
@@ -146,7 +148,7 @@
 								<h:outputLabel styleClass="desc" value="Qtd. Depois"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeDepois" maxlength="7"
 									size="10" value="#{ajusteEstoqueBB.quantidadeDepois}" 
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirAjusteEstoque:quantidadeDepois',7,3,event);">
+									onkeypress="return SoNumero(event);" onfocus="this.select();" onclick="this.select();" onkeydown="Formata('frmInserirAjusteEstoque:quantidadeDepois',7,3,event);">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />

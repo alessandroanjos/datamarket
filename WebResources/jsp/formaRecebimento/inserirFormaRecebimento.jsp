@@ -45,7 +45,9 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="3" onkeypress="return SoNumero(event);"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="3" 
+										    onfocus="this.select();" onclick="this.select();" 
+										    onkeypress="return SoNumero(event);"
 											value="#{formaRecebimentoBB.id}" size="3" required="true">
 											<f:validateLength maximum="3" />
 											<f:validator validatorId="LongValidator"/>
@@ -90,7 +92,9 @@
 										<h:outputLabel styleClass="desc" value="Valor Limite Sangria*"></h:outputLabel>
 										
 										<h:inputText styleClass="field text" id="valorLimiteSangria" maxlength="10" size="10"
-											value="#{formaRecebimentoBB.valorLimiteSangria}" dir="rtl" required="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirFormaRecebimento:valorLimiteSangria',9,2,event);">
+											value="#{formaRecebimentoBB.valorLimiteSangria}" dir="rtl" required="true" 
+											onfocus="this.select();" onclick="this.select();"
+											onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirFormaRecebimento:valorLimiteSangria',9,2,event);">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -104,7 +108,9 @@
 										<h:outputLabel styleClass="desc" value="Valor Maximo Troco*"></h:outputLabel>
 
 										<h:inputText styleClass="field text" id="valorMaxTroco" maxlength="10" size="10"
-											value="#{formaRecebimentoBB.valorMaxTroco}" required="true" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirFormaRecebimento:valorMaxTroco',9,2,event);">
+											value="#{formaRecebimentoBB.valorMaxTroco}" required="true" dir="rtl" 
+											onfocus="this.select();" onclick="this.select();"
+											onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirFormaRecebimento:valorMaxTroco',9,2,event);">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>

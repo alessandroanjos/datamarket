@@ -24,6 +24,7 @@ import com.infinity.datamarket.comum.util.ValidationException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class ProdutoBackBean extends BackBean{
+	String abaCorrente;
 	private String id;
 	private String codigoExterno;
 	private String codigoAutomacao;
@@ -370,8 +371,6 @@ public class ProdutoBackBean extends BackBean{
 		this.idUnidade = null;
 		this.idImposto = null;
 		this.idGrupo = null;
-
-
 		return "mesma";
 	}
 	
@@ -566,9 +565,25 @@ public class ProdutoBackBean extends BackBean{
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
 		if (param != null && VALOR_ACAO.equals(param)){
+			resetBB();
 			setProdutos(null);
 		}
+	}
+
+
+	/**
+	 * @return the abaCorrente
+	 */
+	public String getAbaCorrente() {
+		return abaCorrente;
+	}
+
+
+	/**
+	 * @param abaCorrente the abaCorrente to set
+	 */
+	public void setAbaCorrente(String abaCorrente) {
+		this.abaCorrente = abaCorrente;
 	}
 }

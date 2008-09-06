@@ -61,7 +61,9 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"onkeypress="return SoNumero(event);"
+										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+											onfocus="this.select();" onclick="this.select();"
+											onkeypress="return SoNumero(event);"
 											value="#{impostoBB.id}" size="3" disabled="true" required="true">
 											<f:validateLength maximum="3" />
 										</h:inputText>
@@ -92,7 +94,9 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Percentual*"></h:outputLabel>
 										<h:inputText styleClass="field monetario" id="percentual" maxlength="5"
-											size="5" value="#{impostoBB.percentual}" required="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterImposto:percentual',4,2,event);">
+											size="5" value="#{impostoBB.percentual}" required="true" 
+											onfocus="this.select();" onclick="this.select();"
+											onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterImposto:percentual',4,2,event);">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange minimum="00.01" maximum="99.99"/>
 										</h:inputText>

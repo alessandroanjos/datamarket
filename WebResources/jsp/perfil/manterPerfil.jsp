@@ -54,7 +54,9 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" onkeypress="return SoNumero(event);"
+											<h:inputText styleClass="field text ativo" id="id" 
+												onfocus="this.select();" onclick="this.select();"
+												onkeypress="return SoNumero(event);"
 												maxlength="4" value="#{perfilBB.id}" size="4"
 												required="true" disabled="true">
 												<f:validateLength maximum="2" />
@@ -82,7 +84,9 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Perc. de Desconto*"></h:outputLabel>
-											<h:inputText styleClass="field text" dir="rtl" id="percentualDesconto" maxlength="5" size="5" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirPerfil:percentualDesconto',4,2,event);"
+											<h:inputText styleClass="field text" dir="rtl" id="percentualDesconto" maxlength="5" size="5" 
+												onfocus="this.select();" onclick="this.select();"
+												onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirPerfil:percentualDesconto',4,2,event);"
                       							 value="#{perfilBB.percentualDesconto}" required="true">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="99.99" />

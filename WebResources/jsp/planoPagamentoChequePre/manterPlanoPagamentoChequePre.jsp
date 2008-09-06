@@ -100,7 +100,9 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 											<h:inputText styleClass="field text ativo" id="id"
-												maxlength="2" onkeypress="return SoNumero(event);"
+												maxlength="2" 
+												onfocus="this.select();" onclick="this.select();"
+												onkeypress="return SoNumero(event);"
 												value="#{planoPagamentoChequePreBB.id}" size="3"
 												required="false" readonly="true">
 												<f:validateLength maximum="2" />
@@ -135,7 +137,9 @@
 											<h:inputText styleClass="field text" id="valorMinimo"
 												maxlength="10" size="10"
 												value="#{planoPagamentoChequePreBB.valorMinimo}" dir="rtl"
-												required="false" onkeypress="return SoNumero(event);"
+												required="false" 
+												onfocus="this.select();" onclick="this.select();"
+												onkeypress="return SoNumero(event);"
 												onkeydown="Formata('frmManterPlanoPagamentoChequePre:valorMinimo',9,2,event);">
 												<f:validateLength maximum="10" />
 												<f:validateDoubleRange minimum="0.01" maximum="9999999.99" />
@@ -148,10 +152,12 @@
 											<h:inputText styleClass="field text" id="valorMaximo"
 												maxlength="10" size="10"
 												value="#{planoPagamentoChequePreBB.valorMaximo}" dir="rtl"
-												required="false" onkeypress="return SoNumero(event);"
+												required="false" 
+												onfocus="this.select();" onclick="this.select();"
+												onkeypress="return SoNumero(event);"
 												onkeydown="Formata('frmManterPlanoPagamentoChequePre:valorMaximo',9,2,event);">
 												<f:validateLength maximum="10" />
-												<f:validateDoubleRange minimum="0.01" maximum="9999999.99" />
+												<f:validateDoubleRange minimum="0.01"  />
 												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
 											<h:message for="valorMaximo" styleClass="msgErro" />
@@ -163,7 +169,9 @@
 											<h:inputText styleClass="field text" id="percentualDesconto"
 												maxlength="5" size="5"
 												value="#{planoPagamentoChequePreBB.percDesconto}" dir="rtl"
-												required="false" onkeypress="return SoNumero(event);"
+												required="false" 
+												onfocus="this.select();" onclick="this.select();"
+												onkeypress="return SoNumero(event);"
 												onkeydown="Formata('frmManterPlanoPagamentoChequePre:percentualDesconto',4,2,event);">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
@@ -176,7 +184,9 @@
 											<h:inputText styleClass="field text" id="percentualAcrescimo"
 												maxlength="5" size="5"
 												value="#{planoPagamentoChequePreBB.percAcrescimo}" dir="rtl"
-												required="false" onkeypress="return SoNumero(event);"
+												required="false" 
+												onfocus="this.select();" onclick="this.select();"
+												onkeypress="return SoNumero(event);"
 												onkeydown="Formata('frmManterPlanoPagamentoChequePre:percentualAcrescimo',4,2,event);">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
@@ -231,6 +241,7 @@
 												maxlength="5" size="5"
 												value="#{planoPagamentoChequePreBB.percentagemEntrada}"
 												dir="rtl" required="false"
+												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);"
 												onkeydown="Formata('frmManterPlanoPagamentoChequePre:percentualEntrada',5,2,event);">
 												<f:validateLength maximum="5" />
@@ -267,7 +278,7 @@
 																id="percentualParcela" maxlength="6" size="6"
 																value="#{planoPagamentoChequePreBB.percentagemParcela}"
 																dir="rtl" required="false"
-																onkeypress="return SoNumero(event);"
+																onfocus="this.select();" onclick="this.select();"
 																onkeypress="return SoNumero(event);"
 																onkeydown="Formata('frmManterPlanoPagamentoChequePre:percentualParcela',5,2,event);">
 																<f:validateLength maximum="6" />
@@ -282,6 +293,7 @@
 																id="quantidadeDiasParcela" dir="rtl" maxlength="3"
 																value="#{planoPagamentoChequePreBB.quantidadeDias}"
 																size="3" rendered="true"
+																onfocus="this.select();" onclick="this.select();"
 																onkeypress="return SoNumero(event);">
 																<f:validateLength maximum="3" />
 																<f:validator validatorId="LongValidator" />
