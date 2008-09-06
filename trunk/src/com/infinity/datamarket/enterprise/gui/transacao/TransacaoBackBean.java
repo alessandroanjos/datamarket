@@ -931,7 +931,7 @@ public class TransacaoBackBean extends BackBean {
 			}
 		}
 
-		this.setValorSubTotalCupom(transacao.getValorCupom().add(transacao.getValorTroco()));
+		this.setValorSubTotalCupom(this.getValorTotalRecebido().subtract(transacao.getDescontoCupom().add(transacao.getValorTroco())));
 		this.setDescontoCupom(transacao.getDescontoCupom());
 		this.setValorTroco(transacao.getValorTroco());
 		
