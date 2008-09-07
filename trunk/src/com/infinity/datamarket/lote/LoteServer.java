@@ -53,12 +53,12 @@ public class LoteServer implements LoteServerLocal, LoteServerRemote {
 				}
 			}else if (obj instanceof Usuario){
 				Usuario usu = (Usuario) obj;
-				Collection usuarios = usu.getLojas();
-				Iterator iUsuarios = usuarios.iterator();
+				Collection lojas = usu.getLojas();
+				Iterator iLojas = lojas.iterator();
 				boolean contem = false;
-				while(iUsuarios.hasNext()){
-					Usuario usuario = (Usuario) iUsuarios.next();
-					if (usuario.getId().equals(new Long(numLoja))){
+				while(iLojas.hasNext()){
+					Loja loja = (Loja) iLojas.next();
+					if (loja.getId().equals(new Long(numLoja))){
 						contem = true;
 					}
 				}
