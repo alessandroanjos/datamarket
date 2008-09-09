@@ -18,9 +18,12 @@ import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
+import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+
+import net.sf.jasperreports.view.JasperViewer;
 
 import com.infinity.datamarket.autorizador.AutorizadorServerRemote;
 import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
@@ -179,7 +182,14 @@ public class TransacaoBackBean extends BackBean {
 	private List<Componente> carregarComponentes() {		
 		List<Componente> componentes = null;
 		try {
-			componentes = (ArrayList<Componente>)getFachada().consultarTodosComponentes();
+        	IPropertyFilter filter = new PropertyFilter();
+        	filter.setTheClass(Componente.class);
+        	
+        	filter.addProperty("loja.id", new Long(this.getIdLoja() != null ? this.getIdLoja():"0"));
+        	
+        	componentes = (ArrayList<Componente>)getFachada().consultarComponentes(filter);
+
+//			componentes = (ArrayList<Componente>)getFachada().consultarTodosComponentes();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -845,7 +855,21 @@ public class TransacaoBackBean extends BackBean {
 					filter.addProperty("situacao", this.getIdSituacao());
 				}
 				
-				filter.setTheClass(Transacao.class);
+				if(this.getIdTipoPessoaCadastro() != null){
+					if(this.getCpfCnpjClienteCadastro() != null && !this.getCpfCnpjClienteCadastro().equals("")){
+						filter.setTheClass(TransacaoVenda.class);
+						if(this.getIdTipoPessoaCadastro().equals(Cliente.PESSOA_FISICA)){
+							filter.addProperty("cliente.tipoPessoa", Cliente.PESSOA_FISICA);
+						}else{
+							filter.addProperty("cliente.tipoPessoa", Cliente.PESSOA_JURIDICA);
+						}
+						filter.addProperty("cliente.cpfCnpj", this.getCpfCnpjClienteCadastro().replace(".", "").replace("-", "").replace("/", ""));
+					}else{
+						filter.setTheClass(Transacao.class);	
+					}						
+				}else{
+					filter.setTheClass(Transacao.class);
+				}				
 
 				Collection col = getFachada().consultarTransacao(filter);
 				
@@ -1599,7 +1623,6 @@ public class TransacaoBackBean extends BackBean {
 
 	public String inserir(){
 		try {
-
 			validaCabecalhoTransacao();
 			
 			if(this.getItensTransacao() == null || (this.getItensTransacao() != null && this.getItensTransacao().size() == 0)){
@@ -1632,7 +1655,8 @@ public class TransacaoBackBean extends BackBean {
 			transacaoPk.setNumeroTransacao(new Integer(this.getNsuTransacao()).intValue());
 			transacaoPk.setDataTransacao(this.getDataTransacao());
 			transVenda.setPk(transacaoPk);
-			transVenda.setSituacao(TransacaoVenda.ATIVO);
+//			transVenda.setSituacao(TransacaoVenda.ATIVO);
+			transVenda.setSituacao(this.getIdSituacao());
 			transVenda.setTipoTransacao(ConstantesTransacao.TRANSACAO_VENDA);
 			transVenda.setStatus(Transacao.PROCESSADO);
 			
@@ -1650,26 +1674,27 @@ public class TransacaoBackBean extends BackBean {
 			
 			if(this.getIdOperador() != null && !this.getIdOperador().equals("0")){
 				transVenda.setCodigoUsuarioOperador(this.getIdOperador());
+				Usuario usuarioOperador = getFachada().consultarUsuarioPorId(new Long(this.getIdOperador()));
+				if(usuarioOperador != null){
+					transVenda.setOperador(usuarioOperador.getNome());	
+				}else{
+					transVenda.setOperador("");
+				}				
 			}
 			
 			transVenda.setDescontoCupom(this.getDescontoCupom());
 			transVenda.setValorCupom(this.getValorTotalCupom());
 			transVenda.setValorTroco(this.getValorTroco());
-			transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));
+			if(this.getIdFormaTroco() != null){
+				transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));	
+			}else{
+				transVenda.setFormaTroco(null);
+			}
+			
 						
 			ConjuntoEventoTransacao conj = new ConjuntoEventoTransacao();
 			
 			Collection<EventoTransacao> c = new ArrayList<EventoTransacao>();
-			
-//			Iterator itItensTransacao = this.getItensTransacao().iterator();
-//			while(itItensTransacao.hasNext()){
-//				conj.add((EventoItemRegistrado)itItensTransacao.next());
-//			}
-//
-//			Iterator itItensPagamento = this.getItensPagamento().iterator();
-//			while(itItensPagamento.hasNext()){
-//				conj.add((EventoItemPagamento)itItensPagamento.next());
-//			}
 
 			Iterator itItensTransacao = this.getItensTransacao().iterator();
 			while(itItensTransacao.hasNext()){
@@ -1696,6 +1721,15 @@ public class TransacaoBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			
+			JasperViewer viewer;
+			try {
+				viewer = getFachada().gerarReciboVenda(transVenda);
+				viewer.show();
+			} catch (AppException e) {
+				e.printStackTrace();
+			}
+			
 			resetBB();
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
@@ -1716,6 +1750,7 @@ public class TransacaoBackBean extends BackBean {
 //			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (Exception e) {
+			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
@@ -1756,7 +1791,8 @@ public class TransacaoBackBean extends BackBean {
 			transacaoPk.setNumeroTransacao(new Integer(this.getNsuTransacao()).intValue());
 			transacaoPk.setDataTransacao(this.getDataTransacao());
 			transVenda.setPk(transacaoPk);
-			transVenda.setSituacao(TransacaoVenda.ATIVO);
+//			transVenda.setSituacao(TransacaoVenda.ATIVO);
+			transVenda.setSituacao(this.getIdSituacao());
 			transVenda.setTipoTransacao(ConstantesTransacao.TRANSACAO_VENDA);
 			transVenda.setStatus(Transacao.PROCESSADO);
 			
@@ -1774,6 +1810,12 @@ public class TransacaoBackBean extends BackBean {
 			
 			if(this.getIdOperador() != null && !this.getIdOperador().equals("0")){
 				transVenda.setCodigoUsuarioOperador(this.getIdOperador());
+				Usuario usuarioOperador = getFachada().consultarUsuarioPorId(new Long(this.getIdOperador()));
+				if(usuarioOperador != null){
+					transVenda.setOperador(usuarioOperador.getNome());	
+				}else{
+					transVenda.setOperador("");
+				}
 			}
 			
 			transVenda.setDescontoCupom(this.getDescontoCupom());
@@ -1782,27 +1824,6 @@ public class TransacaoBackBean extends BackBean {
 			transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));
 						
 			ConjuntoEventoTransacao conj = new ConjuntoEventoTransacao();
-			
-//			if(this.getItensTransacao() != null){
-//				Iterator itItensTransacao = this.getItensTransacao().iterator();
-//				while(itItensTransacao.hasNext()){
-//					conj.add((EventoItemRegistrado)itItensTransacao.next());
-//				}
-//			}
-//			
-//			if(this.getItensTransacaoModificados() != null){
-//				Iterator itItensTransacao = this.getItensTransacaoModificados().iterator();
-//				while(itItensTransacao.hasNext()){
-//					conj.add((EventoItemRegistrado)itItensTransacao.next());
-//				}
-//			}
-//
-//			if(this.getItensPagamento() != null){
-//				Iterator itItensPagamento = this.getItensPagamento().iterator();
-//				while(itItensPagamento.hasNext()){
-//					conj.add((EventoItemPagamento)itItensPagamento.next());
-//				}
-//			}
 			
 			Collection<EventoTransacao> c = new ArrayList<EventoTransacao>();
 
@@ -1813,13 +1834,6 @@ public class TransacaoBackBean extends BackBean {
 				}
 			}
 			
-//			if(this.getItensTransacaoModificados() != null){
-//				Iterator itItensTransacao = this.getItensTransacaoModificados().iterator();
-//				while(itItensTransacao.hasNext()){
-//					c.add((EventoItemRegistrado)itItensTransacao.next());
-//				}
-//			}
-
 			if(this.getItensPagamento() != null){
 				Iterator itItensPagamento = this.getItensPagamento().iterator();
 				while(itItensPagamento.hasNext()){
@@ -1830,7 +1844,6 @@ public class TransacaoBackBean extends BackBean {
 			conj.addAll(c);
 
 			transVenda.setEventosTransacao(conj);
-//			transVenda.setEventosTransacao(new ConjuntoEventoTransacao());
 			
 			transVenda.setDataHoraInicio(new Date(System.currentTimeMillis()));
 			transVenda.setDataHoraFim(new Date(System.currentTimeMillis()));
@@ -1843,6 +1856,15 @@ public class TransacaoBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			
+			JasperViewer viewer;
+			try {
+				viewer = getFachada().gerarReciboVenda(transVenda);
+				viewer.show();
+			} catch (AppException e) {
+				e.printStackTrace();
+			}
+			
 			resetBB();
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
@@ -1878,22 +1900,6 @@ public class TransacaoBackBean extends BackBean {
 		try {
 
 			validaCabecalhoTransacao();
-			
-//			if(this.getItensTransacao() == null || (this.getItensTransacao() != null && this.getItensTransacao().size() == 0)){
-//				this.setAbaCorrente("tabMenuDiv1");
-//				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
-//				throw new AppException("É necessário inserir os itens da transação de venda.");
-//			}else if(this.getItensPagamento() == null || (this.getItensPagamento() != null && this.getItensPagamento().size() == 0)){
-//				this.setAbaCorrente("tabMenuDiv2");
-//				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
-//				throw new AppException("É necessário informar as formas de pagamento.");
-//			}
-//			
-//			if(this.getValorTotalCupom().compareTo(this.getValorTotalRecebido()) < 0){
-//				this.setAbaCorrente("tabMenuDiv2");
-//				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
-//				throw new AppException("O Valor Recebido deve ser maior ou igual ao Valor Total do Cupom.");
-//			}
 			
 			TransacaoVenda transVenda = new TransacaoVenda();
 			TransacaoPK transacaoPk = new TransacaoPK();
@@ -1957,6 +1963,15 @@ public class TransacaoBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			
+			JasperViewer viewer;
+			try {
+				viewer = getFachada().gerarReciboVenda(transVenda);
+				viewer.show();
+			} catch (AppException e) {
+				e.printStackTrace();
+			}
+			
 			resetBB();
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
@@ -2498,6 +2513,18 @@ public class TransacaoBackBean extends BackBean {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public void carregarComponentesPorLoja(ValueChangeEvent event){
+        try {
+        	this.getComponentes();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		}
 	}
 }
