@@ -324,11 +324,11 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="94"  isSplitAllowed="true" >
+			<band height="651"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="382"
-						y="58"
+						x="387"
+						y="613"
 						width="68"
 						height="15"
 						key="staticText-16"/>
@@ -341,8 +341,8 @@
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="382"
-						y="78"
+						x="387"
+						y="633"
 						width="68"
 						height="16"
 						backcolor="#CCCCCC"
@@ -355,8 +355,8 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="450"
-						y="58"
+						x="455"
+						y="613"
 						width="84"
 						height="15"
 						key="textField-9"/>
@@ -369,8 +369,8 @@
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Opaque"
-						x="450"
-						y="78"
+						x="455"
+						y="633"
 						width="84"
 						height="16"
 						backcolor="#CCCCCC"
@@ -387,7 +387,7 @@
 						x="0"
 						y="0"
 						width="539"
-						height="28"
+						height="467"
 						key="subreport-1"/>
 					<subreportParameter  name="arrayColItensRegistrado">
 						<subreportParameterExpression><![CDATA[$F{arrayColItensRegistrado}]]></subreportParameterExpression>
@@ -399,9 +399,9 @@
 					<reportElement
 						mode="Opaque"
 						x="0"
-						y="28"
+						y="467"
 						width="539"
-						height="28"
+						height="141"
 						key="subreport-2"/>
 					<subreportParameter  name="arrayColPagamentos">
 						<subreportParameterExpression><![CDATA[$F{arrayColPagamentos}]]></subreportParameterExpression>
