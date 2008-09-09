@@ -51,21 +51,13 @@ public class GerenciadorRelatorio {
 	public static final String RECIBO_VENDA;
 
 	static {
+		ResourceBundle rs = ResourceBundle.getBundle("relatorio");
 
+		CAMINHO_RELATORIO = rs.getString("CAMINHO_RELATORIO");
 
-			ResourceBundle rs = ResourceBundle.getBundle("relatorio");
-
-			CAMINHO_RELATORIO = rs.getString("CAMINHO_RELATORIO");
-
-			RECIBO_VENDA = rs.getString("RECIBO_VENDA");
-
+		RECIBO_VENDA = rs.getString("RECIBO_VENDA");
 	}
-
-
-
-
-
-
+	
 	private static GerenciadorRelatorio instancia;
 
 	public static GerenciadorRelatorio getInstancia(){
@@ -155,14 +147,4 @@ public class GerenciadorRelatorio {
 			throw new RelatorioException(e);
 		}
 	}
-
-
-
-
-
-
-
-
-
-
 }
