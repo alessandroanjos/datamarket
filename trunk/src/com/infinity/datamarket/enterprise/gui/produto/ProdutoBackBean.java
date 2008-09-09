@@ -32,6 +32,7 @@ public class ProdutoBackBean extends BackBean{
 	private String descricaoCompacta;
 	private String precoPadrao;
 	private String precoPromocional;
+	private String precoCompra;	
 	private String idTipoProduto;
 	private String idUnidade;
 	private String idImposto;
@@ -174,6 +175,9 @@ public class ProdutoBackBean extends BackBean{
 		p.setPrecoPadrao(new BigDecimal(getPrecoPadrao()));
 		if (getPrecoPromocional() != null && !"".equals(getPrecoPromocional())){ 
 			p.setPrecoPromocional(new BigDecimal(getPrecoPromocional()));
+		}
+		if (getPrecoCompra() != null && !"".equals(getPrecoCompra())){ 
+			p.setPrecoCompra(new BigDecimal(getPrecoCompra()));
 		}
 		Imposto imp = new Imposto();
 		imp.setId(new Long(getIdImposto()));
@@ -585,5 +589,21 @@ public class ProdutoBackBean extends BackBean{
 	 */
 	public void setAbaCorrente(String abaCorrente) {
 		this.abaCorrente = abaCorrente;
+	}
+
+
+	/**
+	 * @return the precoCompra
+	 */
+	public String getPrecoCompra() {
+		return precoCompra;
+	}
+
+
+	/**
+	 * @param precoCompra the precoCompra to set
+	 */
+	public void setPrecoCompra(String precoCompra) {
+		this.precoCompra = precoCompra;
 	}
 }
