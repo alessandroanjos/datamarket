@@ -49,13 +49,19 @@ public class GerenciadorRelatorio {
 	public static final String CAMINHO_RELATORIO;
 
 	public static final String RECIBO_VENDA;
+	
+	public static final String EMPRESA;
 
 	static {
+
 		ResourceBundle rs = ResourceBundle.getBundle("relatorio");
-
+	
 		CAMINHO_RELATORIO = rs.getString("CAMINHO_RELATORIO");
-
+	
 		RECIBO_VENDA = rs.getString("RECIBO_VENDA");
+		
+		EMPRESA = rs.getString("EMPRESA");
+
 	}
 	
 	private static GerenciadorRelatorio instancia;
@@ -106,7 +112,7 @@ public class GerenciadorRelatorio {
 			Map parametros = new HashMap();
 			parametros.put("CAMINHO", this.CAMINHO_RELATORIO);
 
-			parametros.put("empresa","Magia dos Pães");
+			parametros.put("empresa",EMPRESA);
 			parametros.put("loja", transacao.getPk().getLoja()+"");
 			parametros.put("componente", transacao.getPk().getComponente()+"");
 			parametros.put("data", transacao.getPk().getDataTransacao());
