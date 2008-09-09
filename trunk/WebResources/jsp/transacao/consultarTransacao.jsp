@@ -26,6 +26,39 @@
 		
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
+		
+		<script type="text/javascript">
+			window.onload = function(){ inicializar() };
+			function inicializar() {
+				$("input.tipopessoa").each(function(i){
+					$(this).click(function() {mostraCampos(this.value)});
+				});
+				if ($('[name=frmConsultarTransacao:idTipoPessoaCadastro]:checked').val() != "undefined") {
+					mostraCampos($('[name=frmConsultarTransacao:idTipoPessoaCadastro]:checked').val());
+				}
+			}			
+            
+			function mostraCampos(str) {
+				var flag = new String(str);
+				if (flag.toUpperCase() == "F") {
+					$("input.tipocpfcnpj").each(function(i){
+						$(this).unbind('blur');
+						$(this).unbind('keydown');
+						$(this).bind('blur',function(event){validaCPF(this);});
+						$(this).bind('keydown',function(event){FormataCPF(this,event);});
+						getId(this.id).maxLength = "14";
+					});
+				} else {
+					$("input.tipocpfcnpj").each(function(i){
+						$(this).unbind('blur');
+						$(this).unbind('keydown');
+						$(this).bind('blur',function(event){validaCNPJ(this);});
+						$(this).bind('keydown',function(event){FormataCNPJ(this,event);});
+						getId(this.id).maxLength = "18";
+					});
+				}
+			}
+		</script>
 	</head>
 	<body>
 	<div id="outer">
@@ -36,11 +69,8 @@
 				</strong>
 			</div>				
 		</div>		
-
-		<h:form id="frmConsultarTransacao">
-				
-				<div id="content">
-				
+		<h:form id="frmConsultarTransacao">				
+				<div id="content">				
 						<div id="primarioContentContainer">
 							<fieldset>
 								<legend>Opções de filtro:</legend>
@@ -61,7 +91,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Número Transação"></h:outputLabel>
 											<h:inputText styleClass="field text ativo" id="nsuTransacao" maxlength="6" onkeypress="return SoNumero(event);"
-												value="#{transacaoBB.nsuTransacao}" size="6" required="false">
+												value="#{transacaoBB.nsuTransacao}" size="10" required="false">
 												<f:validateLength maximum="6" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
@@ -88,7 +118,22 @@
 												<f:selectItems id="situacaoSelectItems" value="#{transacaoBB.listaSituacao}" />   
 											</h:selectOneMenu>
 										</div>
-									</li>	
+										
+										<div>
+											<h:outputLabel styleClass="desc" value="Tipo Pessoa"></h:outputLabel>
+											<h:selectOneRadio  styleClass="field select tipopessoa" id="idTipoPessoaCadastro" 
+												value="#{transacaoBB.idTipoPessoaCadastro}" layout="lineDirection" required="false">
+												<f:selectItems id="tipoPessoaLista" value="#{transacaoBB.listaTipoPessoa}"/>
+											</h:selectOneRadio>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="CPF/CNPJ"></h:outputLabel>
+											<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteCadastro" maxlength="18" size="18" 
+											value="#{transacaoBB.cpfCnpjClienteCadastro}" required="false" onkeypress="return SoNumero(event);">
+												<f:validateLength minimum="11" maximum="18" />
+											</h:inputText>	
+										</div>
+									</li>
 								</ul>
 							</fieldset>	
 							<div class="listagem">
