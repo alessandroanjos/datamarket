@@ -265,7 +265,16 @@
 										<f:selectItems id="operadoresSelectItems" value="#{transacaoBB.usuariosOperadores}" />   
 									</h:selectOneMenu>
 								</div>
-							</li>							
+							</li>		
+							<li class="normal">
+								<div>	
+									<h:outputLabel styleClass="desc" value="Situacao"></h:outputLabel>
+									<h:selectOneMenu id="idSituacao" style="width: 200px;" value="#{transacaoBB.idSituacao}"> 
+										<f:selectItems id="situacaoSelectItems" value="#{transacaoBB.listaSituacao}" />   
+									</h:selectOneMenu>
+								</div>
+							</li>						
+												
 						</ul>
 					</div>
 					<div id="tabDiv1"  style="display:none;height: 390px;">

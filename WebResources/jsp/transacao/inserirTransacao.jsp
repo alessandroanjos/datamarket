@@ -208,7 +208,7 @@
 							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Loja*"></h:outputLabel>
-									<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{transacaoBB.idLoja}"> 
+									<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{transacaoBB.idLoja}" onchange="submit();" valueChangeListener="#{transacaoBB.carregarComponentesPorLoja}"> 
 										<f:selectItems id="lojasSelectItems" value="#{transacaoBB.lojas}" />   
 									</h:selectOneMenu>
 								</div>
@@ -265,7 +265,15 @@
 										<f:selectItems id="operadoresSelectItems" value="#{transacaoBB.usuariosOperadores}" />   
 									</h:selectOneMenu>
 								</div>
-							</li>							
+							</li>	
+							<li class="normal">
+								<div>	
+									<h:outputLabel styleClass="desc" value="Situacao"></h:outputLabel>
+									<h:selectOneMenu id="idSituacao" style="width: 200px;" value="#{transacaoBB.idSituacao}"> 
+										<f:selectItems id="situacaoSelectItems" value="#{transacaoBB.listaSituacao}" />   
+									</h:selectOneMenu>
+								</div>
+							</li>						
 						</ul>
 					</div>
 					<div id="tabDiv1"  style="display:none;height: 390px;">
