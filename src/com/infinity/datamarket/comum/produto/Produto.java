@@ -18,6 +18,7 @@ public class Produto extends Persistente{
 	private String descricaoCompacta;
 	private BigDecimal precoPadrao;
 	private BigDecimal precoPromocional;
+	private BigDecimal precoCompra;
 	private TipoProduto tipo;
 	private Unidade unidade;
 	private Imposto imposto;
@@ -94,6 +95,18 @@ public class Produto extends Persistente{
 	}
 	public void setLojas(Collection lojas) {
 		this.lojas = lojas;
+	}
+	/**
+	 * @return the precoCompra
+	 */
+	public BigDecimal getPrecoCompra() {
+		return precoCompra;
+	}
+	/**
+	 * @param precoCompra the precoCompra to set
+	 */
+	public void setPrecoCompra(BigDecimal precoCompra) {
+		this.precoCompra = precoCompra;
 	}
 
 }
