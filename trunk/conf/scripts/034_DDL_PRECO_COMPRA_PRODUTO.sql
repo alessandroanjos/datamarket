@@ -1,0 +1,2 @@
+ALTER TABLE [dbo].[PRODUTO] ADD [PRECO_COMPRA] numeric(19, 2)
+GO
