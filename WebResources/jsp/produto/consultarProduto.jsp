@@ -163,6 +163,12 @@
 									</h:column>
 									<h:column>
 										<f:facet name="header">
+											<h:outputText value="Preço Compra" /> 
+										</f:facet>
+										<h:outputText value="#{produto.precoCompra}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
 											<h:outputText value="Tipo" /> 
 										</f:facet>
 										<h:outputText value="#{produto.tipo.descricao}" /> 
