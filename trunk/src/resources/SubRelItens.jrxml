@@ -199,7 +199,7 @@
 					<textElement textAlignment="Left">
 						<font fontName="Courier New"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[((com.infinity.datamarket.comum.transacao.ProdutoItemRegistrado)$F{produtoItemRegistrado}).getDecricaoCompleta()]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[((com.infinity.datamarket.comum.transacao.ProdutoItemRegistrado)$F{produtoItemRegistrado}).getDescricaoCompleta()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
