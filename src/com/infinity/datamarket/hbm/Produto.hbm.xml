@@ -41,7 +41,11 @@
         <property name="precoPromocional" type="java.math.BigDecimal" update="true" insert="true">
             <column name="PRECO_PROMOCAO" length="20" not-null="false"/>
         </property>
-
+        
+        <property name="precoCompra" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="PRECO_COMPRA" length="20" not-null="true"/>
+        </property>
+        
 	<many-to-one name="tipo" class="com.infinity.datamarket.comum.produto.TipoProduto" update="true" insert="true">
           <column name="ID_TIPO_PRODUTO" not-null="true"/>
         </many-to-one>
