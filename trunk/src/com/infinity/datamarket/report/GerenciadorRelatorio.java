@@ -210,7 +210,7 @@ public class GerenciadorRelatorio {
 			textoDataPagamento.append(" de " + Util.retornaMesPorExtenso(dataPagamento.getMonth()) + " de ");
 			textoDataPagamento.append(dataPagamento.getYear()+1900 + ".");
 			
-			parametros.put("dataPagamento", textoDataPagamento);
+			parametros.put("dataPagamento", textoDataPagamento.toString());
 						
             JasperPrint jasperPrintReciboPagamento = JasperFillManager.fillReport(jasperItens, parametros);
 
