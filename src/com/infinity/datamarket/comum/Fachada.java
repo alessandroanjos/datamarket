@@ -212,6 +212,16 @@ public class Fachada {
 		return viewer;
 	}
 	
+	public JasperViewer gerarReciboPagamentoCliente(ClientePagamento clientePagamento) throws AppException{
+		JasperViewer viewer = null;
+		try{
+			viewer = getGerenciadorRelatorio().gerarReciboPagamentoCliente(clientePagamento);
+		}catch(AppException e){
+			throw new SistemaException(e);
+		}
+		return viewer;
+	}
+	
 	public Usuario loginUsuario(Long id, String senha) throws AppException{
 		Usuario usu = null;
 		try{

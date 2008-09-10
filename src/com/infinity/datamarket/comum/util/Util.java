@@ -1,10 +1,10 @@
 package com.infinity.datamarket.comum.util;
 
-import java.util.ArrayList;
-
 import javax.faces.model.SelectItem;
 
 public class Util {
+	
+	public static final String STRING_VAZIA = "";
 
 	public static boolean validacpf(String strCpf){ // formato XXX.XXX.XXX-XX   
         if (! strCpf.substring(0,1).equals("")){   
@@ -148,4 +148,49 @@ public class Util {
 		return listaUf;
 	}
 	
+	public static String retornaMesPorExtenso(int mes){
+		String[] mesExtenso = {"Janeiro","Fevereiro","Março","Abril",
+				               "Maio","Junho","Julho","Agosto","Setembro",
+				               "Outubro","Novembro","Dezembro"};
+		
+		return mesExtenso[mes];
+	}
+	
+	public static String completaString(String string, String caracter,
+			int quantidade, boolean esquerda) {
+		if (string == null) {
+			string = STRING_VAZIA;
+		}
+		if (quantidade > string.length()) {
+			StringBuffer nova = new StringBuffer(quantidade);
+			if(esquerda){
+				nova.append(string);
+				quantidade -= string.length();
+				for (int i = 0; i < quantidade; i++) {
+					nova.append(caracter);
+				}
+			}else{
+				quantidade -= string.length();
+				for (int i = 0; i < quantidade; i++) {
+					nova.append(caracter);
+				}
+				nova.append(string);	
+			}
+			string = nova.toString();
+		} else {
+			if(esquerda){
+				string = string.substring(0, quantidade);	
+			}else{
+				string = string.substring(--quantidade);
+			}
+			
+		}
+		return string;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(completaString("jonas", "X", 3, true));
+		System.out.println(completaString("jonas", "X", 3, false));
+		System.out.println(Util.completaString("", " ", 15, true));
+	}
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
+import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class ClientePagamento extends Persistente {
@@ -18,6 +19,9 @@ public class ClientePagamento extends Persistente {
 	private Date dataPagamento;
 	private FormaRecebimento formaRecebimento;
 	private BigDecimal valorPagamento;
+	
+	private Usuario usuario;
+	
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -41,5 +45,11 @@ public class ClientePagamento extends Persistente {
 	}
 	public void setValorPagamento(BigDecimal valorPagamento) {
 		this.valorPagamento = valorPagamento;
+	}	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }
