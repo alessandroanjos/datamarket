@@ -129,6 +129,8 @@ public class MicIncluiProdutoItem extends Mic {
 				produto.getDescricaoCompleta(), produto.getPrecoPadrao(),
 				precoUnitario, produto.getImposto().getImpostoImpressora(), produto.getImposto().getPercentual());
 
+		produtoItemRegistrado.setTipoProduto(produto.getTipo().getId());
+		
 		EventoItemRegistrado eventoItemRegistrado = new EventoItemRegistrado(
 				pk, ConstantesEventoTransacao.EVENTO_ITEM_REGISTRADO,
 				new Date(), quantidade, desconto, preco, produtoItemRegistrado);

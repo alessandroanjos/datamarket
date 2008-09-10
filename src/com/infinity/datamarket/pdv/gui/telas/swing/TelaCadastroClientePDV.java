@@ -121,11 +121,24 @@ public class TelaCadastroClientePDV extends JDialog {
 
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == e.VK_ENTER){
-					try{
-						ClienteServerRemote remote = (ClienteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
+					try{						
 						String cpfCnpj = jTextFieldCpfCnpj.getText().replace(".", "");
 				    	cpfCnpj = cpfCnpj.replace("/", "");
 				    	cpfCnpj = cpfCnpj.replace("-", "");
+				    	if (jRadioButtonPessoaJuridica.isSelected()){
+				    		if (!Util.validaCnpj(cpfCnpj)){
+				    			mostrarMensagem("CNPJ inválido");
+				    			jTextFieldCpfCnpj.requestFocus();
+				    			return;
+				    		}
+				    	}else{
+				    		if (!Util.validacpf(cpfCnpj)){
+				    			mostrarMensagem("CPF inválido");
+				    			jTextFieldCpfCnpj.requestFocus();
+				    			return;
+				    		}
+				    	}
+				    	ClienteServerRemote remote = (ClienteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
 						ClienteTransacao cliente = remote.consultarClienteTransacaoPorID(cpfCnpj);
 						if (cliente.getTipoPessoa().equals(ClienteTransacao.PESSOA_JURIDICA)){
 							jTextFieldInscEstadual.setText(cliente.getInscricaoEstadual());
@@ -165,7 +178,7 @@ public class TelaCadastroClientePDV extends JDialog {
         	
         };
 
-        jTextFieldCpfCnpj.addKeyListener(klCpfCnpj);
+//        jTextFieldCpfCnpj.addKeyListener(klCpfCnpj);
         
         
         jRadioButtonPessoaFisica = new javax.swing.JRadioButton();

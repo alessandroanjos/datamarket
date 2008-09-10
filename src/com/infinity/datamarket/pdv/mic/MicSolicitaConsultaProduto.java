@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
 import com.infinity.datamarket.comum.transacao.EventoTransacao;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
@@ -58,6 +59,26 @@ public class MicSolicitaConsultaProduto extends Mic{
 					EventoItemRegistrado item = (EventoItemRegistrado) evento;
 					if (item.getProdutoItemRegistrado().getCodigoExterno().equals(codigo) && item.getSituacao().equals(EventoItemRegistrado.ATIVO)){
 						prodEncontrado = true;
+						if (item.getProdutoItemRegistrado().getTipoProduto().equals(TipoProduto.UNIDADE_VARIAVEL)){
+							try{
+								gerenciadorPerifericos.getDisplay().setMensagem("Digite a quantidade");
+								EntradaDisplay entradaQtd = gerenciadorPerifericos.lerDados(new int[] { Tecla.CODIGO_ENTER, Tecla.CODIGO_VOLTA },Display.MASCARA_QUANTIDADE, 8);
+								if (entradaQtd.getTeclaFinalizadora() == Tecla.CODIGO_ENTER) {
+									BigDecimal quantidadeTmp = new BigDecimal(entradaQtd.getDado());
+									if (quantidadeTmp.compareTo(BigDecimal.ZERO) > 0){
+										quantidade = quantidadeTmp;
+									}else{
+										gerenciadorPerifericos.getDisplay().setMensagem("Quantidade inválida");
+										gerenciadorPerifericos.esperaVolta();
+										return ALTERNATIVA_2;
+									}
+								}else{
+									return ALTERNATIVA_2;
+								}
+							}catch(AppException e){
+								return ALTERNATIVA_2;
+							}
+						}
 						if (item.getQuantidade().equals(quantidade)){
 							if (item.getProdutoItemRegistrado().getPrecoPadrao().compareTo(BigDecimal.ZERO) == 0){
 								try{

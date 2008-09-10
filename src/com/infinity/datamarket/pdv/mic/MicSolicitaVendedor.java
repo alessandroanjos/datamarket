@@ -1,5 +1,7 @@
 package com.infinity.datamarket.pdv.mic;
 
+import java.math.BigDecimal;
+
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.usuario.Vendedor;
@@ -22,7 +24,7 @@ public class MicSolicitaVendedor extends Mic{
 				gerenciadorPerifericos.getDisplay().setMensagem("Código do Vendedor");
 				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
 				String idUsu = null;
-				if (entrada.getTeclaFinalizadora() == 10){
+				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 					idUsu = entrada.getDado();
 					if ("".equals(idUsu)){
 						gerenciadorPerifericos.getCmos().gravar(CMOS.VENDEDOR_ATUAL, null);
@@ -31,7 +33,22 @@ public class MicSolicitaVendedor extends Mic{
 						try{
 							Usuario u = getFachadaPDV().consultarUsuarioPorId(new Long(idUsu));
 							if (u instanceof Vendedor){
-								gerenciadorPerifericos.getCmos().gravar(CMOS.VENDEDOR_ATUAL, u);
+								Vendedor vendedor = (Vendedor) u;
+								Parametro atualizaComissaoVendedor = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.ATUALIZA_COMISSAO_VENDEDOR);
+								if (Boolean.valueOf(atualizaComissaoVendedor.getValor()).booleanValue()){
+									gerenciadorPerifericos.getDisplay().setMensagem("Alterar Comissão Vendedor?");
+									EntradaDisplay entradaConfirmaComissao = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
+									if (entradaConfirmaComissao.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
+										gerenciadorPerifericos.getDisplay().setMensagem("Nova Comissão");
+										EntradaDisplay entradaComissao = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_PERCENTUAL, 5);
+										if (entradaComissao.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
+											String percentual = entradaComissao.getDado();
+											BigDecimal perc = new BigDecimal(percentual);											
+											vendedor.setComissao(perc);																									
+										}
+									}
+								}
+								gerenciadorPerifericos.getCmos().gravar(CMOS.VENDEDOR_ATUAL, vendedor);
 							}else{
 								gerenciadorPerifericos.getDisplay().setMensagem("Usuario não é vendedor");
 								gerenciadorPerifericos.esperaVolta();
