@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="ReciboPagamentoCliente"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="empresa" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="textoRecibo" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="dataPagamento" isForPrompting="true" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="800"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="171"
+						y="0"
+						width="197"
+						height="22"
+						key="TITULO-1"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[RECIBO DE PAGAMENTO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="171"
+						y="394"
+						width="197"
+						height="22"
+						key="TITULO-2"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle">
+						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[RECIBO DE PAGAMENTO]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="38"
+						y="30"
+						width="461"
+						height="167"
+						key="TEXTO_RECIBO-1"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="1_1_2">
+						<font fontName="Verdana"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{textoRecibo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="38"
+						y="424"
+						width="461"
+						height="167"
+						key="TEXTO_RECIBO-2"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="1_1_2">
+						<font fontName="Verdana"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{textoRecibo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="228"
+						y="203"
+						width="270"
+						height="22"
+						key="TEXTO_DATA-1"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Verdana"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{dataPagamento}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="228"
+						y="598"
+						width="270"
+						height="22"
+						key="TEXTO_DATA-2"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Verdana"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{dataPagamento}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="154"
+						y="284"
+						width="233"
+						height="0"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="154"
+						y="678"
+						width="233"
+						height="0"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="154"
+						y="284"
+						width="233"
+						height="22"
+						key="TEXTO_EMPRESA-1"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Verdana"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{empresa}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="154"
+						y="678"
+						width="233"
+						height="22"
+						key="TEXTO_EMPRESA-2"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Verdana"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{empresa}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="-30"
+						y="368"
+						width="595"
+						height="1"
+						key="line-3"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>
