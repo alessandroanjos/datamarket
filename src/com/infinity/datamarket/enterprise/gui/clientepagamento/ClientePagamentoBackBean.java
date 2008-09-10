@@ -34,6 +34,8 @@ public class ClientePagamentoBackBean extends BackBean {
 		setDataPagamento(new Date(System.currentTimeMillis()));
 	}
 	
+	ClientePagamento clientePagamento;
+	
 	String id;
 	Cliente cliente;
 	BigDecimal valorPagamento;
@@ -324,13 +326,7 @@ public class ClientePagamentoBackBean extends BackBean {
 									
 			getFachada().alterarCliente(cli);
 			
-			JasperViewer viewer;
-			try {
-				viewer = getFachada().gerarReciboPagamentoCliente(clientePagamento);
-				viewer.show();
-			} catch (AppException e) {
-				e.printStackTrace();
-			}
+			this.setClientePagamento(clientePagamento);
 			
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -568,5 +564,23 @@ public class ClientePagamentoBackBean extends BackBean {
 			resetBB();
 			setClientesPagamentos(null);
 		}
+	}
+	
+	public void imprimirRecibo(){
+		JasperViewer viewer;
+		try {
+			viewer = getFachada().gerarReciboPagamentoCliente(this.getClientePagamento());
+			viewer.show();
+		} catch (AppException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ClientePagamento getClientePagamento() {
+		return clientePagamento;
+	}
+
+	public void setClientePagamento(ClientePagamento clientePagamento) {
+		this.clientePagamento = clientePagamento;
 	}
 }
