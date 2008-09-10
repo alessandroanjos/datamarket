@@ -34,6 +34,10 @@
 		<many-to-one name="formaRecebimento" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento" update="true" insert="true" >
               <column name="ID_FORMA_RECEBIMENTO" not-null="true"/>
         </many-to-one>
+        
+        <many-to-one name="usuario" class="com.infinity.datamarket.comum.usuario.Usuario" update="true" insert="true" >
+              <column name="ID_USUARIO" not-null="true"/>
+        </many-to-one>
     </class>
 
 </hibernate-mapping>
