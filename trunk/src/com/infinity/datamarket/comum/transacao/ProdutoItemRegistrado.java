@@ -18,6 +18,15 @@ public class ProdutoItemRegistrado implements Serializable{
 	private BigDecimal precoPraticado;
 	private String impostoImpressora;
 	private BigDecimal percentual;
+	private Long tipoProduto; 
+
+	public Long getTipoProduto() {
+		return tipoProduto;
+	}
+
+	public void setTipoProduto(Long tipoProduto) {
+		this.tipoProduto = tipoProduto;
+	}
 
 	public String getImpostoImpressora() {
 		return impostoImpressora;

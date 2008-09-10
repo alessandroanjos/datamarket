@@ -19,6 +19,17 @@ public class MicAutorizacao extends Mic{
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
+			Usuario usuario =(Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.OPERADOR_ATUAL);
+			try{
+				MacroOperacao mo =(MacroOperacao) gerenciadorPerifericos.getCmos().ler(CMOS.MACRO_ATUAL);
+				getFachadaPDV().consultarUsuarioPorId_IdMacro(usuario.getId(), mo.getId());
+				return ALTERNATIVA_1;
+			}catch(AutorizacaoRecusadaException ex){
+				
+			}
+			
+			
+			
 			gerenciadorPerifericos.getDisplay().setMensagem("ID Usuário");
 			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
 			String senhaUsu = null;
