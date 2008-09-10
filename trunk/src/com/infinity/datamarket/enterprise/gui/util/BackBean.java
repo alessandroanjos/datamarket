@@ -106,7 +106,7 @@ public class BackBean {
 		this.init = init;
 	}
 	
-	public String formataCpfCnpj(String cpfCnpf){
+	public static String formataCpfCnpj(String cpfCnpf){
 		String result = "";
 		String temp = "";
 		//formata cpf xx.xxx.xxx-xx
