@@ -14,6 +14,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import net.sf.jasperreports.view.JasperViewer;
+
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.clientepagamento.ClientePagamento;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
@@ -21,7 +23,9 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
+import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class ClientePagamentoBackBean extends BackBean {
@@ -300,6 +304,11 @@ public class ClientePagamentoBackBean extends BackBean {
 				throw new AppException("Valor ultrapassa o valor da dívida.");
 			}
 			
+			//Seta o usuario logado para registrar quem recebeu o pagamento
+			Usuario usuario = null;			
+			usuario = getFachada().consultarUsuarioPorId(new Long(LoginBackBean.getCodigoUsuarioLogado()));			
+			clientePagamento.setUsuario(usuario);
+			
 			getFachada().inserirClientePagamento(clientePagamento);
 			
 			// devolve ao limite disponível de compras o valor pago.
@@ -314,6 +323,14 @@ public class ClientePagamentoBackBean extends BackBean {
 			}			
 									
 			getFachada().alterarCliente(cli);
+			
+			JasperViewer viewer;
+			try {
+				viewer = getFachada().gerarReciboPagamentoCliente(clientePagamento);
+				viewer.show();
+			} catch (AppException e) {
+				e.printStackTrace();
+			}
 			
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
