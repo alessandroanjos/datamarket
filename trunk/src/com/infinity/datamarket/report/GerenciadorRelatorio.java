@@ -9,6 +9,7 @@ package com.infinity.datamarket.report;
 import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -28,12 +29,17 @@ import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import com.infinity.datamarket.comum.cliente.Cliente;
+import com.infinity.datamarket.comum.clientepagamento.ClientePagamento;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
 import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
 import com.infinity.datamarket.comum.transacao.EventoTransacao;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.JExtenso;
+import com.infinity.datamarket.comum.util.Util;
+import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 
 /**
@@ -50,18 +56,21 @@ public class GerenciadorRelatorio {
 
 	public static final String RECIBO_VENDA;
 	
+	public static final String RECIBO_PAGAMENTO_CLIENTE;
+	
 	public static final String EMPRESA;
+	
+	private static ResourceBundle rs = ResourceBundle.getBundle("relatorio");
 
-	static {
-
-		ResourceBundle rs = ResourceBundle.getBundle("relatorio");
+	static {		
 	
 		CAMINHO_RELATORIO = rs.getString("CAMINHO_RELATORIO");
 	
 		RECIBO_VENDA = rs.getString("RECIBO_VENDA");
 		
 		EMPRESA = rs.getString("EMPRESA");
-
+		
+		RECIBO_PAGAMENTO_CLIENTE = rs.getString("RECIBO_PAGAMENTO_CLIENTE");
 	}
 	
 	private static GerenciadorRelatorio instancia;
@@ -150,6 +159,66 @@ public class GerenciadorRelatorio {
 			viewer = new JasperViewer( jasperPrintItemRegistrado , false );
 			return viewer;
 		}catch(Exception e){
+			throw new RelatorioException(e);
+		}
+	}
+	
+	public JasperViewer gerarReciboPagamentoCliente(ClientePagamento clientePagamento) throws AppException{
+		JasperViewer viewer = null;
+		try{
+			JasperReport jasperItens =  getRelatorio(RECIBO_PAGAMENTO_CLIENTE);
+
+			Map parametros = new HashMap();
+			parametros.put("CAMINHO", this.CAMINHO_RELATORIO);
+			parametros.put("empresa", EMPRESA);		
+			
+			StringBuffer textoRecibo = new StringBuffer();
+			textoRecibo.append(Util.completaString("", " ", 15, true));
+			textoRecibo.append(rs.getString("TEXTO_PAGAMENTO_CLIENTE_PARTE1"));
+			
+			if(clientePagamento.getCliente().getTipoPessoa().equals(Cliente.PESSOA_FISICA)){
+				textoRecibo.append(" " + clientePagamento.getCliente().getNomeCliente().toUpperCase());
+				textoRecibo.append(", CPF Nº ");
+				textoRecibo.append(BackBean.formataCpfCnpj(clientePagamento.getCliente().getCpfCnpj()));
+			}else{
+				textoRecibo.append(" " + clientePagamento.getCliente().getNomeFantasia().toUpperCase());
+				textoRecibo.append(", CNPJ Nº ");
+				textoRecibo.append(BackBean.formataCpfCnpj(clientePagamento.getCliente().getCpfCnpj()));				
+			}
+			
+			textoRecibo.append(rs.getString("TEXTO_PAGAMENTO_CLIENTE_PARTE2"));
+			
+			textoRecibo.append((new DecimalFormat().format(Double.valueOf(clientePagamento.getValorPagamento().toString()))));
+			
+			JExtenso valorPorExtenso = new JExtenso(clientePagamento.getValorPagamento());
+			
+		    textoRecibo.append(" (" + valorPorExtenso.toString() + "), ");  
+			textoRecibo.append(rs.getString("TEXTO_PAGAMENTO_CLIENTE_PARTE3"));
+				
+			parametros.put("textoRecibo", textoRecibo.toString());
+
+			StringBuffer textoDataPagamento = new StringBuffer();
+			
+			Date dataPagamento = new Date(System.currentTimeMillis());
+			
+			textoDataPagamento.append(rs.getString("CIDADE") + ", ");
+			String dia = dataPagamento.getDate()+"";
+			if(dia.length() == 1){
+				dia = "0" + dia;
+			}
+			textoDataPagamento.append(dia);
+			textoDataPagamento.append(" de " + Util.retornaMesPorExtenso(dataPagamento.getMonth()) + " de ");
+			textoDataPagamento.append(dataPagamento.getYear()+1900 + ".");
+			
+			parametros.put("dataPagamento", textoDataPagamento);
+						
+            JasperPrint jasperPrintReciboPagamento = JasperFillManager.fillReport(jasperItens, parametros);
+
+			//exibe o resultado
+			viewer = new JasperViewer(jasperPrintReciboPagamento, false);
+			return viewer;
+		}catch(Exception e){
+			e.printStackTrace();
 			throw new RelatorioException(e);
 		}
 	}
