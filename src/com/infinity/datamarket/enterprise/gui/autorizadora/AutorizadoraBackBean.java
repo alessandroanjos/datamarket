@@ -35,7 +35,9 @@ public class AutorizadoraBackBean extends BackBean {
 
 	public String inserir(){
 		Autorizadora autorizadora = new Autorizadora();
-
+		
+		if (getId()==null) autorizadora.setId(getIdInc(Autorizadora.class));
+		
 		autorizadora.setDescricao(this.descricao);
 		autorizadora.setDesagil(this.desagil);
 		autorizadora.setSituacao(this.situacao); 

@@ -82,7 +82,7 @@
 	<mapping resource="com/infinity/datamarket/hbm/AutorizacaoCartaoProprio.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/AcumuladorNaoFiscal.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/ClienteTransacao.hbm.xml"/>
-
+	<mapping resource="com/infinity/datamarket/hbm/Controle.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
 

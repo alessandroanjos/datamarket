@@ -8,6 +8,9 @@ import java.util.TimeZone;
 import javax.faces.component.html.HtmlForm;
 
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.estoque.AjusteEstoque;
+import com.infinity.datamarket.comum.util.ConcentradorControleId;
+import com.infinity.datamarket.comum.util.Controle;
 
 public class BackBean {
 	
@@ -31,6 +34,8 @@ public class BackBean {
 	
 	Date dataSistema;
 	TimeZone timeZone;
+	
+	int idInc = 0;
 	
 	public Fachada getFachada(){
 		return Fachada.getInstancia();
@@ -85,6 +90,7 @@ public class BackBean {
 		return codigoUsuarioLogado;
 	}
 
+
 	/**
 	 * @param codigoUsuarioLogado the codigoUsuarioLogado to set
 	 */
@@ -125,5 +131,20 @@ public class BackBean {
 			result = temp.substring(0,2) + "." + temp.substring(2, 5) + "." + temp.substring(5, 8) + "/" + temp.substring(8, 12) + "-" + temp.substring(12);
 		}		
 		return result;
+	}
+
+	/**
+	 * @return the idInc
+	 */
+	public Long getIdInc(Class classe) {
+		Controle controle = ConcentradorControleId.getInstancia().getControle(classe);
+		return new Long(controle.getValor());
+	}
+
+	/**
+	 * @param idInc the idInc to set
+	 */
+	public void setIdInc(int idInc) {
+		this.idInc = idInc;
 	}
 }

@@ -8,14 +8,17 @@
 <hibernate-mapping>
     <class name="com.infinity.datamarket.comum.estoque.AjusteEstoque" table="AJUSTE_ESTOQUE" dynamic-update="false" dynamic-insert="false" lazy="false">
         
-          <id
+         <id
             name="id"
             column="ID"
-           
+            type="java.lang.Long"
+            length="18"
+            unsaved-value="null"
         >
-            <generator class="increment">
+            <generator class="assigned">
             </generator>
         </id>
+
 
 	
         <property name="quantidadeAntes" type="java.math.BigDecimal" update="true" insert="true">

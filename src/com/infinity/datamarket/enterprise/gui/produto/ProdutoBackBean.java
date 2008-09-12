@@ -11,6 +11,7 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.produto.GrupoProduto;
 import com.infinity.datamarket.comum.produto.Imposto;
 import com.infinity.datamarket.comum.produto.Produto;
@@ -167,6 +168,8 @@ public class ProdutoBackBean extends BackBean{
 		Produto p = new Produto();
 		if (!operacao.equals(this.INSERIR)) {
 			p.setId(new Long(this.getId()));
+		} else {
+			if (getId()==null) p.setId(getIdInc(Produto.class));
 		}
 		p.setCodigoExterno(getCodigoExterno());
 		p.setCodigoAutomacao(getCodigoAutomacao());
