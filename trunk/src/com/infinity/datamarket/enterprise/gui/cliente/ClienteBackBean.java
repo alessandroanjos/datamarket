@@ -15,6 +15,7 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
+import com.infinity.datamarket.comum.pagamento.Autorizadora;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -557,6 +558,7 @@ public class ClienteBackBean extends BackBean {
 //		}	
 		if(acao.equals(INSERIR)){
 			cliente.setDataCadastro(new Date(System.currentTimeMillis()));
+			if (getId()==null) cliente.setId(getIdInc(Cliente.class));
 
 		}else if(acao.equals(ALTERAR)){
 			cliente.setId(new Long(getId()));
