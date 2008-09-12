@@ -45,7 +45,7 @@
 			<div id="outer">
 				<div id="topoGeral">
 					<div id="tituloPaginaGeral">
-						<strong> <h:outputText value="#{msgs.inserirProduto}"></h:outputText>
+						<strong> <h:outputText value="#{msgs.manterProduto}"></h:outputText>
 						</strong>
 					</div>
 				</div>
@@ -231,10 +231,9 @@
 							</div>
 							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" immediate="true"
-										id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoAlterar"
-										action="#{produtoBB.alterar}" value="Alterar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{produtoBB.voltarConsulta}" value="Voltar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{produtoBB.alterar}" value="Alterar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{produtoBB.excluir}" value="Excluir"></h:commandButton>
 								</li>
 							</ul>
 						</h:form>
