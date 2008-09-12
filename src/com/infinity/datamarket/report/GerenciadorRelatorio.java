@@ -7,6 +7,7 @@
 package com.infinity.datamarket.report;
 
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.text.DecimalFormat;
@@ -20,9 +21,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -163,7 +169,7 @@ public class GerenciadorRelatorio {
 		}
 	}
 	
-	public JasperViewer gerarReciboPagamentoCliente(ClientePagamento clientePagamento) throws AppException{
+	public void gerarReciboPagamentoCliente(ClientePagamento clientePagamento) throws AppException{
 		JasperViewer viewer = null;
 		try{
 			JasperReport jasperItens =  getRelatorio(RECIBO_PAGAMENTO_CLIENTE);
@@ -212,11 +218,24 @@ public class GerenciadorRelatorio {
 			
 			parametros.put("dataPagamento", textoDataPagamento.toString());
 						
-            JasperPrint jasperPrintReciboPagamento = JasperFillManager.fillReport(jasperItens, parametros);
-
+//            JasperPrint jasperPrintReciboPagamento = JasperFillManager.fillReport(jasperItens, parametros);
+            
+            Connection connection = getConnection();
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();
+//            InputStream reportStream = context.getExternalContext().getResourceAsStream(CAMINHO_RELATORIO + File.separator +  "ReciboPagamentoCliente.jasper");
+            
+            InputStream reportStream = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboPagamentoCliente.jasper");
+            
+            ServletOutputStream servletOutputStream = response.getOutputStream();
+            JasperRunManager.runReportToPdfStream(reportStream, servletOutputStream, parametros, connection);
+//            connection.close();
+            response.setContentType("application/pdf");
+            servletOutputStream.flush();
+            servletOutputStream.close();
 			//exibe o resultado
-			viewer = new JasperViewer(jasperPrintReciboPagamento, false);
-			return viewer;
+//			viewer = new JasperViewer(jasperPrintReciboPagamento, false);
+//			return viewer;
 		}catch(Exception e){
 			e.printStackTrace();
 			throw new RelatorioException(e);
