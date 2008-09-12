@@ -567,10 +567,11 @@ public class ClientePagamentoBackBean extends BackBean {
 	}
 	
 	public void imprimirRecibo(){
-		JasperViewer viewer;
+//		JasperViewer viewer;
 		try {
-			viewer = getFachada().gerarReciboPagamentoCliente(this.getClientePagamento());
-			viewer.show();
+//			viewer = getFachada().gerarReciboPagamentoCliente(this.getClientePagamento());
+//			viewer.show();
+			getFachada().gerarReciboPagamentoCliente(this.getClientePagamento());
 		} catch (AppException e) {
 			e.printStackTrace();
 		}
