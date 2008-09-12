@@ -18,6 +18,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.clientepagamento.ClientePagamento;
+import com.infinity.datamarket.comum.pagamento.Autorizadora;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -401,7 +402,8 @@ public class ClientePagamentoBackBean extends BackBean {
 	public ClientePagamento preencheClientePagamento(String acao) throws AppException{
 		ClientePagamento clientePagamento = new ClientePagamento();
 		if(INSERIR.equals(acao)){
-			clientePagamento.setId(getFachada().consultarMaxIdClientePagamento());	
+			if (getId()==null) clientePagamento.setId(getIdInc(ClientePagamento.class));
+			//clientePagamento.setId(getFachada().consultarMaxIdClientePagamento());	
 		}else if(ALTERAR.equals(acao)){
 			clientePagamento.setId(new Long(this.getId()));
 		}

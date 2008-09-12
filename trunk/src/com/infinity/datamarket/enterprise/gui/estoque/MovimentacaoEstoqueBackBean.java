@@ -23,6 +23,7 @@ import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoquePK;
+import com.infinity.datamarket.comum.produto.Imposto;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -177,6 +178,9 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		MovimentacaoEstoque movimentacaoEstoque = new MovimentacaoEstoque();
 
 		//movimentacaoEstoque.setId(new Long(this.id));
+		
+		if (getId()==null) movimentacaoEstoque.setId(getIdInc(MovimentacaoEstoque.class));
+		
 		movimentacaoEstoque.setDataMovimentacao(new Date());
 		
 		movimentacaoEstoque.setCodigoUsuario(Integer.parseInt(getCodigoUsuarioLogado()));

@@ -18,6 +18,7 @@ import javax.faces.model.SelectItem;
 import org.omg.CORBA.portable.ApplicationException;
 
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.clientepagamento.ClientePagamento;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
@@ -346,6 +347,7 @@ public class EntradaProdutoBackBean extends BackBean {
 		entradaProduto.setDesconto(this.getDesconto());
 
 		try {
+			if (getId()==null) entradaProduto.setId(getIdInc(EntradaProduto.class));
 			getFachada().inserirEntradaProduto(entradaProduto);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,

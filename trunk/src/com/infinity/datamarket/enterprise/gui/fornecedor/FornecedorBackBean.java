@@ -9,6 +9,7 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -353,6 +354,8 @@ public class FornecedorBackBean extends BackBean {
 			validarCampos(this.getIdTipoPessoa());
 			
 			Fornecedor fornecedor = preencheFornecedor(INSERIR);
+			
+			if (getId()==null) fornecedor.setId(getIdInc(Fornecedor.class));
 			
 			getFachada().inserirFornecedor(fornecedor);
 			FacesContext ctx = FacesContext.getCurrentInstance();

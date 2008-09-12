@@ -29,6 +29,8 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.ConcentradorControleId;
+import com.infinity.datamarket.comum.util.Controle;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class AjusteEstoqueBackBean extends BackBean {
@@ -237,6 +239,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 			
 			AjusteEstoque ajusteEstoque = new AjusteEstoque();
 			
+			if (getId()==null) ajusteEstoque.setId(getIdInc(AjusteEstoque.class));
 
 			ajusteEstoque.setCodigoUsuario(new Long(super.getCodigoUsuarioLogado()));
 			ajusteEstoque.setData(new Date());

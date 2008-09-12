@@ -17,6 +17,7 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -227,6 +228,8 @@ public class UsuarioBackBean extends BackBean {
 			}else{
 				usuario.setLojas(null);	
 			}
+			
+			if (getId()==null) usuario.setId(getIdInc(Usuario.class));
 			
 			getFachada().inserirUsuario(usuario);
 			FacesContext ctx = FacesContext.getCurrentInstance();
