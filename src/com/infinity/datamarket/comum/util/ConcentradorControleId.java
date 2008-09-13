@@ -20,16 +20,17 @@ public class ConcentradorControleId extends Cadastro{
 		return instancia;
 	}
 
-	public Long retornaMaxId(Class classe){
-		Long maxId = new Long(0);
+	public int retornaMaxId(Class classe){
+		int maxId =0;
 		
 		Query query = RepositoryManagerHibernateUtil.currentSession().createQuery("select max(id) from " + classe.getSimpleName());
-				
-		maxId = (Long)query.uniqueResult();
+		Long qretorno = (Long)query.uniqueResult(); 		
+		if (qretorno != null)
+		maxId = qretorno.intValue();
 		
-		if(maxId == null){
+		/*if(maxId == 0){
 			maxId = new Long(0);
-		}		
+		}*/		
 		
 		return maxId;
 	}
@@ -47,7 +48,7 @@ public class ConcentradorControleId extends Cadastro{
 				if (retorno == null) {
 					retorno = new Controle();
 					retorno.setChave(classe.getSimpleName());
-					retorno.setValor(retornaMaxId(classe)+1);
+					retorno.setValor(new Long(retornaMaxId(classe)+1));
 //					retorno.setValor(new Long(1));
 					getRepositorio().insert(retorno);
 				} else {
