@@ -21,6 +21,8 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -62,11 +64,14 @@ import com.infinity.datamarket.comum.usuario.Vendedor;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConjuntoEventoTransacao;
 import com.infinity.datamarket.comum.util.Constantes;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 import com.infinity.datamarket.pdv.util.ServerConfig;
 import com.infinity.datamarket.pdv.util.ServiceLocator;
 
 public class TransacaoBackBean extends BackBean {
+	
+	TransacaoVenda transacaoVenda;
 
 	private Hashtable<String, DadosAutorizacaoCartaoProprio> listaAutorizacaoCartaoProprio = new Hashtable<String, DadosAutorizacaoCartaoProprio>(); 
 	private static int sequencialEventoTransacao = 0;
@@ -920,6 +925,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 	
 	public void preencheBackBean(TransacaoVenda transacao){
+		this.setTransacaoVenda(transacao);
 		this.setId(transacao.getPk());
 		this.setIdLoja(new Integer(transacao.getPk().getLoja()).toString());
 		this.setIdComponente(new Integer(transacao.getPk().getComponente()).toString());
@@ -928,7 +934,30 @@ public class TransacaoBackBean extends BackBean {
 		this.setNumeroCupom(transacao.getNumeroCupom());
 
 		this.setIdOperador(transacao.getCodigoUsuarioOperador());
+		Usuario usuario = null;			
+		try {
+			usuario = getFachada().consultarUsuarioPorId(new Long(transacao.getCodigoUsuarioOperador()));
+			transacao.setOperador(usuario.getNome());
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (AppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}			
 		this.setIdVendedor(transacao.getCodigoUsuarioVendedor());
+		if(transacao.getCodigoUsuarioVendedor() != null){
+			try {
+				usuario = getFachada().consultarUsuarioPorId(new Long(transacao.getCodigoUsuarioVendedor()));
+				transacao.setVendedor(usuario.getNome());
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (AppException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
 
 		if(this.getItensTransacao() == null){
 			this.setItensTransacao(new ArrayList<EventoItemRegistrado>());
@@ -947,7 +976,25 @@ public class TransacaoBackBean extends BackBean {
 					this.getItensTransacao().add(ev);									
 				}else if(evento instanceof EventoItemPagamento){
 					EventoItemPagamento ev = (EventoItemPagamento)evento;
-					ev.setDescricaoForma(ConstantesFormaRecebimento.retornaDescricaoFormaRecebimento(ev.getCodigoForma()));	
+					ev.setDescricaoForma(ConstantesFormaRecebimento.retornaDescricaoFormaRecebimento(ev.getCodigoForma()));
+					 
+					try {
+						FormaRecebimento forma = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.DINHEIRO);
+						int codigoPlano = 0;
+						String descricaoPlano = "";
+						Iterator itPlanos = forma.getPlanos().iterator();
+						while (itPlanos.hasNext()){
+							PlanoPagamento planoTmp = (PlanoPagamento)itPlanos.next();
+							codigoPlano = planoTmp.getId().intValue();
+							descricaoPlano = planoTmp.getDescricao();
+							break;
+						}				
+						ev.setCodigoPlano(codigoPlano);
+						ev.setDescricaoPlano(descricaoPlano);						
+					} catch (AppException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					this.setValorTotalRecebido(this.getValorTotalRecebido().add(ev.getValorBruto()));
 					this.getItensPagamento().add(ev);
 				}
@@ -1291,13 +1338,16 @@ public class TransacaoBackBean extends BackBean {
 				FormaRecebimento forma = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.DINHEIRO);
 				evItemPagamento.setDescricaoForma(forma.getDescricao());
 				int codigoPlano = 0;
+				String descricaoPlano = "";
 				Iterator it = forma.getPlanos().iterator();
 				while (it.hasNext()){
 					PlanoPagamento planoTmp = (PlanoPagamento)it.next();
 					codigoPlano = planoTmp.getId().intValue();
+					descricaoPlano = planoTmp.getDescricao();
 					break;
 				}				
 				evItemPagamento.setCodigoPlano(codigoPlano);
+				evItemPagamento.setDescricaoPlano(descricaoPlano);
 				evItemPagamento.setDataHoraEvento(new Date(System.currentTimeMillis()));
 				evItemPagamento.setFormaImpressora(forma.getRecebimentoImpressora());
 				evItemPagamento.setValorAcrescimo(BigDecimal.ZERO);
@@ -1315,13 +1365,16 @@ public class TransacaoBackBean extends BackBean {
 				FormaRecebimento forma = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.CHEQUE);
 				evItemPagamentoCheque.setDescricaoForma(forma.getDescricao());
 				int codigoPlano = 0;
+				String descricaoPlano = "";
 				Iterator it = forma.getPlanos().iterator();
 				while (it.hasNext()){
 					PlanoPagamento planoTmp = (PlanoPagamento)it.next();
 					codigoPlano = planoTmp.getId().intValue();
+					descricaoPlano = planoTmp.getDescricao();
 					break;
 				}				
 				evItemPagamentoCheque.setCodigoPlano(codigoPlano);
+				evItemPagamentoCheque.setDescricaoPlano(descricaoPlano);
 				evItemPagamentoCheque.setDataHoraEvento(new Date(System.currentTimeMillis()));
 				evItemPagamentoCheque.setFormaImpressora(forma.getRecebimentoImpressora());
 				evItemPagamentoCheque.setValorAcrescimo(BigDecimal.ZERO);
@@ -1354,13 +1407,16 @@ public class TransacaoBackBean extends BackBean {
 				FormaRecebimento forma = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.CHEQUE_PRE);
 				evItemPagamentoChequePreDatado.setDescricaoForma(forma.getDescricao());
 				int codigoPlano = 0;
+				String descricaoPlano = "";
 				Iterator it = forma.getPlanos().iterator();
 				while (it.hasNext()){
 					PlanoPagamento planoTmp = (PlanoPagamento)it.next();
 					codigoPlano = planoTmp.getId().intValue();
+					descricaoPlano = planoTmp.getDescricao();
 					break;
 				}				
 				evItemPagamentoChequePreDatado.setCodigoPlano(codigoPlano);
+				evItemPagamentoChequePreDatado.setDescricaoPlano(descricaoPlano);
 				evItemPagamentoChequePreDatado.setDataHoraEvento(new Date(System.currentTimeMillis()));
 				evItemPagamentoChequePreDatado.setFormaImpressora(forma.getRecebimentoImpressora());
 				evItemPagamentoChequePreDatado.setValorAcrescimo(BigDecimal.ZERO);
@@ -1387,13 +1443,16 @@ public class TransacaoBackBean extends BackBean {
 				FormaRecebimento forma = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.CARTAO_OFF);
 				evItemPagamentoCartaoOff.setDescricaoForma(forma.getDescricao());
 				int codigoPlano = 0;
+				String descricaoPlano = "";
 				Iterator it = forma.getPlanos().iterator();
 				while (it.hasNext()){
 					PlanoPagamento planoTmp = (PlanoPagamento)it.next();
 					codigoPlano = planoTmp.getId().intValue();
+					descricaoPlano = planoTmp.getDescricao();
 					break;
 				}				
 				evItemPagamentoCartaoOff.setCodigoPlano(codigoPlano);
+				evItemPagamentoCartaoOff.setDescricaoPlano(descricaoPlano);
 				evItemPagamentoCartaoOff.setDataHoraEvento(new Date(System.currentTimeMillis()));
 				evItemPagamentoCartaoOff.setFormaImpressora(forma.getRecebimentoImpressora());
 				evItemPagamentoCartaoOff.setValorAcrescimo(BigDecimal.ZERO);
@@ -1419,13 +1478,16 @@ public class TransacaoBackBean extends BackBean {
 				FormaRecebimento forma = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.CARTAO_PROPRIO);
 				evItemPagamentoCartaoProprio.setDescricaoForma(forma.getDescricao());
 				int codigoPlano = 0;
+				String descricaoPlano = "";
 				Iterator it = forma.getPlanos().iterator();
 				while (it.hasNext()){
 					PlanoPagamento planoTmp = (PlanoPagamento)it.next();
 					codigoPlano = planoTmp.getId().intValue();
+					descricaoPlano = planoTmp.getDescricao();
 					break;
 				}				
 				evItemPagamentoCartaoProprio.setCodigoPlano(codigoPlano);
+				evItemPagamentoCartaoProprio.setDescricaoPlano(descricaoPlano);
 				evItemPagamentoCartaoProprio.setDataHoraEvento(new Date(System.currentTimeMillis()));
 				evItemPagamentoCartaoProprio.setFormaImpressora(forma.getRecebimentoImpressora());
 				evItemPagamentoCartaoProprio.setValorAcrescimo(BigDecimal.ZERO);
@@ -1684,13 +1746,13 @@ public class TransacaoBackBean extends BackBean {
 			transVenda.setDescontoCupom(this.getDescontoCupom());
 			transVenda.setValorCupom(this.getValorTotalCupom());
 			transVenda.setValorTroco(this.getValorTroco());
+
 			if(this.getIdFormaTroco() != null){
 				transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));	
 			}else{
 				transVenda.setFormaTroco(null);
 			}
-			
-						
+									
 			ConjuntoEventoTransacao conj = new ConjuntoEventoTransacao();
 			
 			Collection<EventoTransacao> c = new ArrayList<EventoTransacao>();
@@ -1711,8 +1773,10 @@ public class TransacaoBackBean extends BackBean {
 			
 			transVenda.setDataHoraInicio(new Date(System.currentTimeMillis()));
 			transVenda.setDataHoraFim(new Date(System.currentTimeMillis()));
-			
+					
 			getFachada().inserirTransacaoES(transVenda);
+			
+			this.setTransacaoVenda(transVenda);
 			
 			this.confirmaAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			
@@ -1721,13 +1785,15 @@ public class TransacaoBackBean extends BackBean {
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			
-			JasperViewer viewer;
-			try {
-				viewer = getFachada().gerarReciboVenda(transVenda);
-				viewer.show();
-			} catch (AppException e) {
-				e.printStackTrace();
-			}
+//			JasperViewer viewer;
+//			try {
+//				viewer = getFachada().gerarReciboVenda(transVenda);
+//				viewer.show();
+//			} catch (AppException e) {
+//				e.printStackTrace();
+//			}
+
+//			imprimirRecibo();
 			
 			resetBB();
 			this.setAbaCorrente("tabMenuDiv0");
@@ -1760,6 +1826,29 @@ public class TransacaoBackBean extends BackBean {
 		}
 		
 		return "mesma";
+	}
+	
+	public void imprimirRecibo(){
+			try {
+				if(this.getTransacaoVenda() != null){
+					FacesContext context = FacesContext.getCurrentInstance();
+					HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();			
+					ServletOutputStream servletOutputStream = response.getOutputStream();
+					getFachada().gerarReciboVendaES(this.getTransacaoVenda(),servletOutputStream);			
+					response.setContentType("application/pdf");
+					response.setHeader("Content-disposition", "attachment;filename=ReciboVenda.pdf");
+					context.responseComplete();
+					servletOutputStream.flush();
+					servletOutputStream.close();
+				}else{
+					FacesContext ctx = FacesContext.getCurrentInstance();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Não existe Recibo para imprimir!", "");
+					ctx.addMessage(null, msg);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
 	
 	public String alterar(){
@@ -1856,13 +1945,17 @@ public class TransacaoBackBean extends BackBean {
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			
-			JasperViewer viewer;
-			try {
-				viewer = getFachada().gerarReciboVenda(transVenda);
-				viewer.show();
-			} catch (AppException e) {
-				e.printStackTrace();
-			}
+			this.setTransacaoVenda(transVenda);
+			
+//			JasperViewer viewer;
+//			try {
+//				viewer = getFachada().gerarReciboVenda(transVenda);
+//				viewer.show();
+//			} catch (AppException e) {
+//				e.printStackTrace();
+//			}
+			
+//			imprimirRecibo();
 			
 			resetBB();
 			this.setAbaCorrente("tabMenuDiv0");
@@ -2525,5 +2618,13 @@ public class TransacaoBackBean extends BackBean {
 					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		}
+	}
+
+	public TransacaoVenda getTransacaoVenda() {
+		return transacaoVenda;
+	}
+
+	public void setTransacaoVenda(TransacaoVenda transacaoVenda) {
+		this.transacaoVenda = transacaoVenda;
 	}
 }

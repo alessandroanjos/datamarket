@@ -868,6 +868,7 @@
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
 							<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{transacaoBB.inserir}" value="Inserir"></h:commandButton>
+							<h:commandButton styleClass="btTxt" id="botaoImprimir" action="#{transacaoBB.imprimirRecibo}" value="Imprimir"></h:commandButton>
 						</li>
 					</ul>	
 				</h:form>		
