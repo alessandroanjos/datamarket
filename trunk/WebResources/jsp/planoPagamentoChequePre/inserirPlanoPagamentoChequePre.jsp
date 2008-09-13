@@ -290,7 +290,7 @@
 												<h:message for="quantidadeDiasParcela" styleClass="msgErro" />
 											</div>
 											<div>
-												<h:commandButton styleClass="btTxt" id="botaoInserirParcela"
+												<h:commandButton image="/images/adicionar.png" alt="Inserir Parcela" styleClass="btTxt" id="botaoInserirParcela"
 													action="#{planoPagamentoChequePreBB.inserirParcela}"
 													value="Inserir"></h:commandButton>
 											</div>
