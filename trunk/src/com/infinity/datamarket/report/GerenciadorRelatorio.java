@@ -163,6 +163,8 @@ public class GerenciadorRelatorio {
 
             JasperPrint jasperPrintItemRegistrado = JasperFillManager.fillReport(jasperItens,
         			parametros, new RelatorioDataSource ( resposta) );
+            
+            
 
 			//exibe o resultado
 			viewer = new JasperViewer( jasperPrintItemRegistrado , false );
@@ -217,10 +219,15 @@ public class GerenciadorRelatorio {
 			textoDataPagamento.append(dataPagamento.getYear()+1900 + ".");
 			
 			parametros.put("dataPagamento", textoDataPagamento.toString());
+			
+//			JasperReport jasperItens =  getRelatorio(RECIBO_PAGAMENTO_CLIENTE);
+//			
+//			JasperFillManager.fillReportToStream(jasperItens,out,parametros);
 						        
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboPagamentoCliente.jasper");
             		
             JasperRunManager.runReportToPdfStream(input, out, parametros);
+            
    		}catch(Exception e){
 			e.printStackTrace();
 			throw new RelatorioException(e);
