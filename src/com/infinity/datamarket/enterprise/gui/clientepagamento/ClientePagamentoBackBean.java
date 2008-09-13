@@ -195,20 +195,26 @@ public class ClientePagamentoBackBean extends BackBean {
 				
 				this.setSaldoDevedor(this.getCliente().getValorLimiteCompras().subtract(this.getCliente().getValorLimiteDisponivel()));
 				this.setSaldoDevedor(this.getSaldoDevedor().setScale(2));
-				
+				this.setClientePagamento(clientePagamento);
 				return "proxima";
 			}else if ((this.getIdCliente() != null && !this.getIdCliente().equals("0"))
 					|| (this.getDataInicial() != null && this.getDataFinal() != null)){
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(ClientePagamento.class);
-				
-				filter.addProperty("cliente", this.getCliente());
+								
+				if(this.getIdCliente() != null && !this.getIdCliente().equals("0")){
+					Cliente cliente = new Cliente();
+					cliente.setId(new Long(this.getIdCliente()));
+					filter.addProperty("cliente.id", new Long(this.getIdCliente()));
+				}
 				
 				if(this.getDataInicial() == null || this.getDataFinal() == null ){
+					setExisteRegistros(false);
 					throw new Exception("O Período deve ser informado!");
 				}
 				
 				if(this.getDataInicial().after(this.getDataFinal())){
+					setExisteRegistros(false);
 					throw new Exception("A Data Final deve ser maior que a Data Inicial.");
 				}
 				
@@ -236,7 +242,7 @@ public class ClientePagamentoBackBean extends BackBean {
 						
 						this.setSaldoDevedor(this.getCliente().getValorLimiteCompras().subtract(this.getCliente().getValorLimiteDisponivel()));
 						this.setSaldoDevedor(this.getSaldoDevedor().setScale(2));
-						
+						this.setClientePagamento(clientePagamento);
 						return "proxima";
 					}else{
 						setExisteRegistros(true);
@@ -570,14 +576,22 @@ public class ClientePagamentoBackBean extends BackBean {
 	
 	public void imprimirRecibo(){
 		try {
-			FacesContext context = FacesContext.getCurrentInstance();
-			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();			
-			ServletOutputStream servletOutputStream = response.getOutputStream();
-			getFachada().gerarReciboPagamentoCliente(this.getClientePagamento(),servletOutputStream);			
-			response.setContentType("application/pdf");
-			context.responseComplete();
-			servletOutputStream.flush();
-			servletOutputStream.close();
+			if(this.getClientePagamento() != null){
+				FacesContext context = FacesContext.getCurrentInstance();
+				HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();			
+				ServletOutputStream servletOutputStream = response.getOutputStream();
+				getFachada().gerarReciboPagamentoCliente(this.getClientePagamento(),servletOutputStream);			
+				response.setContentType("application/pdf");
+				response.setHeader("Content-disposition", "attachment;filename=PagamentoCliente.pdf");
+				context.responseComplete();
+				servletOutputStream.flush();
+				servletOutputStream.close();
+			}else{
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Não existe Recibo para imprimir!", "");
+				ctx.addMessage(null, msg);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -208,6 +208,9 @@ public class ProdutoBackBean extends BackBean{
 		if (p.getPrecoPromocional() != null){
 			setPrecoPromocional(p.getPrecoPromocional().toString());
 		}
+		if(p.getPrecoCompra() != null){
+			setPrecoCompra(p.getPrecoCompra().toString());	
+		}		
 		setIdGrupo(p.getGrupo().getId().toString());
 		setIdImposto(p.getImposto().getId().toString());
 		setIdTipoProduto(p.getTipo().getId().toString());
@@ -374,6 +377,7 @@ public class ProdutoBackBean extends BackBean{
 		this.descricaoCompacta = null;
 		this.precoPadrao = null;
 		this.precoPromocional = null;
+		this.setPrecoCompra("");
 		this.idTipoProduto = null;
 		this.idUnidade = null;
 		this.idImposto = null;
