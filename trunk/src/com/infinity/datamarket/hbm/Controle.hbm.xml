@@ -21,7 +21,7 @@
 
 
         <property name="valor" type="java.lang.Long" update="true" insert="true">
-            <column name="VALOR" length="255" not-null="true"/>
+            <column name="VALOR" length="18" not-null="true"/>
         </property>
 
     </class>

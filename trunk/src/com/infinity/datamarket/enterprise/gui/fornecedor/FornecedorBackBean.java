@@ -230,7 +230,7 @@ public class FornecedorBackBean extends BackBean {
 		this.setFoneCelular(null);
 		this.setPessoaContato(null);
 		this.setFoneContato(null);
-		this.setDataCadastro(null);
+		//this.setDataCadastro(null);
 	}
 	
 	public String consultar(){
