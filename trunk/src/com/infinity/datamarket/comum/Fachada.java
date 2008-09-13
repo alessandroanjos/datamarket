@@ -1,5 +1,7 @@
 package com.infinity.datamarket.comum;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Collection;
 
 import net.sf.jasperreports.view.JasperViewer;
@@ -212,15 +214,12 @@ public class Fachada {
 		return viewer;
 	}
 	
-	public void gerarReciboPagamentoCliente(ClientePagamento clientePagamento) throws AppException{
-//		JasperViewer viewer = null;
+	public void gerarReciboPagamentoCliente(ClientePagamento clientePagamento, OutputStream out) throws AppException{
 		try{
-//			viewer = getGerenciadorRelatorio().gerarReciboPagamentoCliente(clientePagamento);
-			getGerenciadorRelatorio().gerarReciboPagamentoCliente(clientePagamento);
+			getGerenciadorRelatorio().gerarReciboPagamentoCliente(clientePagamento, out);
 		}catch(AppException e){
 			throw new SistemaException(e);
 		}
-//		return viewer;
 	}
 	
 	public Usuario loginUsuario(Long id, String senha) throws AppException{
