@@ -213,6 +213,15 @@ public class Fachada {
 		}
 		return viewer;
 	}
+
+	public void gerarReciboVendaES(TransacaoVenda transacao, OutputStream out) throws AppException{
+		try{
+			getGerenciadorRelatorio().gerarReciboVendaES(transacao, out);
+		}catch(AppException e){
+			throw new SistemaException(e);
+		}
+	}
+
 	
 	public void gerarReciboPagamentoCliente(ClientePagamento clientePagamento, OutputStream out) throws AppException{
 		try{

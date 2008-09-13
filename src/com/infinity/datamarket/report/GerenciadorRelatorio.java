@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.TreeSet;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
@@ -173,12 +174,75 @@ public class GerenciadorRelatorio {
 			throw new RelatorioException(e);
 		}
 	}
+
+	public void gerarReciboVendaES(TransacaoVenda transacao, OutputStream out) throws AppException{
+		JasperViewer viewer = null;
+		try{
+			JasperReport jasperItens =  getRelatorio(RECIBO_VENDA);
+
+			Map parametros = new HashMap();
+			parametros.put("CAMINHO", this.CAMINHO_RELATORIO);
+
+			parametros.put("empresa",EMPRESA);
+			parametros.put("loja", transacao.getPk().getLoja()+"");
+			parametros.put("componente", transacao.getPk().getComponente()+"");
+			parametros.put("data", transacao.getPk().getDataTransacao());
+			parametros.put("num_transacao", transacao.getPk().getNumeroTransacao()+"");
+			parametros.put("cupom", transacao.getNumeroCupom());
+			parametros.put("operador", transacao.getCodigoUsuarioOperador() + " - " + transacao.getOperador());
+			parametros.put("vendedor", transacao.getCodigoUsuarioVendedor()==null?"":transacao.getCodigoUsuarioVendedor() + " - " + transacao.getVendedor());
+			parametros.put("cliente", transacao.getCliente()==null?"":transacao.getCliente().getNomeCliente());
+			parametros.put("desconto", transacao.getDescontoCupom()==null?BigDecimal.ZERO:transacao.getDescontoCupom());
+			parametros.put("total", transacao.getValorCupom());
+						
+
+			ArrayList colItensRegistrados =  new ArrayList();
+			ArrayList colPagamentos = new ArrayList();
+
+			Collection coll = transacao.getEventosTransacao();
+			Iterator i = coll.iterator();
+
+			while(i.hasNext()){
+				EventoTransacao ev = (EventoTransacao) i.next();
+				if (ev instanceof EventoItemRegistrado){
+					colItensRegistrados.add(ev);
+				}else if (ev instanceof EventoItemPagamento){
+					colPagamentos.add(ev);
+				}
+			}
+
+			List resposta = new ArrayList();
+			resposta.add(new Uniao(colPagamentos,colItensRegistrados));
+
+//            JasperPrint jasperPrintItemRegistrado = JasperFillManager.fillReport(jasperItens,
+//        			parametros, new RelatorioDataSource ( resposta) );
+            
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboVenda.jasper");
+    		
+			Iterator it = parametros.entrySet().iterator();
+
+			while(it.hasNext()){
+				System.out.println(it.next().toString());
+			}
+			
+            JasperRunManager.runReportToPdfStream(input, out, parametros, new RelatorioDataSource (resposta));
+            
+			//exibe o resultado
+//			viewer = new JasperViewer( jasperPrintItemRegistrado , false );
+//			return viewer;
+		}catch(Exception e){
+			throw new RelatorioException(e);
+		}
+	}
+
 	
 	public void gerarReciboPagamentoCliente(ClientePagamento clientePagamento, OutputStream out) throws AppException{
 		try{
 			Map parametros = new HashMap();
-			parametros.put("CAMINHO", this.CAMINHO_RELATORIO);
-			parametros.put("empresa", EMPRESA);		
+//			parametros.put("CAMINHO", this.CAMINHO_RELATORIO);
+			parametros.put("empresa", EMPRESA);	
+			
+			parametros.put("numero", "Nº " + clientePagamento.getId().toString());	
 			
 			StringBuffer textoRecibo = new StringBuffer();
 			textoRecibo.append(Util.completaString("", " ", 15, true));
@@ -194,7 +258,7 @@ public class GerenciadorRelatorio {
 				textoRecibo.append(BackBean.formataCpfCnpj(clientePagamento.getCliente().getCpfCnpj()));				
 			}
 			
-			textoRecibo.append(rs.getString("TEXTO_PAGAMENTO_CLIENTE_PARTE2"));
+			textoRecibo.append(", " + rs.getString("TEXTO_PAGAMENTO_CLIENTE_PARTE2"));
 			
 			textoRecibo.append((new DecimalFormat().format(Double.valueOf(clientePagamento.getValorPagamento().toString()))));
 			
@@ -226,7 +290,19 @@ public class GerenciadorRelatorio {
 						        
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboPagamentoCliente.jasper");
             		
-            JasperRunManager.runReportToPdfStream(input, out, parametros);
+			Iterator it = parametros.entrySet().iterator();
+
+			while(it.hasNext()){
+				System.out.println(it.next().toString());
+			}
+			
+			List lista = new ArrayList();
+			
+			lista.add("texto em branco");
+			
+			RelatorioDataSource rel = new RelatorioDataSource(lista);
+			
+            JasperRunManager.runReportToPdfStream(input, out, parametros, rel);
             
    		}catch(Exception e){
 			e.printStackTrace();

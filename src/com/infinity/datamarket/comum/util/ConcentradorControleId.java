@@ -2,7 +2,6 @@ package com.infinity.datamarket.comum.util;
 
 import org.hibernate.Query;
 
-import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 
@@ -20,18 +19,16 @@ public class ConcentradorControleId extends Cadastro{
 		return instancia;
 	}
 
-	public int retornaMaxId(Class classe){
-		int maxId =0;
+	public Long retornaMaxId(Class classe){
+		Long maxId = null;
 		
 		Query query = RepositoryManagerHibernateUtil.currentSession().createQuery("select max(id) from " + classe.getSimpleName());
 		Long qretorno = (Long)query.uniqueResult(); 		
-		if (qretorno != null)
-		maxId = qretorno.intValue();
-		
-		/*if(maxId == 0){
+		if (qretorno != null){
+			maxId = qretorno;	
+		}else{
 			maxId = new Long(0);
-		}*/		
-		
+		}	
 		return maxId;
 	}
 
@@ -48,27 +45,12 @@ public class ConcentradorControleId extends Cadastro{
 				if (retorno == null) {
 					retorno = new Controle();
 					retorno.setChave(classe.getSimpleName());
-					retorno.setValor(new Long(retornaMaxId(classe)+1));
-//					retorno.setValor(new Long(1));
+					retorno.setValor(retornaMaxId(classe)+1);
 					getRepositorio().insert(retorno);
 				} else {
-					retorno.setValor(new Long(retorno.getValor()+1));
+					retorno.setValor(retorno.getValor()+1);
 				}
-//				while (true) {
-//					Persistente object=null;
-//					try {
-//						object = (Persistente)getRepositorio().findById(classe,new Long(retorno.getValor()));
-//					}catch(ObjectNotFoundException e){
-//					}
-//					if (object==null) {
-//						break;
-//					}
-//					retorno.setValor(new Long(retorno.getValor().longValue()+1));
-//				}
-				
-//				getRepositorio().update(retorno);
 				RepositoryManagerHibernateUtil.commitTransation();
-				
 		}catch(AppException e){
 			try{
 				RepositoryManagerHibernateUtil.rollbackTransation();

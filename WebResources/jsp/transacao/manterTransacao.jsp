@@ -870,6 +870,7 @@
 								<h:commandButton immediate="true" styleClass="btTxt" id="botaoVoltar" action="#{transacaoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 								<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{transacaoBB.alterar}" value="Alterar"></h:commandButton>
 								<h:commandButton styleClass="btTxt" id="botaoCancelar" action="#{transacaoBB.cancelar}" value="Cancelar"></h:commandButton>
+								<h:commandButton styleClass="btTxt" id="botaoImprimir" action="#{transacaoBB.imprimirRecibo}" value="Imprimir"></h:commandButton>								
 						</li>
 					</ul>	
 				</h:form>		
