@@ -17,7 +17,7 @@ public class Controle extends Persistente {
 	
 	String chave;
 	
-	int valor;
+	Long valor;
 	
 /**
  * @return the chave
@@ -34,13 +34,13 @@ public void setChave(String chave) {
 /**
  * @return the valor
  */
-public int getValor() {
+public Long getValor() {
 	return valor;
 }
 /**
  * @param valor the valor to set
  */
-public void setValor(int valor) {
+public void setValor(Long valor) {
 	this.valor = valor;
 }
 }

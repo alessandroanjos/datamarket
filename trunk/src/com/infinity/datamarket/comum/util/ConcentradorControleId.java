@@ -1,5 +1,8 @@
 package com.infinity.datamarket.comum.util;
 
+import org.hibernate.Query;
+
+import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 
@@ -17,6 +20,19 @@ public class ConcentradorControleId extends Cadastro{
 		return instancia;
 	}
 
+	public Long retornaMaxId(Class classe){
+		Long maxId = new Long(0);
+		
+		Query query = RepositoryManagerHibernateUtil.currentSession().createQuery("select max(id) from " + classe.getSimpleName());
+				
+		maxId = (Long)query.uniqueResult();
+		
+		if(maxId == null){
+			maxId = new Long(0);
+		}		
+		
+		return maxId;
+	}
 
 	public Controle getControle(Class classe) {
 		Controle retorno = null;
@@ -31,24 +47,25 @@ public class ConcentradorControleId extends Cadastro{
 				if (retorno == null) {
 					retorno = new Controle();
 					retorno.setChave(classe.getSimpleName());
-					retorno.setValor(1);
+					retorno.setValor(retornaMaxId(classe)+1);
+//					retorno.setValor(new Long(1));
 					getRepositorio().insert(retorno);
 				} else {
-					retorno.setValor(retorno.getValor()+1);
+					retorno.setValor(new Long(retorno.getValor()+1));
 				}
-					while (true) {
-						Persistente object=null;
-						try {
-							object = (Persistente)getRepositorio().findById(classe,new Long(retorno.getValor()));
-						}catch(ObjectNotFoundException e){
-						}
-						if (object==null) {
-							break;
-						}
-						retorno.setValor(retorno.getValor()+1);
-					}
+//				while (true) {
+//					Persistente object=null;
+//					try {
+//						object = (Persistente)getRepositorio().findById(classe,new Long(retorno.getValor()));
+//					}catch(ObjectNotFoundException e){
+//					}
+//					if (object==null) {
+//						break;
+//					}
+//					retorno.setValor(new Long(retorno.getValor().longValue()+1));
+//				}
 				
-					getRepositorio().update(retorno);
+//				getRepositorio().update(retorno);
 				RepositoryManagerHibernateUtil.commitTransation();
 				
 		}catch(AppException e){
