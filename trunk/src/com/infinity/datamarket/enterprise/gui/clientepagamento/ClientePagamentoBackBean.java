@@ -1,6 +1,5 @@
 package com.infinity.datamarket.enterprise.gui.clientepagamento;
 
-import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
