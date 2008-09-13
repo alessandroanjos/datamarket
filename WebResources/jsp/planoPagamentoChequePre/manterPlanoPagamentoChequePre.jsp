@@ -303,6 +303,7 @@
 														</div>
 														<div style="vertical-align: bottom;">
 															<h:commandButton styleClass="btTxt"
+																image="/images/adicionar.png" alt="Inserir Parcela"
 																id="botaoInserirParcela"
 																action="#{planoPagamentoChequePreBB.inserirParcela}"
 																value="Inserir Parcela"></h:commandButton>
