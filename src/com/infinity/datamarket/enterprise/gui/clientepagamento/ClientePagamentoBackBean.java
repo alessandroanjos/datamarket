@@ -1,5 +1,6 @@
 package com.infinity.datamarket.enterprise.gui.clientepagamento;
 
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,12 +14,11 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-
-import net.sf.jasperreports.view.JasperViewer;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.clientepagamento.ClientePagamento;
-import com.infinity.datamarket.comum.pagamento.Autorizadora;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -569,12 +569,16 @@ public class ClientePagamentoBackBean extends BackBean {
 	}
 	
 	public void imprimirRecibo(){
-//		JasperViewer viewer;
 		try {
-//			viewer = getFachada().gerarReciboPagamentoCliente(this.getClientePagamento());
-//			viewer.show();
-			getFachada().gerarReciboPagamentoCliente(this.getClientePagamento());
-		} catch (AppException e) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();			
+			ServletOutputStream servletOutputStream = response.getOutputStream();
+			getFachada().gerarReciboPagamentoCliente(this.getClientePagamento(),servletOutputStream);			
+			response.setContentType("application/pdf");
+			context.responseComplete();
+			servletOutputStream.flush();
+			servletOutputStream.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
