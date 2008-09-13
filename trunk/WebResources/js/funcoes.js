@@ -555,3 +555,138 @@ function validaCPF(objCPF) {
    }
    return true;
 }
+
+
+
+checarTabulacao=true;
+function exibeValor(nomeCampo, lenCampo) {
+	if ((nomeCampo.value.length == lenCampo) && (checarTabulacao)) {
+		var i=0;
+		for (i=0; i < document.forms[0].elements.length; i++) {
+			if (document.forms[0].elements[i].name == nomeCampo.name) {
+				while ((i+1) < document.forms[0].elements.length) {		
+					if (document.forms[0].elements[i+1].type != "hidden") {
+						document.forms[0].elements[i+1].focus();
+						break;
+					}
+					i++;
+				}
+				checarTabulacao=false;
+				break;
+			}
+		}
+	}
+}
+
+function Apenas_Numeros(e) {
+		//- 48 a 57 (0,1,2,3,4,56,7,8,9)
+		//- 8 (Backspace)
+		//- 0 (null)
+		var NS = (navigator.appName == "Netscape")
+		var Digito = parseInt(eval( ( (NS)?"e.which":"e.keyCode" ) ))
+
+//		if (!(Digito>47 && Digito<58 || Digito == 8 || Digito == 0)) return false;
+		if (!(Digito>47 && Digito<58 || Digito == 8 || Digito == 0)) return false;
+	}
+
+function altera_campo(valor_campo,caracter,altera) {
+	while(valor_campo.indexOf(caracter)>-1) {
+		valor_campo = valor_campo.replace(caracter,altera);
+	}
+	return valor_campo;
+}
+function altera_campo(valor_campo,caracter,altera) {	
+	while(valor_campo.indexOf(caracter)>-1) {
+		valor_campo = valor_campo.replace(caracter,altera);
+	}
+	return valor_campo;
+}
+
+function Right(str, n) {
+	// Pega quantidade de números
+	// a direita desejado
+	if (n <= 0)
+	   return "";
+	else if (n > String(str).length)
+	   return str;
+	else {
+	   var iLen = String(str).length;
+	   return String(str).substring(iLen, iLen - n);
+	}
+}
+
+function formataDecimalTres(campo_formulario,maximo,press) {
+	var codigo = press.keyCode;
+	var caracter = ".";
+	var fc = campo_formulario.value;
+
+	fc = altera_campo(fc,caracter,"");
+	fc = altera_campo(fc,",","");
+	fc = altera_campo(fc,".","");
+
+	var tamanho = fc.length;
+	if (codigo > 0) {	
+		if (tamanho < maximo && codigo != 8) tamanho = fc.length + 1 ;
+		if (codigo == 8) tamanho = tamanho - 1 ; 
+	}
+
+	if ((codigo == -1) ||
+		(codigo >= 48) && (codigo <= 57) || 
+		(codigo >= 96) && (codigo <= 105)) {
+
+		if (tamanho <= 2) campo_formulario.value = fc ;
+			
+		if ((tamanho > 2) && (tamanho <= 5))
+		{campo_formulario.value = fc.substr( 0, tamanho - 3 ) + '.' + fc.substr( tamanho - 3, tamanho ) ;}
+			
+		if ((tamanho >= 6) && (tamanho <= 8))
+		{campo_formulario.value = fc.substr( 0, tamanho - 6 ) + fc.substr( tamanho - 6, 3 ) + '.' + fc.substr( tamanho - 3, tamanho ) ; }
+			
+/*		if (tamanho == 9)
+		{campo_formulario.value = fc.substr( 0, tamanho - 8 ) + fc.substr( tamanho - 8, 3 ) + fc.substr( tamanho - 5, 3 ) + '.' + fc.substr( tamanho - 3, tamanho ) ; }
+*/		
+	}
+}
+
+function formataDecimalDois(campo_formulario,maximo,press) {
+	var codigo = press.keyCode;
+	var caracter = ".";
+	var fc = campo_formulario.value;
+
+	fc = altera_campo(fc,caracter,"");
+	fc = altera_campo(fc,",","");
+	fc = altera_campo(fc,".","");
+
+	var tamanho = fc.length;
+	if(codigo > 0) {
+		if (tamanho < maximo && codigo != 8) tamanho = fc.length + 1 ;
+		if (codigo == 8) tamanho = tamanho - 1 ;
+	}
+
+	if ((codigo == -1) || 
+		(codigo >= 48) && (codigo <= 57) || 
+		(codigo >= 96) && (codigo <= 105))
+	{		//alert(codigo);
+		if (tamanho <= 2) campo_formulario.value = fc ;
+			
+		if ((tamanho > 2) && (tamanho <= 5))
+		{campo_formulario.value = fc.substr( 0, tamanho - 2 ) + '.' + fc.substr( tamanho - 2, tamanho ) ;}
+			
+		if ((tamanho >= 6) && (tamanho <= 8))
+		{campo_formulario.value = fc.substr( 0, tamanho - 5 ) + fc.substr( tamanho - 5, 3 ) + '.' + fc.substr( tamanho - 2, tamanho ) ; }
+			
+		if ((tamanho >= 9) && (tamanho <= 11))
+		{campo_formulario.value = fc.substr( 0, tamanho - 8 ) + fc.substr( tamanho - 8, 3 ) + fc.substr( tamanho - 5, 3 ) + '.' + fc.substr( tamanho - 2, tamanho ) ; }		
+
+		if (tamanho == 12)
+		{campo_formulario.value = fc.substr( 0, tamanho - 11 ) + fc.substr( tamanho - 11, 3 ) + fc.substr( tamanho - 8, 3 ) + fc.substr( tamanho - 5, 3 ) + '.' + fc.substr( tamanho - 2, tamanho ) ; }		
+	}
+}
+
+function FuncBlur(campo) {
+	campo.style.backgroundColor = '#ffffff';
+}	
+
+function FuncFocus(campo) {
+	campo.style.backgroundColor = '#F8F7F7'
+}	
