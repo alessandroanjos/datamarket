@@ -58,28 +58,16 @@
 									<h:outputLabel styleClass="desc" value="Forma de Recebimento"></h:outputLabel>
 									<h:outputLabel styleClass="field text" value="#{clientePagamentoBB.formaRecebimento.descricao}"></h:outputLabel>
 								</div>
-							</li>
-							<br />																						
-							<br />
-							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Valor do Pagamento"></h:outputLabel>
 									<h:outputLabel styleClass="field text" value="#{clientePagamentoBB.valorPagamento}"></h:outputLabel>									
-								</div>
-								<div>
-									<h:outputLabel styleClass="desc" value="Saldo Devedor"></h:outputLabel>
-									<h:outputLabel styleClass="field text" value="#{clientePagamentoBB.saldoDevedor}"></h:outputLabel>									
-								</div>
-								<div>
-									<h:outputLabel styleClass="desc" value="Limite Disponível"></h:outputLabel>
-									<h:outputLabel styleClass="field text" value="#{clientePagamentoBB.cliente.valorLimiteDisponivel}"></h:outputLabel>									
-								</div>							
+								</div>											
 							</li>									
 						</ul>						
 						<ul>
 							<li class="buttons">
 								<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{clientePagamentoBB.voltarConsulta}" value="Voltar"></h:commandButton>
-								<h:commandButton styleClass="btTxt" id="botaoImprimir" onclick="window.print();" value="Imprimir"></h:commandButton>
+								<h:commandButton styleClass="btTxt" id="botaoImprimir" action="#{clientePagamentoBB.imprimirRecibo}" value="Imprimir"></h:commandButton>
 							</li>
 						</ul>
 <!-- xxxxxxxxxxxxxxx -->					

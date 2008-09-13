@@ -73,7 +73,7 @@
 							</li>
 						</ul>
 						<h:form id="frmAlterarProduto" binding="#{produtoBB.init}"
-							onsubmit="javascript:getId('frmInserirProduto:abaCorrente').value = strAbaCorrente;">
+							onsubmit="javascript:getId('frmAlterarProduto:abaCorrente').value = strAbaCorrente;">
 							<h:inputHidden id="abaCorrente" value="#{produtoBB.abaCorrente}">
 							</h:inputHidden>
 							<div id="tabDiv0">
@@ -109,7 +109,7 @@
 												required="true" dir="rtl"
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);" 
-												onkeydown="Formata('frmInserirProduto:precoPadrao',9,2,event);">
+												onkeydown="Formata('frmAlterarProduto:precoPadrao',9,2,event);">
 												<f:validateDoubleRange minimum="0.00" maximum="999999.99" />
 											</h:inputText>
 											<h:message for="precoPadrao" styleClass="msgErro" />
@@ -122,7 +122,7 @@
 												dir="rtl" 
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);" 
-												onkeydown="Formata('frmInserirProduto:precoPromocional',9,2,event);">
+												onkeydown="Formata('frmAlterarProduto:precoPromocional',9,2,event);">
 												<f:validateDoubleRange minimum="0.00" maximum="999999.99" />
 											</h:inputText>
 											<h:message for="precoPromocional" styleClass="msgErro" />
@@ -134,7 +134,8 @@
 												value="#{produtoBB.precoCompra}" required="false"
 												dir="rtl" 
 												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return SoNumero(event);" 												onkeydown="Formata('frmInserirProduto:precoPromocional',9,2,event);">
+												onkeypress="return SoNumero(event);" 												
+												onkeydown="Formata('frmAlterarProduto:precoCompra',9,2,event);">
 												<f:validateDoubleRange minimum="0.01" maximum="999999.99" />
 											</h:inputText>
 											<h:message for="precoCompra" styleClass="msgErro" />
