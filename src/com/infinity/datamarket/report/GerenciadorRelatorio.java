@@ -6,8 +6,10 @@
  */
 package com.infinity.datamarket.report;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.text.DecimalFormat;
@@ -26,6 +28,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
@@ -169,11 +172,8 @@ public class GerenciadorRelatorio {
 		}
 	}
 	
-	public void gerarReciboPagamentoCliente(ClientePagamento clientePagamento) throws AppException{
-		JasperViewer viewer = null;
+	public void gerarReciboPagamentoCliente(ClientePagamento clientePagamento, OutputStream out) throws AppException{
 		try{
-			JasperReport jasperItens =  getRelatorio(RECIBO_PAGAMENTO_CLIENTE);
-
 			Map parametros = new HashMap();
 			parametros.put("CAMINHO", this.CAMINHO_RELATORIO);
 			parametros.put("empresa", EMPRESA);		
@@ -217,26 +217,11 @@ public class GerenciadorRelatorio {
 			textoDataPagamento.append(dataPagamento.getYear()+1900 + ".");
 			
 			parametros.put("dataPagamento", textoDataPagamento.toString());
-						
-//            JasperPrint jasperPrintReciboPagamento = JasperFillManager.fillReport(jasperItens, parametros);
-            
-            Connection connection = getConnection();
-            FacesContext context = FacesContext.getCurrentInstance();
-            HttpServletResponse response = (HttpServletResponse)context.getExternalContext().getResponse();
-//            InputStream reportStream = context.getExternalContext().getResourceAsStream(CAMINHO_RELATORIO + File.separator +  "ReciboPagamentoCliente.jasper");
-            
-            InputStream reportStream = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboPagamentoCliente.jasper");
-            
-            ServletOutputStream servletOutputStream = response.getOutputStream();
-            JasperRunManager.runReportToPdfStream(reportStream, servletOutputStream, parametros, connection);
-//            connection.close();
-            response.setContentType("application/pdf");
-            servletOutputStream.flush();
-            servletOutputStream.close();
-			//exibe o resultado
-//			viewer = new JasperViewer(jasperPrintReciboPagamento, false);
-//			return viewer;
-		}catch(Exception e){
+						        
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboPagamentoCliente.jasper");
+            		
+            JasperRunManager.runReportToPdfStream(input, out, parametros);
+   		}catch(Exception e){
 			e.printStackTrace();
 			throw new RelatorioException(e);
 		}
