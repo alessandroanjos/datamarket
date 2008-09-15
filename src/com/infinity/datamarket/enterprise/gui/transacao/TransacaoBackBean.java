@@ -18,6 +18,7 @@ import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
@@ -64,7 +65,6 @@ import com.infinity.datamarket.comum.usuario.Vendedor;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConjuntoEventoTransacao;
 import com.infinity.datamarket.comum.util.Constantes;
-import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 import com.infinity.datamarket.pdv.util.ServerConfig;
 import com.infinity.datamarket.pdv.util.ServiceLocator;
@@ -737,7 +737,7 @@ public class TransacaoBackBean extends BackBean {
 		this.setCodigoProduto(null);
 		this.setDescricaoProduto(null);
 		this.setPrecoVenda(new BigDecimal("0.00"));
-		this.setQuantidade(new BigDecimal("0.000"));
+		this.setQuantidade(new BigDecimal("1.000"));
 		this.setDescontoItem(new BigDecimal("0.00"));
 		this.setValorFormaPagamento(new BigDecimal("0.00"));
 		this.setIdTipoPessoa(Cliente.PESSOA_FISICA);
@@ -1000,9 +1000,16 @@ public class TransacaoBackBean extends BackBean {
 				}
 			}
 		}
-
-		this.setValorSubTotalCupom(this.getValorTotalRecebido().subtract(transacao.getDescontoCupom().add(transacao.getValorTroco())));
-		this.setDescontoCupom(transacao.getDescontoCupom());
+		BigDecimal descontoCupom = BigDecimal.ZERO;
+		if(transacao.getDescontoCupom() != null){
+			descontoCupom = transacao.getDescontoCupom();
+		}
+		BigDecimal valorTrocoCupom = BigDecimal.ZERO;
+		if(transacao.getValorTroco() != null){
+			valorTrocoCupom = transacao.getValorTroco();
+		}
+		this.setValorSubTotalCupom(this.getValorTotalRecebido().subtract(descontoCupom.add(valorTrocoCupom)));
+		this.setDescontoCupom(descontoCupom);
 		this.setValorTroco(transacao.getValorTroco());
 		
 		if(transacao.getFormaTroco() != null){
@@ -1742,10 +1749,20 @@ public class TransacaoBackBean extends BackBean {
 					transVenda.setOperador("");
 				}				
 			}
+			if(this.getDescontoCupom() == null){
+				transVenda.setDescontoCupom(BigDecimal.ZERO);
+			}else{
+				transVenda.setDescontoCupom(this.getDescontoCupom());	
+			}
 			
-			transVenda.setDescontoCupom(this.getDescontoCupom());
 			transVenda.setValorCupom(this.getValorTotalCupom());
-			transVenda.setValorTroco(this.getValorTroco());
+			
+			if(this.getValorTroco() == null){
+				transVenda.setValorTroco(BigDecimal.ZERO);
+			}else{
+				transVenda.setValorTroco(this.getValorTroco());	
+			}
+			
 
 			if(this.getIdFormaTroco() != null){
 				transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));	
@@ -1905,10 +1922,20 @@ public class TransacaoBackBean extends BackBean {
 					transVenda.setOperador("");
 				}
 			}
-			
-			transVenda.setDescontoCupom(this.getDescontoCupom());
+			if(this.getDescontoCupom() == null){
+				transVenda.setDescontoCupom(BigDecimal.ZERO);
+			}else{
+				transVenda.setDescontoCupom(this.getDescontoCupom());	
+			}
+//			transVenda.setDescontoCupom(this.getDescontoCupom());
 			transVenda.setValorCupom(this.getValorTotalCupom());
-			transVenda.setValorTroco(this.getValorTroco());
+//			transVenda.setValorTroco(this.getValorTroco());
+			if(this.getValorTroco() == null){
+				transVenda.setValorTroco(BigDecimal.ZERO);
+			}else{
+				transVenda.setValorTroco(this.getValorTroco());	
+			}
+
 			transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));
 						
 			ConjuntoEventoTransacao conj = new ConjuntoEventoTransacao();
@@ -2020,9 +2047,21 @@ public class TransacaoBackBean extends BackBean {
 				transVenda.setCodigoUsuarioOperador(this.getIdOperador());
 			}
 			
-			transVenda.setDescontoCupom(this.getDescontoCupom());
+//			transVenda.setDescontoCupom(this.getDescontoCupom());
+			if(this.getDescontoCupom() == null){
+				transVenda.setDescontoCupom(BigDecimal.ZERO);
+			}else{
+				transVenda.setDescontoCupom(this.getDescontoCupom());	
+			}
+
 			transVenda.setValorCupom(this.getValorTotalCupom());
-			transVenda.setValorTroco(this.getValorTroco());
+//			transVenda.setValorTroco(this.getValorTroco());
+			if(this.getValorTroco() == null){
+				transVenda.setValorTroco(BigDecimal.ZERO);
+			}else{
+				transVenda.setValorTroco(this.getValorTroco());	
+			}
+
 			transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));
 						
 			ConjuntoEventoTransacao conj = new ConjuntoEventoTransacao();
@@ -2627,4 +2666,20 @@ public class TransacaoBackBean extends BackBean {
 	public void setTransacaoVenda(TransacaoVenda transacaoVenda) {
 		this.transacaoVenda = transacaoVenda;
 	}
+	
+	/**
+	 * @param init the init to set
+	 */
+	public void setInit(HtmlForm init) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();            
+		String param = (String)  params.get(ACAO);
+		resetBB();
+		if (param != null && VALOR_ACAO.equals(param)){
+			this.setAbaCorrente("tabMenuDiv0");
+			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+			setTransacoes(null);
+		}
+	}
+
 }

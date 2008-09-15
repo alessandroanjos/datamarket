@@ -25,13 +25,15 @@
 		<script type="text/javascript">
 			window.onload = function(){ inicializar() };
 			function inicializar() {
-				getId("frmLogin:id").focus();
+				var objID = getId('frmLogin:id');
+				alert(objID);
+				objID.focus();
 			}
 		</script>
 	</head>
 	<body>
 			<jsp:include page="/jsp/topo.jsp?user=Desconhecido"></jsp:include>	
-			<h:form id="frmLogin">
+			<h:form id="frmLogin"  binding="#{loginBB.init}">
 		
 			<div id="outer">				
 				<div id="content" style="margin-top:20px;">

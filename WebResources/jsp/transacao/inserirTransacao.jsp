@@ -197,7 +197,7 @@
 				<div class="clear"></div>
 			</div>
 			<div id="primarioContentContainerInternas">
-				<h:form id="frmInserirTransacao" onsubmit="javascript:getId('frmInserirTransacao:abaCorrente').value = strAbaCorrente;getId('frmInserirTransacao:abaCadastroClienteCorrente').value = strAbaCadastroClienteCorrente;">
+				<h:form id="frmInserirTransacao"  binding="#{transacaoBB.init}" onsubmit="javascript:getId('frmInserirTransacao:abaCorrente').value = strAbaCorrente;getId('frmInserirTransacao:abaCadastroClienteCorrente').value = strAbaCadastroClienteCorrente;">
 					<div>
 						<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 					</div>

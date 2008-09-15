@@ -431,10 +431,9 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			if(this.getPercentagemParcela().equals(BigDecimal.ZERO)){
 				throw new Exception("O Percentual da Parcela deve ser maior que 0 (Zero).");
 			}
-			if(this.getQuantidadeDias() == 0){
+			if(this.getDataProgramada().equals(Constantes.SIM) && this.getQuantidadeDias() == 0){
 				throw new Exception("A Quantiade de Dias deve ser maior que 0 (Zero).");
-			}
-			
+			}			
 			
 			int quantidadeDiasParcelaAnterior = 0;
 			BigDecimal percentualParcelasParcial = BigDecimal.ZERO;
