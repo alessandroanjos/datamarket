@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.custom.navmenu.NavigationMenuItem;
@@ -64,8 +65,8 @@ public class LoginBackBean extends BackBean{
 
 	public String logout(){
 		resetBB();
-		this.setCodigoUsuarioLogado(null);
-		this.setUsuario(null);
+		setCodigoUsuarioLogado(null);
+		this.setUsuario(null);		
 		return "logout";
 	}
 
@@ -230,8 +231,16 @@ public class LoginBackBean extends BackBean{
 		this.usuarioLogado = usuarioLogado;
 	}
 
-
-
-
+	public void setInit(HtmlForm init) {
+//		try {
+//			FacesContext context = FacesContext.getCurrentInstance();
+//			HttpSession sessaoAtual = (HttpSession)context.getExternalContext().getSession(false);
+//			if(sessaoAtual != null){
+//				sessaoAtual.invalidate();
+//			}
+//		} catch (Throwable t) {
+//			t.printStackTrace();
+//		}
+	}
 }
 
