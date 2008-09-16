@@ -1,7 +1,9 @@
 package com.infinity.datamarket.pdv.lote;
 
-import java.io.Serializable;
+import java.util.Collection;
+import java.util.Iterator;
 
+import com.infinity.datamarket.comum.lote.DadoLote;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.IRepositorio;
@@ -26,69 +28,23 @@ public class AtualizadorLote {
 	public IRepositorio getRepositorio(){
 	 	return RepositorioHI.getInstancia();
 	}
-	public void excluir(Serializable obj) throws AppException{
-
-		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
-			getRepositorio().remove(obj);
-			RepositoryManagerHibernateUtil.commitTransation();
-		}catch(AppException e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-			throw e;
-		}catch(Throwable e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-				throw new SistemaException(e);
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}
-	}
 	
-	public void incluir(Serializable obj) throws AppException{
+	public void atualizarLote(Collection col) throws AppException{
 
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			getRepositorio().insert(obj);
-			RepositoryManagerHibernateUtil.commitTransation();
-		}catch(AppException e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
+			Iterator i = col.iterator();
+			while(i.hasNext()){
+				
+				DadoLote dado = (DadoLote) i.next();
+				if (dado.getOperacao().equals(dado.INSERIR)){
+					getRepositorio().insert(dado.getDado());
+				}else if (dado.getOperacao().equals(dado.ALTERAR)){
+					getRepositorio().update(dado.getDado());
+				}else if (dado.getOperacao().equals(dado.EXCLUIR)){	
+					getRepositorio().remove(dado.getDado());
+				}
 			}
-			throw e;
-		}catch(Throwable e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-				throw new SistemaException(e);
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}
-	}
-	
-	public void alterar(Serializable obj) throws AppException{
-
-		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
-			getRepositorio().update(obj);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{

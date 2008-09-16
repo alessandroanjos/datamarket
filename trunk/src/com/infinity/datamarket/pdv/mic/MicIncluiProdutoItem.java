@@ -72,6 +72,7 @@ public class MicIncluiProdutoItem extends Mic {
 		}
 
 		BigDecimal preco = new BigDecimal(0);
+		BigDecimal lucro = null;
 		BigDecimal precoUnitario = new BigDecimal(0);
 		BigDecimal desconto = new BigDecimal(0);
 		if (produto.getPrecoPadrao().compareTo(BigDecimal.ZERO) == 0) {
@@ -131,9 +132,13 @@ public class MicIncluiProdutoItem extends Mic {
 
 		produtoItemRegistrado.setTipoProduto(produto.getTipo().getId());
 		
+		if (produto.getPrecoCompra() != null){			
+			lucro = preco.subtract(produto.getPrecoCompra().multiply(quantidade));
+		}
+		
 		EventoItemRegistrado eventoItemRegistrado = new EventoItemRegistrado(
 				pk, ConstantesEventoTransacao.EVENTO_ITEM_REGISTRADO,
-				new Date(), quantidade, desconto, preco, produtoItemRegistrado);
+				new Date(), quantidade, desconto, preco, lucro,produtoItemRegistrado);
 
 		Collection eventos = transVenda.getEventosTransacao();
 

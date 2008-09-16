@@ -62,22 +62,12 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 	public void atualizaLote(){
 		try{
 			LoteServerRemote remote = (LoteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.LOTE_SERVER_JNDI);
-			while(remote.verificaNovoLoteLiberado(numeroLote)){			
-				if (remote != null){	
+			if (remote != null){	
+				while(remote.verificaNovoLoteLiberado(numeroLote)){						
 					Collection c = remote.getLote(numeroLote, numeroLoja);
 					System.out.println("ATUALIZANDO O LOTE "+ (numeroLote + 1));
-					Iterator i = c.iterator();
-					while(i.hasNext()){
-						AtualizadorLote atualizador = AtualizadorLote.getInstancia();
-						DadoLote dado = (DadoLote) i.next();
-						if (dado.getOperacao().equals(dado.INSERIR)){
-							atualizador.incluir(dado.getDado());
-						}else if (dado.getOperacao().equals(dado.ALTERAR)){
-							atualizador.alterar(dado.getDado());
-						}else if (dado.getOperacao().equals(dado.EXCLUIR)){	
-							atualizador.excluir(dado.getDado());
-						}
-					}					
+					AtualizadorLote atualizador = AtualizadorLote.getInstancia();
+					atualizador.atualizarLote(c);					
 					numeroLote = numeroLote + 1;
 					Parametro p = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE);
         			p.setValorInteiro(numeroLote);

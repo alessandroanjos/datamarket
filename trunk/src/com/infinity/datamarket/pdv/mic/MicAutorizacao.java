@@ -24,7 +24,7 @@ public class MicAutorizacao extends Mic{
 				MacroOperacao mo =(MacroOperacao) gerenciadorPerifericos.getCmos().ler(CMOS.MACRO_ATUAL);
 				getFachadaPDV().consultarUsuarioPorId_IdMacro(usuario.getId(), mo.getId());
 				return ALTERNATIVA_1;
-			}catch(AutorizacaoRecusadaException ex){
+			}catch(Exception ex){
 				
 			}
 			

@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
+import sun.awt.windows.ThemeReader;
+
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
@@ -68,7 +70,10 @@ public class Maquina implements Serializable{
         }
 
         System.out.println("Maquina Iniciada");
-        threadVerificaNovoLote = new ThreadVerificaNovoLote(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValorInteiro(), ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro());
+        int lote = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValorInteiro();
+        int loja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();
+        gerenciadorPerifericos.getWindow().atualizaLote(lote);
+        threadVerificaNovoLote = new ThreadVerificaNovoLote(lote,loja);
         threadVerificaNovoLote.start();
         new ThreadProcessaMacro(estadoAtual);
     }
@@ -165,6 +170,7 @@ public class Maquina implements Serializable{
         				Thread thread = new Thread(tela);
         				thread.start();
 	        			threadVerificaNovoLote.atualizaLote();
+	        			gerenciadorPerifericos.getWindow().atualizaLote(threadVerificaNovoLote.getNumeroLote());
 	        			tela.stop();	        			
 	        		}else{
 	        			System.out.println("NÃO HÁ NOVO LOTE LIBERADO");

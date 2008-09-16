@@ -8,6 +8,10 @@ import com.infinity.datamarket.pdv.gui.telas.Tela;
 
 
 public class WindowFrame implements Window{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5771050092104776814L;
 	private JFrame frame;
 	public WindowFrame(){
 		frame = new JFrame("INFINITY - DATAMARKET - PDV");
@@ -33,6 +37,10 @@ public class WindowFrame implements Window{
 
 	public JFrame getFrame() {
 		return frame;
+	}
+	
+	public void atualizaLote(int lote){
+		frame.setTitle("INFINITY - DATAMARKET - PDV | DADOS "+lote);
 	}
 
 }

@@ -1148,14 +1148,21 @@ public class TransacaoBackBean extends BackBean {
 			produtoItemRegistrado.setImpostoImpressora(produto.getImposto().getImpostoImpressora());
 			produtoItemRegistrado.setPercentual(produto.getImposto().getPercentual());
 
+			BigDecimal lucro = null;
+			if (produto.getPrecoCompra() != null){			
+				lucro = valorTotalItem.subtract(produto.getPrecoCompra().multiply(quantidade));
+			}
+			
 			EventoItemRegistrado eventoItemRegistrado = 
 					new EventoItemRegistrado(produtoItemRegistrado.getPk(), 
 											 ConstantesEventoTransacao.EVENTO_ITEM_REGISTRADO,
 											 new Date(), 
 											 this.getQuantidade(), 
 											 this.getDescontoItem(), 
-											 valorTotalItem, 
+											 valorTotalItem,
+											 lucro,
 											 produtoItemRegistrado);
+			
 			
 //			if(this.getOperacao().equals("I")){
 			eventoItemRegistrado.setAcao("I");
