@@ -116,7 +116,7 @@
 										<h:outputLabel styleClass="desc" value="Data de Cadastro"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataCadastro" maxlength="10" size="10" readonly="true"
 											value="#{fornecedorBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">			
-											
+											<f:convertDateTime timeZone="GMT-3"/>
 										</h:inputText>
 										<div>
 									</div>
@@ -181,7 +181,7 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Insc. Estadual*"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Insc. Estadual"></h:outputLabel>
 										<h:inputText styleClass="field text" id="inscricaoEstadual" maxlength="30" size="30" value="#{fornecedorBB.inscricaoEstadual}" required="false">
 											<f:validateLength maximum="30" />
 										</h:inputText>
@@ -190,7 +190,7 @@
 											</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Insc. Municipal*"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Insc. Municipal"></h:outputLabel>
 										<h:inputText styleClass="field text" id="inscricaoMunicipal" maxlength="30" size="30" value="#{fornecedorBB.inscricaoMunicipal}" required="false">
 											<f:validateLength maximum="30" />
 										</h:inputText>

@@ -530,9 +530,11 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		if (param != null && VALOR_ACAO.equals(param)){
+		if (param != null){
 			resetBB();
-			setPlanos(null);
+			if(VALOR_ACAO.equals(param)){
+				setPlanos(null);
+			}
 		}
 	}
 

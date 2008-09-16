@@ -439,9 +439,11 @@ public class FormaRecebimentoBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
-		if (param != null && VALOR_ACAO.equals(param)){
-			setFormasRecebimentos(null);
+		if (param != null){
+			resetBB();
+			if(VALOR_ACAO.equals(param)){
+				setFormasRecebimentos(null);
+			}
 		}
 	}
 }

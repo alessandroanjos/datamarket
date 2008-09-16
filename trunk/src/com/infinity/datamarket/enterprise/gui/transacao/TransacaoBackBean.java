@@ -2674,11 +2674,13 @@ public class TransacaoBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
-		if (param != null && VALOR_ACAO.equals(param)){
-			this.setAbaCorrente("tabMenuDiv0");
-			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
-			setTransacoes(null);
+		if (param != null){
+			resetBB();
+			if(VALOR_ACAO.equals(param)){
+				this.setAbaCorrente("tabMenuDiv0");
+				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
+				setTransacoes(null);
+			}
 		}
 	}
 

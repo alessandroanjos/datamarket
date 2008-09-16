@@ -453,6 +453,7 @@ function getId(strId) {
 function desabilita(strId) {
   	getId(strId).disabled = true;
   	getId(strId).style.backgroundColor = "#dedede";
+  	getId(strId).value = "";
 }
 
 function habilita(strId) {

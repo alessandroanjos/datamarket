@@ -15,10 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
-import org.jboss.cache.aop.collection.CachedSetImpl;
-
 import com.infinity.datamarket.comum.Fachada;
-import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.estoque.AjusteEstoque;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoqueProduto;
@@ -29,8 +26,6 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.util.AppException;
-import com.infinity.datamarket.comum.util.ConcentradorControleId;
-import com.infinity.datamarket.comum.util.Controle;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class AjusteEstoqueBackBean extends BackBean {
@@ -540,22 +535,24 @@ public class AjusteEstoqueBackBean extends BackBean {
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
 		
-		if (param != null && VALOR_ACAO.equals(param)){
+		if (param != null){
 			resetBB();
-			setAjusteEstoques(null);
-		} else if (param != null && BUSCA_QTD_ANTES.equals(param)) {
-			try {
-				String paramEstoque = (String)  params.get(ESTOQUE);
-				setIdEstoque(paramEstoque);
-				String paramProduto = (String)  params.get(PRODUTO);
-				setIdProduto(paramProduto);
-				buscaQuantidadeAntes();
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (AppException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(VALOR_ACAO.equals(param)){
+				setAjusteEstoques(null);
+			} else if (BUSCA_QTD_ANTES.equals(param)) {
+				try {
+					String paramEstoque = (String)  params.get(ESTOQUE);
+					setIdEstoque(paramEstoque);
+					String paramProduto = (String)  params.get(PRODUTO);
+					setIdProduto(paramProduto);
+					buscaQuantidadeAntes();
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (AppException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}

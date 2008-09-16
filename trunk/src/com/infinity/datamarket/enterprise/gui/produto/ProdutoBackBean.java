@@ -575,9 +575,11 @@ public class ProdutoBackBean extends BackBean{
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		if (param != null && VALOR_ACAO.equals(param)){
+		if (param != null){
 			resetBB();
-			setProdutos(null);
+			if(VALOR_ACAO.equals(param)){
+				setProdutos(null);
+			}
 		}
 	}
 
