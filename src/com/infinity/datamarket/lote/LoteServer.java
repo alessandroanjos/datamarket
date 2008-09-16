@@ -61,8 +61,9 @@ public class LoteServer implements LoteServerLocal, LoteServerRemote {
 					if (loja.getId().equals(new Long(numLoja))){
 						contem = true;
 					}
-				}
-				if (contem){
+				}				
+				if (contem){	
+					usu.getPerfil().setFuncionalidades(null);
 					retorno.add(dado);
 				}
 			}else{

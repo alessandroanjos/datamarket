@@ -15,6 +15,7 @@ public class EventoItemRegistrado extends EventoTransacao{
 	private BigDecimal quantidade;
 	private BigDecimal desconto;
 	private BigDecimal preco;
+	private BigDecimal lucro;
 	private String situacao = ATIVO;
 	private ProdutoItemRegistrado produtoItemRegistrado;
 	//atributo que indica se o produto do evento item registrado foi incluído ("I"), nao alterado ("N") ou excluído ("E")
@@ -27,12 +28,13 @@ public class EventoItemRegistrado extends EventoTransacao{
 
 	}
 
-	public EventoItemRegistrado(EventoTransacaoPK pk, int tipoEvento, Date dataHoraEvento, BigDecimal quantidade, BigDecimal desconto, BigDecimal preco, ProdutoItemRegistrado produtoItemRegistrado){
+	public EventoItemRegistrado(EventoTransacaoPK pk, int tipoEvento, Date dataHoraEvento, BigDecimal quantidade, BigDecimal desconto, BigDecimal preco, BigDecimal lucro, ProdutoItemRegistrado produtoItemRegistrado){
 		super(pk,tipoEvento,dataHoraEvento);
 		this.quantidade = quantidade;
 		this.desconto = desconto;
 		this.preco = preco;
 		this.produtoItemRegistrado = produtoItemRegistrado;
+		this.lucro = lucro;
 	}
 
 	public BigDecimal getDesconto() {
@@ -74,5 +76,13 @@ public class EventoItemRegistrado extends EventoTransacao{
 
 	public void setAcao(String acao) {
 		this.acao = acao;
+	}
+
+	public BigDecimal getLucro() {
+		return lucro;
+	}
+
+	public void setLucro(BigDecimal lucro) {
+		this.lucro = lucro;
 	}
 }

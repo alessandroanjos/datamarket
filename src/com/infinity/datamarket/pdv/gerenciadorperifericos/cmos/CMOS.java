@@ -53,6 +53,7 @@ public class CMOS implements Serializable{
 	public static final String DADOS_CARTAO_PROPRIO = "DADOS_CARTAO_PROPRIO";
 	public static final String AUTORIZADORA_CARTAO_OFF = "AUTORIZADORA_CARTAO_OFF";
 	public static final String DADOS_AUTORIZACOES_CARTAO_PROPRIO = "DADOS_AUTORIZACOES_CARTAO_PROPRIO";
+	public static final String DATA_ULTIMA_ABERTURA = "DATA_ULTIMA_ABERTURA";
 
 	private CMOS(String nome){
 

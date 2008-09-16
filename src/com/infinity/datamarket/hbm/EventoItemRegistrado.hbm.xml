@@ -28,8 +28,12 @@
               <column name="PRECO" length="20" not-null="false"/>
           </property>
           
+          <property name="lucro" type="java.math.BigDecimal" update="true" insert="true">
+              <column name="LUCRO" length="20" not-null="false"/>
+          </property>
+          
           <property name="situacao" type="java.lang.String" update="true" insert="true">
-            <column name="SITUACAO" length="20" not-null="true"/>
+            <column name="SITUACAO" length="20" not-null="false"/>
           </property>
           
           <one-to-one name="produtoItemRegistrado" class="com.infinity.datamarket.comum.transacao.ProdutoItemRegistrado" cascade="all" lazy="false"/>

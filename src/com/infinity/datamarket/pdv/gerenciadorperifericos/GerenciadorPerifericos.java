@@ -187,6 +187,8 @@ public class GerenciadorPerifericos implements Serializable{
 	public Display getDisplay() {
 		return display;
 	}
+	
+	
 
 //	private class ThreadAtualizaTela extends Thread{
 //		private Tela tela;
