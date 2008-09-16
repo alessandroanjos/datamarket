@@ -21,7 +21,6 @@ import org.apache.myfaces.custom.tree2.TreeNode;
 import org.apache.myfaces.custom.tree2.TreeNodeBase;
 import org.apache.myfaces.custom.tree2.TreeNodeChecked;
 
-import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -815,9 +814,11 @@ public class PerfilBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
-		if (param != null && VALOR_ACAO.equals(param)){
-			setListaPerfis(null);
+		if (param != null){
+			resetBB();
+			if(VALOR_ACAO.equals(param)){
+				setListaPerfis(null);
+			}
 		}
 	}
 

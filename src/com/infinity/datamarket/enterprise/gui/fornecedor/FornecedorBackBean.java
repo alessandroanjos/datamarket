@@ -9,7 +9,6 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -246,7 +245,7 @@ public class FornecedorBackBean extends BackBean {
 				this.setId(fornecedor.getId().toString());
 				this.setNomeFornecedor(fornecedor.getNomeFornecedor());
 				this.setIdTipoPessoa(fornecedor.getTipoPessoa());
-				this.setCpfCnpj(fornecedor.getCpfCnpj());
+				this.setCpfCnpj(formataCpfCnpj(fornecedor.getCpfCnpj()));
 				this.setRazaoSocial(fornecedor.getRazaoSocial());
 				this.setNomeFantasia(fornecedor.getNomeFantasia());
 				this.setInscricaoEstadual(fornecedor.getInscricaoEstadual());
@@ -295,7 +294,7 @@ public class FornecedorBackBean extends BackBean {
 						this.setId(fornecedor.getId().toString());
 						this.setNomeFornecedor(fornecedor.getNomeFornecedor());
 						this.setIdTipoPessoa(fornecedor.getTipoPessoa());
-						this.setCpfCnpj(fornecedor.getCpfCnpj());
+						this.setCpfCnpj(formataCpfCnpj(fornecedor.getCpfCnpj()));
 						this.setRazaoSocial(fornecedor.getRazaoSocial());
 						this.setNomeFantasia(fornecedor.getNomeFantasia());
 						this.setInscricaoEstadual(fornecedor.getInscricaoEstadual());
@@ -364,16 +363,19 @@ public class FornecedorBackBean extends BackBean {
 			ctx.addMessage(null, msg);
 			resetBB();
 		} catch (ObjectExistentException e) {
+			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Fornecedor já Existente!", "");
 			ctx.addMessage(null, msg);
 		} catch (AppException app){
+			app.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					app.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
+			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
@@ -396,6 +398,7 @@ public class FornecedorBackBean extends BackBean {
 			resetBB();
 			this.setFornecedores(null);
 		} catch (AppException app){
+			app.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					app.getMessage(), "");
@@ -424,6 +427,7 @@ public class FornecedorBackBean extends BackBean {
 			resetBB();
 			this.setFornecedores(null);
 		} catch (Exception e) {
+			e.printStackTrace();
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -556,12 +560,12 @@ public class FornecedorBackBean extends BackBean {
 			if(this.getNomeFantasia() == null || this.getNomeFantasia().equals("")){
 				throw new AppException("O campo Nome Fantasia é obrigatório.");
 			}
-			if(this.getInscricaoEstadual() == null || this.getInscricaoEstadual().equals("")){
-				throw new AppException("O campo Inscrição Estadual é obrigatório.");
-			}
-			if(this.getInscricaoMunicipal() == null || this.getInscricaoMunicipal().equals("")){
-				throw new AppException("O campo Inscrição Municipal é obrigatório.");
-			}
+//			if(this.getInscricaoEstadual() == null || this.getInscricaoEstadual().equals("")){
+//				throw new AppException("O campo Inscrição Estadual é obrigatório.");
+//			}
+//			if(this.getInscricaoMunicipal() == null || this.getInscricaoMunicipal().equals("")){
+//				throw new AppException("O campo Inscrição Municipal é obrigatório.");
+//			}
 		}		
 	}
 	
@@ -585,9 +589,11 @@ public class FornecedorBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
-		if (param != null && VALOR_ACAO.equals(param)){
-			setFornecedores(null);
+		if (param != null){
+			resetBB();
+			if(VALOR_ACAO.equals(param)){
+				setFornecedores(null);	
+			}			
 		}
 	}
 }

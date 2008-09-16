@@ -355,9 +355,11 @@ public class LojaBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
-		if (param != null && VALOR_ACAO.equals(param)){
-			setLojas(null);
+		if (param != null){
+			resetBB();
+			if(VALOR_ACAO.equals(param)){
+				setLojas(null);
+			}
 		}
 	}
 

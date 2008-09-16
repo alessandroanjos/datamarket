@@ -17,7 +17,6 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -608,9 +607,11 @@ public class UsuarioBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		resetBB();
-		if (param != null && VALOR_ACAO.equals(param)){
-			setListaUsuarios(null);
+		if (param != null){
+			resetBB();
+			if(VALOR_ACAO.equals(param)){
+				setListaUsuarios(null);
+			}
 		}
 	}
 

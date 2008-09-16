@@ -10,12 +10,10 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.hibernate.HibernateException;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
-import com.infinity.datamarket.comum.pagamento.Autorizadora;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -652,14 +650,11 @@ public class ClienteBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		if (param != null && VALOR_ACAO.equals(param)){
+		if (param != null){
 			resetBB();
-			setClientes(null);
+			if(VALOR_ACAO.equals(param)){
+				setClientes(null);
+			}
 		}
 	}
-	
-//	public static void main(String[] args) {
-////		System.out.println(new ClienteBackBean().formataCpfCnpj("02882755430"));
-////		System.out.println(new ClienteBackBean().formataCpfCnpj("06299214000197"));
-//	}
 }

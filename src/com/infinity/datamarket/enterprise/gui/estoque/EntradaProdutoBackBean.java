@@ -1019,9 +1019,11 @@ public class EntradaProdutoBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		if (param != null && VALOR_ACAO.equals(param)){
+		if (param != null){
 			resetBB();
-			setEntradasProduto(null);
+			if(VALOR_ACAO.equals(param)){
+				setEntradasProduto(null);
+			}
 		}
 	}
 	/**

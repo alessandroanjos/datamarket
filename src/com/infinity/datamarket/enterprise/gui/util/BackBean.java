@@ -8,7 +8,6 @@ import java.util.TimeZone;
 import javax.faces.component.html.HtmlForm;
 
 import com.infinity.datamarket.comum.Fachada;
-import com.infinity.datamarket.comum.estoque.AjusteEstoque;
 import com.infinity.datamarket.comum.util.ConcentradorControleId;
 import com.infinity.datamarket.comum.util.Controle;
 

@@ -389,10 +389,9 @@
 										<f:facet name="header">
 											<h:outputText style="align: center;" value="Ação" />
 										</f:facet>										
-										<h:commandLink  value="Excluir" 
-											action="#{transacaoBB.removerItemTransacao}">																	
+										<h:commandButton image="/images/excluir.png" alt="Excluir" action="#{transacaoBB.removerItemTransacao}">
 											<f:param name="idExcluirItemRegistrado" value="#{itemTransacao.pk.numeroEvento}" />
-										</h:commandLink>
+										</h:commandButton>
 									</h:column>													
 								</t:dataTable>																
 							</div>
@@ -624,12 +623,10 @@
 										<h:column>
 											<f:facet name="header">
 												<h:outputText style="align: center;" value="Ação" />
-											</f:facet>										
-											<h:commandLink  value="" 
-												action="#{transacaoBB.removerItemPagamento}">
-												<h:commandButton type="button" image="/images/excluir.png"/>
+											</f:facet>
+											<h:commandButton image="/images/excluir.png" alt="Excluir" action="#{transacaoBB.removerItemPagamento}">
 												<f:param name="idExcluirItemPagamento" value="#{itemPagamento.pk.numeroEvento}" />
-											</h:commandLink>
+											</h:commandButton>										
 										</h:column>													
 									</t:dataTable>																
 								</div>
