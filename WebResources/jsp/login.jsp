@@ -53,7 +53,7 @@
 									<ul>
 										<li>
 											<div>										
-												<label class="desc">ID*</label>					
+												<label class="desc">LOGIN*</label>					
 												<h:inputText styleClass="text" id="id" maxlength="6"
 													value="#{loginBB.id}" required="true">
 													<f:validateLength maximum="6" />

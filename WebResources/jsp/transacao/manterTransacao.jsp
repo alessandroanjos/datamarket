@@ -38,7 +38,16 @@
 					habilita("frmManterTransacao:idFormaTroco");				
 				}
 				
-				$("input.tipopessoa").each(function(i){
+				$("input.tipopessoaChqAvt").each(function(i){
+					$(this).click(function() {mostraCampos(this.value)});
+				});
+				$("input.tipopessoaChqPrz").each(function(i){
+					$(this).click(function() {mostraCampos(this.value)});
+				});
+				$("input.tipopessoaCartaoProprio").each(function(i){
+					$(this).click(function() {mostraCampos(this.value)});
+				});
+				$("input.tipopessoaCadastro").each(function(i){
 					$(this).click(function() {mostraCampos(this.value)});
 				});
 				if ($('[name=frmManterTransacao:idTipoPessoaCadastro]:checked').val() != "undefined") {
@@ -153,7 +162,28 @@
 					desabilita("frmManterTransacao:razaoSocialCadastro");
 					desabilita("frmManterTransacao:inscricaoEstadualCadastro");
 					desabilita("frmManterTransacao:inscricaoMunicipalCadastro");				
-					$("input.tipocpfcnpj").each(function(i){
+					$("input.tipocpfcnpjChqAvt").each(function(i){
+						$(this).unbind('blur');
+						$(this).unbind('keydown');
+						$(this).bind('blur',function(event){validaCPF(this);});
+						$(this).bind('keydown',function(event){FormataCPF(this,event);});
+						getId(this.id).maxLength = "14";
+					});
+					$("input.tipocpfcnpjChqPrz").each(function(i){
+						$(this).unbind('blur');
+						$(this).unbind('keydown');
+						$(this).bind('blur',function(event){validaCPF(this);});
+						$(this).bind('keydown',function(event){FormataCPF(this,event);});
+						getId(this.id).maxLength = "14";
+					});
+					$("input.tipocpfcnpjCartaoProprio").each(function(i){
+						$(this).unbind('blur');
+						$(this).unbind('keydown');
+						$(this).bind('blur',function(event){validaCPF(this);});
+						$(this).bind('keydown',function(event){FormataCPF(this,event);});
+						getId(this.id).maxLength = "14";
+					});
+					$("input.tipocpfcnpjCadastro").each(function(i){
 						$(this).unbind('blur');
 						$(this).unbind('keydown');
 						$(this).bind('blur',function(event){validaCPF(this);});
@@ -165,7 +195,28 @@
 					habilita("frmManterTransacao:razaoSocialCadastro");
 					habilita("frmManterTransacao:inscricaoEstadualCadastro");
 					habilita("frmManterTransacao:inscricaoMunicipalCadastro");
-					$("input.tipocpfcnpj").each(function(i){
+					$("input.tipocpfcnpjChqAvt").each(function(i){
+						$(this).unbind('blur');
+						$(this).unbind('keydown');
+						$(this).bind('blur',function(event){validaCNPJ(this);});
+						$(this).bind('keydown',function(event){FormataCNPJ(this,event);});
+						getId(this.id).maxLength = "18";
+					});
+					$("input.tipocpfcnpjChqPrz").each(function(i){
+						$(this).unbind('blur');
+						$(this).unbind('keydown');
+						$(this).bind('blur',function(event){validaCNPJ(this);});
+						$(this).bind('keydown',function(event){FormataCNPJ(this,event);});
+						getId(this.id).maxLength = "18";
+					});
+					$("input.tipocpfcnpjCartaoProprio").each(function(i){
+						$(this).unbind('blur');
+						$(this).unbind('keydown');
+						$(this).bind('blur',function(event){validaCNPJ(this);});
+						$(this).bind('keydown',function(event){FormataCNPJ(this,event);});
+						getId(this.id).maxLength = "18";
+					});
+					$("input.tipocpfcnpjCadastro").each(function(i){
 						$(this).unbind('blur');
 						$(this).unbind('keydown');
 						$(this).bind('blur',function(event){validaCNPJ(this);});
@@ -208,7 +259,7 @@
 							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Loja*"></h:outputLabel>
-									<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{transacaoBB.idLoja}" onchange="submit();" valueChangeListener="#{transacaoBB.carregarComponentesPorLoja}"> 
+									<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{transacaoBB.idLoja}" onchange="submit();" valueChangeListener="#{transacaoBB.carregarComponentesPorLoja}" disabled="true"> 
 										<f:selectItems id="lojasSelectItems" value="#{transacaoBB.lojas}" />   
 									</h:selectOneMenu>
 								</div>
@@ -216,7 +267,7 @@
 							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Componente*"></h:outputLabel>
-									<h:selectOneMenu id="idComponente" style="width: 200px;" value="#{transacaoBB.idComponente}"> 
+									<h:selectOneMenu id="idComponente" style="width: 200px;" value="#{transacaoBB.idComponente}" disabled="true"> 
 										<f:selectItems id="componentesSelectItems" value="#{transacaoBB.componentes}" />   
 									</h:selectOneMenu>
 								</div>
@@ -224,7 +275,7 @@
 							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Data Transação*"></h:outputLabel>
-									<h:inputText styleClass="field text" id="dataTransacao" maxlength="10" size="10" required="false"
+									<h:inputText styleClass="field text" id="dataTransacao" maxlength="10" size="10" required="false" disabled="true"
 										value="#{transacaoBB.dataTransacao}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 										<f:convertDateTime timeZone="GMT-3"/>
 									</h:inputText>
@@ -234,7 +285,7 @@
 								<div>
 									<h:outputLabel styleClass="desc" value="Número Transação*"></h:outputLabel>
 									<h:inputText styleClass="field text ativo" id="nsuTransacao" maxlength="6" onkeypress="return SoNumero(event);"
-										value="#{transacaoBB.nsuTransacao}" size="6" required="false">
+										value="#{transacaoBB.nsuTransacao}" size="10" required="false" disabled="true">
 										<f:validateLength maximum="6" />
 										<f:validator validatorId="LongValidator"/>
 									</h:inputText>
@@ -244,7 +295,7 @@
 								<div>
 									<h:outputLabel styleClass="desc" value="Número Cupom*"></h:outputLabel>
 									<h:inputText styleClass="field text ativo" id="numeroCupom" maxlength="6" onkeypress="return SoNumero(event);"
-										value="#{transacaoBB.numeroCupom}" size="6" required="false">
+										value="#{transacaoBB.numeroCupom}" size="10" required="false">
 										<f:validateLength maximum="6" />
 										<f:validator validatorId="LongValidator"/>
 									</h:inputText>
@@ -390,8 +441,8 @@
 										<f:facet name="header">
 											<h:outputText style="align: center;" value="Ação" />
 										</f:facet>										
-										<h:commandButton image="/images/excluir.png" alt="Excluir" action="#{transacaoBB.removerItemTransacao}">
-											<f:param name="idExcluirItemRegistrado" value="#{itemTransacao.pk.numeroEvento}" />
+										<h:commandButton image="/images/excluir.png" alt="Excluir" actionListener="#{transacaoBB.removerItemTransacao}">
+											<f:param name="idExcluirItemRegistrado" value="#{itemTransacao.pk.numeroEvento}" id="idExcluirItemRegistrado"/>
 										</h:commandButton>
 									</h:column>													
 								</t:dataTable>																
@@ -465,14 +516,14 @@
 											</div>											
 											<div>
 												<h:outputLabel styleClass="desc" value="Tipo Cliente"></h:outputLabel>
-												<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoaChqAvt" 
+												<h:selectOneRadio  styleClass="field select tipopessoaChqAvt" id="tipoPessoaChqAvt" 
 													value="#{transacaoBB.idTipoPessoa}" layout="lineDirection" required="false">
 													<f:selectItems id="tipoPessoaListaChqAvt" value="#{transacaoBB.listaTipoPessoa}"/>
 												</h:selectOneRadio>
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="CPF/CNPJ Cliente"></h:outputLabel>
-												<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteChqAvt" maxlength="14" size="14"
+												<h:inputText styleClass="field text tipocpfcnpjChqAvt" id="cpfCnpjClienteChqAvt" maxlength="14" size="14"
 													value="#{transacaoBB.cpfCnpjClienteChqAvt}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="14" />
 												</h:inputText>
@@ -529,14 +580,14 @@
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="Tipo Cliente"></h:outputLabel>
-												<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoaChqPrz" 
+												<h:selectOneRadio  styleClass="field select tipopessoaChqPrz" id="tipoPessoaChqPrz" 
 													value="#{transacaoBB.idTipoPessoa}" layout="lineDirection" required="false">
 													<f:selectItems id="tipoPessoaListaChqPrz" value="#{transacaoBB.listaTipoPessoa}"/>
 												</h:selectOneRadio>
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="CPF/CNPJ Cliente"></h:outputLabel>
-												<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteChqPrz" maxlength="14" size="14"
+												<h:inputText styleClass="field text tipocpfcnpjChqPrz" id="cpfCnpjClienteChqPrz" maxlength="14" size="14"
 													value="#{transacaoBB.cpfCnpjClienteChqPrz}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="14" />
 												</h:inputText>
@@ -582,14 +633,14 @@
 										<li class="normal">
 											<div>
 												<h:outputLabel styleClass="desc" value="Tipo Cliente"></h:outputLabel>
-												<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoa" 
+												<h:selectOneRadio  styleClass="field select tipopessoaCartaoProprio" id="tipoPessoa" 
 													value="#{transacaoBB.idTipoPessoa}" layout="lineDirection" required="false">
 													<f:selectItems id="tipoPessoaLista" value="#{transacaoBB.listaTipoPessoa}"/>
 												</h:selectOneRadio>
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="CPF/CNPJ Cliente"></h:outputLabel>
-												<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteCartaoProprio" maxlength="18" size="18"
+												<h:inputText styleClass="field text tipocpfcnpjCartaoProprio" id="cpfCnpjClienteCartaoProprio" maxlength="18" size="18"
 													value="#{transacaoBB.cpfCnpjCliente}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="14" />
 												</h:inputText>
@@ -624,8 +675,8 @@
 											<f:facet name="header">
 												<h:outputText style="align: center;" value="Ação" />
 											</f:facet>										
-											<h:commandButton image="/images/excluir.png" alt="Excluir" action="#{transacaoBB.removerItemPagamento}">
-												<f:param name="idExcluirItemPagamento" value="#{itemPagamento.pk.numeroEvento}" />
+											<h:commandButton image="/images/excluir.png" alt="Excluir" actionListener="#{transacaoBB.removerItemPagamento}">
+												<f:param id="idExcluirItemPagamento" name="idExcluirItemPagamento" value="#{itemPagamento.pk.numeroEvento}" />
 											</h:commandButton>
 										</h:column>													
 									</t:dataTable>																
@@ -655,14 +706,14 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo Pessoa"></h:outputLabel>
-											<h:selectOneRadio  styleClass="field select tipopessoa" id="idTipoPessoaCadastro" 
+											<h:selectOneRadio  styleClass="field select tipopessoaCadastro" id="idTipoPessoaCadastro" 
 												value="#{transacaoBB.idTipoPessoaCadastro}" layout="lineDirection" required="false">
 												<f:selectItems id="tipoPessoaLista" value="#{transacaoBB.listaTipoPessoa}"/>
 											</h:selectOneRadio>
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="CPF/CNPJ"></h:outputLabel>
-											<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpjClienteCadastro" maxlength="18" size="18" 
+											<h:inputText styleClass="field text tipocpfcnpjCadastro" id="cpfCnpjClienteCadastro" maxlength="18" size="18" 
 											value="#{transacaoBB.cpfCnpjClienteCadastro}" required="false" onkeypress="return SoNumero(event);">
 												<f:validateLength minimum="11" maximum="18" />
 											</h:inputText>	

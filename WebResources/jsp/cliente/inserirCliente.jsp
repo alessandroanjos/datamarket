@@ -114,7 +114,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
 											<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoa" 
-												value="#{clienteBB.idTipoPessoa}" layout="lineDirection" required="true">
+												value="#{clienteBB.idTipoPessoa}" layout="lineDirection" required="false">
 												<f:selectItems id="tipoPessoaLista" value="#{clienteBB.listaTipoPessoa}"/>
 											</h:selectOneRadio>
 											<h:message for="tipoPessoa" styleClass="msgErro"/>
@@ -123,7 +123,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="CPF/CNPJ*"></h:outputLabel>
-											<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpj" maxlength="18" size="18" value="#{clienteBB.cpfCnpj}" required="true"
+											<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpj" maxlength="18" size="18" value="#{clienteBB.cpfCnpj}" required="false"
 											onfocus="this.select();" onclick="this.select();"
 											 onkeypress="return SoNumero(event);">
 												<f:validateLength minimum="11" maximum="18" />
@@ -135,7 +135,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Nome Cliente*"></h:outputLabel>
-											<h:inputText styleClass="field text" id="nomeCliente" maxlength="50" size="50" value="#{clienteBB.nomeCliente}" required="true">
+											<h:inputText styleClass="field text" id="nomeCliente" maxlength="50" size="50" value="#{clienteBB.nomeCliente}" required="false">
 												<f:validateLength maximum="50" />
 											</h:inputText>
 											<h:message for="nomeCliente" styleClass="msgErro" />									
@@ -187,7 +187,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Limite de Compra"></h:outputLabel>
 											<h:inputText styleClass="text field" dir="rtl" id="valorLimiteCompras" maxlength="10" size="10" 
-												value="#{clienteBB.valorLimiteCompras}" required="true" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);" onkeydown="Formata(this.id,9,2,event);">
+												value="#{clienteBB.valorLimiteCompras}" required="false" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);" onkeydown="Formata(this.id,9,2,event);">
 												<f:validateLength maximum="10" />	
 												<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>										
 												<f:validator validatorId="BigDecimalValidator" />

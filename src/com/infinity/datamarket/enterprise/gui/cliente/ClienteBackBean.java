@@ -291,7 +291,7 @@ public class ClienteBackBean extends BackBean {
 		this.setFoneCelular(null);
 		this.setPessoaContato(null);
 		this.setFoneContato(null);
-		this.setValorLimiteCompras(null);
+		this.setValorLimiteCompras(new BigDecimal("0.00"));
 //		this.setValorLimiteDisponivel(null);
 		this.setDataCadastro(new Date(System.currentTimeMillis()));
 		this.setDataNascimento(null);
@@ -446,7 +446,7 @@ public class ClienteBackBean extends BackBean {
 					&& e.getCause().getCause().getCause() instanceof ConstraintViolationException) {
 				FacesContext ctx = FacesContext.getCurrentInstance();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Cliente já cadastrado!", "");
+						"Cliente já cadastrado para o CPF/CNPJ informado!", "");
 				ctx.addMessage(null, msg);
 			} else {
 				FacesContext ctx = FacesContext.getCurrentInstance();
@@ -454,6 +454,11 @@ public class ClienteBackBean extends BackBean {
 						"Erro de Sistema!", "");
 				ctx.addMessage(null, msg);
 			}
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -544,7 +549,7 @@ public class ClienteBackBean extends BackBean {
 		cliente.setDataNascimento(this.getDataNascimento());
 		cliente.setReferenciaComercial(this.getReferenciaComercial());
 		if (this.getValorLimiteCompras() == null) {
-			cliente.setValorLimiteCompras(this.getValorLimiteCompras());
+			cliente.setValorLimiteCompras(BigDecimal.ZERO);
 			cliente.setValorLimiteDisponivel(BigDecimal.ZERO);
 		}else{
 			cliente.setValorLimiteCompras(this.getValorLimiteCompras());
@@ -616,6 +621,11 @@ public class ClienteBackBean extends BackBean {
 	}
 	
 	public void validarCampos(String tipoPessoa) throws AppException{
+		
+		if(this.getCpfCnpj() == null || this.getCpfCnpj().equals("")){
+			throw new AppException("O CPF/CNPJ é obrigatório.");
+		}
+		
 		if(tipoPessoa.equals(Fornecedor.PESSOA_FISICA)){
 			if(this.getNomeCliente() == null || this.getNomeCliente().equals("")){
 				throw new AppException("O Nome do Cliente é obrigatório.");
