@@ -18,8 +18,10 @@ import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
+import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
@@ -794,21 +796,31 @@ public class TransacaoBackBean extends BackBean {
 			FacesContext context = FacesContext.getCurrentInstance();
 			Map params = context.getExternalContext().getRequestParameterMap();
 			TransacaoPK param = null;
-			if(params != null){
-				param = new TransacaoPK();
+			if(params != null){				
+				Integer loja = null;
+				Integer componente = null;
+				Date dataTransacao = null;
+				Integer numeroTransacao = null;
 				if(params.get("transacao_loja") != null && !params.get("transacao_loja").equals("")){
-					param.setLoja(Integer.parseInt(params.get("transacao_loja").toString()));
+					loja = new Integer(Integer.parseInt(params.get("transacao_loja").toString()));
 				}
 				if(params.get("transacao_componente") != null && !params.get("transacao_componente").equals("")){
-					param.setComponente(Integer.parseInt(params.get("transacao_componente").toString()));
+					componente = new Integer(Integer.parseInt(params.get("transacao_componente").toString()));
 				}
 				if(params.get("transacao_dataTransacao") != null && !params.get("transacao_dataTransacao").equals("")){
 					DateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 					System.out.println(dt.parse((String)params.get("transacao_dataTransacao")));
-					param.setDataTransacao(dt.parse((String)params.get("transacao_dataTransacao")));
+					dataTransacao = dt.parse((String)params.get("transacao_dataTransacao"));
 				}
 				if(params.get("transacao_numeroTransacao") != null && !params.get("transacao_numeroTransacao").equals("")){
-					param.setNumeroTransacao(new Integer(params.get("transacao_numeroTransacao").toString()).intValue());
+					numeroTransacao = new Integer(params.get("transacao_numeroTransacao").toString());
+				}
+				if(loja != null && componente != null && dataTransacao != null && numeroTransacao != null){
+					param = new TransacaoPK();	
+					param.setLoja(loja);
+					param.setComponente(componente);
+					param.setDataTransacao(dataTransacao);
+					param.setNumeroTransacao(numeroTransacao);
 				}
 			}
 			if (param != null){
@@ -1237,10 +1249,14 @@ public class TransacaoBackBean extends BackBean {
 		this.setValorTroco(valorTroco.setScale(2));
 	}
 
-	public String removerItemTransacao(){
-		FacesContext context = FacesContext.getCurrentInstance();
-		Map params = context.getExternalContext().getRequestParameterMap();  
-		String param = (String)  params.get("idExcluirItemRegistrado");
+	public void removerItemTransacao(ActionEvent event){
+		
+        UIParameter component = (UIParameter) event.getComponent().findComponent("idExcluirItemRegistrado");
+        Integer param = (Integer) component.getValue(); 
+		
+//		FacesContext context = FacesContext.getCurrentInstance();
+//		Map params = context.getExternalContext().getRequestParameterMap();  
+//		String param = (String)  params.get("idExcluirItemRegistrado");
 
 		if(this.getItensTransacaoModificados() == null){
 			this.setItensTransacaoModificados(new ArrayList<EventoItemRegistrado>());
@@ -1249,7 +1265,7 @@ public class TransacaoBackBean extends BackBean {
 		Iterator i = this.getItensTransacao().iterator();
 		while(i.hasNext()){
 			EventoItemRegistrado itemTransacao = (EventoItemRegistrado) i.next();
-			if (itemTransacao.getPk().getNumeroEvento() == Integer.parseInt(param)){
+			if (itemTransacao.getPk().getNumeroEvento() == param){
 				this.getItensTransacao().remove(itemTransacao);
 				this.setValorSubTotalCupom(this.getValorSubTotalCupom().subtract(itemTransacao.getPreco()));
 //				this.setValorTotalCupom(this.getValorSubTotalCupom().subtract(this.getDescontoCupom()));
@@ -1276,7 +1292,7 @@ public class TransacaoBackBean extends BackBean {
 		atualizarTotais();
 		this.setAbaCorrente("tabMenuDiv1");
 		this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
-		return "mesma";
+//		return "mesma";
 	}
 	
 	public void validarInclusaoItemPagamento() throws AppException{
@@ -1596,15 +1612,17 @@ public class TransacaoBackBean extends BackBean {
 		}
 	}
 	
-	public String removerItemPagamento(){
-		FacesContext context = FacesContext.getCurrentInstance();
-		Map params = context.getExternalContext().getRequestParameterMap();  
-		String param = (String)  params.get("idExcluirItemPagamento");
+	public String removerItemPagamento(ActionEvent event){
+        UIParameter component = (UIParameter) event.getComponent().findComponent("idExcluirItemPagamento");
+        Integer param = (Integer) component.getValue(); 
+//		FacesContext context = FacesContext.getCurrentInstance();
+//		Map params = context.getExternalContext().getRequestParameterMap();  
+//		String param = (String)  params.get("idExcluirItemPagamento");
 
 		Iterator i = this.getItensPagamento().iterator();
 		while(i.hasNext()){
 			EventoItemPagamento itemPagamento = (EventoItemPagamento) i.next();
-			if (itemPagamento.getPk().getNumeroEvento() == Integer.parseInt(param)){
+			if (itemPagamento.getPk().getNumeroEvento() == param){
 				this.getItensPagamento().remove(itemPagamento);
 				this.setValorTotalRecebido(this.getValorTotalRecebido().subtract(itemPagamento.getValorBruto()));
 				break;
@@ -1808,17 +1826,7 @@ public class TransacaoBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
-			
-//			JasperViewer viewer;
-//			try {
-//				viewer = getFachada().gerarReciboVenda(transVenda);
-//				viewer.show();
-//			} catch (AppException e) {
-//				e.printStackTrace();
-//			}
 
-//			imprimirRecibo();
-			
 			resetBB();
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
@@ -1847,8 +1855,7 @@ public class TransacaoBackBean extends BackBean {
 			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
-		}
-		
+		}		
 		return "mesma";
 	}
 	

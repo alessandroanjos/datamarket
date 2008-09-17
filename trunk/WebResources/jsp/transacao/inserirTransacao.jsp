@@ -234,7 +234,7 @@
 								<div>
 									<h:outputLabel styleClass="desc" value="Número Transação*"></h:outputLabel>
 									<h:inputText styleClass="field text ativo" id="nsuTransacao" maxlength="6" onkeypress="return SoNumero(event);"
-										value="#{transacaoBB.nsuTransacao}" size="6" required="false">
+										value="#{transacaoBB.nsuTransacao}" size="10" required="false">
 										<f:validateLength maximum="6" />
 										<f:validator validatorId="LongValidator"/>
 									</h:inputText>
@@ -244,7 +244,7 @@
 								<div>
 									<h:outputLabel styleClass="desc" value="Número Cupom*"></h:outputLabel>
 									<h:inputText styleClass="field text ativo" id="numeroCupom" maxlength="6" onkeypress="return SoNumero(event);"
-										value="#{transacaoBB.numeroCupom}" size="6" required="false">
+										value="#{transacaoBB.numeroCupom}" size="10" required="false">
 										<f:validateLength maximum="6" />
 										<f:validator validatorId="LongValidator"/>
 									</h:inputText>

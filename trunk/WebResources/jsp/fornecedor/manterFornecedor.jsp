@@ -29,7 +29,8 @@
       window.onload = function(){ inicializar() };
 
       function inicializar() {
-      	$("input.tipopessoa").each(function(i){
+      
+	    $("input.tipopessoa").each(function(i){
       		$(this).click(function() {mostraCampos(this.value)});
       	});
 		if ($('[name=frmManterFornecedor:tipoPessoa]:checked').val() != "undefined") {
@@ -126,7 +127,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
 										<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoa" 
-											value="#{fornecedorBB.idTipoPessoa}" layout="lineDirection" required="true">
+											value="#{fornecedorBB.idTipoPessoa}" layout="lineDirection" required="true" disabled="true">
 											<f:selectItems id="tipoPessoaLista" value="#{fornecedorBB.listaTipoPessoa}"/>
 										</h:selectOneRadio>
 										
@@ -136,12 +137,9 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="CPF/CNPJ*"></h:outputLabel>
-										<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpj" maxlength="18" size="18" value="#{fornecedorBB.cpfCnpj}" required="true"
-											onfocus="this.select();" onclick="this.select();"
-											onkeypress="return SoNumero(event);">
+										<h:inputText styleClass="field text" id="cpfCnpj" maxlength="18" size="18" value="#{fornecedorBB.cpfCnpj}" required="true" disabled="true">
 											<f:validateLength minimum="11" maximum="18" />
-										</h:inputText>
-																		
+										</h:inputText>																		
 									</div>
 									<h:message for="cpfCnpj" styleClass="msgErro" />	
 								</li>
