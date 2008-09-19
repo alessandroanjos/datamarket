@@ -37,19 +37,22 @@
             //
 
             function showPopUp(action, form, target) {
-
-                  formId=form;
-				  if (winId != null) {
-				      winId.close();
-				  }
-				  var formaux = document.forms[form];
+				 if(getId("frmInserirMovimentacaoEstoque:idProduto").value == ""){        		
+	                formId=form;
+					if (winId != null) {
+					    winId.close();
+					}
+				    var formaux = document.forms[form];
 				 
-                  features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-				  winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutosEstoque.faces','list',features);
+                    features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
+				    winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutosEstoque.faces','list',features);
 
-				  // Formulário escondido
-                  hform=document.forms[form];                
-
+				    // Formulário escondido
+                    hform=document.forms[form];                
+                 }else{
+                	document.forms["frmInserirMovimentacaoEstoque"].action = "/EnterpriseServer/jsp/movimentacaoEstoque/inserirMovimentacaoEstoque.faces?acaoLocal=pesquisarProdutos&codigoProduto="+getId("frmInserirMovimentacaoEstoque:idProduto").value;
+					document.forms["frmInserirMovimentacaoEstoque"].submit();
+                }
             }
 
             // Esta função é chamada pela janela popup 

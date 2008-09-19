@@ -2688,6 +2688,8 @@ public class TransacaoBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
+
+		System.out.println((String)  params.get("acaoLocal"));
 		if (param != null){
 			resetBB();
 			if(VALOR_ACAO.equals(param)){
@@ -2695,7 +2697,18 @@ public class TransacaoBackBean extends BackBean {
 				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 				setTransacoes(null);
 			}
+		}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
+			try {
+				Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
+				if(prod != null){
+					this.setDescricaoProduto(prod.getDescricaoCompleta());
+					this.setPrecoVenda(prod.getPrecoPadrao());					
+				}
+				this.setAbaCorrente("tabMenuDiv1");
+			} catch (Exception e) {				
+				e.printStackTrace();			
+				this.setAbaCorrente("tabMenuDiv1");
+			}
 		}
 	}
-
 }

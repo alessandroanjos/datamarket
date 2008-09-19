@@ -23,7 +23,6 @@ import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoquePK;
-import com.infinity.datamarket.comum.produto.Imposto;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -33,7 +32,8 @@ import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
-public class MovimentacaoEstoqueBackBean extends BackBean {   
+public class MovimentacaoEstoqueBackBean extends BackBean {  
+
 	private static final int HashSet = 0;
 	private String id;
 	private String codigoUsuario;
@@ -681,6 +681,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	 */
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+		
 	}
 	/**
 	 * @return the idProduto
@@ -924,6 +925,17 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			resetBB();
 			if(VALOR_ACAO.equals(param)){
 				setMovimentacaoEstoque(null);
+			}
+		}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
+			try {
+				Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
+				if(prod != null){
+					this.setDescricao(prod.getDescricaoCompleta());
+//					this.setPrecoVenda(prod.getPrecoPadrao());
+					
+				}
+			} catch (Exception e) {				
+				e.printStackTrace();			
 			}
 		}
 	}

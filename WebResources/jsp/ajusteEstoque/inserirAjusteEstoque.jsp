@@ -48,14 +48,19 @@
             //
 
             function showPopUp(action, form, target) {
-                formId=form;
-      				  if (winId != null) {
-      				      winId.close();
-      				  }
-                features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-      				  winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
-      				  // Formulário escondido
-                hform=document.forms[form];                
+            	if(getId("frmInserirAjusteEstoque:idProduto").value == ""){        		
+	                formId=form;
+	      			if (winId != null) {
+	      				winId.close();
+	      			}
+	                features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
+	      			winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
+	      			// Formulário escondido
+	                hform=document.forms[form];   
+                 }else{
+					document.forms["frmInserirAjusteEstoque"].action = "/EnterpriseServer/jsp/ajusteEstoque/inserirAjusteEstoque.faces?acaoLocal=pesquisarProdutos&codigoProduto="+getId("frmInserirAjusteEstoque:idProduto").value;
+					document.forms["frmInserirAjusteEstoque"].submit();
+                }             
             }
 
             // Esta função é chamada pela janela popup 

@@ -20,7 +20,7 @@
         </id>
 
 		<property name="nomeCliente" type="java.lang.String" update="true" insert="true">
-	        <column name="NOME_CLIENTE" length="100" not-null="true"/>
+	        <column name="NOME_CLIENTE" length="100" not-null="false"/>
 	    </property>
 
 		<property name="tipoPessoa" type="java.lang.String" update="true" insert="true">

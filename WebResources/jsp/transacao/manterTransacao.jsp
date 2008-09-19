@@ -55,6 +55,7 @@
 				}
 				//tipoPessoaChqPrz
 				strAbaCorrente = getId("frmManterTransacao:abaCorrente").value;
+				//alert(strAbaCorrente);
 				if(strAbaCorrente != ""){							
 					selecionaMenuTab(strAbaCorrente);
 				}else{
@@ -62,6 +63,7 @@
 				}
 				
 				strAbaCadastroClienteCorrente = getId("frmManterTransacao:abaCadastroClienteCorrente").value;
+				//alert(strAbaCadastroClienteCorrente);
 				if(strAbaCorrente != ""){							
 					selecionaMenuTabInterno(strAbaCadastroClienteCorrente);
 				}else{
@@ -73,16 +75,24 @@
             var winId;  // referência à janela popup
             // Esta função faz a chamada da janela popup.
             //
-            function showPopUp(action, form, target) {
-                  formId=form;
-        				  if (winId != null) {
-        				      winId.close();
-        				  }
-                  features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-        				  winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
-				          // Formulário escondido
-                  hform=document.forms[form];                
-
+            function showPopUp(action, form, target) {	
+        		if(getId("frmManterTransacao:codigoProduto").value == ""){        		
+        		    getId("frmManterTransacao:descricaoProduto").value = "";
+        		    getId("frmManterTransacao:precoVenda").value = parseFloat("0").toFixed(2);
+	                formId=form;
+			        if (winId != null) {
+				       winId.close();
+				    }
+	                features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
+	     			winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
+		            // Formulário escondido
+	                hform=document.forms[form];                
+                }else{
+                	getId("frmManterTransacao:abaCorrente").value = strAbaCorrente;
+                	getId("frmManterTransacao:abaCadastroClienteCorrente").value = strAbaCadastroClienteCorrente;
+					document.forms["frmManterTransacao"].action = "/EnterpriseServer/jsp/transacao/manterTransacao.faces?acaoLocal=pesquisarProdutos&codigoProduto="+getId("frmManterTransacao:codigoProduto").value;
+					document.forms["frmManterTransacao"].submit();                	
+                }
             }
 
             // Esta função é chamada pela janela popup 
@@ -248,10 +258,11 @@
 				<div class="clear"></div>
 			</div>
 			<div id="primarioContentContainerInternas">
-				<h:form id="frmManterTransacao" onsubmit="javascript:getId('frmManterTransacao:abaCorrente').value = strAbaCorrente;getId('frmManterTransacao:abaCadastroClienteCorrente').value = strAbaCadastroClienteCorrente;">
+				<h:form id="frmManterTransacao" binding="#{transacaoBB.init}" onsubmit="javascript:getId('frmManterTransacao:abaCorrente').value = strAbaCorrente;getId('frmManterTransacao:abaCadastroClienteCorrente').value = strAbaCadastroClienteCorrente;">
 					<div>
 						<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 					</div>
+
 					<h:inputHidden id="abaCadastroClienteCorrente" value="#{transacaoBB.abaCadastroClienteCorrente}"></h:inputHidden>
 					<h:inputHidden id="abaCorrente" value="#{transacaoBB.abaCorrente}"></h:inputHidden>
 					<div id="tabDiv0" style="height: 390px;">
@@ -337,7 +348,7 @@
 											value="#{transacaoBB.codigoProduto}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="6" />
 										</h:inputText>
-										<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
+										<h:commandButton immediate="true" image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
 											onmousedown="showPopUp(this,'frmManterTransacao','find')"
 											onclick="return false" value="">
 										</h:commandButton>
