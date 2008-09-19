@@ -65,15 +65,21 @@
             // Esta função faz a chamada da janela popup.
             //
             function showPopUp(action, form, target) {
-                  formId=form;
-        				  if (winId != null) {
-        				      winId.close();
-        				  }
-                  features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-        				  winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
-				          // Formulário escondido
-                  hform=document.forms[form];                
-
+             if(getId("frmInserirTransacao:codigoProduto").value == ""){        		
+                    formId=form;
+        			if (winId != null) {
+        			    winId.close();
+        			}
+                    features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
+        			winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
+				    // Formulário escondido
+                    hform=document.forms[form];                
+				}else{
+                	getId("frmInserirTransacao:abaCorrente").value = strAbaCorrente;
+                	getId("frmInserirTransacao:abaCadastroClienteCorrente").value = strAbaCadastroClienteCorrente;
+					document.forms["frmInserirTransacao"].action = "/EnterpriseServer/jsp/transacao/inserirTransacao.faces?acaoLocal=pesquisarProdutos&codigoProduto="+getId("frmInserirTransacao:codigoProduto").value;
+					document.forms["frmInserirTransacao"].submit();                  	
+                }
             }
 
             // Esta função é chamada pela janela popup 

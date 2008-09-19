@@ -15,10 +15,7 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.omg.CORBA.portable.ApplicationException;
-
 import com.infinity.datamarket.comum.Fachada;
-import com.infinity.datamarket.comum.clientepagamento.ClientePagamento;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
@@ -33,11 +30,12 @@ import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class EntradaProdutoBackBean extends BackBean {   
+
 	private static final int HashSet = 0;
-	public EntradaProdutoBackBean() {
-		// TODO Auto-generated constructor stub
-		setDataEntrada(new Date(System.currentTimeMillis()));
-	}
+//	public EntradaProdutoBackBean() {
+//		// TODO Auto-generated constructor stub
+//		setDataEntrada(new Date(System.currentTimeMillis()));
+//	}
 	private String id;
 	private String numeroNota;
 	private Date dataEmissaoNota;
@@ -826,7 +824,7 @@ public class EntradaProdutoBackBean extends BackBean {
 	 * @param descricao the descricao to set
 	 */
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao;		
 	}
 	/**
 	 * @return the idProduto
@@ -1024,6 +1022,17 @@ public class EntradaProdutoBackBean extends BackBean {
 			if(VALOR_ACAO.equals(param)){
 				setEntradasProduto(null);
 			}
+		}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
+			try {
+				Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
+				if(prod != null){
+					this.setDescricao(prod.getDescricaoCompleta());
+//					this.setPrecoVenda(prod.getPrecoPadrao());
+					
+				}
+			} catch (Exception e) {				
+				e.printStackTrace();			
+			}
 		}
 	}
 	/**
@@ -1038,5 +1047,4 @@ public class EntradaProdutoBackBean extends BackBean {
 	public void setValorNota(BigDecimal valorNota) {
 		this.valorNota = valorNota;
 	}
-
 }

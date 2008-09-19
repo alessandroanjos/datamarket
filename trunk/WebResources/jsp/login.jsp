@@ -55,7 +55,7 @@
 											<div>										
 												<label class="desc">LOGIN*</label>					
 												<h:inputText styleClass="text" id="id" maxlength="6"
-													value="#{loginBB.id}" required="true">
+													value="#{loginBB.id}" required="false">
 													<f:validateLength maximum="6" />
 													<f:validator validatorId="LongValidator"/>
 												</h:inputText>
@@ -66,7 +66,7 @@
 											<div>
 												<label class="desc">SENHA*</label>
 												<h:inputSecret styleClass="text" id="senha" redisplay="true" maxlength="6"
-													value="#{loginBB.senha}" required="true">
+													value="#{loginBB.senha}" required="false">
 													<f:validateLength maximum="10" />
 													<f:validator validatorId="LongValidator"/>
 												</h:inputSecret>

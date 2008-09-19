@@ -1913,6 +1913,11 @@
 		    <property-class>com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto</property-class>
 		    <null-value/>
 		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
 	</managed-bean>
 
 <!-- MovimentacaoEstoque BACK BEAN -->

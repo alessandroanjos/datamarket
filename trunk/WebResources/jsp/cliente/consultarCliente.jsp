@@ -131,7 +131,10 @@
 										<f:facet name="header">
 											<h:outputText value="Nome Cliente" />
 										</f:facet>
-										<h:commandLink value="#{cliente.nomeCliente}" action="#{clienteBB.consultar}">
+										<h:commandLink value="#{cliente.nomeCliente}" action="#{clienteBB.consultar}" rendered="#{cliente.tipoPessoa == 'F'}">
+											<f:param name="id" value="#{cliente.id}"/>						
+										</h:commandLink>
+										<h:commandLink value="#{cliente.nomeFantasia}" action="#{clienteBB.consultar}" rendered="#{cliente.tipoPessoa == 'J'}">
 											<f:param name="id" value="#{cliente.id}"/>						
 										</h:commandLink>
 									</h:column>

@@ -27,6 +27,15 @@ public class LoginBackBean extends BackBean{
 
 	public String logar(){
 		try{
+			
+			
+			if(this.getId() == null || this.getId().equals("")){
+			   throw new AppException("Informe seu Login.");	
+			}
+			if(this.getSenha() == null || this.getSenha().equals("")){
+			   throw new AppException("Informe sua Senha.");	
+			}
+			
 			pathAplicacao = getFachada().consultarURLApp();
 			
 			Usuario usu = getFachada().loginUsuario(new Long(id), senha);
@@ -48,6 +57,10 @@ public class LoginBackBean extends BackBean{
 			resetBB();
 			return "erro";
 		}catch(AppException e){
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(),"");
+			ctx.addMessage(null, msg);
 			resetBB();
 			return "erro";
 		}

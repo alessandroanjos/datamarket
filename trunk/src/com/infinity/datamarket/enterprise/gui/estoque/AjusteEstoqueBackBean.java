@@ -29,6 +29,7 @@ import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class AjusteEstoqueBackBean extends BackBean {
+	
     private String id;
 	private Produto produto;
 	private BigDecimal quantidadeAntes;
@@ -553,6 +554,17 @@ public class AjusteEstoqueBackBean extends BackBean {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
+				try {
+					Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
+					if(prod != null){
+						this.setDescricao(prod.getDescricaoCompleta());
+//						this.setPrecoVenda(prod.getPrecoPadrao());
+						
+					}
+				} catch (Exception e) {				
+					e.printStackTrace();			
+				}
 			}
 		}
 	}
@@ -622,5 +634,4 @@ public class AjusteEstoqueBackBean extends BackBean {
 		}
 		return "";
 	}
-	
 }
