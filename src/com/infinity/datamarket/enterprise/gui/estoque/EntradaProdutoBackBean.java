@@ -27,6 +27,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class EntradaProdutoBackBean extends BackBean {   
@@ -306,7 +307,8 @@ public class EntradaProdutoBackBean extends BackBean {
 		
 	    if (this.desconto != null && !"".equals(this.desconto)) {
 	    	BigDecimal tmpValor = valorNota;
-			if (tmpValor.subtract(this.desconto).longValueExact() <= this.desconto.longValueExact()) {
+	    	tmpValor = tmpValor.subtract(this.desconto);
+			if (tmpValor.longValue() <= this.desconto.longValue() ) {
 				msgValidacao = 	"Desconto da nota deve ser menor que o total da nota!";	
 				FacesContext ctx = FacesContext.getCurrentInstance();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -774,6 +776,7 @@ public class EntradaProdutoBackBean extends BackBean {
 	 * @return the valor
 	 */
 	public BigDecimal getValor() {
+		this.valor.setScale(Constantes.DOIS_DECIMAL,BigDecimal.ROUND_HALF_EVEN);
 		return valor;
 	}
 	/**
@@ -932,6 +935,7 @@ public class EntradaProdutoBackBean extends BackBean {
 	 * @return the total
 	 */
 	public BigDecimal getTotal() {
+		this.total.setScale(Constantes.DOIS_DECIMAL,BigDecimal.ROUND_HALF_EVEN);
 		return total;
 	}
 	/**
@@ -947,8 +951,9 @@ public class EntradaProdutoBackBean extends BackBean {
 		if (this.ipiProduto != null) 
 		this.total = this.total.add(this.ipiProduto);
 		
-		if (this.icmsProduto != null) 
+		if (this.icmsProduto != null) { 
 		this.total = this.total.add(this.icmsProduto);
+		}
 	}
 	/**
 	 * @return the idExcluir
@@ -1039,12 +1044,14 @@ public class EntradaProdutoBackBean extends BackBean {
 	 * @return the valorNota
 	 */
 	public BigDecimal getValorNota() {
+		this.valorNota.setScale(Constantes.DOIS_DECIMAL,BigDecimal.ROUND_HALF_EVEN);
 		return valorNota;
 	}
 	/**
 	 * @param valorNota the valorNota to set
 	 */
 	public void setValorNota(BigDecimal valorNota) {
+		
 		this.valorNota = valorNota;
 	}
 }

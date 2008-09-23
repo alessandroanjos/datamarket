@@ -23,6 +23,7 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
+		<script type="text/javascript" src="/EnterpriseServer/js/util.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>		
 
@@ -145,15 +146,14 @@
 								<h:outputLabel styleClass="desc" value="Valor da Nota"></h:outputLabel>
 								<h:outputText value="#{entradaProdutoBB.valor}" /> 
 							</div>
-
 							<div>
 								<h:outputLabel styleClass="desc" value="Frete"></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="frete" maxlength="7"
 									size="7" value="#{entradaProdutoBB.frete}" dir="rtl"
 									onfocus="this.select();" onclick="this.select();"
-									onkeypress="return SoNumero(event);" 
+									onkeypress="return SoNumero(event);"
 									onkeydown="Formata('frmInserirEntradaProdutos:frete',7,2,event);">
-									<f:validateLength maximum="7" />
+									<f:validateLength maximum="7"/>
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
@@ -220,13 +220,13 @@
 						<li class="normal">							
 							<div>
 								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
-								<h:inputText styleClass="field monetario" id="quantidade" maxlength="7"
+								<h:inputText styleClass="field monetario" id="quantidade" maxlength="9"
 									size="7" value="#{entradaProdutoBB.quantidade}" dir="rtl"
 									onfocus="this.select();" onclick="this.select();"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:quantidade',7,2,event);"
+									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:quantidade',9,3,event);"
 									required="false">
-									<f:validateLength maximum="7" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
+									<f:validateLength maximum="9" />
+									<f:validateDoubleRange minimum="0.000" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 								<h:message for="quantidade" styleClass="msgErro" />

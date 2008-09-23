@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.fabricante.Fabricante" table="FABRICANTE" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+          <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="18"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+	    <property name="nomeFabricante" type="java.lang.String" update="true" insert="true">
+	        <column name="NOME_FABRICANTE" length="100" not-null="false"/>
+	    </property>
+
+		<property name="tipoPessoa" type="java.lang.String" update="true" insert="true">
+	        <column name="TIPO_PESSOA" length="1" not-null="true"/>
+	    </property>
+
+		<property name="cpfCnpj" type="java.lang.String" update="true" insert="true">
+	        <column name="CPF_CNPJ" length="18" not-null="true"/>
+	    </property>
+
+		<property name="razaoSocial" type="java.lang.String" update="true" insert="true">
+	        <column name="RAZAO_SOCIAL" length="100" not-null="false"/>
+	    </property>
+
+		<property name="nomeFantasia" type="java.lang.String" update="true" insert="true">
+	        <column name="NOME_FANTASIA" length="100" not-null="false"/>
+	    </property>
+
+		<property name="inscricaoEstadual" type="java.lang.String" update="true" insert="true">
+	        <column name="INSCRICAO_ESTADUAL" length="50" not-null="false"/>
+	    </property>
+
+		<property name="inscricaoMunicipal" type="java.lang.String" update="true" insert="true">
+	        <column name="INSCRICAO_MUNICIPAL" length="50" not-null="false"/>
+	    </property>
+
+		<property name="logradouro" type="java.lang.String" update="true" insert="true">
+	        <column name="LOGRADOURO" length="200" not-null="false"/>
+	    </property>
+
+		<property name="numero" type="java.lang.String" update="true" insert="true">
+	        <column name="NUMERO" length="20" not-null="false"/>
+	    </property>
+
+        <property name="complemento" type="java.lang.String" update="true" insert="true">
+            <column name="COMPLEMENTO" length="50" not-null="false"/>
+        </property>
+
+        <property name="bairro" type="java.lang.String" update="true" insert="true">
+            <column name="BAIRRO" length="50" not-null="false"/>
+        </property>
+
+        <property name="cidade" type="java.lang.String" update="true" insert="true">
+            <column name="CIDADE" length="50" not-null="false"/>
+        </property>
+        
+        <property name="estado" type="java.lang.String" update="true" insert="true">
+            <column name="ESTADO" length="50" not-null="false"/>
+        </property>
+        
+        <property name="cep" type="java.lang.String" update="true" insert="true">
+            <column name="CEP" length="50" not-null="false"/>
+        </property>
+        
+        <property name="foneResidencial" type="java.lang.String" update="true" insert="true">
+            <column name="FONE_RESIDENCIAL" length="50" not-null="false"/>
+        </property>
+        
+        <property name="foneComercial" type="java.lang.String" update="true" insert="true">
+            <column name="FONE_COMERCIAL" length="50" not-null="false"/>
+        </property>                                        	
+        
+		<property name="foneCelular" type="java.lang.String" update="true" insert="true">
+            <column name="FONE_CELULAR" length="50" not-null="false"/>
+        </property>  
+        
+		<property name="pessoaContato" type="java.lang.String" update="true" insert="true">
+            <column name="PESSOA_CONTATO" length="50" not-null="false"/>
+        </property>  
+        
+		<property name="foneContato" type="java.lang.String" update="true" insert="true">
+            <column name="FONE_CONTATO" length="50" not-null="false"/>
+        </property>  
+        
+        <property name="dataCadastro" type="java.util.Date" update="false" insert="true">
+            <column name="DATA_CADASTRO" length="10" not-null="true"/>
+        </property>  
+    </class>
+
+
+</hibernate-mapping>

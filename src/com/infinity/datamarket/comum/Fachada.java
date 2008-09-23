@@ -1,6 +1,5 @@
 package com.infinity.datamarket.comum;
 
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
 
@@ -26,6 +25,8 @@ import com.infinity.datamarket.comum.estoque.EstoquePK;
 import com.infinity.datamarket.comum.estoque.EstoqueProduto;
 import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
+import com.infinity.datamarket.comum.fabricante.CadastroFabricante;
+import com.infinity.datamarket.comum.fabricante.Fabricante;
 import com.infinity.datamarket.comum.fornecedor.CadastroFornecedor;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.funcionalidade.CadastroFuncionalidade;
@@ -159,7 +160,11 @@ public class Fachada {
 	private CadastroFornecedor getCadastroFornecedor(){
 		return CadastroFornecedor.getInstancia();
 	}
-	
+
+	private CadastroFabricante getCadastroFabricante(){
+		return CadastroFabricante.getInstancia();
+	}
+
 	private CadastroEntradaProduto getCadastroEntradaProduto(){
 		return CadastroEntradaProduto.getInstancia();
 	}
@@ -199,6 +204,8 @@ public class Fachada {
 	private CadastroAcumuladorNaoFiscal getCadastroAcumuladorNaoFiscal(){
 		return CadastroAcumuladorNaoFiscal.getInstancia();
 	}
+	
+	
 	
 	private GerenciadorRelatorio getGerenciadorRelatorio(){
 		return GerenciadorRelatorio.getInstancia();
@@ -3855,6 +3862,182 @@ public class Fachada {
 		}
 		return c;
 	}
+	
+//	 Fabricante
+	public void inserirFabricante(Fabricante fabricante) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroFabricante().inserir(fabricante);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public void alterarFabricante(Fabricante fabricante) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroFabricante().alterar(fabricante);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public void excluirFabricante(Fabricante fabricante) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroFabricante().excluir(fabricante);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public Fabricante consultaFabricantePorId(Long id) throws AppException{
+		Fabricante fabricante = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			fabricante = getCadastroFabricante().consultarPorId(id);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return fabricante;
+	}
+	public Collection consultarFabricante(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroFabricante().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+    
+	
+	public Collection consultarTodosFabricantees() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroFabricante().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}	
 //	 Relatorios
 	public Collection consultaProdutosPorSecao(String idLoja) throws AppException{
 		Collection c = null;

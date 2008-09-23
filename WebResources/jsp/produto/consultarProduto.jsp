@@ -116,6 +116,15 @@
 													  value="#{produtoBB.impostosConsulta}" />   
 											</h:selectOneMenu> 
 											<h:message for="idImposto" styleClass="msgErro" />											
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Fornecedor"></h:outputLabel>
+											<h:selectOneMenu id="fornecedor" styleClass="field select"
+												value="#{produtoBB.idFornecedor}" > 
+													<f:selectItems id="perfilSelectItems" 
+													  value="#{produtoBB.fornecedoresConsulta}" />   
+											</h:selectOneMenu> 
+											<h:message for="idImposto" styleClass="msgErro" />											
 										</div>										
 									</li>
 								</ul>
@@ -191,6 +200,12 @@
 										</f:facet>
 										<h:outputText value="#{produto.imposto.descricao}" /> 
 									</h:column>								
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Fornecedor" /> 
+										</f:facet>
+										<h:outputText value="#{produto.fornecedor.nomeFornecedor}" /> 
+									</h:column>
 								</t:dataTable>
 								<ul>
 									<li class="normal">

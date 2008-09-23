@@ -83,6 +83,7 @@
 	<mapping resource="com/infinity/datamarket/hbm/AcumuladorNaoFiscal.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/ClienteTransacao.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Controle.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Fabricante.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
 
