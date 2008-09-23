@@ -3,6 +3,7 @@ package com.infinity.datamarket.comum.produto;
 import java.math.BigDecimal;
 import java.util.Collection;
 
+import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class Produto extends Persistente{
@@ -23,7 +24,7 @@ public class Produto extends Persistente{
 	private Unidade unidade;
 	private Imposto imposto;
 	private GrupoProduto grupo;
-	
+	private Fornecedor fornecedor;
 	private Collection lojas;
 	
 	
@@ -107,6 +108,18 @@ public class Produto extends Persistente{
 	 */
 	public void setPrecoCompra(BigDecimal precoCompra) {
 		this.precoCompra = precoCompra;
+	}
+	/**
+	 * @return the fornecedor
+	 */
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+	/**
+	 * @param fornecedor the fornecedor to set
+	 */
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
 }

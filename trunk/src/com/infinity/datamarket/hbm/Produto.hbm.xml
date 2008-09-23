@@ -61,7 +61,11 @@
 	<many-to-one name="grupo" class="com.infinity.datamarket.comum.produto.GrupoProduto" update="true" insert="true">
           <column name="ID_GRUPO_PRODUTO" not-null="true"/>
         </many-to-one>
-
+	
+	<many-to-one name="fornecedor" class="com.infinity.datamarket.comum.fornecedor.Fornecedor" update="true" insert="true">
+          <column name="ID_FORNECEDOR" not-null="false"/>
+    </many-to-one>
+    
 	<set name="lojas" table="PRODUTO_LOJA" lazy="false">
              <key column="ID_PRODUTO" />
              <many-to-many column="ID_LOJA" class="com.infinity.datamarket.comum.usuario.Loja"/>

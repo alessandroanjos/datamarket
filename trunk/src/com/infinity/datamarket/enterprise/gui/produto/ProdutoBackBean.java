@@ -1,9 +1,11 @@
 package com.infinity.datamarket.enterprise.gui.produto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
@@ -11,6 +13,10 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.hibernate.HibernateException;
+import org.hibernate.exception.ConstraintViolationException;
+
+import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.produto.GrupoProduto;
 import com.infinity.datamarket.comum.produto.Imposto;
 import com.infinity.datamarket.comum.produto.Produto;
@@ -37,6 +43,8 @@ public class ProdutoBackBean extends BackBean{
 	private String idUnidade;
 	private String idImposto;
 	private String idGrupo;
+	private String idFornecedor;
+	private Fornecedor fornecedor;
 	private String[] listaLojas;
 	
 	private Collection produtos;
@@ -194,6 +202,9 @@ public class ProdutoBackBean extends BackBean{
 		grupo.setId(new Long(getIdGrupo()));
 		p.setGrupo(grupo);
 		p.setLojas(criaLojas(listaLojas));
+		Fornecedor fornecedor = new Fornecedor();
+		fornecedor.setId(new Long(getIdFornecedor()));
+		p.setFornecedor(fornecedor);
 		return p;
 	}
 	
@@ -214,6 +225,7 @@ public class ProdutoBackBean extends BackBean{
 		setIdImposto(p.getImposto().getId().toString());
 		setIdTipoProduto(p.getTipo().getId().toString());
 		setIdUnidade(p.getUnidade().getId().toString());
+		setIdFornecedor(p.getFornecedor().getId().toString());
 		carregaLojas(p.getLojas());
 		
 	}
@@ -246,17 +258,27 @@ public class ProdutoBackBean extends BackBean{
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
+		
 		} catch (ObjectExistentException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Produto já Existente!", "");
 			ctx.addMessage(null, msg);
+
 		} catch (Exception e) {
-			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			if (e.getCause() instanceof ConstraintViolationException) {
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Código externo já existe!", "");
+				ctx.addMessage(null, msg);
+			} else {
+				e.printStackTrace();
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Erro de Sistema!", "");
+				ctx.addMessage(null, msg);
+			}
+			
 		}
 		return "mesma";
 	}
@@ -291,6 +313,9 @@ public class ProdutoBackBean extends BackBean{
 			}
 			if (getIdUnidade() != null && !"".equals(getIdUnidade())){				
 				filter.addProperty("unidade.id", new Long(getIdUnidade()));
+			}
+			if (getIdFornecedor() != null && !"".equals(getIdFornecedor())){				
+				filter.addProperty("fornecedor.id", new Long(getIdFornecedor()));
 			}
 			Collection col = getFachada().consultarProdutoPorFiltro(filter,false);
 			if (col == null || col.size() == 0){
@@ -342,11 +367,30 @@ public class ProdutoBackBean extends BackBean{
 					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			
+			if (e.getCause().getCause() instanceof HibernateException) {
+				
+			   if (e.getCause().getCause().getCause() instanceof ConstraintViolationException) {
+				   FacesContext ctx = FacesContext.getCurrentInstance();
+				   FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Código externo já existe!", "");
+				   ctx.addMessage(null, msg);
+			   } else {
+					e.printStackTrace();
+					FacesContext ctx = FacesContext.getCurrentInstance();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Erro de Sistema!", "");
+					ctx.addMessage(null, msg);
+			   }
+			} else {
+				e.printStackTrace();
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Erro de Sistema!", "");
+				ctx.addMessage(null, msg);
+			}
 		}
+
 		return "mesma";
 	}
 	
@@ -379,6 +423,7 @@ public class ProdutoBackBean extends BackBean{
 		this.setPrecoCompra("");
 		this.idTipoProduto = null;
 		this.idUnidade = null;
+		this.idFornecedor = null;
 		this.idImposto = null;
 		this.idGrupo = null;
 		return "mesma";
@@ -503,7 +548,11 @@ public class ProdutoBackBean extends BackBean{
 		idImposto = "";
 		return retorno;
 	}
-	
+	public SelectItem[] getFornecedoresConsulta() {
+		SelectItem[] retorno = getFornecedores(); 
+		idFornecedor = "";
+		return retorno;
+	}
 	public SelectItem[] getImpostos() {
 		Collection impostos = carregarImpostos();
 		SelectItem[] itens = new SelectItem[impostos.size()];
@@ -613,5 +662,86 @@ public class ProdutoBackBean extends BackBean{
 	 */
 	public void setPrecoCompra(String precoCompra) {
 		this.precoCompra = precoCompra;
+	}
+	
+	private List<Fornecedor> carregarFornecedores() {
+
+		List<Fornecedor> fornecedores = null;
+		try {
+			fornecedores = (ArrayList<Fornecedor>) getFachada().consultarTodosFornecedores();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return fornecedores;
+	}
+	public SelectItem[] getFornecedores() {
+		SelectItem[] arrayFornecedores = null;
+		try {
+			List<Fornecedor> fornecedores = carregarFornecedores();
+			arrayFornecedores = new SelectItem[fornecedores.size()+1];
+			int i = 0;
+			arrayFornecedores[i++] = new SelectItem("0", "");
+			for (Fornecedor fornecedorTmp : fornecedores) {
+				String nomeFornecedor = "";
+				if (fornecedorTmp.getNomeFantasia() != null)
+					nomeFornecedor = fornecedorTmp.getNomeFantasia();
+				else	
+					nomeFornecedor = fornecedorTmp.getNomeFornecedor();
+				SelectItem item = new SelectItem(fornecedorTmp.getId().toString(),
+						nomeFornecedor);
+				arrayFornecedores[i++] = item;
+			}
+
+			if (this.getIdFornecedor() == null || this.getIdFornecedor().equals("")
+					|| this.getIdFornecedor().equals("0")) {
+				this.setIdFornecedor((String) arrayFornecedores[0].getValue());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		if (this.idFornecedor== null) {
+			this.idFornecedor = arrayFornecedores[0].getValue().toString();
+		}
+		return arrayFornecedores;
+	}
+
+
+	/**
+	 * @return the fornecedor
+	 */
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+
+	/**
+	 * @param fornecedor the fornecedor to set
+	 */
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
+
+	/**
+	 * @return the idFornecedor
+	 */
+	public String getIdFornecedor() {
+		return idFornecedor;
+	}
+
+
+	/**
+	 * @param idFornecedor the idFornecedor to set
+	 */
+	public void setIdFornecedor(String idFornecedor) {
+		this.idFornecedor = idFornecedor;
 	}
 }

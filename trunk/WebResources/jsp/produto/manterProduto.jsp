@@ -210,6 +210,16 @@
 											</h:selectOneMenu>
 											<h:message for="idImposto" styleClass="msgErro" />
 										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Fornecedor*"></h:outputLabel>
+											<h:selectOneMenu id="Fornecedores" styleClass="field select"
+												style="width: 200px;" value="#{produtoBB.idFornecedor}"
+												required="true">
+												<f:selectItems id="fornecedoresSelectItems"
+													value="#{produtoBB.fornecedores}" />
+											</h:selectOneMenu>
+											<h:message for="idFornecedor" styleClass="msgErro" />
+										</div>
 									</li>
 								</ul>
 							</div>
