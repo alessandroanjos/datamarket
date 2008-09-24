@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<joined-subclass
+		name="com.infinity.datamarket.comum.transacao.TransacaoPagamento"
+		extends="com.infinity.datamarket.comum.transacao.Transacao"
+		table="TRANSACAO_PAGAMENTO" lazy="false">
+
+		<key>
+			<column name="LOJA" />
+			<column name="COMPONENTE" />
+			<column name="NUM_TRANSACAO" />
+			<column name="DATA_TRANSACAO" />
+		</key>
+		
+		<property name="codigoUsuarioOperador" type="java.lang.String"
+			update="true" insert="true">
+			<column name="COD_USU_OPERADOR" length="20"
+				not-null="false" />
+		</property>
+		
+		<property name="situacao" type="java.lang.String"
+			update="true" insert="true">
+			<column name="SITUACAO" length="1"
+				not-null="false" />
+		</property>
+		
+
+		<property name="dataHoraInicio" type="java.util.Date"
+			update="true" insert="true">
+			<column name="DATA_HORA_INICIO" not-null="false" />
+		</property>
+
+		<property name="dataHoraFim" type="java.util.Date" update="true"
+			insert="true">
+			<column name="DATA_HORA_FIM" not-null="false" />
+		</property>
+
+		<property name="valor" type="java.math.BigDecimal"
+			update="true" insert="true">
+			<column name="VALOR" length="20" not-null="false" />
+		</property>
+
+		<property name="desconto" type="java.math.BigDecimal"
+			update="true" insert="true">
+			<column name="DESCONTO" length="20" not-null="false" />
+		</property>
+		
+		<property name="acressimo" type="java.math.BigDecimal"
+			update="true" insert="true">
+			<column name="ACRESSIMO" length="20" not-null="false" />
+		</property>
+
+		<set name="eventosTransacao" inverse="true" cascade="save-update, delete-orphan"
+			lazy="false">
+			<key>
+				<column name="LOJA" />
+				<column name="COMPONENTE" />
+				<column name="NUM_TRANSACAO" />
+				<column name="DATA_TRANSACAO" />
+			</key>
+			<one-to-many
+				class="com.infinity.datamarket.comum.transacao.EventoTransacao" />
+		</set>
+
+	</joined-subclass>
+</hibernate-mapping>
