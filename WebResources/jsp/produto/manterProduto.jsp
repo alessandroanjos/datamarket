@@ -211,14 +211,14 @@
 											<h:message for="idImposto" styleClass="msgErro" />
 										</div>
 										<div>
-											<h:outputLabel styleClass="desc" value="Fornecedor*"></h:outputLabel>
-											<h:selectOneMenu id="Fornecedores" styleClass="field select"
-												style="width: 200px;" value="#{produtoBB.idFornecedor}"
+											<h:outputLabel styleClass="desc" value="Fabricante*"></h:outputLabel>
+											<h:selectOneMenu id="Fabricantes" styleClass="field select"
+												style="width: 200px;" value="#{produtoBB.idFabricante}"
 												required="true">
-												<f:selectItems id="fornecedoresSelectItems"
+												<f:selectItems id="fabricantesSelectItems"
 													value="#{produtoBB.fornecedores}" />
 											</h:selectOneMenu>
-											<h:message for="idFornecedor" styleClass="msgErro" />
+											<h:message for="idFabricante" styleClass="msgErro" />
 										</div>
 									</li>
 								</ul>

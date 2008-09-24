@@ -1763,6 +1763,11 @@
 		    <null-value/>
 		</managed-property>
 		<managed-property>
+		    <property-name>idFabricante</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
 		    <property-name>produtos</property-name>
 		    <property-class>java.util.Collection</property-class>
 		    <null-value/>

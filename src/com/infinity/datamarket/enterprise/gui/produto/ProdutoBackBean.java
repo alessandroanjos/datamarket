@@ -16,6 +16,7 @@ import javax.faces.model.SelectItem;
 import org.hibernate.HibernateException;
 import org.hibernate.exception.ConstraintViolationException;
 
+import com.infinity.datamarket.comum.fabricante.Fabricante;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.produto.GrupoProduto;
 import com.infinity.datamarket.comum.produto.Imposto;
@@ -43,8 +44,8 @@ public class ProdutoBackBean extends BackBean{
 	private String idUnidade;
 	private String idImposto;
 	private String idGrupo;
-	private String idFornecedor;
-	private Fornecedor fornecedor;
+	private String idFabricante;
+	private Fabricante fabricante;
 	private String[] listaLojas;
 	
 	private Collection produtos;
@@ -173,7 +174,7 @@ public class ProdutoBackBean extends BackBean{
 	
 	private Produto getProduto(String operacao){
 		Produto p = new Produto();
-		if (!operacao.equals(this.INSERIR)) {
+		if (!operacao.equals(BackBean.INSERIR)) {
 			p.setId(new Long(this.getId()));
 		} else {
 			if (getId()==null) p.setId(getIdInc(Produto.class));
@@ -202,9 +203,9 @@ public class ProdutoBackBean extends BackBean{
 		grupo.setId(new Long(getIdGrupo()));
 		p.setGrupo(grupo);
 		p.setLojas(criaLojas(listaLojas));
-		Fornecedor fornecedor = new Fornecedor();
-		fornecedor.setId(new Long(getIdFornecedor()));
-		p.setFornecedor(fornecedor);
+		Fabricante fabricante = new Fabricante();
+		fabricante.setId(new Long(getIdFabricante()));
+		p.setFabricante(fabricante);
 		return p;
 	}
 	
@@ -225,7 +226,7 @@ public class ProdutoBackBean extends BackBean{
 		setIdImposto(p.getImposto().getId().toString());
 		setIdTipoProduto(p.getTipo().getId().toString());
 		setIdUnidade(p.getUnidade().getId().toString());
-		setIdFornecedor(p.getFornecedor().getId().toString());
+		setIdFabricante(p.getFabricante().getId().toString());
 		carregaLojas(p.getLojas());
 		
 	}
@@ -314,8 +315,8 @@ public class ProdutoBackBean extends BackBean{
 			if (getIdUnidade() != null && !"".equals(getIdUnidade())){				
 				filter.addProperty("unidade.id", new Long(getIdUnidade()));
 			}
-			if (getIdFornecedor() != null && !"".equals(getIdFornecedor())){				
-				filter.addProperty("fornecedor.id", new Long(getIdFornecedor()));
+			if (getIdFabricante() != null && !"".equals(getIdFabricante())){				
+				filter.addProperty("fabricante.id", new Long(getIdFabricante()));
 			}
 			Collection col = getFachada().consultarProdutoPorFiltro(filter,false);
 			if (col == null || col.size() == 0){
@@ -423,7 +424,7 @@ public class ProdutoBackBean extends BackBean{
 		this.setPrecoCompra("");
 		this.idTipoProduto = null;
 		this.idUnidade = null;
-		this.idFornecedor = null;
+		this.idFabricante = null;
 		this.idImposto = null;
 		this.idGrupo = null;
 		return "mesma";
@@ -548,9 +549,9 @@ public class ProdutoBackBean extends BackBean{
 		idImposto = "";
 		return retorno;
 	}
-	public SelectItem[] getFornecedoresConsulta() {
-		SelectItem[] retorno = getFornecedores(); 
-		idFornecedor = "";
+	public SelectItem[] getFabricantesConsulta() {
+		SelectItem[] retorno = getFabricantes(); 
+		idFabricante = "";
 		return retorno;
 	}
 	public SelectItem[] getImpostos() {
@@ -664,11 +665,11 @@ public class ProdutoBackBean extends BackBean{
 		this.precoCompra = precoCompra;
 	}
 	
-	private List<Fornecedor> carregarFornecedores() {
+	private List<Fabricante> carregarFabricantees() {
 
-		List<Fornecedor> fornecedores = null;
+		List<Fabricante> fabricantees = null;
 		try {
-			fornecedores = (ArrayList<Fornecedor>) getFachada().consultarTodosFornecedores();
+			fabricantees = (ArrayList<Fabricante>) getFachada().consultarTodosFabricantees();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -676,29 +677,29 @@ public class ProdutoBackBean extends BackBean{
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		return fornecedores;
+		return fabricantees;
 	}
-	public SelectItem[] getFornecedores() {
-		SelectItem[] arrayFornecedores = null;
+	public SelectItem[] getFabricantes() {
+		SelectItem[] arrayFabricantes = null;
 		try {
-			List<Fornecedor> fornecedores = carregarFornecedores();
-			arrayFornecedores = new SelectItem[fornecedores.size()+1];
+			List<Fabricante> fabricantees = carregarFabricantees();
+			arrayFabricantes = new SelectItem[fabricantees.size()+1];
 			int i = 0;
-			arrayFornecedores[i++] = new SelectItem("0", "");
-			for (Fornecedor fornecedorTmp : fornecedores) {
-				String nomeFornecedor = "";
-				if (fornecedorTmp.getNomeFantasia() != null)
-					nomeFornecedor = fornecedorTmp.getNomeFantasia();
+			arrayFabricantes[i++] = new SelectItem("0", "");
+			for (Fabricante fabricanteTmp : fabricantees) {
+				String nomeFabricante = "";
+				if (fabricanteTmp.getNomeFantasia() != null)
+					nomeFabricante = fabricanteTmp.getNomeFantasia();
 				else	
-					nomeFornecedor = fornecedorTmp.getNomeFornecedor();
-				SelectItem item = new SelectItem(fornecedorTmp.getId().toString(),
-						nomeFornecedor);
-				arrayFornecedores[i++] = item;
+					nomeFabricante = fabricanteTmp.getNomeFabricante();
+				SelectItem item = new SelectItem(fabricanteTmp.getId().toString(),
+						nomeFabricante);
+				arrayFabricantes[i++] = item;
 			}
 
-			if (this.getIdFornecedor() == null || this.getIdFornecedor().equals("")
-					|| this.getIdFornecedor().equals("0")) {
-				this.setIdFornecedor((String) arrayFornecedores[0].getValue());
+			if (this.getIdFabricante() == null || this.getIdFabricante().equals("")
+					|| this.getIdFabricante().equals("0")) {
+				this.setIdFabricante((String) arrayFabricantes[0].getValue());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -707,41 +708,41 @@ public class ProdutoBackBean extends BackBean{
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		if (this.idFornecedor== null) {
-			this.idFornecedor = arrayFornecedores[0].getValue().toString();
+		if (this.idFabricante== null) {
+			this.idFabricante = arrayFabricantes[0].getValue().toString();
 		}
-		return arrayFornecedores;
+		return arrayFabricantes;
 	}
 
 
 	/**
-	 * @return the fornecedor
+	 * @return the fabricante
 	 */
-	public Fornecedor getFornecedor() {
-		return fornecedor;
+	public Fabricante getFabricante() {
+		return fabricante;
 	}
 
 
 	/**
-	 * @param fornecedor the fornecedor to set
+	 * @param fabricante the fabricante to set
 	 */
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
+	public void setFabricante(Fabricante fabricante) {
+		this.fabricante = fabricante;
 	}
 
 
 	/**
-	 * @return the idFornecedor
+	 * @return the idFabricante
 	 */
-	public String getIdFornecedor() {
-		return idFornecedor;
+	public String getIdFabricante() {
+		return idFabricante;
 	}
 
 
 	/**
-	 * @param idFornecedor the idFornecedor to set
+	 * @param idFabricante the idFabricante to set
 	 */
-	public void setIdFornecedor(String idFornecedor) {
-		this.idFornecedor = idFornecedor;
+	public void setIdFabricante(String idFabricante) {
+		this.idFabricante = idFabricante;
 	}
 }
