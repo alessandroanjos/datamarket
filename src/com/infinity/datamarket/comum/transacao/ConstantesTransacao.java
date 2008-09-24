@@ -9,4 +9,5 @@ public class ConstantesTransacao {
 	public static final int TRANSACAO_FECHAMENTO_X = 15;
 	public static final int TRANSACAO_FECHAMENTO_Z = 16;
 	public static final int TRANSACAO_CANCELAMENTO = 17;
+	public static final int TRANSACAO_PAGAMENTO = 18;
 }
