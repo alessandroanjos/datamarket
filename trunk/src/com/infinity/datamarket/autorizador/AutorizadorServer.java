@@ -130,4 +130,29 @@ public class AutorizadorServer implements AutorizadorServerRemote {
 			
 	}
 	
+	public DadosConsultaCartaoProprio consultaDebito(String cpfCnpj) throws AutorizacaoException{
+		PropertyFilter filter = new PropertyFilter();
+		filter.setTheClass(Cliente.class);
+		filter.addProperty("cpfCnpj", cpfCnpj);
+		Collection clientes = null;
+		try {
+			clientes = Fachada.getInstancia().consultarCliente(filter);
+		} catch (AppException e) {
+			throw new AutorizacaoException("Tente Novamente");
+		}
+		if (clientes == null || clientes.size() == 0){
+			throw new AutorizacaoException("Cliente inválido");
+		}
+		Cliente cli = (Cliente) clientes.iterator().next();	
+		DadosConsultaCartaoProprio resposta = new DadosConsultaCartaoProprio();
+		if(cli.getTipoPessoa().equals(Cliente.PESSOA_FISICA)){
+			resposta.setNome(cli.getNomeCliente().toUpperCase());
+		}else{
+			resposta.setNome(cli.getNomeFantasia().toUpperCase());
+		}
+		resposta.setValorDebito(cli.getValorLimiteCompras().subtract(cli.getValorLimiteDisponivel()));
+		
+		return resposta;
+	}
+	
 }

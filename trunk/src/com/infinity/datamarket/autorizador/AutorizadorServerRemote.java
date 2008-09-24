@@ -9,4 +9,5 @@ public interface AutorizadorServerRemote {
 	public DadosAutorizacaoCartaoProprio autorizaTransacaoCartaoProprio(String cpfCnpj, BigDecimal valor) throws AutorizacaoException;
 	public void confirmaTransacaoCartaoProprio(Long id) throws AutorizacaoException;
 	public void desfazTransacaoCartaoProprio(Long id) throws AutorizacaoException;
+	public DadosConsultaCartaoProprio consultaDebito(String cpfCnpj) throws AutorizacaoException;
 }
