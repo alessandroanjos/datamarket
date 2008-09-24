@@ -9,6 +9,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipOutputStream;
 
 import com.infinity.datamarket.comum.util.SistemaException;
 
@@ -51,9 +54,14 @@ public class CMOS implements Serializable{
 	public static final String DADOS_CHEQUE_PRE = "DADOS_CHEQUE_PRE";
 	public static final String DADOS_CARTAO_OFF = "DADOS_CARTAO_OFF";
 	public static final String DADOS_CARTAO_PROPRIO = "DADOS_CARTAO_PROPRIO";
+	public static final String DADOS_CONSULTA_CARTAO_PROPRIO = "DADOS_CONSULTA_CARTAO_PROPRIO";
 	public static final String AUTORIZADORA_CARTAO_OFF = "AUTORIZADORA_CARTAO_OFF";
 	public static final String DADOS_AUTORIZACOES_CARTAO_PROPRIO = "DADOS_AUTORIZACOES_CARTAO_PROPRIO";
 	public static final String DATA_ULTIMA_ABERTURA = "DATA_ULTIMA_ABERTURA";
+	public static final String TIPO_TRANSACAO = "TIPO_TRANSACAO";
+	public static final String DESCONTO = "DESCONTO";
+	public static final String ACRESSIMO = "ACRESSIMO";
+	public static final String TRANSACAO_PAGAMENTO_ATUAL = "TRANSACAO_PAGAMENTO_ATUAL";
 
 	private CMOS(String nome){
 
@@ -106,7 +114,7 @@ public class CMOS implements Serializable{
 		try{
 			synchronized (cmos) {
 				ByteArrayOutputStream bout = new ByteArrayOutputStream();
-				ObjectOutputStream out = new ObjectOutputStream(bout);
+				ObjectOutputStream out = new ObjectOutputStream(bout);				
 				out.writeObject(obj);
 				out.close();
 				byte[] bytes = bout.toByteArray();
