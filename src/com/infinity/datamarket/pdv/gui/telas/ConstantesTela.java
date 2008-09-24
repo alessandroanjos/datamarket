@@ -9,4 +9,6 @@ public class ConstantesTela {
 	public static final String TELA_PARCELA_PLANOS = "TELA_PARCELA_PLANOS";
 	public static final String TELA_AUTORIZADORAS = "TELA_AUTORIZADORAS";
 	public static final String TELA_CONSULTA = "TELA_CONSULTA";
+	public static final String TELA_CONSULTA_CARTAO_PROPRIO = "TELA_CONSULTA_CARTAO_PROPRIO";
+	public static final String TELA_TOTAL_PAGAMENTO = "TELA_TOTAL_PAGAMENTO";
 }
