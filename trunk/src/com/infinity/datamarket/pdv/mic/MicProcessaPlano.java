@@ -13,6 +13,7 @@ import com.infinity.datamarket.comum.pagamento.DadosCheque;
 import com.infinity.datamarket.comum.pagamento.DadosChequePredatado;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
 import com.infinity.datamarket.comum.transacao.ConstantesEventoTransacao;
+import com.infinity.datamarket.comum.transacao.ConstantesTransacao;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoOff;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoProprio;
@@ -21,6 +22,8 @@ import com.infinity.datamarket.comum.transacao.EventoItemPagamentoChequePredatad
 import com.infinity.datamarket.comum.transacao.EventoTransacaoPK;
 import com.infinity.datamarket.comum.transacao.ParcelaEventoItemPagamentoChequePredatado;
 import com.infinity.datamarket.comum.transacao.ParcelaEventoItemPagamentoChequePredatadoPK;
+import com.infinity.datamarket.comum.transacao.Transacao;
+import com.infinity.datamarket.comum.transacao.TransacaoPagamento;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.ConjuntoEventoTransacao;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
@@ -37,9 +40,15 @@ public class MicProcessaPlano extends Mic{
 		if (valorPagamento.compareTo(subTotal) > 0){
 			valorPagamento = subTotal;
 		}
+		Transacao transacao = null;
+		Integer tipoTransacao = (Integer) gerenciadorPerifericos.getCmos().ler(CMOS.TIPO_TRANSACAO);
+		if (tipoTransacao.intValue() == ConstantesTransacao.TRANSACAO_VENDA){
+			transacao = (Transacao) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
+		}else {
+			transacao = (Transacao) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_PAGAMENTO_ATUAL);
+		}
 
-		TransacaoVenda transVenda = (TransacaoVenda) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
-		EventoTransacaoPK pk = new EventoTransacaoPK(transVenda.getPk().getLoja(),transVenda.getPk().getComponente(),transVenda.getPk().getNumeroTransacao(),transVenda.getPk().getDataTransacao());
+		EventoTransacaoPK pk = new EventoTransacaoPK(transacao.getPk().getLoja(),transacao.getPk().getComponente(),transacao.getPk().getNumeroTransacao(),transacao.getPk().getDataTransacao());
 
 		BigDecimal valorAcrescimo = null;
 		BigDecimal valorDesconto = null;
@@ -64,12 +73,23 @@ public class MicProcessaPlano extends Mic{
 		Date dataAtual = new Date();
 		
 		EventoItemPagamento eventoItemPagamento = null;
+
+		Collection eventos = null;
 		
-		Collection eventos = transVenda.getEventosTransacao();
+		if (transacao instanceof TransacaoPagamento){
+			eventos = ((TransacaoPagamento)transacao).getEventosTransacao();
+		}else{
+			eventos = ((TransacaoVenda)transacao).getEventosTransacao();
+		}
+	
 
 		if (eventos == null){
 			eventos = new ConjuntoEventoTransacao();
-			transVenda.setEventosTransacao(eventos);
+			if (transacao instanceof TransacaoPagamento){
+				((TransacaoPagamento)transacao).setEventosTransacao(eventos);
+			}else{
+				((TransacaoVenda)transacao).setEventosTransacao(eventos);
+			}
 		}
 		
 		if (plano.getForma().getId().equals(ConstantesFormaRecebimento.CHEQUE)){
@@ -107,7 +127,11 @@ public class MicProcessaPlano extends Mic{
 		eventoItemPagamento.setDescricaoForma(plano.getForma().getDescricao()); 
 		eventoItemPagamento.setDescricaoPlano(plano.getDescricao());
 		
-		gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_VENDA_ATUAL, transVenda);
+		if (transacao instanceof TransacaoPagamento){
+			gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_PAGAMENTO_ATUAL, transacao);
+		}else{
+			gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_VENDA_ATUAL, transacao);
+		}		
 
 		return ALTERNATIVA_1;
 	}
