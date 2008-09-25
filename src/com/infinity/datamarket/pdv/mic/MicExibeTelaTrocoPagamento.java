@@ -15,15 +15,16 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.gui.telas.TelaTroco;
+import com.infinity.datamarket.pdv.gui.telas.TelaTrocoPagamento;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 
 public class MicExibeTelaTrocoPagamento extends Mic{
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
-		TelaTroco tela = (TelaTroco) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_TROCO);
+		TelaTrocoPagamento tela = (TelaTrocoPagamento) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_TROCO_PAGAMENTO);
 
-		tela.inicioTextoCupom();
+		tela.inicioTextoRecebido();
 
 		TransacaoPagamento transPagamento = (TransacaoPagamento) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_PAGAMENTO_ATUAL);
 		BigDecimal valTotal = new BigDecimal(0);
@@ -53,7 +54,7 @@ public class MicExibeTelaTrocoPagamento extends Mic{
 		}
 
 		BigDecimal troco = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_TROCO_ATUAL);
-		tela.addTroco(troco);
+		tela.setTroco(troco);
 		gerenciadorPerifericos.atualizaTela(tela);
 		return ALTERNATIVA_1;
 	}

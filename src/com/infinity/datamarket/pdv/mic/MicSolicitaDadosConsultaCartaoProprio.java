@@ -48,6 +48,7 @@ public class MicSolicitaDadosConsultaCartaoProprio extends Mic{
 								dadosConsultaCartaoProprio = new DadosConsultaCartaoProprio();
 								dadosConsultaCartaoProprio.setNome("Wagner de Medeiros Melo");													
 								dadosConsultaCartaoProprio.setValorDebito(new BigDecimal(200.98).setScale(2,BigDecimal.ROUND_UP));
+								dadosConsultaCartaoProprio.setCPFCNPJ(CPFCNPJ);
 //							}catch(AutorizacaoException e){
 //								gerenciadorPerifericos.getDisplay().setMensagem(e.getMessage());
 //								gerenciadorPerifericos.esperaVolta();
