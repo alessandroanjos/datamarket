@@ -34,7 +34,6 @@
 		      window.onload = function(){ inicializar() };
 		
 		      function inicializar() {
-		
 		      	$("input.field, select.field").each(function(i){
 		      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
 		      		$(this).blur(function() {this.style.backgroundColor = ""});
@@ -205,7 +204,7 @@
 									maxlength="50" size="50" value="#{entradaProdutoBB.descricao}">
 									<f:validateLength maximum="50" />
 								</h:inputText>
-								<h:message for="idEstoque" styleClass="errors" />
+								<h:message for="descricao" styleClass="errors" />
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
@@ -287,6 +286,7 @@
 								</h:commandButton>
 							</div>	
 						</li>	
+						<li>
 						<div class="listagem">
 							<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
 								var="produtoEntrada" rowClasses="rowA,rowB" width="95%">
@@ -358,7 +358,7 @@
 							</t:dataTable>
 						
 						</div>
-
+						</li>
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" immediate="true"
 								id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
@@ -366,7 +366,7 @@
 								action="#{entradaProdutoBB.inserir}" value="Inserir"></h:commandButton>
 						</li>
 
-
+					</ul>
 					</ul>
 				</div>
 				<div class="clear"></div>
