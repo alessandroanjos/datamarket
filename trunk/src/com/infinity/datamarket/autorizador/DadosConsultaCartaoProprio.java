@@ -10,6 +10,8 @@ public class DadosConsultaCartaoProprio implements Serializable{
 	 */
 	private static final long serialVersionUID = -4011337076128287265L;
 	
+	private String CPFCNPJ;
+	
 	private String nome;
 	
 	private BigDecimal valorDebito;
@@ -28,6 +30,14 @@ public class DadosConsultaCartaoProprio implements Serializable{
 
 	public void setValorDebito(BigDecimal valorDebito) {
 		this.valorDebito = valorDebito;
+	}
+
+	public String getCPFCNPJ() {
+		return CPFCNPJ;
+	}
+
+	public void setCPFCNPJ(String cpfcnpj) {
+		CPFCNPJ = cpfcnpj;
 	}
 
 }
