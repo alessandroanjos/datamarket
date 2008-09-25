@@ -88,16 +88,15 @@ public class EntradaProdutoBackBean extends BackBean {
 	public void setProdutoEntrada(ProdutoEntradaProduto produtoEntrada) {
 		this.produtoEntrada = produtoEntrada;
 	}
-	public String resetProdutoBB() {
+	public void resetProdutoBB() {
 		this.setIdProduto(null);
-		this.setDescricao(null);
+		this.descricao = null;
 		this.setIdEstoque(null);
 		this.setDescontoProduto(null);
 		this.setQuantidade(null);
 		this.setIcmsProduto(null);
 		this.setIpiProduto(null);
 		this.setPrecoUnitario(null);
-		return "mesma";
 	}
 	public String excluirProdutoEntrada() {
 		int i = 0;
@@ -238,7 +237,8 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setIpi(this.getIpi().add(produtoEntrada.getIpi()));
 		this.setIcms(this.getIcms().add(produtoEntrada.getIcms()));
 		this.setTotalDescontoItem(getTotalDescontoItem().subtract(produtoEntrada.getDesconto()));
-		return resetProdutoBB();
+		resetProdutoBB();
+		return "mesma";
 	}
 	public String validaNota() {
 		  String msg = "";
@@ -250,14 +250,6 @@ public class EntradaProdutoBackBean extends BackBean {
 			msg = 	"Informe data de entrada da nota!";
 		} else if (this.idFornecedor == null || "0".equals(this.idFornecedor)) {
 			msg = 	"Informe fornecedor da nota!";
-		/*} else if (this.frete == null || "".equals(this.frete)) {
-			msg = 	"Informe frete da nota!";
-		} else if (this.icms == null || "".equals(this.icms)) {
-			msg = 	"Informe icms da nota!";
-		} else if (this.ipi == null || "".equals(this.ipi)) {
-			msg = 	"Informe ipi da nota!";
-		} else if (this.desconto == null || "".equals(this.desconto)) {
-			msg = 	"Informe desconto da nota!";*/
 		} else if (this.valor == null || "".equals(this.valor)) {
 			msg = 	"Informe valor da nota!";
 		} else if (this.idFornecedor == null || "".equals(this.idFornecedor)) {
@@ -268,7 +260,6 @@ public class EntradaProdutoBackBean extends BackBean {
 		return msg;	  
 	}
 	public String validaProduto() {
-		
 		String msg = "";
 		if  (this.idProduto == null || "".equals(this.idProduto)) {
 			msg = 	"Informe produto!";
@@ -276,19 +267,12 @@ public class EntradaProdutoBackBean extends BackBean {
 			msg = 	"Informe quantidade do produto deve ser informada!";
 		} else if (this.precoUnitario == null || "".equals(this.precoUnitario) || this.precoUnitario.equals(BigDecimal.ZERO)) {
 			msg = 	"Informe preço unitario do produto deve ser informado!";
-		/*} else if (this.icmsProduto == null || "".equals(this.icmsProduto)) {
-			msg = 	"Informe icms do produto deve ser informado ou informe zero!";
-		} else if (this.descontoProduto == null || "".equals(this.descontoProduto)) {
-			msg = 	"Informe desconto do produto deve ser informado ou informe zero!";			
-		} else if (this.ipiProduto == null || "".equals(this.ipiProduto)) {
-			msg = 	"Informe ipi do produto deve ser informado ou informe zero!";*/
 		} else if (this.descontoProduto != null && "".equals(this.descontoProduto)) {
 			BigDecimal tmpTotalProduto = this.precoUnitario.multiply(this.quantidade);
 			if (this.descontoProduto.longValue() > tmpTotalProduto.longValue()) {
 				msg = 	"Desconto do produto deve ser menor que o total do produto!";	
 			}
 		}
-	
 		return msg;	  
 	}	
 	public String inserir() {
@@ -827,7 +811,7 @@ public class EntradaProdutoBackBean extends BackBean {
 	 * @param descricao the descricao to set
 	 */
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;		
+		//this.descricao = descricao;		
 	}
 	/**
 	 * @return the idProduto
@@ -1023,15 +1007,15 @@ public class EntradaProdutoBackBean extends BackBean {
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
 		if (param != null){
-			resetBB();
 			if(VALOR_ACAO.equals(param)){
+				resetBB();
 				setEntradasProduto(null);
 			}
 		}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
 			try {
 				Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
 				if(prod != null){
-					this.setDescricao(prod.getDescricaoCompleta());
+					this.descricao = prod.getDescricaoCompleta();
 //					this.setPrecoVenda(prod.getPrecoPadrao());
 					
 				}

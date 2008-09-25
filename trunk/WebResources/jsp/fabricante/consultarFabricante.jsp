@@ -36,7 +36,7 @@
 				</strong>
 			</div>				
 		</div>		
-		<h:form id="frmConsultarFabricante" binding="#{fornecedorBB.init}">
+		<h:form id="frmConsultarFabricante" binding="#{fabricanteBB.init}">
 					
 				<div id="content">
 				
@@ -50,7 +50,7 @@
 											<h:inputText styleClass="field text ativo" id="id" maxlength="4" 
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);"
-												value="#{fornecedorBB.id}" size="4" required="false">
+												value="#{fabricanteBB.id}" size="4" required="false">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
@@ -59,8 +59,8 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
 											<h:selectOneRadio  styleClass="field select" id="tipoPessoa" 
-												value="#{fornecedorBB.idTipoPessoa}" layout="lineDirection" required="true">
-												<f:selectItems id="tipoPessoaLista" value="#{fornecedorBB.listaTipoPessoa}"/>
+												value="#{fabricanteBB.idTipoPessoa}" layout="lineDirection" required="true">
+												<f:selectItems id="tipoPessoaLista" value="#{fabricanteBB.listaTipoPessoa}"/>
 											</h:selectOneRadio>
 											<h:message for="tipoPessoa" styleClass="msgErro"/>
 										</div>
@@ -68,7 +68,7 @@
 									<br />
 									<div>
 										<h:outputLabel styleClass="desc" value="CPF/CNPJ*"></h:outputLabel>
-										<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpj" maxlength="18" size="18" value="#{fornecedorBB.cpfCnpj}" required="false"
+										<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpj" maxlength="18" size="18" value="#{fabricanteBB.cpfCnpj}" required="false"
 										onkeypress="return SoNumero(event);">
 											<f:validateLength minimum="11" maximum="18" />
 										</h:inputText>
@@ -77,7 +77,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Nome Fabricante/Razão Social"></h:outputLabel>
 											<h:inputText styleClass="field text" id="nomeFabricante" maxlength="50" size="50"
-												value="#{fornecedorBB.nomeFabricante}">
+												value="#{fabricanteBB.nomeFabricante}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
 											<h:message for="nomeFabricante" styleClass="msgErro" />
@@ -86,13 +86,13 @@
 								</ul>
 							</fieldset>	
 							<div class="listagem">
-								<t:dataTable value="#{fornecedorBB.fornecedores}"
-									var="fornecedor" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
+								<t:dataTable value="#{fabricanteBB.fabricantes}"
+									var="fabricante" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
 										</f:facet>
-										<h:outputText value="#{fornecedor.id}" /> 
+										<h:outputText value="#{fabricante.id}" /> 
 									</h:column>
 									<h:column>
 										<f:facet name="header">

@@ -215,13 +215,15 @@
 											</h:selectOneMenu>
 											<h:message for="idImposto" styleClass="msgErro" />
 										</div>
+									</li>
+									<li class="normal">	
 										<div>
 											<h:outputLabel styleClass="desc" value="Fabricante*"></h:outputLabel>
 											<h:selectOneMenu id="Fabricantes" styleClass="field select"
 												style="width: 200px;" value="#{produtoBB.idFabricante}"
 												required="true">
 												<f:selectItems id="fabricantesSelectItems"
-													value="#{produtoBB.fornecedores}" />
+													value="#{produtoBB.fabricantes}" />
 											</h:selectOneMenu>
 											<h:message for="idFabricante" styleClass="msgErro" />
 										</div>
