@@ -3,9 +3,11 @@ package com.infinity.datamarket.pdv.mic;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.infinity.datamarket.autorizador.DadosConsultaCartaoProprio;
 import com.infinity.datamarket.comum.transacao.ConstantesTransacao;
 import com.infinity.datamarket.comum.transacao.TransacaoPK;
 import com.infinity.datamarket.comum.transacao.TransacaoPagamento;
+import com.infinity.datamarket.comum.transacao.TransacaoPagamentoCartaoProprio;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.usuario.Vendedor;
@@ -31,9 +33,10 @@ public class MicCriaTransacaoPagamento extends Mic{
 		BigDecimal desconto = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.DESCONTO);
 		BigDecimal acressimo = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.ACRESSIMO);
 		BigDecimal valor = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.SUB_TOTAL);
+		DadosConsultaCartaoProprio dados = (DadosConsultaCartaoProprio) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CONSULTA_CARTAO_PROPRIO);
 
-		TransacaoPagamento transPagamento = new TransacaoPagamento(pk,ConstantesTransacao.TRANSACAO_PAGAMENTO,
-				strOperador,dataInicio,null,valor,desconto,acressimo,TransacaoPagamento.ATIVO);
+		TransacaoPagamentoCartaoProprio transPagamento = new TransacaoPagamentoCartaoProprio(pk,ConstantesTransacao.TRANSACAO_PAGAMENTO,
+				strOperador,dataInicio,null,valor,desconto,acressimo,TransacaoPagamento.ATIVO,dados.getCPFCNPJ());
 		
 		gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_PAGAMENTO_ATUAL, transPagamento);
 
