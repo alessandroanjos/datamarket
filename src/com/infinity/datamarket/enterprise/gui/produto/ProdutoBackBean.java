@@ -17,7 +17,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.infinity.datamarket.comum.fabricante.Fabricante;
-import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.produto.GrupoProduto;
 import com.infinity.datamarket.comum.produto.Imposto;
 import com.infinity.datamarket.comum.produto.Produto;
