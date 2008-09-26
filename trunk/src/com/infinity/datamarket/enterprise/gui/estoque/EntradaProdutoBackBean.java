@@ -18,6 +18,7 @@ import javax.faces.model.SelectItem;
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
+import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProdutoPK;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
@@ -327,11 +328,23 @@ public class EntradaProdutoBackBean extends BackBean {
 			e1.printStackTrace();
 		} 
 		entradaProduto.setFornecedor(fornecedor);
-		entradaProduto.setProdutosEntrada(arrayProduto);
 		entradaProduto.setDesconto(this.getDesconto());
 
 		try {
 			if (getId()==null) entradaProduto.setId(getIdInc(EntradaProduto.class));
+			Collection col = arrayProduto;
+			if (col!=null) {
+				Iterator it = col.iterator();
+				while(it.hasNext()){
+					ProdutoEntradaProduto pep = (ProdutoEntradaProduto) it.next();
+					EstoqueProdutoPK pk = new EstoqueProdutoPK();
+					pk.setEstoque(pep.getEstoque());
+					pk.setProduto(pep.getPk().getProduto());
+					pep.getPk().setId(entradaProduto.getId());
+				}
+			}	
+			entradaProduto.setProdutosEntrada(arrayProduto);
+
 			getFachada().inserirEntradaProduto(entradaProduto);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -520,33 +533,6 @@ public class EntradaProdutoBackBean extends BackBean {
 		return fornecedores;
 	}
 	
-	private static final String TIPO_NOTA        = "N";
-	private static final String TIPO_DEVOLUCAO   = "D";
-	private String tipoEntrada;
-	
-	/**
-	 * @return the tipoEntrada
-	 */
-	public String getTipoEntrada() {
-		return tipoEntrada;
-	}
-	/**
-	 * @param tipoEntrada the tipoEntrada to set
-	 */
-	public void setTipoEntrada(String tipoEntrada) {
-		this.tipoEntrada = tipoEntrada;
-	}
-	/**
-	 * @return the tipoEntradaItens
-	 */
-	public SelectItem[] getTipoEntradaItens() {
-		SelectItem[] tipoEntradaItens = new SelectItem[]{new SelectItem(TIPO_NOTA,"N.Fiscal"),
-                new SelectItem(TIPO_DEVOLUCAO,"Devolução")};
-		if(getTipoEntrada() == null){
-			setTipoEntrada(TIPO_NOTA);
-		}
-		return tipoEntradaItens;
-	}
 	public SelectItem[] getFornecedores() {
 		SelectItem[] arrayFornecedores = null;
 		try {
@@ -631,7 +617,6 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setValor(null);
 		this.setFornecedor(null);
 		this.setArrayProduto(null);
-		this.setTipoEntrada(TIPO_NOTA);
 		resetProdutoBB();
 		inicializaValoreNota();
 		return "mesma";

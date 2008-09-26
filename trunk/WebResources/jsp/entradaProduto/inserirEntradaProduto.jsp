@@ -131,13 +131,6 @@
 								</h:selectOneMenu>
 								<h:message for="idFornecedor" styleClass="errors" />
 							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Tipo Entrada"></h:outputLabel>
-								<h:selectOneRadio  styleClass="field select" id="tipoEntrada" 
-									value="#{entradaProdutoBB.tipoEntrada}" layout="lineDirection" required="true">
-								    <f:selectItems id="situacao" value="#{entradaProdutoBB.tipoEntradaItens}" />							
-								</h:selectOneRadio>
-							</div>	
 						</li>
 
 						<li class="normal">

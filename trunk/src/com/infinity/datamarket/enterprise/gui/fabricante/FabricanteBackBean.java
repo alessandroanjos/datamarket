@@ -279,7 +279,7 @@ public class FabricanteBackBean extends BackBean {
 					filter.addProperty("razaoSocial", this.getNomeFabricante());
 				}
 				if(this.getCpfCnpj() != null && !"".equals(this.getCpfCnpj())){
-					filter.addProperty("cpfCnpj", this.getCpfCnpj());	
+					filter.addProperty("cpfCnpj", this.getCpfCnpj().trim().replace(".", "").replace("-", "").replace("/", ""));	
 				}
 				Collection col = getFachada().consultarFabricante(filter);
 				if (col == null || col.size() == 0){
@@ -445,6 +445,7 @@ public class FabricanteBackBean extends BackBean {
 		
 		Fabricante.setNomeFabricante(this.getNomeFabricante());
 		Fabricante.setTipoPessoa(this.getIdTipoPessoa());
+		cpfCnpj = this.getCpfCnpj().trim().replace(".", "").replace("-", "").replace("/", "");
 		Fabricante.setCpfCnpj(this.getCpfCnpj());
 		Fabricante.setRazaoSocial(this.getRazaoSocial());
 		Fabricante.setNomeFantasia(this.getNomeFantasia());
