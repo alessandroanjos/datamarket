@@ -1964,11 +1964,6 @@
 		    <null-value/>
 		</managed-property>
 		<managed-property>
-		    <property-name>tipoEntrada</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
 		    <property-name>produtoEntrada</property-name>
 		    <property-class>com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto</property-class>
 		    <null-value/>
