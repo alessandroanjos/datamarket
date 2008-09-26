@@ -26,7 +26,6 @@ public class EntradaProduto extends Persistente{
 	private BigDecimal valor;
 	private String idFornecedor;
 	private Fornecedor fornecedor;
-	private String tipoEntrada;
 	
 	private Collection produtosEntrada;
 	
@@ -101,17 +100,5 @@ public class EntradaProduto extends Persistente{
 	 */
 	public void setIdFornecedor(String idFornecedor) {
 		this.idFornecedor = idFornecedor;
-	}
-	/**
-	 * @return the tipoEntrada
-	 */
-	public String getTipoEntrada() {
-		return tipoEntrada;
-	}
-	/**
-	 * @param tipoEntrada the tipoEntrada to set
-	 */
-	public void setTipoEntrada(String tipoEntrada) {
-		this.tipoEntrada = tipoEntrada;
 	}
 }

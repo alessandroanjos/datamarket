@@ -444,6 +444,7 @@ public class FornecedorBackBean extends BackBean {
 		
 		fornecedor.setNomeFornecedor(this.getNomeFornecedor());
 		fornecedor.setTipoPessoa(this.getIdTipoPessoa());
+		cpfCnpj = this.getCpfCnpj().trim().replace(".", "").replace("-", "").replace("/", "");
 		fornecedor.setCpfCnpj(this.getCpfCnpj());
 		fornecedor.setRazaoSocial(this.getRazaoSocial());
 		fornecedor.setNomeFantasia(this.getNomeFantasia());
