@@ -58,6 +58,51 @@
 					});
 				}
 			}
+			
+			var formId; // referência ao formulário principal
+            var winId;  // referência à janela popup
+            // Esta função faz a chamada da janela popup.
+            //
+            function showPopUp(action, form, target) {
+            
+           // alert(getId("frmConsultarTransacao:cpfCnpjClienteCadastro").value);
+            
+             if(getId("frmConsultarTransacao:cpfCnpjClienteCadastro").value == ""){        		
+                    formId=form;
+        			if (winId != null) {
+        			    winId.close();
+        			}
+                    features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
+        			winId=window.open('/EnterpriseServer/jsp/popup/PopUpClientes.faces','list',features);
+				    // Formulário escondido
+                    hform=document.forms[form];                
+				}else{
+				    var cpfCnpjTmp = getId("frmConsultarTransacao:cpfCnpjClienteCadastro").value;
+					document.forms["frmConsultarTransacao"].action = "/EnterpriseServer/jsp/transacao/consultarTransacao.faces?acaoLocal=pesquisarClientes&cpfCnpj="+cpfCnpjTmp;
+					document.forms["frmConsultarTransacao"].submit();                  	
+                }
+            }
+
+            // Esta função é chamada pela janela popup 
+            // quando um usuário clica em um item na listagem.
+            // O item selecionado é copiado para um campo de texto
+            // no formulário principal.
+            //
+             function setAtributoClientes(cpfCnpj,nomeCliente, razaoSocial, tipoPessoa) {
+                 var form = document.forms[formId];                             
+                  
+                 form[formId+":cpfCnpjClienteCadastro"].value = cpfCnpj; 
+                 
+                 if(tipoPessoa == "F"){
+                     form[formId+":nomeClienteCadastro"].value = nomeCliente;                               
+                 }else if(tipoPessoa == "J"){
+                     form[formId+":nomeClienteCadastro"].value = razaoSocial;  
+                 }
+                 
+                 form[formId+":idTipoPessoaCadastro"].value = tipoPessoa; 
+               
+                 winId.close();
+             }
 		</script>
 	</head>
 	<body>
@@ -69,7 +114,7 @@
 				</strong>
 			</div>				
 		</div>		
-		<h:form id="frmConsultarTransacao">				
+		<h:form id="frmConsultarTransacao" binding="#{transacaoBB.init}">				
 				<div id="content">				
 						<div id="primarioContentContainer">
 							<fieldset>
@@ -118,7 +163,8 @@
 												<f:selectItems id="situacaoSelectItems" value="#{transacaoBB.listaSituacao}" />   
 											</h:selectOneMenu>
 										</div>
-										
+										<br />
+										<br />
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo Pessoa"></h:outputLabel>
 											<h:selectOneRadio  styleClass="field select tipopessoa" id="idTipoPessoaCadastro" 
@@ -132,6 +178,16 @@
 											value="#{transacaoBB.cpfCnpjClienteCadastro}" required="false" onkeypress="return SoNumero(event);">
 												<f:validateLength minimum="11" maximum="18" />
 											</h:inputText>	
+										
+											<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Cliente" styleClass="btTxt" id="botaoConsultarCliente"
+												onmousedown="showPopUp(this,'frmConsultarTransacao','find')" value="">
+											</h:commandButton>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Nome Cliente/Razão Social"></h:outputLabel>
+											<h:inputText styleClass="field text" id="nomeClienteCadastro" maxlength="50" size="50" required="false"
+												value="#{transacaoBB.nomeClienteCadastro}" >
+											</h:inputText>
 										</div>
 									</li>
 								</ul>

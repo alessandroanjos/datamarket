@@ -280,5 +280,9 @@ public class CadastroTransacao extends Cadastro{
 	public ClienteTransacao consultarClienteTransacaoPorID(String id) throws AppException{
 		return (ClienteTransacao) getRepositorio().findById(ClienteTransacao.class, id);
 	}
-	
+
+	public Collection consultarClienteTransacao(IPropertyFilter filter) throws AppException{
+		return getRepositorio().filter(filter, false);
+	}
+
 }

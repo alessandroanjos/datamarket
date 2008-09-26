@@ -160,7 +160,7 @@
 								<ul>
 									<li class="normal">
 										<div>
-											<h:messages rendered="#{not formaRecebimentoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+											<h:messages rendered="#{not clienteBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 										</div>
 									</li>
 								</ul>	
