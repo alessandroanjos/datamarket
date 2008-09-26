@@ -235,6 +235,49 @@
 					});
 				}
 			}
+			
+			var formIdClientes; // referência ao formulário principal
+            var winIdClientes;  // referência à janela popup
+            // Esta função faz a chamada da janela popup.
+            //
+            function showPopUpClientes(action, form, target) {
+            
+	            if(getId("frmManterTransacao:cpfCnpjClienteCadastro").value == ""){        		
+	                formIdClientes = form;
+	       			if (winIdClientes != null) {
+	       			    winIdClientes.close();
+	       			}
+	                features = "height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
+	       			winIdClientes = window.open('/EnterpriseServer/jsp/popup/PopUpClientes.faces','list',features);
+				    // Formulário escondido
+	                hform=document.forms[form];                
+				}else{
+				    var cpfCnpjTmp = getId("frmManterTransacao:cpfCnpjClienteCadastro").value;
+					document.forms["frmManterTransacao"].action = "/EnterpriseServer/jsp/transacao/manterTransacao.faces?acaoLocal=pesquisarClientes&cpfCnpj="+cpfCnpjTmp;
+					document.forms["frmManterTransacao"].submit();                  	
+               }
+           }
+           
+            // Esta função é chamada pela janela popup 
+            // quando um usuário clica em um item na listagem.
+            // O item selecionado é copiado para um campo de texto
+            // no formulário principal.
+            //
+             function setAtributoClientes(cpfCnpj,nomeCliente, razaoSocial, tipoPessoa) {
+                 var form = document.forms[formIdClientes];                             
+                  
+                 form[formIdClientes+":cpfCnpjClienteCadastro"].value = cpfCnpj; 
+                 
+                 if(tipoPessoa == "F"){
+                     form[formIdClientes+":nomeClienteCadastro"].value = nomeCliente;                               
+                 }else if(tipoPessoa == "J"){
+                     form[formIdClientes+":nomeClienteCadastro"].value = razaoSocial;  
+                 }
+                 
+                 form[formIdClientes+":idTipoPessoaCadastro"].value = tipoPessoa; 
+               
+                 winIdClientes.close();
+             }
 		</script>
 	</head>
 	<body>
@@ -728,9 +771,10 @@
 											value="#{transacaoBB.cpfCnpjClienteCadastro}" required="false" onkeypress="return SoNumero(event);">
 												<f:validateLength minimum="11" maximum="18" />
 											</h:inputText>	
-											<h:commandButton image="/images/pesquisa.png" alt="Pesquisar" styleClass="btTxt" id="botaoConsultar" action="#{transacaoBB.buscaClientePorCpfCnpj}" value=""></h:commandButton>							
+											<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Cliente" styleClass="btTxt" id="botaoConsultarCliente"
+												onmousedown="showPopUpClientes(this,'frmManterTransacao','find')" value="">
+											</h:commandButton>
 										</div>
-
 									</li>
 									<li class="normal">
 										<div>

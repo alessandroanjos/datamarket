@@ -772,7 +772,7 @@ public class TransacaoBackBean extends BackBean {
 		this.setValorTotalCupom(new BigDecimal("0.00"));
 		this.setIdTipoPessoaCadastro(Cliente.PESSOA_FISICA);
 		this.setCpfCnpjClienteCadastro(null);
-		this.setNomeClienteCadastro(null);
+		this.nomeClienteCadastro = "";// setNomeClienteCadastro(null);
 		this.setRazaoSocialCadastro(null);
 		this.setInscricaoEstadualCadastro(null);
 		this.setInscricaoMunicipalCadastro(null);
@@ -887,6 +887,8 @@ public class TransacaoBackBean extends BackBean {
 					filter.setTheClass(Transacao.class);
 				}				
 
+				this.nomeClienteCadastro = this.getNomeClienteCadastro();
+				
 				Collection col = getFachada().consultarTransacao(filter);
 				
 				if (col == null || col.size() == 0){
@@ -1043,7 +1045,8 @@ public class TransacaoBackBean extends BackBean {
 			
 			if(cliTrans.getTipoPessoa() != null && cliTrans.getTipoPessoa().equals(Cliente.PESSOA_FISICA)){
 				this.setIdTipoPessoaCadastro(Cliente.PESSOA_FISICA);
-				this.setNomeClienteCadastro(cliTrans.getNomeCliente());
+//				this.setNomeClienteCadastro(cliTrans.getNomeCliente());
+				this.nomeClienteCadastro = cliTrans.getNomeCliente();
 			}else if(cliTrans.getTipoPessoa() != null && cliTrans.getTipoPessoa().equals(Cliente.PESSOA_JURIDICA)){
 				this.setIdTipoPessoaCadastro(Cliente.PESSOA_JURIDICA);
 				this.setRazaoSocialCadastro(cliTrans.getRazaoSocial());
@@ -1949,8 +1952,10 @@ public class TransacaoBackBean extends BackBean {
 			}else{
 				transVenda.setValorTroco(this.getValorTroco());	
 			}
-
-			transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));
+			
+			if(this.getIdFormaTroco() != null && !this.getIdFormaTroco().equals("0")){
+				transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));	
+			}			
 						
 			ConjuntoEventoTransacao conj = new ConjuntoEventoTransacao();
 			
@@ -2497,7 +2502,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setNomeClienteCadastro(String nomeClienteCadastro) {
-		this.nomeClienteCadastro = nomeClienteCadastro;
+//		this.nomeClienteCadastro = nomeClienteCadastro;
 	}
 
 	public String getNumeroCadastro() {
@@ -2549,7 +2554,8 @@ public class TransacaoBackBean extends BackBean {
 			ClienteTransacao cli = getFachada().consultarClienteTransacaoPorID(cpfCnpj);
 			if(cli != null){
 				this.setCpfCnpjClienteCadastro(formataCpfCnpj(cli.getCpfCnpj()));
-				this.setNomeClienteCadastro(cli.getNomeCliente());				
+//				this.setNomeClienteCadastro(cli.getNomeCliente());
+				this.nomeClienteCadastro = cli.getNomeCliente();
 				this.setIdTipoPessoaCadastro(cli.getTipoPessoa());
 				this.setRazaoSocialCadastro(cli.getRazaoSocial());
 				this.setInscricaoEstadualCadastro(cli.getInscricaoEstadual());
@@ -2709,6 +2715,42 @@ public class TransacaoBackBean extends BackBean {
 				e.printStackTrace();			
 				this.setAbaCorrente("tabMenuDiv1");
 			}
+		}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarClientes")){
+			try {
+				String cpfCnpj = (String)params.get("cpfCnpj");
+				cpfCnpj = cpfCnpj.replace(".", "");
+				cpfCnpj = cpfCnpj.replace("/", "");
+				cpfCnpj = cpfCnpj.replace("-", "");
+				ClienteTransacao clienteTransacao = getFachada().consultarClienteTransacaoPorID(cpfCnpj);
+				if(clienteTransacao != null){
+					if(clienteTransacao.getTipoPessoa().equals(Cliente.PESSOA_FISICA)){
+						this.nomeClienteCadastro = clienteTransacao.getNomeCliente();
+//						this.setNomeClienteCadastro(clienteTransacao.getNomeCliente());
+					}else{
+						this.nomeClienteCadastro = clienteTransacao.getRazaoSocial();
+						this.setInscricaoEstadualCadastro(clienteTransacao.getInscricaoEstadual());
+						this.setInscricaoMunicipalCadastro(clienteTransacao.getInscricaoMunicipal());
+//						this.setNomeClienteCadastro(clienteTransacao.getRazaoSocial());
+					}			
+					
+					this.setLogradouroCadastro(clienteTransacao.getLogradouro());
+					this.setNumeroCadastro(clienteTransacao.getNumero());
+					this.setComplementoCadastro(clienteTransacao.getComplemento());
+					this.setBairroCadastro(clienteTransacao.getBairro());
+					this.setCidadeCadastro(clienteTransacao.getCidade());
+					this.setEstadoCadastro(clienteTransacao.getEstado());
+					this.setCepCadastro(clienteTransacao.getCep());
+					this.setFoneResidencialCadastro(clienteTransacao.getFone());
+					this.setFoneCelularCadastro(clienteTransacao.getCelular());
+					this.setPessoaContatoCadastro(clienteTransacao.getPessoaContato());
+					this.setReferenciaComercialCadastro(clienteTransacao.getReferenciaBancaria());
+					this.setEmailCadastro(clienteTransacao.getEmail());
+
+				}
+			} catch (Exception e) {				
+				e.printStackTrace();			
+			}
 		}
-	}
+
+	}	
 }

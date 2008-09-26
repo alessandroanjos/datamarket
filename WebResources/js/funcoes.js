@@ -691,3 +691,4 @@ function FuncBlur(campo) {
 function FuncFocus(campo) {
 	campo.style.backgroundColor = '#F8F7F7'
 }	
+
