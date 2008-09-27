@@ -139,8 +139,8 @@
 						</li>
 
 						<li class="buttons">
-							<h:commandButton styleClass="btTxt" id="botaoVoltar"
-								action="#{movimentacaoEstoqueBB.voltarConsulta}" value="Voltar"></h:commandButton>
+							<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{movimentacaoEstoqueBB.voltarConsulta}" value="Voltar"></h:commandButton>
+							<h:commandButton styleClass="btTxt" id="botaoImprimir" action="#{movimentacaoEstoqueBB.imprimirRecibo}" value="Imprimir"></h:commandButton>
 						</li>
 					</ul>
 				</div>

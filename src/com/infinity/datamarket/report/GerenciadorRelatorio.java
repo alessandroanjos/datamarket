@@ -11,7 +11,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -26,6 +28,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -34,6 +37,8 @@ import org.hibernate.Session;
 
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.clientepagamento.ClientePagamento;
+import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
+import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
 import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
@@ -55,25 +60,33 @@ public class GerenciadorRelatorio {
 
 	private Hashtable relatorios;
 
+	public static final String EMPRESA;
+	
 	public static final String CAMINHO_RELATORIO;
 
 	public static final String RECIBO_VENDA;
 	
 	public static final String RECIBO_PAGAMENTO_CLIENTE;
 	
-	public static final String EMPRESA;
+	public static final String RECIBO_MOVIMENTACAO_ESTOQUE;
+	
+	public static final String RECIBO_ENTRADA_PRODUTOS_ESTOQUE;
 	
 	private static ResourceBundle rs = ResourceBundle.getBundle("relatorio");
 
 	static {		
 	
+		EMPRESA = rs.getString("EMPRESA");
+		
 		CAMINHO_RELATORIO = rs.getString("CAMINHO_RELATORIO");
 	
 		RECIBO_VENDA = rs.getString("RECIBO_VENDA");
 		
-		EMPRESA = rs.getString("EMPRESA");
-		
 		RECIBO_PAGAMENTO_CLIENTE = rs.getString("RECIBO_PAGAMENTO_CLIENTE");
+		
+		RECIBO_MOVIMENTACAO_ESTOQUE = rs.getString("RECIBO_MOVIMENTACAO_ESTOQUE");
+		
+		RECIBO_ENTRADA_PRODUTOS_ESTOQUE = rs.getString("RECIBO_ENTRADA_PRODUTOS_ESTOQUE");
 	}
 	
 	private static GerenciadorRelatorio instancia;
@@ -84,7 +97,6 @@ public class GerenciadorRelatorio {
 		}
 		return instancia;
 	}
-
 
 	private Connection getConnection() throws RelatorioException{
 		Session session = null;
@@ -206,9 +218,6 @@ public class GerenciadorRelatorio {
 
 			List resposta = new ArrayList();
 			resposta.add(new Uniao(colPagamentos,colItensRegistrados));
-
-//            JasperPrint jasperPrintItemRegistrado = JasperFillManager.fillReport(jasperItens,
-//        			parametros, new RelatorioDataSource ( resposta) );
             
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboVenda.jasper");
     		
@@ -219,20 +228,15 @@ public class GerenciadorRelatorio {
 			}
 			
             JasperRunManager.runReportToPdfStream(input, out, parametros, new RelatorioDataSource (resposta));
-            
-			//exibe o resultado
-//			viewer = new JasperViewer( jasperPrintItemRegistrado , false );
-//			return viewer;
 		}catch(Exception e){
 			throw new RelatorioException(e);
 		}
 	}
 
-	
 	public void gerarReciboPagamentoCliente(ClientePagamento clientePagamento, OutputStream out) throws AppException{
 		try{
-			Map parametros = new HashMap();
-//			parametros.put("CAMINHO", this.CAMINHO_RELATORIO);
+			Map<String, String> parametros = new HashMap<String, String>();
+
 			parametros.put("empresa", EMPRESA);	
 			
 			parametros.put("numero", "Nº " + clientePagamento.getId().toString());	
@@ -277,10 +281,6 @@ public class GerenciadorRelatorio {
 			
 			parametros.put("dataPagamento", textoDataPagamento.toString());
 			
-//			JasperReport jasperItens =  getRelatorio(RECIBO_PAGAMENTO_CLIENTE);
-//			
-//			JasperFillManager.fillReportToStream(jasperItens,out,parametros);
-						        
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboPagamentoCliente.jasper");
             		
 			Iterator it = parametros.entrySet().iterator();
@@ -297,6 +297,48 @@ public class GerenciadorRelatorio {
 			
             JasperRunManager.runReportToPdfStream(input, out, parametros, rel);
             
+   		}catch(Exception e){
+			e.printStackTrace();
+			throw new RelatorioException(e);
+		}
+	}
+	
+	public void gerarReciboMovimentacaoEstoque(MovimentacaoEstoque movimentacaoEstoque, OutputStream out) throws AppException{
+		try{
+			Map<String, String> parametros = new HashMap<String, String>();
+
+			parametros.put("empresa", EMPRESA);	
+			parametros.put("codigo", movimentacaoEstoque.getId().toString());
+			parametros.put("lojaSaida", movimentacaoEstoque.getEstoqueSaida().getPk().getLoja().getNome());
+			parametros.put("estoqueSaida", movimentacaoEstoque.getEstoqueSaida().getDescricao());
+			parametros.put("lojaEntrada", movimentacaoEstoque.getEstoqueEntrada().getPk().getLoja().getNome());
+			parametros.put("estoqueEntrada", movimentacaoEstoque.getEstoqueEntrada().getDescricao());
+			
+			DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+			
+			parametros.put("dataMovimentacao", dt.format(movimentacaoEstoque.getDataMovimentacao()));
+			
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboMovimentacaoEstoque.jasper");
+            		
+			Iterator it = parametros.entrySet().iterator();
+
+			while(it.hasNext()){
+				System.out.println(it.next().toString());
+			}
+			
+			List itensMovimentacao = new ArrayList();
+			List listaItens = new ArrayList();
+			
+			Iterator itMovEstoque = movimentacaoEstoque.getProdutosMovimentacao().iterator();
+			while(itMovEstoque.hasNext()){
+				listaItens.add((ProdutoMovimentacaoEstoque)itMovEstoque.next());
+			}
+			
+			itensMovimentacao.add(new JRBeanCollectionDataSource(listaItens));
+			
+			RelatorioDataSource rel = new RelatorioDataSource(itensMovimentacao);
+			
+            JasperRunManager.runReportToPdfStream(input, out, parametros, rel);
    		}catch(Exception e){
 			e.printStackTrace();
 			throw new RelatorioException(e);
