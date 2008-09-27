@@ -237,7 +237,15 @@ public class Fachada {
 			throw new SistemaException(e);
 		}
 	}
-	
+
+	public void gerarReciboMovimentacaoEstoque(MovimentacaoEstoque movimentacaoEstoque, OutputStream out) throws AppException{
+		try{
+			getGerenciadorRelatorio().gerarReciboMovimentacaoEstoque(movimentacaoEstoque, out);
+		}catch(AppException e){
+			throw new SistemaException(e);
+		}
+	}
+
 	public Usuario loginUsuario(Long id, String senha) throws AppException{
 		Usuario usu = null;
 		try{

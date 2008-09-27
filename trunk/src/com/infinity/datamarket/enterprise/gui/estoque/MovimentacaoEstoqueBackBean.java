@@ -14,6 +14,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
@@ -34,6 +36,7 @@ import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class MovimentacaoEstoqueBackBean extends BackBean {  
 
+	MovimentacaoEstoque movimentacaoProdutoEstoque;
 	private static final int HashSet = 0;
 	private String id;
 	private String codigoUsuario;
@@ -241,6 +244,9 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+			
+			this.setMovimentacaoProdutoEstoque(movimentacaoEstoque);
+			
 			resetBB();
 		} catch (ObjectExistentException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -325,37 +331,40 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
     }
 
 	public String alterar() {
-		EntradaProduto entradaProduto = new EntradaProduto();
-		
-		entradaProduto.setDataEntrada(this.dataMovimentacao);
-		
-		try {
-			getFachada().alterarEntradaProduto(entradaProduto);
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
-			resetBB();
-		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Entrada já Existente!", "");
-			ctx.addMessage(null, msg);
-		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
-			ctx.addMessage(null, msg);
-		} catch (Exception e) {
-			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
-		}
-		resetBB();
+//		EntradaProduto entradaProduto = new EntradaProduto();
+//		
+//		entradaProduto.setDataEntrada(this.dataMovimentacao);
+//		
+//		try {
+//			getFachada().alterarEntradaProduto(entradaProduto);
+//			FacesContext ctx = FacesContext.getCurrentInstance();
+//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+//					"Operação Realizada com Sucesso!", "");
+//			ctx.addMessage(null, msg);
+//			
+//			resetBB();
+//		} catch (ObjectExistentException e) {
+//			FacesContext ctx = FacesContext.getCurrentInstance();
+//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+//					"Entrada já Existente!", "");
+//			ctx.addMessage(null, msg);
+//		} catch (AppException e) {
+//			FacesContext ctx = FacesContext.getCurrentInstance();
+//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+//					e.getMessage(), "");
+//			ctx.addMessage(null, msg);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			FacesContext ctx = FacesContext.getCurrentInstance();
+//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+//					"Erro de Sistema!", "");
+//			ctx.addMessage(null, msg);
+//		}
+//		resetBB();
+//		return "mesma";
 		return "mesma";
 	}
+	
 	public String consultar() {
 		try {
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -939,4 +948,39 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			}
 		}
 	}
+	
+	public void imprimirRecibo(){
+		try {
+			if(this.getMovimentacaoProdutoEstoque() != null){
+				FacesContext context = FacesContext.getCurrentInstance();
+				HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();			
+				ServletOutputStream servletOutputStream = response.getOutputStream();
+				getFachada().gerarReciboMovimentacaoEstoque(this.getMovimentacaoProdutoEstoque(), servletOutputStream);			
+				response.setContentType("application/pdf");
+				response.setHeader("Content-disposition", "attachment;filename=ReciboMovimentacaoEstoque" + System.currentTimeMillis() + ".pdf");
+				context.responseComplete();
+				servletOutputStream.flush();
+				servletOutputStream.close();
+			}else{
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Não existe Recibo para imprimir!", "");
+				ctx.addMessage(null, msg);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Erro ao imprimir o Recibo!", "");
+			ctx.addMessage(null, msg);
+		}
+}
+	public MovimentacaoEstoque getMovimentacaoProdutoEstoque() {
+		return movimentacaoProdutoEstoque;
+	}
+	public void setMovimentacaoProdutoEstoque(
+			MovimentacaoEstoque movimentacaoProdutoEstoque) {
+		this.movimentacaoProdutoEstoque = movimentacaoProdutoEstoque;
+	}
+
 }
