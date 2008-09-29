@@ -25,8 +25,11 @@
 
 	<parameter name="empresa" isForPrompting="true" class="java.lang.String"/>
 	<parameter name="textoRecibo" isForPrompting="true" class="java.lang.String"/>
-	<parameter name="dataPagamento" isForPrompting="true" class="java.lang.String"/>
-	<parameter name="numero" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="data" isForPrompting="true" class="java.util.Date"/>
+	<parameter name="loja" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="componente" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="num_transacao" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="operador" isForPrompting="false" class="java.lang.String"/>
 
 		<background>
 			<band height="0"  isSplitAllowed="true" >
@@ -48,160 +51,368 @@
 			<band height="800"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="171"
+						x="163"
 						y="0"
-						width="197"
+						width="216"
 						height="22"
 						key="TITULO-1"/>
 					<box></box>
-					<textElement textAlignment="Justified" verticalAlignment="Middle">
-						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
-					</textElement>
-				<text><![CDATA[RECIBO DE PAGAMENTO]]></text>
-				</staticText>
-				<staticText>
-					<reportElement
-						x="171"
-						y="394"
-						width="197"
-						height="22"
-						key="TITULO-2"/>
-					<box></box>
-					<textElement textAlignment="Justified" verticalAlignment="Middle">
-						<font fontName="Verdana" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="18" isBold="true"/>
 					</textElement>
 				<text><![CDATA[RECIBO DE PAGAMENTO]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="38"
-						y="30"
+						y="110"
 						width="461"
 						height="167"
 						key="TEXTO_RECIBO-1"/>
 					<box></box>
 					<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="1_1_2">
-						<font fontName="Verdana"/>
+						<font fontName="Courier New"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{textoRecibo}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="38"
-						y="424"
-						width="461"
-						height="167"
-						key="TEXTO_RECIBO-2"/>
-					<box></box>
-					<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="1_1_2">
-						<font fontName="Verdana"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{textoRecibo}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="228"
-						y="203"
-						width="270"
-						height="22"
-						key="TEXTO_DATA-1"/>
-					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Verdana"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{dataPagamento}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="228"
-						y="598"
-						width="270"
-						height="22"
-						key="TEXTO_DATA-2"/>
-					<box></box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Verdana"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{dataPagamento}]]></textFieldExpression>
 				</textField>
 				<line direction="TopDown">
 					<reportElement
 						x="154"
-						y="284"
+						y="328"
 						width="233"
 						height="0"
 						key="line-1"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="154"
-						y="678"
-						width="233"
-						height="0"
-						key="line-2"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						x="154"
-						y="284"
+						y="328"
 						width="233"
 						height="22"
 						key="TEXTO_EMPRESA-1"/>
 					<box></box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Verdana"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{empresa}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="154"
-						y="678"
-						width="233"
-						height="22"
-						key="TEXTO_EMPRESA-2"/>
-					<box></box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="Verdana"/>
+						<font fontName="Courier New"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{empresa}]]></textFieldExpression>
 				</textField>
 				<line direction="TopDown">
 					<reportElement
-						x="-30"
-						y="368"
+						x="-31"
+						y="382"
 						width="595"
 						height="1"
 						key="line-3"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
+				<staticText>
+					<reportElement
+						x="38"
+						y="45"
+						width="31"
+						height="15"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Loja:]]></text>
+				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="407"
-						y="0"
-						width="92"
-						height="22"
-						key="textField-1"/>
+						x="69"
+						y="45"
+						width="236"
+						height="15"
+						key="textField-3"/>
 					<box></box>
-					<textElement verticalAlignment="Middle">
-						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{numero}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{loja}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement
+						x="312"
+						y="45"
+						width="33"
+						height="15"
+						key="staticText-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Data:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="345"
+						y="45"
+						width="140"
+						height="15"
+						key="textField-4"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$P{data}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="38"
+						y="60"
+						width="68"
+						height="15"
+						key="staticText-4"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Componente:]]></text>
+				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="407"
-						y="394"
-						width="92"
-						height="22"
-						key="textField-2"/>
+						x="106"
+						y="60"
+						width="162"
+						height="15"
+						key="textField-5"/>
 					<box></box>
-					<textElement verticalAlignment="Middle">
-						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{numero}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{componente}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="312"
+						y="60"
+						width="125"
+						height="15"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Número da Transação:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="437"
+						y="60"
+						width="48"
+						height="15"
+						key="textField-6"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{num_transacao}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="38"
+						y="75"
+						width="55"
+						height="15"
+						key="staticText-6"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Operador:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="93"
+						y="75"
+						width="326"
+						height="15"
+						key="textField-7"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{operador}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="168"
+						y="426"
+						width="216"
+						height="22"
+						key="TITULO-2"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="18" isBold="true"/>
+					</textElement>
+				<text><![CDATA[RECIBO DE PAGAMENTO]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="43"
+						y="536"
+						width="461"
+						height="167"
+						key="TEXTO_RECIBO-2"/>
+					<box></box>
+					<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="1_1_2">
+						<font fontName="Courier New"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{textoRecibo}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="159"
+						y="754"
+						width="233"
+						height="0"
+						key="line-4"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="159"
+						y="754"
+						width="233"
+						height="22"
+						key="TEXTO_EMPRESA-2"/>
+					<box></box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Courier New"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{empresa}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="43"
+						y="471"
+						width="31"
+						height="15"
+						key="staticText-7"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Loja:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="74"
+						y="471"
+						width="236"
+						height="15"
+						key="textField-8"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{loja}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="317"
+						y="471"
+						width="33"
+						height="15"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Data:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="350"
+						y="471"
+						width="140"
+						height="15"
+						key="textField-9"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$P{data}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="43"
+						y="486"
+						width="68"
+						height="15"
+						key="staticText-9"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Componente:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="111"
+						y="486"
+						width="162"
+						height="15"
+						key="textField-10"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{componente}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="317"
+						y="486"
+						width="125"
+						height="15"
+						key="staticText-10"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Número da Transação:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="442"
+						y="486"
+						width="48"
+						height="15"
+						key="textField-11"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{num_transacao}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="43"
+						y="501"
+						width="55"
+						height="15"
+						key="staticText-11"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Operador:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="98"
+						y="501"
+						width="326"
+						height="15"
+						key="textField-12"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{operador}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
