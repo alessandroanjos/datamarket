@@ -6,7 +6,9 @@
  */
 package com.infinity.datamarket.report;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -23,6 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import javax.wsdl.Output;
 
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -43,6 +47,7 @@ import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernat
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
 import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
 import com.infinity.datamarket.comum.transacao.EventoTransacao;
+import com.infinity.datamarket.comum.transacao.TransacaoPagamentoCartaoProprio;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.JExtenso;
@@ -233,53 +238,46 @@ public class GerenciadorRelatorio {
 		}
 	}
 
-	public void gerarReciboPagamentoCliente(ClientePagamento clientePagamento, OutputStream out) throws AppException{
+	public OutputStream gerarReciboPagamentoCliente(TransacaoPagamentoCartaoProprio transacao) throws AppException{
+		
+		OutputStream out  = new ByteArrayOutputStream();
+		
 		try{
-			Map<String, String> parametros = new HashMap<String, String>();
+			Map parametros = new HashMap();
 
 			parametros.put("empresa", EMPRESA);	
 			
-			parametros.put("numero", "Nº " + clientePagamento.getId().toString());	
+			parametros.put("loja", transacao.getPk().getLoja()+"");
+			parametros.put("componente", transacao.getPk().getComponente()+"");
+			parametros.put("data", transacao.getPk().getDataTransacao());
+			parametros.put("num_transacao", transacao.getPk().getNumeroTransacao()+"");
+			parametros.put("operador", transacao.getOperador());
 			
 			StringBuffer textoRecibo = new StringBuffer();
 			textoRecibo.append(Util.completaString("", " ", 15, true));
 			textoRecibo.append(rs.getString("TEXTO_PAGAMENTO_CLIENTE_PARTE1"));
 			
-			if(clientePagamento.getCliente().getTipoPessoa().equals(Cliente.PESSOA_FISICA)){
-				textoRecibo.append(" " + clientePagamento.getCliente().getNomeCliente().toUpperCase());
+			if(transacao.getCPFCNPJ().length() == 11){
+				textoRecibo.append(" " + transacao.getNome().toUpperCase());
 				textoRecibo.append(", CPF Nº ");
-				textoRecibo.append(BackBean.formataCpfCnpj(clientePagamento.getCliente().getCpfCnpj()));
+				textoRecibo.append(BackBean.formataCpfCnpj(transacao.getCPFCNPJ()));
 			}else{
-				textoRecibo.append(" " + clientePagamento.getCliente().getNomeFantasia().toUpperCase());
+				textoRecibo.append(" " + transacao.getNome().toUpperCase());
 				textoRecibo.append(", CNPJ Nº ");
-				textoRecibo.append(BackBean.formataCpfCnpj(clientePagamento.getCliente().getCpfCnpj()));				
+				textoRecibo.append(BackBean.formataCpfCnpj(transacao.getCPFCNPJ()));				
 			}
 			
 			textoRecibo.append(", " + rs.getString("TEXTO_PAGAMENTO_CLIENTE_PARTE2"));
 			
-			textoRecibo.append((new DecimalFormat().format(Double.valueOf(clientePagamento.getValorPagamento().toString()))));
+			textoRecibo.append((new DecimalFormat().format(Double.valueOf(transacao.getValor().toString()))));
 			
-			JExtenso valorPorExtenso = new JExtenso(clientePagamento.getValorPagamento());
+			JExtenso valorPorExtenso = new JExtenso(transacao.getValor());
 			
 		    textoRecibo.append(" (" + valorPorExtenso.toString() + "), ");  
 			textoRecibo.append(rs.getString("TEXTO_PAGAMENTO_CLIENTE_PARTE3"));
 				
 			parametros.put("textoRecibo", textoRecibo.toString());
 
-			StringBuffer textoDataPagamento = new StringBuffer();
-			
-			Date dataPagamento = new Date(System.currentTimeMillis());
-			
-			textoDataPagamento.append(rs.getString("CIDADE") + ", ");
-			String dia = dataPagamento.getDate()+"";
-			if(dia.length() == 1){
-				dia = "0" + dia;
-			}
-			textoDataPagamento.append(dia);
-			textoDataPagamento.append(" de " + Util.retornaMesPorExtenso(dataPagamento.getMonth()) + " de ");
-			textoDataPagamento.append(dataPagamento.getYear()+1900 + ".");
-			
-			parametros.put("dataPagamento", textoDataPagamento.toString());
 			
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboPagamentoCliente.jasper");
             		
@@ -301,6 +299,8 @@ public class GerenciadorRelatorio {
 			e.printStackTrace();
 			throw new RelatorioException(e);
 		}
+   		
+   		return out;
 	}
 	
 	public void gerarReciboMovimentacaoEstoque(MovimentacaoEstoque movimentacaoEstoque, OutputStream out) throws AppException{
