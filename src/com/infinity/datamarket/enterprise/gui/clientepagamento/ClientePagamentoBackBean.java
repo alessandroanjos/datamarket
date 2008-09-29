@@ -581,7 +581,7 @@ public class ClientePagamentoBackBean extends BackBean {
 				FacesContext context = FacesContext.getCurrentInstance();
 				HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();			
 				ServletOutputStream servletOutputStream = response.getOutputStream();
-				getFachada().gerarReciboPagamentoCliente(this.getClientePagamento(),servletOutputStream);			
+//				getFachada().gerarReciboPagamentoCliente(this.getClientePagamento(),servletOutputStream);			
 				response.setContentType("application/pdf");
 				response.setHeader("Content-disposition", "attachment;filename=PagamentoCliente.pdf");
 				context.responseComplete();
