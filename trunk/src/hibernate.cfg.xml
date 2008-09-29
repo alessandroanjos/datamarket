@@ -84,6 +84,7 @@
 	<mapping resource="com/infinity/datamarket/hbm/ClienteTransacao.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Controle.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/TransacaoPagamento.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/TransacaoPagamentoCartaoProprio.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Fabricante.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
