@@ -15,13 +15,17 @@ public class TransacaoPagamentoCartaoProprio extends TransacaoPagamento{
 	
 	private String CPFCNPJ;
 	
+	private String nome;
+	
+	
 	public TransacaoPagamentoCartaoProprio(){
 		
 	}
 	
-	public TransacaoPagamentoCartaoProprio(TransacaoPK pk, int tipoTransacao, String codigoUsuarioOperador, Date dataHoraInicio, Date dataHoraFim, BigDecimal valor, BigDecimal desconto, BigDecimal acressimo, String situacao, String CPFCNPJ){ 
+	public TransacaoPagamentoCartaoProprio(TransacaoPK pk, int tipoTransacao, String codigoUsuarioOperador, Date dataHoraInicio, Date dataHoraFim, BigDecimal valor, BigDecimal desconto, BigDecimal acressimo, String situacao, String CPFCNPJ, String nome){ 
 		super(pk, tipoTransacao, codigoUsuarioOperador, dataHoraInicio, dataHoraFim, valor, desconto, acressimo, situacao);
 		this.setCPFCNPJ(CPFCNPJ);
+		this.setNome(nome);
 	}
 
 
@@ -34,6 +38,13 @@ public class TransacaoPagamentoCartaoProprio extends TransacaoPagamento{
 		CPFCNPJ = cpfcnpj;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	
 	
 }

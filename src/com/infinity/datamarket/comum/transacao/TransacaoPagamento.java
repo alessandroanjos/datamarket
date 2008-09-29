@@ -20,6 +20,9 @@ public class TransacaoPagamento extends Transacao{
 	private BigDecimal desconto;
 	private BigDecimal acressimo;
 	private String situacao;
+
+	
+	private String operador;
 	
 	public static final String ATIVO = "A";
 	public static final String CANCELADO = "C";
@@ -105,6 +108,14 @@ public class TransacaoPagamento extends Transacao{
 
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
+	}
+
+	public String getOperador() {
+		return operador;
+	}
+
+	public void setOperador(String operador) {
+		this.operador = operador;
 	}
 
 	
