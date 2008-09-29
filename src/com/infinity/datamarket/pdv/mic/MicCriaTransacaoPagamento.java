@@ -36,8 +36,9 @@ public class MicCriaTransacaoPagamento extends Mic{
 		DadosConsultaCartaoProprio dados = (DadosConsultaCartaoProprio) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CONSULTA_CARTAO_PROPRIO);
 
 		TransacaoPagamentoCartaoProprio transPagamento = new TransacaoPagamentoCartaoProprio(pk,ConstantesTransacao.TRANSACAO_PAGAMENTO,
-				strOperador,dataInicio,null,valor,desconto,acressimo,TransacaoPagamento.ATIVO,dados.getCPFCNPJ());
-		
+				strOperador,dataInicio,null,valor,desconto,acressimo,TransacaoPagamento.ATIVO,dados.getCPFCNPJ(),operador.getId().toString());
+		transPagamento.setNome(dados.getNome());
+		transPagamento.setOperador(operador.getNome());
 		gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_PAGAMENTO_ATUAL, transPagamento);
 
 		return ALTERNATIVA_1;
