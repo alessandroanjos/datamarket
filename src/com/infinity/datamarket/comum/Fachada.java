@@ -247,6 +247,14 @@ public class Fachada {
 		}
 	}
 
+	public void gerarReciboEntradaProdutosEstoque(EntradaProduto entradaProduto, OutputStream out) throws AppException{
+		try{
+			getGerenciadorRelatorio().gerarReciboEntradaProdutosEstoque(entradaProduto, out);
+		}catch(AppException e){
+			throw new SistemaException(e);
+		}
+	}
+
 	public Usuario loginUsuario(Long id, String senha) throws AppException{
 		Usuario usu = null;
 		try{

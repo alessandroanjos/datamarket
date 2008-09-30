@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 public class ProdutoEntradaProduto implements Serializable{
 
+	public ProdutoEntradaProduto produtoEntradaProduto;
 	/**
 	 * 
 	 */
@@ -66,6 +67,12 @@ public class ProdutoEntradaProduto implements Serializable{
 	}
 	public void setTotal(BigDecimal total) {
 		this.total = total;
+	}
+	public ProdutoEntradaProduto getProdutoEntradaProduto() {
+		return produtoEntradaProduto;
+	}
+	public void setProdutoEntradaProduto(ProdutoEntradaProduto produtoEntradaProduto) {
+		this.produtoEntradaProduto = produtoEntradaProduto;
 	}
 	
 }

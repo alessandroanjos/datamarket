@@ -18,7 +18,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import com.infinity.datamarket.comum.Fachada;
-import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoqueProduto;
 import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
@@ -974,7 +973,8 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				"Erro ao imprimir o Recibo!", "");
 			ctx.addMessage(null, msg);
 		}
-}
+	}
+	
 	public MovimentacaoEstoque getMovimentacaoProdutoEstoque() {
 		return movimentacaoProdutoEstoque;
 	}

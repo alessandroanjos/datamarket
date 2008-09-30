@@ -32,17 +32,20 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.clientepagamento.ClientePagamento;
+import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
+import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
+import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
 import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
@@ -308,7 +311,7 @@ public class GerenciadorRelatorio {
 			Map<String, String> parametros = new HashMap<String, String>();
 
 			parametros.put("empresa", EMPRESA);	
-			parametros.put("codigo", movimentacaoEstoque.getId().toString());
+			parametros.put("codigo", Util.completaString(movimentacaoEstoque.getId().toString(), "0", 4, true));
 			parametros.put("lojaSaida", movimentacaoEstoque.getEstoqueSaida().getPk().getLoja().getNome());
 			parametros.put("estoqueSaida", movimentacaoEstoque.getEstoqueSaida().getDescricao());
 			parametros.put("lojaEntrada", movimentacaoEstoque.getEstoqueEntrada().getPk().getLoja().getNome());
@@ -326,17 +329,80 @@ public class GerenciadorRelatorio {
 				System.out.println(it.next().toString());
 			}
 			
-			List itensMovimentacao = new ArrayList();
-			List listaItens = new ArrayList();
+			List<ProdutoMovimentacaoEstoque> listaItens = new ArrayList<ProdutoMovimentacaoEstoque>();
 			
 			Iterator itMovEstoque = movimentacaoEstoque.getProdutosMovimentacao().iterator();
 			while(itMovEstoque.hasNext()){
-				listaItens.add((ProdutoMovimentacaoEstoque)itMovEstoque.next());
+				ProdutoMovimentacaoEstoque pme = (ProdutoMovimentacaoEstoque)itMovEstoque.next();
+				pme.setProdutoMovimentacaoEstoque(pme);
+				listaItens.add(pme);
 			}
 			
-			itensMovimentacao.add(new JRBeanCollectionDataSource(listaItens));
+			RelatorioDataSource rel = new RelatorioDataSource(listaItens);
 			
-			RelatorioDataSource rel = new RelatorioDataSource(itensMovimentacao);
+            JasperRunManager.runReportToPdfStream(input, out, parametros, rel);
+   		}catch(Exception e){
+			e.printStackTrace();
+			throw new RelatorioException(e);
+		}
+	}
+	
+	public void gerarReciboEntradaProdutosEstoque(EntradaProduto entradaProduto, OutputStream out) throws AppException{
+		try{
+			Map<String, String> parametros = new HashMap<String, String>();
+			
+			DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+
+			parametros.put("empresa", EMPRESA);	
+			parametros.put("numeroNota", Util.completaString(entradaProduto.getNumeroNota(), "0", 4, true));
+			parametros.put("dataEmissao", dt.format(entradaProduto.getDataEmissaoNota()));
+			parametros.put("dataEntrada", dt.format(entradaProduto.getDataEntrada()));
+			Fornecedor fornecedor = null;
+			if(entradaProduto.getFornecedor() != null){
+				fornecedor = entradaProduto.getFornecedor();
+			}else if(entradaProduto.getIdFornecedor() != null && !entradaProduto.getIdFornecedor().equals("0")){
+				fornecedor = Fachada.getInstancia().consultaFornecedorPorId(new Long(entradaProduto.getIdFornecedor().toString()));
+			}
+			
+			if(fornecedor != null){
+				if(fornecedor.getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
+					parametros.put("fornecedor", fornecedor.getId().toString() + " - " + fornecedor.getNomeFornecedor());
+					parametros.put("labelCpfCnpj", "CPF:");
+					parametros.put("labelCpfCnpj", BackBean.formataCpfCnpj(fornecedor.getCpfCnpj()));
+					parametros.put("pessoaContato", fornecedor.getPessoaContato());
+					parametros.put("foneContato", fornecedor.getFoneContato());
+				}else{
+					parametros.put("fornecedor", fornecedor.getId().toString() + " - " + fornecedor.getRazaoSocial());
+					parametros.put("labelCpfCnpj", "CNPJ:");
+					parametros.put("labelCpfCnpj", BackBean.formataCpfCnpj(fornecedor.getCpfCnpj()));
+					parametros.put("pessoaContato", fornecedor.getPessoaContato());
+					parametros.put("foneContato", fornecedor.getFoneContato());
+				}
+			}else{
+				parametros.put("fornecedor", "");
+				parametros.put("labelCpfCnpj", "");
+				parametros.put("labelCpfCnpj", "");
+				parametros.put("pessoaContato", "");
+				parametros.put("foneContato", "");
+			}
+			
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboEntradaProdutosEstoque.jasper");
+            		
+			Iterator it = parametros.entrySet().iterator();
+
+			while(it.hasNext()){
+				System.out.println(it.next().toString());
+			}
+			List<ProdutoEntradaProduto> listaItens = new ArrayList<ProdutoEntradaProduto>();
+			
+			Iterator itEntradaProdutos = entradaProduto.getProdutosEntrada().iterator();
+			while(itEntradaProdutos.hasNext()){
+				ProdutoEntradaProduto pep = (ProdutoEntradaProduto)itEntradaProdutos.next();
+				pep.setProdutoEntradaProduto(pep);
+				listaItens.add(pep);
+			}
+			
+			RelatorioDataSource rel = new RelatorioDataSource(listaItens);
 			
             JasperRunManager.runReportToPdfStream(input, out, parametros, rel);
    		}catch(Exception e){
