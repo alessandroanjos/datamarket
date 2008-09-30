@@ -7,6 +7,7 @@ import com.infinity.datamarket.comum.produto.Produto;
 
 public class ProdutoMovimentacaoEstoque implements Serializable{
 
+	public ProdutoMovimentacaoEstoque produtoMovimentacaoEstoque;
 	/**
 	 * 
 	 */
@@ -44,6 +45,15 @@ public class ProdutoMovimentacaoEstoque implements Serializable{
 	 */
 	public void setQuantidade(BigDecimal quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	public ProdutoMovimentacaoEstoque getProdutoMovimentacaoEstoque() {
+		return produtoMovimentacaoEstoque;
+	}
+
+	public void setProdutoMovimentacaoEstoque(
+			ProdutoMovimentacaoEstoque produtoMovimentacaoEstoque) {
+		this.produtoMovimentacaoEstoque = produtoMovimentacaoEstoque;
 	}
 	
 }

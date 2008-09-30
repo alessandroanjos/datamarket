@@ -14,6 +14,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
@@ -31,7 +33,9 @@ import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
-public class EntradaProdutoBackBean extends BackBean {   
+public class EntradaProdutoBackBean extends BackBean {
+	
+	EntradaProduto entradaProduto;
 
 	private static final int HashSet = 0;
 //	public EntradaProdutoBackBean() {
@@ -346,6 +350,9 @@ public class EntradaProdutoBackBean extends BackBean {
 			entradaProduto.setProdutosEntrada(arrayProduto);
 
 			getFachada().inserirEntradaProduto(entradaProduto);
+			
+			this.setEntradaProduto(entradaProduto);
+			
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -394,6 +401,9 @@ public class EntradaProdutoBackBean extends BackBean {
 
 		try {
 			getFachada().alterarEntradaProduto(entradaProduto);
+			
+			this.setEntradaProduto(entradaProduto);
+			
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -1022,5 +1032,38 @@ public class EntradaProdutoBackBean extends BackBean {
 	public void setValorNota(BigDecimal valorNota) {
 		
 		this.valorNota = valorNota;
+	}
+	public EntradaProduto getEntradaProduto() {
+		return entradaProduto;
+	}
+	public void setEntradaProduto(EntradaProduto entradaProduto) {
+		this.entradaProduto = entradaProduto;
+	}
+	
+	public void imprimirRecibo(){
+		try {
+			if(this.getEntradaProduto() != null){
+				FacesContext context = FacesContext.getCurrentInstance();
+				HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();			
+				ServletOutputStream servletOutputStream = response.getOutputStream();
+				getFachada().gerarReciboEntradaProdutosEstoque(this.getEntradaProduto(), servletOutputStream);			
+				response.setContentType("application/pdf");
+				response.setHeader("Content-disposition", "attachment;filename=ReciboEntradaProdutoEstoque" + System.currentTimeMillis() + ".pdf");
+				context.responseComplete();
+				servletOutputStream.flush();
+				servletOutputStream.close();
+			}else{
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Não existe Recibo para imprimir!", "");
+				ctx.addMessage(null, msg);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"Erro ao imprimir o Recibo!", "");
+			ctx.addMessage(null, msg);
+		}
 	}
 }
