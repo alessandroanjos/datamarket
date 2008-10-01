@@ -212,19 +212,10 @@ public class Fachada {
 		return GerenciadorRelatorio.getInstancia();
 	}
 	
-	public JasperViewer gerarReciboVenda(TransacaoVenda transVenda) throws AppException{
-		JasperViewer viewer = null;
-		try{
-			viewer = getGerenciadorRelatorio().gerarReciboVenda(transVenda);
-		}catch(AppException e){
-			throw new SistemaException(e);
-		}
-		return viewer;
-	}
 
-	public void gerarReciboVendaES(TransacaoVenda transacao, OutputStream out) throws AppException{
+	public void gerarReciboVenda(TransacaoVenda transacao, OutputStream out) throws AppException{
 		try{
-			getGerenciadorRelatorio().gerarReciboVendaES(transacao, out);
+			getGerenciadorRelatorio().gerarReciboVenda(transacao, out);
 		}catch(AppException e){
 			throw new SistemaException(e);
 		}
