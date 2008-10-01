@@ -51,9 +51,9 @@
 			<band height="800"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="163"
+						x="0"
 						y="0"
-						width="216"
+						width="535"
 						height="22"
 						key="TITULO-1"/>
 					<box></box>
@@ -238,9 +238,9 @@
 				</textField>
 				<staticText>
 					<reportElement
-						x="168"
+						x="0"
 						y="426"
-						width="216"
+						width="535"
 						height="22"
 						key="TITULO-2"/>
 					<box></box>
