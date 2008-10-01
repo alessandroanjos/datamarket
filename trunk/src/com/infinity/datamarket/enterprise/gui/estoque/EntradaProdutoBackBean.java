@@ -454,6 +454,9 @@ public class EntradaProdutoBackBean extends BackBean {
 				this.setDesconto(entradaProduto.getDesconto());
 				this.setValor(entradaProduto.getValor());
 				this.setFornecedor(entradaProduto.getFornecedor());
+				
+				this.setEntradaProduto(entradaProduto);
+				
 				return "proxima";
 				
 			} else {
