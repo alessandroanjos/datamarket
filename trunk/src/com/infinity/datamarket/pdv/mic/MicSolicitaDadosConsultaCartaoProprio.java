@@ -37,22 +37,22 @@ public class MicSolicitaDadosConsultaCartaoProprio extends Mic{
 						if (Util.validacpf(CPFCNPJ) || Util.validaCnpj(CPFCNPJ)){
 							DadosConsultaCartaoProprio dadosConsultaCartaoProprio = null;
 							try{
-//								gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
-//								AutorizadorServerRemote remote = (AutorizadorServerRemote) ServiceLocator.getJNDIObject(ServerConfig.AUTORIZADOR_SERVER_JNDI);
-//								if (remote == null){
-//									gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
-//									gerenciadorPerifericos.esperaVolta();
-//									return ALTERNATIVA_2;
-//								}
-//								dadosConsultaCartaoProprio = remote.consultaDebito(CPFCNPJ);
-								dadosConsultaCartaoProprio = new DadosConsultaCartaoProprio();
-								dadosConsultaCartaoProprio.setNome("Wagner de Medeiros Melo");													
-								dadosConsultaCartaoProprio.setValorDebito(new BigDecimal(200.98).setScale(2,BigDecimal.ROUND_UP));
+								gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
+								AutorizadorServerRemote remote = (AutorizadorServerRemote) ServiceLocator.getJNDIObject(ServerConfig.AUTORIZADOR_SERVER_JNDI);
+								if (remote == null){
+									gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+									gerenciadorPerifericos.esperaVolta();
+									return ALTERNATIVA_2;
+								}
+								dadosConsultaCartaoProprio = remote.consultaDebito(CPFCNPJ);
+//								dadosConsultaCartaoProprio = new DadosConsultaCartaoProprio();
+//								dadosConsultaCartaoProprio.setNome("Wagner de Medeiros Melo");													
+//								dadosConsultaCartaoProprio.setValorDebito(new BigDecimal(200.98).setScale(2,BigDecimal.ROUND_UP));
 								dadosConsultaCartaoProprio.setCPFCNPJ(CPFCNPJ);
-//							}catch(AutorizacaoException e){
-//								gerenciadorPerifericos.getDisplay().setMensagem(e.getMessage());
-//								gerenciadorPerifericos.esperaVolta();
-//								return ALTERNATIVA_2;
+							}catch(AutorizacaoException e){
+								gerenciadorPerifericos.getDisplay().setMensagem(e.getMessage());
+								gerenciadorPerifericos.esperaVolta();
+								return ALTERNATIVA_2;
 							}catch(Exception e){
 								e.printStackTrace();
 								gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");

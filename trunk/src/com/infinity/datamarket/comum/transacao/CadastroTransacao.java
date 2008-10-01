@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.infinity.datamarket.comum.cliente.CadastroCliente;
+import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.estoque.CadastroEstoque;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoquePK;
@@ -12,6 +14,7 @@ import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.totalizadores.CadastroTotalizadores;
 import com.infinity.datamarket.comum.totalizadores.ConstantesTotalizadoresNaoFiscais;
 import com.infinity.datamarket.comum.usuario.CadastroLoja;
@@ -64,6 +67,26 @@ public class CadastroTransacao extends Cadastro{
 			TransacaoVenda transVenda = (TransacaoVenda) consultarPorPK(pk);
 			transVenda.setSituacao(TransacaoVenda.CANCELADO);
 			atualizar(transVenda);
+		}else if (trans instanceof TransacaoPagamentoCartaoProprio){
+			TransacaoPagamentoCartaoProprio transPagamento = (TransacaoPagamentoCartaoProprio) trans;			
+			if (transPagamento.getSituacao().equals(transPagamento.ATIVO)){
+				PropertyFilter filter = new PropertyFilter();
+				filter.setTheClass(Cliente.class);
+				filter.addProperty("cpfCnpj",transPagamento.getCPFCNPJ());			
+				Collection c = CadastroCliente.getInstancia().consultar(filter);
+				if (c != null && !c.isEmpty()){
+					Cliente cli = (Cliente) c.iterator().next();
+					BigDecimal valorLimite = cli.getValorLimiteDisponivel().setScale(2);
+					System.out.println("Valor Limite "+ valorLimite);
+					BigDecimal valorPagamento = transPagamento.getValor().subtract(transPagamento.getAcressimo()).add(transPagamento.getDesconto());					
+					System.out.println("Novo Pagamento "+ valorPagamento);
+					valorLimite = valorLimite.add(valorPagamento);
+					System.out.println("Novo Valor Limite "+ valorLimite);
+					cli.setValorLimiteDisponivel(valorLimite);
+					CadastroCliente.getInstancia().alterar(cli);
+				}
+			}
+			
 		}else if (trans instanceof TransacaoVenda){
 			TransacaoVenda transVenda = (TransacaoVenda) trans;
 			if(transVenda.getSituacao().equals(TransacaoVenda.ATIVO)){
