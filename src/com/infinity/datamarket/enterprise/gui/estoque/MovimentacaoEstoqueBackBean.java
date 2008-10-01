@@ -389,6 +389,8 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				this.setIdEstoqueSaida(movimentacaoEstoque.getEstoqueSaida().getPk().getId().toString());
 				this.setEstoqueSaida(movimentacaoEstoque.getEstoqueSaida());
 				
+				this.setMovimentacaoProdutoEstoque(movimentacaoEstoque);
+				
 				return "proxima";
 				
 			} else {
