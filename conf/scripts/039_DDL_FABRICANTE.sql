@@ -24,3 +24,6 @@ CREATE TABLE [dbo].[FABRICANTE] (
 )
 ON [PRIMARY]
 GO
+alter table produto add constraint FK_PRODUTO_FABRICANTE foreign key(id_fabricante)
+references fabricante(id)
+GO
