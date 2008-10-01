@@ -8,7 +8,6 @@ package com.infinity.datamarket.report;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -18,15 +17,12 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import javax.wsdl.Output;
 
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -39,8 +35,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import com.infinity.datamarket.comum.Fachada;
-import com.infinity.datamarket.comum.cliente.Cliente;
-import com.infinity.datamarket.comum.clientepagamento.ClientePagamento;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
@@ -349,12 +343,15 @@ public class GerenciadorRelatorio {
 	
 	public void gerarReciboEntradaProdutosEstoque(EntradaProduto entradaProduto, OutputStream out) throws AppException{
 		try{
+			
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboEntradaProdutosEstoque.jasper");
+			
 			Map<String, String> parametros = new HashMap<String, String>();
 			
 			DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
 
 			parametros.put("empresa", EMPRESA);	
-			parametros.put("numeroNota", Util.completaString(entradaProduto.getNumeroNota(), "0", 4, true));
+			parametros.put("numeroNota", Util.completaString(entradaProduto.getNumeroNota(), "0", 15, true));
 			parametros.put("dataEmissao", dt.format(entradaProduto.getDataEmissaoNota()));
 			parametros.put("dataEntrada", dt.format(entradaProduto.getDataEntrada()));
 			Fornecedor fornecedor = null;
@@ -368,13 +365,13 @@ public class GerenciadorRelatorio {
 				if(fornecedor.getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
 					parametros.put("fornecedor", fornecedor.getId().toString() + " - " + fornecedor.getNomeFornecedor());
 					parametros.put("labelCpfCnpj", "CPF:");
-					parametros.put("labelCpfCnpj", BackBean.formataCpfCnpj(fornecedor.getCpfCnpj()));
+					parametros.put("cpfCnpj", BackBean.formataCpfCnpj(fornecedor.getCpfCnpj().trim().replace(".", "").replace("/", "").replace("-", "")));
 					parametros.put("pessoaContato", fornecedor.getPessoaContato());
 					parametros.put("foneContato", fornecedor.getFoneContato());
 				}else{
 					parametros.put("fornecedor", fornecedor.getId().toString() + " - " + fornecedor.getRazaoSocial());
 					parametros.put("labelCpfCnpj", "CNPJ:");
-					parametros.put("labelCpfCnpj", BackBean.formataCpfCnpj(fornecedor.getCpfCnpj()));
+					parametros.put("cpfCnpj", BackBean.formataCpfCnpj(fornecedor.getCpfCnpj()));
 					parametros.put("pessoaContato", fornecedor.getPessoaContato());
 					parametros.put("foneContato", fornecedor.getFoneContato());
 				}
@@ -386,8 +383,12 @@ public class GerenciadorRelatorio {
 				parametros.put("foneContato", "");
 			}
 			
-			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboEntradaProdutosEstoque.jasper");
-            		
+			parametros.put("valorFrete", entradaProduto.getFrete() != null ? entradaProduto.getFrete().setScale(2).toString(): BigDecimal.ZERO.setScale(2).toString());
+			parametros.put("valorICMS", entradaProduto.getIcms() != null ? entradaProduto.getIcms().setScale(2).toString(): BigDecimal.ZERO.setScale(2).toString());
+			parametros.put("valorIPI", entradaProduto.getIpi() != null ? entradaProduto.getIpi().setScale(2).toString(): BigDecimal.ZERO.setScale(2).toString());
+			parametros.put("valorDesconto", entradaProduto.getDesconto() != null ? entradaProduto.getDesconto().setScale(2).toString(): BigDecimal.ZERO.setScale(2).toString());
+			parametros.put("valorTotal", entradaProduto.getValor() != null ? entradaProduto.getValor().setScale(2).toString(): BigDecimal.ZERO.setScale(2).toString());
+			
 			Iterator it = parametros.entrySet().iterator();
 
 			while(it.hasNext()){
