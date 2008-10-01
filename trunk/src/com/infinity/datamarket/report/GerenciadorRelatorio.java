@@ -130,63 +130,9 @@ public class GerenciadorRelatorio {
 		}
 	}
 
-	public JasperViewer gerarReciboVenda(TransacaoVenda transacao) throws AppException{
-		JasperViewer viewer = null;
+	public void gerarReciboVenda(TransacaoVenda transacao, OutputStream out) throws AppException{
+		
 		try{
-			JasperReport jasperItens =  getRelatorio(RECIBO_VENDA);
-
-			Map parametros = new HashMap();
-			parametros.put("CAMINHO", this.CAMINHO_RELATORIO);
-
-			parametros.put("empresa",EMPRESA);
-			parametros.put("loja", transacao.getPk().getLoja()+"");
-			parametros.put("componente", transacao.getPk().getComponente()+"");
-			parametros.put("data", transacao.getPk().getDataTransacao());
-			parametros.put("num_transacao", transacao.getPk().getNumeroTransacao()+"");
-			parametros.put("cupom", transacao.getNumeroCupom());
-			parametros.put("operador", transacao.getCodigoUsuarioOperador() + " - " + transacao.getOperador());
-			parametros.put("vendedor", transacao.getCodigoUsuarioVendedor()==null?"":transacao.getCodigoUsuarioVendedor() + " - " + transacao.getVendedor());
-			parametros.put("cliente", transacao.getCliente()==null?"":transacao.getCliente().getNomeCliente());
-			parametros.put("desconto", transacao.getDescontoCupom()==null?BigDecimal.ZERO:transacao.getDescontoCupom());
-			parametros.put("total", transacao.getValorCupom());
-						
-
-			ArrayList colItensRegistrados =  new ArrayList();
-			ArrayList colPagamentos = new ArrayList();
-
-			Collection coll = transacao.getEventosTransacao();
-			Iterator i = coll.iterator();
-
-			while(i.hasNext()){
-				EventoTransacao ev = (EventoTransacao) i.next();
-				if (ev instanceof EventoItemRegistrado){
-					colItensRegistrados.add(ev);
-				}else if (ev instanceof EventoItemPagamento){
-					colPagamentos.add(ev);
-				}
-			}
-
-			List resposta = new ArrayList();
-			resposta.add(new Uniao(colPagamentos,colItensRegistrados));
-
-            JasperPrint jasperPrintItemRegistrado = JasperFillManager.fillReport(jasperItens,
-        			parametros, new RelatorioDataSource ( resposta) );
-            
-            
-
-			//exibe o resultado
-			viewer = new JasperViewer( jasperPrintItemRegistrado , false );
-			return viewer;
-		}catch(Exception e){
-			throw new RelatorioException(e);
-		}
-	}
-
-	public void gerarReciboVendaES(TransacaoVenda transacao, OutputStream out) throws AppException{
-		JasperViewer viewer = null;
-		try{
-			JasperReport jasperItens =  getRelatorio(RECIBO_VENDA);
-
 			Map parametros = new HashMap();
 			parametros.put("CAMINHO", this.CAMINHO_RELATORIO);
 
