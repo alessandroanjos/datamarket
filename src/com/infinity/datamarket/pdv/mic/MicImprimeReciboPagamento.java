@@ -1,5 +1,9 @@
 package com.infinity.datamarket.pdv.mic;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 import com.infinity.datamarket.comum.transacao.TransacaoPagamento;
@@ -35,6 +39,19 @@ public class MicImprimeReciboPagamento extends Mic{
 						TransacaoPagamentoCartaoProprio transPagamentoCartaoProprio = (TransacaoPagamentoCartaoProprio) transPagamento; 
 						try {
 							OutputStream out = getFachadaPDV().gerarReciboPagamentoCliente(transPagamentoCartaoProprio);							
+							String caminho = "c:\\pdv\\temp\\";
+							File dir = new File(caminho);
+							if (!dir.exists()){
+								dir.mkdir();
+							}
+							String nomeArquivo = caminho+"RECIBO_PAGAMENTO_"+ transPagamento.getPk().getLoja()+transPagamento.getPk().getComponente()+
+							transPagamento.getPk().getDataTransacao().getTime()+transPagamento.getPk().getNumeroTransacao()+".pdf";
+							ByteArrayOutputStream bout = (ByteArrayOutputStream) out;
+							FileOutputStream f = new FileOutputStream(nomeArquivo);
+							f.write(bout.toByteArray());
+							f.flush();
+							f.close();
+							Runtime.getRuntime().exec("cmd /c"+nomeArquivo);
 							
 						} catch (Exception e) {
 							e.printStackTrace();

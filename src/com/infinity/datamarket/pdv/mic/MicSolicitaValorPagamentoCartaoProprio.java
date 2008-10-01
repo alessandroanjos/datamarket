@@ -21,8 +21,8 @@ public class MicSolicitaValorPagamentoCartaoProprio extends Mic{
 				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_MONETARIA, 7);
 				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 					String valor = entrada.getDado();
-					BigDecimal valorPagamento = new BigDecimal(valor);
-					if (dados.getValorDebito().compareTo(valorPagamento) <= 0 || valorPagamento.compareTo(BigDecimal.ZERO) <= 0){
+					BigDecimal valorPagamento = new BigDecimal(valor).setScale(2,BigDecimal.ROUND_DOWN);
+					if (dados.getValorDebito().compareTo(valorPagamento) < 0 || valorPagamento.compareTo(BigDecimal.ZERO) <= 0){
 						gerenciadorPerifericos.getDisplay().setMensagem("Valor Inválido");
 						gerenciadorPerifericos.esperaVolta();
 						continue;
@@ -32,7 +32,7 @@ public class MicSolicitaValorPagamentoCartaoProprio extends Mic{
 							EntradaDisplay entrada2 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_MONETARIA, 7);
 							if (entrada2.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 								String desc = entrada2.getDado();
-								BigDecimal valorDesconto = new BigDecimal(desc);
+								BigDecimal valorDesconto = new BigDecimal(desc).setScale(2,BigDecimal.ROUND_DOWN);
 								if (dados.getValorDebito().compareTo(valorDesconto) <= 0 || valorPagamento.compareTo(valorDesconto) <= 0){
 									gerenciadorPerifericos.getDisplay().setMensagem("Desconto Inválido");
 									gerenciadorPerifericos.esperaVolta();
@@ -43,7 +43,7 @@ public class MicSolicitaValorPagamentoCartaoProprio extends Mic{
 										EntradaDisplay entrada3 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_MONETARIA, 7);
 										if (entrada3.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 											String acressimo = entrada3.getDado();
-											BigDecimal valorAcressimo = new BigDecimal(acressimo);
+											BigDecimal valorAcressimo = new BigDecimal(acressimo).setScale(2,BigDecimal.ROUND_DOWN);
 											gerenciadorPerifericos.getCmos().gravar(CMOS.DESCONTO,valorDesconto);
 											gerenciadorPerifericos.getCmos().gravar(CMOS.ACRESSIMO,valorAcressimo);
 											valorPagamento = valorPagamento.add(valorAcressimo).subtract(valorDesconto);

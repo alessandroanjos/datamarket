@@ -1868,7 +1868,7 @@ public class TransacaoBackBean extends BackBean {
 					FacesContext context = FacesContext.getCurrentInstance();
 					HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();			
 					ServletOutputStream servletOutputStream = response.getOutputStream();
-					getFachada().gerarReciboVendaES(this.getTransacaoVenda(),servletOutputStream);			
+					getFachada().gerarReciboVenda(this.getTransacaoVenda(),servletOutputStream);			
 					response.setContentType("application/pdf");
 					response.setHeader("Content-disposition", "attachment;filename=ReciboVenda.pdf");
 					context.responseComplete();
@@ -2113,15 +2113,7 @@ public class TransacaoBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
-			
-			JasperViewer viewer;
-			try {
-				viewer = getFachada().gerarReciboVenda(transVenda);
-				viewer.show();
-			} catch (AppException e) {
-				e.printStackTrace();
-			}
-			
+	
 			resetBB();
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");

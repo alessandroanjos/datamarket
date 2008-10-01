@@ -1,5 +1,10 @@
 package com.infinity.datamarket.pdv.mic;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+
 import net.sf.jasperreports.view.JasperViewer;
 
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
@@ -29,12 +34,24 @@ public class MicImprimeRecibo extends Mic{
 					gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
 					
 					TransacaoVenda transVenda = (TransacaoVenda) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
-					
-					JasperViewer viewer;
+									
 					try {
-						viewer = getFachadaPDV().gerarReciboVenda(transVenda);
-						viewer.show();
-					} catch (AppException e) {
+						
+						ByteArrayOutputStream out = new ByteArrayOutputStream();
+						getFachadaPDV().gerarReciboVenda(transVenda, out);
+						String caminho = "c:\\pdv\\temp\\";
+						File dir = new File(caminho);
+						if (!dir.exists()){
+							dir.mkdir();
+						}
+						String nomeArquivo = caminho+"RECIBO_VENDA_"+ transVenda.getPk().getLoja()+transVenda.getPk().getComponente()+
+						transVenda.getPk().getDataTransacao().getTime()+transVenda.getPk().getNumeroTransacao()+".pdf";						
+						FileOutputStream f = new FileOutputStream(nomeArquivo);
+						f.write(out.toByteArray());
+						f.flush();
+						f.close();
+						Runtime.getRuntime().exec("cmd /c"+nomeArquivo);
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					
