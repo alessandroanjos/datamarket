@@ -318,7 +318,12 @@ public class EntradaProdutoBackBean extends BackBean {
 		} else {
 		    entradaProduto.setDesconto(this.desconto);
 		}
-		entradaProduto.setValor(this.valorNota.subtract(getDesconto()));
+		if(this.frete != null && this.frete.setScale(2).compareTo(BigDecimal.ZERO.setScale(2)) > 0){
+			entradaProduto.setValor(this.valorNota.add(this.frete));//this.valorNota.subtract(getDesconto()).add(this.frete)	
+//		}else{
+//			entradaProduto.setValor(this.valorNota.subtract(getDesconto()));
+		}
+		
 		entradaProduto.setIdFornecedor(this.idFornecedor);
 
 		Fornecedor fornecedor = null;
@@ -332,7 +337,7 @@ public class EntradaProdutoBackBean extends BackBean {
 			e1.printStackTrace();
 		} 
 		entradaProduto.setFornecedor(fornecedor);
-		entradaProduto.setDesconto(this.getDesconto());
+//		entradaProduto.setDesconto(this.getDesconto());
 
 		try {
 			if (getId()==null) entradaProduto.setId(getIdInc(EntradaProduto.class));
