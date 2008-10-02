@@ -131,8 +131,7 @@
 												value="#{planoPagamentoChequePreBB.valorMinimo}" dir="rtl"
 												required="false" 
 												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return SoNumero(event);"
-												onkeydown="Formata('frmInserirPlanoPagamentoChequePre:valorMinimo',9,2,event);">
+												onkeypress="return(formataMoeda(this,'','.',2,event));">
 												<f:validateLength maximum="10" />
 												<f:validateDoubleRange minimum="0.01" maximum="9999999.99" />
 												<f:validator validatorId="BigDecimalValidator" />
@@ -146,8 +145,7 @@
 												value="#{planoPagamentoChequePreBB.valorMaximo}" dir="rtl"
 												required="false" 
 												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return SoNumero(event);"
-												onkeydown="Formata('frmInserirPlanoPagamentoChequePre:valorMaximo',9,2,event);">
+												onkeypress="return(formataMoeda(this,'','.',2,event));">
 												<f:validateLength maximum="10" />
 												<f:validateDoubleRange minimum="0.01" maximum="9999999.99" />
 												<f:validator validatorId="BigDecimalValidator" />
@@ -163,8 +161,7 @@
 												value="#{planoPagamentoChequePreBB.percDesconto}" dir="rtl"
 												required="false" 
 												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return SoNumero(event);"
-												onkeydown="Formata('frmInserirPlanoPagamentoChequePre:percentualDesconto',4,2,event);">
+												onkeypress="return(formataMoeda(this,'','.',2,event));">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 												<f:validator validatorId="BigDecimalValidator" />
@@ -178,8 +175,7 @@
 												value="#{planoPagamentoChequePreBB.percAcrescimo}" dir="rtl"
 												required="false" 
 												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return SoNumero(event);"
-												onkeydown="Formata('frmInserirPlanoPagamentoChequePre:percentualAcrescimo',4,2,event);">
+												onkeypress="return(formataMoeda(this,'','.',2,event));">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 												<f:validator validatorId="BigDecimalValidator" />
@@ -234,8 +230,7 @@
 												value="#{planoPagamentoChequePreBB.percentagemEntrada}"
 												dir="rtl" required="false"
 												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return SoNumero(event);"
-												onkeydown="Formata('frmInserirPlanoPagamentoChequePre:percentualEntrada',5,2,event);">
+												onkeypress="return(formataMoeda(this,'','.',2,event));">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 												<f:validator validatorId="BigDecimalValidator" />
@@ -268,8 +263,7 @@
 													value="#{planoPagamentoChequePreBB.percentagemParcela}"
 													dir="rtl" required="false" 
 													onfocus="this.select();" onclick="this.select();"
-									    			onkeypress="return SoNumero(event);"
-													onkeydown="Formata('frmInserirPlanoPagamentoChequePre:percentualParcela',5,2,event);">
+									    			onkeypress="return(formataMoeda(this,'','.',2,event));">
 													<f:validateLength maximum="6" />
 													<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 													<f:validator validatorId="BigDecimalValidator" />

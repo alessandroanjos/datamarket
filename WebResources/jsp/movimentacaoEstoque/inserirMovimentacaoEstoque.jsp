@@ -147,7 +147,7 @@
 								<h:inputText styleClass="field text" id="quantidade" maxlength="7"
 									size="7" value="#{movimentacaoEstoqueBB.quantidade}" required="false"
 									onfocus="this.select();" onclick="this.select();"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirMovimentacaoEstoque:quantidade',7,3,event);">
+									onkeypress="return(formataMoeda(this,'','.',3,event));">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />

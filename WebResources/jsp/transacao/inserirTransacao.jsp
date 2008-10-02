@@ -366,7 +366,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Unit.*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="precoVenda" maxlength="10" size="10"
-											value="#{transacaoBB.precoVenda}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:precoVenda',9,2,event);" onblur="reCalculaPrecoItem();">
+											value="#{transacaoBB.precoVenda}" dir="rtl" required="false" onkeypress="return(formataMoeda(this,'','.',2,event));" onblur="reCalculaPrecoItem();">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -375,7 +375,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Quantidade*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="quantidade" maxlength="9" size="9"
-											value="#{transacaoBB.quantidade}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="FormataPeso('frmInserirTransacao:quantidade',7,3,event);" onblur="reCalculaPrecoItem();">
+											value="#{transacaoBB.quantidade}" dir="rtl" required="false" onkeypress="return(formataMoeda(this,'','.',3,event));" onblur="reCalculaPrecoItem();">
 											<f:validateLength maximum="9" />
 											<f:validateDoubleRange  minimum="0.000" maximum="999.999"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -384,7 +384,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
 										<h:inputText styleClass="field text" id="descontoItem" maxlength="10" size="10"
-											value="#{transacaoBB.descontoItem}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:descontoItem',9,2,event);" onblur="reCalculaPrecoItem();">
+											value="#{transacaoBB.descontoItem}" dir="rtl" required="false" onkeypress="return(formataMoeda(this,'','.',2,event));" onblur="reCalculaPrecoItem();">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -393,7 +393,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Item*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="valorItem" maxlength="10" size="10" readonly="true"
-											value="#{transacaoBB.valorItem}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorItem',9,2,event);">
+											value="#{transacaoBB.valorItem}" dir="rtl" required="false" onkeypress="return(formataMoeda(this,'','.',2,event));">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -475,7 +475,7 @@
 								<div>
 									<h:outputLabel styleClass="desc" value="Valor"></h:outputLabel>
 									<h:inputText styleClass="field text" id="valorFormaPagamento" maxlength="10" size="10" readonly="false"
-										value="#{transacaoBB.valorFormaPagamento}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorFormaPagamento',9,2,event);">
+										value="#{transacaoBB.valorFormaPagamento}" dir="rtl" required="false" onkeypress="return(formataMoeda(this,'','.',2,event));">
 										<f:validateLength maximum="10" />
 										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 										<f:validator validatorId="BigDecimalValidator"/>
@@ -879,7 +879,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Sub-Total"></h:outputLabel>
 								<h:inputText styleClass="field text" id="valorSubTotalCupom" maxlength="10" size="10"
-									value="#{transacaoBB.valorSubTotalCupom}" dir="rtl" required="false" readonly="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorSubTotalCupom',9,2,event);">
+									value="#{transacaoBB.valorSubTotalCupom}" dir="rtl" required="false" readonly="true" onkeypress="return(formataMoeda(this,'','.',2,event));">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 									<f:validator validatorId="BigDecimalValidator"/>
@@ -888,7 +888,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Total Recebido"></h:outputLabel>
 								<h:inputText styleClass="field text" id="valorTotalRecebido" maxlength="10" size="10"
-									value="#{transacaoBB.valorTotalRecebido}" dir="rtl" required="false" readonly="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorTotalRecebido',9,2,event);">
+									value="#{transacaoBB.valorTotalRecebido}" dir="rtl" required="false" readonly="true" onkeypress="return(formataMoeda(this,'','.',2,event));">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 									<f:validator validatorId="BigDecimalValidator"/>
@@ -897,7 +897,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
 								<h:inputText styleClass="field text" id="descontoCupom" maxlength="10" size="10" onblur="reCalculaTotalCupom();"
-									value="#{transacaoBB.descontoCupom}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:descontoCupom',9,2,event);">
+									value="#{transacaoBB.descontoCupom}" dir="rtl" required="false" onkeypress="return(formataMoeda(this,'','.',2,event));">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 									<f:validator validatorId="BigDecimalValidator"/>
@@ -906,7 +906,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Troco"></h:outputLabel>
 								<h:inputText styleClass="field text" id="valorTroco" maxlength="10" size="10" onblur="reCalculaTotalCupom();"
-									value="#{transacaoBB.valorTroco}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorTroco',9,2,event);">
+									value="#{transacaoBB.valorTroco}" dir="rtl" required="false" onkeypress="return(formataMoeda(this,'','.',2,event));">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 									<f:validator validatorId="BigDecimalValidator"/>
@@ -922,7 +922,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Total Cupom"></h:outputLabel>
 								<h:inputText styleClass="field text" id="valorTotalCupom" maxlength="10" size="10" readonly="false"
-									value="#{transacaoBB.valorTotalCupom}" dir="rtl" required="false" onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirTransacao:valorTotalCupom',9,2,event);">
+									value="#{transacaoBB.valorTotalCupom}" dir="rtl" required="false" onkeypress="return(formataMoeda(this,'','.',2,event));">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange  minimum="0.00" maximum="999999.99"/>
 									<f:validator validatorId="BigDecimalValidator"/>

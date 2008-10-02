@@ -14,7 +14,9 @@
 
 		<title><h:outputText value="#{msgs.tituloPaginas}"></h:outputText></title>
 		
-		<meta http-equiv="pragma" content="no-cache"/><link rel="icon" xhref="favicon.ico" type="image/x-icon" /><link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
+		<meta http-equiv="pragma" content="no-cache"/>
+		<link rel="icon" xhref="favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" xhref="favicon.ico" type="image/x-icon" />
 		<meta http-equiv="cache-control" content="no-cache"/>
 		<meta http-equiv="expires" content="0"/>
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
@@ -23,7 +25,6 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
-		<script type="text/javascript" src="/EnterpriseServer/js/util.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>		
 
@@ -73,6 +74,7 @@
                              form[formId+":quantidade"].focus();  
                              winId.close();
             }
+            
       </script>
 
 
@@ -108,18 +110,22 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Data Emissão"></h:outputLabel>
-								<t:inputText readonly="false" maxlength="10" size="10"
-									styleClass="field text data" forceId="dataEmissaoNota"
+								<h:inputText readonly="false" maxlength="10" size="10"
+									styleClass="field text data" 
 									value="#{entradaProdutoBB.dataEmissaoNota}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-									id="dataEmissaoNota" />
+									id="dataEmissaoNota" >
+									<f:convertDateTime timeZone="GMT-3"/>
+								</h:inputText>	
 								<h:message for="dataEmissaoNota" styleClass="msgErro" />
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Data Entrada"></h:outputLabel>
-								<t:inputText readonly="false" styleClass="field text data"
-									maxlength="10" size="10" forceId="dataEntrada"
+								<h:inputText readonly="false" styleClass="field text data"
+									maxlength="10" size="10" 
 									value="#{entradaProdutoBB.dataEntrada}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-									id="dataEntrada" />
+									id="dataEntrada">
+								    <f:convertDateTime timeZone="GMT-3"/>	 
+								</h:inputText>	
 								<h:message for="dataEntrada" styleClass="msgErro" />
 							</div>
 							<div>
@@ -140,13 +146,10 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Frete"></h:outputLabel>
-								<h:inputText styleClass="field monetario" id="frete" maxlength="7"
-									size="7" value="#{entradaProdutoBB.frete}" dir="rtl"
-									onfocus="this.select();" onclick="this.select();"
-									onkeypress="return SoNumero(event);"
-									onkeydown="Formata('frmInserirEntradaProdutos:frete',7,2,event);">
-									<f:validateLength maximum="7"/>
-									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
+								<h:inputText styleClass="field monetario" id="frete" maxlength="8"
+									size="8" value="#{entradaProdutoBB.frete}" 
+									onkeypress="return(formataMoeda(this,'','.',2,event));">
+
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 								<h:message for="frete" styleClass="msgErro" />
@@ -157,7 +160,7 @@
 								<h:inputText styleClass="field monetario" id="desconto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.desconto}" dir="rtl"
 									onfocus="this.select();" onclick="this.select();"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:desconto',7,2,event);"
+									onkeypress="return(formataMoeda(this,'','.',2,event));"
 									required="false">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
@@ -215,7 +218,7 @@
 								<h:inputText styleClass="field monetario" id="quantidade" maxlength="9"
 									size="7" value="#{entradaProdutoBB.quantidade}" dir="rtl"
 									onfocus="this.select();" onclick="this.select();"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:quantidade',9,3,event);"
+									onkeypress="return(formataMoeda(this,'','.',3,event));"
 									required="false">
 									<f:validateLength maximum="9" />
 									<f:validateDoubleRange minimum="0.000" maximum="9999.999" />
@@ -228,7 +231,7 @@
 								<h:inputText styleClass="field monetario" id="precoUnitario" maxlength="7"
 									size="7" value="#{entradaProdutoBB.precoUnitario}" dir="rtl"
 									onfocus="this.select();" onclick="this.select();"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:precoUnitario',7,2,event);"
+									onkeypress="return(formataMoeda(this,'','.',2,event));"
 									required="false">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
@@ -241,7 +244,7 @@
 								<h:inputText styleClass="field monetario" id="descontoProduto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.descontoProduto}" dir="rtl"
 									onfocus="this.select();" onclick="this.select();"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:descontoProduto',7,2,event);"
+									onkeypress="return(formataMoeda(this,'','.',2,event));"
 									required="false">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
@@ -254,7 +257,7 @@
 								<h:inputText styleClass="field monetario" id="icmsProduto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.icmsProduto}" dir="rtl"
 									onfocus="this.select();" onclick="this.select();"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:icmsProduto',7,2,event);"
+									onkeypress="return(formataMoeda(this,'','.',2,event));"
 									required="false">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
@@ -267,7 +270,7 @@
 								<h:inputText styleClass="field monetario" id="ipiProduto" maxlength="7"
 									size="7" value="#{entradaProdutoBB.ipiProduto}" dir="rtl"
 									onfocus="this.select();" onclick="this.select();"
-									onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirEntradaProdutos:ipiProduto',7,2,event);"
+									onkeypress="return(formataMoeda(this,'','.',2,event));"
 									required="false">
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.99" />

@@ -96,7 +96,7 @@
 										<h:inputText styleClass="field monetario" id="percentual" maxlength="5"
 											size="5" value="#{impostoBB.percentual}" required="true" 
 											onfocus="this.select();" onclick="this.select();"
-											onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterImposto:percentual',4,2,event);">
+											onkeypress="return(formataMoeda(this,'','.',2,event));">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange minimum="00.01" maximum="99.99"/>
 										</h:inputText>

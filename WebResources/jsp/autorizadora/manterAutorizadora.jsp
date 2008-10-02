@@ -69,7 +69,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Deságil"></h:outputLabel>
 										<h:inputText styleClass="field text" id="desagil" maxlength="6" size="6" dir="rtl"
-											value="#{autorizadoraBB.desagil}" required="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterAutorizadora:desagil',5,2,event);">
+											value="#{autorizadoraBB.desagil}" required="true" onkeypress="return(formataMoeda(this,'','.',2,event));">
 											<f:validateLength maximum="6" />
 											<f:validateDoubleRange  minimum="0.00" maximum="999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>

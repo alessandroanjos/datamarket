@@ -119,12 +119,13 @@
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Fabricante"></h:outputLabel>
-											<h:selectOneMenu id="fabricante" styleClass="field select"
+											<h:selectOneMenu id="fabricante"  styleClass="field select" style="width: 150px;"
 												value="#{produtoBB.idFabricante}" > 
 													<f:selectItems id="fabricanteSelectItems" 
 													  value="#{produtoBB.fabricantesConsulta}" />   
 											</h:selectOneMenu> 
 											<h:message for="idFabricante" styleClass="msgErro" />											
+											</li>
 										</div>										
 									</li>
 								</ul>

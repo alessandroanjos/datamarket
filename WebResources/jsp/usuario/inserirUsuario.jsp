@@ -126,7 +126,7 @@
 											<h:outputLabel styleClass="desc" value="Perc. Comissão"></h:outputLabel>
 											<h:inputText styleClass="field text comissao" id="comissao" maxlength="5" size="5" 
 												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirUsuario:comissao',4,2,event);"
+												onkeypress="return(formataMoeda(this,'','.',2,event));"
 												value="#{usuarioBB.comissao}" required="false" dir="rtl">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange  minimum="0.00" maximum="99.99"/>

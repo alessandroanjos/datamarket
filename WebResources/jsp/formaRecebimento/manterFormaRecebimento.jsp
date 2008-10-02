@@ -90,7 +90,7 @@
 										<h:outputLabel styleClass="desc" value="Valor Limite Sangria*"></h:outputLabel>
 										
 										<h:inputText styleClass="field text" id="valorLimiteSangria" maxlength="10" size="10"
-											value="#{formaRecebimentoBB.valorLimiteSangria}" dir="rtl" required="true" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterFormaRecebimento:valorLimiteSangria',9,2,event);">
+											value="#{formaRecebimentoBB.valorLimiteSangria}" dir="rtl" required="true" onkeypress="return(formataMoeda(this,'','.',2,event));">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -104,7 +104,7 @@
 										<h:outputLabel styleClass="desc" value="Valor Maximo Troco*"></h:outputLabel>
 
 										<h:inputText styleClass="field text" id="valorMaxTroco" maxlength="10" size="10"
-											value="#{formaRecebimentoBB.valorMaxTroco}" required="true" dir="rtl" onkeypress="return SoNumero(event);" onkeydown="Formata('frmManterFormaRecebimento:valorMaxTroco',9,2,event);">
+											value="#{formaRecebimentoBB.valorMaxTroco}" required="true" dir="rtl" onkeypress="return(formataMoeda(this,'','.',2,event));">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
