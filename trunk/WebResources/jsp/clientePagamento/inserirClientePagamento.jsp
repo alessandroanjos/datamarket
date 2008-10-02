@@ -98,7 +98,7 @@
 							<div>
 									<h:outputLabel styleClass="desc" value="Valor Pagamento"></h:outputLabel>
 									<h:inputText styleClass="text field" dir="rtl" id="valorPagamento" maxlength="10" size="10" 
-										value="#{clientePagamentoBB.valorPagamento}" required="false" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);" onkeydown="Formata(this.id,9,2,event);">
+										value="#{clientePagamentoBB.valorPagamento}" required="false" onfocus="this.select();" onclick="this.select();" onkeypress="return(formataMoeda(this,'','.',2,event));">
 										<f:validateLength maximum="10" />	
 										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>										
 										<f:validator validatorId="BigDecimalValidator" />

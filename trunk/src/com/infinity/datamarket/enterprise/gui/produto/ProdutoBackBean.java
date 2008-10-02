@@ -225,6 +225,7 @@ public class ProdutoBackBean extends BackBean{
 		setIdImposto(p.getImposto().getId().toString());
 		setIdTipoProduto(p.getTipo().getId().toString());
 		setIdUnidade(p.getUnidade().getId().toString());
+		if (p.getFabricante()!= null) 
 		setIdFabricante(p.getFabricante().getId().toString());
 		carregaLojas(p.getLojas());
 		
@@ -666,9 +667,9 @@ public class ProdutoBackBean extends BackBean{
 	
 	private List<Fabricante> carregarFabricantees() {
 
-		List<Fabricante> fabricantees = null;
+		List<Fabricante> fabricantes = null;
 		try {
-			fabricantees = (ArrayList<Fabricante>) getFachada().consultarTodosFabricantees();
+			fabricantes = (ArrayList<Fabricante>) getFachada().consultarTodosFabricantees();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -676,7 +677,7 @@ public class ProdutoBackBean extends BackBean{
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		return fabricantees;
+		return fabricantes;
 	}
 	public SelectItem[] getFabricantes() {
 		SelectItem[] arrayFabricantes = null;

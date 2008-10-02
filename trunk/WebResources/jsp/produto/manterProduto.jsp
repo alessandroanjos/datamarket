@@ -108,8 +108,7 @@
 												maxlength="10" size="10" value="#{produtoBB.precoPadrao}"
 												required="true" dir="rtl"
 												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return SoNumero(event);" 
-												onkeydown="Formata('frmAlterarProduto:precoPadrao',9,2,event);">
+												onkeypress="return(formataMoeda(this,'','.',2,event));">
 												<f:validateDoubleRange minimum="0.00" maximum="999999.99" />
 											</h:inputText>
 											<h:message for="precoPadrao" styleClass="msgErro" />
@@ -121,8 +120,7 @@
 												value="#{produtoBB.precoPromocional}" required="false"
 												dir="rtl" 
 												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return SoNumero(event);" 
-												onkeydown="Formata('frmAlterarProduto:precoPromocional',9,2,event);">
+												onkeypress="return(formataMoeda(this,'','.',2,event));">
 												<f:validateDoubleRange minimum="0.00" maximum="999999.99" />
 											</h:inputText>
 											<h:message for="precoPromocional" styleClass="msgErro" />
@@ -134,8 +132,7 @@
 												value="#{produtoBB.precoCompra}" required="false"
 												dir="rtl" 
 												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return SoNumero(event);" 												
-												onkeydown="Formata('frmAlterarProduto:precoCompra',9,2,event);">
+												onkeypress="return(formataMoeda(this,'','.',2,event));">
 												<f:validateDoubleRange minimum="0.01" maximum="999999.99" />
 											</h:inputText>
 											<h:message for="precoCompra" styleClass="msgErro" />
@@ -253,6 +250,7 @@
 						<div class="clear"></div>
 					</div>
 				</div>
+				
   	      </body>	
 	</f:view>
 </html>

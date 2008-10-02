@@ -86,7 +86,7 @@
 										<h:inputText styleClass="field text" id="valorMinimo" maxlength="10" size="10"
 											value="#{planoPagamentoBB.valorMinimo}" dir="rtl" required="false" 
 											onfocus="this.select();" onclick="this.select();"
-											onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirPlanoPagamento:valorMinimo',9,2,event);">
+											onkeypress="return(formataMoeda(this,'','.',2,event));">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.01" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -98,7 +98,7 @@
 										<h:inputText styleClass="field text" id="valorMaximo" maxlength="10" size="10"
 											value="#{planoPagamentoBB.valorMaximo}" dir="rtl" required="false" 
 											onfocus="this.select();" onclick="this.select();"
-											onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirPlanoPagamento:valorMaximo',9,2,event);">
+											onkeypress="return(formataMoeda(this,'','.',2,event));">
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.01" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -112,7 +112,7 @@
 										<h:inputText styleClass="field text" id="percentualDesconto" maxlength="5" size="5"
 											value="#{planoPagamentoBB.percDesconto}" dir="rtl" required="false" 
 											onfocus="this.select();" onclick="this.select();"
-											onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirPlanoPagamento:percentualDesconto',4,2,event);">
+											onkeypress="return(formataMoeda(this,'','.',2,event));">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -124,7 +124,7 @@
 										<h:inputText styleClass="field text" id="percentualAcrescimo" maxlength="5" size="5"
 											value="#{planoPagamentoBB.percAcrescimo}" dir="rtl" required="false" 
 											onfocus="this.select();" onclick="this.select();"
-											onkeypress="return SoNumero(event);" onkeydown="Formata('frmInserirPlanoPagamento:percentualAcrescimo',4,2,event);">
+											onkeypress="return(formataMoeda(this,'','.',2,event));">
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
