@@ -297,7 +297,7 @@ public class GerenciadorRelatorio {
 			DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
 
 			parametros.put("empresa", EMPRESA);	
-			parametros.put("numeroNota", Util.completaString(entradaProduto.getNumeroNota(), "0", 15, true));
+			parametros.put("numeroNota", Util.completaString(entradaProduto.getNumeroNota(), "0", 15, false));
 			parametros.put("dataEmissao", dt.format(entradaProduto.getDataEmissaoNota()));
 			parametros.put("dataEntrada", dt.format(entradaProduto.getDataEntrada()));
 			Fornecedor fornecedor = null;
