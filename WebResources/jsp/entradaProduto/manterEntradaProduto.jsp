@@ -93,11 +93,11 @@
 							</div>
 						</li>
 						<li class="normal">
-							<div>
+							<!-- <div>
 								<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
 								<h:outputText value="#{entradaProdutoBB.id}" />
-							</div>
-							
+							</div>							
+							 -->
 							<div>
 								<h:outputLabel styleClass="desc" value="N.Fiscal"></h:outputLabel>
 								<h:outputText value="#{entradaProdutoBB.numeroNota}" />
@@ -112,112 +112,101 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Fornecedor"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.fornecedor.nomeFantasia}" />							
+								<h:outputText value="#{entradaProdutoBB.nomeFornecedor}" />							
 							</div>
-
-
 						</li>
-
 						<li class="normal">
-							<div>
-								<h:outputLabel styleClass="desc" value="Valor da Nota"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.valor}" />							
-							</div>
-
 							<div>
 								<h:outputLabel styleClass="desc" value="Frete"></h:outputLabel>
 								<h:outputText value="#{entradaProdutoBB.frete}" />							
 							</div>
-
-							<div>
-								<h:outputLabel styleClass="desc" value="Desc"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.desconto}" />							
-							</div>
-
-							<div>
-								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.ipi}" />							
-							</div>
-
 							<div>
 								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
 								<h:outputText value="#{entradaProdutoBB.icms}" />							
 							</div>
-
+							<div>
+								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
+								<h:outputText value="#{entradaProdutoBB.ipi}" />							
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Desc"></h:outputLabel>
+								<h:outputText value="#{entradaProdutoBB.desconto}" />							
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Valor da Nota"></h:outputLabel>
+								<h:outputText value="#{entradaProdutoBB.valor}" />							
+							</div>							
 						</li>
-
-
-						<div class="listagem">
-							<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
-								var="produtoEntrada" rowClasses="rowA,rowB" width="95%">
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Produto" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.pk.produto.id}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Descrição" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.pk.produto.descricaoCompleta}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Estoque" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.estoque.estoqueVenda}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Quant" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.quantidade}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Preço Unit." />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.precoUnitario}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Desconto" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.desconto}" />
-								</h:column>	
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="ICMS" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.icms}" />
-								</h:column>	
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="IPI" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.ipi}" />
-								</h:column>	
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Total" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.total}" />
-								</h:column>																
-							</t:dataTable>
-						</div>
-
-
-
+						<li>
+							<div class="listagem">
+								<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
+									var="produtoEntrada" rowClasses="rowA,rowB" width="95%">
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Cód." />
+										</f:facet>
+										<h:outputText value="#{produtoEntrada.pk.produto.id}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Descrição" />
+										</f:facet>
+										<h:outputText value="#{produtoEntrada.pk.produto.descricaoCompleta}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Estoque" />
+										</f:facet>
+										<h:outputText value="#{produtoEntrada.estoque.descricao}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Vl. Unitário" />
+										</f:facet>
+										<h:outputText value="#{produtoEntrada.precoUnitario}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Quant" />
+										</f:facet>
+										<h:outputText value="#{produtoEntrada.quantidade}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="ICMS" />
+										</f:facet>
+										<h:outputText value="#{produtoEntrada.icms}" />
+									</h:column>	
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="IPI" />
+										</f:facet>
+										<h:outputText value="#{produtoEntrada.ipi}" />
+									</h:column>	
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Desconto" />
+										</f:facet>
+										<h:outputText value="#{produtoEntrada.desconto}" />
+									</h:column>	
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Total" />
+										</f:facet>
+										<h:outputText value="#{produtoEntrada.total}" />
+									</h:column>
+								</t:dataTable>
+							</div>
+						</li>						
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar"
 								action="#{entradaProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>
+							<h:commandButton styleClass="btTxt" id="botaoImprimir" action="#{entradaProdutoBB.imprimirRecibo}" value="Imprimir"></h:commandButton>
 						</li>
 					</ul>
 				</div>
 				<div class="clear"></div>
 			</div>
-
 		</h:form>
 	  </body>		
 	</f:view>
