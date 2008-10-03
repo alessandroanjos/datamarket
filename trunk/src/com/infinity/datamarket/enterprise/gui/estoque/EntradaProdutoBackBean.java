@@ -53,6 +53,7 @@ public class EntradaProdutoBackBean extends BackBean {
 	private BigDecimal valor    = null;
 	private BigDecimal valorNota= null;
 	private String idFornecedor;
+	private String nomeFornecedor;
 	private Fornecedor fornecedor;
 	private ProdutoEntradaProduto produtoEntrada;
 	private Collection<EntradaProduto> entradasProduto;
@@ -136,146 +137,136 @@ public class EntradaProdutoBackBean extends BackBean {
 		}
 		return "mesma";
 	}
-	public String inserirProdutoEntrada() { 
-
-
-		if (arrayProduto==null){
-			arrayProduto = new HashSet<ProdutoEntradaProduto>();
-			inicializaValoreNota();
-		}	
-		
-		String msgValidacao =  validaNota();
-		
-		if (!"".equals(msgValidacao)) {
-			
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					msgValidacao, "");
-			ctx.addMessage(null, msg);
-			return "mesma";
-			
-		}
-		
-		msgValidacao =  validaProduto();
-		
-		if (!"".equals(msgValidacao)) {
-			
-			FacesContext ctx = FacesContext.getCurrentInstance();
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					msgValidacao, "");
-			ctx.addMessage(null, msg);
-			return "mesma";
-			
-		}
-		ProdutoEntradaProduto produtoEntrada = new ProdutoEntradaProduto();
-		ProdutoEntradaProdutoPK produtoEntradaPK = new ProdutoEntradaProdutoPK();
-		//produtoEntradaPK.setId(new Long(this.id));
-		Produto produto = null;
-		
+	public void inserirProdutoEntrada() { 
 		try {
-			produto = Fachada.getInstancia().consultarProdutoPorPK(new Long(this.idProduto));
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (AppException e) {
-			// TODO Auto-generated catch block
-			if  (e instanceof ObjectNotFoundException) {
-				FacesContext ctx = FacesContext.getCurrentInstance();
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Produto não encontrado!", "");
-				ctx.addMessage(null, msg);
-				return "mesma";	
-			}
-		}
-		setDescricao(produto.getDescricaoCompleta());
-		produtoEntradaPK.setProduto(produto);
-		produtoEntrada.setPk(produtoEntradaPK);
-		Estoque estoque = null;
-		for (Iterator iter = estoques.iterator(); iter.hasNext();) {
-			Estoque element = (Estoque) iter.next();
-			if (element.getPk().getId().longValue()==new Long(this.idEstoque).longValue()) {
-				estoque = (Estoque)element;
+			if (arrayProduto==null){
+				arrayProduto = new HashSet<ProdutoEntradaProduto>();
+				inicializaValoreNota();
+			}	
+			
+			String msgValidacao =  validaNota();
+			
+			if (!"".equals(msgValidacao)) {
+				throw new AppException(msgValidacao);
 			}
 			
-		}
-
-		produtoEntrada.setEstoque(estoque);
-		if (this.ipiProduto == null) this.ipiProduto = BigDecimal.ZERO;
-		if (this.icmsProduto == null) this.icmsProduto = BigDecimal.ZERO;
-		if (this.descontoProduto == null) this.descontoProduto = BigDecimal.ZERO;
-		if (this.desconto == null) this.desconto = BigDecimal.ZERO;
-        produtoEntrada.setIpi(this.ipiProduto);
-        produtoEntrada.setIcms(this.icmsProduto);
-		produtoEntrada.setDesconto(this.descontoProduto);
-		produtoEntrada.setQuantidade(this.quantidade);
-		produtoEntrada.setPrecoUnitario(this.precoUnitario);
-		this.setTotal(this.precoUnitario);
-	    produtoEntrada.setTotal(this.total);
-		
-		int i=0;
-		for (Iterator iter = arrayProduto.iterator(); iter.hasNext();) {
-			ProdutoEntradaProduto produtoTmp = (ProdutoEntradaProduto) iter.next();
-			if (produtoTmp.getPk().getProduto().getId().equals(produtoEntrada.getPk().getProduto().getId())) {
-				this.setValorNota(getValor().subtract(produtoTmp.getTotal()));
-				this.setValor(getValorNota());
-				
-				if (getValor().longValue() >= (this.getDesconto().longValue() - getValor().longValue()))
-				this.setValor(getValor().subtract(this.getDesconto()));
-				
-				this.setIpi(getIpi().subtract(produtoTmp.getIpi()));
-				this.setIcms(getIcms().subtract(produtoTmp.getIcms()));
-				this.setTotalDescontoItem(getTotalDescontoItem().subtract(produtoEntrada.getDesconto()));
-				arrayProduto.remove(produtoTmp);
-				break;
+			msgValidacao =  validaProduto();
+			
+			if (!"".equals(msgValidacao)) {
+				throw new AppException(msgValidacao);
 			}
-			i++;
-		}
+			
+			ProdutoEntradaProduto produtoEntrada = new ProdutoEntradaProduto();
+			ProdutoEntradaProdutoPK produtoEntradaPK = new ProdutoEntradaProdutoPK();
+			
+			Produto produto = Fachada.getInstancia().consultarProdutoPorPK(new Long(this.idProduto));
+			
+			if(produto == null){
+				throw new AppException("Produto inexistente no cadastro!");
+			}
+			
+			setDescricao(produto.getDescricaoCompleta());
+			produtoEntradaPK.setProduto(produto);
+			produtoEntrada.setPk(produtoEntradaPK);
+			Estoque estoque = null;
+			for (Iterator iter = estoques.iterator(); iter.hasNext();) {
+				Estoque element = (Estoque) iter.next();
+				if (element.getPk().getId().longValue()==new Long(this.idEstoque).longValue()) {
+					estoque = (Estoque)element;
+					break;
+				}				
+			}
 
-		produtoEntrada.getPk().setNumeroEntrada(i);
-		arrayProduto.add(produtoEntrada);
-		this.setValorNota(getValor().add(produtoEntrada.getTotal()));
-		this.setValor(getValorNota());
-		
-		if (getValor().longValue() >= (this.getDesconto().longValue() - getValor().longValue()))
-		this.setValor(getValor().subtract(this.getDesconto()));
-		
-		this.setIpi(this.getIpi().add(produtoEntrada.getIpi()));
-		this.setIcms(this.getIcms().add(produtoEntrada.getIcms()));
-		this.setTotalDescontoItem(getTotalDescontoItem().subtract(produtoEntrada.getDesconto()));
-		resetProdutoBB();
-		return "mesma";
+			produtoEntrada.setEstoque(estoque);
+			if (this.ipiProduto == null) this.ipiProduto = BigDecimal.ZERO.setScale(2);
+			if (this.icmsProduto == null) this.icmsProduto = BigDecimal.ZERO.setScale(2);
+			if (this.descontoProduto == null) this.descontoProduto = BigDecimal.ZERO.setScale(2);
+			if (this.desconto == null) this.desconto = BigDecimal.ZERO.setScale(2);
+	        produtoEntrada.setIpi(this.ipiProduto.setScale(2));
+	        produtoEntrada.setIcms(this.icmsProduto.setScale(2));
+			produtoEntrada.setDesconto(this.descontoProduto.setScale(2));
+			produtoEntrada.setQuantidade(this.quantidade.setScale(3));
+			produtoEntrada.setPrecoUnitario(this.precoUnitario.setScale(2));
+			this.setTotal(this.precoUnitario.setScale(2));
+		    produtoEntrada.setTotal(this.total.setScale(2));
+			
+			int i=0;
+			for (Iterator iter = arrayProduto.iterator(); iter.hasNext();) {
+				ProdutoEntradaProduto produtoTmp = (ProdutoEntradaProduto) iter.next();
+				if (produtoTmp.getPk().getProduto().getId().equals(produtoEntrada.getPk().getProduto().getId())) {
+					this.setValorNota(getValor().subtract(produtoTmp.getTotal()));
+					this.setValor(getValorNota());
+					
+//					if (getValor().longValue() >= (this.getDesconto().longValue() - getValor().longValue()))
+//					this.setValor(getValor().subtract(this.getDesconto()));
+					
+					this.setIpi(getIpi().subtract(produtoTmp.getIpi()));
+					this.setIcms(getIcms().subtract(produtoTmp.getIcms()));
+					this.setTotalDescontoItem(getTotalDescontoItem().subtract(produtoEntrada.getDesconto()));
+					arrayProduto.remove(produtoTmp);
+					break;
+				}
+				i++;
+			}
+
+			produtoEntrada.getPk().setNumeroEntrada(i);
+			arrayProduto.add(produtoEntrada);
+			this.setValorNota(getValor().add(produtoEntrada.getTotal()));
+			this.setValor(getValorNota());
+			
+//			if (getValor().longValue() >= (this.getDesconto().longValue() - getValor().longValue()))
+//			this.setValor(getValor().subtract(this.getDesconto()));
+			
+			this.setIpi(this.getIpi().add(produtoEntrada.getIpi()));
+			this.setIcms(this.getIcms().add(produtoEntrada.getIcms()));
+			this.setTotalDescontoItem(getTotalDescontoItem().subtract(produtoEntrada.getDesconto()));
+			resetProdutoBB();
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+				e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (Exception e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+				"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
 	}
+	
 	public String validaNota() {
 		  String msg = "";
 		if  (this.numeroNota == null || "".equals(this.numeroNota)) {
-			msg = 	"Informe numero da nota!";
+			msg = 	"Informe Número da Nota!";
 		} else if (this.dataEmissaoNota == null || "".equals(this.dataEmissaoNota)) {
-			msg = 	"Informe data de emissao da nota!";
+			msg = 	"Informe Data de Emissão da Nota!";
 		} else if (this.dataEntrada == null || "".equals(this.dataEntrada)) {
-			msg = 	"Informe data de entrada da nota!";
+			msg = 	"Informe Data de Entrada da Nota!";
+		} else if (this.dataEmissaoNota.after(this.dataEntrada)) {
+			msg = 	"Data de Emissão da Nota não pode ser maior que a Data de Entrada da Nota!";
 		} else if (this.idFornecedor == null || "0".equals(this.idFornecedor)) {
-			msg = 	"Informe fornecedor da nota!";
+			msg = 	"Informe Fornecedor da Nota!";
 		} else if (this.valor == null || "".equals(this.valor)) {
-			msg = 	"Informe valor da nota!";
+			msg = 	"Informe Valor da Nota!";
 		} else if (this.idFornecedor == null || "".equals(this.idFornecedor)) {
-			msg = 	"Informe fornecedor da nota!";
+			msg = 	"Informe Fornecedor da Nota!";
 		} else if (this.arrayProduto == null ) {
-			msg = 	"Informe pelo menos um produto na nota!";
+			msg = 	"Informe pelo menos um produto na Nota!";
 		}
 		return msg;	  
 	}
 	public String validaProduto() {
 		String msg = "";
 		if  (this.idProduto == null || "".equals(this.idProduto)) {
-			msg = 	"Informe produto!";
+			msg = 	"Informe o Código do Produto!";
 		} else if (this.quantidade == null || "".equals(this.quantidade) || this.quantidade.equals(BigDecimal.ZERO)) {
-			msg = 	"Informe quantidade do produto deve ser informada!";
+			msg = 	"A Quantidade do Produto deve ser informada!";
 		} else if (this.precoUnitario == null || "".equals(this.precoUnitario) || this.precoUnitario.equals(BigDecimal.ZERO)) {
-			msg = 	"Informe preço unitario do produto deve ser informado!";
-		} else if (this.descontoProduto != null && "".equals(this.descontoProduto)) {
+			msg = 	"O Preço Unitário do Produto deve ser informado!";
+		} else if (this.descontoProduto != null && !"".equals(this.descontoProduto)) {
 			BigDecimal tmpTotalProduto = this.precoUnitario.multiply(this.quantidade);
-			if (this.descontoProduto.longValue() > tmpTotalProduto.longValue()) {
-				msg = 	"Desconto do produto deve ser menor que o total do produto!";	
+			if (this.descontoProduto.compareTo(tmpTotalProduto) > 0) {
+				msg = "Desconto do produto deve ser menor que o Valor Total do produto!";	
 			}
 		}
 		return msg;	  
@@ -460,6 +451,14 @@ public class EntradaProdutoBackBean extends BackBean {
 				this.setValor(entradaProduto.getValor());
 				this.setFornecedor(entradaProduto.getFornecedor());
 				
+				if(entradaProduto.getFornecedor() != null){
+					if(entradaProduto.getFornecedor().getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
+						this.setNomeFornecedor(entradaProduto.getFornecedor().getNomeFornecedor());
+					}else{
+						this.setNomeFornecedor(entradaProduto.getFornecedor().getNomeFantasia());
+					}
+				}
+				
 				this.setEntradaProduto(entradaProduto);
 				
 				return "proxima";
@@ -525,6 +524,13 @@ public class EntradaProdutoBackBean extends BackBean {
 				this.setDesconto(entradaProduto.getDesconto());
 				this.setValor(entradaProduto.getValor());
 				this.setFornecedor(entradaProduto.getFornecedor());
+				if(entradaProduto.getFornecedor() != null){
+					if(entradaProduto.getFornecedor().getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
+						this.setNomeFornecedor(entradaProduto.getFornecedor().getNomeFornecedor());
+					}else{
+						this.setNomeFornecedor(entradaProduto.getFornecedor().getNomeFantasia());
+					}
+				}
 				Collection<ProdutoEntradaProduto> colProduto = entradaProduto.getProdutosEntrada();
 				Set<ProdutoEntradaProduto> produtos = (Set<ProdutoEntradaProduto>)colProduto;
 				this.setArrayProduto(produtos);
@@ -641,9 +647,9 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
     
 	public void inicializaValoreNota(){
-		this.setIcms(BigDecimal.ZERO);
-		this.setIpi(BigDecimal.ZERO);
-		this.setValor(BigDecimal.ZERO);
+		this.setIcms(BigDecimal.ZERO.setScale(2));
+		this.setIpi(BigDecimal.ZERO.setScale(2));
+		this.setValor(BigDecimal.ZERO.setScale(2));
     }
 	 
 	public String voltarConsulta() {
@@ -922,15 +928,14 @@ public class EntradaProdutoBackBean extends BackBean {
 	 * @return the total
 	 */
 	public BigDecimal getTotal() {
-		this.total.setScale(Constantes.DOIS_DECIMAL,BigDecimal.ROUND_HALF_EVEN);
-		return total;
+		return this.total.setScale(Constantes.DOIS_DECIMAL,BigDecimal.ROUND_HALF_EVEN);
 	}
 	/**
 	 * @param total the total to set
 	 */
 	public void setTotal(BigDecimal total) {
 		this.total = this.precoUnitario;
-		this.total = total.multiply(this.quantidade);
+		this.total = total.multiply(this.quantidade).setScale(2, BigDecimal.ROUND_DOWN);
 		
 		if (this.descontoProduto != null) 
 			this.total = this.total.subtract(this.descontoProduto);
@@ -1073,5 +1078,11 @@ public class EntradaProdutoBackBean extends BackBean {
 				"Erro ao imprimir o Recibo!", "");
 			ctx.addMessage(null, msg);
 		}
+	}
+	public String getNomeFornecedor() {
+		return nomeFornecedor;
+	}
+	public void setNomeFornecedor(String nomeFornecedor) {
+		this.nomeFornecedor = nomeFornecedor;
 	}
 }
