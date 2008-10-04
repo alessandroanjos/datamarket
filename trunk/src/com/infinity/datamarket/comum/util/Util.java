@@ -1,11 +1,33 @@
 package com.infinity.datamarket.comum.util;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import javax.faces.model.SelectItem;
 
 public class Util {
 	
 	public static final String STRING_VAZIA = "";
 
+	public static int comparaDatasSemHora(Date d1, Date d2){
+		Calendar c = new GregorianCalendar();
+		c.setTime(d1);
+		int d1_dia = c.get(Calendar.DAY_OF_MONTH);
+		int d1_mes = c.get(Calendar.MONTH);
+		int d1_ano = c.get(Calendar.YEAR);
+		Date data1 = new GregorianCalendar(d1_ano,d1_mes,d1_dia).getTime();
+		
+		c = new GregorianCalendar();
+		c.setTime(d2);
+		int d2_dia = c.get(Calendar.DAY_OF_MONTH);
+		int d2_mes = c.get(Calendar.MONTH);
+		int d2_ano = c.get(Calendar.YEAR);
+		Date data2 = new GregorianCalendar(d2_ano,d2_mes,d2_dia).getTime();
+		
+		return data1.compareTo(data2);
+	}
+	
 	public static boolean validacpf(String strCpf){ // formato XXX.XXX.XXX-XX   
         if (! strCpf.substring(0,1).equals("")){   
             try{   
@@ -189,8 +211,14 @@ public class Util {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(completaString("jonas", "X", 3, true));
-		System.out.println(completaString("jonas", "X", 3, false));
-		System.out.println(Util.completaString("", " ", 15, true));
+		Date d1 = new Date();
+		try {
+			Thread.currentThread().sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Date d2 = new Date();
+		System.out.println(comparaDatasSemHora(d1, d2));
 	}
 }
