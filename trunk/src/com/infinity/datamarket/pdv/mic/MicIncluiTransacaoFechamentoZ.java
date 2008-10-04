@@ -42,6 +42,8 @@ public class MicIncluiTransacaoFechamentoZ extends Mic{
 		}catch(AppException e){
 			e.printStackTrace();
 		}
+		
+		gerenciadorPerifericos.zeraNumeroTransacao();
 
 		return ALTERNATIVA_1;
 	}
