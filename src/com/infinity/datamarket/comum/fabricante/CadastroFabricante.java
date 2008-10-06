@@ -40,12 +40,15 @@ public class CadastroFabricante extends Cadastro {
 	}
 	public void inserir(Fabricante fabricante) throws AppException{
 		getRepositorio().insert(fabricante);
+		inserirDadoLote(fabricante);
 		
 	}
 	public void alterar(Fabricante fabricante) throws AppException{
 		getRepositorio().update(fabricante);
+		alterarDadoLote(fabricante);
 	}
 	public void excluir(Fabricante fabricante) throws AppException{
 		getRepositorio().remove(fabricante);
+		excluirDadoLote(fabricante);
 	}	
 }
