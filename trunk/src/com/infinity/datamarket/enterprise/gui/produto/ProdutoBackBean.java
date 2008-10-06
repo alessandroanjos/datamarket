@@ -202,9 +202,11 @@ public class ProdutoBackBean extends BackBean{
 		grupo.setId(new Long(getIdGrupo()));
 		p.setGrupo(grupo);
 		p.setLojas(criaLojas(listaLojas));
-		Fabricante fabricante = new Fabricante();
-		fabricante.setId(new Long(getIdFabricante()));
-		p.setFabricante(fabricante);
+		if (getIdFabricante() != null && !"0".equals(getIdFabricante())){
+			Fabricante fabricante = new Fabricante();
+			fabricante.setId(new Long(getIdFabricante()));
+			p.setFabricante(fabricante);
+		}
 		return p;
 	}
 	
