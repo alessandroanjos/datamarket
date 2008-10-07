@@ -96,7 +96,7 @@ public class MicIncluiProdutoItem extends Mic {
 				return ALTERNATIVA_2;
 			}
 		} else {
-			if (produto.getPrecoPromocional() != null) {
+			if (produto.getPrecoPromocional() != null && produto.getPrecoPromocional().compareTo(BigDecimal.ZERO) > 0) {
 				precoUnitario = produto.getPrecoPromocional();
 				preco = produto.getPrecoPromocional().multiply(quantidade);
 				desconto = produto.getPrecoPadrao().subtract(
