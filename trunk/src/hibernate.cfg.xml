@@ -86,6 +86,12 @@
 	<mapping resource="com/infinity/datamarket/hbm/TransacaoPagamento.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/TransacaoPagamentoCartaoProprio.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Fabricante.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Operacao.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/OperacaoDevolucao.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/EventoOperacao.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/EventoOperacaoItemRegistrado.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/ProdutoOperacaoItemRegistrado.hbm.xml"/>
+	
     </session-factory>
 </hibernate-configuration>
 
