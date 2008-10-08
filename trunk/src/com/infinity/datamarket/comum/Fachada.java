@@ -3,8 +3,6 @@ package com.infinity.datamarket.comum;
 import java.io.OutputStream;
 import java.util.Collection;
 
-import net.sf.jasperreports.view.JasperViewer;
-
 import com.infinity.datamarket.autorizador.AutorizacaoCartaoProprio;
 import com.infinity.datamarket.autorizador.CadastroAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.cliente.CadastroCliente;
@@ -33,6 +31,10 @@ import com.infinity.datamarket.comum.funcionalidade.CadastroFuncionalidade;
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.lote.CadastroDadoLote;
 import com.infinity.datamarket.comum.macrooperacao.CadastroMacroOperacao;
+import com.infinity.datamarket.comum.operacao.CadastroOperacao;
+import com.infinity.datamarket.comum.operacao.Operacao;
+import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
+import com.infinity.datamarket.comum.operacao.OperacaoPK;
 import com.infinity.datamarket.comum.pagamento.Autorizadora;
 import com.infinity.datamarket.comum.pagamento.CadastroFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.CadastroPlanoPagamento;
@@ -120,6 +122,10 @@ public class Fachada {
 
 	private CadastroTransacao getCadastroTransacao(){
 		return CadastroTransacao.getInstancia();
+	}
+	
+	private CadastroOperacao getCadastroOperacao(){
+		return CadastroOperacao.getInstancia();
 	}
 
 	private CadastroTotalizadores getCadastroTotalizadores(){
@@ -5378,5 +5384,109 @@ public class Fachada {
 		}
 		return c;
 	}
+	
+	public void inserirOperacaoES(Operacao operacao) throws AppException{
+
+		try{
+			if (operacao instanceof OperacaoDevolucao){
+				OperacaoDevolucao operacaoDevolucao = (OperacaoDevolucao) operacao;
+				if (operacaoDevolucao.getCliente() != null){
+					try{
+						RepositoryManagerHibernateUtil.beginTrasaction();
+						getCadastroTransacao().inserirCliente(operacaoDevolucao.getCliente());
+						RepositoryManagerHibernateUtil.commitTransation();
+					}catch(Exception e){					
+						RepositoryManagerHibernateUtil.beginTrasaction();
+						getCadastroTransacao().atualizarCliente(operacaoDevolucao.getCliente());
+						RepositoryManagerHibernateUtil.commitTransation();
+					}
+				}
+			}
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroOperacao().inserirES(operacao);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public Operacao consultarOperacaoPorPK(OperacaoPK pk) throws AppException{
+		Operacao operacao = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			operacao = getCadastroOperacao().consultarPorPK(pk);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return operacao;
+	}
+	
+	public Collection consultarOperacao(IPropertyFilter filter) throws AppException{
+		Collection col = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			col = getCadastroOperacao().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return col;
+	}
+
 	
 }

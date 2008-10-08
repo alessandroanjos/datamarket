@@ -14,6 +14,7 @@ public class ServerConfig {
 	public static final String CLIENTE_SERVER_JNDI;
 	public static final String AUTORIZADOR_SERVER_JNDI;
 	public static final String LOTE_SERVER_JNDI;
+	public static final String OPERACAO_SERVER_JNDI;
 	public static final int SLEEP;
 	
 	public static final String QUEUE_INFO_COMPONENT_SERVER_JNDI;
@@ -30,6 +31,8 @@ public class ServerConfig {
 		LOTE_SERVER_JNDI = rb.getString("LOTE_SERVER_JNDI");
 		AUTORIZADOR_SERVER_JNDI = rb.getString("AUTORIZADOR_SERVER_JNDI");
 		CLIENTE_SERVER_JNDI = rb.getString("CLIENTE_SERVER_JNDI");
+		OPERACAO_SERVER_JNDI = rb.getString("OPERACAO_SERVER_JNDI");
+		
 		SLEEP = Integer.parseInt(rb.getString("SLEEP"));
 		
 		QUEUE_INFO_COMPONENT_SERVER_JNDI = rb.getString("QUEUE_INFO_COMPONENT_SERVER_JNDI");

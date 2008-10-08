@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<joined-subclass
+		name="com.infinity.datamarket.comum.operacao.OperacaoDevolucao"
+		extends="com.infinity.datamarket.comum.operacao.Operacao"
+		table="OPERACAO_DEVOLUCAO" lazy="false">
+
+		<key>
+			<column name="LOJA" />
+			<column name="ID" />			
+		</key>
+
+		<property name="codigoUsuarioOperador" type="java.lang.String"
+			update="true" insert="true">
+			<column name="COD_USU_OPERADOR" length="20"
+				not-null="false" />
+		</property>
+
+		<property name="valor" type="java.math.BigDecimal"
+			update="true" insert="true">
+			<column name="VALOR" length="20" not-null="false" />
+		</property>
+		
+		<many-to-one name="cliente"
+			class="com.infinity.datamarket.comum.transacao.ClienteTransacao"
+			update="true" insert="true">
+			<column name="CPF_CNPJ_CLIENTE_TRANSACAO" not-null="false" />
+		</many-to-one>
+
+		<set name="eventosOperacao" inverse="true" cascade="save-update, delete-orphan"
+			lazy="false">
+			<key>
+				<column name="LOJA" />
+				<column name="ID" />				
+			</key>
+			<one-to-many
+				class="com.infinity.datamarket.comum.operacao.EventoOperacao" />
+		</set>
+
+	</joined-subclass>
+</hibernate-mapping>

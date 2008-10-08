@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.operacao.Operacao" table="OPERACAO" dynamic-update="false" dynamic-insert="false" lazy="false">
+
+        <composite-id name="pk" class="com.infinity.datamarket.comum.operacao.OperacaoPK">
+           <key-property name="loja" column="LOJA" type="integer"/>
+           <key-property name="id" column="ID" type="integer"/>
+        </composite-id>
+
+        <property name="tipo" type="int" update="true" insert="true">
+            <column name="TIPO" length="20" not-null="false"/>
+        </property>
+        
+        <property name="status" type="int" update="true" insert="true">
+            <column name="STATUS" length="20" not-null="false"/>
+        </property>
+    </class>    
+
+</hibernate-mapping>
