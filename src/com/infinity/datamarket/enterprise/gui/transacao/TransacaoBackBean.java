@@ -27,8 +27,6 @@ import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.jasperreports.view.JasperViewer;
-
 import com.infinity.datamarket.autorizador.AutorizadorServerRemote;
 import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.cliente.Cliente;
