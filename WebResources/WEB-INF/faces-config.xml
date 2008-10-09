@@ -253,6 +253,16 @@
 			<from-outcome>manterTransacao</from-outcome>
 			<to-view-id>/jsp/transacao/consultarTransacao.jsp</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>inserirDevolucao</from-outcome>
+			<to-view-id>/jsp/devolucao/inserirDevolucao.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>manterDevolucao</from-outcome>
+			<to-view-id>/jsp/devolucao/consultarDevolucao.jsp</to-view-id>
+		</navigation-case>
 						
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
@@ -771,8 +781,73 @@
 	</navigation-rule>
 	
 	<!-- Entradas -->
-
-
+	
+	<!-- DEVOLUCAO -->
+	<navigation-rule>
+		<from-view-id>/jsp/devolucao/inserirDevolucao.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{devolucaoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/devolucao/inserirDevolucao.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{devolucaoBB.inserir}</from-action>
+			<from-outcome>proximaOk</from-outcome>
+			<to-view-id>/jsp/devolucao/confirmarDevolucao.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{devolucaoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/devolucao/consultarDevolucao.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{devolucaoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/devolucao/consultarDevolucao.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{devolucaoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/devolucao/manterDevolucao.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{devolucaoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/devolucao/manterDevolucao.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{devolucaoBB.atualizar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/devolucao/manterDevolucao.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{devolucaoBB.atualizar}</from-action>
+			<from-outcome>proximaOk</from-outcome>
+			<to-view-id>/jsp/devolucao/confirmarDevolucao.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{devolucaoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/devolucao/consultarDevolucao.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/devolucao/confirmarDevolucao.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{devolucaoBB.confirmarDevolucao}</from-action>
+			<from-outcome>voltaInserir</from-outcome>
+			<to-view-id>/jsp/devolucao/inserirDevolucao.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<!-- PERFIL -->
 	<navigation-rule>
@@ -3255,6 +3330,105 @@
 		</managed-property>		
 	</managed-bean>
 
+	<!-- DEVOLUCAO -->
+	<managed-bean>
+		<managed-bean-name>devolucaoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.devolucao.DevolucaoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>com.infinity.datamarket.comum.operacao.OperacaoPK</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idOperacaoDevolucao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idLoja</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataDevolucao</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idTipoPessoa</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cpfCnpj</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>nomeCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>codigoProduto</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricaoProduto</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>precoVenda</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>quantidade</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valorItem</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valorTotalDevolucao</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idSituacao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>lojas</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>listaTipoPessoa</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>listaSituacao</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
+		    <property-name>devolucoes</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>				
+	</managed-bean>
+	
 	
 	<validator>
        <validator-id>LongValidator</validator-id>
