@@ -307,6 +307,11 @@ public class DevolucaoBackBean extends BackBean {
 		resetBB();
 		return "voltar";
 	}
+	
+	public String confirmarDevolucao(){
+		resetBB();
+		return "voltaInserir";
+	}
 
 	public void resetBB(){
 		this.setIdLoja("0");
@@ -725,9 +730,11 @@ public class DevolucaoBackBean extends BackBean {
 				ClienteTransacao clienteTransacao = getFachada().consultarClienteTransacaoPorID(cpfCnpj);
 				if(clienteTransacao != null){
 					if(clienteTransacao.getTipoPessoa().equals(Cliente.PESSOA_FISICA)){
-						this.setNomeCliente(clienteTransacao.getNomeCliente());
+//						this.setNomeCliente(clienteTransacao.getNomeCliente());
+						this.nomeCliente = clienteTransacao.getNomeCliente();
 					}else{
-						this.setNomeCliente(clienteTransacao.getRazaoSocial());
+//						this.setNomeCliente(clienteTransacao.getRazaoSocial());
+						this.nomeCliente = clienteTransacao.getRazaoSocial();
 					}			
 				}
 			} catch (Exception e) {				

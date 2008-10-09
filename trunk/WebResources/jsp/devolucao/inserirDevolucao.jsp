@@ -80,6 +80,7 @@
 						$(this).bind('blur',function(event){validaCPF(this);});
 						$(this).bind('keydown',function(event){FormataCPF(this,event);});
 						getId(this.id).maxLength = "14";
+						getId(this.id).value = "";
 					});
 				} else {
 					$("input.tipocpfcnpj").each(function(i){
@@ -88,6 +89,7 @@
 						$(this).bind('blur',function(event){validaCNPJ(this);});
 						$(this).bind('keydown',function(event){FormataCNPJ(this,event);});
 						getId(this.id).maxLength = "18";
+						getId(this.id).value = "";
 					});
 				}
 			}
@@ -109,7 +111,7 @@
 	                hform=document.forms[form];                
 				}else{
 				    var cpfCnpjTmp = getId("frmInserirDevolucao:cpfCnpj").value;
-					document.forms["frmInserirDevolucao"].action = "/EnterpriseServer/jsp/transacao/inserirDevolucao.faces?acaoLocal=pesquisarClientes&cpfCnpj="+cpfCnpjTmp;
+					document.forms["frmInserirDevolucao"].action = "/EnterpriseServer/jsp/devolucao/inserirDevolucao.faces?acaoLocal=pesquisarClientes&cpfCnpj="+cpfCnpjTmp;
 					document.forms["frmInserirDevolucao"].submit();                  	
                }
            }
@@ -159,8 +161,6 @@
 										<f:selectItems id="lojasSelectItems" value="#{devolucaoBB.lojas}" />   
 									</h:selectOneMenu>
 								</div>
-							</li>	
-							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Data"></h:outputLabel>
 									<h:inputText styleClass="field text" id="dataDevolucao" maxlength="10" size="10"
@@ -213,14 +213,14 @@
 								</div>
 								<div>
 									<h:outputLabel styleClass="desc" value="Preço Venda"></h:outputLabel>
-									<h:inputText styleClass="field text" id="precoVenda" size="39"
-										value="#{devolucaoBB.precoVenda}" readonly="true">
+									<h:inputText styleClass="field text" id="precoVenda" size="15"
+												value="#{devolucaoBB.precoVenda}" readonly="true">
 									</h:inputText>
 								</div>
 								<div>
 									<h:outputLabel styleClass="desc" value="Quantidade"></h:outputLabel>
 									<h:inputText styleClass="field text" id="quantidade" maxlength="9" size="9"
-										value="#{devolucaoBB.quantidade}" dir="rtl" onkeypress="return(formataMoeda(this,'','.',3,event));"">
+										value="#{devolucaoBB.quantidade}" dir="rtl" onkeypress="return(formataMoeda(this,'','.',3,event));">
 										<f:validateLength maximum="9" />
 										<f:validateDoubleRange  minimum="0.000" maximum="999.999"/>
 										<f:validator validatorId="BigDecimalValidator"/>
@@ -276,13 +276,12 @@
 									</t:dataTable>																
 								</div>
 							</li>
-							<li class="normal">
+							<li class="direita">
 								<div>
-									<h:outputLabel styleClass="desc" value="Valor Total"></h:outputLabel>
+									<h:outputLabel styleClass="descBaixo" value="Valor Total"></h:outputLabel>
 								</div>
 								<div>
-									<h:inputText styleClass="field text" id="valorTotal" maxlength="3" size="8" value="#{devolucaoBB.valorTotal}" dir="ltr" onkeypress="return SoNumero(event);">
-										<f:validateLength maximum="3" />
+									<h:inputText styleClass="field text" id="valorTotalDevolucao" maxlength="15" size="15" value="#{devolucaoBB.valorTotalDevolucao}" dir="ltr" onkeypress="return SoNumero(event);">
 									</h:inputText>
 								</div>
 							</li>
