@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
 import com.infinity.datamarket.comum.pagamento.ConstantesFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.DadosCartaoOff;
 import com.infinity.datamarket.comum.pagamento.DadosCartaoProprio;
@@ -19,6 +20,7 @@ import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoOff;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoProprio;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCheque;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoChequePredatado;
+import com.infinity.datamarket.comum.transacao.EventoItemPagamentoTroca;
 import com.infinity.datamarket.comum.transacao.EventoTransacaoPK;
 import com.infinity.datamarket.comum.transacao.ParcelaEventoItemPagamentoChequePredatado;
 import com.infinity.datamarket.comum.transacao.ParcelaEventoItemPagamentoChequePredatadoPK;
@@ -116,6 +118,12 @@ public class MicProcessaPlano extends Mic{
 			DadosCartaoProprio dados = (DadosCartaoProprio) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CARTAO_PROPRIO);
 			eventoItemPagamento = new EventoItemPagamentoCartaoProprio(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo,
 					dados.getAutorizacao());
+			eventos.add(eventoItemPagamento);
+			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamento);
+		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.TROCA)){
+			OperacaoDevolucao operacao = (OperacaoDevolucao) gerenciadorPerifericos.getCmos().ler(CMOS.OPERACAO_DEVOLUCAO);
+			eventoItemPagamento = new EventoItemPagamentoTroca(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo,
+					operacao.getPk().getId()+"");
 			eventos.add(eventoItemPagamento);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamento);
 		}else{
