@@ -207,10 +207,6 @@ public class CadastroOperacao extends Cadastro{
 
 	public Operacao consultarPorPK(OperacaoPK pk) throws AppException{
 		Operacao operacao = (Operacao) getRepositorio().findById(Operacao.class, pk);
-		if (operacao.getStatus() == ConstantesOperacao.CANCELADO||
-				operacao.getStatus() == ConstantesOperacao.FECHADO || operacao.getStatus() == ConstantesOperacao.EM_PROCESSAMENTO){
-				throw new ValidationException("Operação Inválida");
-		}
 		return operacao;
 	}
 		
@@ -218,10 +214,10 @@ public class CadastroOperacao extends Cadastro{
 		return getRepositorio().filter(filter, false);
 	}
 	
-	public void alterarStatus(OperacaoPK pk, int status) throws AppException{
-		Operacao operacao = Fachada.getInstancia().consultarOperacaoPorPK(pk);
+	public void alterarStatus(OperacaoPK pk, int status) throws AppException{		
 		if (status == ConstantesOperacao.ABERTO || status == ConstantesOperacao.CANCELADO||
 				status == ConstantesOperacao.FECHADO || status == ConstantesOperacao.EM_PROCESSAMENTO){
+			Operacao operacao = (Operacao) getRepositorio().findById(Operacao.class, pk);
 			operacao.setStatus(status);
 			getRepositorio().update(operacao);
 		}else{
