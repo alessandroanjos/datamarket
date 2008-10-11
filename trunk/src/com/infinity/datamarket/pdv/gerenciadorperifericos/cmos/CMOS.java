@@ -64,6 +64,7 @@ public class CMOS implements Serializable{
 	public static final String TRANSACAO_PAGAMENTO_ATUAL = "TRANSACAO_PAGAMENTO_ATUAL";
 	public static final String DATA_MOVIMENTO = "DATA_MOVIMENTO";
 	public static final String OPERACAO_DEVOLUCAO = "OPERACAO_DEVOLUCAO";
+	public static final String PK_OPERACOES = "PK_OPERACOES";
 
 	private CMOS(String nome){
 

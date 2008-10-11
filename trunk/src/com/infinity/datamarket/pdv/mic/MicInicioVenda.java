@@ -1,6 +1,7 @@
 package com.infinity.datamarket.pdv.mic;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import com.infinity.datamarket.comum.transacao.ConstantesTransacao;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
@@ -19,6 +20,8 @@ public class MicInicioVenda extends Mic{
 		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_PAGAMENTO_ATUAL, new BigDecimal(0));
 		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TROCO_ATUAL, new BigDecimal(0));
 		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TROCO_ATUAL, new BigDecimal(0));
+		gerenciadorPerifericos.getCmos().gravar(CMOS.DADOS_AUTORIZACOES_CARTAO_PROPRIO, new ArrayList());
+		gerenciadorPerifericos.getCmos().gravar(CMOS.PK_OPERACOES, new ArrayList());
 		return ALTERNATIVA_1;
 	}
 

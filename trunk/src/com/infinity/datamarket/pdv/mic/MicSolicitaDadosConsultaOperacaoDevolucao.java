@@ -71,6 +71,12 @@ public class MicSolicitaDadosConsultaOperacaoDevolucao extends Mic{
 									gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_PAGAMENTO_ATUAL,devolucao.getValor());
 									gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_DEVOLUCAO,devolucao);
 									remote.alteraStatusOperacao(pk, ConstantesOperacao.EM_PROCESSAMENTO);
+									Collection c = (Collection) gerenciadorPerifericos.getCmos().ler(CMOS.PK_OPERACOES);
+									if (c == null){
+										c = new ArrayList();
+									}
+									c.add(pk);
+									gerenciadorPerifericos.getCmos().gravar(CMOS.PK_OPERACOES,c);
 									return ALTERNATIVA_1;
 								}else{
 									gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
