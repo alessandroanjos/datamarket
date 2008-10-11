@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.cliente.CadastroCliente;
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.estoque.CadastroEstoque;
@@ -21,6 +22,7 @@ import com.infinity.datamarket.comum.usuario.CadastroLoja;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.ValidationException;
 
 public class CadastroOperacao extends Cadastro{
 	private static CadastroOperacao instancia;
@@ -205,11 +207,26 @@ public class CadastroOperacao extends Cadastro{
 
 	public Operacao consultarPorPK(OperacaoPK pk) throws AppException{
 		Operacao operacao = (Operacao) getRepositorio().findById(Operacao.class, pk);
+		if (operacao.getStatus() == ConstantesOperacao.CANCELADO||
+				operacao.getStatus() == ConstantesOperacao.FECHADO || operacao.getStatus() == ConstantesOperacao.EM_PROCESSAMENTO){
+				throw new ValidationException("Operação Inválida");
+		}
 		return operacao;
 	}
 		
 	public Collection consultar(IPropertyFilter filter) throws AppException{
 		return getRepositorio().filter(filter, false);
+	}
+	
+	public void alterarStatus(OperacaoPK pk, int status) throws AppException{
+		Operacao operacao = Fachada.getInstancia().consultarOperacaoPorPK(pk);
+		if (status == ConstantesOperacao.ABERTO || status == ConstantesOperacao.CANCELADO||
+				status == ConstantesOperacao.FECHADO || status == ConstantesOperacao.EM_PROCESSAMENTO){
+			operacao.setStatus(status);
+			getRepositorio().update(operacao);
+		}else{
+			throw new ValidationException("Status de Operação Inválido");
+		}
 	}
 
 }
