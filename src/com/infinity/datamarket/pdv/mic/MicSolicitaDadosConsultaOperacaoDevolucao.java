@@ -16,6 +16,7 @@ import com.infinity.datamarket.comum.pagamento.DadosCartaoProprio;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.SistemaException;
 import com.infinity.datamarket.comum.util.Util;
+import com.infinity.datamarket.comum.util.ValidationException;
 import com.infinity.datamarket.operacao.OperacaoServerRemote;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
@@ -44,18 +45,22 @@ public class MicSolicitaDadosConsultaOperacaoDevolucao extends Mic{
 						OperacaoDevolucao devolucao = null; 
 						try{
 							gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
-							//OperacaoServerRemote remote = (OperacaoServerRemote) ServiceLocator.getJNDIObject(ServerConfig.OPERACAO_SERVER_JNDI);
-//							if (remote == null){
-//								gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
-//								gerenciadorPerifericos.esperaVolta();
-//								return ALTERNATIVA_2;
-//							}
+							OperacaoServerRemote remote = (OperacaoServerRemote) ServiceLocator.getJNDIObject(ServerConfig.OPERACAO_SERVER_JNDI);
+							if (remote == null){
+								gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+								gerenciadorPerifericos.esperaVolta();
+								return ALTERNATIVA_2;
+							}
 							OperacaoPK pk = new OperacaoPK(gerenciadorPerifericos.getCodigoLoja(),Integer.parseInt(operacao));
 							Operacao op = null;
 							try{
-								//op = remote.consultarOperacaoPorID(pk);
-								op = getFachadaPDV().consultarOperacaoPorPK(pk);
+								op = remote.consultarOperacaoPorID(pk);								
+//								op = getFachadaPDV().consultarOperacaoPorPK(pk);
 							}catch(ObjectNotFoundException e){								
+								gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
+								gerenciadorPerifericos.esperaVolta();
+								return ALTERNATIVA_2;
+							}catch(ValidationException e){								
 								gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
 								gerenciadorPerifericos.esperaVolta();
 								return ALTERNATIVA_2;
@@ -65,6 +70,7 @@ public class MicSolicitaDadosConsultaOperacaoDevolucao extends Mic{
 								if (devolucao.getStatus() == ConstantesOperacao.ABERTO){
 									gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_PAGAMENTO_ATUAL,devolucao.getValor());
 									gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_DEVOLUCAO,devolucao);
+									remote.alteraStatusOperacao(pk, ConstantesOperacao.EM_PROCESSAMENTO);
 									return ALTERNATIVA_1;
 								}else{
 									gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
