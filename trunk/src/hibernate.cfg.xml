@@ -91,7 +91,7 @@
 	<mapping resource="com/infinity/datamarket/hbm/EventoOperacao.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/EventoOperacaoItemRegistrado.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/ProdutoOperacaoItemRegistrado.hbm.xml"/>
-	
+	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoTroca.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
 
