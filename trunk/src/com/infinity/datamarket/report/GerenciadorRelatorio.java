@@ -24,10 +24,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRDataset;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.data.JRHibernateIterateDataSource;
+import net.sf.jasperreports.engine.data.JRHibernateListDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -40,6 +46,8 @@ import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
+import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
+import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
 import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
@@ -357,4 +365,32 @@ public class GerenciadorRelatorio {
 			throw new RelatorioException(e);
 		}
 	}
+	
+	public void gerarReciboDevolucaoProdutos(OperacaoDevolucao operacaoDevolucao, OutputStream out) throws AppException{
+		try{
+			
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboDevolucaoProdutos.jasper");
+			
+			Map<String, String> parametros = new HashMap<String, String>();
+			
+			DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+
+			parametros.put("empresa", EMPRESA);	
+			
+			Iterator it = parametros.entrySet().iterator();
+
+			while(it.hasNext()){
+				System.out.println(it.next().toString());
+			}
+			List<EventoOperacaoItemRegistrado> listaItens = new ArrayList<EventoOperacaoItemRegistrado>();
+					
+			RelatorioDataSource rel = new RelatorioDataSource(listaItens);
+			
+            JasperRunManager.runReportToPdfStream(input, out, parametros, rel);
+   		}catch(Exception e){
+			e.printStackTrace();
+			throw new RelatorioException(e);
+		}
+	}
+
 }

@@ -251,6 +251,14 @@ public class Fachada {
 			throw new SistemaException(e);
 		}
 	}
+	
+	public void gerarReciboDevolucaoProdutos(OperacaoDevolucao operacaoDevolucao, OutputStream out) throws AppException{
+		try{
+			getGerenciadorRelatorio().gerarReciboDevolucaoProdutos(operacaoDevolucao, out);
+		}catch(AppException e){
+			throw new SistemaException(e);
+		}
+	}
 
 	public Usuario loginUsuario(Long id, String senha) throws AppException{
 		Usuario usu = null;

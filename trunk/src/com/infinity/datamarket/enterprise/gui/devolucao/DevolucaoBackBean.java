@@ -328,6 +328,9 @@ public class DevolucaoBackBean extends BackBean {
 		this.setCpfCnpj(null);
 //		this.setNomeCliente(null);
 		this.nomeCliente = null;
+		this.setEventosOperacao(null);
+		sequencialProdutoOperacaoEventoRegistrado = 0;
+		this.setExisteRegistros(false);
 	}
 	
 	public String consultar(){
@@ -571,7 +574,13 @@ public class DevolucaoBackBean extends BackBean {
 		devolucao.setPk(pk);
 		
 		devolucao.setData(this.getDataDevolucao());
-		devolucao.setCliente(this.getClienteTransacao());
+		if(this.getClienteTransacao() == null){
+			ClienteTransacao cli = getFachada().consultarClienteTransacaoPorID(this.getCpfCnpj().replace(".", "").replace("/", "").replace("-", ""));
+			devolucao.setCliente(cli);
+		}else{
+			devolucao.setCliente(this.getClienteTransacao());	
+		}
+		
 		devolucao.setStatus(ConstantesOperacao.ABERTO);
 		devolucao.setTipo(ConstantesOperacao.OPERACAO_DEVOLUCAO);
 		devolucao.setCodigoUsuarioOperador(LoginBackBean.getCodigoUsuarioLogado());
@@ -599,7 +608,7 @@ public class DevolucaoBackBean extends BackBean {
 				throw new AppException("É necessário informar os itens da Devolução!");
 			}
 			
-//			getFachada().inserirOperacaoDevolucao(devolucao);
+			getFachada().inserirOperacaoES(devolucao);
 			
 			this.setOperacaoDevolucao(devolucao);
 			this.setIdOperacaoDevolucao(String.valueOf(devolucao.getPk().getId()));
@@ -696,7 +705,7 @@ public class DevolucaoBackBean extends BackBean {
 				FacesContext context = FacesContext.getCurrentInstance();
 				HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();			
 				ServletOutputStream servletOutputStream = response.getOutputStream();
-//				getFachada().gerarReciboVenda(this.getOperacaoDevolucao(),servletOutputStream);			
+				getFachada().gerarReciboDevolucaoProdutos(this.getOperacaoDevolucao(),servletOutputStream);			
 				response.setContentType("application/pdf");
 				response.setHeader("Content-disposition", "attachment;filename=ReciboOperacaoDevolucao" + System.currentTimeMillis() + ".pdf");
 				context.responseComplete();
@@ -752,6 +761,7 @@ public class DevolucaoBackBean extends BackBean {
 //						this.setNomeCliente(clienteTransacao.getRazaoSocial());
 						this.nomeCliente = clienteTransacao.getRazaoSocial();
 					}			
+					this.setClienteTransacao(clienteTransacao);
 				}
 			} catch (ObjectNotFoundException e){
 				FacesContext ctx = FacesContext.getCurrentInstance();
