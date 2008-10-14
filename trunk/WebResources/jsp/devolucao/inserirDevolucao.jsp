@@ -53,7 +53,7 @@
 				    // Formulário escondido
                     hform=document.forms[form];                
 				}else{
-					document.forms["frmInserirDevolucao"].action = "/EnterpriseServer/jsp/transacao/inserirDevolucao.faces?acaoLocal=pesquisarProdutos&codigoProduto="+getId("frmInserirDevolucao:codigoProduto").value;
+					document.forms["frmInserirDevolucao"].action = "/EnterpriseServer/jsp/devolucao/inserirDevolucao.faces?acaoLocal=pesquisarProdutos&codigoProduto="+getId("frmInserirDevolucao:codigoProduto").value;
 					document.forms["frmInserirDevolucao"].submit();                  	
                 }
             }
@@ -80,7 +80,7 @@
 						$(this).bind('blur',function(event){validaCPF(this);});
 						$(this).bind('keydown',function(event){FormataCPF(this,event);});
 						getId(this.id).maxLength = "14";
-						getId(this.id).value = "";
+						//getId(this.id).value = "";
 					});
 				} else {
 					$("input.tipocpfcnpj").each(function(i){
@@ -89,7 +89,7 @@
 						$(this).bind('blur',function(event){validaCNPJ(this);});
 						$(this).bind('keydown',function(event){FormataCNPJ(this,event);});
 						getId(this.id).maxLength = "18";
-						getId(this.id).value = "";
+						//getId(this.id).value = "";
 					});
 				}
 			}
@@ -184,14 +184,12 @@
 										<f:validateLength minimum="11" maximum="18" />
 									</h:inputText>	
 									<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Cliente" styleClass="btTxt" id="botaoConsultarCliente"
-										onmousedown="showPopUpClientes(this,'frmInserirDevolucao','find')" value="">
+										onmousedown="showPopUpClientes(this,'frmInserirDevolucao','find')" onclick="return false" value="">
 									</h:commandButton>							
 								</div>
 								<div>
 									<h:outputLabel styleClass="desc" value="Nome Cliente"></h:outputLabel>
-									<h:inputText styleClass="field text" id="nomeCliente" maxlength="50" size="50" value="#{devolucaoBB.nomeCliente}">
-										<f:validateLength maximum="50" />
-									</h:inputText>								
+									<h:inputText styleClass="field text" id="nomeCliente" maxlength="50" size="50" value="#{devolucaoBB.nomeCliente}" />			
 								</div>									
 							</li>										
 							<li class="normal">
@@ -213,22 +211,23 @@
 								</div>
 								<div>
 									<h:outputLabel styleClass="desc" value="Preço Venda"></h:outputLabel>
-									<h:inputText styleClass="field text" id="precoVenda" size="15"
-												value="#{devolucaoBB.precoVenda}" readonly="true">
+									<h:inputText styleClass="field text" dir="rtl" id="precoVenda" size="12" value="#{devolucaoBB.precoVenda}" onkeypress="return(formataMoeda(this,'','.',2,event));">
+										<f:validateLength maximum="12" />
+										<f:validateDoubleRange  minimum="0.00" maximum="999999999.99"/>
+										<f:validator validatorId="BigDecimalValidator"/>
 									</h:inputText>
 								</div>
 								<div>
 									<h:outputLabel styleClass="desc" value="Quantidade"></h:outputLabel>
-									<h:inputText styleClass="field text" id="quantidade" maxlength="9" size="9"
+									<h:inputText styleClass="field text" id="quantidade" maxlength="7" size="7"
 										value="#{devolucaoBB.quantidade}" dir="rtl" onkeypress="return(formataMoeda(this,'','.',3,event));">
-										<f:validateLength maximum="9" />
+										<f:validateLength maximum="7" />
 										<f:validateDoubleRange  minimum="0.000" maximum="999.999"/>
 										<f:validator validatorId="BigDecimalValidator"/>
 									</h:inputText>
-									<h:commandButton image="/images/adicionar.png" alt="Inserir" styleClass="btTxt" id="botaoInserirItemTransacao" action="#{devolucaoBB.inserirprodutoDevolucao}" value="Inserir"></h:commandButton>
+									<h:commandButton image="/images/adicionar.png" alt="Inserir" styleClass="btTxt" id="botaoInserirProdutoDevolucao" action="#{devolucaoBB.inserirProdutoDevolucao}" value="Inserir"></h:commandButton>
 								</div>
-								<div style="position:relative; top:9px;">
-									
+								<div style="position:relative; top:9px;">									
 								</div>
 							</li>
 							<li>
@@ -269,8 +268,8 @@
 											<f:facet name="header">
 												<h:outputText style="align: center;" value="Ação" />
 											</f:facet>										
-											<h:commandButton image="/images/excluir.png" alt="Excluir" action="#{devolucaoBB.removerProdutoDevolucao}">
-												<f:param name="idExcluirProdutoDevolucao" value="#{produtoDevolucao}" />
+											<h:commandButton image="/images/excluir.png" alt="Excluir" actionListener="#{devolucaoBB.removerProdutoDevolucao}">
+												<f:param id="idExcluirProdutoDevolucao" name="idExcluirProdutoDevolucao" value="#{produtoDevolucao.pk.numeroEvento}" />
 											</h:commandButton>
 										</h:column>													
 									</t:dataTable>																
@@ -281,7 +280,8 @@
 									<h:outputLabel styleClass="descBaixo" value="Valor Total"></h:outputLabel>
 								</div>
 								<div>
-									<h:inputText styleClass="field text" id="valorTotalDevolucao" maxlength="15" size="15" value="#{devolucaoBB.valorTotalDevolucao}" dir="ltr" onkeypress="return SoNumero(event);">
+									<h:inputText styleClass="field text" id="valorTotalDevolucao" maxlength="15" size="15" 
+										value="#{devolucaoBB.valorTotalDevolucao}" dir="rtl" onkeypress="return SoNumero(event);" readonly="true">
 									</h:inputText>
 								</div>
 							</li>

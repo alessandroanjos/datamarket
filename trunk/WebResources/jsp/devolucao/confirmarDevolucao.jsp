@@ -25,29 +25,23 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/css/form.css"></t:stylesheet>	
+		<t:stylesheet path="/css/form.css"></t:stylesheet>				
 	</head>
 	<body>
 		<div id="outer">			
 			<div id="content">
 				<div id="primarioContentContainerInternas">
-					<h:form id="frmConfirmarDevolucao"  binding="#{devolucaoBB.init}">
+					<h:form id="frmConfirmarDevolucao">
 						<div>
-							<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+							<h:commandButton image="/images/tree/drop-yes.gif" alt="" styleClass="btTxt" />
+							&nbsp;
+							<h:outputText styleClass="textoGrande" id="mensagem" value="Devolução Realizada com Sucesso!!!"></h:outputText>
 						</div>
-						<ul>
-							<li class="normal">
-								<div>
-									<h:commandButton image="/images/tree/drop-yes.gif" alt="" styleClass="btTxt" />
-									&nbsp;
-									<h:outputText id="mensagem" value="Devolução Realizada com Sucesso!!!"></h:outputText>
-								</div>
-							</li>	
-							<li class="normal">
-								<div>
-									<h:outputText id="mensagem" value="Número: #{devolucaoBB.idOperacaoDevolucao}"></h:outputText>
-								</div>														
-							</li>							
+						<br />
+						<div style="align:center;">
+							<h:outputText styleClass="textoGrande" id="numeroDevolucao" value="Número Devolução: #{devolucaoBB.idOperacaoDevolucao}"></h:outputText>
+						</div>
+						<ul>						
 							<li class="buttons">
 	 							<h:commandButton styleClass="btTxt" id="botaoImprimir" action="#{devolucaoBB.imprimirRecibo}" value="Imprimir"></h:commandButton>
 								<h:commandButton styleClass="btTxt" id="botaoOK" action="#{devolucaoBB.confirmarDevolucao}" value="OK"></h:commandButton>
