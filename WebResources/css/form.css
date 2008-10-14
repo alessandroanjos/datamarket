@@ -116,6 +116,15 @@ label.descBaixo{
 	font-weight:bold;
 	bottom: 0em;
 }
+label.textoGrande{
+	line-height:100%;
+	padding:0 0 1px 0;
+	border:none;
+	color:#222;
+	display:block;
+	font-size:100%;
+	font-weight:bold;
+}
 
 label.choice{
 	font-size:100%;
