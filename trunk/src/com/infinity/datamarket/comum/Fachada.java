@@ -5487,6 +5487,39 @@ public class Fachada {
 		}
 		return col;
 	}
+
+	
+	public Integer retornaMaxIdOperacaoPorLoja(OperacaoPK pk) throws AppException{
+		Integer maxId = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			maxId = getCadastroOperacao().retornaMaxIdOperacaoPorLoja(pk);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return maxId;
+	}
+
+
 	
 	public void alterarStatusOperacao(OperacaoPK pk, int status) throws AppException{
 		try{
