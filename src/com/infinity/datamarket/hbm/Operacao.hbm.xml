@@ -13,13 +13,17 @@
            <key-property name="loja" column="LOJA" type="integer"/>
            <key-property name="id" column="ID" type="integer"/>
         </composite-id>
+        
+        <property name="data" type="date" update="true" insert="true">
+            <column name="DATA" length="8" not-null="true"/>
+        </property>
 
         <property name="tipo" type="int" update="true" insert="true">
-            <column name="TIPO" length="20" not-null="false"/>
+            <column name="TIPO" length="20" not-null="true"/>
         </property>
         
         <property name="status" type="int" update="true" insert="true">
-            <column name="STATUS" length="20" not-null="false"/>
+            <column name="STATUS" length="20" not-null="true"/>
         </property>
     </class>    
 

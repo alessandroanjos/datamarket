@@ -17,8 +17,8 @@
 
 		<property name="codigoUsuarioOperador" type="java.lang.String"
 			update="true" insert="true">
-			<column name="COD_USU_OPERADOR" length="20"
-				not-null="false" />
+			<column name="COD_USU_OPERADOR" length="50"
+				not-null="true" />
 		</property>
 
 		<property name="valor" type="java.math.BigDecimal"
@@ -29,7 +29,7 @@
 		<many-to-one name="cliente"
 			class="com.infinity.datamarket.comum.transacao.ClienteTransacao"
 			update="true" insert="true">
-			<column name="CPF_CNPJ_CLIENTE_TRANSACAO" not-null="false" />
+			<column name="CPF_CNPJ_CLIENTE_TRANSACAO" not-null="true" />
 		</many-to-one>
 
 		<set name="eventosOperacao" inverse="true" cascade="save-update, delete-orphan"
