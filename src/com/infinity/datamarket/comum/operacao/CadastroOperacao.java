@@ -1,12 +1,14 @@
 package com.infinity.datamarket.comum.operacao;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.hibernate.Query;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.cliente.CadastroCliente;
 import com.infinity.datamarket.comum.cliente.Cliente;
+
 import com.infinity.datamarket.comum.estoque.CadastroEstoque;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoquePK;
@@ -15,9 +17,7 @@ import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
-import com.infinity.datamarket.comum.totalizadores.CadastroTotalizadores;
-import com.infinity.datamarket.comum.totalizadores.ConstantesTotalizadoresNaoFiscais;
+import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.usuario.CadastroLoja;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
@@ -225,4 +225,17 @@ public class CadastroOperacao extends Cadastro{
 		}
 	}
 
+	public Integer retornaMaxIdOperacaoPorLoja(OperacaoPK pk) throws AppException{
+		Integer retorno = new Integer(0);
+		StringBuffer sb = new StringBuffer();
+		sb.append("select max(operacao.pk.id) from Operacao operacao where loja = " + pk.getLoja());
+		Query query = RepositoryManagerHibernateUtil.currentSession().createQuery(sb.toString());
+		Integer qretorno = (Integer)query.uniqueResult(); 		
+		if (qretorno != null){
+			retorno = qretorno + 1;	
+		}	
+		retorno++;
+		return retorno;
+	}
+	
 }

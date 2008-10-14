@@ -37,44 +37,45 @@ import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConjuntoEventoOperacao;
+import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class DevolucaoBackBean extends BackBean {
 	
-	OperacaoDevolucao operacaoDevolucao;
+	private OperacaoDevolucao operacaoDevolucao;
 
-	static int sequencialProdutoOperacaoEventoRegistrado = 0;
-	OperacaoPK id;
+	private static int sequencialProdutoOperacaoEventoRegistrado = 0;
+	private OperacaoPK id;
 	
-	SelectItem[] lojas;
-	String idLoja;
-	String idOperacaoDevolucao;
+	private SelectItem[] lojas;
+	private String idLoja;
+	private String idOperacaoDevolucao;
 	
-	Date dataDevolucao;
+	private Date dataDevolucao;
 
-	String idTipoPessoa = new String(Fornecedor.PESSOA_FISICA);
-	SelectItem[] listaTipoPessoa;
-	String cpfCnpj;
-	String nomeCliente;
-	ClienteTransacao clienteTransacao;
+	private String idTipoPessoa = new String(Fornecedor.PESSOA_FISICA);
+	private SelectItem[] listaTipoPessoa;
+	private String cpfCnpj;
+	private String nomeCliente;
+	private ClienteTransacao clienteTransacao;
 
-	String codigoProduto;
-	String descricaoProduto;
-	BigDecimal precoVenda;
-	BigDecimal quantidade;
-	BigDecimal valorItem;
-	List<EventoOperacaoItemRegistrado> eventosOperacao = new ArrayList<EventoOperacaoItemRegistrado>();
+	private String codigoProduto;
+	private String descricaoProduto;
+	private BigDecimal precoVenda;
+	private BigDecimal quantidade;
+	private BigDecimal valorItem;
+	private List<EventoOperacaoItemRegistrado> eventosOperacao = new ArrayList<EventoOperacaoItemRegistrado>();
 	
-	BigDecimal valorTotalDevolucao;
+	private BigDecimal valorTotalDevolucao;
 
-	Date dataInicial;
-	Date dataFinal;
+	private Date dataInicial;
+	private Date dataFinal;
 
-	SelectItem[] listaSituacao;
-	String idSituacao = TransacaoVenda.ATIVO;
+	private SelectItem[] listaSituacao;
+	private String idSituacao = TransacaoVenda.ATIVO;
 	
-	Collection devolucoes;
+	private Collection devolucoes;
 
 	public String getIdLoja() {
 		return idLoja;
@@ -267,10 +268,11 @@ public class DevolucaoBackBean extends BackBean {
 	
 	public String getNomeCliente() {
 		return nomeCliente;
+//		return "nome do filho da puta do cliente...";
 	}
 
 	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
+//		this.nomeCliente = nomeCliente;
 	}
 	
 	public ClienteTransacao getClienteTransacao() {
@@ -324,7 +326,8 @@ public class DevolucaoBackBean extends BackBean {
 		this.setValorTotalDevolucao(new BigDecimal("0.00"));
 		this.setIdTipoPessoa(Cliente.PESSOA_FISICA);
 		this.setCpfCnpj(null);
-		this.setNomeCliente(null);
+//		this.setNomeCliente(null);
+		this.nomeCliente = null;
 	}
 	
 	public String consultar(){
@@ -466,25 +469,28 @@ public class DevolucaoBackBean extends BackBean {
 		}
 	}
 	
-	public Produto validarItemRegistrado() throws Exception{
+	public Produto validarItemRegistrado() throws AppException{
 		Produto produto = null;
 		if(this.getCodigoProduto() == null || (this.getCodigoProduto() != null && this.getCodigoProduto().equals("0"))){
-			throw new Exception("É necessário informar um produto.");
+			throw new AppException("É necessário informar um produto.");
 		}else{
 			produto = getFachada().consultarProdutoPorPK(new Long(this.getCodigoProduto()));
 			if(produto == null){
-				throw new Exception("O Produto informado é inválido!");
+				throw new AppException("O Produto informado é inválido!");
 			}
 		}
+		if(this.getPrecoVenda() == null || (this.getPrecoVenda() != null && this.getPrecoVenda().compareTo(BigDecimal.ZERO.setScale(2)) <= 0)){
+			throw new AppException("O Preço de Venda informado é inválido!");
+		}
 		if(this.getQuantidade() == null || (this.getQuantidade() != null && this.getQuantidade().compareTo(BigDecimal.ZERO.setScale(3)) <= 0)){
-			throw new Exception("A Quantidade informada é inválida!");
+			throw new AppException("A Quantidade informada é inválida!");
 		}
 		return produto;
 	}
 
 	
 	public void inserirProdutoDevolucao(){
-		BigDecimal valorTotalItem = new BigDecimal("0.00");
+		BigDecimal valorTotalItem = BigDecimal.ZERO;
 		Produto produto = null;
 		try {			
 			produto = validarItemRegistrado();			
@@ -504,7 +510,8 @@ public class DevolucaoBackBean extends BackBean {
 			produtoOperacaoItemRegistrado.setIdProduto(produto.getId().intValue());
 			produtoOperacaoItemRegistrado.setImpostoImpressora(null);
 			produtoOperacaoItemRegistrado.setPercentual(null);
-			produtoOperacaoItemRegistrado.setPrecoPadrao(produto.getPrecoPadrao());
+//			produtoOperacaoItemRegistrado.setPrecoPadrao(produto.getPrecoPadrao());
+			produtoOperacaoItemRegistrado.setPrecoPadrao(this.getPrecoVenda());
 			produtoOperacaoItemRegistrado.setPrecoPraticado(produto.getPrecoPadrao());
 			
 			valorTotalItem = this.getPrecoVenda().multiply(this.getQuantidade()).setScale(2, BigDecimal.ROUND_DOWN);
@@ -530,13 +537,15 @@ public class DevolucaoBackBean extends BackBean {
 			
 			this.setCodigoProduto("");
 			this.setDescricaoProduto("");
-			this.setPrecoVenda(new BigDecimal("0.00"));
-			this.setQuantidade(new BigDecimal("1.000"));
-			this.setValorItem(new BigDecimal("0.00"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+			this.setPrecoVenda(new BigDecimal("000").movePointLeft(2));
+			this.setQuantidade(new BigDecimal("1000").movePointLeft(3));
+			this.setValorItem(new BigDecimal("000").movePointLeft(2));
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		}
 	}
 	
 	public void removerProdutoDevolucao(ActionEvent event){
@@ -554,11 +563,11 @@ public class DevolucaoBackBean extends BackBean {
 		}
 	}
 	
-	public OperacaoDevolucao preencheOperacaoDevolucao(String operacao){
+	public OperacaoDevolucao preencheOperacaoDevolucao(String operacao) throws AppException{
 		OperacaoDevolucao devolucao = new OperacaoDevolucao();
 		OperacaoPK pk = new OperacaoPK();
-		pk.setId(getIdInc(Operacao.class).intValue());
-		pk.setLoja(Integer.parseInt(this.getIdLoja()));			
+		pk.setLoja(Integer.parseInt(this.getIdLoja()));
+		pk.setId(getFachada().retornaMaxIdOperacaoPorLoja(pk).intValue());					
 		devolucao.setPk(pk);
 		
 		devolucao.setData(this.getDataDevolucao());
@@ -586,27 +595,34 @@ public class DevolucaoBackBean extends BackBean {
 			
 			OperacaoDevolucao devolucao = preencheOperacaoDevolucao(INSERIR);
 			
+			if(devolucao.getEventosOperacao() == null || devolucao.getEventosOperacao().size() == 0){
+				throw new AppException("É necessário informar os itens da Devolução!");
+			}
+			
 //			getFachada().inserirOperacaoDevolucao(devolucao);
 			
 			this.setOperacaoDevolucao(devolucao);
-			
+			this.setIdOperacaoDevolucao(String.valueOf(devolucao.getPk().getId()));
 			resetBB();
 		} catch (ObjectExistentException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Devolução já Existente!", "");
 			ctx.addMessage(null, msg);
+			return "mesma";
 		} catch (AppException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
 			ctx.addMessage(null, msg);
+			return "mesma";
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			return "mesma";
 		}		
 		return "proximaOk";
 	}
@@ -737,14 +753,20 @@ public class DevolucaoBackBean extends BackBean {
 						this.nomeCliente = clienteTransacao.getRazaoSocial();
 					}			
 				}
-			} catch (Exception e) {				
+			} catch (ObjectNotFoundException e){
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Cliente com o CPF/CNPF informado Inexistente no Cadastro!", "");
+				ctx.addMessage(null, msg);
+				this.cpfCnpj = (String)params.get("cpfCnpj");
+			} catch (Exception e) {
 				e.printStackTrace();			
 			}
 		}
 	}
 
 	public String getIdOperacaoDevolucao() {
-		return idOperacaoDevolucao;
+		return Util.completaString(idOperacaoDevolucao, "0", 9, false);
 	}
 
 	public void setIdOperacaoDevolucao(String idOperacaoDevolucao) {
