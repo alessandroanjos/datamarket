@@ -404,15 +404,75 @@ public class GerenciadorRelatorio {
    		return out;
 	}
 	
+public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, Date data_fim_movimento) throws AppException{
+		
+		OutputStream out  = new ByteArrayOutputStream();
+		ResultSet rs = null;
+		PreparedStatement pstm = null;
+		try{
+			Map parametros = new HashMap();
+
+			parametros.put("empresa", EMPRESA);				
+						
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioAnaliticoEntrada.jasper");
+            					
+			Connection con = getConnection();
+			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_ENTRADAS);
+			
+			//data inicio
+			Calendar c = new GregorianCalendar();
+			c.setTime(data_inicio_movimento);
+			int d1_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d1_mes = c.get(Calendar.MONTH);
+			int d1_ano = c.get(Calendar.YEAR);
+			Date dataInicio= new GregorianCalendar(d1_ano,d1_mes,d1_dia).getTime();
+			
+			//dataFim
+			c = new GregorianCalendar();
+			c.setTime(data_fim_movimento);
+			int d2_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d2_mes = c.get(Calendar.MONTH);
+			int d2_ano = c.get(Calendar.YEAR);
+			Date dataFim= new GregorianCalendar(d2_ano,d2_mes,d2_dia,23,59,59).getTime();
+			
+			pstm.setDate(1,new java.sql.Date(dataInicio.getTime()));			
+			pstm.setDate(2,new java.sql.Date(dataFim.getTime()));
+			
+			rs = pstm.executeQuery();
+				
+			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
+	
+			
+            JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);
+            
+   		}catch(Exception e){
+			e.printStackTrace();
+			throw new RelatorioException(e);
+		}finally{
+			try{
+				if (rs != null){
+					rs.close();
+				}
+				if (pstm != null){
+					pstm.close();
+				}
+			}catch(Exception e){
+				throw new RelatorioException(e);
+			}
+		}
+   		
+   		return out;
+	}
+	
 	public static void main(String[] a){
 		try{
-			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioAnaliticoVendas(1,new Date(),new Date());
+			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioAnaliticoEntradas(new Date(),new Date());
 			String caminho = "c:\\pdv\\temp\\";
 			File dir = new File(caminho);
 			if (!dir.exists()){
 				dir.mkdir();
 			}
-			String nomeArquivo = caminho+"FECHAMENTO_VENDA.pdf";						
+			String nomeArquivo = caminho+"ENTRADAS.pdf";						
 			FileOutputStream f = new FileOutputStream(nomeArquivo);
 			f.write(out.toByteArray());
 			f.flush();

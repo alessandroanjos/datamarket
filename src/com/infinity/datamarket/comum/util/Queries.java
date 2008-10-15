@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
  */
 public class Queries {
 	public static final String RELATORIO_ANALITICO_VENDAS;
+	public static final String RELATORIO_ANALITICO_ENTRADAS;
 	
 	
 	static {
@@ -23,7 +24,8 @@ public class Queries {
 			
 			ResourceBundle rs = ResourceBundle.getBundle("queries");		
 			
-			RELATORIO_ANALITICO_VENDAS = rs.getString("RELATORIO_ANALITICO_VENDAS");			
+			RELATORIO_ANALITICO_VENDAS = rs.getString("RELATORIO_ANALITICO_VENDAS");
+			RELATORIO_ANALITICO_ENTRADAS = rs.getString("RELATORIO_ANALITICO_ENTRADAS");
 				
 		
 	}
