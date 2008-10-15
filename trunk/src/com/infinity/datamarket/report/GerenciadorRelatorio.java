@@ -7,16 +7,23 @@
 package com.infinity.datamarket.report;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -24,18 +31,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRDataset;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.data.JRHibernateIterateDataSource;
 import net.sf.jasperreports.engine.data.JRHibernateListDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -56,6 +66,7 @@ import com.infinity.datamarket.comum.transacao.TransacaoPagamentoCartaoProprio;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.JExtenso;
+import com.infinity.datamarket.comum.util.Queries;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -365,6 +376,89 @@ public class GerenciadorRelatorio {
 			throw new RelatorioException(e);
 		}
 	}
+
+	
+	public OutputStream gerarRelatorioAnaliticoVendas(int loja, Date data_inicio_movimento, Date data_fim_movimento) throws AppException{
+		
+		OutputStream out  = new ByteArrayOutputStream();
+		ResultSet rs = null;
+		PreparedStatement pstm = null;
+		try{
+			Map parametros = new HashMap();
+
+			parametros.put("empresa", EMPRESA);				
+						
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioFechamentoVenda.jasper");
+            					
+			Connection con = getConnection();
+			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_VENDAS);
+			
+			//data inicio
+			Calendar c = new GregorianCalendar();
+			c.setTime(data_inicio_movimento);
+			int d1_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d1_mes = c.get(Calendar.MONTH);
+			int d1_ano = c.get(Calendar.YEAR);
+			Date dataInicio= new GregorianCalendar(d1_ano,d1_mes,d1_dia).getTime();
+			
+			//dataFim
+			c = new GregorianCalendar();
+			c.setTime(data_fim_movimento);
+			int d2_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d2_mes = c.get(Calendar.MONTH);
+			int d2_ano = c.get(Calendar.YEAR);
+			Date dataFim= new GregorianCalendar(d2_ano,d2_mes,d2_dia,23,59,59).getTime();
+			
+			pstm.setInt(1,loja);
+			pstm.setDate(2,new java.sql.Date(dataInicio.getTime()));			
+			pstm.setDate(3,new java.sql.Date(dataFim.getTime()));
+			
+			rs = pstm.executeQuery();
+				
+			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
+	
+			
+            JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);
+            
+   		}catch(Exception e){
+			e.printStackTrace();
+			throw new RelatorioException(e);
+		}finally{
+			try{
+				if (rs != null){
+					rs.close();
+				}
+				if (pstm != null){
+					pstm.close();
+				}
+			}catch(Exception e){
+				throw new RelatorioException(e);
+			}
+		}
+   		
+   		return out;
+	}
+	
+	public static void main(String[] a){
+		try{
+			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioAnaliticoVendas(1,new Date(),new Date());
+			String caminho = "c:\\pdv\\temp\\";
+			File dir = new File(caminho);
+			if (!dir.exists()){
+				dir.mkdir();
+			}
+			String nomeArquivo = caminho+"FECHAMENTO_VENDA.pdf";						
+			FileOutputStream f = new FileOutputStream(nomeArquivo);
+			f.write(out.toByteArray());
+			f.flush();
+			f.close();
+			Runtime.getRuntime().exec("cmd /c"+nomeArquivo);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+
 	
 	public void gerarReciboDevolucaoProdutos(OperacaoDevolucao operacaoDevolucao, OutputStream out) throws AppException{
 		try{
@@ -392,5 +486,4 @@ public class GerenciadorRelatorio {
 			throw new RelatorioException(e);
 		}
 	}
-
 }
