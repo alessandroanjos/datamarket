@@ -83,31 +83,13 @@ public class GerenciadorRelatorio {
 
 	public static final String EMPRESA;
 	
-	public static final String CAMINHO_RELATORIO;
-
-	public static final String RECIBO_VENDA;
-	
-	public static final String RECIBO_PAGAMENTO_CLIENTE;
-	
-	public static final String RECIBO_MOVIMENTACAO_ESTOQUE;
-	
-	public static final String RECIBO_ENTRADA_PRODUTOS_ESTOQUE;
 	
 	private static ResourceBundle rs = ResourceBundle.getBundle("relatorio");
 
 	static {		
 	
 		EMPRESA = rs.getString("EMPRESA");
-		
-		CAMINHO_RELATORIO = rs.getString("CAMINHO_RELATORIO");
 	
-		RECIBO_VENDA = rs.getString("RECIBO_VENDA");
-		
-		RECIBO_PAGAMENTO_CLIENTE = rs.getString("RECIBO_PAGAMENTO_CLIENTE");
-		
-		RECIBO_MOVIMENTACAO_ESTOQUE = rs.getString("RECIBO_MOVIMENTACAO_ESTOQUE");
-		
-		RECIBO_ENTRADA_PRODUTOS_ESTOQUE = rs.getString("RECIBO_ENTRADA_PRODUTOS_ESTOQUE");
 	}
 	
 	private static GerenciadorRelatorio instancia;
@@ -132,28 +114,11 @@ public class GerenciadorRelatorio {
         }
 	}
 
-	private JasperReport getRelatorio(String layout) throws RelatorioException{
-		if (relatorios == null){
-			relatorios = new Hashtable();
-		}
-		if (relatorios.containsKey(layout)){
-			return (JasperReport) relatorios.get(layout);
-		}else{
-			try{
-				JasperReport jr = (JasperReport) JRLoader.loadObject(new FileInputStream(CAMINHO_RELATORIO+layout));
-				relatorios.put(layout, jr);
-				return jr;
-			}catch(Exception e){
-				throw new RelatorioException(e);
-			}
-		}
-	}
-
 	public void gerarReciboVenda(TransacaoVenda transacao, OutputStream out) throws AppException{
 		
 		try{
 			Map parametros = new HashMap();
-			parametros.put("CAMINHO", this.CAMINHO_RELATORIO);
+			parametros.put("CAMINHO", "\\resources\\");
 
 			parametros.put("empresa",EMPRESA);
 			parametros.put("loja", transacao.getPk().getLoja()+"");
