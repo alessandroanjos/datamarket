@@ -2,6 +2,7 @@ package com.infinity.datamarket.comum;
 
 import java.io.OutputStream;
 import java.util.Collection;
+import java.util.Date;
 
 import com.infinity.datamarket.autorizador.AutorizacaoCartaoProprio;
 import com.infinity.datamarket.autorizador.CadastroAutorizacaoCartaoProprio;
@@ -251,6 +252,38 @@ public class Fachada {
 			throw new SistemaException(e);
 		}
 	}
+
+	public OutputStream gerarRelatorioAnaliticoVendas(int loja, Date data_inicio_movimento,Date data_fim_movimento) throws AppException{		
+		OutputStream out = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoVendas(loja, data_inicio_movimento, data_fim_movimento);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return out;
+	}
+	
+
 	
 	public void gerarReciboDevolucaoProdutos(OperacaoDevolucao operacaoDevolucao, OutputStream out) throws AppException{
 		try{
@@ -259,6 +292,7 @@ public class Fachada {
 			throw new SistemaException(e);
 		}
 	}
+
 
 	public Usuario loginUsuario(Long id, String senha) throws AppException{
 		Usuario usu = null;
