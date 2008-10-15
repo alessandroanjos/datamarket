@@ -5,6 +5,7 @@ delete from parc_eve_item_pag_cheque_pre
 delete from evento_item_pag_cheque_pre
 delete from evento_item_pag_cartao_proprio
 delete from evento_item_pag_cartao_off
+delete from evento_item_pagamento_troca
 delete from evento_item_pagamento
 delete from produto_item_registrado
 delete from evento_item_registrado
