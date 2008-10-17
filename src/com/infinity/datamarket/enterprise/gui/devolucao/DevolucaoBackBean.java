@@ -245,11 +245,14 @@ public class DevolucaoBackBean extends BackBean {
 	}
 	
 	public SelectItem[] getListaSituacao() {
-		SelectItem[] listaSituacao = new SelectItem[2];
-		listaSituacao[0] = new SelectItem(TransacaoVenda.ATIVO, "Ativa");
-		listaSituacao[1] = new SelectItem(TransacaoVenda.CANCELADO, "Cancelada");
+		SelectItem[] listaSituacao = new SelectItem[5];
+		listaSituacao[0] = new SelectItem("0", "Todos");
+		listaSituacao[1] = new SelectItem(String.valueOf(ConstantesOperacao.ABERTO), "Aberta");
+		listaSituacao[2] = new SelectItem(String.valueOf(ConstantesOperacao.CANCELADO), "Cancelada");
+		listaSituacao[3] = new SelectItem(String.valueOf(ConstantesOperacao.EM_PROCESSAMENTO), "Em Processamento");
+		listaSituacao[4] = new SelectItem(String.valueOf(ConstantesOperacao.FECHADO), "Fechada");
 		if(this.getIdSituacao() == null || this.getIdSituacao().equals("")){
-			this.setIdSituacao(TransacaoVenda.ATIVO);
+			this.setIdSituacao(String.valueOf(ConstantesOperacao.ABERTO));
 		}
 		return listaSituacao;
 	}	
@@ -316,8 +319,10 @@ public class DevolucaoBackBean extends BackBean {
 	}
 
 	public void resetBB(){
+		this.setId(null);
 		this.setIdLoja("0");
 		this.setLojas(null);
+		this.setIdSituacao("0");
 		this.setDataDevolucao(null);
 		this.setCodigoProduto(null);
 		this.setDescricaoProduto(null);
@@ -389,7 +394,7 @@ public class DevolucaoBackBean extends BackBean {
 				
 				if(this.getIdTipoPessoa() != null){
 					if(this.getCpfCnpj() != null && !this.getCpfCnpj().equals("")){
-						filter.setTheClass(TransacaoVenda.class);
+						filter.setTheClass(OperacaoDevolucao.class);
 						if(this.getIdTipoPessoa().equals(Cliente.PESSOA_FISICA)){
 							filter.addProperty("cliente.tipoPessoa", Cliente.PESSOA_FISICA);
 						}else{
@@ -402,6 +407,10 @@ public class DevolucaoBackBean extends BackBean {
 				}else{
 					filter.setTheClass(Operacao.class);
 				}				
+				
+				if(!this.getIdSituacao().equals("0")){
+					filter.addProperty("status", new Integer(this.getIdSituacao()).intValue());
+				}
 
 				this.nomeCliente = this.getNomeCliente();
 				
@@ -422,6 +431,11 @@ public class DevolucaoBackBean extends BackBean {
 						return "proxima";
 					}else{
 						setExisteRegistros(true);
+						Iterator it = col.iterator();
+						while(it.hasNext()){
+							OperacaoDevolucao op = (OperacaoDevolucao)it.next();
+							op.setDescricaoStatus(retornaDescricaoStatus(op.getStatus()));
+						}
 						this.setDevolucoes(col);
 					}
 				}
@@ -430,6 +444,11 @@ public class DevolucaoBackBean extends BackBean {
 				filter.setTheClass(TransacaoVenda.class);
 				Collection c = getFachada().consultarOperacao(filter);
 				if(c != null && c.size() > 0){
+					Iterator it = c.iterator();
+					while(it.hasNext()){
+						OperacaoDevolucao op = (OperacaoDevolucao)it.next();
+						op.setDescricaoStatus(retornaDescricaoStatus(op.getStatus()));
+					}
 					this.setDevolucoes(c);
 					setExisteRegistros(true);
 				}else{
@@ -455,7 +474,31 @@ public class DevolucaoBackBean extends BackBean {
 	}
 	
 	public void preencheBackBean(OperacaoDevolucao devolucao){
-		
+		this.setId(devolucao.getPk());
+		this.setIdLoja(String.valueOf(devolucao.getPk().getLoja()));
+		this.setIdOperacaoDevolucao(String.valueOf(devolucao.getPk().getId()));
+		this.setDataDevolucao(devolucao.getData());
+		this.setIdSituacao(String.valueOf(devolucao.getStatus()));
+		if(devolucao.getCliente() != null){
+			this.setClienteTransacao(devolucao.getCliente());
+			this.setIdTipoPessoa(devolucao.getCliente().getTipoPessoa());
+			if(this.getIdTipoPessoa().equals(ClienteTransacao.PESSOA_FISICA)){
+				this.nomeCliente = devolucao.getCliente().getNomeCliente();
+			}else{
+				this.nomeCliente = devolucao.getCliente().getRazaoSocial();
+			}
+			this.setCpfCnpj(formataCpfCnpj(devolucao.getCliente().getCpfCnpj()));
+		}
+		if(this.getEventosOperacao() == null){
+			this.setEventosOperacao(new ArrayList<EventoOperacaoItemRegistrado>());
+		}
+		List<EventoOperacaoItemRegistrado> listaTmp = new ArrayList<EventoOperacaoItemRegistrado>();
+		Iterator it = devolucao.getEventosOperacao().iterator();
+		while(it.hasNext()){
+			listaTmp.add((EventoOperacaoItemRegistrado)it.next());
+		}
+		this.setEventosOperacao(listaTmp);
+		this.setValorTotalDevolucao(devolucao.getValor());
 	}
 	
 	public void validaDadosDevolucao() throws AppException{
@@ -502,7 +545,7 @@ public class DevolucaoBackBean extends BackBean {
 			
 			produtoOperacaoItemRegistrado.setPk(new EventoOperacaoPK());
 			produtoOperacaoItemRegistrado.getPk().setLoja(Integer.parseInt(this.getIdLoja()));
-			produtoOperacaoItemRegistrado.getPk().setId(++sequencialProdutoOperacaoEventoRegistrado);
+//			produtoOperacaoItemRegistrado.getPk().setId(++sequencialProdutoOperacaoEventoRegistrado);
 			
 			if(produto == null){
 				produto = getFachada().consultarProdutoPorPK(new Long(this.getCodigoProduto()));	
@@ -570,7 +613,11 @@ public class DevolucaoBackBean extends BackBean {
 		OperacaoDevolucao devolucao = new OperacaoDevolucao();
 		OperacaoPK pk = new OperacaoPK();
 		pk.setLoja(Integer.parseInt(this.getIdLoja()));
-		pk.setId(getFachada().retornaMaxIdOperacaoPorLoja(pk).intValue());					
+		if(!operacao.equals(ALTERAR)){
+			pk.setId(getFachada().retornaMaxIdOperacaoPorLoja(pk).intValue());
+		}else {
+			pk.setId(getId().getId());
+		}
 		devolucao.setPk(pk);
 		
 		devolucao.setData(this.getDataDevolucao());
@@ -580,8 +627,12 @@ public class DevolucaoBackBean extends BackBean {
 		}else{
 			devolucao.setCliente(this.getClienteTransacao());	
 		}
+		if(!operacao.equals(ALTERAR)){
+			devolucao.setStatus(ConstantesOperacao.ABERTO);
+		}else {
+			devolucao.setStatus(new Integer(this.getIdSituacao()).intValue());	
+		}
 		
-		devolucao.setStatus(ConstantesOperacao.ABERTO);
 		devolucao.setTipo(ConstantesOperacao.OPERACAO_DEVOLUCAO);
 		devolucao.setCodigoUsuarioOperador(LoginBackBean.getCodigoUsuarioLogado());
 		devolucao.setValor(this.getValorTotalDevolucao());
@@ -591,6 +642,7 @@ public class DevolucaoBackBean extends BackBean {
 		Iterator it = this.getEventosOperacao().iterator();
 		while(it.hasNext()){
 			EventoOperacaoItemRegistrado evOpItReg = (EventoOperacaoItemRegistrado)it.next();
+			evOpItReg.getPk().setId(devolucao.getPk().getId());
 			ceo.add(evOpItReg);
 		}
 		
@@ -643,26 +695,29 @@ public class DevolucaoBackBean extends BackBean {
 		
 			OperacaoDevolucao devolucao = preencheOperacaoDevolucao(ALTERAR);
 			
-//			getFachada().alterarOperacaoDevolucao(devolucao);
+			getFachada().alterarStatusOperacao(devolucao.getPk(), devolucao.getStatus());
 			
 			this.setOperacaoDevolucao(devolucao);
-			
+//			this.setIdOperacaoDevolucao(String.valueOf(devolucao.getPk().getId()));
 			resetBB();
 		} catch (ObjectExistentException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Devolução já Existente!", "");
 			ctx.addMessage(null, msg);
+			return "mesma";
 		} catch (AppException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
 			ctx.addMessage(null, msg);
+			return "mesma";
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
+			return "mesma";
 		}
 		return "proximaOk";
 	}
@@ -733,6 +788,7 @@ public class DevolucaoBackBean extends BackBean {
 		System.out.println((String)  params.get("acaoLocal"));
 		if (param != null){
 			resetBB();
+			this.setIdOperacaoDevolucao(null);
 			if(VALOR_ACAO.equals(param)){
 				setDevolucoes(null);
 			}
@@ -776,10 +832,33 @@ public class DevolucaoBackBean extends BackBean {
 	}
 
 	public String getIdOperacaoDevolucao() {
-		return Util.completaString(idOperacaoDevolucao, "0", 9, false);
+		if(this.idOperacaoDevolucao == null || this.idOperacaoDevolucao.equals("")){
+			return this.idOperacaoDevolucao;
+		}else{
+			return Util.completaString(idOperacaoDevolucao, "0", 9, false);	
+		}		
 	}
 
 	public void setIdOperacaoDevolucao(String idOperacaoDevolucao) {
 		this.idOperacaoDevolucao = idOperacaoDevolucao;
+	}
+	
+	public String retornaDescricaoStatus(int status){
+		String descricaoStatus = "Aberta";
+		switch (status) {
+		case ConstantesOperacao.ABERTO:
+			descricaoStatus = "Aberta";
+			break;
+		case ConstantesOperacao.CANCELADO:
+			descricaoStatus = "Cancelada";
+			break;
+		case ConstantesOperacao.EM_PROCESSAMENTO:
+			descricaoStatus = "Em Processamento";
+			break;
+		case ConstantesOperacao.FECHADO:
+			descricaoStatus = "Fechada";
+			break;		
+		}
+		return descricaoStatus;
 	}
 }

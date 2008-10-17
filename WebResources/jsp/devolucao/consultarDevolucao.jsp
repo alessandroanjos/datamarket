@@ -127,9 +127,9 @@
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Número Devolução"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="idOperacaoDevolucao" maxlength="6" onkeypress="return SoNumero(event);"
+											<h:inputText styleClass="field text ativo" id="idOperacaoDevolucao" maxlength="9" onkeypress="return SoNumero(event);"
 												value="#{devolucaoBB.idOperacaoDevolucao}" size="10" required="false">
-												<f:validateLength maximum="6" />
+												<f:validateLength maximum="9" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
 										</div>	
@@ -150,7 +150,7 @@
 											</h:inputText>										
 										</div>
 										<div>	
-											<h:outputLabel styleClass="desc" value="Situacao"></h:outputLabel>
+											<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
 											<h:selectOneMenu id="idSituacao" style="width: 200px;" value="#{devolucaoBB.idSituacao}"> 
 												<f:selectItems id="situacaoSelectItems" value="#{devolucaoBB.listaSituacao}" />   
 											</h:selectOneMenu>
@@ -185,11 +185,11 @@
 								</ul>
 							</fieldset>	
 							<div class="listagem">
-								<t:dataTable id="transacoes" value="#{devolucaoBB.devolucoes}"
+								<t:dataTable id="devolucoes" value="#{devolucaoBB.devolucoes}"
 									var="devolucao" rowClasses="rowA,rowB" width="90%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Número Transação" /> 
+											<h:outputText value="Número Devolução" /> 
 										</f:facet>
 										<h:commandLink value="#{devolucao.pk.id}" action="#{devolucaoBB.consultar}">
 											<f:param name="operacao_loja" value="#{devolucao.pk.loja}"/>						
@@ -204,27 +204,21 @@
 									</h:column>
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Número Devolução" />
-										</f:facet>
-										<h:outputText value="#{devolucao.pk.id}" /> 
-									</h:column>
-									<h:column>
-										<f:facet name="header">
 											<h:outputText value="Data Devolução" />
 										</f:facet>
-										<h:outputText value="#{devolucao.dataDevolucao}" /> 
+										<h:outputText value="#{devolucao.data}" /> 
 									</h:column>
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Valor" />
 										</f:facet>
-										<h:outputText value="#{devolucao.valorTotalDevolucao}" /> 
+										<h:outputText value="#{devolucao.valor}" /> 
 									</h:column>
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Situação" />
 										</f:facet>
-										<h:outputText value="#{devolucao.situacao}" /> 
+										<h:outputText value="#{devolucao.descricaoStatus}" /> 
 									</h:column>									
 								</t:dataTable>	
 								<div>

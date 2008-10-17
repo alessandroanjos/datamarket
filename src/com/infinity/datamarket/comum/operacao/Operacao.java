@@ -14,7 +14,16 @@ public class Operacao implements Serializable {
 	private Date data;
 	private int tipo;
 	private int status;
+	private String descricaoStatus;
 	
+	public String getDescricaoStatus() {
+		return descricaoStatus;
+	}
+
+	public void setDescricaoStatus(String descricaoStatus) {
+		this.descricaoStatus = descricaoStatus;
+	}
+
 	public Operacao(OperacaoPK pk, Date data, int tipo, int status){
 		this.pk = pk;
 		this.data = data;
