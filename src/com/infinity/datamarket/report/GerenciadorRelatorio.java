@@ -58,6 +58,7 @@ import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
 import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
+import com.infinity.datamarket.comum.operacao.OperacaoPK;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
 import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
@@ -588,11 +589,16 @@ public OutputStream gerarRelatorioAnaliticoOperacoesDevolucao(int loja, Date dat
 	
 	public static void main(String[] a){
 		try{
-			Date d1 = new Date();
-			d1.setDate(15);
-			Date d2 = new Date();
-			d2.setDate(16);
-			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioAnaliticoOperacoesDevolucao(1,d1,d2);
+//			Date d1 = new Date();
+//			d1.setDate(15);
+//			Date d2 = new Date();
+//			d2.setDate(16);
+//			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioAnaliticoOperacoesDevolucao(1,d1,d2);
+		
+			OperacaoDevolucao dev = (OperacaoDevolucao) Fachada.getInstancia().consultarOperacaoPorPK(new OperacaoPK(1,1));
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			Fachada.getInstancia().gerarReciboOperacaoDevolucao(dev, out);
+			
 			String caminho = "c:\\pdv\\temp\\";
 			File dir = new File(caminho);
 			if (!dir.exists()){
@@ -634,6 +640,36 @@ public OutputStream gerarRelatorioAnaliticoOperacoesDevolucao(int loja, Date dat
             JasperRunManager.runReportToPdfStream(input, out, parametros, rel);
    		}catch(Exception e){
 			e.printStackTrace();
+			throw new RelatorioException(e);
+		}
+	}
+	
+public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStream out) throws AppException{
+		
+		try{
+			Map parametros = new HashMap();
+
+			parametros.put("empresa",EMPRESA);
+			parametros.put("loja", devolucao.getPk().getLoja());			
+			parametros.put("id", devolucao.getPk().getId());
+			parametros.put("valor", devolucao.getValor());
+			parametros.put("data", devolucao.getData());
+			parametros.put("status", devolucao.getStatus());
+
+			
+
+			List resposta = new ArrayList(devolucao.getEventosOperacao());
+            
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboOperacoesDevolucao.jasper");
+    		
+			Iterator it = parametros.entrySet().iterator();
+
+			while(it.hasNext()){
+				System.out.println(it.next().toString());
+			}
+			
+            JasperRunManager.runReportToPdfStream(input, out, parametros, new RelatorioDataSource (resposta));
+		}catch(Exception e){
 			throw new RelatorioException(e);
 		}
 	}

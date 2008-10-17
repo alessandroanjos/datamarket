@@ -227,6 +227,14 @@ public class Fachada {
 			throw new SistemaException(e);
 		}
 	}
+	
+	public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStream out) throws AppException{
+		try{
+			getGerenciadorRelatorio().gerarReciboOperacaoDevolucao(devolucao, out);
+		}catch(AppException e){
+			throw new SistemaException(e);
+		}
+	}
 
 	
 	public OutputStream gerarReciboPagamentoCliente(TransacaoPagamentoCartaoProprio transacao) throws AppException{
