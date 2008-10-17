@@ -236,7 +236,7 @@
 										var="produtoDevolucao" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
 										<h:column>
 											<f:facet name="header">
-												<h:outputText value="Código" />
+												<h:outputText value="Código Produto" />
 											</f:facet>
 											<h:outputText style="align: left;" value="#{produtoDevolucao.produtoOperacaoItemRegistrado.codigoExterno}" /> 
 										</h:column>

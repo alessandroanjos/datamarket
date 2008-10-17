@@ -824,12 +824,12 @@
 	<navigation-rule>
 		<from-view-id>/jsp/devolucao/manterDevolucao.jsp</from-view-id>
 		<navigation-case>
-			<from-action>#{devolucaoBB.atualizar}</from-action>
+			<from-action>#{devolucaoBB.alterar}</from-action>
 			<from-outcome>mesma</from-outcome>
 			<to-view-id>/jsp/devolucao/manterDevolucao.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{devolucaoBB.atualizar}</from-action>
+			<from-action>#{devolucaoBB.alterar}</from-action>
 			<from-outcome>proximaOk</from-outcome>
 			<to-view-id>/jsp/devolucao/confirmarDevolucao.jsp</to-view-id>
 		</navigation-case>
