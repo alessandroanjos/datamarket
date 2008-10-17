@@ -463,16 +463,142 @@ public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, 
    		
    		return out;
 	}
+
+	public OutputStream gerarRelatorioAnaliticoMovimentacaoEstoque(Date data_inicio_movimento, Date data_fim_movimento) throws AppException{
+		
+		OutputStream out  = new ByteArrayOutputStream();
+		ResultSet rs = null;
+		PreparedStatement pstm = null;
+		try{
+			Map parametros = new HashMap();
+	
+			parametros.put("empresa", EMPRESA);				
+						
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioAnaliticoMovimentacaoEstoque.jasper");
+	        					
+			Connection con = getConnection();
+			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_MOVIMENTACAO_ESTOQUE);
+			
+			//data inicio
+			Calendar c = new GregorianCalendar();
+			c.setTime(data_inicio_movimento);
+			int d1_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d1_mes = c.get(Calendar.MONTH);
+			int d1_ano = c.get(Calendar.YEAR);
+			Date dataInicio= new GregorianCalendar(d1_ano,d1_mes,d1_dia).getTime();
+			
+			//dataFim
+			c = new GregorianCalendar();
+			c.setTime(data_fim_movimento);
+			int d2_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d2_mes = c.get(Calendar.MONTH);
+			int d2_ano = c.get(Calendar.YEAR);
+			Date dataFim= new GregorianCalendar(d2_ano,d2_mes,d2_dia,23,59,59).getTime();
+			
+			pstm.setDate(1,new java.sql.Date(dataInicio.getTime()));			
+			pstm.setDate(2,new java.sql.Date(dataFim.getTime()));
+			
+			rs = pstm.executeQuery();
+				
+			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
+	
+			
+	        JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);
+	        
+			}catch(Exception e){
+			e.printStackTrace();
+			throw new RelatorioException(e);
+		}finally{
+			try{
+				if (rs != null){
+					rs.close();
+				}
+				if (pstm != null){
+					pstm.close();
+				}
+			}catch(Exception e){
+				throw new RelatorioException(e);
+			}
+		}
+			
+			return out;
+	}
+	
+public OutputStream gerarRelatorioAnaliticoOperacoesDevolucao(int loja, Date data_inicio_movimento, Date data_fim_movimento) throws AppException{
+		
+		OutputStream out  = new ByteArrayOutputStream();
+		ResultSet rs = null;
+		PreparedStatement pstm = null;
+		try{
+			Map parametros = new HashMap();
+	
+			parametros.put("empresa", EMPRESA);				
+						
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioAnaliticoOperacoesDevolucao.jasper");
+	        					
+			Connection con = getConnection();
+			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_OPERACAO_DEVOLUCAO);
+			
+			//data inicio
+			Calendar c = new GregorianCalendar();
+			c.setTime(data_inicio_movimento);
+			int d1_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d1_mes = c.get(Calendar.MONTH);
+			int d1_ano = c.get(Calendar.YEAR);
+			Date dataInicio= new GregorianCalendar(d1_ano,d1_mes,d1_dia).getTime();
+			
+			//dataFim
+			c = new GregorianCalendar();
+			c.setTime(data_fim_movimento);
+			int d2_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d2_mes = c.get(Calendar.MONTH);
+			int d2_ano = c.get(Calendar.YEAR);
+			Date dataFim= new GregorianCalendar(d2_ano,d2_mes,d2_dia,23,59,59).getTime();
+			
+			pstm.setDate(1,new java.sql.Date(dataInicio.getTime()));			
+			pstm.setDate(2,new java.sql.Date(dataFim.getTime()));
+			pstm.setInt(3,loja);
+			
+			rs = pstm.executeQuery();
+				
+			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
+	
+			
+	        JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);
+	        
+			}catch(Exception e){
+			e.printStackTrace();
+			throw new RelatorioException(e);
+		}finally{
+			try{
+				if (rs != null){
+					rs.close();
+				}
+				if (pstm != null){
+					pstm.close();
+				}
+			}catch(Exception e){
+				throw new RelatorioException(e);
+			}
+		}
+			
+			return out;
+	}
+
 	
 	public static void main(String[] a){
 		try{
-			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioAnaliticoEntradas(new Date(),new Date());
+			Date d1 = new Date();
+			d1.setDate(15);
+			Date d2 = new Date();
+			d2.setDate(16);
+			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioAnaliticoOperacoesDevolucao(1,d1,d2);
 			String caminho = "c:\\pdv\\temp\\";
 			File dir = new File(caminho);
 			if (!dir.exists()){
 				dir.mkdir();
 			}
-			String nomeArquivo = caminho+"ENTRADAS.pdf";						
+			String nomeArquivo = caminho+"DEVOLUCAO.pdf";						
 			FileOutputStream f = new FileOutputStream(nomeArquivo);
 			f.write(out.toByteArray());
 			f.flush();
