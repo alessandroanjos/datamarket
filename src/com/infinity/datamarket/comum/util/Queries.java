@@ -6,6 +6,7 @@
  */
 package com.infinity.datamarket.comum.util;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -22,10 +23,8 @@ public class Queries {
 	
 	
 	static {
-		
-			
-			ResourceBundle rs = ResourceBundle.getBundle("queries");		
-			
+			ResourceBundle rs = ResourceBundle.getBundle("/resources/Queries", Locale.getDefault());
+						
 			RELATORIO_ANALITICO_VENDAS = rs.getString("RELATORIO_ANALITICO_VENDAS");
 			RELATORIO_ANALITICO_ENTRADAS = rs.getString("RELATORIO_ANALITICO_ENTRADAS");
 			RELATORIO_ANALITICO_MOVIMENTACAO_ESTOQUE = rs.getString("RELATORIO_ANALITICO_MOVIMENTACAO_ESTOQUE");

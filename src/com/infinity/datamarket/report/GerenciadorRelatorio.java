@@ -8,7 +8,6 @@ package com.infinity.datamarket.report;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -31,21 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-
 import net.sf.jasperreports.engine.JRResultSetDataSource;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRDataset;
-import net.sf.jasperreports.engine.JRResultSetDataSource;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-
-import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.data.JRHibernateIterateDataSource;
-import net.sf.jasperreports.engine.data.JRHibernateListDataSource;
-import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

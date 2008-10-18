@@ -263,7 +263,27 @@
 			<from-outcome>manterDevolucao</from-outcome>
 			<to-view-id>/jsp/devolucao/consultarDevolucao.jsp</to-view-id>
 		</navigation-case>
-						
+		
+		<navigation-case>
+			<from-outcome>relatorioAnaliticoEntrada</from-outcome>
+			<to-view-id>/jsp/reports/relatorioAnaliticoEntrada.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>relatorioAnaliticoFechamentoVendas</from-outcome>
+			<to-view-id>/jsp/reports/relatorioAnaliticoFechamentoVendas.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>relatorioAnaliticoMovimentacaoEstoque</from-outcome>
+			<to-view-id>/jsp/reports/relatorioAnaliticoMovimentacaoEstoque.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>relatorioAnaliticoOperacoesDevolucao</from-outcome>
+			<to-view-id>/jsp/reports/relatorioAnaliticoOperacoesDevolucao.jsp</to-view-id>
+		</navigation-case>
+								
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
 			<to-view-id>/jsp/login.jsp</to-view-id>
@@ -275,7 +295,45 @@
 		<from-view-id>/jsp/erro.jsp</from-view-id>
 	</navigation-rule>
 	
+	<!-- RELATORIO ANALITICO ENTRADA -->
+	<navigation-rule>
+		<from-view-id>/jsp/reports/relatorioAnaliticoEntrada.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{relatorioBB.executarRelatorioAnaliticoEntrada}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/reports/relatorioAnaliticoEntrada.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
+	<!-- RELATORIO ANALITICO FECHAMENTO VENDA -->
+	<navigation-rule>
+		<from-view-id>/jsp/reports/relatorioAnaliticoFechamentoVendas.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{relatorioBB.executarRelatorioAnaliticoFechamentoVenda}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/reports/relatorioAnaliticoFechamentoVendas.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- RELATORIO ANALITICO MOVIMENTACAO ESTOQUE -->
+	<navigation-rule>
+		<from-view-id>/jsp/reports/relatorioAnaliticoMovimentacaoEstoque.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{relatorioBB.executarRelatorioAnaliticoMovimentacaoEstoque}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/reports/relatorioAnaliticoMovimentacaoEstoque.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- RELATORIO ANALITICO OPERACOES DEVOLUCAO -->
+	<navigation-rule>
+		<from-view-id>/jsp/reports/relatorioAnaliticoOperacoesDevolucao.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{relatorioBB.executarRelatorioAnaliticoOperacoesDevolucao}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/reports/relatorioAnaliticoOperacoesDevolucao.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<!-- LOTE -->
 	<navigation-rule>
@@ -3429,6 +3487,34 @@
 		</managed-property>				
 	</managed-bean>
 	
+	<!-- RELATORIO -->
+	<managed-bean>
+		<managed-bean-name>relatorioBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.relatorios.RelatorioBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>		
+		<managed-property>
+		    <property-name>idLoja</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataInicial</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataFinal</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>lojas</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
 	
 	<validator>
        <validator-id>LongValidator</validator-id>
