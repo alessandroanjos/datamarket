@@ -75,7 +75,7 @@
 										</li>
 										<li class="buttons">
 											<h:commandButton styleClass="btTxt" id="botaoLogin" action="#{loginBB.logar}" value="Login"></h:commandButton>
-											<h:commandButton styleClass="btTxt" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+											<h:commandButton styleClass="btTxt" action="#{loginBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 										</li>
 										<li>
 											<div>

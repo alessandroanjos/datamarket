@@ -105,7 +105,7 @@
 								</li>
 								<li class="buttons">
 								  <h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{impostoBB.voltarConsulta}" value="Voltar"></h:commandButton>								
-									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" action="#{impostoBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{impostoBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{impostoBB.excluir}" value="Excluir"></h:commandButton>
 								</li>

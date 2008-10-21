@@ -91,7 +91,7 @@
 									<h:message for="abreviacao" styleClass="msgErro" />
 								</li>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+<h:commandButton styleClass="btTxt" action="#{unidadeBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{unidadeBB.inserir}" value="Inserir"></h:commandButton>
 								</li>
 							</ul>

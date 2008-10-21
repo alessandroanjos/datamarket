@@ -415,7 +415,7 @@ public class ProdutoBackBean extends BackBean{
 		return "mesma";
 	}
 	
-	public String resetBB(){
+	public void resetBB(){
 		this.id = null;
 		this.codigoExterno = null;
 		this.codigoAutomacao = null;
@@ -429,7 +429,6 @@ public class ProdutoBackBean extends BackBean{
 		this.idFabricante = null;
 		this.idImposto = null;
 		this.idGrupo = null;
-		return "mesma";
 	}
 	
 	public String voltarConsulta(){

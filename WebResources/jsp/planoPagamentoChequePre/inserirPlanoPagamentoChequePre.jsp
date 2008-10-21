@@ -329,8 +329,7 @@
 							</div>
 							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" immediate="true"
-										id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" action="#{planoPagamentoChequePreBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoInserir"
 										action="#{planoPagamentoChequePreBB.inserir}" value="Inserir"></h:commandButton>
 								</li>

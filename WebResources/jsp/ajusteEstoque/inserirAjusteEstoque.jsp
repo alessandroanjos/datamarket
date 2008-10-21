@@ -163,8 +163,7 @@
 						</li>	
 
 						<li class="buttons">
-							<h:commandButton styleClass="btTxt" immediate="true"
-								id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+							<h:commandButton styleClass="btTxt" action="#{ajusteEstoqueBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 							<h:commandButton styleClass="btTxt" id="botaoInserir"
 								action="#{ajusteEstoqueBB.inserir}" value="Inserir"></h:commandButton>
 						</li>

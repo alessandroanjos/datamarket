@@ -930,7 +930,7 @@
 							</div>
 						</li>
 						<li class="buttons">
-							<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
+<h:commandButton styleClass="btTxt" action="#{transacaoBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 							<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{transacaoBB.inserir}" value="Inserir"></h:commandButton>
 							<h:commandButton styleClass="btTxt" id="botaoImprimir" action="#{transacaoBB.imprimirRecibo}" value="Imprimir"></h:commandButton>
 						</li>
