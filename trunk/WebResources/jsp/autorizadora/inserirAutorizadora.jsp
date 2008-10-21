@@ -81,7 +81,7 @@
 									<h:message for="situacao" styleClass="msgErro"/>
 								</li>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoLimpar" immediate="true" type="reset" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" action="#{autorizadoraBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{autorizadoraBB.inserir}" value="Inserir"></h:commandButton>
 								</li>
 							</ul>

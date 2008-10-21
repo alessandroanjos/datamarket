@@ -499,6 +499,9 @@ public class DevolucaoBackBean extends BackBean {
 		}
 		this.setEventosOperacao(listaTmp);
 		this.setValorTotalDevolucao(devolucao.getValor());
+		
+		this.setOperacaoDevolucao(devolucao);
+		
 	}
 	
 	public void validaDadosDevolucao() throws AppException{
@@ -760,7 +763,7 @@ public class DevolucaoBackBean extends BackBean {
 				FacesContext context = FacesContext.getCurrentInstance();
 				HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();			
 				ServletOutputStream servletOutputStream = response.getOutputStream();
-				getFachada().gerarReciboDevolucaoProdutos(this.getOperacaoDevolucao(),servletOutputStream);			
+				getFachada().gerarReciboOperacaoDevolucao(this.getOperacaoDevolucao(),servletOutputStream);			
 				response.setContentType("application/pdf");
 				response.setHeader("Content-disposition", "attachment;filename=ReciboOperacaoDevolucao" + System.currentTimeMillis() + ".pdf");
 				context.responseComplete();

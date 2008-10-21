@@ -208,11 +208,10 @@ public class GrupoProdutoBackBean extends BackBean{
 		return "mesma";
 	}
 	
-	public String resetBB(){
+	public void resetBB(){
 		this.id = null;
 		this.descricao = null;
 		this.idSuperior = null;
-		return "mesma";
 	}
 	
 	public String voltarConsulta(){

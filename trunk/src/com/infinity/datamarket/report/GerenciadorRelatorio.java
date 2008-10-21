@@ -616,9 +616,10 @@ public OutputStream gerarRelatorioAnaliticoOperacoesDevolucao(int loja, Date dat
 			
 			Iterator it = parametros.entrySet().iterator();
 
-			while(it.hasNext()){
-				System.out.println(it.next().toString());
-			}
+//			while(it.hasNext()){
+//				String o = (String)it.next();
+//				System.out.println(o);
+//			}
 			List<EventoOperacaoItemRegistrado> listaItens = new ArrayList<EventoOperacaoItemRegistrado>();
 					
 			RelatorioDataSource rel = new RelatorioDataSource(listaItens);

@@ -170,7 +170,7 @@
 								</div>
 								<div>
 									<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
-									<h:selectOneMenu id="idSituacao" style="width: 200px;" value="#{devolucaoBB.idSituacao}" readonly="false"> 
+									<h:selectOneMenu id="idSituacao" style="width: 200px;" value="#{devolucaoBB.idSituacao}" readonly="true"> 
 										<f:selectItems id="situacaoSelectItems" value="#{devolucaoBB.listaSituacao}" />   
 									</h:selectOneMenu>
 								</div>
@@ -244,7 +244,7 @@
 							</li>
 							<li class="buttons">
 								<h:commandButton immediate="true" styleClass="btTxt" id="botaoVoltar" action="#{devolucaoBB.voltarConsulta}" value="Voltar"></h:commandButton>
-								<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{devolucaoBB.alterar}" value="Alterar"></h:commandButton>
+								<h:commandButton styleClass="btTxt" id="botaoImprimir" action="#{devolucaoBB.imprimirRecibo}" value="Imprimir"></h:commandButton>
 							</li>
 						</ul>	
 					</h:form>		

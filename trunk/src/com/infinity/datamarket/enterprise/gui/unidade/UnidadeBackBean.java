@@ -183,12 +183,11 @@ public class UnidadeBackBean extends BackBean{
 		return "mesma";
 	}
 	
-	public String resetBB(){
+	public void resetBB(){
 		this.id = null;
 		this.descricao = null;
 		this.descricaoCompacta = null;
 		this.abreviacao = null;
-		return "mesma";
 	}
 	
 	public String voltarConsulta(){

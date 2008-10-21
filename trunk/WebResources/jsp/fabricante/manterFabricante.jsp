@@ -33,19 +33,19 @@
 	    $("input.tipopessoa").each(function(i){
       		$(this).click(function() {mostraCampos(this.value)});
       	});
-		if ($('[name=frmManterFornecedor:tipoPessoa]:checked').val() != "undefined") {
-			mostraCampos($('[name=frmManterFornecedor:tipoPessoa]:checked').val());
+		if ($('[name=frmManterFabricante:tipoPessoa]:checked').val() != "undefined") {
+			mostraCampos($('[name=frmManterFabricante:tipoPessoa]:checked').val());
 		}
       }
 
       function mostraCampos(str) {
         var flag = new String(str);
         if (flag.toUpperCase() == "F") {
-	        habilita("frmManterFornecedor:nomeFornecedor");
-        	desabilita("frmManterFornecedor:razaoSocial");
-        	desabilita("frmManterFornecedor:nomeFantasia");
-        	desabilita("frmManterFornecedor:inscricaoEstadual");
-        	desabilita("frmManterFornecedor:inscricaoMunicipal");
+	        habilita("frmManterFabricante:nomeFabricante");
+        	desabilita("frmManterFabricante:razaoSocial");
+        	desabilita("frmManterFabricante:nomeFantasia");
+        	desabilita("frmManterFabricante:inscricaoEstadual");
+        	desabilita("frmManterFabricante:inscricaoMunicipal");
 			$("input.tipocpfcnpj").each(function(i){
 				$(this).unbind('blur');
 				$(this).unbind('keydown');
@@ -54,11 +54,11 @@
 				getId(this.id).maxLength = "14";
 			});
         } else {
-  	        desabilita("frmManterFornecedor:nomeFornecedor");
-        	habilita("frmManterFornecedor:razaoSocial");
-        	habilita("frmManterFornecedor:nomeFantasia");
-        	habilita("frmManterFornecedor:inscricaoEstadual");
-        	habilita("frmManterFornecedor:inscricaoMunicipal");
+  	        desabilita("frmManterFabricante:nomeFabricante");
+        	habilita("frmManterFabricante:razaoSocial");
+        	habilita("frmManterFabricante:nomeFantasia");
+        	habilita("frmManterFabricante:inscricaoEstadual");
+        	habilita("frmManterFabricante:inscricaoMunicipal");
 			$("input.tipocpfcnpj").each(function(i){
 				$(this).unbind('blur');
 				$(this).unbind('keydown');
@@ -127,7 +127,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
 										<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoa" 
-											value="#{fabricanteBB.idTipoPessoa}" layout="lineDirection" required="true" disabled="true">
+											value="#{fabricanteBB.idTipoPessoa}" layout="lineDirection" required="true" disabled="false">
 											<f:selectItems id="tipoPessoaLista" value="#{fabricanteBB.listaTipoPessoa}"/>
 										</h:selectOneRadio>
 										

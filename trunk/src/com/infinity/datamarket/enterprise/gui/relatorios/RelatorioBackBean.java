@@ -272,6 +272,10 @@ public class RelatorioBackBean extends BackBean {
 		this.setIdLoja("0");
 		this.setDataInicial(null);
 		this.setDataFinal(null);
+		
+//		this.idLoja = "0";
+//		this.dataInicial = null;
+//		this.dataFinal = null;
 	}
 
 }

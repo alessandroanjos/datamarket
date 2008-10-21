@@ -95,7 +95,7 @@
 							</div>
 							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" id="botaoLimpar" value="Limpar"></h:commandButton>
+									
 									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{planoPagamentoChequePreBB.consultar}" value="Consultar"></h:commandButton>
 								</li>						
 							</ul>
@@ -103,6 +103,6 @@
 						<div class="clear"></div>
 					</div>
 		</h:form>
-     </body>
+     </body><h:commandButton styleClass="btTxt" action="#{planoPagamentoChequePreBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 	</f:view>
 </html>

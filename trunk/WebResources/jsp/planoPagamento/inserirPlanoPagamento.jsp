@@ -160,8 +160,8 @@
 									<h:message for="status" styleClass="msgErro"/>
 								</li>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" immediate="true" id="botaoLimpar" type="reset" value="Limpar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoInserir"  action="#{planoPagamentoBB.inserir}" value="Inserir"><img src="/images/adicionar.png" alt="Inserir Produto"></img></h:commandButton>
+									<h:commandButton styleClass="btTxt" action="#{planoPagamentoBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoInserir"  action="#{planoPagamentoBB.inserir}" value="Inserir"></h:commandButton>
 								</li>
 							</ul>
 						</div>
