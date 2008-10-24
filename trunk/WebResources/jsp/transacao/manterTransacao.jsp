@@ -362,6 +362,15 @@
 										<f:selectItems id="vendedoresSelectItems" value="#{transacaoBB.usuariosVendedores}" />   
 									</h:selectOneMenu>
 								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Comissão"></h:outputLabel>
+									<h:inputText styleClass="field text" id="comissaoVendedor" maxlength="10" size="10"
+										value="#{transacaoBB.comissaoVendedor}" dir="rtl" required="false" onkeypress="return(formataMoeda(this,'','.',2,event));">
+										<f:validateLength maximum="10" />
+										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
+										<f:validator validatorId="BigDecimalValidator"/>
+									</h:inputText>
+								</div>
 							</li>	
 							<li class="normal">
 								<div>

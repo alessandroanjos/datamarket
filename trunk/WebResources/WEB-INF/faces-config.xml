@@ -3266,6 +3266,11 @@
 		    <property-class>javax.faces.model.SelectItem</property-class>
 		    <null-value/>
 		</managed-property>
+		<managed-property>
+		    <property-name>comissaoVendedor</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <value>0.00</value>
+		</managed-property>
 	</managed-bean>
 	
 	<!-- CLIENTE TRANSACAO -->

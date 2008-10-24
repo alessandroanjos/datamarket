@@ -84,6 +84,7 @@ public class TransacaoBackBean extends BackBean {
 	private String numeroCupom;
 	private String idVendedor;
 	private String idOperador; // usuario logado
+	private BigDecimal comissaoVendedor;
 	private Date dataTransacao;
 	// aba itens da transacao
 	private String codigoProduto;
@@ -787,6 +788,7 @@ public class TransacaoBackBean extends BackBean {
 		this.setPessoaContatoCadastro(null);
 		this.setFoneContatoCadastro(null);
 		this.setReferenciaComercialCadastro(null);
+		this.setComissaoVendedor(new BigDecimal("0.00"));
 	}
 	
 	public String consultar(){
@@ -1760,8 +1762,12 @@ public class TransacaoBackBean extends BackBean {
 			
 			if(this.getIdVendedor() != null && !this.getIdVendedor().equals("0")){
 				transVenda.setCodigoUsuarioVendedor(this.getIdVendedor());
-				//inserir valor da comissao do vendedor
-				transVenda.setComissaoUsuarioVendedor(this.calculaComissaoVendedor(this.getIdVendedor(), this.getValorTotalCupom()));
+				if(this.getComissaoVendedor() != null && this.getComissaoVendedor().compareTo(BigDecimal.ZERO.setScale(2)) > 0){
+					transVenda.setComissaoUsuarioVendedor(this.getComissaoVendedor());
+				}else{
+					//inserir valor da comissao do vendedor
+					transVenda.setComissaoUsuarioVendedor(this.calculaComissaoVendedor(this.getIdVendedor(), this.getValorTotalCupom()));
+				}
 			}else{
 				transVenda.setComissaoUsuarioVendedor(BigDecimal.ZERO);
 			}
@@ -1922,8 +1928,12 @@ public class TransacaoBackBean extends BackBean {
 			
 			if(this.getIdVendedor() != null && !this.getIdVendedor().equals("0")){
 				transVenda.setCodigoUsuarioVendedor(this.getIdVendedor());
-				//inserir valor da comissao do vendedor
-				transVenda.setComissaoUsuarioVendedor(this.calculaComissaoVendedor(this.getIdVendedor(), this.getValorTotalCupom()));
+				if(this.getComissaoVendedor() != null && this.getComissaoVendedor().compareTo(BigDecimal.ZERO.setScale(2)) > 0){
+					transVenda.setComissaoUsuarioVendedor(this.getComissaoVendedor());
+				}else{
+					//inserir valor da comissao do vendedor
+					transVenda.setComissaoUsuarioVendedor(this.calculaComissaoVendedor(this.getIdVendedor(), this.getValorTotalCupom()));
+				}
 			}else{
 				transVenda.setComissaoUsuarioVendedor(BigDecimal.ZERO);
 			}
@@ -2742,5 +2752,13 @@ public class TransacaoBackBean extends BackBean {
 			}
 		}
 
+	}
+
+	public BigDecimal getComissaoVendedor() {
+		return comissaoVendedor;
+	}
+
+	public void setComissaoVendedor(BigDecimal comissaoVendedor) {
+		this.comissaoVendedor = comissaoVendedor;
 	}	
 }
