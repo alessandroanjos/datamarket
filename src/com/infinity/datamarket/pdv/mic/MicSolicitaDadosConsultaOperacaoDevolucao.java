@@ -51,7 +51,7 @@ public class MicSolicitaDadosConsultaOperacaoDevolucao extends Mic{
 								gerenciadorPerifericos.esperaVolta();
 								return ALTERNATIVA_2;
 							}
-							OperacaoPK pk = new OperacaoPK(gerenciadorPerifericos.getCodigoLoja(),Integer.parseInt(operacao));
+							OperacaoPK pk = new OperacaoPK(Integer.parseInt(operacao),gerenciadorPerifericos.getCodigoLoja());
 							Operacao op = null;
 							try{
 								op = remote.consultarOperacaoPorID(pk);								
