@@ -115,28 +115,7 @@
 								<h:outputText value="#{entradaProdutoBB.nomeFornecedor}" />							
 							</div>
 						</li>
-						<li class="normal">
-							<div>
-								<h:outputLabel styleClass="desc" value="Frete"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.frete}" />							
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.icms}" />							
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.ipi}" />							
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Desc"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.desconto}" />							
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Valor da Nota"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.valor}" />							
-							</div>							
-						</li>
+						
 						<li>
 							<div class="listagem">
 								<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
@@ -197,7 +176,29 @@
 									</h:column>
 								</t:dataTable>
 							</div>
-						</li>						
+						</li>	
+						<li class="normal">
+							<div>
+								<h:outputLabel styleClass="desc" value="Frete"></h:outputLabel>
+								<h:outputText value="#{entradaProdutoBB.frete}" />							
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
+								<h:outputText value="#{entradaProdutoBB.icms}" />							
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
+								<h:outputText value="#{entradaProdutoBB.ipi}" />							
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Desc"></h:outputLabel>
+								<h:outputText value="#{entradaProdutoBB.desconto}" />							
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Valor da Nota"></h:outputLabel>
+								<h:outputText value="#{entradaProdutoBB.valor}" />							
+							</div>							
+						</li>					
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar"
 								action="#{entradaProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>
