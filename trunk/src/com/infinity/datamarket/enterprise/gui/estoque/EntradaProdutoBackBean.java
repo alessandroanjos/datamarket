@@ -286,9 +286,10 @@ public class EntradaProdutoBackBean extends BackBean {
 		}
 		
 	    if (this.desconto != null && !"".equals(this.desconto)) {
-	    	BigDecimal tmpValor = valorNota;
-	    	tmpValor = tmpValor.subtract(this.desconto);
-			if (tmpValor.longValue() <= this.desconto.longValue() ) {
+//	    	BigDecimal tmpValor = valorNota;
+//	    	tmpValor = tmpValor.subtract(this.desconto);
+//			if (tmpValor.longValue() <= this.desconto.longValue() ) {
+	    	if(this.desconto.compareTo(this.valorNota) > 0){
 				msgValidacao = 	"Desconto da nota deve ser menor que o total da nota!";	
 				FacesContext ctx = FacesContext.getCurrentInstance();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -308,11 +309,12 @@ public class EntradaProdutoBackBean extends BackBean {
 			entradaProduto.setDesconto(BigDecimal.ZERO);	
 		} else {
 		    entradaProduto.setDesconto(this.desconto);
+		    this.valorNota = this.valorNota.subtract(this.desconto);
 		}
 		if(this.frete != null && this.frete.setScale(2).compareTo(BigDecimal.ZERO.setScale(2)) > 0){
 			entradaProduto.setValor(this.valorNota.add(this.frete));//this.valorNota.subtract(getDesconto()).add(this.frete)	
-//		}else{
-//			entradaProduto.setValor(this.valorNota.subtract(getDesconto()));
+		}else{
+			entradaProduto.setValor(this.valorNota);//.subtract(getDesconto()));
 		}
 		
 		entradaProduto.setIdFornecedor(this.idFornecedor);
