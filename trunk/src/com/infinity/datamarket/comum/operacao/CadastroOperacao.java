@@ -59,7 +59,7 @@ public class CadastroOperacao extends Cadastro{
 							pk.setProduto(p);
 							try{
 								EstoqueProduto estoqueProduto = CadastroEstoque.getInstancia().consultarEstoqueProduto(pk);
-								estoqueProduto.setQuantidade(estoqueProduto.getQuantidade().subtract(evir.getQuantidade()));
+								estoqueProduto.setQuantidade(estoqueProduto.getQuantidade().add(evir.getQuantidade()));
 								getRepositorio().update(estoqueProduto);
 							}catch(ObjectNotFoundException ex){
 								EstoqueProduto estoqueProduto = new EstoqueProduto();
