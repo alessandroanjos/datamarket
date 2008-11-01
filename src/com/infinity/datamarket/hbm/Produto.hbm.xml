@@ -63,7 +63,7 @@
         </many-to-one>
 
 	<many-to-one name="fabricante" class="com.infinity.datamarket.comum.fabricante.Fabricante" update="true" insert="true">
-          <column name="ID_FABRICANTE" not-null="true"/>
+          <column name="ID_FABRICANTE" not-null="false"/>
     </many-to-one> 
     
 	<set name="lojas" table="PRODUTO_LOJA" lazy="false">
