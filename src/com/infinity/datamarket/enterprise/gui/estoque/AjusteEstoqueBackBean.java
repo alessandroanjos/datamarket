@@ -552,7 +552,17 @@ public class AjusteEstoqueBackBean extends BackBean {
 					e.printStackTrace();
 				} catch (AppException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					if  (e instanceof ObjectNotFoundException) {
+						FacesContext ctx = FacesContext.getCurrentInstance();
+						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+								"Produto não encontrado!", "");
+						ctx.addMessage(null, msg);
+					} else {
+						FacesContext ctx = FacesContext.getCurrentInstance();
+						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+								e.getMessage(), "");
+						ctx.addMessage(null, msg);
+					}	
 				}
 			}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
 				try {
