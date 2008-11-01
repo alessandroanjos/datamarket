@@ -34,7 +34,7 @@
 			</script>
 		</head>
 
-		<h:form id="frmPopUpProduto">
+		<h:form id="frmPopUpProduto" binding="#{popupprodutoBB.init}">
 			<div id="content">
 
 				<div id="primarioContentContainerInternas">
@@ -45,9 +45,19 @@
 						<ul>
 							<li class="normal">
 								<div>
+									<h:outputLabel styleClass="desc" value="Código Externo*"></h:outputLabel>
+									<h:inputText styleClass="field text ativo" id="codigoExterno"
+										maxlength="15" value="#{popupprodutoBB.codigoExterno}" size="17"
+										required="false">
+										<f:validateLength maximum="15" />
+										<f:validator validatorId="LongValidator" />
+									</h:inputText>
+									<h:message for="codigoExterno" styleClass="msgErro" />
+								</div>
+								<div>
 									<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
 									<h:inputText styleClass="field text ativo" id="id"
-										maxlength="4" value="#{produtoBB.id}" size="4"
+										maxlength="4" value="#{popupprodutoBB.id}" size="4"
 										required="false">
 										<f:validateLength maximum="4" />
 										<f:validator validatorId="LongValidator" />
@@ -58,7 +68,7 @@
 									<h:outputLabel styleClass="desc" value="Descrição"></h:outputLabel>
 									<h:inputText styleClass="field text" id="descricaoCompleta"
 										maxlength="50" size="50"
-										value="#{produtoBB.descricaoCompleta}">
+										value="#{popupprodutoBB.descricaoCompleta}">
 										<f:validateLength maximum="50" />
 									</h:inputText>
 									<h:message for="descricao" styleClass="msgErro" />
@@ -67,8 +77,14 @@
 						</ul>
 					</fieldset>
 					<div class="listagem">
-						<t:dataTable value="#{produtoBB.produtos}" var="produto"
+						<t:dataTable value="#{popupprodutoBB.produtos}" var="produto"
 							rowClasses="rowA,rowB" width="95%">
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Código Externo" />
+								</f:facet>
+								<h:outputText value="#{produto.codigoExterno}" />
+							</h:column>
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="Código" />
@@ -93,7 +109,7 @@
 							<h:commandButton styleClass="btTxt" id="botaoCancelar"
 								onclick="self.close();" value="Cancelar"></h:commandButton>
 							<h:commandButton styleClass="btTxt" id="botaoConsultar"
-								action="#{produtoBB.consultar}" value="Consultar"></h:commandButton>
+								action="#{popupprodutoBB.consultar}" value="Consultar"></h:commandButton>
 						</li>
 					</ul>
 				</div>

@@ -25,7 +25,8 @@ public class LoginBackBean extends BackBean{
 	
 	private static String pathAplicacao = "";    
 
-	public String logar(){
+	public String logar(){  
+		int i = 0;
 		try{
 			
 			

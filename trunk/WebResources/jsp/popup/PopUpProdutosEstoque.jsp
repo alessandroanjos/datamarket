@@ -33,7 +33,7 @@
 			</script>
 		</head>
 
-		<h:form id="frmPopUpProdutosEstoque" >
+		<h:form id="frmPopUpProdutosEstoque" binding="#{movimentacaoEstoqueBB.init}">
 		    
 			<div id="content">
 
@@ -45,8 +45,18 @@
 						<ul>
 							<li class="normal">
 								<div>
+									<h:outputLabel styleClass="desc" value="Código Externo"></h:outputLabel>
+									<h:inputText styleClass="field text ativo" id="codigoExterno"
+										maxlength="15" value="#{movimentacaoEstoqueBB.codigoExterno}" size="17"
+										required="false">
+										<f:validateLength maximum="15" />
+										<f:validator validatorId="LongValidator" />
+									</h:inputText>
+									<h:message for="codigoExterno" styleClass="msgErro" />
+								</div>
+								<div>
 									<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-									<h:inputText styleClass="field text ativo" id="idProduroEstoque"
+									<h:inputText styleClass="field text ativo" id="idProdutoEstoque"
 										maxlength="4" value="#{movimentacaoEstoqueBB.idProdutoEstoque}" size="4"
 										required="false">
 										<f:validateLength maximum="4" />
@@ -56,9 +66,9 @@
 								</div>
 								<div>
 									<h:outputLabel styleClass="desc" value="Descrição"></h:outputLabel>
-									<h:inputText styleClass="field text" id="descricaoCompleta"
+									<h:inputText styleClass="field text" id="descricaoCompletaEstoque"
 										maxlength="50" size="50"
-										value="#{movimentacaoEstoqueBB.descricaoCompleta}">
+										value="#{movimentacaoEstoqueBB.descricaoCompletaEstoque}">
 										<f:validateLength maximum="50" />
 									</h:inputText>
 									<h:message for="descricao" styleClass="msgErro" />
@@ -69,6 +79,12 @@
 					<div class="listagem">
 						<t:dataTable value="#{movimentacaoEstoqueBB.produtosEstoque}" var="produto"
 							rowClasses="rowA,rowB" width="95%">
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Código Externo" />
+								</f:facet>
+								<h:outputText value="#{produto.codigoExterno}" />
+							</h:column>
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="Código" />

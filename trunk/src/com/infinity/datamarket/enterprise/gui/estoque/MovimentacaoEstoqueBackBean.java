@@ -47,9 +47,11 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	private Collection<MovimentacaoEstoque> movimentacaoEstoque;
     private ProdutoMovimentacaoEstoque produtoMovimentacaoEstoque;
 	// Atributos para montar os Produtos na movimentação de estoque
-	private String idProduto; 
+	private String idProduto;
+	private String codigoExterno;
 	private String descricao;
 	private String quantidade;
+	private String descricaoCompletaEstoque;
 	
 	// Atributos para montar consulta de produtos no popUp 
 	// por estoque saida
@@ -77,8 +79,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 
 	
 	public String resetProdutoBB() {
+		this.setCodigoExterno(null);
 		this.setIdProduto(null);
 		this.setDescricao(null);
+		this.setDescricaoCompletaEstoque(null);
 		this.setQuantidade(null);
 		return "mesma";
 	}
@@ -494,31 +498,52 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	
 	public String consultarProdutosEstoque(){
 		try{
-			
-			FacesContext context = FacesContext.getCurrentInstance();
-			Map params = context.getExternalContext().getRequestParameterMap();            
+			setProdutosEstoque(null);
+            
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(Produto.class);			
-			
-			String param = (String)  params.get("idProduto");
-			if (param != null && !"".equals(param)){
-				setIdProdutoEstoque(param);
-				filter.addProperty("id", getIdProdutoEstoque());
-			}			
 
+			if (getIdProdutoEstoque() != null && !"".equals(getIdProdutoEstoque())){
+				Produto produto = getFachada().consultarProdutoPorPK(new Long(getIdProdutoEstoque()));
+				Collection col = new HashSet<Produto>();
+				col.add(produto);
+				setProdutosEstoque(col);
+				setIdProdutoEstoque(null);
+				resetBB();
+				return "mesma";
+				
+			}			
 			
-			if (getDescricaoCompleta() != null && !"".equals(getDescricaoCompleta())){				
-				filter.addProperty("descricaoCompleta", getDescricaoCompleta());
+			if (getCodigoExterno() != null && !"".equals(getCodigoExterno())){
+				Produto produto = getFachada().consultarProdutoPorCodigoExterno(getCodigoExterno());
+				Collection col = new HashSet<Produto>();
+				col.add(produto);
+				setProdutosEstoque(col);
+				resetBB();
+				return "mesma";
+			}
+			
+			if (getDescricaoCompletaEstoque() != null && !"".equals(getDescricaoCompletaEstoque())){				
+				filter.addProperty("descricaoCompleta", getDescricaoCompletaEstoque());
 			}
 			
 			produtosEstoque = getFachada().consultarProdutoPorFiltro(filter, false);
 			
 			if (produtosEstoque == null || produtosEstoque.size() == 0){
-				setProdutosEstoque(null);
-				FacesContext ctx = FacesContext.getCurrentInstance();
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Nenhum Registro Encontrado", "");
-				ctx.addMessage(null, msg);					
+				produtosEstoque = getFachada().consultarTodosProdutos();
+				if (produtosEstoque == null || produtosEstoque.size() == 0){
+					setProdutosEstoque(null);
+					FacesContext ctx = FacesContext.getCurrentInstance();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Nenhum Registro Encontrado", "");
+					ctx.addMessage(null, msg);					
+				} else {
+					setExisteRegistros(true);
+					setProdutosEstoque(produtosEstoque);
+					resetBB();
+				}
+			} else {
+				resetBB();
 			}
 		}catch(ObjectNotFoundException e){
 			setProdutosEstoque(null);
@@ -936,6 +961,9 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			if(VALOR_ACAO.equals(param)){
 				setMovimentacaoEstoque(null);
 			}
+		}else if(params.get("acaoPopUp") != null && ((String)params.get("acaoPopUp")).equals("init")){
+			resetProdutoBB();
+			setProdutosEstoque(null);
 		}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
 			try {
 				Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
@@ -949,7 +977,20 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			}
 		}
 	}
-	
+	/**
+	 * @param init the init to set
+	 */
+	public void setInitEstoque(HtmlForm initEstoque) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();            
+		String param = (String)  params.get(ACAO);
+		if (param != null){
+			resetProdutoBB();
+			if(VALOR_ACAO.equals(param)){
+				setMovimentacaoEstoque(null);
+			}
+		}
+	}
 	public void imprimirRecibo(){
 		try {
 			if(this.getMovimentacaoProdutoEstoque() != null){
@@ -983,6 +1024,18 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	public void setMovimentacaoProdutoEstoque(
 			MovimentacaoEstoque movimentacaoProdutoEstoque) {
 		this.movimentacaoProdutoEstoque = movimentacaoProdutoEstoque;
+	}
+	public String getCodigoExterno() {
+		return codigoExterno;
+	}
+	public void setCodigoExterno(String codigoExterno) {
+		this.codigoExterno = codigoExterno;
+	}
+	public String getDescricaoCompletaEstoque() {
+		return descricaoCompletaEstoque;
+	}
+	public void setDescricaoCompletaEstoque(String descricaoCompletaEstoque) {
+		this.descricaoCompletaEstoque = descricaoCompletaEstoque;
 	}
 
 }

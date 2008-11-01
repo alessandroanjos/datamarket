@@ -54,7 +54,7 @@
 	      				winId.close();
 	      			}
 	                features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-	      			winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces','list',features);
+	      			winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces?acao=init','list',features);
 	      			// Formulário escondido
 	                hform=document.forms[form];   
                  }else{
@@ -122,6 +122,9 @@
 									onkeypress="return SoNumero(event);" 								
 									maxlength="9" value="#{ajusteEstoqueBB.idProduto}" size="12">
 								</h:inputText>
+								<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Produto"  styleClass="btTxt" id="botaoConsultarProduto"
+								onmousedown="showPopUp(this,'frmInserirAjusteEstoque','find')"
+								onclick="return false" value="Consultar Produto"></h:commandButton>
 								
 							</div>
 							<div>
@@ -131,9 +134,6 @@
 									<f:validateLength maximum="50" />
 									
  							    </h:inputText>
-								<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Produto"  styleClass="btTxt" id="botaoConsultarProduto"
-								onmousedown="showPopUp(this,'frmInserirAjusteEstoque','find')"
-								onclick="return false" value="Consultar Produto"></h:commandButton>
 							</div>
 						</li>
 
