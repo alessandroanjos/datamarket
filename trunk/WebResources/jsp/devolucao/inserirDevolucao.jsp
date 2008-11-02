@@ -211,7 +211,8 @@
 								</div>
 								<div>
 									<h:outputLabel styleClass="desc" value="Preço Venda"></h:outputLabel>
-									<h:inputText styleClass="field text" dir="rtl" id="precoVenda" size="12" value="#{devolucaoBB.precoVenda}" onkeypress="return(formataMoeda(this,'','.',2,event));">
+									<h:inputText styleClass="field text" dir="rtl" id="precoVenda" size="12" value="#{devolucaoBB.precoVenda}" 
+									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 										<f:validateLength maximum="12" />
 										<f:validateDoubleRange  minimum="0.00" maximum="999999999.99"/>
 										<f:validator validatorId="BigDecimalValidator"/>
@@ -220,7 +221,8 @@
 								<div>
 									<h:outputLabel styleClass="desc" value="Quantidade"></h:outputLabel>
 									<h:inputText styleClass="field text" id="quantidade" maxlength="7" size="7"
-										value="#{devolucaoBB.quantidade}" dir="rtl" onkeypress="return(formataMoeda(this,'','.',3,event));">
+										value="#{devolucaoBB.quantidade}" dir="rtl" 
+										onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));" >
 										<f:validateLength maximum="7" />
 										<f:validateDoubleRange  minimum="0.000" maximum="999.999"/>
 										<f:validator validatorId="BigDecimalValidator"/>

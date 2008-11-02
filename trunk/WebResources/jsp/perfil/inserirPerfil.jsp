@@ -76,8 +76,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Perc. de Desconto*"></h:outputLabel>
 											<h:inputText styleClass="field text" dir="rtl" id="percentualDesconto" maxlength="5" size="5" 
-												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return(formataMoeda(this,'','.',2,event));"
+												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
                       							 value="#{perfilBB.percentualDesconto}" required="true">
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="99.99" />

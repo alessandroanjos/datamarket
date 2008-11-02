@@ -142,7 +142,7 @@
 								<h:outputLabel styleClass="desc" value="Qtd. Atual"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeAntes"  readonly="true" maxlength="7"
 									size="10" value="#{ajusteEstoqueBB.quantidadeAntes}" 
-									onfocus="this.select();" onclick="this.select();" onkeypress="return(formataMoeda(this,'','.',3,event));">
+									onkeydown="returnQTD(BackSpace(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));" >
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.000" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
@@ -153,7 +153,7 @@
 								<h:outputLabel styleClass="desc" value="Qtd. Depois"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeDepois" maxlength="7"
 									size="10" value="#{ajusteEstoqueBB.quantidadeDepois}" 
-									onfocus="this.select();" onclick="this.select();" onkeypress="return(formataMoeda(this,'','.',3,event));">
+									onkeydown="returnQTD(BackSpace(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));" >
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
