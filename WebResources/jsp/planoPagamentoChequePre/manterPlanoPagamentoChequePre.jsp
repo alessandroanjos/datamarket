@@ -138,8 +138,7 @@
 												maxlength="10" size="10"
 												value="#{planoPagamentoChequePreBB.valorMinimo}" dir="rtl"
 												required="false" 
-												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return(formataMoeda(this,'','.',2,event));">
+												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="10" />
 												<f:validateDoubleRange minimum="0.01" maximum="9999999.99" />
 												<f:validator validatorId="BigDecimalValidator" />
@@ -152,8 +151,7 @@
 												maxlength="10" size="10"
 												value="#{planoPagamentoChequePreBB.valorMaximo}" dir="rtl"
 												required="false" 
-												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return(formataMoeda(this,'','.',2,event));">
+												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="10" />
 												<f:validateDoubleRange minimum="0.01"  />
 												<f:validator validatorId="BigDecimalValidator" />
@@ -168,8 +166,7 @@
 												maxlength="5" size="5"
 												value="#{planoPagamentoChequePreBB.percDesconto}" dir="rtl"
 												required="false" 
-												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return(formataMoeda(this,'','.',2,event));">
+												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 												<f:validator validatorId="BigDecimalValidator" />
@@ -182,8 +179,7 @@
 												maxlength="5" size="5"
 												value="#{planoPagamentoChequePreBB.percAcrescimo}" dir="rtl"
 												required="false" 
-												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return(formataMoeda(this,'','.',2,event));">
+												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 												<f:validator validatorId="BigDecimalValidator" />
@@ -237,8 +233,7 @@
 												maxlength="5" size="5"
 												value="#{planoPagamentoChequePreBB.percentagemEntrada}"
 												dir="rtl" required="false"
-												onfocus="this.select();" onclick="this.select();"
-												onkeypress="return(formataMoeda(this,'','.',2,event));">
+												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 												<f:validator validatorId="BigDecimalValidator" />
@@ -273,8 +268,7 @@
 																id="percentualParcela" maxlength="6" size="6"
 																value="#{planoPagamentoChequePreBB.percentagemParcela}"
 																dir="rtl" required="false"
-																onfocus="this.select();" onclick="this.select();"
-																onkeypress="return(formataMoeda(this,'','.',2,event));">
+																onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 																<f:validateLength maximum="6" />
 																<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 																<f:validator validatorId="BigDecimalValidator" />

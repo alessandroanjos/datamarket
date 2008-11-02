@@ -93,8 +93,7 @@
 										
 										<h:inputText styleClass="field text" id="valorLimiteSangria" maxlength="10" size="10"
 											value="#{formaRecebimentoBB.valorLimiteSangria}" dir="rtl" required="true" 
-											onfocus="this.select();" onclick="this.select();"
-											onkeypress="return(formataMoeda(this,'','.',2,event));">
+											onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
@@ -109,8 +108,7 @@
 
 										<h:inputText styleClass="field text" id="valorMaxTroco" maxlength="10" size="10"
 											value="#{formaRecebimentoBB.valorMaxTroco}" required="true" dir="rtl" 
-											onfocus="this.select();" onclick="this.select();"
-											onkeypress="return(formataMoeda(this,'','.',2,event));">
+											onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
