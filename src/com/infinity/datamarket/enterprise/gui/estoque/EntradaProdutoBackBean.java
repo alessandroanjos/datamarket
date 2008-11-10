@@ -11,8 +11,10 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -46,17 +48,20 @@ public class EntradaProdutoBackBean extends BackBean {
 	private String numeroNota;
 	private Date dataEmissaoNota;
 	private Date dataEntrada = new Date(System.currentTimeMillis());
-	private BigDecimal frete = null;
-	private BigDecimal icms  = null;
-	private BigDecimal ipi	 = null;
-	private BigDecimal desconto = null;
-	private BigDecimal valor    = null;
-	private BigDecimal valorNota= null;
+	private BigDecimal frete = BigDecimal.ZERO;
+	private BigDecimal icms  = BigDecimal.ZERO;
+	private BigDecimal ipi	 = BigDecimal.ZERO;
+	private BigDecimal desconto = BigDecimal.ZERO;
+	private BigDecimal valor    = BigDecimal.ZERO;
+	private BigDecimal valorNota= BigDecimal.ZERO;
 	private String idFornecedor;
 	private String nomeFornecedor;
 	private Fornecedor fornecedor;
 	private ProdutoEntradaProduto produtoEntrada;
 	private Collection<EntradaProduto> entradasProduto;
+	
+	private String idStatus;
+	private SelectItem[] listaStatus;
     
 	// Atributos para montar os Produtos
 	private String idProduto; 
@@ -66,14 +71,16 @@ public class EntradaProdutoBackBean extends BackBean {
 	private Set<ProdutoEntradaProduto> arrayProduto; 
 	private String idEstoque;
 	private String idLoja;
-	private BigDecimal quantidade        = null;
-	private BigDecimal precoUnitario     = null;
-	private BigDecimal descontoProduto   = null;
-	private BigDecimal icmsProduto       = null;	
-	private BigDecimal ipiProduto	     = null;
-	private BigDecimal total		     = null;
-	private BigDecimal totalDescontoItem = null;
+	private BigDecimal quantidade        = BigDecimal.ZERO.setScale(3);
+	private BigDecimal precoUnitario     = BigDecimal.ZERO.setScale(2);
+	private BigDecimal descontoProduto   = BigDecimal.ZERO.setScale(2);
+	private BigDecimal icmsProduto       = BigDecimal.ZERO.setScale(2);	
+	private BigDecimal ipiProduto	     = BigDecimal.ZERO.setScale(2);
+	private BigDecimal total		     = BigDecimal.ZERO.setScale(2);
+	private BigDecimal totalDescontoItem = BigDecimal.ZERO.setScale(2);
 	private List<Estoque> estoques = null; 
+	
+	private BigDecimal quantidadeTotal = BigDecimal.ZERO.setScale(3);
     
 	// para uso de filtro de consulta
     private Date dataInicio;
@@ -98,11 +105,11 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setIdProduto(null);
 		this.descricao = null;
 		this.setIdEstoque(null);
-		this.setDescontoProduto(null);
-		this.setQuantidade(null);
-		this.setIcmsProduto(null);
-		this.setIpiProduto(null);
-		this.setPrecoUnitario(null);
+		this.setDescontoProduto(BigDecimal.ZERO);
+		this.setQuantidade(BigDecimal.ZERO);
+		this.setIcmsProduto(BigDecimal.ZERO);
+		this.setIpiProduto(BigDecimal.ZERO);
+		this.setPrecoUnitario(BigDecimal.ZERO);
 	}
 	public String excluirProdutoEntrada() {
 		int i = 0;
@@ -130,6 +137,7 @@ public class EntradaProdutoBackBean extends BackBean {
 				if (this.getDescontoProduto()==null)
 					this.setDescontoProduto(BigDecimal.ZERO);
 				this.setTotalDescontoItem(getTotalDescontoItem().subtract(this.getDescontoProduto()));
+				this.setQuantidadeTotal(this.getQuantidadeTotal().subtract(produtoTmp.getQuantidade()).setScale(3));
 				arrayProduto.remove(produtoTmp);
 				break;
 			}
@@ -186,6 +194,7 @@ public class EntradaProdutoBackBean extends BackBean {
 	        produtoEntrada.setIcms(this.icmsProduto.setScale(2));
 			produtoEntrada.setDesconto(this.descontoProduto.setScale(2));
 			produtoEntrada.setQuantidade(this.quantidade.setScale(3));
+			this.setQuantidadeTotal(this.getQuantidadeTotal().add(this.quantidade.setScale(3)));
 			produtoEntrada.setPrecoUnitario(this.precoUnitario.setScale(2));
 			this.setTotal(this.precoUnitario.setScale(2));
 		    produtoEntrada.setTotal(this.total.setScale(2));
@@ -346,6 +355,8 @@ public class EntradaProdutoBackBean extends BackBean {
 				}
 			}	
 			entradaProduto.setProdutosEntrada(arrayProduto);
+			
+			entradaProduto.setStatus(Constantes.STATUS_ATIVO);
 
 			getFachada().inserirEntradaProduto(entradaProduto);
 			
@@ -375,6 +386,7 @@ public class EntradaProdutoBackBean extends BackBean {
 		}
 		return "mesma";
 	}
+	
 	public String alterar() {
 		EntradaProduto entradaProduto = new EntradaProduto();
 		//EntradaProdutoPK pk = new EntradaProdutoPK();
@@ -427,6 +439,59 @@ public class EntradaProdutoBackBean extends BackBean {
 		resetBB();
 		return "mesma";
 	}
+	
+	public void cancelar(ActionEvent event) {
+		
+		try {
+//			FacesContext context = FacesContext.getCurrentInstance();
+//			Map params = context.getExternalContext().getRequestParameterMap();
+//			String param = (String) params.get("idCancelarEntradaProduto");
+			UIParameter component = (UIParameter) event.getComponent().findComponent("idCancelarEntradaProduto");
+			Long param = (Long) component.getValue();
+			if(param != null && !param.equals("")){
+				EntradaProduto entradaProduto = getFachada().consultarEntradaProdutoPorId(new Long(param));
+			
+				if(entradaProduto.getStatus().equals(Constantes.STATUS_CANCELADO)){
+					throw new AppException("Entrada de Produtos já cancelada!");
+				}
+				
+				entradaProduto.setStatus(Constantes.STATUS_CANCELADO);
+				
+				getFachada().alterarEntradaProduto(entradaProduto);
+			
+				this.setEntradaProduto(entradaProduto);
+				
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Operação Realizada com Sucesso!", "");
+				ctx.addMessage(null, msg);
+				resetBB();
+				consultar();
+			}else{
+				FacesContext ctx = FacesContext.getCurrentInstance();
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Nenhuma Entrada Selecionada!", "");
+				ctx.addMessage(null, msg);
+			}
+		} catch (ObjectExistentException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Entrada já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+	}
+	
 	public String consultar() {
 		try {
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -468,16 +533,32 @@ public class EntradaProdutoBackBean extends BackBean {
 			} else {
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(EntradaProduto.class);
-				if (getNumeroNota() != null && !"".equals(getNumeroNota())) {
-	            	filter.addProperty("numeroNota", getNumeroNota());
-					return consultarFiltro(filter);
-				} else if (getDataInicio() != null && !"".equals(getDataInicio())) {
-					filter.addPropertyInterval("dataEntrada",getDataInicio(), IntervalObject.MAIOR_IGUAL);
-					if (getDataFinal() != null && !"".equals(getDataFinal()))
-					filter.addPropertyInterval("dataEntrada",getDataFinal(), IntervalObject.MENOR_IGUAL);
+				if(getNumeroNota() != null || (getDataInicio() != null && getDataFinal() != null) || this.getIdStatus() != null){
+					if (getNumeroNota() != null && !"".equals(getNumeroNota())) {
+		            	filter.addProperty("numeroNota", getNumeroNota());
+						
+					} 
+					if (getDataInicio() != null && !"".equals(getDataInicio())) {
+						filter.addPropertyInterval("dataEntrada",getDataInicio(), IntervalObject.MAIOR_IGUAL);
+						if (getDataFinal() != null && !"".equals(getDataFinal()))
+						filter.addPropertyInterval("dataEntrada",getDataFinal(), IntervalObject.MENOR_IGUAL);
+						
+					}
+					if(this.getIdStatus() != null){
+						if(!this.getIdStatus().equals("T")){
+							filter.addProperty("status", this.getIdStatus());	
+						}						
+					}
+					
 					return consultarFiltro(filter);
 				}
+				
 				Collection col = getFachada().consultarTodasEntradaProduto();
+				if(col != null && col.size() > 0){
+					this.setExisteRegistros(true);
+				}else{
+					this.setExisteRegistros(false);
+				}
 				setEntradasProduto(col);
  			}	
 		} catch (ObjectNotFoundException e) {
@@ -508,6 +589,8 @@ public class EntradaProdutoBackBean extends BackBean {
 			e.printStackTrace();
 		}
 		if (col == null || col.size() == 0) {
+			this.setEntradasProduto(null);
+			this.setExisteRegistros(false);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(
 					FacesMessage.SEVERITY_INFO,
@@ -538,6 +621,7 @@ public class EntradaProdutoBackBean extends BackBean {
 				this.setArrayProduto(produtos);
 				return "proxima";
 			} else {
+				this.setExisteRegistros(true);
 				this.setEntradasProduto(col);
 			}
 		}
@@ -636,13 +720,14 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setDataEntrada(new Date(System.currentTimeMillis()));
 		this.setDataInicio(null);
 		this.setDataFinal(null);
-		this.setFrete(null);
-		this.setIcms(null);
-		this.setIpi(null);
-		this.setDesconto(null);
-		this.setValor(null);
+		this.setFrete(BigDecimal.ZERO);
+		this.setIcms(BigDecimal.ZERO);
+		this.setIpi(BigDecimal.ZERO);
+		this.setDesconto(BigDecimal.ZERO);
+		this.setValor(BigDecimal.ZERO);
 		this.setFornecedor(null);
 		this.setArrayProduto(null);
+		this.setQuantidadeTotal(BigDecimal.ZERO.setScale(3));
 		resetProdutoBB();
 		inicializaValoreNota();
 		return "mesma";
@@ -1086,5 +1171,34 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
 	public void setNomeFornecedor(String nomeFornecedor) {
 		this.nomeFornecedor = nomeFornecedor;
+	}
+	
+	public String getIdStatus() {
+		return idStatus;
+	}
+
+	public void setIdStatus(String idStatus) {
+		this.idStatus = idStatus;
+	}
+
+	public void setListaStatus(SelectItem[] listaStatus) {
+		this.listaStatus = listaStatus;
+	}
+
+	public SelectItem[] getListaStatus() {
+		SelectItem[] lista = new SelectItem[3];
+		lista[0] = new SelectItem("T", "Todas");
+		lista[1] = new SelectItem(Constantes.STATUS_ATIVO, "Ativa");
+		lista[2] = new SelectItem(Constantes.STATUS_CANCELADO, "Cancelada");
+		if(this.getIdStatus() == null || this.getIdStatus().equals("")){
+			this.setIdStatus("T");
+		}
+		return lista;
+	}
+	public BigDecimal getQuantidadeTotal() {
+		return quantidadeTotal;
+	}
+	public void setQuantidadeTotal(BigDecimal quantidadeTotal) {
+		this.quantidadeTotal = quantidadeTotal;
 	}
 }

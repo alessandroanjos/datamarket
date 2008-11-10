@@ -7,6 +7,7 @@ import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.Constantes;
 
 public class CadastroEntradaProduto extends Cadastro{
 	
@@ -60,6 +61,7 @@ public class CadastroEntradaProduto extends Cadastro{
 	
 		}
 	}
+	
 	public void alterar(EntradaProduto entradaProduto) throws AppException{
 		getRepositorio().update(entradaProduto);
 		Collection col = entradaProduto.getProdutosEntrada();
@@ -72,10 +74,15 @@ public class CadastroEntradaProduto extends Cadastro{
 			
 			//consulta de estoque produto
 			EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pk);
-			ep.setQuantidade(ep.getQuantidade().add(pep.getQuantidade()));
+			if(entradaProduto.getStatus().equals(Constantes.STATUS_ATIVO)){
+				ep.setQuantidade(ep.getQuantidade().add(pep.getQuantidade()));	
+			}else if(entradaProduto.getStatus().equals(Constantes.STATUS_CANCELADO)){
+				ep.setQuantidade(ep.getQuantidade().subtract(pep.getQuantidade()));
+			}			
 			getRepositorio().update(ep);
 		}
 	}
+	
 	public void excluir(EntradaProduto entradaProduto) throws AppException{
 		getRepositorio().remove(entradaProduto);
 		Collection col = entradaProduto.getProdutosEntrada();

@@ -29,6 +29,14 @@ public class EntradaProduto extends Persistente{
 	
 	private Collection produtosEntrada;
 	
+	private String status;
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public Collection getProdutosEntrada() {
 		return produtosEntrada;
 	}

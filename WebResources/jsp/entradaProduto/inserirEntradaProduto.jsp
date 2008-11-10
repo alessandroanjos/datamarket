@@ -74,6 +74,20 @@
                              form[formId+":quantidade"].focus();  
                              winId.close();
             }
+
+			 function reCalculaTotalEntradaProdutos(){
+            	var valorTotalCupom = parseFloat(getId("frmInserirEntradaProdutos:valor").value);
+            	var descontoCupom = parseFloat(getId("frmInserirEntradaProdutos:desconto").value);
+
+				alert("antes--> "+valorTotalCupom);
+				alert("antes--> "+descontoCupom);
+
+			    valorTotalCupom = valorTotalCupom - descontoCupom;
+
+				alert("depois--> "+valorTotalCupom);
+
+				getId("frmInserirEntradaProdutos:valor").value = valorTotalCupom.toFixed(2);
+            }
             
       </script>
 	<body>
@@ -297,6 +311,15 @@
 						</div>
 						<li class="normal">
 							<div>
+								<h:outputLabel styleClass="desc" value="Quant. Total"></h:outputLabel>
+								<h:inputText styleClass="field monetario" id="quantidadeTotal" maxlength="10"
+									size="11" value="#{entradaProdutoBB.quantidadeTotal}" 
+									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
+									required="false">
+									<f:validator validatorId="BigDecimalValidator" />
+								</h:inputText>
+							</div>
+							<div>
 								<h:outputLabel styleClass="desc" value="Frete"></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="frete" maxlength="10"
 									size="11" value="#{entradaProdutoBB.frete}" 
@@ -332,7 +355,7 @@
 								<h:inputText styleClass="field monetario" id="desconto" maxlength="10"
 									size="11" value="#{entradaProdutoBB.desconto}" dir="rtl"
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
-									required="false">
+									required="false"  onblur="javascript:reCalculaTotalEntradaProdutos();">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
 									<f:validator validatorId="BigDecimalValidator" />

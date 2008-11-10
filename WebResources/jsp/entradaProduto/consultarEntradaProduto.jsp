@@ -59,6 +59,12 @@
 								<legend>Opções de filtro:</legend>
 								<ul>
 									<li class="normal">
+										<div>
+											<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+										</div>
+									<br />
+									<br />
+									<br />
 											<div>
 												<h:outputLabel styleClass="desc" value="N.Fiscal"></h:outputLabel>
 												<h:inputText styleClass="field text" id="numeroNota"
@@ -67,6 +73,12 @@
 													<f:validateLength maximum="15" />
 												</h:inputText>
 											</div>
+											<div>	
+												<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
+												<h:selectOneMenu id="idStatus" style="width: 200px;" value="#{entradaProdutoBB.idStatus}"> 
+													<f:selectItems id="statusSelectItems" value="#{entradaProdutoBB.listaStatus}" />   
+												</h:selectOneMenu>
+											</div>										
 											<div>
 												<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
 												<t:inputText maxlength="10" size="10"
@@ -79,8 +91,7 @@
 												<h:outputLabel styleClass="desc" value=" Data Final "></h:outputLabel>
 												<t:inputText styleClass="field text data"
 													maxlength="10" size="10" forceId="dataFinal" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-													value="#{entradaProdutoBB.dataFinal}" id="dataFinal">
-														
+													value="#{entradaProdutoBB.dataFinal}" id="dataFinal">										
 													</t:inputText>
 													
 											</div>								
@@ -115,11 +126,11 @@
 											<h:outputText value="Fornecedor" /> 
 										</f:facet>
 										<h:outputText value="#{entradaProduto.fornecedor.nomeFornecedor}" rendered="#{entradaProduto.fornecedor.tipoPessoa == 'F'}" />
-										<h:outputText value="#{entradaProduto.fornecedor.nomeFantasia}" rendered="#{entradaProduto.fornecedor.tipoPessoa == 'F'}" />
+										<h:outputText value="#{entradaProduto.fornecedor.nomeFantasia}" rendered="#{entradaProduto.fornecedor.tipoPessoa == 'J'}" />
 									</h:column>									
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Valor da Nota" /> 
+											<h:outputText value="Valor" /> 
 										</f:facet>
 										<h:outputText value="#{entradaProduto.valor}" /> 
 									</h:column>		
@@ -140,6 +151,21 @@
 											<h:outputText value="IPI" /> 
 										</f:facet>
 										<h:outputText value="#{entradaProduto.ipi}" /> 
+									</h:column>	
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Status" /> 
+										</f:facet>
+										<h:outputText value="Ativa" rendered="#{entradaProduto.status == 'A'}" />
+										<h:outputText value="Cancelada" rendered="#{entradaProduto.status == 'C'}" />
+									</h:column>	
+									<h:column>
+										<f:facet name="header">
+											<h:outputText style="align: center;" value="Ação" />
+										</f:facet>
+										<h:commandButton image="/images/excluir.png" alt="Cancelar" actionListener="#{entradaProdutoBB.cancelar}" >
+											<f:param name="idCancelarEntradaProduto" id="idCancelarEntradaProduto" value="#{entradaProduto.id}" />
+										</h:commandButton>							
 									</h:column>							
 								</t:dataTable>
 								<ul>
