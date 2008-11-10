@@ -379,7 +379,7 @@
 			<from-action>#{entradaProdutoBB.consultar}</from-action>
 			<from-outcome>proxima</from-outcome>
 			<to-view-id>/jsp/entradaProduto/manterEntradaProduto.jsp</to-view-id>
-		</navigation-case>
+		</navigation-case>		
 		<navigation-case>
 			<from-action>#{entradaProdutoBB.voltarMenu}</from-action>
 			<from-outcome>voltar</from-outcome>
@@ -390,7 +390,7 @@
 	<navigation-rule>
 		<from-view-id>/jsp/entradaProduto/manterEntradaProduto.jsp</from-view-id>
 		<navigation-case>
-			<from-action>#{entradaProdutoBB.atualizar}</from-action>
+			<from-action>#{entradaProdutoBB.alterar}</from-action>
 			<from-outcome>mesma</from-outcome>
 			<to-view-id>/jsp/entradaProduto/manterEntradaProduto.jsp</to-view-id>
 		</navigation-case>
@@ -2070,27 +2070,27 @@
 		<managed-property>
 		    <property-name>frete</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>icms</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>		
 		<managed-property>
 		    <property-name>ipi</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>		
 		<managed-property>
 		    <property-name>desconto</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>valor</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>idFornecedor</property-name>

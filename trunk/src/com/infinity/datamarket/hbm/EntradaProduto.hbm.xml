@@ -52,6 +52,10 @@
             <column name="VALOR" length="20" not-null="false"/>
     </property>
     
+    <property name="status" type="java.lang.String" update="true" insert="true">
+            <column name="STATUS" length="1" not-null="true"/>
+        </property>
+    
 	<many-to-one name="fornecedor" class="com.infinity.datamarket.comum.fornecedor.Fornecedor" update="true" insert="true">
           <column name="ID_FORNECEDOR" not-null="false"/>
     </many-to-one>
