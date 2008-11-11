@@ -21,6 +21,7 @@ import com.infinity.datamarket.comum.util.AppException;
 public interface IRepositoryManager {
 
 	public void update(Serializable _object) throws AppException;
+	public void merge(Serializable _object) throws AppException;
 	public void insert(Serializable _object) throws AppException;
 	public void insertOrUpdate(Serializable _object) throws AppException;
 	public void remove(Serializable _object) throws AppException;

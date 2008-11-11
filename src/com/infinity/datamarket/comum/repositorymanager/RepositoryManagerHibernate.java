@@ -127,6 +127,21 @@ public class RepositoryManagerHibernate implements IRepositoryManager
             throw new RepositoryControlerException(ex);
         }
     }
+    
+    public void merge(Serializable _obj)
+	    throws AppException
+	{
+	    try
+	    {
+	        Session session = null;
+	        session = RepositoryManagerHibernateUtil.currentSession();
+	        session.merge(_obj);
+	    }
+	    catch(HibernateException ex)
+	    {
+	        throw new RepositoryControlerException(ex);
+	    }
+	}
 
     public void remove(Serializable _obj)
         throws AppException
