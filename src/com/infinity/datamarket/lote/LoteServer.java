@@ -40,12 +40,14 @@ public class LoteServer implements LoteServerLocal, LoteServerRemote {
 			if (obj instanceof Produto){
 				Produto prod = (Produto) obj;
 				Collection lojas = prod.getLojas();
-				Iterator iLojas = lojas.iterator();
 				boolean contem = false;
-				while(iLojas.hasNext()){
-					Loja loja = (Loja) iLojas.next();
-					if (loja.getId().equals(new Long(numLoja))){
-						contem = true;
+				if (lojas != null){
+					Iterator iLojas = lojas.iterator();					
+					while(iLojas.hasNext()){
+						Loja loja = (Loja) iLojas.next();
+						if (loja.getId().equals(new Long(numLoja))){
+							contem = true;
+						}
 					}
 				}
 				if (contem){
@@ -54,14 +56,16 @@ public class LoteServer implements LoteServerLocal, LoteServerRemote {
 			}else if (obj instanceof Usuario){
 				Usuario usu = (Usuario) obj;
 				Collection lojas = usu.getLojas();
-				Iterator iLojas = lojas.iterator();
 				boolean contem = false;
-				while(iLojas.hasNext()){
-					Loja loja = (Loja) iLojas.next();
-					if (loja.getId().equals(new Long(numLoja))){
-						contem = true;
+				if (lojas != null){
+					Iterator iLojas = lojas.iterator();					
+					while(iLojas.hasNext()){
+						Loja loja = (Loja) iLojas.next();
+						if (loja.getId().equals(new Long(numLoja))){
+							contem = true;
+						}
 					}
-				}				
+				}
 				if (contem){	
 					usu.getPerfil().setFuncionalidades(null);
 					retorno.add(dado);
