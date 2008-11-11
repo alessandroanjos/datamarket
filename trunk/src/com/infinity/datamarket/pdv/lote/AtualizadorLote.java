@@ -34,16 +34,18 @@ public class AtualizadorLote {
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			Iterator i = col.iterator();
-			while(i.hasNext()){
-				
+			while(i.hasNext()){				
 				DadoLote dado = (DadoLote) i.next();
 				if (dado.getOperacao().equals(dado.INSERIR)){
 					getRepositorio().insert(dado.getDado());
 				}else if (dado.getOperacao().equals(dado.ALTERAR)){
-					getRepositorio().update(dado.getDado());
+					getRepositorio().merge(dado.getDado());
 				}else if (dado.getOperacao().equals(dado.EXCLUIR)){	
 					getRepositorio().remove(dado.getDado());
 				}
+				RepositoryManagerHibernateUtil.currentSession().flush();
+				RepositoryManagerHibernateUtil.currentSession().evict(dado.getDado());
+				RepositoryManagerHibernateUtil.currentSession().clear();
 			}
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
