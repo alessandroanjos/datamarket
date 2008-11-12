@@ -203,6 +203,9 @@
 							<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar"
 								action="#{entradaProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 							<h:commandButton styleClass="btTxt" id="botaoImprimir" action="#{entradaProdutoBB.imprimirRecibo}" value="Imprimir"></h:commandButton>
+							<h:commandButton styleClass="btTxt" id="botaoCancelar" value="Cancelar" alt="Cancelar" actionListener="#{entradaProdutoBB.cancelar}" >
+								<f:param name="idCancelarEntradaProduto" id="idCancelarEntradaProduto" value="#{entradaProdutoBB.id}" />
+							</h:commandButton>							
 						</li>
 					</ul>
 				</div>

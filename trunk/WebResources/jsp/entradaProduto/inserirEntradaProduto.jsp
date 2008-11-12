@@ -308,11 +308,11 @@
 								</h:column>
 							</t:dataTable>
 						
-						</div>
+						</div> 
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Quant. Total"></h:outputLabel>
-								<h:inputText styleClass="field monetario" id="quantidadeTotal" maxlength="10"
+								<h:inputText styleClass="field monetario" id="quantidadeTotal" maxlength="10" disabled="true"
 									size="11" value="#{entradaProdutoBB.quantidadeTotal}" 
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
 									required="false">
@@ -330,7 +330,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
-								<h:inputText styleClass="field monetario" id="icms" maxlength="10" readonly="true"
+								<h:inputText styleClass="field monetario" id="icms" maxlength="10" disabled="true"
 									size="11" value="#{entradaProdutoBB.icms}" dir="rtl"
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
 									required="false">
@@ -341,7 +341,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
-								<h:inputText styleClass="field monetario" id="ipi" maxlength="10" readonly="true"
+								<h:inputText styleClass="field monetario" id="ipi" maxlength="10" disabled="true"
 									size="11" value="#{entradaProdutoBB.ipi}" dir="rtl"
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
 									required="false">
@@ -363,7 +363,7 @@
 							</div>									
 							<div>
 								<h:outputLabel styleClass="desc" value="Valor da Nota"></h:outputLabel>
-								<h:inputText styleClass="field monetario" id="valor" maxlength="10" readonly="true"
+								<h:inputText styleClass="field monetario" id="valor" maxlength="10" disabled="true"
 									size="11" value="#{entradaProdutoBB.valor}" dir="rtl"
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
 									required="false">
