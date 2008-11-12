@@ -447,8 +447,8 @@ public class EntradaProdutoBackBean extends BackBean {
 //			Map params = context.getExternalContext().getRequestParameterMap();
 //			String param = (String) params.get("idCancelarEntradaProduto");
 			UIParameter component = (UIParameter) event.getComponent().findComponent("idCancelarEntradaProduto");
-			Long param = (Long) component.getValue();
-			if(param != null && !param.equals("")){
+			String param = (String) component.getValue();
+			if(param != null && !param.equals("")){ 
 				EntradaProduto entradaProduto = getFachada().consultarEntradaProdutoPorId(new Long(param));
 			
 				if(entradaProduto.getStatus().equals(Constantes.STATUS_CANCELADO)){
@@ -465,7 +465,6 @@ public class EntradaProdutoBackBean extends BackBean {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Operação Realizada com Sucesso!", "");
 				ctx.addMessage(null, msg);
-				resetBB();
 				consultar();
 			}else{
 				FacesContext ctx = FacesContext.getCurrentInstance();
