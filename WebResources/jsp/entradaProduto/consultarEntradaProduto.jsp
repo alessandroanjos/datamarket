@@ -159,14 +159,7 @@
 										<h:outputText value="Ativa" rendered="#{entradaProduto.status == 'A'}" />
 										<h:outputText value="Cancelada" rendered="#{entradaProduto.status == 'C'}" />
 									</h:column>	
-									<h:column>
-										<f:facet name="header">
-											<h:outputText style="align: center;" value="Ação" />
-										</f:facet>
-										<h:commandButton image="/images/excluir.png" alt="Cancelar" actionListener="#{entradaProdutoBB.cancelar}" >
-											<f:param name="idCancelarEntradaProduto" id="idCancelarEntradaProduto" value="#{entradaProduto.id}" />
-										</h:commandButton>							
-									</h:column>							
+						
 								</t:dataTable>
 								<ul>
 									<li class="normal">
