@@ -50,6 +50,7 @@ public class ClienteBackBean extends BackBean {
 	String foneCelular;
 	String pessoaContato;
 	String foneContato;
+	BigDecimal valorLimiteComprasAnterior;
 	BigDecimal valorLimiteCompras;
 	BigDecimal valorLimiteDisponivel;
 	Date dataNascimento;
@@ -328,6 +329,7 @@ public class ClienteBackBean extends BackBean {
 				this.setFoneCelular(cliente.getFoneCelular());
 				this.setPessoaContato(cliente.getPessoaContato());
 				this.setFoneContato(cliente.getFoneContato());
+				this.setValorLimiteComprasAnterior(cliente.getValorLimiteCompras());
 				this.setValorLimiteCompras(cliente.getValorLimiteCompras());
 				this.setValorLimiteDisponivel(cliente.getValorLimiteDisponivel());
 				this.setDataCadastro(cliente.getDataCadastro());
@@ -380,6 +382,7 @@ public class ClienteBackBean extends BackBean {
 						this.setFoneCelular(cliente.getFoneCelular());
 						this.setPessoaContato(cliente.getPessoaContato());
 						this.setFoneContato(cliente.getFoneContato());
+						this.setValorLimiteComprasAnterior(cliente.getValorLimiteCompras());
 						this.setValorLimiteCompras(cliente.getValorLimiteCompras());
 						this.setValorLimiteDisponivel(cliente.getValorLimiteDisponivel());
 						this.setDataCadastro(cliente.getDataCadastro());
@@ -553,12 +556,15 @@ public class ClienteBackBean extends BackBean {
 			cliente.setValorLimiteDisponivel(BigDecimal.ZERO);
 		}else{
 			cliente.setValorLimiteCompras(this.getValorLimiteCompras());
-			cliente.setValorLimiteDisponivel(this.getValorLimiteCompras());
+
+			if(acao.equals(INSERIR)){
+				cliente.setValorLimiteDisponivel(this.getValorLimiteCompras());			
+			}else if(acao.equals(ALTERAR)){
+				BigDecimal diferencaNovoLimite = this.getValorLimiteCompras().subtract(this.getValorLimiteComprasAnterior());
+				cliente.setValorLimiteDisponivel(this.getValorLimiteDisponivel().add(diferencaNovoLimite));					
+			}
 		}
 		
-//		if(this.getValorLimiteDisponivel() == null){
-//			cliente.setValorLimiteDisponivel(new BigDecimal("0"));
-//		}	
 		if(acao.equals(INSERIR)){
 			cliente.setDataCadastro(new Date(System.currentTimeMillis()));
 			if (getId()==null) cliente.setId(getIdInc(Cliente.class));
@@ -574,17 +580,7 @@ public class ClienteBackBean extends BackBean {
 			}else if(this.getIdTipoPessoa().equals(Cliente.PESSOA_FISICA)){
 				cliente.setNomeCliente(null);
 				cliente.setDataNascimento(null);
-			}
-			if (this.valorLimiteCompras == null) {
-				cliente.setValorLimiteCompras(BigDecimal.ZERO);
-				cliente.setValorLimiteDisponivel(BigDecimal.ZERO);
-			}
-			if (this.getValorLimiteDisponivel()==null) {
-				cliente.setValorLimiteDisponivel(BigDecimal.ZERO);
-			} else {
-				cliente.setValorLimiteDisponivel(this.getValorLimiteDisponivel());	
-			}
-			
+			}			
 		}
 		return cliente;
 	}
@@ -666,5 +662,13 @@ public class ClienteBackBean extends BackBean {
 				setClientes(null);
 			}
 		}
+	}
+
+	public BigDecimal getValorLimiteComprasAnterior() {
+		return valorLimiteComprasAnterior;
+	}
+
+	public void setValorLimiteComprasAnterior(BigDecimal valorLimiteComprasAnterior) {
+		this.valorLimiteComprasAnterior = valorLimiteComprasAnterior;
 	}
 }
