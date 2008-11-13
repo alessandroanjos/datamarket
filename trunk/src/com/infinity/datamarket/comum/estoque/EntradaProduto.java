@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.faces.model.SelectItem;
-
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.util.Persistente;
 
@@ -24,6 +22,7 @@ public class EntradaProduto extends Persistente{
 	private BigDecimal ipi;
 	private BigDecimal desconto;
 	private BigDecimal valor;
+	private BigDecimal quantidadeTotal;
 	private String idFornecedor;
 	private Fornecedor fornecedor;
 	
@@ -108,5 +107,11 @@ public class EntradaProduto extends Persistente{
 	 */
 	public void setIdFornecedor(String idFornecedor) {
 		this.idFornecedor = idFornecedor;
+	}
+	public BigDecimal getQuantidadeTotal() {
+		return quantidadeTotal;
+	}
+	public void setQuantidadeTotal(BigDecimal quantidadeTotal) {
+		this.quantidadeTotal = quantidadeTotal;
 	}
 }

@@ -75,20 +75,23 @@
                              winId.close();
             }
 
-			 function reCalculaTotalEntradaProdutos(){
+			 function reCalculaTotalEntradaProdutosDesconto(){
             	var valorTotalCupom = parseFloat(getId("frmInserirEntradaProdutos:valor").value);
             	var descontoCupom = parseFloat(getId("frmInserirEntradaProdutos:desconto").value);
 
-				alert("antes--> "+valorTotalCupom);
-				alert("antes--> "+descontoCupom);
-
 			    valorTotalCupom = valorTotalCupom - descontoCupom;
-
-				alert("depois--> "+valorTotalCupom);
 
 				getId("frmInserirEntradaProdutos:valor").value = valorTotalCupom.toFixed(2);
             }
             
+			 function reCalculaTotalEntradaProdutosFrete(){
+            	var valorTotalCupom = parseFloat(getId("frmInserirEntradaProdutos:valor").value);
+            	var valorFrete = parseFloat(getId("frmInserirEntradaProdutos:frete").value);
+
+			    valorTotalCupom = valorTotalCupom + valorFrete;
+
+				getId("frmInserirEntradaProdutos:valor").value = valorTotalCupom.toFixed(2);
+            }
       </script>
 	<body>
 	<div id="outer">
@@ -175,7 +178,8 @@
 								</h:selectOneMenu>
 							</div>
 						</li>	
-						<li class="normal">							
+						<li class="normal">		
+							<h:inputHidden id="valorSubTotalNota" value="#{entradaProdutoBB.valorSubTotalNota}"></h:inputHidden>					
 							<div>
 								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
 								<h:inputText styleClass="field monetario" id="quantidade" maxlength="9"
@@ -324,7 +328,7 @@
 								<h:inputText styleClass="field monetario" id="frete" maxlength="10"
 									size="11" value="#{entradaProdutoBB.frete}" 
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
-									required="false">
+									required="false" onblur="javascript:reCalculaTotalEntradaProdutosFrete();">
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 							</div>
@@ -355,7 +359,7 @@
 								<h:inputText styleClass="field monetario" id="desconto" maxlength="10"
 									size="11" value="#{entradaProdutoBB.desconto}" dir="rtl"
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
-									required="false"  onblur="javascript:reCalculaTotalEntradaProdutos();">
+									required="false" onblur="javascript:reCalculaTotalEntradaProdutosDesconto();">
 									<f:validateLength maximum="10" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
