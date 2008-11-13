@@ -179,6 +179,10 @@
 						</li>	
 						<li class="normal">
 							<div>
+								<h:outputLabel styleClass="desc" value="Quant. Total"></h:outputLabel>
+								<h:outputText value="#{entradaProdutoBB.quantidadeTotal}" />							
+							</div>
+							<div>
 								<h:outputLabel styleClass="desc" value="Frete"></h:outputLabel>
 								<h:outputText value="#{entradaProdutoBB.frete}" />							
 							</div>

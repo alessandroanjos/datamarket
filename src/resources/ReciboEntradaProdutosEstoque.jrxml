@@ -41,6 +41,7 @@
 	<parameter name="valorIPI" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="valorDesconto" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="valorTotal" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="quantidadeTotal" isForPrompting="false" class="java.lang.String"/>
 
 	<field name="produtoEntradaProduto" class="java.lang.Object"/>
 
@@ -178,9 +179,9 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="71"
+						x="56"
 						y="23"
-						width="84"
+						width="121"
 						height="15"
 						key="textField-5"/>
 					<box></box>
@@ -610,59 +611,59 @@
 						key="staticText-22"/>
 					<box></box>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Courier New" size="10" isBold="true"/>
+						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Frete:]]></text>
+				<text><![CDATA[Qtd Tot:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="109"
+						x="162"
 						y="5"
 						width="51"
 						height="15"
 						key="staticText-23"/>
 					<box></box>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Courier New" size="10" isBold="true"/>
+						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
 					</textElement>
 				<text><![CDATA[ICMS:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="210"
+						x="245"
 						y="5"
 						width="27"
 						height="15"
 						key="staticText-24"/>
 					<box></box>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Courier New" size="10" isBold="true"/>
+						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
 					</textElement>
 				<text><![CDATA[IPI:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="306"
+						x="320"
 						y="5"
 						width="73"
 						height="15"
 						key="staticText-25"/>
 					<box></box>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Courier New" size="10" isBold="true"/>
+						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Desconto:]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
-						x="416"
+						x="421"
 						y="5"
 						width="90"
 						height="15"
 						key="staticText-26"/>
 					<box leftPadding="1" rightPadding="1" topPadding="1" bottomPadding="1"></box>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Courier New" size="10" isBold="true"/>
+						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
 					</textElement>
 				<text><![CDATA[Valor Total:]]></text>
 				</staticText>
@@ -675,59 +676,59 @@
 						key="textField-21"/>
 					<box></box>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Courier New" size="10"/>
+						<font fontName="Courier New" size="9"/>
 					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[new BigDecimal($P{valorFrete}).setScale(2)]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[new BigDecimal($P{quantidadeTotal}).setScale(2)]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="R$ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="127"
+						x="180"
 						y="5"
 						width="55"
 						height="15"
 						key="textField-22"/>
 					<box></box>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Courier New" size="10"/>
+						<font fontName="Courier New" size="9"/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[new BigDecimal($P{valorICMS}).setScale(2)]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="R$ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="219"
+						x="254"
 						y="5"
 						width="55"
 						height="15"
 						key="textField-23"/>
 					<box></box>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Courier New" size="10"/>
+						<font fontName="Courier New" size="9"/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[new BigDecimal($P{valorIPI}).setScale(2)]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="R$ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="340"
+						x="360"
 						y="5"
 						width="55"
 						height="15"
 						key="textField-24"/>
 					<box></box>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Courier New" size="10"/>
+						<font fontName="Courier New" size="9"/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[new BigDecimal($P{valorDesconto}).setScale(2)]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="R$ #,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="448"
+						x="453"
 						y="5"
 						width="84"
 						height="15"
 						key="textField-25"/>
 					<box leftPadding="1" rightPadding="1" topPadding="1" bottomPadding="1"></box>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Courier New" size="10"/>
+						<font fontName="Courier New" size="9"/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[new BigDecimal($P{valorTotal}).setScale(2)]]></textFieldExpression>
 				</textField>
@@ -740,6 +741,32 @@
 						key="line-5"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
+				<staticText>
+					<reportElement
+						x="81"
+						y="5"
+						width="60"
+						height="15"
+						key="staticText-29"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="9" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Frete:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="R$ #,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="102"
+						y="5"
+						width="55"
+						height="15"
+						key="textField-28"/>
+					<box></box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Courier New" size="9"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[new BigDecimal($P{valorFrete}).setScale(2)]]></textFieldExpression>
+				</textField>
 			</band>
 		</summary>
 </jasperReport>

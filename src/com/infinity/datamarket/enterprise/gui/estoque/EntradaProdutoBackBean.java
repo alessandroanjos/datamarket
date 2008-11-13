@@ -53,7 +53,9 @@ public class EntradaProdutoBackBean extends BackBean {
 	private BigDecimal ipi	 = BigDecimal.ZERO;
 	private BigDecimal desconto = BigDecimal.ZERO;
 	private BigDecimal valor    = BigDecimal.ZERO;
-	private BigDecimal valorNota= BigDecimal.ZERO;
+	private BigDecimal valorNota = BigDecimal.ZERO;
+	private BigDecimal valorSubTotalNota = BigDecimal.ZERO;
+	
 	private String idFornecedor;
 	private String nomeFornecedor;
 	private Fornecedor fornecedor;
@@ -128,6 +130,7 @@ public class EntradaProdutoBackBean extends BackBean {
 				}
 				
 				this.setValor(getValorNota());
+				this.setValorSubTotalNota(this.getValorSubTotalNota().subtract(produtoTmp.getTotal()));
 				
 				if (getValor().longValue() >= (this.getDesconto().longValue() - getValor().longValue()))
 				this.setValor(getValor().subtract(this.getDesconto()));
@@ -222,6 +225,7 @@ public class EntradaProdutoBackBean extends BackBean {
 			arrayProduto.add(produtoEntrada);
 			this.setValorNota(getValor().add(produtoEntrada.getTotal()));
 			this.setValor(getValorNota());
+			this.setValorSubTotalNota(this.getValorSubTotalNota().add(produtoEntrada.getTotal()));
 			
 //			if (getValor().longValue() >= (this.getDesconto().longValue() - getValor().longValue()))
 //			this.setValor(getValor().subtract(this.getDesconto()));
@@ -326,6 +330,8 @@ public class EntradaProdutoBackBean extends BackBean {
 			entradaProduto.setValor(this.valorNota);//.subtract(getDesconto()));
 		}
 		
+		entradaProduto.setQuantidadeTotal(this.getQuantidadeTotal().setScale(3));
+		
 		entradaProduto.setIdFornecedor(this.idFornecedor);
 
 		Fornecedor fornecedor = null;
@@ -401,6 +407,9 @@ public class EntradaProdutoBackBean extends BackBean {
 		entradaProduto.setIpi(this.ipi);
 		entradaProduto.setDesconto(this.desconto);
 		entradaProduto.setValor(this.valor);
+		
+		entradaProduto.setQuantidadeTotal(this.getQuantidadeTotal().setScale(3));
+		
 		entradaProduto.setFornecedor(this.fornecedor);
 		
 		/*Loja loja = new Loja();
@@ -515,6 +524,7 @@ public class EntradaProdutoBackBean extends BackBean {
 				this.setIpi(entradaProduto.getIpi());
 				this.setDesconto(entradaProduto.getDesconto());
 				this.setValor(entradaProduto.getValor());
+				this.setQuantidadeTotal(entradaProduto.getQuantidadeTotal().setScale(3));
 				this.setFornecedor(entradaProduto.getFornecedor());
 				
 				if(entradaProduto.getFornecedor() != null){
@@ -607,6 +617,7 @@ public class EntradaProdutoBackBean extends BackBean {
 				this.setIpi(entradaProduto.getIpi());
 				this.setDesconto(entradaProduto.getDesconto());
 				this.setValor(entradaProduto.getValor());
+				this.setQuantidadeTotal(entradaProduto.getQuantidadeTotal().setScale(3));
 				this.setFornecedor(entradaProduto.getFornecedor());
 				if(entradaProduto.getFornecedor() != null){
 					if(entradaProduto.getFornecedor().getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
@@ -736,6 +747,7 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setIcms(BigDecimal.ZERO.setScale(2));
 		this.setIpi(BigDecimal.ZERO.setScale(2));
 		this.setValor(BigDecimal.ZERO.setScale(2));
+		this.setQuantidadeTotal(BigDecimal.ZERO.setScale(3));
     }
 	 
 	public String voltarConsulta() {
@@ -1199,5 +1211,11 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
 	public void setQuantidadeTotal(BigDecimal quantidadeTotal) {
 		this.quantidadeTotal = quantidadeTotal;
+	}
+	public BigDecimal getValorSubTotalNota() {
+		return valorSubTotalNota;
+	}
+	public void setValorSubTotalNota(BigDecimal valorSubTotalNota) {
+		this.valorSubTotalNota = valorSubTotalNota;
 	}
 }
