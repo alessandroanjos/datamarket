@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="Recibo Venda"
+		 name="RelatorioAnaliticoEntrada"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Landscape"
@@ -37,7 +37,7 @@
 	<field name="DATA_EMISSAO_NOTA" class="java.util.Date"/>
 	<field name="NUM_ENTRADA" class="java.lang.Integer"/>
 	<field name="NUMERO_NOTA" class="java.lang.String"/>
-	<field name="RAZAO_SOCIAL" class="java.lang.String"/>
+	<field name="FORNECEDOR" class="java.lang.String"/>
 	<field name="VALOR" class="java.math.BigDecimal"/>
 	<field name="ICMS" class="java.math.BigDecimal"/>
 	<field name="IPI" class="java.math.BigDecimal"/>
@@ -49,6 +49,8 @@
 	<field name="ICMS_ITEM" class="java.math.BigDecimal"/>
 	<field name="ESTOQUE" class="java.lang.String"/>
 	<field name="ID" class="java.lang.Integer"/>
+	<field name="STATUS" class="java.lang.String"/>
+	<field name="QUANTIDADE_TOTAL" class="java.math.BigDecimal"/>
 
 	<variable name="totalGeral" class="java.math.BigDecimal" resetType="Report" incrementType="Group" incrementGroup="cupomGroup" calculation="Sum">
 		<variableExpression><![CDATA[$F{VALOR}]]></variableExpression>
@@ -136,8 +138,8 @@
 			<band height="37"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="30"
-						y="3"
+						x="669"
+						y="2"
 						width="37"
 						height="16"
 						key="staticText-5"/>
@@ -145,12 +147,12 @@
 					<textElement>
 						<font fontName="Courier New"/>
 					</textElement>
-				<text><![CDATA[Nota:]]></text>
+				<text><![CDATA[Status:]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="67"
-						y="3"
+						x="706"
+						y="2"
 						width="70"
 						height="16"
 						key="textField-4"/>
@@ -158,7 +160,7 @@
 					<textElement>
 						<font fontName="Courier New"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NUMERO_NOTA}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{STATUS}]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -260,14 +262,14 @@
 					<reportElement
 						x="525"
 						y="2"
-						width="258"
+						width="144"
 						height="16"
 						key="textField-19"/>
 					<box></box>
 					<textElement>
 						<font fontName="Courier New"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{RAZAO_SOCIAL}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{FORNECEDOR}]]></textFieldExpression>
 				</textField>
 				<line direction="TopDown">
 					<reportElement
@@ -537,6 +539,32 @@
 						<font fontName="Courier New"/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{FRETE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="123"
+						y="1"
+						width="84"
+						height="16"
+						key="staticText-30"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New"/>
+					</textElement>
+				<text><![CDATA[Quant. Total:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="#,##0.000;-#,##0.000" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="207"
+						y="1"
+						width="74"
+						height="16"
+						key="textField-30"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{QUANTIDADE_TOTAL}]]></textFieldExpression>
 				</textField>
 			</band>
 			</groupFooter>
