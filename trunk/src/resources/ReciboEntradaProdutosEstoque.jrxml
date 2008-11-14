@@ -42,6 +42,7 @@
 	<parameter name="valorDesconto" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="valorTotal" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="quantidadeTotal" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="status" isForPrompting="false" class="java.lang.String"/>
 
 	<field name="produtoEntradaProduto" class="java.lang.Object"/>
 
@@ -179,9 +180,9 @@
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="56"
+						x="77"
 						y="23"
-						width="121"
+						width="86"
 						height="15"
 						key="textField-5"/>
 					<box></box>
@@ -319,6 +320,32 @@
 						<font fontName="Courier New" size="10"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{foneContato}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="175"
+						y="23"
+						width="45"
+						height="15"
+						key="staticText-30"/>
+					<box></box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Status:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="210"
+						y="23"
+						width="64"
+						height="15"
+						key="textField-29"/>
+					<box></box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Courier New" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{status}]]></textFieldExpression>
 				</textField>
 			</band>
 		</pageHeader>

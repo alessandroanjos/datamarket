@@ -2091,7 +2091,7 @@
 		    <property-name>valor</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
 		    <value>0.00</value>
-		</managed-property>`
+		</managed-property>
 		
 		<managed-property>
 		    <property-name>idFornecedor</property-name>

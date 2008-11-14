@@ -52,6 +52,7 @@ import com.infinity.datamarket.comum.transacao.EventoTransacao;
 import com.infinity.datamarket.comum.transacao.TransacaoPagamentoCartaoProprio;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.comum.util.JExtenso;
 import com.infinity.datamarket.comum.util.Queries;
 import com.infinity.datamarket.comum.util.Util;
@@ -306,6 +307,7 @@ public class GerenciadorRelatorio {
 			parametros.put("valorDesconto", entradaProduto.getDesconto() != null ? entradaProduto.getDesconto().setScale(2).toString(): BigDecimal.ZERO.setScale(2).toString());
 			parametros.put("valorTotal", entradaProduto.getValor() != null ? entradaProduto.getValor().setScale(2).toString(): BigDecimal.ZERO.setScale(2).toString());
 			parametros.put("quantidadeTotal", entradaProduto.getQuantidadeTotal() != null ? entradaProduto.getQuantidadeTotal().setScale(3).toString(): BigDecimal.ZERO.setScale(3).toString());
+			parametros.put("status", entradaProduto.getStatus().equals(Constantes.STATUS_ATIVO) ? "Ativa" : "Cancelada");
 			
 			Iterator it = parametros.entrySet().iterator();
 
@@ -392,7 +394,7 @@ public class GerenciadorRelatorio {
    		return out;
 	}
 	
-public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, Date data_fim_movimento) throws AppException{
+public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, Date data_fim_movimento, String status) throws AppException{
 		
 		OutputStream out  = new ByteArrayOutputStream();
 		ResultSet rs = null;
@@ -425,6 +427,8 @@ public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, 
 			
 			pstm.setDate(1,new java.sql.Date(dataInicio.getTime()));			
 			pstm.setDate(2,new java.sql.Date(dataFim.getTime()));
+			
+			pstm.setString(3, status);
 			
 			rs = pstm.executeQuery();
 				

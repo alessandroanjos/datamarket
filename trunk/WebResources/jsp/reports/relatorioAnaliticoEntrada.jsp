@@ -42,15 +42,7 @@
 							<fieldset>
 								<legend>Opções de filtro:</legend>
 								<ul>								
-									<li class="normal">
-										<div>
-											<h:outputLabel styleClass="desc" value="Loja" rendered="false"></h:outputLabel>										
-											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{relatorioBB.idLoja}" rendered="false">  
-												<f:selectItems id="lojasSelectItems" value="#{relatorioBB.lojas}" />   
-											</h:selectOneMenu>
-										</div>
-										<br />															
-										<br />
+									<li class="normal">										
 										<div>
 											<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataInicial" maxlength="10" size="10" required="false"
@@ -65,6 +57,14 @@
 												<f:convertDateTime timeZone="GMT-3"/>
 											</h:inputText>										
 										</div>										
+										<br />
+										<br />
+										<div>	
+											<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
+											<h:selectOneMenu id="idStatus" style="width: 200px;" value="#{relatorioBB.idStatus}"> 
+												<f:selectItems id="statusSelectItems" value="#{relatorioBB.listaStatus}" />   
+											</h:selectOneMenu>
+										</div>	
 									</li>
 								</ul>
 							</fieldset>	

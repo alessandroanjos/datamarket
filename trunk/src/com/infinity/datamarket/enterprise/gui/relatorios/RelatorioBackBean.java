@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class RelatorioBackBean extends BackBean {
@@ -24,6 +25,10 @@ public class RelatorioBackBean extends BackBean {
 	Date dataFinal;
 	
 	String idLoja;
+	
+	private String idStatus;
+	private SelectItem[] listaStatus;
+    
 	
 	SelectItem[] lojas;
 
@@ -93,17 +98,49 @@ public class RelatorioBackBean extends BackBean {
 	public void setDataInicial(Date dataInicial) {
 		this.dataInicial = dataInicial;
 	}
+	
+	public String getIdStatus() {
+		return idStatus;
+	}
+
+	public void setIdStatus(String idStatus) {
+		this.idStatus = idStatus;
+	}
+
+	public void setListaStatus(SelectItem[] listaStatus) {
+		this.listaStatus = listaStatus;
+	}
+
+	public SelectItem[] getListaStatus() {
+		SelectItem[] lista = new SelectItem[3];
+		lista[0] = new SelectItem("T", "Todas");
+		lista[1] = new SelectItem(Constantes.STATUS_ATIVO, "Ativa");
+		lista[2] = new SelectItem(Constantes.STATUS_CANCELADO, "Cancelada");
+		if(this.getIdStatus() == null || this.getIdStatus().equals("")){
+			this.setIdStatus("T");
+		}
+		return lista;
+	}
 
 	public void executarRelatorioAnaliticoEntrada(){
 		try {
 			validarRelatorioAnaliticoEntrada();
+			
+			String status = "";
+			
+			if(this.getIdStatus().equals("T")){
+				status = Constantes.STATUS_ATIVO + "', '" + Constantes.STATUS_CANCELADO;				
+			}else{
+				status = this.getIdStatus();
+			}
 
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
 			ServletOutputStream out = response.getOutputStream();
 			ByteArrayOutputStream byteOutputStream = 
 				(ByteArrayOutputStream)getFachada().gerarRelatorioAnaliticoEntradas(this.getDataInicial(), 
-																				    this.getDataFinal());
+																				    this.getDataFinal(),
+																				    status);
 			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
 			response.setContentType("application/pdf");
 			response.setHeader("Content-disposition", "attachment;filename=RelatorioAnaliticoEntrada" + System.currentTimeMillis() + ".pdf");
