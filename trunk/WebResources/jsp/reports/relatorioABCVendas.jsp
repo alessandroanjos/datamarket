@@ -84,8 +84,8 @@
 									</div>
 								</li>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" action="#{relatorioBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoRelatorio" action="#{relatorioBB.executarRelatorioAnaliticoMovimentacaoEstoque}" value="Relatório"></h:commandButton>
+									<h:commandButton styleClass="btTxt" action="#{relatorioBB.limparRelatorioABCVendas}" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoRelatorio" action="#{relatorioBB.executarRelatorioABCVendas}" value="Relatório"></h:commandButton>
 								</li>						
 							</ul>
 						</div>
