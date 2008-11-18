@@ -285,6 +285,51 @@ public class RelatorioBackBean extends BackBean {
 		}
 	}
 	
+	public void executarRelatorioABCVendas(){
+//		try {
+//			validarRelatorioABCVendas();
+//			
+//			String status = "";
+//			
+//			if(this.getIdStatus().equals("T")){
+//				status = Constantes.STATUS_ATIVO + "', '" + Constantes.STATUS_CANCELADO;				
+//			}else{
+//				status = this.getIdStatus();
+//			}
+//
+//			FacesContext context = FacesContext.getCurrentInstance();
+//			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+//			ServletOutputStream out = response.getOutputStream();
+//			ByteArrayOutputStream byteOutputStream = 
+//				(ByteArrayOutputStream)getFachada().gerarRelatorioAnaliticoEntradas(this.getDataInicial(), 
+//																				    this.getDataFinal(),
+//																				    status);
+//			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
+//			response.setContentType("application/pdf");
+//			response.setHeader("Content-disposition", "attachment;filename=RelatorioAnaliticoEntrada" + System.currentTimeMillis() + ".pdf");
+//			context.responseComplete();
+//			out.flush();
+//			out.close();			
+//		} catch (AppException e) {
+//			e.printStackTrace();
+//			FacesContext ctx = FacesContext.getCurrentInstance();
+//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+//					e.getMessage(), "");
+//			ctx.addMessage(null, msg);
+//		} catch (IOException e) {			
+//			e.printStackTrace();
+//			e.printStackTrace();
+//			FacesContext ctx = FacesContext.getCurrentInstance();
+//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+//					"Erro ao executar o Relatório!", "");
+//			ctx.addMessage(null, msg);
+//		}
+	}
+	
+	public void validarRelatorioABCVendas() throws AppException{
+		validaPeriodo();
+	}
+	
 	public void validarRelatorioAnaliticoEntrada() throws AppException{
 		validaPeriodo();
 	}
@@ -327,6 +372,19 @@ public class RelatorioBackBean extends BackBean {
 //				setListaUsuarios(null);
 //			}
 		}
+	}
+	
+	public void limparRelatorioABCVendas(){
+		resetBB();
+		setIdTipoOrdenacao(Constantes.CONSTANTE_VALOR);
+	}
+	
+	public void limparRelatorioAnaliticoFechamentoVenda(){
+		resetBB();
+	}
+	
+	public void limparRelatorioAnaliticoOperacoesDevolucao(){
+		resetBB();
 	}
 	
 	public void resetBB(){
