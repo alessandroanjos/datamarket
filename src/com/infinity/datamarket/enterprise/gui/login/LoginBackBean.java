@@ -9,6 +9,7 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.custom.navmenu.NavigationMenuItem;
+import org.hibernate.JDBCException;
 
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -59,8 +60,13 @@ public class LoginBackBean extends BackBean{
 			return "erro";
 		}catch(AppException e){
 			FacesContext ctx = FacesContext.getCurrentInstance();
+			String msgErro = e.getMessage();
+			if(e.getCause() instanceof JDBCException){
+				msgErro = "Erro de comunicação com o Banco de Dados.";
+			}
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(),"");
+					msgErro,"");
 			ctx.addMessage(null, msg);
 			resetBB();
 			return "erro";
