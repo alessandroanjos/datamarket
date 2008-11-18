@@ -29,6 +29,8 @@ public class RelatorioBackBean extends BackBean {
 	private String idStatus;
 	private SelectItem[] listaStatus;
     
+	private String idTipoOrdenacao;
+	private SelectItem[] listaTiposOrdenacao;
 	
 	SelectItem[] lojas;
 
@@ -118,6 +120,28 @@ public class RelatorioBackBean extends BackBean {
 		lista[2] = new SelectItem(Constantes.STATUS_CANCELADO, "Cancelada");
 		if(this.getIdStatus() == null || this.getIdStatus().equals("")){
 			this.setIdStatus("T");
+		}
+		return lista;
+	}
+
+	public String getIdTipoOrdenacao() {
+		return idTipoOrdenacao;
+	}
+
+	public void setIdTipoOrdenacao(String idTipoOrdenacao) {
+		this.idTipoOrdenacao = idTipoOrdenacao;
+	}
+
+	public void setListaTiposOrdenacao(SelectItem[] listaTiposOrdenacao) {
+		this.listaTiposOrdenacao = listaTiposOrdenacao;
+	}
+
+	public SelectItem[] getListaTiposOrdenacao() {
+		SelectItem[] lista = new SelectItem[2];
+		lista[0] = new SelectItem(Constantes.CONSTANTE_VALOR, "Valor");
+		lista[1] = new SelectItem(Constantes.CONSTANTE_QUANTIDADE, "Quantidade");
+		if(this.getIdStatus() == null || this.getIdStatus().equals("")){
+			this.setIdStatus(Constantes.CONSTANTE_VALOR);
 		}
 		return lista;
 	}
