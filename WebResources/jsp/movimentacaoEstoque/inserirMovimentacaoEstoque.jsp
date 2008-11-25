@@ -66,7 +66,7 @@
              function setAtributo(idProduto,descricao) {
                              var form = document.forms[formId];   
                              form[formId+":idProduto"].value=idProduto; 
-                             form[formId+":descricao"].value=descricao;
+                             form[formId+":descricaoCompletaEstoque"].value=descricao;
                              form[formId+":quantidade"].focus();
                              winId.close();
             }
@@ -137,8 +137,8 @@
 							</div>	
 							<div>		
 								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-								<h:inputText styleClass="field text" id="descricao" 
-									maxlength="50" size="50" value="#{movimentacaoEstoqueBB.descricao}">
+								<h:inputText styleClass="field text" id="descricaoCompletaEstoque" 
+									maxlength="50" size="50" readonly="true" value="#{movimentacaoEstoqueBB.descricaoCompletaEstoque}">
 									<f:validateLength maximum="50" /> 
 								</h:inputText>
 							</div>	

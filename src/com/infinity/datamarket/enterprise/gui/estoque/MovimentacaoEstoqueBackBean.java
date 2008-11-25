@@ -968,7 +968,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			try {
 				Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
 				if(prod != null){
-					this.setDescricao(prod.getDescricaoCompleta());
+					this.setDescricaoCompletaEstoque(prod.getDescricaoCompleta());
 //					this.setPrecoVenda(prod.getPrecoPadrao());
 					
 				}

@@ -58,7 +58,7 @@
 	      			// Formulário escondido
 	                hform=document.forms[form];   
                  }else{
-					document.forms["frmInserirAjusteEstoque"].action = "/EnterpriseServer/jsp/ajusteEstoque/inserirAjusteEstoque.faces?acaoLocal=pesquisarProdutos&codigoProduto="+getId("frmInserirAjusteEstoque:idProduto").value;
+					document.forms["frmInserirAjusteEstoque"].action = "/EnterpriseServer/jsp/ajusteEstoque/inserirAjusteEstoque.faces?acao=pesquisarProdutos&codigoProduto="+getId("frmInserirAjusteEstoque:idProduto").value;
 					document.forms["frmInserirAjusteEstoque"].submit();
                 }             
             }
@@ -141,16 +141,13 @@
 							 <div>
 								<h:outputLabel styleClass="desc" value="Qtd. Atual"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeAntes"  readonly="true" maxlength="7"
-									size="10" value="#{ajusteEstoqueBB.quantidadeAntes}" 
-									onkeydown="returnQTD(BackSpace(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));" >
+									size="10" value="#{ajusteEstoqueBB.quantidadeAntes}">
 									<f:validateLength maximum="7" />
-									<f:validateDoubleRange minimum="0.000" maximum="9999.999" />
-									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
 								<h:message for="quantidadeAntes" styleClass="msgErro" />
 							</div>
 							<div>
-								<h:outputLabel styleClass="desc" value="Qtd. Depois"></h:outputLabel>
+								<h:outputLabel styleClass="desc" value="Qtd. Depois*"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeDepois" maxlength="7"
 									size="10" value="#{ajusteEstoqueBB.quantidadeDepois}" 
 									onkeydown="returnQTD(BackSpace(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));" >
