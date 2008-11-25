@@ -272,6 +272,9 @@ public class AjusteEstoqueBackBean extends BackBean {
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			if  (e instanceof ObjectNotFoundException) {
+				this.setDescricao(null);
+				this.setQuantidadeAntes(null);
+				this.setQuantidadeDepois(null);
 				FacesContext ctx = FacesContext.getCurrentInstance();
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Produto não encontrado!", "");
@@ -528,6 +531,7 @@ public class AjusteEstoqueBackBean extends BackBean {
 	private String BUSCA_QTD_ANTES = "buscaQtdAntes";
 	private String ESTOQUE = "frmInserirAjusteEstoque:idEstoque";
 	private String PRODUTO = "frmInserirAjusteEstoque:idProduto";
+	private String BUSCA_POPUP = "pesquisarProdutos";
 	/**
 	 * @param init the init to set
 	 */
@@ -537,10 +541,11 @@ public class AjusteEstoqueBackBean extends BackBean {
 		String param = (String)  params.get(ACAO);
 		
 		if (param != null){
-			resetBB();
+			
 			if(VALOR_ACAO.equals(param)){
+				resetBB();
 				setAjusteEstoques(null);
-			} else if (BUSCA_QTD_ANTES.equals(param)) {
+			} else if ((BUSCA_QTD_ANTES.equals(param)) || (BUSCA_POPUP.equals(param))) {
 				try {
 					String paramEstoque = (String)  params.get(ESTOQUE);
 					setIdEstoque(paramEstoque);
@@ -553,6 +558,8 @@ public class AjusteEstoqueBackBean extends BackBean {
 				} catch (AppException e) {
 					// TODO Auto-generated catch block
 					if  (e instanceof ObjectNotFoundException) {
+						this.setDescricao(null);
+						this.setQuantidadeAntes(null);
 						FacesContext ctx = FacesContext.getCurrentInstance();
 						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 								"Produto não encontrado!", "");
@@ -563,17 +570,6 @@ public class AjusteEstoqueBackBean extends BackBean {
 								e.getMessage(), "");
 						ctx.addMessage(null, msg);
 					}	
-				}
-			}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
-				try {
-					Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
-					if(prod != null){
-						this.setDescricao(prod.getDescricaoCompleta());
-//						this.setPrecoVenda(prod.getPrecoPadrao());
-						
-					}
-				} catch (Exception e) {				
-					e.printStackTrace();			
 				}
 			}
 		}
