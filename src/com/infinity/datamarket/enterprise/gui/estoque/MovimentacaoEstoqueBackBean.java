@@ -400,11 +400,11 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			} else {
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(MovimentacaoEstoque.class);
-				Loja loja = buscaLoja(getIdLoja());
+				Loja loja = buscaLoja(getIdEstoque());
 				if (tipoMovimentacao.equals(TIPO_ENTRADA)) {
-					filter.addProperty("estoqueEntrada.pk.loja", loja);
+					filter.addProperty("estoqueEntrada.pk.id", loja);
 				} else {
-					filter.addProperty("estoqueSaida.pk.loja", loja);
+					filter.addProperty("estoqueSaida.pk.id", loja);
 				}
 				
 				if (getId() != null && !"".equals(getId())) {
@@ -655,7 +655,12 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		resetProdutoBB();
 		return "mesma";
 	}
-    
+    public String resetConsultaBB() {
+		this.setDataInicio(null);
+		this.setDataFinal(null);
+		this.setMovimentacaoEstoque(null);
+		return "mesma";
+    }
 	public String voltarConsulta() {
 		consultar();
 		resetProdutoBB();

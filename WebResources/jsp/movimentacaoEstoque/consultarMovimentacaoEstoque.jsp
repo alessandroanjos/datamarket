@@ -61,11 +61,11 @@
 													value="#{movimentacaoEstoqueBB.dataFinal}" id="dataFinal" />
 											</div>
 											<div>
-												<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
-												<h:selectOneMenu id="idLoja" styleClass="field select"
-													value="#{movimentacaoEstoqueBB.idLoja}" >   
-														  <f:selectItems id="lojaSelectItems" 
-														  value="#{movimentacaoEstoqueBB.lojas}" />   
+												<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
+												<h:selectOneMenu id="idEstoque" styleClass="field select"
+													value="#{movimentacaoEstoqueBB.idEstoque}" >   
+														  <f:selectItems id="estoqueSelectItems" 
+														  value="#{movimentacaoEstoqueBB.estoques}" />   
 												</h:selectOneMenu> 
 											</div>	
 											<div>
@@ -114,7 +114,7 @@
 							</div>
 							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" action="#{movimentacaoEstoqueBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" action="#{movimentacaoEstoqueBB.resetConsultaBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{movimentacaoEstoqueBB.consultar}" value="Consultar"></h:commandButton>
 								</li>						
 							</ul>
