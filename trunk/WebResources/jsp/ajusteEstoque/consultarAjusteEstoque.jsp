@@ -59,6 +59,7 @@
 													onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 													value="#{ajusteEstoqueBB.dataFinal}" id="dataFinal" />
 											</div>
+											<!-- 
 											<div>
 												<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
 												<h:selectOneMenu id="idEstoque" styleClass="field text"
@@ -66,7 +67,8 @@
 													<f:selectItems id="estoqueSelectItems"
 														value="#{ajusteEstoqueBB.estoques}" />
 												</h:selectOneMenu>
-											</div>								
+											</div>
+											 -->								
 									</li>
 								</ul>
 							</fieldset>	
