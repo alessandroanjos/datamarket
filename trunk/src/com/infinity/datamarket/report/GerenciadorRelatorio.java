@@ -394,7 +394,7 @@ public class GerenciadorRelatorio {
    		return out;
 	}
 	
-public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, Date data_fim_movimento, String status) throws AppException{
+public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, Date data_fim_movimento, String[] status) throws AppException{
 		
 		OutputStream out  = new ByteArrayOutputStream();
 		ResultSet rs = null;
@@ -428,7 +428,12 @@ public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, 
 			pstm.setDate(1,new java.sql.Date(dataInicio.getTime()));			
 			pstm.setDate(2,new java.sql.Date(dataFim.getTime()));
 			
-			pstm.setString(3, status);
+			if(status.length == 2){
+				pstm.setString(3, status[0]+","+status[1]);
+			}else{
+				pstm.setString(3, status[0]);
+			}
+			
 			
 			rs = pstm.executeQuery();
 				

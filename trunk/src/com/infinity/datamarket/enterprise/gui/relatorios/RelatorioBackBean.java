@@ -150,12 +150,12 @@ public class RelatorioBackBean extends BackBean {
 		try {
 			validarRelatorioAnaliticoEntrada();
 			
-			String status = "";
+			String[] status = null; 
 			
 			if(this.getIdStatus().equals("T")){
-				status = Constantes.STATUS_ATIVO + "', '" + Constantes.STATUS_CANCELADO;				
+				status = new String[]{Constantes.STATUS_ATIVO,Constantes.STATUS_CANCELADO};				
 			}else{
-				status = this.getIdStatus();
+				status = new String[]{this.getIdStatus()};
 			}
 
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -397,4 +397,10 @@ public class RelatorioBackBean extends BackBean {
 //		this.dataFinal = null;
 	}
 
+	public static void main(String[] args) {
+		String[] status = new String[]{Constantes.STATUS_ATIVO,Constantes.STATUS_CANCELADO};
+		System.out.println(status);
+		System.out.println(status.toString());
+		System.out.println(status[0]+","+status[1]);
+	}
 }
