@@ -291,7 +291,7 @@ public class Fachada {
 		return out;
 	}
 	
-	public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento,Date data_fim_movimento, String status) throws AppException{		
+	public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento,Date data_fim_movimento, String[] status) throws AppException{		
 		OutputStream out = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
