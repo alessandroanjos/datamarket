@@ -261,6 +261,7 @@ public class LoginBackBean extends BackBean{
 //		} catch (Throwable t) {
 //			t.printStackTrace();
 //		}
+		logout();
 	}
 }
 
