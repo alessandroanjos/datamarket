@@ -19,8 +19,8 @@ import com.infinity.datamarket.comum.util.ConcentradorParametro;
 
 @Stateless
 public class ClienteServer implements ClienteServerLocal, ClienteServerRemote {
-	
-	public ClienteTransacao consultarClienteTransacaoPorID(String id) throws AppException{		
+
+	public ClienteTransacao consultarClienteTransacaoPorID(String id) throws AppException{
 		return Fachada.getInstancia().consultarClienteTransacaoPorID(id);
 	}
 }
