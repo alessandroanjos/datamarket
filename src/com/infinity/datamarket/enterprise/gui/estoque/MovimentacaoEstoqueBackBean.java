@@ -105,14 +105,11 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 
 	public String inserirProduto() { 
 		
-		
-		
 		if (arrayProduto==null){
 			arrayProduto = new HashSet<ProdutoMovimentacaoEstoque>();
 		}	
         
 		Produto produto = null;
-		
 		try {
 			produto = Fachada.getInstancia().consultarProdutoPorPK(new Long(this.idProduto));
 		} catch (NumberFormatException e) {
@@ -152,28 +149,33 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		}
 		
 		int i=0;
+//		for (Iterator iter = arrayProduto.iterator(); iter.hasNext();) {
+//			ProdutoMovimentacaoEstoque produtoTmp = (ProdutoMovimentacaoEstoque) iter.next();
+//			if (produtoTmp.getProduto().getId().equals(produto.getId())) {
+//				arrayProduto.remove(produtoTmp);
+//				break;
+//			}
+//			i++;
+//		}
+		
 		for (Iterator iter = arrayProduto.iterator(); iter.hasNext();) {
 			ProdutoMovimentacaoEstoque produtoTmp = (ProdutoMovimentacaoEstoque) iter.next();
-			if (produtoTmp.getProduto().getId().equals(produto.getId())) {
-				arrayProduto.remove(produtoTmp);
-				break;
+			if (produtoTmp.getPk().getNumeroEntrada() > i) {
+				i = produtoTmp.getPk().getNumeroEntrada();
 			}
-			i++;
-		}
+		}		
 		
 		BigDecimal qtdMovimento = new BigDecimal(this.quantidade);
-		
-		
 		
 		ProdutoMovimentacaoEstoque produtoMovimentacaoEstoque = new ProdutoMovimentacaoEstoque();
 		produtoMovimentacaoEstoque.setProduto(produto);
 		produtoMovimentacaoEstoque.setQuantidade(qtdMovimento);
 		
 		ProdutoMovimentacaoEstoquePK produtoMovimentacaoEstoquePK = new ProdutoMovimentacaoEstoquePK();
-		produtoMovimentacaoEstoquePK.setNumeroEntrada(i);
+//		produtoMovimentacaoEstoquePK.setNumeroEntrada(i);
+		produtoMovimentacaoEstoquePK.setNumeroEntrada(++i);
 		produtoMovimentacaoEstoque.setPk(produtoMovimentacaoEstoquePK);
-		
-		
+
 		arrayProduto.add(produtoMovimentacaoEstoque);
 		resetProdutoBB();
 		return "mesma";
