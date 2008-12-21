@@ -399,6 +399,7 @@ public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, 
 		OutputStream out  = new ByteArrayOutputStream();
 		ResultSet rs = null;
 		PreparedStatement pstm = null;
+
 		try{
 			Map parametros = new HashMap();
 
@@ -407,7 +408,19 @@ public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, 
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioAnaliticoEntrada.jasper");
             					
 			Connection con = getConnection();
-			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_ENTRADAS);
+			
+			String sql = Queries.RELATORIO_ANALITICO_ENTRADAS;
+			
+			if(status.length == 2){
+				String statusTmp = "(\'" + status[0] + "\',\'" + status[1] + "\')";
+				sql = sql.replace("(?)", statusTmp);
+//				sql = sql.replaceAll("(?)", statusTmp);
+			}else{
+				sql = sql.replace(" IN (?)", " = \'" + status[0] + "\'");
+			}			
+
+			
+			pstm = con.prepareStatement(sql);
 			
 			//data inicio
 			Calendar c = new GregorianCalendar();
@@ -427,18 +440,12 @@ public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, 
 			
 			pstm.setDate(1,new java.sql.Date(dataInicio.getTime()));			
 			pstm.setDate(2,new java.sql.Date(dataFim.getTime()));
-			
-			if(status.length == 2){
-				pstm.setString(3, status[0]+","+status[1]);
-			}else{
-				pstm.setString(3, status[0]);
-			}
-			
+		
+			System.out.println(sql);
 			
 			rs = pstm.executeQuery();
 				
-			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
-	
+			JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
 			
             JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);
             
