@@ -2098,9 +2098,11 @@ public class TransacaoBackBean extends BackBean {
 				conj.add((EventoItemRegistrado)itItensTransacao.next());
 			}
 			
-			itItensTransacao = this.getItensTransacaoModificados().iterator();
-			while(itItensTransacao.hasNext()){
-				conj.add((EventoItemRegistrado)itItensTransacao.next());
+			if(this.getItensTransacaoModificados() != null){
+				itItensTransacao = this.getItensTransacaoModificados().iterator();
+				while(itItensTransacao.hasNext()){
+					conj.add((EventoItemRegistrado)itItensTransacao.next());
+				}
 			}
 
 			Iterator itItensPagamento = this.getItensPagamento().iterator();
