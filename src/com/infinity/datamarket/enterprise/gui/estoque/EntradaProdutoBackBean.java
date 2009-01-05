@@ -274,7 +274,7 @@ public class EntradaProdutoBackBean extends BackBean {
 			msg = 	"Informe o Código do Produto!";
 		} else if (this.quantidade == null || "".equals(this.quantidade) || this.quantidade.equals(BigDecimal.ZERO)) {
 			msg = 	"A Quantidade do Produto deve ser informada!";
-		} else if (this.precoUnitario == null || "".equals(this.precoUnitario) || this.precoUnitario.equals(BigDecimal.ZERO)) {
+		} else if (this.precoUnitario == null || "".equals(this.precoUnitario)){// || this.precoUnitario.equals(BigDecimal.ZERO)) {
 			msg = 	"O Preço Unitário do Produto deve ser informado!";
 		} else if (this.descontoProduto != null && !"".equals(this.descontoProduto)) {
 			BigDecimal tmpTotalProduto = this.precoUnitario.multiply(this.quantidade);

@@ -425,9 +425,9 @@
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Quantidade*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="quantidade" maxlength="9" size="9"
-											value="#{transacaoBB.quantidade}" dir="rtl" required="false" onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaTD(this,'','.',event));"  onblur="reCalculaPrecoItem();">
-											<f:validateLength maximum="9" />
+										<h:inputText styleClass="field text" id="quantidade" maxlength="8" size="9"
+											value="#{transacaoBB.quantidade}" dir="rtl" required="false" onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));"  onblur="reCalculaPrecoItem();">
+											<f:validateLength maximum="8" />
 											<f:validateDoubleRange  minimum="0.000" maximum="999.999"/>
 											<f:validator validatorId="BigDecimalValidator"/>
 										</h:inputText>
