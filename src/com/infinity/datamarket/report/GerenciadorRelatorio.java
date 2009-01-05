@@ -130,7 +130,10 @@ public class GerenciadorRelatorio {
 			while(i.hasNext()){
 				EventoTransacao ev = (EventoTransacao) i.next();
 				if (ev instanceof EventoItemRegistrado){
-					colItensRegistrados.add(ev);
+					EventoItemRegistrado evir = (EventoItemRegistrado) ev;
+					if (evir.getSituacao().equals(EventoItemRegistrado.ATIVO)){
+						colItensRegistrados.add(ev);
+					}					
 				}else if (ev instanceof EventoItemPagamento){
 					colPagamentos.add(ev);
 				}
