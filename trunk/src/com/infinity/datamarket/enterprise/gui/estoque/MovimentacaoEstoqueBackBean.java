@@ -61,7 +61,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	Collection<Produto> produtosEstoque=null;
 	
 	// Atributos ProdutoMovimentacaoEstoqueEntrada
-	private Set<ProdutoMovimentacaoEstoque> arrayProduto; 
+	private Set<ProdutoMovimentacaoEstoque> arrayProduto = new HashSet<ProdutoMovimentacaoEstoque>(); 
 	private String idEstoque;
     List<Estoque> estoques;
 	
@@ -78,14 +78,14 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	private String tipoMovimentacao;
 
 	
-	public String resetProdutoBB() {
+	public void resetProdutoBB() {
 		this.setCodigoExterno(null);
 		this.setIdProduto(null);
 		this.setDescricao(null);
 		this.setDescricaoCompletaEstoque(null);
 		this.setQuantidade(null);
-		return "mesma";
 	}
+	
 	public String excluirProduto() {
 		int i = 0;
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -103,9 +103,11 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		return "mesma";
 	}
 
-	public String inserirProduto() { 
+	public void inserirProduto() { 
 		
-		if (arrayProduto==null){
+		System.out.println("arrayProduto--> "+arrayProduto);
+		
+		if (arrayProduto == null){
 			arrayProduto = new HashSet<ProdutoMovimentacaoEstoque>();
 		}	
         
@@ -118,7 +120,6 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 					"Produto inválido!", "");
 			ctx.addMessage(null, msg);
 			e.printStackTrace();
-			return "mesma";
 		} catch (AppException e) {
 
 			// TODO Auto-generated catch block
@@ -127,7 +128,6 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Produto não encontrado!", "");
 				ctx.addMessage(null, msg);
-				return "mesma";	
 			}
 		}
 		setDescricao(produto.getDescricaoCompleta());
@@ -145,7 +145,6 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					msgValidacao, "");
 			ctx.addMessage(null, msg);
-			return "mesma";
 		}
 		
 		int i=0;
@@ -156,7 +155,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 //				break;
 //			}
 //			i++;
-//		}
+//		} 
 		
 		for (Iterator iter = arrayProduto.iterator(); iter.hasNext();) {
 			ProdutoMovimentacaoEstoque produtoTmp = (ProdutoMovimentacaoEstoque) iter.next();
@@ -178,8 +177,8 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 
 		arrayProduto.add(produtoMovimentacaoEstoque);
 		resetProdutoBB();
-		return "mesma";
 	}
+	
 	public String inserir() {
 
 		
@@ -498,7 +497,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		return resetBB();
 	}
 	
-	public String consultarProdutosEstoque(){
+	public void consultarProdutosEstoque(){
 		try{
 			setProdutosEstoque(null);
             
@@ -511,9 +510,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				col.add(produto);
 				setProdutosEstoque(col);
 				setIdProdutoEstoque(null);
-				resetBB();
-				return "mesma";
-				
+				this.setCodigoExterno(null);
+				this.setIdProdutoEstoque(null);
+				this.setDescricaoCompletaEstoque(null);
+				return;
 			}			
 			
 			if (getCodigoExterno() != null && !"".equals(getCodigoExterno())){
@@ -521,8 +521,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				Collection col = new HashSet<Produto>();
 				col.add(produto);
 				setProdutosEstoque(col);
-				resetBB();
-				return "mesma";
+				this.setCodigoExterno(null);
+				this.setIdProdutoEstoque(null);
+				this.setDescricaoCompletaEstoque(null);
+				return;
 			}
 			
 			if (getDescricaoCompletaEstoque() != null && !"".equals(getDescricaoCompletaEstoque())){				
@@ -542,10 +544,14 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				} else {
 					setExisteRegistros(true);
 					setProdutosEstoque(produtosEstoque);
-					resetBB();
+					this.setCodigoExterno(null);
+					this.setIdProdutoEstoque(null);
+					this.setDescricaoCompletaEstoque(null);
 				}
-			} else {
-				resetBB();
+			} else {				
+				this.setCodigoExterno(null);
+				this.setIdProdutoEstoque(null);
+				this.setDescricaoCompletaEstoque(null);
 			}
 		}catch(ObjectNotFoundException e){
 			setProdutosEstoque(null);
@@ -560,7 +566,6 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		return "mesma";
 	}
 	private List<Loja> carregarLojas() {
 
@@ -963,9 +968,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
-		if (param != null){
-			resetBB();
+		System.out.println("param--> "+param);
+		if (param != null){			
 			if(VALOR_ACAO.equals(param)){
+				resetBB();
 				setMovimentacaoEstoque(null);
 			}
 		}else if(params.get("acaoPopUp") != null && ((String)params.get("acaoPopUp")).equals("init")){
