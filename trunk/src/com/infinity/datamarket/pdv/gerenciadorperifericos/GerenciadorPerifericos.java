@@ -85,24 +85,26 @@ public class GerenciadorPerifericos implements Serializable{
         	System.out.println("Sincronizando Aliquotas");
         	Collection c = Fachada.getInstancia().consultarTodosImpostos();
         	Collection cImp = impressoraFiscal.getAliqoutas();
-        	Iterator i = c.iterator();
-        	if (cImp != null){
-	        	while(i.hasNext()){
-	        		Imposto imp = (Imposto) i.next();
-	        		boolean flag = true;
-	        		Iterator iImp = cImp.iterator();
-	        		while(iImp.hasNext()){
-		        		BigDecimal impImp = (BigDecimal) iImp.next();
-		        		if (imp.getPercentual().compareTo(impImp) == 0){
-		        			flag = false;
+        	if (c != null){
+	        	Iterator i = c.iterator();
+	        	if (cImp != null){
+		        	while(i.hasNext()){
+		        		Imposto imp = (Imposto) i.next();
+		        		boolean flag = true;
+		        		Iterator iImp = cImp.iterator();
+		        		while(iImp.hasNext()){
+			        		BigDecimal impImp = (BigDecimal) iImp.next();
+			        		if (imp.getPercentual().compareTo(impImp) == 0){
+			        			flag = false;
+			        		}
 		        		}
-	        		}
-	        		if (flag){
-	        			if (imp.getPercentual().compareTo(BigDecimal.ZERO) > 0){
-		        			System.out.println("Adicionando "+imp.getPercentual());
-		        			impressoraFiscal.addAliquota(imp.getPercentual()) ;
-	        			}
-	        		}
+		        		if (flag){
+		        			if (imp.getPercentual().compareTo(BigDecimal.ZERO) > 0){
+			        			System.out.println("Adicionando "+imp.getPercentual());
+			        			impressoraFiscal.addAliquota(imp.getPercentual()) ;
+		        			}
+		        		}
+		        	}
 	        	}
         	}
         	System.out.println("--------------------------");
