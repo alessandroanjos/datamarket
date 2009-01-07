@@ -27,7 +27,6 @@
 	<field name="pk" class="java.lang.Object"/>
 	<field name="produtoItemRegistrado" class="java.lang.Object"/>
 	<field name="quantidade" class="java.math.BigDecimal"/>
-	<field name="desconto" class="java.math.BigDecimal"/>
 	<field name="preco" class="java.math.BigDecimal"/>
 
 		<background>
@@ -122,10 +121,10 @@
 						height="15"
 						key="staticText-5"/>
 					<box></box>
-					<textElement>
+					<textElement textAlignment="Right">
 						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Desconto]]></text>
+				<text><![CDATA[Val. Un]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -225,7 +224,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="Courier New"/>
 					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{desconto}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[((com.infinity.datamarket.comum.transacao.ProdutoItemRegistrado)$F{produtoItemRegistrado}).getPrecoPraticado()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement

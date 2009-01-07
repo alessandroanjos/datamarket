@@ -44,6 +44,7 @@
 	<field name="DESCONTO" class="java.math.BigDecimal"/>
 	<field name="PRECO" class="java.math.BigDecimal"/>
 	<field name="NUM_TRANSACAO" class="java.lang.Integer"/>
+	<field name="PRECO_PRATICADO" class="java.math.BigDecimal"/>
 
 	<variable name="totalGeral" class="java.math.BigDecimal" resetType="Report" incrementType="Group" incrementGroup="cupomGroup" calculation="Sum">
 		<variableExpression><![CDATA[$F{VALOR_CUPOM}]]></variableExpression>
@@ -53,6 +54,10 @@
 	</variable>
 	<variable name="totalData" class="java.math.BigDecimal" resetType="Group" incrementType="Group" incrementGroup="cupomGroup" resetGroup="dataGroup" calculation="Sum">
 		<variableExpression><![CDATA[$F{VALOR_CUPOM}]]></variableExpression>
+	</variable>
+	<variable name="QTD_ITENS" class="java.math.BigDecimal" resetType="Group" resetGroup="cupomGroup" calculation="Sum">
+		<variableExpression><![CDATA[$F{QUANTIDADE}]]></variableExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 
 		<group  name="dataGroup" >
@@ -367,7 +372,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
 					</textElement>
-				<text><![CDATA[Desconto]]></text>
+				<text><![CDATA[Val. Un]]></text>
 				</staticText>
 				<staticText>
 					<reportElement
@@ -482,6 +487,32 @@
 						key="line-9"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
+				<staticText>
+					<reportElement
+						x="31"
+						y="2"
+						width="109"
+						height="16"
+						key="staticText-21"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New"/>
+					</textElement>
+				<text><![CDATA[Quantidade Itens:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="###0.000" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="136"
+						y="2"
+						width="72"
+						height="16"
+						key="textField-21"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{QTD_ITENS}]]></textFieldExpression>
+				</textField>
 			</band>
 			</groupFooter>
 		</group>
@@ -610,7 +641,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="Courier New"/>
 					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{DESCONTO}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{PRECO_PRATICADO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
