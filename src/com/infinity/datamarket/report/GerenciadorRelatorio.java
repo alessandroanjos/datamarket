@@ -127,17 +127,22 @@ public class GerenciadorRelatorio {
 			Collection coll = transacao.getEventosTransacao();
 			Iterator i = coll.iterator();
 
+			BigDecimal quantidade = BigDecimal.ZERO;
+			
 			while(i.hasNext()){
 				EventoTransacao ev = (EventoTransacao) i.next();
 				if (ev instanceof EventoItemRegistrado){
 					EventoItemRegistrado evir = (EventoItemRegistrado) ev;
 					if (evir.getSituacao().equals(EventoItemRegistrado.ATIVO)){
+						quantidade = quantidade.add(evir.getQuantidade());
 						colItensRegistrados.add(ev);
 					}					
 				}else if (ev instanceof EventoItemPagamento){
 					colPagamentos.add(ev);
 				}
 			}
+			
+			parametros.put("quantidade", quantidade);
 
 			List resposta = new ArrayList();
 			resposta.add(new Uniao(colPagamentos,colItensRegistrados));
