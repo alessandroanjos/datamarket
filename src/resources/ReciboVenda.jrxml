@@ -38,6 +38,7 @@
 	</parameter>
 	<parameter name="cliente" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="CAMINHO" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="quantidade" isForPrompting="false" class="java.math.BigDecimal"/>
 
 	<field name="arrayColPagamentos" class="java.lang.Object"/>
 	<field name="arrayColItensRegistrado" class="java.lang.Object"/>
@@ -409,6 +410,32 @@
 					<dataSourceExpression><![CDATA[$F{arrayColPagamentos}]]></dataSourceExpression>
 					<subreportExpression  class="java.lang.String"><![CDATA[$P{CAMINHO} + "SubRelPagamentos.jasper"]]></subreportExpression>
 				</subreport>
+				<textField isStretchWithOverflow="false" pattern="###0.000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="114"
+						y="613"
+						width="84"
+						height="15"
+						key="textField-12"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$P{quantidade}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="0"
+						y="613"
+						width="125"
+						height="15"
+						key="staticText-19"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="12"/>
+					</textElement>
+				<text><![CDATA[Quantidade Itens:]]></text>
+				</staticText>
 			</band>
 		</detail>
 		<columnFooter>
