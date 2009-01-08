@@ -28,7 +28,7 @@ public class MicSolicitaDadosCartaoProprio extends Mic{
 		try{
 			while(CPFCNPJ == null || "".equals(CPFCNPJ)){
 				gerenciadorPerifericos.getDisplay().setMensagem("CPF/CNPJ");
-				EntradaDisplay entrada3 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 13);
+				EntradaDisplay entrada3 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 14);
 				if (entrada3.getTeclaFinalizadora() == 10){
 					CPFCNPJ = entrada3.getDado();
 					if (!"".equals(CPFCNPJ)){
