@@ -449,6 +449,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			parcela.setPk(parcelaPK);
 			parcela.setPercentagemParcela(this.getPercentagemParcela());
 			parcela.setQuantidadeDias(this.getQuantidadeDias());
+			parcela.setDataProgramada(getDataProgramada());
 			
 			if(this.getParcelas() == null){
 				this.setParcelas(new TreeSet<ParcelaPlanoPagamentoChequePredatado>());
