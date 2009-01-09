@@ -577,7 +577,7 @@ public class ClienteBackBean extends BackBean {
 				cliente.setInscricaoEstadual(null);
 				cliente.setInscricaoMunicipal(null);
 
-			}else if(this.getIdTipoPessoa().equals(Cliente.PESSOA_FISICA)){
+			}else if(this.getIdTipoPessoa().equals(Cliente.PESSOA_JURIDICA)){
 				cliente.setNomeCliente(null);
 				cliente.setDataNascimento(null);
 			}			
