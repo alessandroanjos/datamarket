@@ -71,6 +71,9 @@ public class GerenciadorRelatorio {
 
 	public static final String EMPRESA;
 	
+	public static final String TIPO_RELATORIO_ABC_VALOR = "V";
+	public static final String TIPO_RELATORIO_ABC_QTD = "Q";
+	
 	
 	private static ResourceBundle rs = ResourceBundle.getBundle("relatorio");
 
@@ -600,15 +603,13 @@ public OutputStream gerarRelatorioAnaliticoOperacoesDevolucao(int loja, Date dat
 	
 	public static void main(String[] a){
 		try{
-//			Date d1 = new Date();
-//			d1.setDate(15);
-//			Date d2 = new Date();
-//			d2.setDate(16);
-//			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioAnaliticoOperacoesDevolucao(1,d1,d2);
+			Date d1 = new Date();
+			d1.setDate(1);
+			Date d2 = new Date();
+			d2.setDate(16);
 		
-			OperacaoDevolucao dev = (OperacaoDevolucao) Fachada.getInstancia().consultarOperacaoPorPK(new OperacaoPK(1,1));
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			Fachada.getInstancia().gerarReciboOperacaoDevolucao(dev, out);
+			
+			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioFechamentoCaixaGeral(1, d1, new Date());
 			
 			String caminho = "c:\\pdv\\temp\\";
 			File dir = new File(caminho);
@@ -686,7 +687,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 		}
 	}
 
-	public OutputStream gerarRelatorioABCVendas(int loja, Date data_inicio_movimento, Date data_fim_movimento) throws AppException{
+	public OutputStream gerarRelatorioABCVendas(int loja, Date data_inicio_movimento, Date data_fim_movimento, String tipo) throws AppException{
 		
 		OutputStream out  = new ByteArrayOutputStream();
 		ResultSet rs = null;
@@ -697,14 +698,18 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 	
 			parametros.put("empresa", EMPRESA);				
 						
-			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioABCVendas.jasper");
-	        					
 			Connection con = getConnection();
 			
 			pstm1 = con.prepareStatement(Queries.RELATORIO_ABC_VENDAS_TOTAL);
+			InputStream input = null;
 			
-			
-			pstm = con.prepareStatement(Queries.RELATORIO_ABC_VENDAS);
+			if (tipo.equals(TIPO_RELATORIO_ABC_VALOR)){
+				pstm = con.prepareStatement(Queries.RELATORIO_ABC_VENDAS_VALOR);
+				input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioABCVendasValor.jasper");
+			}else if (tipo.equals(TIPO_RELATORIO_ABC_QTD)){
+				pstm = con.prepareStatement(Queries.RELATORIO_ABC_VENDAS_QTD);
+				input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioABCVendasQuantidade.jasper");
+			}			
 			
 			//data inicio
 			Calendar c = new GregorianCalendar();
@@ -735,11 +740,15 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			
 			
 			BigDecimal total = BigDecimal.ZERO; 
+			BigDecimal qtd = BigDecimal.ZERO;
 			if (rTotal.next()){
-				total = rTotal.getBigDecimal(1);
+				total = rTotal.getBigDecimal("valor");
 				total = total.setScale(2, BigDecimal.ROUND_DOWN);
+				qtd = rTotal.getBigDecimal("qtd");
+				qtd = qtd.setScale(3, BigDecimal.ROUND_DOWN);
 			}
 			parametros.put("total", total);
+			parametros.put("qtd", qtd);
 			
 			rs = pstm.executeQuery();
 			
@@ -765,6 +774,137 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 		}
 			
 		return out;
-}
+	}
 
+	public OutputStream gerarRelatorioFechamentoCaixaOperador(int loja, Date data_inicio_movimento, Date data_fim_movimento, Integer operador) throws AppException{
+		
+		OutputStream out  = new ByteArrayOutputStream();
+		ResultSet rs = null;
+		PreparedStatement pstm = null;
+		try{
+			Map parametros = new HashMap();
+	
+			parametros.put("empresa", EMPRESA);				
+						
+			Connection con = getConnection();
+			
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioFechamentoCaixaOperador.jasper");
+			
+			if (operador != null && operador.intValue() != 0){
+				pstm = con.prepareStatement(Queries.RELATORIO_FECHAMENTO_CAIXA_OPERADOR);
+				pstm.setInt(3,operador.intValue());
+			}else{
+				pstm = con.prepareStatement(Queries.RELATORIO_FECHAMENTO_CAIXA_OPERADOR_GERAL);
+			}			
+			
+			//data inicio
+			Calendar c = new GregorianCalendar();
+			c.setTime(data_inicio_movimento);
+			int d1_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d1_mes = c.get(Calendar.MONTH);
+			int d1_ano = c.get(Calendar.YEAR);
+			Date dataInicio= new GregorianCalendar(d1_ano,d1_mes,d1_dia).getTime();
+			
+			//dataFim
+			c = new GregorianCalendar();
+			c.setTime(data_fim_movimento);
+			int d2_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d2_mes = c.get(Calendar.MONTH);
+			int d2_ano = c.get(Calendar.YEAR);
+			Date dataFim= new GregorianCalendar(d2_ano,d2_mes,d2_dia,23,59,59).getTime();
+			
+			pstm.setDate(1,new java.sql.Date(dataInicio.getTime()));			
+			pstm.setDate(2,new java.sql.Date(dataFim.getTime()));
+			pstm.setInt(3,loja);
+			
+			rs = pstm.executeQuery();
+			
+			
+			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
+				
+	        JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);
+	        
+			}catch(Exception e){
+			e.printStackTrace();
+			throw new RelatorioException(e);
+		}finally{
+			try{
+				if (rs != null){
+					rs.close();
+				}
+				if (pstm != null){
+					pstm.close();
+				}
+			}catch(Exception e){
+				throw new RelatorioException(e);
+			}
+		}
+			
+		return out;
+	}
+	
+	public OutputStream gerarRelatorioFechamentoCaixaGeral(int loja, Date data_inicio_movimento, Date data_fim_movimento) throws AppException{
+		
+		OutputStream out  = new ByteArrayOutputStream();
+		ResultSet rs = null;
+		PreparedStatement pstm = null;
+		try{
+			Map parametros = new HashMap();
+	
+			parametros.put("empresa", EMPRESA);				
+						
+			Connection con = getConnection();
+			
+			pstm = con.prepareStatement(Queries.RELATORIO_FECHAMENTO_CAIXA_GERAL);
+			
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioFechamentoCaixaGeral.jasper");
+			
+			//data inicio
+			Calendar c = new GregorianCalendar();
+			c.setTime(data_inicio_movimento);
+			int d1_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d1_mes = c.get(Calendar.MONTH);
+			int d1_ano = c.get(Calendar.YEAR);
+			Date dataInicio= new GregorianCalendar(d1_ano,d1_mes,d1_dia).getTime();
+			
+			//dataFim
+			c = new GregorianCalendar();
+			c.setTime(data_fim_movimento);
+			int d2_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d2_mes = c.get(Calendar.MONTH);
+			int d2_ano = c.get(Calendar.YEAR);
+			Date dataFim= new GregorianCalendar(d2_ano,d2_mes,d2_dia,23,59,59).getTime();
+			
+			pstm.setDate(1,new java.sql.Date(dataInicio.getTime()));			
+			pstm.setDate(2,new java.sql.Date(dataFim.getTime()));
+			pstm.setInt(3,loja);
+			
+			rs = pstm.executeQuery();
+			
+			
+			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
+				
+	        JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);
+	        
+			}catch(Exception e){
+			e.printStackTrace();
+			throw new RelatorioException(e);
+		}finally{
+			try{
+				if (rs != null){
+					rs.close();
+				}
+				if (pstm != null){
+					pstm.close();
+				}
+			}catch(Exception e){
+				throw new RelatorioException(e);
+			}
+		}
+			
+		return out;
+	}
+
+	
+	
 }
