@@ -29,6 +29,7 @@
 	<parameter name="CAMINHO" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="empresa" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="total" isForPrompting="false" class="java.math.BigDecimal"/>
+	<parameter name="qtd" isForPrompting="false" class="java.math.BigDecimal"/>
 
 	<field name="CODIGO_EXTERNO" class="java.lang.String"/>
 	<field name="DESCRICAO_COMPLETA" class="java.lang.String"/>
@@ -327,7 +328,64 @@
 			</band>
 		</pageFooter>
 		<summary>
-			<band height="0"  isSplitAllowed="true" >
+			<band height="20"  isSplitAllowed="true" >
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="0"
+						width="539"
+						height="1"
+						key="line-5"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<line direction="TopDown">
+					<reportElement
+						x="0"
+						y="16"
+						width="539"
+						height="1"
+						key="line-6"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<staticText>
+					<reportElement
+						x="219"
+						y="2"
+						width="69"
+						height="15"
+						key="staticText-12"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="###0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="289"
+						y="3"
+						width="69"
+						height="14"
+						key="textField-21"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$P{total}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="###0.000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="358"
+						y="3"
+						width="52"
+						height="14"
+						key="textField-22"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$P{qtd}]]></textFieldExpression>
+				</textField>
 			</band>
 		</summary>
 </jasperReport>
