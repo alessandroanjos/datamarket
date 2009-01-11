@@ -32,11 +32,11 @@
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
 				<strong>
-					<h:outputText value="#{msgs.relatorioABCVendas}"></h:outputText>
+					<h:outputText value="#{msgs.relatorioFechamentoCaixaGeral}"></h:outputText>
 				</strong>
 			</div>				
 		</div>		
-		<h:form id="frmRelatorioAnaliticoEntrada" binding="#{relatorioBB.init}">				
+		<h:form id="frmRelatorioAnaliticoFechamentoVendas" binding="#{relatorioBB.init}">				
 				<div id="content">				
 						<div id="primarioContentContainer">
 							<fieldset>
@@ -64,15 +64,6 @@
 												value="#{relatorioBB.dataFinal}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 												<f:convertDateTime timeZone="GMT-3"/>
 											</h:inputText>										
-										</div>
-										<br />															
-										<br />
-										<div>
-											<h:outputLabel styleClass="desc" value="Ordenação"></h:outputLabel>
-											<h:selectOneRadio  styleClass="field radio" id="ordenacao" 
-												value="#{relatorioBB.idTipoOrdenacao}" layout="lineDirection" required="true" rendered="true">
-											    <f:selectItems id="situacao" value="#{relatorioBB.listaTiposOrdenacao}" />
-											</h:selectOneRadio>
 										</div>										
 									</li>
 								</ul>
@@ -84,8 +75,8 @@
 									</div>
 								</li>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" action="#{relatorioBB.limparRelatorioABCVendas}" id="botaoLimpar" value="Limpar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoRelatorio" action="#{relatorioBB.executarRelatorioABCVendas}" value="Relatório"></h:commandButton>
+									<h:commandButton styleClass="btTxt" action="#{relatorioBB.limparRelatorioFechamentoCaixaGeral}" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoRelatorio" action="#{relatorioBB.executarRelatorioFechamentoCaixaGeral}" value="Relatório"></h:commandButton>
 								</li>						
 							</ul>
 						</div>
