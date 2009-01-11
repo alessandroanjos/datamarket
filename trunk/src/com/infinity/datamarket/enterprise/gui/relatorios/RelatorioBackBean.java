@@ -14,10 +14,15 @@ import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.ajax4jsf.org.w3c.tidy.IStack;
+
 import com.infinity.datamarket.comum.usuario.Loja;
+import com.infinity.datamarket.comum.usuario.Usuario;
+import com.infinity.datamarket.comum.usuario.Vendedor;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
+import com.infinity.datamarket.report.GerenciadorRelatorio;
 
 public class RelatorioBackBean extends BackBean {
 	
@@ -26,13 +31,17 @@ public class RelatorioBackBean extends BackBean {
 	
 	String idLoja;
 	
+	String idOperador;
+	
 	private String idStatus;
 	private SelectItem[] listaStatus;
     
-	private String idTipoOrdenacao;
+	private String idTipoOrdenacao = Constantes.CONSTANTE_VALOR;
 	private SelectItem[] listaTiposOrdenacao;
 	
 	SelectItem[] lojas;
+	
+	SelectItem[] operadores;
 
 	public String getIdLoja() {
 		return idLoja;
@@ -40,6 +49,14 @@ public class RelatorioBackBean extends BackBean {
 
 	public void setIdLoja(String idLoja) {
 		this.idLoja = idLoja;
+	}
+	
+	public String getIdOperador() {
+		return idOperador;
+	}
+
+	public void setIdOperador(String idOperador) {
+		this.idOperador = idOperador;
 	}
 
 	private List<Loja> carregarLojas() {		
@@ -54,6 +71,46 @@ public class RelatorioBackBean extends BackBean {
 			ctx.addMessage(null, msg);
 		}
 		return lojas;
+	}
+	
+	private List<Usuario> carregarOperadores() {		
+		List<Usuario> usuarios = null;
+		try {
+			usuarios = (ArrayList<Usuario>)getFachada().consultarTodosUsuario();			
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return usuarios;
+	}
+	
+	public SelectItem[] getOperadores(){
+		SelectItem[] arrayOperadores = null;
+		try {
+			List<Usuario> operadores = carregarOperadores();
+			arrayOperadores = new SelectItem[operadores.size()+1];
+			SelectItem item0 = new SelectItem("0", "Todos");
+			arrayOperadores[0] = item0;
+			int i = 1;			
+			for(Usuario usuarioTmp : operadores){
+				SelectItem item = new SelectItem(usuarioTmp.getId().toString(), usuarioTmp.getNome());
+				arrayOperadores[i++] = item;
+			}
+			if(this.getIdOperador() == null){
+				this.setIdOperador(arrayOperadores[0].getValue().toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayOperadores;
+				
 	}
 	
 	public SelectItem[] getLojas(){
@@ -83,6 +140,10 @@ public class RelatorioBackBean extends BackBean {
 
 	public void setLojas(SelectItem[] lojas) {
 		this.lojas = lojas;
+	}
+	
+	public void setOperadores(SelectItem[] operadores) {
+		this.operadores = operadores;
 	}
 
 	public Date getDataFinal() {
@@ -286,44 +347,126 @@ public class RelatorioBackBean extends BackBean {
 	}
 	
 	public void executarRelatorioABCVendas(){
-//		try {
-//			validarRelatorioABCVendas();
-//			
-//			String status = "";
-//			
-//			if(this.getIdStatus().equals("T")){
-//				status = Constantes.STATUS_ATIVO + "', '" + Constantes.STATUS_CANCELADO;				
-//			}else{
-//				status = this.getIdStatus();
-//			}
-//
-//			FacesContext context = FacesContext.getCurrentInstance();
-//			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
-//			ServletOutputStream out = response.getOutputStream();
-//			ByteArrayOutputStream byteOutputStream = 
-//				(ByteArrayOutputStream)getFachada().gerarRelatorioAnaliticoEntradas(this.getDataInicial(), 
-//																				    this.getDataFinal(),
-//																				    status);
-//			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
-//			response.setContentType("application/pdf");
-//			response.setHeader("Content-disposition", "attachment;filename=RelatorioAnaliticoEntrada" + System.currentTimeMillis() + ".pdf");
-//			context.responseComplete();
-//			out.flush();
-//			out.close();			
-//		} catch (AppException e) {
-//			e.printStackTrace();
-//			FacesContext ctx = FacesContext.getCurrentInstance();
-//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-//					e.getMessage(), "");
-//			ctx.addMessage(null, msg);
-//		} catch (IOException e) {			
-//			e.printStackTrace();
-//			e.printStackTrace();
-//			FacesContext ctx = FacesContext.getCurrentInstance();
-//			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-//					"Erro ao executar o Relatório!", "");
-//			ctx.addMessage(null, msg);
-//		}
+		try {
+			validarRelatorioABCVendas();
+			
+			
+
+			FacesContext context = FacesContext.getCurrentInstance();
+			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+			ServletOutputStream out = response.getOutputStream();
+			
+			ByteArrayOutputStream byteOutputStream = null;
+			
+			if (getIdTipoOrdenacao() != null && getIdTipoOrdenacao().equals(Constantes.CONSTANTE_QUANTIDADE)){
+				byteOutputStream = 
+					(ByteArrayOutputStream)getFachada().gerarRelatorioABCVendas(new Integer(this.getIdLoja()).intValue(),this.getDataInicial(), 
+																					    this.getDataFinal(),
+																					    Constantes.CONSTANTE_QUANTIDADE);
+					
+			}else if (getIdTipoOrdenacao() != null && getIdTipoOrdenacao().equals(Constantes.CONSTANTE_VALOR)){
+				byteOutputStream = 
+					(ByteArrayOutputStream)getFachada().gerarRelatorioABCVendas(new Integer(this.getIdLoja()).intValue(),this.getDataInicial(), 
+																					    this.getDataFinal(),
+																					    Constantes.CONSTANTE_VALOR);
+				
+			}
+			
+			
+			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
+			response.setContentType("application/pdf");
+			response.setHeader("Content-disposition", "attachment;filename=RelatorioABCVendasValor" + System.currentTimeMillis() + ".pdf");
+			context.responseComplete();
+			out.flush();
+			out.close();			
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (IOException e) {			
+			e.printStackTrace();
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro ao executar o Relatório!", "");
+			ctx.addMessage(null, msg);
+		}
+	}
+	
+	
+	public void executarRelatorioFechamentoCaixaGeral(){
+		try {
+			validarRelatorioABCVendas();
+			
+			
+
+			FacesContext context = FacesContext.getCurrentInstance();
+			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+			ServletOutputStream out = response.getOutputStream();
+			
+			ByteArrayOutputStream byteOutputStream =  
+					(ByteArrayOutputStream)getFachada().gerarRelatorioFechamentoCaixaGeral(new Integer(this.getIdLoja()).intValue(),this.getDataInicial(), 
+																					    this.getDataFinal());					
+			
+			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
+			response.setContentType("application/pdf");
+			response.setHeader("Content-disposition", "attachment;filename=RelatorioFechamentoCaixaGeral" + System.currentTimeMillis() + ".pdf");
+			context.responseComplete();
+			out.flush();
+			out.close();			
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (IOException e) {			
+			e.printStackTrace();
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro ao executar o Relatório!", "");
+			ctx.addMessage(null, msg);
+		}
+	}
+	
+	public void executarRelatorioFechamentoCaixaOperador(){
+		try {
+			validarRelatorioABCVendas();
+			
+			
+
+			FacesContext context = FacesContext.getCurrentInstance();
+			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+			ServletOutputStream out = response.getOutputStream();
+			
+			ByteArrayOutputStream byteOutputStream =
+					(ByteArrayOutputStream)getFachada().gerarRelatorioFechamentoCaixaOperador(new Integer(this.getIdLoja()).intValue(),this.getDataInicial(), 
+																					    this.getDataFinal(),new Integer(this.getIdOperador()));
+													
+			
+			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
+			response.setContentType("application/pdf");
+			response.setHeader("Content-disposition", "attachment;filename=RelatorioFechamentoCaixaOperador" + System.currentTimeMillis() + ".pdf");
+			context.responseComplete();
+			out.flush();
+			out.close();			
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (IOException e) {			
+			e.printStackTrace();
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro ao executar o Relatório!", "");
+			ctx.addMessage(null, msg);
+		}
 	}
 	
 	public void validarRelatorioABCVendas() throws AppException{
@@ -383,6 +526,14 @@ public class RelatorioBackBean extends BackBean {
 		resetBB();
 	}
 	
+	public void limparRelatorioFechamentoCaixaGeral(){
+		resetBB();
+	}
+	
+	public void limparRelatorioFechamentoCaixaOperador(){
+		resetBB();
+	}
+	
 	public void limparRelatorioAnaliticoOperacoesDevolucao(){
 		resetBB();
 	}
@@ -390,7 +541,7 @@ public class RelatorioBackBean extends BackBean {
 	public void resetBB(){
 		this.setIdLoja("0");
 		this.setDataInicial(null);
-		this.setDataFinal(null);
+		this.setDataFinal(null);		
 		
 //		this.idLoja = "0";
 //		this.dataInicial = null;

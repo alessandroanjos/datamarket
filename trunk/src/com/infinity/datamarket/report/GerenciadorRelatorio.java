@@ -71,9 +71,6 @@ public class GerenciadorRelatorio {
 
 	public static final String EMPRESA;
 	
-	public static final String TIPO_RELATORIO_ABC_VALOR = "V";
-	public static final String TIPO_RELATORIO_ABC_QTD = "Q";
-	
 	
 	private static ResourceBundle rs = ResourceBundle.getBundle("relatorio");
 
