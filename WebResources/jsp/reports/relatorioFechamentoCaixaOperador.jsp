@@ -32,11 +32,11 @@
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
 				<strong>
-					<h:outputText value="#{msgs.relatorioABCVendas}"></h:outputText>
+					<h:outputText value="#{msgs.relatorioFechamentoCaixaOperador}"></h:outputText>
 				</strong>
 			</div>				
 		</div>		
-		<h:form id="frmRelatorioAnaliticoEntrada" binding="#{relatorioBB.init}">				
+		<h:form id="frmRelatorioAnaliticoFechamentoVendas" binding="#{relatorioBB.init}">				
 				<div id="content">				
 						<div id="primarioContentContainer">
 							<fieldset>
@@ -65,15 +65,14 @@
 												<f:convertDateTime timeZone="GMT-3"/>
 											</h:inputText>										
 										</div>
-										<br />															
-										<br />
+										<br/>										
+										<br/>
 										<div>
-											<h:outputLabel styleClass="desc" value="Ordenação"></h:outputLabel>
-											<h:selectOneRadio  styleClass="field radio" id="ordenacao" 
-												value="#{relatorioBB.idTipoOrdenacao}" layout="lineDirection" required="true" rendered="true">
-											    <f:selectItems id="situacao" value="#{relatorioBB.listaTiposOrdenacao}" />
-											</h:selectOneRadio>
-										</div>										
+											<h:outputLabel styleClass="desc" value="Operador" rendered="true"></h:outputLabel>										
+											<h:selectOneMenu id="idOperador" style="width: 200px;" value="#{relatorioBB.idOperador}" rendered="true">  
+												<f:selectItems id="OperadoresSelectItems" value="#{relatorioBB.operadores}" />   
+											</h:selectOneMenu>
+										</div>
 									</li>
 								</ul>
 							</fieldset>	
@@ -84,8 +83,8 @@
 									</div>
 								</li>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" action="#{relatorioBB.limparRelatorioABCVendas}" id="botaoLimpar" value="Limpar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoRelatorio" action="#{relatorioBB.executarRelatorioABCVendas}" value="Relatório"></h:commandButton>
+									<h:commandButton styleClass="btTxt" action="#{relatorioBB.limparRelatorioFechamentoCaixaOperador}" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoRelatorio" action="#{relatorioBB.executarRelatorioFechamentoCaixaOperador}" value="Relatório"></h:commandButton>
 								</li>						
 							</ul>
 						</div>
