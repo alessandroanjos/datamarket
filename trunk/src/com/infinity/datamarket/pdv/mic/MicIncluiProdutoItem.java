@@ -39,7 +39,7 @@ public class MicIncluiProdutoItem extends Mic {
 		BigDecimal quantidade = (BigDecimal) gerenciadorPerifericos.getCmos()
 				.ler(CMOS.QUANTIDADE_ITEM);
 
-		if (produto.getTipo().getId().equals(TipoProduto.UNIDADE_VARIAVEL)) {
+		if (produto.getTipo().getId().equals(TipoProduto.UNIDADE_VARIAVEL) && quantidade.compareTo(BigDecimal.ONE) >= 0) {
 			try {
 				gerenciadorPerifericos.getDisplay().setMensagem(
 						produto.getUnidade().getDescricaoDisplay());
