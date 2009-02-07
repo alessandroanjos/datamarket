@@ -2085,11 +2085,15 @@ public class TransacaoBackBean extends BackBean {
 //			transVenda.setValorTroco(this.getValorTroco());
 			if(this.getValorTroco() == null){
 				transVenda.setValorTroco(BigDecimal.ZERO);
+				transVenda.setFormaTroco(null);
 			}else{
 				transVenda.setValorTroco(this.getValorTroco());	
+				if(this.getIdFormaTroco() != null){
+				   transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));
+				} 
 			}
 
-			transVenda.setFormaTroco((FormaRecebimento)getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco())));
+			
 						
 			ConjuntoEventoTransacao conj = new ConjuntoEventoTransacao();
 			
