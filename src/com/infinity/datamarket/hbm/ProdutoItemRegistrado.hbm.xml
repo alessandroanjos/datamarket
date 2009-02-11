@@ -40,6 +40,13 @@
           <property name="percentual" type="java.math.BigDecimal" update="true" insert="true">
               <column name="PERCENTUAL" length="20" not-null="true"/>
           </property>
+           <property name="unidade" type="java.lang.String" update="true" insert="true">
+              <column name="UNIDADE" length="50" not-null="false"/>
+          </property>
+          
+          <property name="tipoProduto" type="java.lang.Long" update="true" insert="true">
+              <column name="TIPO" not-null="false"/>
+          </property>
 
       </class>
    </hibernate-mapping>
