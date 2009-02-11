@@ -562,6 +562,8 @@ public class DevolucaoBackBean extends BackBean {
 //			produtoOperacaoItemRegistrado.setPrecoPadrao(produto.getPrecoPadrao());
 			produtoOperacaoItemRegistrado.setPrecoPadrao(this.getPrecoVenda());
 			produtoOperacaoItemRegistrado.setPrecoPraticado(produto.getPrecoPadrao());
+			produtoOperacaoItemRegistrado.setTipoProduto(produto.getTipo().getId());
+			produtoOperacaoItemRegistrado.setUnidade(produto.getUnidade().getAbreviacao());
 			
 			valorTotalItem = this.getPrecoVenda().multiply(this.getQuantidade()).setScale(2, BigDecimal.ROUND_DOWN);
 			
