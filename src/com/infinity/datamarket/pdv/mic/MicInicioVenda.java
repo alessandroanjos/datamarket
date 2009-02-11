@@ -22,6 +22,7 @@ public class MicInicioVenda extends Mic{
 		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TROCO_ATUAL, new BigDecimal(0));
 		gerenciadorPerifericos.getCmos().gravar(CMOS.DADOS_AUTORIZACOES_CARTAO_PROPRIO, new ArrayList());
 		gerenciadorPerifericos.getCmos().gravar(CMOS.PK_OPERACOES, new ArrayList());
+		gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_PEDIDO, null);
 		return ALTERNATIVA_1;
 	}
 
