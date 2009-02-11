@@ -1,35 +1,23 @@
 package com.infinity.datamarket.pdv.mic;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import com.infinity.datamarket.autorizador.AutorizacaoException;
-import com.infinity.datamarket.autorizador.AutorizadorServerRemote;
-import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
-import com.infinity.datamarket.autorizador.DadosConsultaCartaoProprio;
 import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
 import com.infinity.datamarket.comum.operacao.Operacao;
-import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
 import com.infinity.datamarket.comum.operacao.OperacaoPK;
-import com.infinity.datamarket.comum.pagamento.DadosCartaoProprio;
+import com.infinity.datamarket.comum.operacao.OperacaoPedido;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
-import com.infinity.datamarket.comum.util.SistemaException;
-import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.comum.util.ValidationException;
 import com.infinity.datamarket.operacao.OperacaoServerRemote;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
-import com.infinity.datamarket.pdv.gui.telas.TelaConsultaCartaoProprio;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 import com.infinity.datamarket.pdv.util.ServerConfig;
 import com.infinity.datamarket.pdv.util.ServiceLocator;
 
-public class MicSolicitaDadosConsultaOperacaoDevolucao extends Mic{
+public class MicSolicitaDadosConsultaOperacaoPedido extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		
 		
@@ -37,12 +25,12 @@ public class MicSolicitaDadosConsultaOperacaoDevolucao extends Mic{
 		
 		try{
 			while(operacao == null || "".equals(operacao)){
-				gerenciadorPerifericos.getDisplay().setMensagem("Numero da Devolução");
+				gerenciadorPerifericos.getDisplay().setMensagem("Numero do Pedido");
 				EntradaDisplay entrada3 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
 				if (entrada3.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 					operacao = entrada3.getDado();
 					if (!"".equals(operacao)){	
-						OperacaoDevolucao devolucao = null; 
+						OperacaoPedido pedido = null; 
 						try{
 							gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
 							OperacaoServerRemote remote = (OperacaoServerRemote) ServiceLocator.getJNDIObject(ServerConfig.OPERACAO_SERVER_JNDI);
@@ -65,18 +53,13 @@ public class MicSolicitaDadosConsultaOperacaoDevolucao extends Mic{
 								gerenciadorPerifericos.esperaVolta();
 								return ALTERNATIVA_2;
 							}
-							if (op.getTipo() == ConstantesOperacao.OPERACAO_DEVOLUCAO){
-								devolucao = (OperacaoDevolucao) op;
-								if (devolucao.getStatus() == ConstantesOperacao.ABERTO){
-									gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_PAGAMENTO_ATUAL,devolucao.getValor());
-									gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_DEVOLUCAO,devolucao);
+							if (op.getTipo() == ConstantesOperacao.OPERACAO_PEDIDO){
+								pedido = (OperacaoPedido) op;
+								if (pedido.getStatus() == ConstantesOperacao.ABERTO){
+									pedido.setStatus(ConstantesOperacao.EM_PROCESSAMENTO);
+									gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_PEDIDO,pedido);
 									remote.alteraStatusOperacao(pk, ConstantesOperacao.EM_PROCESSAMENTO);
-									Collection c = (Collection) gerenciadorPerifericos.getCmos().ler(CMOS.PK_OPERACOES);
-									if (c == null){
-										c = new ArrayList();
-									}
-									c.add(op);
-									gerenciadorPerifericos.getCmos().gravar(CMOS.PK_OPERACOES,c);
+									getFachadaPDV().alterarStatusOperacao(pk, ConstantesOperacao.EM_PROCESSAMENTO);
 									return ALTERNATIVA_1;
 								}else{
 									gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");

@@ -4,18 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import com.infinity.datamarket.autorizador.AutorizacaoException;
-import com.infinity.datamarket.autorizador.AutorizadorServerRemote;
-import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
-import com.infinity.datamarket.comum.operacao.OperacaoPK;
-import com.infinity.datamarket.comum.pagamento.DadosCartaoProprio;
+import com.infinity.datamarket.comum.operacao.Operacao;
+import com.infinity.datamarket.comum.operacao.OperacaoPedido;
+import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
-import com.infinity.datamarket.comum.util.StringUtil;
 import com.infinity.datamarket.operacao.OperacaoServerRemote;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscalException;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.util.ServerConfig;
@@ -40,8 +36,20 @@ public class MicConfirmaOperacao extends Mic{
 			
 				Iterator i = c.iterator();
 				while(i.hasNext()){
-					OperacaoPK pk = (OperacaoPK) i.next();
-					remote.alteraStatusOperacao(pk,ConstantesOperacao.FECHADO);
+					Operacao op = (Operacao) i.next();
+					remote.alteraStatusOperacao(op.getPk(),ConstantesOperacao.FECHADO);
+				}
+			}
+			
+			TransacaoVenda transVenda = (TransacaoVenda) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
+			
+			Collection pedidos = transVenda.getPedidos();
+			
+			if (pedidos != null && pedidos.size() > 0){
+				Iterator i = pedidos.iterator();
+				while(i.hasNext()){
+					OperacaoPedido pedido = (OperacaoPedido) i.next();
+					pedido.setStatus(ConstantesOperacao.FECHADO);
 				}
 			}
 			

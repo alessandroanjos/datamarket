@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import com.infinity.datamarket.autorizador.AutorizacaoException;
-import com.infinity.datamarket.autorizador.AutorizadorServerRemote;
-import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
-import com.infinity.datamarket.comum.operacao.OperacaoPK;
-import com.infinity.datamarket.comum.pagamento.DadosCartaoProprio;
+import com.infinity.datamarket.comum.operacao.Operacao;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.operacao.OperacaoServerRemote;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
@@ -38,8 +34,10 @@ public class MicDesfazOperacao extends Mic{
 			
 				Iterator i = c.iterator();
 				while(i.hasNext()){
-					OperacaoPK pk = (OperacaoPK) i.next();
-					remote.alteraStatusOperacao(pk,ConstantesOperacao.ABERTO);
+					Operacao op = (Operacao) i.next();
+					if (op.getTipo() == ConstantesOperacao.OPERACAO_DEVOLUCAO){
+						remote.alteraStatusOperacao(op.getPk(),ConstantesOperacao.ABERTO);
+					}
 				}
 			}
 			
