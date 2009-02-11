@@ -19,6 +19,15 @@ public class ProdutoItemRegistrado implements Serializable{
 	private String impostoImpressora;
 	private BigDecimal percentual;
 	private Long tipoProduto; 
+	private String unidade;
+
+	public String getUnidade() {
+		return unidade;
+	}
+
+	public void setUnidade(String unidade) {
+		this.unidade = unidade;
+	}
 
 	public Long getTipoProduto() {
 		return tipoProduto;
@@ -48,7 +57,7 @@ public class ProdutoItemRegistrado implements Serializable{
 
 	}
 
-	public ProdutoItemRegistrado(EventoTransacaoPK pk, int idProduto, String codigoExterno, String descricaoCompleta, BigDecimal precoPadrao, BigDecimal precoPraticado, String impostoImpressora, BigDecimal percentual){
+	public ProdutoItemRegistrado(EventoTransacaoPK pk, int idProduto, String codigoExterno, String descricaoCompleta, BigDecimal precoPadrao, BigDecimal precoPraticado, String impostoImpressora, BigDecimal percentual, Long tipoProduto, String unidade){
 		this.pk = pk;
 		this.idProduto = idProduto;
 		this.codigoExterno = codigoExterno;
@@ -57,6 +66,9 @@ public class ProdutoItemRegistrado implements Serializable{
 		this.precoPraticado = precoPraticado;
 		this.impostoImpressora = impostoImpressora;
 		this.percentual = percentual;
+		this.tipoProduto =  tipoProduto;
+		this.unidade = unidade;
+		
 	}
 
 	public String getCodigoExterno() {

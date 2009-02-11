@@ -33,8 +33,16 @@ public class TransacaoVenda extends Transacao{
 	private Collection eventosTransacao;
 	private FormaRecebimento formaTroco;
 	
-
+	private Collection pedidos;
 	
+	public Collection getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(Collection pedidos) {
+		this.pedidos = pedidos;
+	}
+
 	public Collection getEventosTransacao() {
 		return eventosTransacao;
 	}

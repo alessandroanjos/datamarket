@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import com.infinity.datamarket.comum.transacao.ClienteTransacao;
+import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 
 public class OperacaoPedido extends Operacao{
 
@@ -20,7 +21,10 @@ public class OperacaoPedido extends Operacao{
 	private ClienteTransacao cliente;
 	private Collection eventosOperacao;
 	private String codigoUsuarioVendedor;
+	private TransacaoVenda transacaoVenda;
 	
+	
+
 	public OperacaoPedido(OperacaoPK pk, Date data, int tipo, int status,BigDecimal valor, String codigoUsuarioOperador, ClienteTransacao cliente){
 		super(pk,data,tipo,status);
 		this.valor = valor;
@@ -73,6 +77,14 @@ public class OperacaoPedido extends Operacao{
 
 	public void setDesconto(BigDecimal desconto) {
 		this.desconto = desconto;
+	}
+
+	public TransacaoVenda getTransacaoVenda() {
+		return transacaoVenda;
+	}
+
+	public void setTransacaoVenda(TransacaoVenda transacaoVenda) {
+		this.transacaoVenda = transacaoVenda;
 	}
 
 }
