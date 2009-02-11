@@ -5658,6 +5658,49 @@ public class Fachada {
 		}
 	}
 	
+	public void alterarOperacao(Operacao operacao) throws AppException{
+
+		try{
+			if (operacao instanceof OperacaoDevolucao){
+				OperacaoDevolucao operacaoDevolucao = (OperacaoDevolucao) operacao;
+				if (operacaoDevolucao.getCliente() != null){
+					try{
+						RepositoryManagerHibernateUtil.beginTrasaction();
+						getCadastroTransacao().inserirCliente(operacaoDevolucao.getCliente());
+						RepositoryManagerHibernateUtil.commitTransation();
+					}catch(Exception e){					
+						RepositoryManagerHibernateUtil.beginTrasaction();
+						getCadastroTransacao().atualizarCliente(operacaoDevolucao.getCliente());
+						RepositoryManagerHibernateUtil.commitTransation();
+					}
+				}
+			}
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroOperacao().alterar(operacao);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
 	public Operacao consultarOperacaoPorPK(OperacaoPK pk) throws AppException{
 		Operacao operacao = null;
 		try{
