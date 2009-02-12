@@ -7,8 +7,6 @@
 package com.infinity.datamarket.report;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -44,7 +42,6 @@ import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
 import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
-import com.infinity.datamarket.comum.operacao.OperacaoPK;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
 import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
@@ -231,7 +228,7 @@ public class GerenciadorRelatorio {
 			Map<String, String> parametros = new HashMap<String, String>();
 
 			parametros.put("empresa", EMPRESA);	
-			parametros.put("codigo", Util.completaString(movimentacaoEstoque.getId().toString(), "0", 4, true));
+			parametros.put("codigo", Util.completaString(movimentacaoEstoque.getId().toString(), "0", 4, false));
 			parametros.put("lojaSaida", movimentacaoEstoque.getEstoqueSaida().getPk().getLoja().getNome());
 			parametros.put("estoqueSaida", movimentacaoEstoque.getEstoqueSaida().getDescricao());
 			parametros.put("lojaEntrada", movimentacaoEstoque.getEstoqueEntrada().getPk().getLoja().getNome());
@@ -600,25 +597,26 @@ public OutputStream gerarRelatorioAnaliticoOperacoesDevolucao(int loja, Date dat
 	
 	public static void main(String[] a){
 		try{
-			Date d1 = new Date();
-			d1.setDate(1);
-			Date d2 = new Date();
-			d2.setDate(16);
-		
-			
-			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioFechamentoCaixaGeral(1, d1, new Date());
-			
-			String caminho = "c:\\pdv\\temp\\";
-			File dir = new File(caminho);
-			if (!dir.exists()){
-				dir.mkdir();
-			}
-			String nomeArquivo = caminho+"DEVOLUCAO.pdf";						
-			FileOutputStream f = new FileOutputStream(nomeArquivo);
-			f.write(out.toByteArray());
-			f.flush();
-			f.close();
-			Runtime.getRuntime().exec("cmd /c"+nomeArquivo);
+			System.out.println(Util.completaString("25", "0", 4, false));
+//			Date d1 = new Date();
+//			d1.setDate(1);
+//			Date d2 = new Date();
+//			d2.setDate(16);
+//		
+//			
+//			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioFechamentoCaixaGeral(1, d1, new Date());
+//			
+//			String caminho = "c:\\pdv\\temp\\";
+//			File dir = new File(caminho);
+//			if (!dir.exists()){
+//				dir.mkdir();
+//			}
+//			String nomeArquivo = caminho+"DEVOLUCAO.pdf";						
+//			FileOutputStream f = new FileOutputStream(nomeArquivo);
+//			f.write(out.toByteArray());
+//			f.flush();
+//			f.close();
+//			Runtime.getRuntime().exec("cmd /c"+nomeArquivo);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

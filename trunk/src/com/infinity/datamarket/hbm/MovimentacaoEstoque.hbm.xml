@@ -27,6 +27,10 @@
 	    <property name="dataMovimentacao" type="java.util.Date" update="true" insert="true">
             <column name="DATA" length="20" not-null="false"/>
         </property>
+        
+        <property name="status" type="java.lang.String" update="true" insert="true">
+            <column name="STATUS" length="1" not-null="true"/>
+        </property>
 
 		<many-to-one name="estoqueSaida" class="com.infinity.datamarket.comum.estoque.Estoque" update="true" insert="true">
           <column name="ID_ESTOQUE_SAI" not-null="false"/>

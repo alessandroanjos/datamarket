@@ -16,6 +16,15 @@ public class MovimentacaoEstoque extends Persistente{
 	private Date dataMovimentacao;
 	private Estoque estoqueSaida;
 	private Estoque estoqueEntrada;
+	
+	private String status;
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public int getCodigoUsuario() {
 		return codigoUsuario;
 	}
