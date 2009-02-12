@@ -90,6 +90,42 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 		getRepositorio().remove(movimentacaoEstoque);
 	}
 	
-	
-	
+	public void cancelar(MovimentacaoEstoque movimentacaoEstoque) throws AppException{
+		getRepositorio().update(movimentacaoEstoque);
+		
+		Collection col = movimentacaoEstoque.getProdutosMovimentacao();
+		
+		if (col==null)
+			throw new AppException("Não foram encontrados os itens da movimentação de estoque selecionada.");
+		
+		Iterator it = col.iterator();
+		while(it.hasNext()){		
+			ProdutoMovimentacaoEstoque pme = (ProdutoMovimentacaoEstoque) it.next();
+			
+			EstoqueProdutoPK pkEp = new EstoqueProdutoPK();
+			pkEp.setEstoque(movimentacaoEstoque.getEstoqueEntrada());
+			pkEp.setProduto(pme.getProduto());
+			
+			//adiciona saldo produto para o novo estoque
+			try {
+				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pkEp);
+				ep.setQuantidade(ep.getQuantidade().subtract(pme.getQuantidade()));
+				getRepositorio().update(ep);
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			}			
+			
+			pkEp = new EstoqueProdutoPK();
+			pkEp.setEstoque(movimentacaoEstoque.getEstoqueSaida());
+			pkEp.setProduto(pme.getProduto());
+			//retira saldo produto para o novo estoque
+			try {
+				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pkEp);
+				ep.setQuantidade(ep.getQuantidade().add(pme.getQuantidade()));
+				getRepositorio().update(ep);
+			} catch (ObjectNotFoundException e) {
+				e.printStackTrace();
+			}			
+		}
+	}	
 }

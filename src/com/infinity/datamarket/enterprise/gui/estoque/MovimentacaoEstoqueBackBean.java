@@ -31,6 +31,7 @@ import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class MovimentacaoEstoqueBackBean extends BackBean {  
@@ -74,9 +75,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	private String idExcluir; 
 
 	private static final String TIPO_ENTRADA = "E";
-	private static final String TIPO_SAIDA   = "A";
+	private static final String TIPO_SAIDA   = "S";
 	private String tipoMovimentacao;
 
+	private String status;
 	
 	public void resetProdutoBB() {
 		this.setCodigoExterno(null);
@@ -217,7 +219,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		
 		movimentacaoEstoque.setEstoqueEntrada(estoqueEntrada);
 		
-	   
+	   movimentacaoEstoque.setStatus(Constantes.STATUS_ATIVO);
 	    
 	    String msgValidacao = validaMovimentacao();
 		if (msgValidacao.equals("")) {
@@ -334,6 +336,41 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
     	      	   
     }
 
+    public String cancelar(){
+		try {
+			MovimentacaoEstoque movimentacaoEstoque = getFachada().consultarMovimentacaoEstoquePorId(new Long(this.id));
+			
+			movimentacaoEstoque.setStatus(Constantes.STATUS_CANCELADO);
+
+			getFachada().cancelarMovimentacaoEstoque(movimentacaoEstoque);
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Operação Realizada com Sucesso!", "");
+			ctx.addMessage(null, msg);
+			
+			this.setMovimentacaoProdutoEstoque(movimentacaoEstoque);
+			
+			resetBB();
+		} catch (ObjectExistentException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Entrada já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return "mesma";
+    }
+    
 	public String alterar() {
 //		EntradaProduto entradaProduto = new EntradaProduto();
 //		
@@ -371,6 +408,8 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	
 	public String consultar() {
 		try {
+			this.arrayProduto = null;
+			
 			FacesContext context = FacesContext.getCurrentInstance();
 			Map params = context.getExternalContext().getRequestParameterMap();
 			String param = (String) params.get("id");
@@ -394,6 +433,8 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				this.setIdEstoqueSaida(movimentacaoEstoque.getEstoqueSaida().getPk().getId().toString());
 				this.setEstoqueSaida(movimentacaoEstoque.getEstoqueSaida());
 				
+				this.setStatus(movimentacaoEstoque.getStatus());
+				
 				this.setMovimentacaoProdutoEstoque(movimentacaoEstoque);
 				
 				return "proxima";
@@ -408,21 +449,25 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 					filter.addProperty("estoqueSaida.pk.id", loja);
 				}
 				
+				filter.addProperty("status", this.getStatus());
+				
 				if (getId() != null && !"".equals(getId())) {
 	            	filter.addProperty("id", getId());
 					return consultarFiltro(filter);
-				} else if (getDataInicio() != null && !"".equals(getDataFinal())) {
+				} else if (getDataInicio() != null && !getDataInicio().equals("") && getDataFinal() != null && !getDataFinal().equals("")) {
 					filter.addPropertyInterval("dataMovimentacao",getDataInicio(), IntervalObject.MAIOR_IGUAL);
 					filter.addPropertyInterval("dataMovimentacao",getDataFinal(), IntervalObject.MENOR_IGUAL);
 					return consultarFiltro(filter);
 				} else {
+//					this.setArrayProduto(null);
 					FacesContext ctx = FacesContext.getCurrentInstance();
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Informe o periodo", "");
 					ctx.addMessage(null, msg);
 					setExisteRegistros(false);
+					this.setArrayProduto(null);
+					return "mesma";
 				}
-				
  			}
 		} catch (ObjectNotFoundException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -430,6 +475,8 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);
 			setExisteRegistros(false);
+			this.setArrayProduto(null);
+			return "mesma";
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -437,9 +484,9 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 			setExisteRegistros(false);
+			this.setArrayProduto(null);
+			return "mesma";
 		}
-		
-		return resetBB();
 	}
 	
 	private Loja buscaLoja(String id) {
@@ -466,35 +513,42 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			e.printStackTrace();
 		}
 		if (col == null || col.size() == 0) {
+			
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(
 					FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
 			ctx.addMessage(null, msg);
 			setExisteRegistros(false);
+			this.setArrayProduto(null);
 		} else if (col != null) {
 			if (col.size() == 1) {
 				
-				MovimentacaoEstoque movimentacaoProduto = (MovimentacaoEstoque)col.iterator().next();
+				MovimentacaoEstoque movEstoque = (MovimentacaoEstoque)col.iterator().next();
 				
-				this.setId( movimentacaoProduto.getId().toString());
-				this.setDataMovimentacao(movimentacaoProduto.getDataMovimentacao());
+				this.setId( movEstoque.getId().toString());
+				this.setDataMovimentacao(movEstoque.getDataMovimentacao());
 				
-				this.setIdEstoqueEntrada(movimentacaoProduto.getEstoqueEntrada().getPk().getId().toString());
-				this.setEstoqueEntrada(movimentacaoProduto.getEstoqueEntrada());
+				this.setIdEstoqueEntrada(movEstoque.getEstoqueEntrada().getPk().getId().toString());
+				this.setEstoqueEntrada(movEstoque.getEstoqueEntrada());
 				
-				this.setIdEstoqueSaida(movimentacaoProduto.getEstoqueSaida().getPk().getId().toString());
-				this.setEstoqueSaida(movimentacaoProduto.getEstoqueSaida());
+				this.setIdEstoqueSaida(movEstoque.getEstoqueSaida().getPk().getId().toString());
+				this.setEstoqueSaida(movEstoque.getEstoqueSaida());
 				
-				Set<ProdutoMovimentacaoEstoque> colProduto =  (Set<ProdutoMovimentacaoEstoque>) movimentacaoProduto.getProdutosMovimentacao();
+				Set<ProdutoMovimentacaoEstoque> colProduto =  (Set<ProdutoMovimentacaoEstoque>) movEstoque.getProdutosMovimentacao();
 				this.setArrayProduto(colProduto);
+				
+				this.setStatus(movEstoque.getStatus());
+				
+				this.setMovimentacaoProdutoEstoque(movEstoque);
 				
 				return "proxima";
 			} else {
+				setExisteRegistros(true);
 				this.setMovimentacaoEstoque(col);
 			}
 		}
-		return resetBB();
+		return "mesma";
 	}
 	
 	public void consultarProdutosEstoque(){
@@ -626,12 +680,21 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	
 	
 	public SelectItem[] getTipoMovimentoItens() {
-		SelectItem[] tipoMovimentoItens = new SelectItem[]{new SelectItem(TIPO_SAIDA,"Saida"),
+		SelectItem[] tipoMovimentoItens = new SelectItem[]{new SelectItem(TIPO_SAIDA,"Saída"),
                 new SelectItem(TIPO_ENTRADA,"Entrada")};
 		if(getTipoMovimentacao() == null){
 			setTipoMovimentacao(TIPO_SAIDA);
 		}
 		return tipoMovimentoItens;
+	}
+	
+	public SelectItem[] getlistaStatus() {
+		SelectItem[] listaStatusItens = new SelectItem[]{new SelectItem(Constantes.STATUS_ATIVO,"Ativa"),
+                new SelectItem(Constantes.STATUS_CANCELADO,"Cancelada")};
+		if(getStatus() == null){
+			setStatus(Constantes.STATUS_ATIVO);
+		}
+		return listaStatusItens;
 	}
 	
 	public SelectItem[] getEstoques() {
@@ -654,19 +717,18 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 
 		return arrayEstoques;
 	}
-	public String resetBB() {
+	public void resetBB() {
 		this.setId(null);
 		this.setArrayProduto(null);
-		this.setDataInicio(null);
-		this.setDataFinal(null);
+//		this.setDataInicio(null);
+//		this.setDataFinal(null);
+		this.setStatus(Constantes.STATUS_ATIVO);
 		resetProdutoBB();
-		return "mesma";
 	}
-    public String resetConsultaBB() {
+    public void resetConsultaBB() {
 		this.setDataInicio(null);
 		this.setDataFinal(null);
 		this.setMovimentacaoEstoque(null);
-		return "mesma";
     }
 	public String voltarConsulta() {
 		consultar();
@@ -1049,6 +1111,14 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	}
 	public void setDescricaoCompletaEstoque(String descricaoCompletaEstoque) {
 		this.descricaoCompletaEstoque = descricaoCompletaEstoque;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

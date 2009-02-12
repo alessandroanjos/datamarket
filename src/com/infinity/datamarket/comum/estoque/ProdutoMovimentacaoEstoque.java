@@ -37,7 +37,7 @@ public class ProdutoMovimentacaoEstoque implements Serializable{
 	 * @return the quantidade
 	 */
 	public BigDecimal getQuantidade() {
-		return quantidade;
+		return quantidade != null ? quantidade.setScale(3) : quantidade;
 	}
 
 	/**

@@ -54,7 +54,7 @@
 													id="dataInicio" />
 											</div>	
 											<div>	
-												<h:outputLabel styleClass="desc" value=" Data Final "></h:outputLabel>
+												<h:outputLabel styleClass="desc" value="Data Final"></h:outputLabel>
 												<t:inputText readonly="false" styleClass="field text"
 													maxlength="10" size="10" forceId="dataFinal"
 													onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
@@ -62,17 +62,26 @@
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
-												<h:selectOneMenu id="idEstoque" styleClass="field select"
+												<h:selectOneMenu id="idEstoque" styleClass="field select" style="width:250px;" 
 													value="#{movimentacaoEstoqueBB.idEstoque}" >   
 														  <f:selectItems id="estoqueSelectItems" 
 														  value="#{movimentacaoEstoqueBB.estoques}" />   
 												</h:selectOneMenu> 
 											</div>	
+											<br/>
+											<br/>
 											<div>
 												<h:outputLabel styleClass="desc" value="Tipo Movimentação"></h:outputLabel>
 												<h:selectOneRadio  styleClass="field select" id="tipoMovimentacao" 
 													value="#{movimentacaoEstoqueBB.tipoMovimentacao}" layout="lineDirection" required="true">
 												    <f:selectItems id="situacao" value="#{movimentacaoEstoqueBB.tipoMovimentoItens}" />							
+												</h:selectOneRadio>
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
+												<h:selectOneRadio  styleClass="field select" id="status" 
+													value="#{movimentacaoEstoqueBB.status}" layout="lineDirection" required="true">
+												    <f:selectItems id="situacao" value="#{movimentacaoEstoqueBB.listaStatus}" />							
 												</h:selectOneRadio>
 											</div>		
 									<h:message for="status" styleClass="msgErro"/>							
@@ -84,7 +93,7 @@
 									var="movimentacao" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="N.Entrada" /> 
+											<h:outputText value="Num. Entrada" /> 
 										</f:facet>
 										<h:commandLink value="#{movimentacao.id}" action="#{movimentacaoEstoqueBB.consultar}">
 											<f:param name="id" value="#{movimentacao.id}"/>						
@@ -92,7 +101,7 @@
 									</h:column>
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Dt.Movimentação" />
+											<h:outputText value="Data Movimentação" />
 										</f:facet>
 										<h:outputText value="#{movimentacao.dataMovimentacao}" />
 									</h:column>
@@ -102,7 +111,13 @@
 										</f:facet>
 										<h:outputText value="#{movimentacao.codigoUsuario}" /> 
 									</h:column>
-									
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Status" />
+										</f:facet>
+										<h:outputText value="Ativa" rendered="#{movimentacao.status == 'A'}"/> 
+										<h:outputText value="Cancelada" rendered="#{movimentacao.status == 'C'}"/>
+									</h:column>
 								</t:dataTable>
 								<ul>
 									<li class="normal">
