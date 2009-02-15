@@ -33,17 +33,17 @@ public class MicSolicitaDadosConsultaOperacaoPedido extends Mic{
 						OperacaoPedido pedido = null; 
 						try{
 							gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
-							OperacaoServerRemote remote = (OperacaoServerRemote) ServiceLocator.getJNDIObject(ServerConfig.OPERACAO_SERVER_JNDI);
-							if (remote == null){
-								gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
-								gerenciadorPerifericos.esperaVolta();
-								return ALTERNATIVA_2;
-							}
+//							OperacaoServerRemote remote = (OperacaoServerRemote) ServiceLocator.getJNDIObject(ServerConfig.OPERACAO_SERVER_JNDI);
+//							if (remote == null){
+//								gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+//								gerenciadorPerifericos.esperaVolta();
+//								return ALTERNATIVA_2;
+//							}
 							OperacaoPK pk = new OperacaoPK(Integer.parseInt(operacao),gerenciadorPerifericos.getCodigoLoja());
 							Operacao op = null;
 							try{
-								op = remote.consultarOperacaoPorID(pk);								
-//								op = getFachadaPDV().consultarOperacaoPorPK(pk);
+//								op = remote.consultarOperacaoPorID(pk);								
+								op = getFachadaPDV().consultarOperacaoPorPK(pk);
 							}catch(ObjectNotFoundException e){								
 								gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
 								gerenciadorPerifericos.esperaVolta();
@@ -58,7 +58,7 @@ public class MicSolicitaDadosConsultaOperacaoPedido extends Mic{
 								if (pedido.getStatus() == ConstantesOperacao.ABERTO){
 									pedido.setStatus(ConstantesOperacao.EM_PROCESSAMENTO);
 									gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_PEDIDO,pedido);
-									remote.alteraStatusOperacao(pk, ConstantesOperacao.EM_PROCESSAMENTO);
+//									remote.alteraStatusOperacao(pk, ConstantesOperacao.EM_PROCESSAMENTO);
 									getFachadaPDV().alterarStatusOperacao(pk, ConstantesOperacao.EM_PROCESSAMENTO);
 									return ALTERNATIVA_1;
 								}else{
