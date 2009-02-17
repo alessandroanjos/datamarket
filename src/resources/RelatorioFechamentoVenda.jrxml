@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="Recibo Venda"
+		 name="RelatorioFechamentoVenda"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
@@ -59,6 +59,9 @@
 		<variableExpression><![CDATA[$F{QUANTIDADE}]]></variableExpression>
 		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
+	<variable name="quantidadeGeral" class="java.math.BigDecimal" resetType="Report" incrementType="Group" incrementGroup="cupomGroup" calculation="Sum">
+		<variableExpression><![CDATA[$V{QTD_ITENS}]]></variableExpression>
+	</variable>
 
 		<group  name="dataGroup" >
 			<groupExpression><![CDATA[$F{DATA_TRANSACAO}]]></groupExpression>
@@ -103,7 +106,7 @@
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="347"
+						x="340"
 						y="1"
 						width="115"
 						height="16"
@@ -118,9 +121,9 @@
 				<textField isStretchWithOverflow="false" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Opaque"
-						x="462"
+						x="455"
 						y="1"
-						width="74"
+						width="84"
 						height="16"
 						backcolor="#CCCCCC"
 						key="textField-12"/>
@@ -179,7 +182,7 @@
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="347"
+						x="340"
 						y="1"
 						width="115"
 						height="16"
@@ -194,9 +197,9 @@
 				<textField isStretchWithOverflow="false" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Opaque"
-						x="462"
+						x="455"
 						y="1"
-						width="74"
+						width="84"
 						height="16"
 						backcolor="#CCCCCC"
 						key="textField-11"/>
@@ -442,7 +445,7 @@
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="347"
+						x="339"
 						y="19"
 						width="116"
 						height="16"
@@ -457,9 +460,9 @@
 				<textField isStretchWithOverflow="false" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Opaque"
-						x="462"
+						x="455"
 						y="19"
-						width="73"
+						width="83"
 						height="16"
 						backcolor="#CCCCCC"
 						key="textField-10"/>
@@ -480,7 +483,7 @@
 				</line>
 				<line direction="TopDown">
 					<reportElement
-						x="0"
+						x="-1"
 						y="36"
 						width="539"
 						height="0"
@@ -671,7 +674,7 @@
 				<staticText>
 					<reportElement
 						mode="Opaque"
-						x="347"
+						x="340"
 						y="1"
 						width="115"
 						height="16"
@@ -686,9 +689,9 @@
 				<textField isStretchWithOverflow="false" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Opaque"
-						x="462"
+						x="455"
 						y="1"
-						width="74"
+						width="84"
 						height="16"
 						backcolor="#CCCCCC"
 						key="textField-20"/>
@@ -696,8 +699,38 @@
 					<textElement textAlignment="Right">
 						<font fontName="Courier New" size="14" isBold="true"/>
 					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$V{totalGeral}]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[new BigDecimal($V{totalGeral}.toString()).setScale(2)]]></textFieldExpression>
 				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.000;-#,##0.000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="248"
+						y="1"
+						width="86"
+						height="16"
+						backcolor="#CCCCCC"
+						key="textField-22"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="14" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[new BigDecimal($V{quantidadeGeral}.toString()).setScale(3)]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="70"
+						y="1"
+						width="178"
+						height="16"
+						backcolor="#CCCCCC"
+						key="staticText-22"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font fontName="Courier New" size="14" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Quantidade Geral:]]></text>
+				</staticText>
 			</band>
 		</lastPageFooter>
 		<summary>
