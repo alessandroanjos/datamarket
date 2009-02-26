@@ -10,19 +10,19 @@ import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import org.ajax4jsf.org.w3c.tidy.IStack;
-
+import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.usuario.Vendedor;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
-import com.infinity.datamarket.report.GerenciadorRelatorio;
 
 public class RelatorioBackBean extends BackBean {
 	
@@ -42,6 +42,10 @@ public class RelatorioBackBean extends BackBean {
 	SelectItem[] lojas;
 	
 	SelectItem[] operadores;
+	
+	String idVendedor;
+	SelectItem[] vendedores;
+	
 
 	public String getIdLoja() {
 		return idLoja;
@@ -469,6 +473,41 @@ public class RelatorioBackBean extends BackBean {
 		}
 	}
 	
+	public void executarRelatorioComissaoPorVendedor(){
+		try {
+			validarRelatorioComissaoPorVendedor();
+			
+			FacesContext context = FacesContext.getCurrentInstance();
+			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+			ServletOutputStream out = response.getOutputStream();
+			
+//			ByteArrayOutputStream byteOutputStream =
+//					(ByteArrayOutputStream)getFachada().gerarRelatorioComissaoPorVendedor(new Integer(this.getIdLoja()).intValue(),this.getDataInicial(), 
+//																					    this.getDataFinal(),new Integer(this.getIdVendedor()));
+													
+			
+//			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
+			response.setContentType("application/pdf");
+			response.setHeader("Content-disposition", "attachment;filename=RelatorioComissaoPorVendedor" + System.currentTimeMillis() + ".pdf");
+			context.responseComplete();
+			out.flush();
+			out.close();			
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (IOException e) {			
+			e.printStackTrace();
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro ao executar o Relatório!", "");
+			ctx.addMessage(null, msg);
+		}
+	}
+	
 	public void validarRelatorioABCVendas() throws AppException{
 		validaPeriodo();
 	}
@@ -495,6 +534,10 @@ public class RelatorioBackBean extends BackBean {
 		validaPeriodo();
 	}
 	
+	public void validarRelatorioComissaoPorVendedor() throws AppException{
+		validaPeriodo();
+	}
+	
 	public void validaPeriodo() throws AppException{
 		if(this.getDataInicial() == null || this.getDataInicial().equals("")){
 			throw new AppException("É necessário informar a Data Inicial!");
@@ -511,6 +554,7 @@ public class RelatorioBackBean extends BackBean {
 		String param = (String)  params.get(ACAO);
 		if (param != null){
 			resetBB();
+			this.setIdVendedor(null);
 //			if(VALOR_ACAO.equals(param)){
 //				setListaUsuarios(null);
 //			}
@@ -538,20 +582,84 @@ public class RelatorioBackBean extends BackBean {
 		resetBB();
 	}
 	
+	public void limparRelatorioComissaoPorVendedor(){
+		resetBB();
+		this.setIdVendedor(null);
+	}
+	
 	public void resetBB(){
 		this.setIdLoja("0");
 		this.setDataInicial(null);
 		this.setDataFinal(null);		
-		
-//		this.idLoja = "0";
-//		this.dataInicial = null;
-//		this.dataFinal = null;
 	}
 
-	public static void main(String[] args) {
-		String[] status = new String[]{Constantes.STATUS_ATIVO,Constantes.STATUS_CANCELADO};
-		System.out.println(status);
-		System.out.println(status.toString());
-		System.out.println(status[0]+","+status[1]);
+	public String getIdVendedor() {
+		return idVendedor;
+	}
+
+	public void setIdVendedor(String idVendedor) {
+		this.idVendedor = idVendedor;
+	}
+	
+	private List<Usuario> carregarUsuarios(IPropertyFilter filter) {		
+		List<Usuario> usuarios = null;
+		try {
+			usuarios = (ArrayList<Usuario>)getFachada().consultarUsuario(filter);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return usuarios;
+	}
+
+	public SelectItem[] getVendedores() {
+		SelectItem[] arrayVendedores = null;
+		try {
+			Loja loja = null;
+			if(this.getIdLoja() != null && !this.getIdLoja().equals("0")){
+				loja = (Loja)getFachada().consultarLojaPorId(new Long(this.getIdLoja()));	
+			}
+			PropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(Vendedor.class);
+			
+			filter.addProperty("lojas", loja);
+			List<Usuario> usuariosVendedores = carregarUsuarios(filter);
+			arrayVendedores = new SelectItem[usuariosVendedores.size()+1];
+			int i = 0;
+			arrayVendedores[i++] = new SelectItem("0", "Todos");
+			for(Usuario usuariosTmp : usuariosVendedores){
+				SelectItem item = new SelectItem(usuariosTmp.getId().toString(), usuariosTmp.getNome());
+				arrayVendedores[i++] = item;
+			}
+			if(this.getIdVendedor() == null && arrayVendedores.length > 0){
+				this.setIdVendedor(arrayVendedores[0].getValue().toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayVendedores;
+	}
+
+	public void setVendedores(SelectItem[] vendedores) {
+		this.vendedores = vendedores;
+	}
+	
+	public void carregarVendedoresPorLoja(ValueChangeEvent event){
+        try {
+        	this.getVendedores();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		}
 	}
 }
