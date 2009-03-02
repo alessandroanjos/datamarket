@@ -323,12 +323,12 @@ public class Fachada {
 		return out;
 	}
 	
-	public OutputStream gerarRelatorioComissaoVendedor(int loja, Date data_inicio_movimento, Date data_fim_movimento) throws AppException{
+	public OutputStream gerarRelatorioComissaoVendedor(int loja, Date data_inicio_movimento, Date data_fim_movimento, int vendedor) throws AppException{
 		
 		OutputStream out = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			out = getGerenciadorRelatorio().gerarRelatorioComissaoVendedor(loja, data_inicio_movimento, data_fim_movimento);
+			out = getGerenciadorRelatorio().gerarRelatorioComissaoVendedor(loja, data_inicio_movimento, data_fim_movimento, vendedor);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{

@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -900,7 +901,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 	}
 
 	
-	public OutputStream gerarRelatorioComissaoVendedor(int loja, Date data_inicio_movimento, Date data_fim_movimento) throws AppException{
+	public OutputStream gerarRelatorioComissaoVendedor(int loja, Date data_inicio_movimento, Date data_fim_movimento, int vendedor) throws AppException{
 		
 		OutputStream out  = new ByteArrayOutputStream();
 		ResultSet rs = null;
@@ -936,6 +937,11 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			pstm.setDate(2,new java.sql.Date(dataInicio.getTime()));			
 			pstm.setDate(3,new java.sql.Date(dataFim.getTime()));
 			
+			if(vendedor != 0){
+				pstm.setInt(4,vendedor);	
+			}else{
+				pstm.setInt(4,Types.INTEGER);
+			}			
 			
 			rs = pstm.executeQuery();
 			
