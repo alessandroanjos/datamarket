@@ -481,14 +481,49 @@ public class RelatorioBackBean extends BackBean {
 			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
 			ServletOutputStream out = response.getOutputStream();
 			
-//			ByteArrayOutputStream byteOutputStream =
-//					(ByteArrayOutputStream)getFachada().gerarRelatorioComissaoPorVendedor(new Integer(this.getIdLoja()).intValue(),this.getDataInicial(), 
-//																					    this.getDataFinal(),new Integer(this.getIdVendedor()));
+			ByteArrayOutputStream byteOutputStream =
+					(ByteArrayOutputStream)getFachada().gerarRelatorioComissaoVendedor(new Integer(this.getIdLoja()).intValue(),this.getDataInicial(), 
+																					    this.getDataFinal(),new Integer(this.getIdVendedor()).intValue());
 													
 			
-//			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
+			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
 			response.setContentType("application/pdf");
 			response.setHeader("Content-disposition", "attachment;filename=RelatorioComissaoPorVendedor" + System.currentTimeMillis() + ".pdf");
+			context.responseComplete();
+			out.flush();
+			out.close();			
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (IOException e) {			
+			e.printStackTrace();
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro ao executar o Relatório!", "");
+			ctx.addMessage(null, msg);
+		}
+	}
+	
+	public void executarRelatorioLucroBruto(){
+		try {
+			validarRelatorioLucroBruto();
+
+			FacesContext context = FacesContext.getCurrentInstance();
+			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+			ServletOutputStream out = response.getOutputStream();
+
+			ByteArrayOutputStream byteOutputStream = 
+				(ByteArrayOutputStream)getFachada().gerarRelatorioLucroBrutoVenda(new Integer(this.getIdLoja()).intValue(), 
+																				  this.getDataInicial(), 
+																				  this.getDataFinal());
+			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
+
+			response.setContentType("application/pdf");
+			response.setHeader("Content-disposition", "attachment;filename=RelatorioLucroBruto" + System.currentTimeMillis() + ".pdf");
 			context.responseComplete();
 			out.flush();
 			out.close();			
@@ -535,6 +570,10 @@ public class RelatorioBackBean extends BackBean {
 	}
 	
 	public void validarRelatorioComissaoPorVendedor() throws AppException{
+		validaPeriodo();
+	}
+	
+	public void validarRelatorioLucroBruto() throws AppException{
 		validaPeriodo();
 	}
 	
@@ -585,6 +624,10 @@ public class RelatorioBackBean extends BackBean {
 	public void limparRelatorioComissaoPorVendedor(){
 		resetBB();
 		this.setIdVendedor(null);
+	}
+	
+	public void limparRelatorioLucroBruto(){
+		resetBB();
 	}
 	
 	public void resetBB(){
