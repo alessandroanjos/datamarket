@@ -1705,8 +1705,9 @@ public class TransacaoBackBean extends BackBean {
 		BigDecimal comissao = BigDecimal.ZERO;
 		try {
 			Vendedor vendedor = (Vendedor)getFachada().consultarUsuarioPorId(new Long(idVendedor));
-			comissao = pValorTotalCupom.multiply(vendedor.getComissao() != null ? vendedor.getComissao(): BigDecimal.ZERO).
-							setScale(2, BigDecimal.ROUND_DOWN).divide(new BigDecimal("100.00"), BigDecimal.ROUND_DOWN);
+//			comissao = pValorTotalCupom.multiply(vendedor.getComissao() != null ? vendedor.getComissao(): BigDecimal.ZERO).
+//							setScale(2, BigDecimal.ROUND_DOWN).divide(new BigDecimal("100.00"), BigDecimal.ROUND_DOWN);
+			comissao = vendedor.getComissao();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
