@@ -28,6 +28,7 @@ public class Queries {
 	public static final String RELATORIO_FECHAMENTO_CAIXA_GERAL ;
 	public static final String RELATORIO_COMISSAO_VENDEDOR ;
 	public static final String RELATORIO_LUCRATIVIDADE_VENDAS ;
+	public static final String RELATORIO_ESTOQUE_ATUAL;
 	
 	
 	static {
@@ -45,6 +46,7 @@ public class Queries {
 			RELATORIO_FECHAMENTO_CAIXA_GERAL = rs.getString("RELATORIO_FECHAMENTO_CAIXA_GERAL");
 			RELATORIO_COMISSAO_VENDEDOR = rs.getString("RELATORIO_COMISSAO_VENDEDOR");
 			RELATORIO_LUCRATIVIDADE_VENDAS = rs.getString("RELATORIO_LUCRATIVIDADE_VENDAS");
+			RELATORIO_ESTOQUE_ATUAL = rs.getString("RELATORIO_ESTOQUE_ATUAL");
 	}
 	
 	
