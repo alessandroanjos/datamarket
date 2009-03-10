@@ -910,7 +910,9 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			Map parametros = new HashMap();
 	
 			parametros.put("empresa", EMPRESA);				
-						
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			parametros.put("dataInicial", df.format(data_inicio_movimento));	
+			parametros.put("dataFinal", df.format(data_fim_movimento));	
 			Connection con = getConnection();
 			
 			pstm = con.prepareStatement(Queries.RELATORIO_COMISSAO_VENDEDOR);
@@ -940,7 +942,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			if(vendedor != 0){
 				pstm.setInt(4,vendedor);	
 			}else{
-				pstm.setInt(4,Types.INTEGER);
+				pstm.setNull(4, Types.NULL);
 			}			
 			
 			rs = pstm.executeQuery();
@@ -969,6 +971,51 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 		return out;
 	}
 	
+	public OutputStream gerarRelatorioEstoqueAtual(int loja, int estoque) throws AppException{
+		
+		OutputStream out  = new ByteArrayOutputStream();
+		ResultSet rs = null;
+		PreparedStatement pstm = null;
+		try{
+			Map parametros = new HashMap();
+	
+			parametros.put("empresa", EMPRESA);				
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+			parametros.put("dataAtual", df.format(new Date(System.currentTimeMillis())));	
+			Connection con = getConnection();
+			
+			pstm = con.prepareStatement(Queries.RELATORIO_ESTOQUE_ATUAL);
+			
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioEstoqueAtual.jasper");
+			
+			pstm.setInt(1,loja);
+			pstm.setInt(2,estoque);
+
+			rs = pstm.executeQuery();
+			
+			
+			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
+				
+	        JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);
+	        
+			}catch(Exception e){
+			e.printStackTrace();
+			throw new RelatorioException(e);
+		}finally{
+			try{
+				if (rs != null){
+					rs.close();
+				}
+				if (pstm != null){
+					pstm.close();
+				}
+			}catch(Exception e){
+				throw new RelatorioException(e);
+			}
+		}
+			
+		return out;
+	}
 	
 	public OutputStream gerarRelatorioLucroBrutoVenda(int loja, Date data_inicio_movimento, Date data_fim_movimento) throws AppException{
 		

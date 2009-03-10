@@ -354,6 +354,37 @@ public class Fachada {
 		return out;
 	}
 	
+	public OutputStream gerarRelatorioEstoqueAtual(int loja, int estoque) throws AppException{
+		OutputStream out = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			out = getGerenciadorRelatorio().gerarRelatorioEstoqueAtual(loja, estoque);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return out;
+	}
+
+	
 	public OutputStream gerarRelatorioABCVendas(int loja, Date data_inicio_movimento,Date data_fim_movimento, String tipo) throws AppException{		
 		OutputStream out = null;
 		try{
