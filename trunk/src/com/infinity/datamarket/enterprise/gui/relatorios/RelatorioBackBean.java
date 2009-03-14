@@ -15,6 +15,7 @@ import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
@@ -30,6 +31,7 @@ public class RelatorioBackBean extends BackBean {
 	Date dataFinal;
 	
 	String idLoja;
+	String idEstoque;
 	
 	String idOperador;
 	
@@ -40,6 +42,7 @@ public class RelatorioBackBean extends BackBean {
 	private SelectItem[] listaTiposOrdenacao;
 	
 	SelectItem[] lojas;
+	SelectItem[] estoques;
 	
 	SelectItem[] operadores;
 	
@@ -543,6 +546,39 @@ public class RelatorioBackBean extends BackBean {
 		}
 	}
 	
+	public void executarRelatorioEstoqueAtual(){
+		try {
+			validarRelatorioEstoqueAtual();
+
+			FacesContext context = FacesContext.getCurrentInstance();
+			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+			ServletOutputStream out = response.getOutputStream();
+
+			ByteArrayOutputStream byteOutputStream = 
+				(ByteArrayOutputStream)getFachada().gerarRelatorioEstoqueAtual(new Integer(this.getIdLoja()).intValue(), new Integer(this.getIdEstoque()).intValue());
+			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
+
+			response.setContentType("application/pdf");
+			response.setHeader("Content-disposition", "attachment;filename=RelatorioEstoqueAtual" + System.currentTimeMillis() + ".pdf");
+			context.responseComplete();
+			out.flush();
+			out.close();			
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (IOException e) {			
+			e.printStackTrace();
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro ao executar o Relatório!", "");
+			ctx.addMessage(null, msg);
+		}
+	}
+	
 	public void validarRelatorioABCVendas() throws AppException{
 		validaPeriodo();
 	}
@@ -575,6 +611,16 @@ public class RelatorioBackBean extends BackBean {
 	
 	public void validarRelatorioLucroBruto() throws AppException{
 		validaPeriodo();
+	}
+	
+	public void validarRelatorioEstoqueAtual() throws AppException{
+		if(this.getIdLoja() == null || this.getIdLoja().equals("0")){
+			throw new AppException("É necessário selecionar uma Loja!");
+		}
+		
+		if(this.getIdEstoque() == null || this.getIdEstoque().equals("0")){
+			throw new AppException("É necessário selecionar um Estoque!");
+		}
 	}
 	
 	public void validaPeriodo() throws AppException{
@@ -627,6 +673,10 @@ public class RelatorioBackBean extends BackBean {
 	}
 	
 	public void limparRelatorioLucroBruto(){
+		resetBB();
+	}
+	
+	public void limparRelatorioEstoqueAtual(){
 		resetBB();
 	}
 	
@@ -704,5 +754,77 @@ public class RelatorioBackBean extends BackBean {
 					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		}
+	}
+
+	public String getIdEstoque() {
+		return idEstoque;
+	}
+
+	public void setIdEstoque(String idEstoque) {
+		this.idEstoque = idEstoque;
+	}
+	
+	private List<Estoque> carregarEstoques(IPropertyFilter filter) {		
+		List<Estoque> estoques = null;
+		try {
+			estoques = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return estoques;
+	}
+
+	public void carregarEstoquesPorLoja(ValueChangeEvent event){
+        try {
+        	this.getEstoques();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		}
+	}
+
+
+	public SelectItem[] getEstoques() {
+		SelectItem[] arrayEstoques = null;
+		try {
+			Loja loja = null;
+			if(this.getIdLoja() != null && !this.getIdLoja().equals("0")){
+				loja = (Loja)getFachada().consultarLojaPorId(new Long(this.getIdLoja()));	
+			}
+			PropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(Estoque.class);
+			
+			filter.addProperty("pk.loja", loja);
+			List<Estoque> estoques = carregarEstoques(filter);
+			arrayEstoques = new SelectItem[estoques.size()+1];
+			int i = 0;
+			arrayEstoques[i++] = new SelectItem("0", "");
+			for(Estoque estoquesTmp : estoques){
+				SelectItem item = new SelectItem(estoquesTmp.getPk().getId().toString(), estoquesTmp.getDescricao());
+				arrayEstoques[i++] = item;
+			}
+			if(this.getIdVendedor() == null && arrayEstoques.length > 0){
+				this.setIdVendedor(arrayEstoques[0].getValue().toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayEstoques;
+	}
+
+
+	public void setEstoques(SelectItem[] estoques) {
+		this.estoques = estoques;
 	}
 }
