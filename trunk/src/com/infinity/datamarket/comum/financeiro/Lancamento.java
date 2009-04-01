@@ -28,6 +28,8 @@ public class Lancamento extends Persistente{
 	private String observacao;
 	private FormaRecebimento forma;
 	private GrupoLancamento grupo;
+	private Long idEntradaProduto;
+	
 	public Date getDataLancamento() {
 		return dataLancamento;
 	}
@@ -93,6 +95,12 @@ public class Lancamento extends Persistente{
 	}
 	public void setLoja(Loja loja) {
 		this.loja = loja;
+	}
+	public Long getIdEntradaProduto() {
+		return idEntradaProduto;
+	}
+	public void setIdEntradaProduto(Long idEntradaProduto) {
+		this.idEntradaProduto = idEntradaProduto;
 	}
 	
 }
