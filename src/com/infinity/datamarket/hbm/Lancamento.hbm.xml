@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.financeiro.Lancamento" table="LANCAMENTO" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="18"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+		<property name="dataLancamento" type="java.util.Date" update="true" insert="true">
+	            <column name="DATA_LANCAMENTO" length="20" not-null="false"/>
+	    </property>
+	
+		<property name="dataVencimento" type="java.util.Date" update="true" insert="true">
+	            <column name="DATA_VENCIMENTO" length="20" not-null="false"/>
+	    </property>
+
+		<property name="dataPagamento" type="java.util.Date" update="true" insert="true">
+	            <column name="DATA_PAGAMENTO" length="20" not-null="false"/>
+	    </property>
+	    
+	    <property name="numeroDocumento" type="java.lang.String" update="true" insert="true">
+            <column name="NUMERO_DOCUMENTO" length="50" not-null="true"/>
+        </property>
+	    
+        <property name="descricao" type="java.lang.String" update="true" insert="true">
+            <column name="DESCRICAO" length="50" not-null="true"/>
+        </property>
+        
+        <many-to-one name="grupo" class="com.infinity.datamarket.comum.financeiro.GrupoLancamento" update="true" insert="true">
+          <column name="ID_GRUPO_LANCAMENTO" not-null="true"/>
+        </many-to-one>
+        
+        <many-to-one name="loja" class="com.infinity.datamarket.comum.usuario.Loja" update="true" insert="true">
+          <column name="ID_LOJA" not-null="true"/>
+        </many-to-one>
+        
+        <property name="tipoLancamento" type="java.lang.String" update="true" insert="true">
+            <column name="TIPO_LANCAMENTO" length="1" not-null="true"/>
+        </property>
+        
+        <property name="valor" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR" length="20" not-null="false"/>
+        </property>
+
+        <many-to-one name="forma" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento" update="true" insert="true">
+          <column name="ID_FORMA_RECEBIMENTO" not-null="true"/>
+        </many-to-one>        
+
+		<property name="observacao" type="java.lang.String" update="true" insert="true">
+            <column name="OBSERVACAO" length="250" not-null="true"/>
+        </property>
+        
+        <property name="idEntradaProduto" type="java.lang.Long" update="true" insert="true">
+	            <column name="ID_ENTRADA_PRODUTO" length="18" not-null="false"/>
+	    </property>
+
+    </class>
+
+</hibernate-mapping>

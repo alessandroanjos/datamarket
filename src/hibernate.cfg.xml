@@ -18,7 +18,7 @@
       <property name="connection.password">sa</property>
 
       <property name="show_sql">false</property>
-      <property name="format_sql">true</property>
+      <property name="format_sql">false</property>
       <!-- <property name="dialect">net.sf.hibernate.dialect.PostgreSQLDialect</property> -->
       <!--property name="dialect">net.sf.hibernate.dialect.OracleDialect</property>-->
       <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
@@ -93,6 +93,8 @@
 	<mapping resource="com/infinity/datamarket/hbm/ProdutoOperacaoItemRegistrado.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoTroca.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/OperacaoPedido.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/GrupoLancamento.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/Lancamento.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
 

@@ -243,7 +243,27 @@
 			<from-outcome>manterAutorizadora</from-outcome>
 			<to-view-id>/jsp/autorizadora/consultarAutorizadora.jsp</to-view-id>
 		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>inserirGrupoLancamento</from-outcome>
+			<to-view-id>/jsp/grupoLancamento/inserirGrupoLancamento.jsp</to-view-id>
+		</navigation-case>
 		
+		<navigation-case>
+			<from-outcome>manterGrupoLancamento</from-outcome>
+			<to-view-id>/jsp/GrupoLancamento/consultarGrupoLancamento.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>inserirLancamento</from-outcome>
+			<to-view-id>/jsp/lancamento/inserirLancamento.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>manterLancamento</from-outcome>
+			<to-view-id>/jsp/lancamento/consultarLancamento.jsp</to-view-id>
+		</navigation-case>
+				
 		<navigation-case>
 			<from-outcome>inserirTransacao</from-outcome>
 			<to-view-id>/jsp/transacao/inserirTransacao.jsp</to-view-id>
@@ -1108,6 +1128,81 @@
 		</navigation-case>
 	</navigation-rule>
 
+	<!-- GrupoLancamento -->
+	<navigation-rule>
+		<from-view-id>/jsp/grupoLancamento/inserirGrupoLancamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{grupoLancamentoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/grupoLancamento/inserirGrupoLancamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{grupoLancamentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/grupoLancamento/consultarGrupoLancamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{grupoLancamentoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/grupoLancamento/manterGrupoLancamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{grupoLancamentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/grupoLancamento/manterGrupoLancamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{grupoLancamentoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/grupoLancamento/consultarGrupoLancamento.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+<!-- Lancamento -->
+	<navigation-rule>
+		<from-view-id>/jsp/lancamento/inserirLancamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{lancamentoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/lancamento/inserirLancamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{lancamentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/lancamento/consultarLancamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{lancamentoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/lancamento/manterLancamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{lancamentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/lancamento/manterLancamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{lancamentoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/lancamento/consultarLancamento.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<!-- USUARIO -->
 	<navigation-rule>
@@ -2102,6 +2197,12 @@
 		    <property-class>com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto</property-class>
 		    <null-value/>
 		</managed-property>
+		<managed-property>
+		    <property-name>lancamento</property-name>
+		    <property-class>com.infinity.datamarket.comum.financeiro.Lancamento</property-class>
+		    <null-value/>
+		</managed-property>
+		
 	</managed-bean>
 
 <!-- MovimentacaoEstoque BACK BEAN -->
@@ -2708,6 +2809,118 @@
 		    <null-value/>
 		</managed-property>		
 	</managed-bean>
+
+<!-- GrupoLancamento -->
+	<managed-bean>
+		<managed-bean-name>grupoLancamentoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.grupoLancamento.GrupoLancamentoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>tipoRegistro</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+
+<!-- Lancamento -->
+	<managed-bean>
+		<managed-bean-name>lancamentoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.lancamento.LancamentoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+
+		<managed-property>
+		    <property-name>dataLancamento</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		
+		<managed-property>
+		    <property-name>dataVencimento</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		
+		<managed-property>
+		    <property-name>dataPagamento</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+
+		<managed-property>
+		    <property-name>numeroDocumento</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+
+		<managed-property>
+		    <property-name>grupo</property-name>
+		    <property-class>com.infinity.datamarket.comum.financeiro.GrupoLancamento</property-class>
+		    <null-value/>
+		</managed-property>
+
+		<managed-property>
+		    <property-name>loja</property-name>
+		    <property-class>com.infinity.datamarket.comum.usuario.Loja</property-class>
+		    <null-value/>
+		</managed-property>
+
+		<managed-property>
+		    <property-name>tipoLancamento</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+						
+		<managed-property>
+		    <property-name>valor</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+
+		<managed-property>
+		    <property-name>forma</property-name>
+		    <property-class>com.infinity.datamarket.comum.pagamento.FormaRecebimento</property-class>
+		    <null-value/>
+		</managed-property>
+		
+		<managed-property>
+		    <property-name>observacao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		
+		<managed-property>
+		    <property-name>idEntradaProduto</property-name>
+		    <property-class>java.lang.Long</property-class>
+		    <null-value/>
+		</managed-property>
+	
+	</managed-bean>
+		
 <!-- CLIENTE PAGAMENTO BACK BEAN -->
 
 	<managed-bean>
