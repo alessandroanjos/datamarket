@@ -100,7 +100,7 @@ public class GrupoLancamentoBackBean extends BackBean {
 					}
 				}
 			}else{
-				Collection c = getFachada().consultarTodasGrupoLancamentos();
+				Collection c = getFachada().consultarTodosGrupoLancamentos();
 				if(c != null && c.size() > 0){
 					setExisteRegistros(true);
 					setGrupoLancamentos(c);
