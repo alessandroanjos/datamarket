@@ -19,6 +19,7 @@ import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -26,27 +27,31 @@ import com.infinity.datamarket.enterprise.gui.util.BackBean;
  * 
  */
 public class FormaRecebimentoBackBean extends BackBean {
-	String id;
+	private String id;
 
-	String descricao;
+	private String descricao;
 
-	String recebimentoImpressora;
+	private String recebimentoImpressora;
 
-	String abrirGaveta;
-
-	BigDecimal valorLimiteSangria;
-
-	Date dataInicioValidade;
-
-	Date dataFimValidade;
-
-	BigDecimal valorMaxTroco;
-
-	Collection planos;
-
-	Collection formasRecebimentos;
+	private String abrirGaveta;
 	
-	String idFormaTroco;
+	private String validaPagamentoConta;
+	
+	private String validaRecebimentoConta;
+
+	private BigDecimal valorLimiteSangria;
+
+	private Date dataInicioValidade;
+
+	private Date dataFimValidade;
+
+	private BigDecimal valorMaxTroco;
+
+	private Collection planos;
+
+	private Collection formasRecebimentos;
+	
+	private String idFormaTroco;
 	
 //	public FormaRecebimentoBackBean(){
 //		resetBB();
@@ -156,6 +161,8 @@ public class FormaRecebimentoBackBean extends BackBean {
 			formaRecebimento.setDataInicioValidade(this.dataInicioValidade);
 			formaRecebimento.setDataFimValidade(this.dataFimValidade);
 			formaRecebimento.setValorMaxTroco(this.valorMaxTroco);
+			formaRecebimento.setValidaPagamentoConta(validaPagamentoConta);
+			formaRecebimento.setValidaRecebimentoConta(validaRecebimentoConta);
 			if(this.getIdFormaTroco() != null && !this.getIdFormaTroco().equals("0")){
 				FormaRecebimento formaTroco = getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco()));
 				formaRecebimento.setFormaTroco(formaTroco);	
@@ -205,6 +212,8 @@ public class FormaRecebimentoBackBean extends BackBean {
 						.getDataInicioValidade());
 				this.setDataFimValidade(formaRecebimento.getDataFimValidade());
 				this.setValorMaxTroco(formaRecebimento.getValorMaxTroco());
+				this.setValidaPagamentoConta(formaRecebimento.getValidaPagamentoConta());
+				this.setValidaRecebimentoConta(formaRecebimento.getValidaRecebimentoConta());
 				if(formaRecebimento.getFormaTroco() != null){
 					this.setIdFormaTroco(formaRecebimento.getFormaTroco().getId().toString());	
 				}else{
@@ -250,6 +259,8 @@ public class FormaRecebimentoBackBean extends BackBean {
 						}else{
 							this.setIdFormaTroco("0");
 						}
+						this.setValidaPagamentoConta(formaRecebimento.getValidaPagamentoConta());
+						this.setValidaRecebimentoConta(formaRecebimento.getValidaRecebimentoConta());
 
 						this.setPlanos(formaRecebimento.getPlanos());
 						return "proxima";
@@ -285,6 +296,8 @@ public class FormaRecebimentoBackBean extends BackBean {
 //		this.setDescricao(null);
 		this.setRecebimentoImpressora(null);
 		this.setAbrirGaveta(null);
+		this.setValidaPagamentoConta(Constantes.SIM);
+		this.setValidaRecebimentoConta(Constantes.SIM);
 		this.setValorLimiteSangria(null);
 		this.setDataInicioValidade(null);
 		this.setDataFimValidade(null);
@@ -306,6 +319,8 @@ public class FormaRecebimentoBackBean extends BackBean {
 			formaRecebimento.setDataInicioValidade(this.dataInicioValidade);
 			formaRecebimento.setDataFimValidade(this.dataFimValidade);
 			formaRecebimento.setValorMaxTroco(this.valorMaxTroco);
+			formaRecebimento.setValidaPagamentoConta(validaPagamentoConta);
+			formaRecebimento.setValidaRecebimentoConta(validaRecebimentoConta);
 			if(this.getIdFormaTroco() != null && !this.getIdFormaTroco().equals("0")){
 				FormaRecebimento formaTroco = getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco()));
 				formaRecebimento.setFormaTroco(formaTroco);	
@@ -343,6 +358,8 @@ public class FormaRecebimentoBackBean extends BackBean {
 			formaRecebimento.setDataInicioValidade(this.dataInicioValidade);
 			formaRecebimento.setDataFimValidade(this.dataFimValidade);
 			formaRecebimento.setValorMaxTroco(this.valorMaxTroco);
+			formaRecebimento.setValidaPagamentoConta(validaPagamentoConta);
+			formaRecebimento.setValidaRecebimentoConta(validaRecebimentoConta);
 			if(this.getIdFormaTroco() != null && !this.getIdFormaTroco().equals("0")){
 				FormaRecebimento formaTroco = getFachada().consultarFormaRecebimentoPorId(new Long(this.getIdFormaTroco()));
 				formaRecebimento.setFormaTroco(formaTroco);	
@@ -371,13 +388,15 @@ public class FormaRecebimentoBackBean extends BackBean {
 		this.setId(null);
 		this.setDescricao(null);
 		this.setRecebimentoImpressora(null);
-		this.setAbrirGaveta(null);
+		this.setAbrirGaveta(Constantes.SIM);
 		this.setValorLimiteSangria(null);
 		this.setDataInicioValidade(null);
 		this.setDataFimValidade(null);
 		this.setValorMaxTroco(null);
 		this.setIdFormaTroco("0");
 		this.setPlanos(null);
+		this.setValidaPagamentoConta(Constantes.SIM);
+		this.setValidaRecebimentoConta(Constantes.SIM);
 	}
 
 	public Collection getFormasRecebimentos() {
@@ -445,5 +464,21 @@ public class FormaRecebimentoBackBean extends BackBean {
 				setFormasRecebimentos(null);
 			}
 		}
+	}
+
+	public String getValidaPagamentoConta() {
+		return validaPagamentoConta;
+	}
+
+	public void setValidaPagamentoConta(String validaPagamentoConta) {
+		this.validaPagamentoConta = validaPagamentoConta;
+	}
+
+	public String getValidaRecebimentoConta() {
+		return validaRecebimentoConta;
+	}
+
+	public void setValidaRecebimentoConta(String validaRecebimentoConta) {
+		this.validaRecebimentoConta = validaRecebimentoConta;
 	}
 }

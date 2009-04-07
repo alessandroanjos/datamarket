@@ -89,6 +89,28 @@
 								</li>
 								<li class="normal">
 									<div>
+										<h:outputLabel styleClass="desc" value="Válida em Recebimento de Contas*"></h:outputLabel>
+										<h:selectOneRadio  styleClass="field select"  id="validaRecebimentoConta" 
+											value="#{formaRecebimentoBB.validaRecebimentoConta}"  layout="lineDirection" required="true">
+										    <f:selectItem itemLabel="Sim" itemValue="S" />
+										    <f:selectItem itemLabel="Não" itemValue="N"/>
+										</h:selectOneRadio>
+									</div>
+									<h:message for="abrirGaveta" styleClass="msgErro"/>
+								</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Válida em Pagamento de Contas*"></h:outputLabel>
+										<h:selectOneRadio  styleClass="field select"  id="validaPagamentoConta" 
+											value="#{formaRecebimentoBB.validaPagamentoConta}"  layout="lineDirection" required="true">
+										    <f:selectItem itemLabel="Sim" itemValue="S" />
+										    <f:selectItem itemLabel="Não" itemValue="N"/>
+										</h:selectOneRadio>
+									</div>
+									<h:message for="abrirGaveta" styleClass="msgErro"/>
+								</li>
+								<li class="normal">
+									<div>
 										<h:outputLabel styleClass="desc" value="Valor Limite Sangria*"></h:outputLabel>
 										
 										<h:inputText styleClass="field text" id="valorLimiteSangria" maxlength="10" size="10"
