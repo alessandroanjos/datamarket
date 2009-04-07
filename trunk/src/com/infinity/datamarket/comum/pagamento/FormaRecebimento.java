@@ -14,16 +14,30 @@ public class FormaRecebimento extends Persistente{
 	 * 
 	 */
 	private static final long serialVersionUID = -4859446635232194912L;
-	String descricao;
-	String recebimentoImpressora;
-	String abrirGaveta;
-	BigDecimal valorLimiteSangria;
-	Date dataInicioValidade;
-	Date dataFimValidade;
-	BigDecimal valorMaxTroco;
-	FormaRecebimento formaTroco;
-	Collection planos;
-
+	private String descricao;
+	private String recebimentoImpressora;
+	private String abrirGaveta;
+	private BigDecimal valorLimiteSangria;
+	private Date dataInicioValidade;
+	private Date dataFimValidade;
+	private BigDecimal valorMaxTroco;
+	private FormaRecebimento formaTroco;
+	private Collection planos;
+	private String validaPagamentoConta;
+	private String validaRecebimentoConta;
+	
+	public String getValidaPagamentoConta() {
+		return validaPagamentoConta;
+	}
+	public void setValidaPagamentoConta(String validaPagamentoConta) {
+		this.validaPagamentoConta = validaPagamentoConta;
+	}
+	public String getValidaRecebimentoConta() {
+		return validaRecebimentoConta;
+	}
+	public void setValidaRecebimentoConta(String validaRecebimentoConta) {
+		this.validaRecebimentoConta = validaRecebimentoConta;
+	}
 	public Collection getPlanos() {
 		return planos;
 	}
