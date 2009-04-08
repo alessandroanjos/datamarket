@@ -18,7 +18,7 @@ public class ProdutoEntradaProduto implements Serializable{
 	private BigDecimal icms;
 	private BigDecimal ipi;
 	private BigDecimal total;
-	private Estoque estoque;
+	
 	
 	public BigDecimal getDesconto() {
 		return desconto;
@@ -26,12 +26,7 @@ public class ProdutoEntradaProduto implements Serializable{
 	public void setDesconto(BigDecimal desconto) {
 		this.desconto = desconto;
 	}
-	public Estoque getEstoque() {
-		return estoque;
-	}
-	public void setEstoque(Estoque estoque) {
-		this.estoque = estoque;
-	}
+	
 	public BigDecimal getIcms() {
 		return icms;
 	}

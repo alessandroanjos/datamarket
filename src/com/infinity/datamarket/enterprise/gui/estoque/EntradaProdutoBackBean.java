@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
-import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
+import com.infinity.datamarket.comum.estoque.EstoquePK;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProdutoPK;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
@@ -31,6 +31,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
+import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
@@ -179,16 +180,17 @@ public class EntradaProdutoBackBean extends BackBean {
 			setDescricao(produto.getDescricaoCompleta());
 			produtoEntradaPK.setProduto(produto);
 			produtoEntrada.setPk(produtoEntradaPK);
-			Estoque estoque = null;
-			for (Iterator iter = estoques.iterator(); iter.hasNext();) {
-				Estoque element = (Estoque) iter.next();
-				if (element.getPk().getId().longValue()==new Long(this.idEstoque).longValue()) {
-					estoque = (Estoque)element;
-					break;
-				}				
-			}
-
-			produtoEntrada.setEstoque(estoque);
+			
+//			Estoque estoque = null;
+//			for (Iterator iter = estoques.iterator(); iter.hasNext();) {
+//				Estoque element = (Estoque) iter.next();
+//				if (element.getPk().getId().longValue()==new Long(this.idEstoque).longValue()) {
+//					estoque = (Estoque)element;
+//					break;
+//				}				
+//			}
+			
+			
 			if (this.ipiProduto == null) this.ipiProduto = BigDecimal.ZERO.setScale(2);
 			if (this.icmsProduto == null) this.icmsProduto = BigDecimal.ZERO.setScale(2);
 			if (this.descontoProduto == null) this.descontoProduto = BigDecimal.ZERO.setScale(2);
@@ -354,13 +356,21 @@ public class EntradaProdutoBackBean extends BackBean {
 				Iterator it = col.iterator();
 				while(it.hasNext()){
 					ProdutoEntradaProduto pep = (ProdutoEntradaProduto) it.next();
-					EstoqueProdutoPK pk = new EstoqueProdutoPK();
-					pk.setEstoque(pep.getEstoque());
-					pk.setProduto(pep.getPk().getProduto());
 					pep.getPk().setId(entradaProduto.getId());
 				}
 			}	
 			entradaProduto.setProdutosEntrada(arrayProduto);
+			
+			Estoque estoque = null;
+			for (Iterator iter = estoques.iterator(); iter.hasNext();) {
+				Estoque element = (Estoque) iter.next();
+				if (element.getPk().getId().longValue()==new Long(this.idEstoque).longValue()) {
+					estoque = (Estoque)element;
+					break;
+				}				
+			}
+			
+			entradaProduto.setEstoque(estoque);
 			
 			entradaProduto.setStatus(Constantes.STATUS_ATIVO);
 

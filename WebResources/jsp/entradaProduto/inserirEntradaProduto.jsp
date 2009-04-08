@@ -256,13 +256,7 @@
 										<h:outputText value="Descrição" />
 									</f:facet>
 									<h:outputText value="#{produtoEntrada.pk.produto.descricaoCompleta}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Estoque" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.estoque.descricao}" />
-								</h:column>
+								</h:column>								
 								<h:column>
 									<f:facet name="header">
 										<h:outputText value="Vl. Unitário" />

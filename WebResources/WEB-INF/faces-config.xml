@@ -2197,11 +2197,6 @@
 		    <property-class>com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto</property-class>
 		    <null-value/>
 		</managed-property>
-		<managed-property>
-		    <property-name>lancamento</property-name>
-		    <property-class>com.infinity.datamarket.comum.financeiro.Lancamento</property-class>
-		    <null-value/>
-		</managed-property>
 		
 	</managed-bean>
 
