@@ -106,6 +106,7 @@ public class EntradaProdutoBackBean extends BackBean {
 	private BigDecimal valorLancamento		= BigDecimal.ZERO.setScale(2);;
 	private String idExcluirLancamento;
 	private BigDecimal valorTotalLancamento = BigDecimal.ZERO.setScale(2);
+	private String idLojaLancamento;
 	/**
 	 * @return the produtoEntrada
 	 */
@@ -274,6 +275,14 @@ public class EntradaProdutoBackBean extends BackBean {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			Long idLoja = new Long(this.idLojaLancamento);
+			Loja loja = null;
+			try {
+				loja = Fachada.getInstancia().consultarLojaPorId(idLoja);
+			} catch (AppException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			lancamento = new Lancamento();
 			if (lancamentos==null) {
 				lancamentos = new HashSet<Lancamento>();
@@ -287,6 +296,7 @@ public class EntradaProdutoBackBean extends BackBean {
 			lancamento.setDataLancamento(this.dataEntrada );
 			lancamento.setDataVencimento(this.dataVencimento);
 			lancamento.setForma(forma);
+			lancamento.setLoja(loja);
 			lancamento.setValor(this.valorLancamento);
 
  			if (this.valorNota.longValue()<(getValorTotalLancamento().longValue()+this.valorLancamento.longValue())) {
@@ -455,9 +465,11 @@ public class EntradaProdutoBackBean extends BackBean {
 			Collection col = arrayProduto;
 			if (col!=null) {
 				Iterator it = col.iterator();
+				int i = 0;
 				while(it.hasNext()){
 					ProdutoEntradaProduto pep = (ProdutoEntradaProduto) it.next();
 					pep.getPk().setId(entradaProduto.getId());
+					pep.getPk().setNumeroEntrada(++i);
 				}
 			}	
 			entradaProduto.setProdutosEntrada(arrayProduto);
@@ -1365,6 +1377,48 @@ public class EntradaProdutoBackBean extends BackBean {
 		return arrayFormas;
 
 	}
+	
+	private List<Loja> carregarLojas() {
+		
+		List<Loja> lojas = null;
+		try {
+			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return lojas;
+	}
+	
+	public SelectItem[] getLojas(){
+		SelectItem[] arrayLojas = null;
+		try {
+			List<Loja> lojas = carregarLojas();
+			arrayLojas = new SelectItem[lojas.size()];
+			int i = 0;
+			for(Loja lojaTmp : lojas){
+				SelectItem item = new SelectItem(lojaTmp.getId().toString(), lojaTmp.getNome());
+				arrayLojas[i++] = item;
+			}
+			
+			if(this.getIdLoja() == null || this.getIdLoja().equals("") || this.getIdLoja().equals("0")){
+				this.setIdLoja((String) arrayLojas[0].getValue());				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		if (this.idLoja != null) {
+			this.idLoja = arrayLojas[0].getValue().toString();
+		}
+		return arrayLojas;
+	}
 	public BigDecimal getQuantidadeTotal() {
 		return quantidadeTotal;
 	}
@@ -1430,5 +1484,11 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
 	public void setValorTotalLancamento(BigDecimal valorTotalLancamento) {
 		this.valorTotalLancamento = valorTotalLancamento;
+	}
+	public String getIdLojaLancamento() {
+		return idLojaLancamento;
+	}
+	public void setIdLojaLancamento(String idLojaLancamento) {
+		this.idLojaLancamento = idLojaLancamento;
 	}
 }

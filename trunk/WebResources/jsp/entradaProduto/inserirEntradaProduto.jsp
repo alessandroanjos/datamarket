@@ -455,12 +455,23 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="descricaoLancamento"
-												maxlength="50" size="50" required="false"
+												maxlength="40" size="40" required="false"
 												value="#{entradaProdutoBB.descricaoLancamento}">
-												<f:validateLength maximum="50" />
+												<f:validateLength maximum="40" />
 											</h:inputText>
 											<h:message for="descricaoLancamento" styleClass="msgErro" />
 										</div>
+
+										<div>
+											<h:outputLabel styleClass="desc" value="Loja*"></h:outputLabel>
+											<h:selectOneMenu id="idLojaLancamento" styleClass="field select"
+												value="#{entradaProdutoBB.idLojaLancamento}" required="true">
+												<f:selectItems id="lojaSelectItems"
+													value="#{entradaProdutoBB.lojas}" />
+											</h:selectOneMenu>
+											<h:message for="idLoja" styleClass="msgErro" />
+										</div>
+
 										<div>
 											<h:outputLabel styleClass="desc" value="Forma Pagto*"></h:outputLabel>
 											<h:selectOneMenu id="idForma" styleClass="field select"
@@ -509,6 +520,12 @@
 														<h:outputText value="Descrição" />
 													</f:facet>
 													<h:outputText value="#{lancamento.descricao}" />
+												</h:column>
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Loja" />
+													</f:facet>
+													<h:outputText value="#{lancamento.loja.nome}" />
 												</h:column>
 												<h:column>
 													<f:facet name="header">
