@@ -40,7 +40,7 @@ public class CadastroEntradaProduto extends Cadastro{
 		while(it.hasNext()){
 			ProdutoEntradaProduto pep = (ProdutoEntradaProduto) it.next();
 			EstoqueProdutoPK pk = new EstoqueProdutoPK();
-			pk.setEstoque(pep.getEstoque());
+			pk.setEstoque(entradaProduto.getEstoque());
 			pk.setProduto(pep.getPk().getProduto());
 			pep.getPk().setId(entradaProduto.getId());
 			//consulta de estoque produto
@@ -69,7 +69,7 @@ public class CadastroEntradaProduto extends Cadastro{
 		while(it.hasNext()){
 			ProdutoEntradaProduto pep = (ProdutoEntradaProduto) it.next();
 			EstoqueProdutoPK pk = new EstoqueProdutoPK();
-			pk.setEstoque(pep.getEstoque());
+			pk.setEstoque(entradaProduto.getEstoque());
 			pk.setProduto(pep.getPk().getProduto());
 			
 			//consulta de estoque produto
@@ -90,7 +90,7 @@ public class CadastroEntradaProduto extends Cadastro{
 		while(it.hasNext()){
 			ProdutoEntradaProduto pep = (ProdutoEntradaProduto) it.next();
 			EstoqueProdutoPK pk = new EstoqueProdutoPK();
-			pk.setEstoque(pep.getEstoque());
+			pk.setEstoque(entradaProduto.getEstoque());
 			pk.setProduto(pep.getPk().getProduto());
 			
 			//consulta de estoque produto

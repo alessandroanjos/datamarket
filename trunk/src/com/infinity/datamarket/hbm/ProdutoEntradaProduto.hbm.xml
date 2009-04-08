@@ -39,10 +39,6 @@
             <column name="TOTAL" length="20" not-null="false"/>
         </property>
 	
-		<many-to-one name="estoque" class="com.infinity.datamarket.comum.estoque.Estoque" update="true" insert="true">
-          <column name="ID_ESTOQUE" not-null="true"/>
-          <column name="ID_LOJA" not-null="true"/>
-        </many-to-one>
 	
 	
     </class>

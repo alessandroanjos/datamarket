@@ -25,7 +25,7 @@ public class EntradaProduto extends Persistente{
 	private BigDecimal quantidadeTotal;
 	private String idFornecedor;
 	private Fornecedor fornecedor;
-	
+	private Estoque estoque;
 	private Collection produtosEntrada;
 	
 	private String status;
@@ -113,5 +113,11 @@ public class EntradaProduto extends Persistente{
 	}
 	public void setQuantidadeTotal(BigDecimal quantidadeTotal) {
 		this.quantidadeTotal = quantidadeTotal;
+	}
+	public Estoque getEstoque() {
+		return estoque;
+	}
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
 	}
 }
