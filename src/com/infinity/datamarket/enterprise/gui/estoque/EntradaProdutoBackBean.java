@@ -25,7 +25,10 @@ import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoquePK;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProdutoPK;
+import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
+import com.infinity.datamarket.comum.financeiro.Lancamento;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
+import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -45,6 +48,9 @@ public class EntradaProdutoBackBean extends BackBean {
 //		// TODO Auto-generated constructor stub
 //		setDataEntrada(new Date(System.currentTimeMillis()));
 //	}
+	
+	String abaCorrente;
+	
 	private String id;
 	private String numeroNota;
 	private Date dataEmissaoNota;
@@ -82,6 +88,8 @@ public class EntradaProdutoBackBean extends BackBean {
 	private BigDecimal total		     = BigDecimal.ZERO.setScale(2);
 	private BigDecimal totalDescontoItem = BigDecimal.ZERO.setScale(2);
 	private List<Estoque> estoques = null; 
+	private Lancamento lancamento;
+	private Set<Lancamento> lancamentos;
 	
 	private BigDecimal quantidadeTotal = BigDecimal.ZERO.setScale(3);
     
@@ -91,7 +99,13 @@ public class EntradaProdutoBackBean extends BackBean {
 
 	private String idExcluir; 
 
-	
+	// para uso de lancamentos
+	private String descricaoLancamento;
+	private String idForma;
+	private Date dataVencimento;
+	private BigDecimal valorLancamento		= BigDecimal.ZERO.setScale(2);;
+	private String idExcluirLancamento;
+	private BigDecimal valorTotalLancamento = BigDecimal.ZERO.setScale(2);
 	/**
 	 * @return the produtoEntrada
 	 */
@@ -151,6 +165,7 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
 	public void inserirProdutoEntrada() { 
 		try {
+			setAbaCorrente("tabMenuDiv0");
 			if (arrayProduto==null){
 				arrayProduto = new HashSet<ProdutoEntradaProduto>();
 				inicializaValoreNota();
@@ -249,6 +264,92 @@ public class EntradaProdutoBackBean extends BackBean {
 		}
 	}
 	
+	public void inserirLancamento() {
+		try {	
+			Long idForma = new Long(this.idForma);
+			FormaRecebimento forma = null;
+			try {
+				forma = Fachada.getInstancia().consultarFormaRecebimentoPorId(idForma);
+			} catch (AppException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			lancamento = new Lancamento();
+			if (lancamentos==null) {
+				lancamentos = new HashSet<Lancamento>();
+				lancamento.setId(new Long("0"));
+			} else {
+				Long cont = new Long(lancamentos.size());
+				lancamento.setId(new Long(cont));
+			}
+			lancamento.setDescricao(this.descricaoLancamento);
+			lancamento.setTipoLancamento(Lancamento.DEBITO);
+			lancamento.setDataLancamento(this.dataEntrada );
+			lancamento.setDataVencimento(this.dataVencimento);
+			lancamento.setForma(forma);
+			lancamento.setValor(this.valorLancamento);
+
+ 			if (this.valorNota.longValue()<(getValorTotalLancamento().longValue()+this.valorLancamento.longValue())) {
+				try {
+					setAbaCorrente("tabMenuDiv1");
+					throw new AppException("Total de Lançamento maior do que total da nota!");
+				} catch (AppException e) {
+					// TODO Auto-generated catch block
+					FacesContext ctx = FacesContext.getCurrentInstance();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						e.getMessage(), "");
+					ctx.addMessage(null, msg);
+				}
+				
+			} else {
+				if (this.valorLancamento.longValue()<=0) {
+					try {
+						setAbaCorrente("tabMenuDiv1");
+						throw new AppException("Valor do Lançamento tem que ser maior que zero!");
+					} catch (AppException e) {
+						// TODO Auto-generated catch block
+						FacesContext ctx = FacesContext.getCurrentInstance();
+						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							e.getMessage(), "");
+						ctx.addMessage(null, msg);
+					}
+				} else {
+					lancamentos.add(lancamento);
+					this.setValorTotalLancamento(getValorTotalLancamento().add(this.valorLancamento));
+					resetLancamento();
+				}	
+			}
+		} catch (Exception e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+				"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		setAbaCorrente("tabMenuDiv1");
+	}
+	
+	public void resetLancamento() {
+		this.setDescricaoLancamento(null);
+		this.setDataVencimento(null);
+		this.setIdForma(null);
+		this.setValorLancamento(null);
+	}
+	
+	public void excluirLancamento() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();  
+		String param = (String)  params.get("idExcluirLancamento");
+		Long idLancamento = new Long(param);
+		for (Iterator iter = lancamentos.iterator(); iter.hasNext();) {
+			Lancamento element = (Lancamento) iter.next();
+			if (element.getId().longValue() == idLancamento.longValue()) {
+				this.setValorTotalLancamento(getValorTotalLancamento().subtract((element.getValor())));
+				lancamentos.remove(element);
+			}
+		}
+		setAbaCorrente("tabMenuDiv1");
+	}
+	
 	public String validaNota() {
 		  String msg = "";
 		if  (this.numeroNota == null || "".equals(this.numeroNota)) {
@@ -291,7 +392,7 @@ public class EntradaProdutoBackBean extends BackBean {
 		EntradaProduto entradaProduto = new EntradaProduto();
 
 		String msgValidacao = validaNota();
-		
+		setAbaCorrente("tabMenuDiv0");
 		if (!"".equals(msgValidacao)) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -376,6 +477,17 @@ public class EntradaProdutoBackBean extends BackBean {
 
 			getFachada().inserirEntradaProduto(entradaProduto);
 			
+			GrupoLancamento grupo = new GrupoLancamento();
+			grupo = getFachada().consultarGrupoLancamentoPorId(new Long(1));
+			
+			for (Iterator iter = lancamentos.iterator(); iter.hasNext();) {
+				Lancamento element = (Lancamento) iter.next();
+				element.setId(getIdInc(Lancamento.class));
+				element.setGrupo(grupo);
+				element.setIdEntradaProduto(entradaProduto.getId());
+				element.setNumeroDocumento(entradaProduto.getNumeroNota());
+				getFachada().inserirLancamento(element);
+			}
 			this.setEntradaProduto(entradaProduto);
 			
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -1216,6 +1328,43 @@ public class EntradaProdutoBackBean extends BackBean {
 		}
 		return lista;
 	}
+//	 Formas
+	private List<FormaRecebimento> carregarFormas() {
+		
+		List<FormaRecebimento> formas = null;
+		try {
+			formas = (ArrayList<FormaRecebimento>)getFachada().consultarTodosFormaRecebimento();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return formas;
+	}
+
+	public SelectItem[] getFormas() {
+		SelectItem[] arrayFormas = null;
+		try {
+			List<FormaRecebimento> formas = carregarFormas();
+			arrayFormas = new SelectItem[formas.size()+1];
+			int i = 0;
+			arrayFormas[i++] = new SelectItem("0", "");
+			for(FormaRecebimento formaTmp : formas){
+				SelectItem item = new SelectItem(formaTmp.getId().toString(), formaTmp.getDescricao());
+				arrayFormas[i++] = item;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayFormas;
+
+	}
 	public BigDecimal getQuantidadeTotal() {
 		return quantidadeTotal;
 	}
@@ -1227,5 +1376,59 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
 	public void setValorSubTotalNota(BigDecimal valorSubTotalNota) {
 		this.valorSubTotalNota = valorSubTotalNota;
+	}
+	public Date getDataVencimento() {
+		return dataVencimento;
+	}
+	public void setDataVencimento(Date dataVencimento) {
+		this.dataVencimento = dataVencimento;
+	}
+	public String getDescricaoLancamento() {
+		return descricaoLancamento;
+	}
+	public void setDescricaoLancamento(String descricaoLancamento) {
+		this.descricaoLancamento = descricaoLancamento;
+	}
+	public String getIdForma() {
+		return idForma;
+	}
+	public void setIdForma(String idForma) {
+		this.idForma = idForma;
+	}
+	public BigDecimal getValorLancamento() {
+		return valorLancamento;
+	}
+	public void setValorLancamento(BigDecimal valorLancamento) {
+		this.valorLancamento = valorLancamento;
+	}
+	public Set<Lancamento> getLancamentos() {
+		return lancamentos;
+	}
+	public void setLancamentos(Set<Lancamento> lancamentos) {
+		this.lancamentos = lancamentos;
+	}
+	public Lancamento getLancamento() {
+		return lancamento;
+	}
+	public void setLancamento(Lancamento lancamento) {
+		this.lancamento = lancamento;
+	}
+	public String getAbaCorrente() {
+		return abaCorrente;
+	}
+	public void setAbaCorrente(String abaCorrente) {
+		this.abaCorrente = abaCorrente;
+	}
+	public String getIdExcluirLancamento() {
+		return idExcluirLancamento;
+	}
+	public void setIdExcluirLancamento(String idExcluirLancamento) {
+		this.idExcluirLancamento = idExcluirLancamento;
+	}
+	public BigDecimal getValorTotalLancamento() {
+		return valorTotalLancamento;
+	}
+	public void setValorTotalLancamento(BigDecimal valorTotalLancamento) {
+		this.valorTotalLancamento = valorTotalLancamento;
 	}
 }
