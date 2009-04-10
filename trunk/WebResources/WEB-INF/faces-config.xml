@@ -2197,6 +2197,11 @@
 		    <property-class>com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto</property-class>
 		    <null-value/>
 		</managed-property>
+		<managed-property>
+		    <property-name>estoque</property-name>
+		    <property-class>com.infinity.datamarket.comum.estoque.Estoque</property-class>
+		    <null-value/>
+		</managed-property>
 		
 	</managed-bean>
 
