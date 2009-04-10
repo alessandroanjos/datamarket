@@ -135,11 +135,11 @@
 		<group  name="cupomGroup" >
 			<groupExpression><![CDATA[$F{ID}]]></groupExpression>
 			<groupHeader>
-			<band height="37"  isSplitAllowed="true" >
+			<band height="55"  isSplitAllowed="true" >
 				<staticText>
 					<reportElement
-						x="669"
-						y="2"
+						x="457"
+						y="21"
 						width="37"
 						height="16"
 						key="staticText-5"/>
@@ -151,9 +151,9 @@
 				</staticText>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="706"
-						y="2"
-						width="70"
+						x="494"
+						y="21"
+						width="175"
 						height="16"
 						key="textField-4"/>
 					<box></box>
@@ -178,7 +178,7 @@
 				<line direction="TopDown">
 					<reportElement
 						x="30"
-						y="19"
+						y="38"
 						width="501"
 						height="0"
 						key="line-6"/>
@@ -187,7 +187,7 @@
 				<line direction="TopDown">
 					<reportElement
 						x="31"
-						y="19"
+						y="38"
 						width="752"
 						height="1"
 						key="line-7"/>
@@ -196,7 +196,7 @@
 				<staticText>
 					<reportElement
 						x="31"
-						y="21"
+						y="40"
 						width="50"
 						height="15"
 						key="staticText-15"/>
@@ -209,7 +209,7 @@
 				<staticText>
 					<reportElement
 						x="132"
-						y="21"
+						y="40"
 						width="68"
 						height="15"
 						key="staticText-16"/>
@@ -222,7 +222,7 @@
 				<staticText>
 					<reportElement
 						x="739"
-						y="21"
+						y="40"
 						width="42"
 						height="15"
 						key="staticText-17"/>
@@ -235,7 +235,7 @@
 				<staticText>
 					<reportElement
 						x="654"
-						y="21"
+						y="40"
 						width="50"
 						height="15"
 						key="staticText-18"/>
@@ -248,7 +248,7 @@
 				<staticText>
 					<reportElement
 						x="525"
-						y="21"
+						y="40"
 						width="28"
 						height="15"
 						key="staticText-19"/>
@@ -262,7 +262,7 @@
 					<reportElement
 						x="525"
 						y="2"
-						width="144"
+						width="258"
 						height="16"
 						key="textField-19"/>
 					<box></box>
@@ -274,7 +274,7 @@
 				<line direction="TopDown">
 					<reportElement
 						x="30"
-						y="34"
+						y="53"
 						width="753"
 						height="1"
 						key="line-8"/>
@@ -335,7 +335,7 @@
 				<staticText>
 					<reportElement
 						x="449"
-						y="21"
+						y="40"
 						width="57"
 						height="15"
 						key="staticText-26"/>
@@ -348,7 +348,7 @@
 				<staticText>
 					<reportElement
 						x="574"
-						y="21"
+						y="40"
 						width="28"
 						height="15"
 						key="staticText-27"/>
@@ -361,7 +361,7 @@
 				<staticText>
 					<reportElement
 						x="623"
-						y="21"
+						y="40"
 						width="28"
 						height="15"
 						key="staticText-28"/>
@@ -373,17 +373,30 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="339"
+						x="141"
 						y="21"
-						width="46"
-						height="15"
-						key="staticText-29"/>
+						width="48"
+						height="16"
+						key="staticText-31"/>
 					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="10" isBold="true"/>
+					<textElement>
+						<font fontName="Courier New"/>
 					</textElement>
-				<text><![CDATA[Estoque]]></text>
+				<text><![CDATA[Estoque:]]></text>
 				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="189"
+						y="21"
+						width="262"
+						height="16"
+						key="textField-31"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ESTOQUE}]]></textFieldExpression>
+				</textField>
 			</band>
 			</groupHeader>
 			<groupFooter>
@@ -661,7 +674,7 @@
 					<reportElement
 						x="132"
 						y="0"
-						width="202"
+						width="317"
 						height="13"
 						key="textField-15"/>
 					<box></box>
@@ -747,19 +760,6 @@
 						<font fontName="Courier New"/>
 					</textElement>
 				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[$F{ICMS_ITEM}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						x="338"
-						y="0"
-						width="105"
-						height="13"
-						key="textField-29"/>
-					<box></box>
-					<textElement textAlignment="Left">
-						<font fontName="Courier New"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$F{ESTOQUE}]]></textFieldExpression>
 				</textField>
 			</band>
 		</detail>
