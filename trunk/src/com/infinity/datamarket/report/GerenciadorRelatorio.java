@@ -316,6 +316,7 @@ public class GerenciadorRelatorio {
 			parametros.put("valorTotal", entradaProduto.getValor() != null ? entradaProduto.getValor().setScale(2).toString(): BigDecimal.ZERO.setScale(2).toString());
 			parametros.put("quantidadeTotal", entradaProduto.getQuantidadeTotal() != null ? entradaProduto.getQuantidadeTotal().setScale(3).toString(): BigDecimal.ZERO.setScale(3).toString());
 			parametros.put("status", entradaProduto.getStatus().equals(Constantes.STATUS_ATIVO) ? "Ativa" : "Cancelada");
+			parametros.put("estoque", entradaProduto.getEstoque().getDescricao());
 			
 			Iterator it = parametros.entrySet().iterator();
 
