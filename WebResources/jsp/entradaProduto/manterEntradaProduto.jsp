@@ -114,6 +114,10 @@
 								<h:outputLabel styleClass="desc" value="Fornecedor"></h:outputLabel>
 								<h:outputText value="#{entradaProdutoBB.nomeFornecedor}" />							
 							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
+								<h:outputText value="#{entradaProdutoBB.estoque.descricao}" />							
+							</div>
 						</li>
 						
 						<li>
@@ -132,12 +136,7 @@
 										</f:facet>
 										<h:outputText value="#{produtoEntrada.pk.produto.descricaoCompleta}" />
 									</h:column>
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Estoque" />
-										</f:facet>
-										<h:outputText value="#{produtoEntrada.estoque.descricao}" />
-									</h:column>
+									
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Vl. Unitário" />

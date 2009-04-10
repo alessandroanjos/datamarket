@@ -62,9 +62,7 @@
 										<div>
 											<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 										</div>
-									<br />
-									<br />
-									<br />
+								
 											<div>
 												<h:outputLabel styleClass="desc" value="N.Fiscal"></h:outputLabel>
 												<h:inputText styleClass="field text" id="numeroNota"
