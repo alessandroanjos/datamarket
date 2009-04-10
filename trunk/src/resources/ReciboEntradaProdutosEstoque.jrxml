@@ -43,6 +43,7 @@
 	<parameter name="valorTotal" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="quantidadeTotal" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="status" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="estoque" isForPrompting="false" class="java.lang.String"/>
 
 	<field name="produtoEntradaProduto" class="java.lang.Object"/>
 
@@ -81,7 +82,7 @@
 			</band>
 		</title>
 		<pageHeader>
-			<band height="88"  isSplitAllowed="true" >
+			<band height="110"  isSplitAllowed="true" >
 				<line direction="TopDown">
 					<reportElement
 						x="0"
@@ -347,6 +348,32 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{status}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement
+						x="2"
+						y="87"
+						width="48"
+						height="15"
+						key="staticText-16"/>
+					<box></box>
+					<textElement verticalAlignment="Top">
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Estoque:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="49"
+						y="87"
+						width="243"
+						height="15"
+						key="textField-30"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{estoque}]]></textFieldExpression>
+				</textField>
 			</band>
 		</pageHeader>
 		<columnHeader>
@@ -409,19 +436,6 @@
 						key="line-4"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
-				<staticText>
-					<reportElement
-						x="209"
-						y="3"
-						width="48"
-						height="15"
-						key="staticText-16"/>
-					<box></box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Courier New" size="8" isBold="true"/>
-					</textElement>
-				<text><![CDATA[Estoque]]></text>
-				</staticText>
 				<staticText>
 					<reportElement
 						x="270"
@@ -524,7 +538,7 @@
 						mode="Transparent"
 						x="50"
 						y="0"
-						width="154"
+						width="216"
 						height="15"
 						key="textField-11"/>
 					<box></box>
@@ -532,20 +546,6 @@
 						<font fontName="Courier New" size="7"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[((com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto)$F{produtoEntradaProduto}).getPk().getProduto().getDescricaoCompleta()]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
-					<reportElement
-						mode="Transparent"
-						x="209"
-						y="0"
-						width="65"
-						height="15"
-						key="textField-17"/>
-					<box></box>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Courier New" size="7"/>
-					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[((com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto)$F{produtoEntradaProduto}).getEstoque().getDescricao()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.000" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
