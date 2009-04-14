@@ -1,6 +1,5 @@
 package com.infinity.datamarket.lote;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
@@ -12,6 +11,7 @@ import com.infinity.datamarket.comum.lote.DadoLote;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
+import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
@@ -70,7 +70,11 @@ public class LoteServer implements LoteServerLocal, LoteServerRemote {
 					usu.getPerfil().setFuncionalidades(null);
 					retorno.add(dado);
 				}
-			}else{
+			}else if (obj instanceof Perfil){
+				Perfil per = (Perfil) obj;
+				per.setFuncionalidades(null);
+				retorno.add(dado);
+			}else {
 				retorno.add(dado);
 			}
 		}
