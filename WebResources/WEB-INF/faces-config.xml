@@ -255,12 +255,22 @@
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>inserirLancamento</from-outcome>
-			<to-view-id>/jsp/lancamento/inserirLancamento.jsp</to-view-id>
+			<from-outcome>inserirLancamentoContaAPagar</from-outcome>
+			<to-view-id>/jsp/lancamento/inserirLancamentoContaAPagar.jsp</to-view-id>
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>manterLancamento</from-outcome>
+			<from-outcome>manterLancamentoContaAPagar</from-outcome>
+			<to-view-id>/jsp/lancamento/consultarLancamento.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>inserirLancamentoContaAReceber</from-outcome>
+			<to-view-id>/jsp/lancamento/inserirLancamentoContaAReceber.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>manterLancamentoContaAReceber</from-outcome>
 			<to-view-id>/jsp/lancamento/consultarLancamento.jsp</to-view-id>
 		</navigation-case>
 				
@@ -1167,26 +1177,18 @@
 	</navigation-rule>
 
 <!-- Lancamento -->
-	<navigation-rule>
-		<from-view-id>/jsp/lancamento/inserirLancamento.jsp</from-view-id>
-		<navigation-case>
-			<from-action>#{lancamentoBB.inserir}</from-action>
-			<from-outcome>mesma</from-outcome>
-			<to-view-id>/jsp/lancamento/inserirLancamento.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{lancamentoBB.voltarMenu}</from-action>
-			<from-outcome>voltar</from-outcome>
-			<to-view-id>/jsp/menu.jsp</to-view-id>
-		</navigation-case>
-	</navigation-rule>
 	
 	<navigation-rule>
 		<from-view-id>/jsp/lancamento/consultarLancamento.jsp</from-view-id>
 		<navigation-case>
 			<from-action>#{lancamentoBB.consultar}</from-action>
-			<from-outcome>proxima</from-outcome>
-			<to-view-id>/jsp/lancamento/manterLancamento.jsp</to-view-id>
+			<from-outcome>proximaContaAPagar</from-outcome>
+			<to-view-id>/jsp/lancamento/manterLancamentoContaAPagar.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{lancamentoBB.consultar}</from-action>
+			<from-outcome>proximaContaAReceber</from-outcome>
+			<to-view-id>/jsp/lancamento/manterLancamentoContaAReceber.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{lancamentoBB.voltarMenu}</from-action>
@@ -1196,7 +1198,44 @@
 	</navigation-rule>
 	
 	<navigation-rule>
-		<from-view-id>/jsp/lancamento/manterLancamento.jsp</from-view-id>
+		<from-view-id>/jsp/lancamento/inserirLancamentoContaAPagar.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{lancamentoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/lancamento/inserirLancamentoContaAPagar.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{lancamentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/lancamento/manterLancamentoContaAPagar.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{lancamentoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/lancamento/consultarLancamento.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>	
+		<from-view-id>/jsp/lancamento/inserirLancamentoContaAReceber.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{lancamentoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/lancamento/inserirLancamentoContaAReceber.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{lancamentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/lancamento/manterLancamentoContaAReceber.jsp</from-view-id>
 		<navigation-case>
 			<from-action>#{lancamentoBB.voltarConsulta}</from-action>
 			<from-outcome>voltar</from-outcome>
@@ -2846,79 +2885,71 @@
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
-
 		<managed-property>
 		    <property-name>dataLancamento</property-name>
 		    <property-class>java.util.Date</property-class>
 		    <null-value/>
-		</managed-property>
-		
+		</managed-property>		
 		<managed-property>
 		    <property-name>dataVencimento</property-name>
 		    <property-class>java.util.Date</property-class>
 		    <null-value/>
-		</managed-property>
-		
+		</managed-property>		
 		<managed-property>
 		    <property-name>dataPagamento</property-name>
 		    <property-class>java.util.Date</property-class>
 		    <null-value/>
 		</managed-property>
-
 		<managed-property>
 		    <property-name>numeroDocumento</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
-		</managed-property>
-
-		<managed-property>
-		    <property-name>grupo</property-name>
-		    <property-class>com.infinity.datamarket.comum.financeiro.GrupoLancamento</property-class>
-		    <null-value/>
-		</managed-property>
-
-		<managed-property>
-		    <property-name>loja</property-name>
-		    <property-class>com.infinity.datamarket.comum.usuario.Loja</property-class>
-		    <null-value/>
-		</managed-property>
-
+		</managed-property>		
 		<managed-property>
 		    <property-name>tipoLancamento</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
-		</managed-property>
-						
+		</managed-property>						
 		<managed-property>
 		    <property-name>valor</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
-
 		<managed-property>
 		    <property-name>descricao</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
-
-		<managed-property>
-		    <property-name>forma</property-name>
-		    <property-class>com.infinity.datamarket.comum.pagamento.FormaRecebimento</property-class>
-		    <null-value/>
-		</managed-property>
-		
 		<managed-property>
 		    <property-name>observacao</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
-		
 		<managed-property>
 		    <property-name>idEntradaProduto</property-name>
 		    <property-class>java.lang.Long</property-class>
 		    <null-value/>
 		</managed-property>
-	
+		<managed-property>
+		    <property-name>idFornecedor</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idLoja</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idGrupo</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idSituacao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
 	</managed-bean>
 		
 <!-- CLIENTE PAGAMENTO BACK BEAN -->
@@ -3704,6 +3735,130 @@
 		    <property-class>java.util.Collection</property-class>
 		    <null-value/>
 		</managed-property>				
+	</managed-bean>
+
+	<!-- PEDIDO -->
+	<managed-bean>
+		<managed-bean-name>pedidoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.pedido.PedidoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>com.infinity.datamarket.comum.operacao.OperacaoPK</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idPedido</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idLoja</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataPedido</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idTipoPessoa</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cpfCnpjCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>nomeCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>codigoProduto</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricaoProduto</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>precoVenda</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>quantidade</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descontoItem</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descontoPedido</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valorItem</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valorTotalPedido</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>quantidadeTotal</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idSituacao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>lojas</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>listaTipoPessoa</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>listaSituacao</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
+		    <property-name>pedidos</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>	
+		<managed-property>
+		    <property-name>idVendedor</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>usuariosVendedores</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>		
 	</managed-bean>
 	
 	<!-- RELATORIO -->

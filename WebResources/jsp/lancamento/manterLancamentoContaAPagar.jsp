@@ -32,7 +32,7 @@
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
 				<strong>
-					<h:outputText value="#{msgs.manterLancamento}"></h:outputText>
+					<h:outputText value="#{msgs.manterContaAPagar}"></h:outputText>
 				</strong>
 			</div>				
 		</div>
@@ -47,105 +47,69 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Código:"></h:outputLabel>
-										<h:outputText value="#{lancamentoBB.id}"></h:outputText>
-									</div>
-									<div>
 										<h:outputLabel styleClass="desc" value="Loja*"></h:outputLabel>
-										<h:selectOneMenu id="idLoja" styleClass="field select"
-											value="#{lancamentoBB.idLoja}" required="true">   
+										<h:selectOneMenu id="idLoja" styleClass="field select" style="width: 200px;"
+											value="#{lancamentoBB.idLoja}" required="false">   
 												  <f:selectItems id="lojaSelectItems" 
 												  value="#{lancamentoBB.lojas}" />   
 										</h:selectOneMenu> 
-										<h:message for="idLoja" styleClass="msgErro" />
 									</div>
-									<div>								
-										<h:outputLabel styleClass="desc" value="Data"></h:outputLabel>
+									<div>
+										<h:outputLabel styleClass="desc" value="Data*"></h:outputLabel>
 										<h:inputText readonly="false" maxlength="10" size="10"
 											styleClass="field text data"
 											value="#{lancamentoBB.dataLancamento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 											id="dataLancamento">
 											<f:convertDateTime timeZone="GMT-3"/>
 										</h:inputText>
-										<h:message for="dataLancamento" styleClass="msgErro" />
 									</div>
 									<div>
-										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" required="true"
-											value="#{lancamentoBB.descricao}">
-											<f:validateLength maximum="50" />
-										</h:inputText>
-										<h:message for="descricao" styleClass="msgErro"/>									
-									</div>
-
-								</li>
-								
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="N.Doc*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="numeroDocumento" maxlength="50" size="50" required="true"
-											value="#{lancamentoBB.numeroDocumento}">
-											<f:validateLength maximum="50" />
-										</h:inputText>
-										<h:outputLabel styleClass="desc" value="Tipo Lançamento"></h:outputLabel>
-									</div>
-									<div>	
-										<h:selectOneRadio  styleClass="field select"  id="tipoLancamento"  required="true"
-											value="#{lancamentoBB.tipoLancamento}"  layout="lineDirection" rendered="true">
-										    <f:selectItem itemLabel="Debito" itemValue="D" />
-										    <f:selectItem itemLabel="Credito" itemValue="C"/>
-										</h:selectOneRadio>
-										<h:message for="tipoLancamento" styleClass="msgErro"/>
-									</div>
-								</li>
-
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Forma Pagto*"></h:outputLabel>
-										<h:selectOneMenu id="idForma" styleClass="field select"
-											value="#{lancamentoBB.idForma}" required="true">   
-												  <f:selectItems id="formaSelectItems" 
-												  value="#{lancamentoBB.formas}" />   
+										<h:outputLabel styleClass="desc" value="Fornecedor"></h:outputLabel>
+										<h:selectOneMenu id="idFornecedor" styleClass="field select" style="width: 200px;"
+											value="#{lancamentoBB.idFornecedor}" required="false">   
+												  <f:selectItems id="fornecedorSelectItems" 
+												  value="#{lancamentoBB.fornecedores}" />   
 										</h:selectOneMenu> 
 									</div>
 									<div>
-										<h:outputLabel styleClass="desc" value="Grupo*"></h:outputLabel>
-										<h:selectOneMenu id="idGrupo" styleClass="field select"
-											value="#{lancamentoBB.idGrupo}" required="true">   
+										<h:outputLabel styleClass="desc" value="Situação"></h:outputLabel>
+										<h:outputText styleClass="desc" style="font-weight:bold;" value="#{lancamentoBB.descricaoSituacao}" id="descricaoSituacao">
+										</h:outputText>
+									</div>
+								</li>
+								<li class="normal">	
+									<div>
+										<h:outputLabel styleClass="desc" value="Grupo de Lançamento*"></h:outputLabel>
+										<h:selectOneMenu id="idGrupo" styleClass="field select" style="width: 200px;"
+											value="#{lancamentoBB.idGrupo}" required="false">   
 												  <f:selectItems id="formaSelectItems" 
 												  value="#{lancamentoBB.grupos}" />   
 										</h:selectOneMenu> 
-									</div>
-								</li>	
-								<li class="normal">
+									</div>								
 									<div>
-										<h:outputLabel styleClass="desc" value="Observacao*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="observacao" maxlength="250" size="50" required="false"
-											value="#{lancamentoBB.observacao}">
-											<f:validateLength maximum="250" />
+										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
+										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" required="false"
+											value="#{lancamentoBB.descricao}">
+											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
-								</li>	
+								</li>								
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Vencimento"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Número Documento*"></h:outputLabel>
+										<h:inputText styleClass="field text" id="numeroDocumento" maxlength="50" size="50" required="false"
+											value="#{lancamentoBB.numeroDocumento}">
+											<f:validateLength maximum="50" />
+										</h:inputText>
+									</div>								
+									<div>
+										<h:outputLabel styleClass="desc" value="Vencimento*"></h:outputLabel>
 										<h:inputText readonly="false" maxlength="10" size="10"
 											styleClass="field text data"
 											value="#{lancamentoBB.dataVencimento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 											id="dataVencimento">
 											<f:convertDateTime timeZone="GMT-3"/>
 										</h:inputText>
-										<h:message for="dataVencimento" styleClass="msgErro" />
-									</div>
-									<div>								
-										<h:outputLabel styleClass="desc" value="Pagamento"></h:outputLabel>
-										<h:inputText readonly="false" maxlength="10" size="10"
-											styleClass="field text data"
-											value="#{lancamentoBB.dataPagamento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-											id="dataPagamento">
-											<f:convertDateTime timeZone="GMT-3"/>
-										</h:inputText>
-										<h:message for="dataPagamento" styleClass="msgErro" />	
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor*"></h:outputLabel>
@@ -159,10 +123,18 @@
 										</h:inputText>
 									</div>								
 								</li>	
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Observação"></h:outputLabel>
+										<h:inputTextarea styleClass="field text" id="observacao" style="width: 100%;" cols="1" rows="3" value="#{lancamentoBB.observacao}">
+											<f:validateLength maximum="250" />
+										</h:inputTextarea>
+									</div>
+								</li>	
 								<li class="buttons">
 								    <h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{lancamentoBB.voltarConsulta}" value="Voltar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{lancamentoBB.alterar}" value="Alterar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoExcluir" action="#{lancamentoBB.excluir}" value="Excluir"></h:commandButton>									
+									<h:commandButton disabled="#{lancamentoBB.idSituacao == 'F' or lancamentoBB.idSituacao == 'C'}" styleClass="btTxt" id="botaoAlterar" action="#{lancamentoBB.alterarContaAPagar}" value="Alterar"></h:commandButton>
+									<h:commandButton disabled="#{lancamentoBB.idSituacao == 'P' or lancamentoBB.idSituacao == 'F' or lancamentoBB.idSituacao == 'C'}" styleClass="btTxt" id="botaoCancelar" action="#{lancamentoBB.cancelar}" value="Cancelar"></h:commandButton>									
 								</li>
 							</ul>
 						</div>
@@ -172,4 +144,3 @@
 	  </body>	
 	</f:view>
 </html>
-		

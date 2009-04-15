@@ -11,6 +11,8 @@ import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class GrupoLancamentoBackBean extends BackBean {
@@ -32,14 +34,18 @@ public class GrupoLancamentoBackBean extends BackBean {
 
 
 	public String inserir(){
-		GrupoLancamento grupo = new GrupoLancamento();
-
-		if (getId()==null) grupo.setId(getIdInc(GrupoLancamento.class));
-
-		grupo.setDescricao(this.descricao);
-		grupo.setTipoRegistro(this.tipoRegistro);
-
+		
 		try {
+			validarGrupoLancamento();
+
+			GrupoLancamento grupo = new GrupoLancamento();
+
+			if (getId()==null) grupo.setId(getIdInc(GrupoLancamento.class));
+
+			grupo.setDescricao(this.descricao);
+			grupo.setTipoRegistro(GrupoLancamento.REGISTRO_USUARIO);
+//			grupo.setTipoRegistro(this.tipoRegistro);
+
 			getFachada().inserirGrupoLancamento(grupo);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -49,7 +55,12 @@ public class GrupoLancamentoBackBean extends BackBean {
 		} catch (ObjectExistentException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"GrupoLancamento já Existente!", "");
+					"Grupo de Lançamento já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -78,6 +89,7 @@ public class GrupoLancamentoBackBean extends BackBean {
 			}else if (getDescricao() != null && !"".equals(getDescricao())){
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(GrupoLancamento.class);
+				filter.addProperty("tipoRegistro", GrupoLancamento.REGISTRO_USUARIO);
 				filter.addProperty("descricao", getDescricao());
 				Collection col = getFachada().consultarFormaRecebimento(filter);
 				if (col == null || col.size() == 0){
@@ -105,7 +117,12 @@ public class GrupoLancamentoBackBean extends BackBean {
 					setExisteRegistros(true);
 					setGrupoLancamentos(c);
 				}else{
+					setGrupoLancamentos(null);
 					setExisteRegistros(false);
+					FacesContext ctx = FacesContext.getCurrentInstance();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Nenhum Registro Encontrado", "");
+					ctx.addMessage(null, msg);					
 				}
 			}
 		}catch(ObjectNotFoundException e){
@@ -127,11 +144,14 @@ public class GrupoLancamentoBackBean extends BackBean {
 
 	public String alterar(){
 		try {
+			validarGrupoLancamento();
+			
 			GrupoLancamento grupo = new GrupoLancamento();
 
 			grupo.setId(new Long(this.id));
 			grupo.setDescricao(this.descricao);
-			grupo.setTipoRegistro(this.tipoRegistro);
+			grupo.setTipoRegistro(GrupoLancamento.REGISTRO_USUARIO);
+//			grupo.setTipoRegistro(this.tipoRegistro);
 
 			getFachada().alterarGrupoLancamento(grupo);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -139,6 +159,16 @@ public class GrupoLancamentoBackBean extends BackBean {
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
+		} catch (ObjectNotFoundException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Grupo de Lançamento não encontrado!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -177,7 +207,7 @@ public class GrupoLancamentoBackBean extends BackBean {
 	public void resetBB(){
 		this.setId(null);
 		this.setDescricao(null);
-		this.setTipoRegistro(GrupoLancamento.REGISTRO_USUARIO);
+//		this.setTipoRegistro(GrupoLancamento.REGISTRO_USUARIO);
 	}
 
 	/**
@@ -240,6 +270,12 @@ public class GrupoLancamentoBackBean extends BackBean {
 			if(VALOR_ACAO.equals(param)){
 				setGrupoLancamentos(null);
 			}
+		}
+	}
+	
+	public void validarGrupoLancamento() throws AppException {
+		if(this.getDescricao() == null || this.getDescricao().equals("")){
+			throw new AppException("O Campo Descrição é obrigatório!");
 		}
 	}
 }

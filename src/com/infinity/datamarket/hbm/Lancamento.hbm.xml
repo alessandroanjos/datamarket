@@ -32,41 +32,44 @@
 	    </property>
 	    
 	    <property name="numeroDocumento" type="java.lang.String" update="true" insert="true">
-            <column name="NUMERO_DOCUMENTO" length="50" not-null="true"/>
+            <column name="NUMERO_DOCUMENTO" length="50" not-null="false"/>
         </property>
 	    
         <property name="descricao" type="java.lang.String" update="true" insert="true">
-            <column name="DESCRICAO" length="50" not-null="true"/>
+            <column name="DESCRICAO" length="50" not-null="false"/>
         </property>
         
         <many-to-one name="grupo" class="com.infinity.datamarket.comum.financeiro.GrupoLancamento" update="true" insert="true">
-          <column name="ID_GRUPO_LANCAMENTO" not-null="true"/>
+          <column name="ID_GRUPO_LANCAMENTO" not-null="false"/>
         </many-to-one>
         
         <many-to-one name="loja" class="com.infinity.datamarket.comum.usuario.Loja" update="true" insert="true">
-          <column name="ID_LOJA" not-null="true"/>
+          <column name="ID_LOJA" not-null="false"/>
         </many-to-one>
         
         <property name="tipoLancamento" type="java.lang.String" update="true" insert="true">
-            <column name="TIPO_LANCAMENTO" length="1" not-null="true"/>
+            <column name="TIPO_LANCAMENTO" length="1" not-null="false"/>
         </property>
         
         <property name="valor" type="java.math.BigDecimal" update="true" insert="true">
             <column name="VALOR" length="20" not-null="false"/>
-        </property>
-
-        <many-to-one name="forma" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento" update="true" insert="true">
-          <column name="ID_FORMA_RECEBIMENTO" not-null="true"/>
-        </many-to-one>        
+        </property>    
 
 		<property name="observacao" type="java.lang.String" update="true" insert="true">
-            <column name="OBSERVACAO" length="250" not-null="true"/>
+            <column name="OBSERVACAO" length="250" not-null="false"/>
         </property>
         
         <property name="idEntradaProduto" type="java.lang.Long" update="true" insert="true">
 	            <column name="ID_ENTRADA_PRODUTO" length="18" not-null="false"/>
 	    </property>
+	    
+	    <property name="situacao" type="java.lang.String" update="true" insert="true">
+            <column name="SITUACAO" length="1" not-null="false"/>
+        </property>
 
+		<many-to-one name="fornecedor" class="com.infinity.datamarket.comum.fornecedor.Fornecedor" update="true" insert="true">
+          <column name="ID_FORNECEDOR" not-null="false"/>
+        </many-to-one>
     </class>
 
 </hibernate-mapping>
