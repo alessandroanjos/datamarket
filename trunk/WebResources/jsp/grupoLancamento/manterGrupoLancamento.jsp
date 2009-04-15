@@ -57,27 +57,14 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" required="true"
+										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" required="false"
 											value="#{grupoLancamentoBB.descricao}">
 											<f:validateLength maximum="50" />
 										</h:inputText>
 										
 									</div>
 									<h:message for="descricao" styleClass="msgErro"/>
-								</li>
-
-																<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Tipo Registro"></h:outputLabel>
-										<h:selectOneRadio  styleClass="field select"  id="tipoRegistro"  required="true"
-											value="#{grupoLancamentoBB.tipoRegistro}"  layout="lineDirection" rendered="true">
-										    <f:selectItem itemLabel="Usuário" itemValue="U" />
-										    <f:selectItem itemLabel="Sistema" itemValue="S"/>
-										</h:selectOneRadio>
-										
-									</div>
-									<h:message for="tipoRegistro" styleClass="msgErro"/>
-								</li>
+								</li>							
 								<li class="buttons">
 								    <h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{grupoLancamentoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar" action="#{grupoLancamentoBB.alterar}" value="Alterar"></h:commandButton>

@@ -26,5 +26,27 @@ public class GrupoLancamento extends Persistente{
 	public void setTipoRegistro(String tipoRegistro) {
 		this.tipoRegistro = tipoRegistro;
 	}
+	@Override
+	public int hashCode() {
+		return descricao.hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final GrupoLancamento other = (GrupoLancamento) obj;
+		if (descricao == null) {
+			if (other.descricao != null)
+				return false;
+		} else if (!descricao.equals(other.descricao))
+			return false;
+		return true;
+	}
+	
+	
 	
 }

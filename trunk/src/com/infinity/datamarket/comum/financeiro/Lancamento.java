@@ -3,7 +3,7 @@ package com.infinity.datamarket.comum.financeiro;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
+import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.Persistente;
 
@@ -17,6 +17,11 @@ public class Lancamento extends Persistente{
 	public static final String CREDITO = "C";
 	public static final String DEBITO = "D";
 	
+	public static final String ABERTO = "A";
+	public static final String PAGTO_PARCIAL = "P";
+	public static final String FINALIZADO = "F";
+	public static final String CANCELADO = "C";
+	
 	private Loja loja;
 	private Date dataLancamento;
 	private Date dataVencimento;
@@ -26,10 +31,23 @@ public class Lancamento extends Persistente{
 	private String tipoLancamento;
 	private BigDecimal valor;
 	private String observacao;
-	private FormaRecebimento forma;
 	private GrupoLancamento grupo;
 	private Long idEntradaProduto;
+	private Fornecedor fornecedor;
+	private String situacao;
 	
+	public String getSituacao() {
+		return situacao;
+	}
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
 	public Date getDataLancamento() {
 		return dataLancamento;
 	}
@@ -47,12 +65,6 @@ public class Lancamento extends Persistente{
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-	public FormaRecebimento getForma() {
-		return forma;
-	}
-	public void setForma(FormaRecebimento forma) {
-		this.forma = forma;
 	}
 	public GrupoLancamento getGrupo() {
 		return grupo;
@@ -103,4 +115,23 @@ public class Lancamento extends Persistente{
 		this.idEntradaProduto = idEntradaProduto;
 	}
 	
+	public int hashCode() {
+		return getId().hashCode();
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final Lancamento other = (Lancamento) obj;
+		if (getId() == null) {
+			if (other.getId() != null)
+				return false;
+		} else if (!getId().equals(other.getId()))
+			return false;
+		return true;
+	}	
 }

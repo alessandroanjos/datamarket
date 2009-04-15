@@ -12,41 +12,53 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import com.infinity.datamarket.comum.Fachada;
+import org.apache.log4j.Logger;
 
+import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
 import com.infinity.datamarket.comum.financeiro.Lancamento;
+import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.usuario.Loja;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class LancamentoBackBean extends BackBean {
+	
+	Logger logger = Logger.getLogger(LancamentoBackBean.class);
 
 	private String descricao;
 	private String tipoLancamento;
 	private String id;
 
 	private String idLoja;
-	private Loja loja;
 	private Date dataLancamento = new Date(System.currentTimeMillis());
 	private Date dataVencimento;
 	private Date dataPagamento;
 	private String numeroDocumento;
 	private BigDecimal valor;
 	private String observacao;
-	private String idForma;
-	private FormaRecebimento forma;
 	private String idGrupo;
-	private GrupoLancamento grupo;
 	private Long idEntradaProduto;
+	private String idFornecedor;
+	private String idSituacao;
+	private SelectItem[] listaSituacao;
+	private String descricaoSituacao;
+	
+	private Date dataInicial;
+	private Date dataFinal;
+	
+	SelectItem[] fornecedores;
 	
 	Collection lancamentos,formas,grupos;
 	
 
 	public String voltarConsulta(){
+		resetBB();
 		consultar();
 		return "voltar";
 	}
@@ -56,34 +68,14 @@ public class LancamentoBackBean extends BackBean {
 	}
 
 
-	public String inserir(){
-		Lancamento lancamento = new Lancamento();
-
-		if (getId()==null) lancamento.setId(getIdInc(Lancamento.class));
+	public String inserirContaAPagar(){
+		logger.info("inserirContaAPagar - INICIO");
 		try {
-			lancamento.setDescricao(this.descricao);
-			lancamento.setTipoLancamento(this.tipoLancamento);
-			lancamento.setDataLancamento(this.dataLancamento);
-			lancamento.setDataPagamento(this.dataPagamento);
-			lancamento.setDataVencimento(this.dataVencimento);
+			validarLancamento();
 			
-			Long idForma = new Long(this.idForma);
-			FormaRecebimento forma = Fachada.getInstancia().consultarFormaRecebimentoPorId(idForma);
-			lancamento.setForma(forma);
-			
-			Long idGrupo = new Long(this.idGrupo);			
-			GrupoLancamento grupo = Fachada.getInstancia().consultarGrupoLancamentoPorId(idGrupo);
-			lancamento.setGrupo(grupo);
-			
-			lancamento.setIdEntradaProduto(this.idEntradaProduto);
-			
-			Long idLoja = new Long(this.idLoja);
-			Loja loja   = Fachada.getInstancia().consultarLojaPorId(idLoja);
-			lancamento.setLoja(loja);
-			
-			lancamento.setNumeroDocumento(this.numeroDocumento);
-			lancamento.setObservacao(this.observacao);
-			lancamento.setValor(this.valor);
+			Lancamento lancamento = montaObjetoLancamento("I");
+
+			lancamento.setTipoLancamento(Lancamento.DEBITO);
 
 			getFachada().inserirLancamento(lancamento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -94,7 +86,47 @@ public class LancamentoBackBean extends BackBean {
 		} catch (ObjectExistentException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Lancamento já Existente!", "");
+					"Conta à Pagar já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (Exception e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		logger.info("inserirContaAPagar - FIM");
+		return "mesma";
+	}
+
+	public String inserirContaAReceber(){
+		
+		try {
+			validarLancamento();
+			
+			Lancamento lancamento = montaObjetoLancamento("I");
+			
+			lancamento.setTipoLancamento(Lancamento.CREDITO);
+
+			getFachada().inserirLancamento(lancamento);
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Operação Realizada com Sucesso!", "");
+			ctx.addMessage(null, msg);
+			resetBB();
+		} catch (ObjectExistentException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Conta à Receber já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -104,7 +136,6 @@ public class LancamentoBackBean extends BackBean {
 		}
 		return "mesma";
 	}
-
 
 	public String consultar(){
 		try{
@@ -122,21 +153,68 @@ public class LancamentoBackBean extends BackBean {
 				this.setDataLancamento(lancamento.getDataLancamento());
 				this.setDataPagamento(lancamento.getDataPagamento());
 				this.setDataVencimento(lancamento.getDataVencimento());
-				this.setIdForma(lancamento.getForma().getId().toString());
-				this.setForma(lancamento.getForma());
 				this.setIdGrupo(lancamento.getGrupo().getId().toString());
-				this.setGrupo(lancamento.getGrupo());
 				this.setIdEntradaProduto(lancamento.getIdEntradaProduto());
 				this.setIdLoja(lancamento.getLoja().getId().toString());
-				this.setLoja(lancamento.getLoja());
 				this.setNumeroDocumento(lancamento.getNumeroDocumento());
 				this.setObservacao(lancamento.getObservacao());
 				this.setValor(lancamento.getValor());
-				return "proxima";
-			}else if (getDescricao() != null && !"".equals(getDescricao())){
+				this.setIdSituacao(lancamento.getSituacao());
+				this.setDescricaoSituacao(retornaDescricaoSituacao(this.getIdSituacao()));
+				if(lancamento.getFornecedor() != null){
+					this.setIdFornecedor(lancamento.getFornecedor().getId().toString());	
+				}
+				if(this.getTipoLancamento().equals(Lancamento.DEBITO)){
+					return "proximaContaAPagar";	
+				}else if(this.getTipoLancamento().equals(Lancamento.CREDITO)){
+					return "proximaContaAReceber";
+				}				
+			}else if (this.getIdLoja() != null || this.getIdGrupo() != null ||
+					this.getIdFornecedor() != null || this.getDescricao() != null ||
+					(this.getDataInicial() != null && this.getDataFinal() != null) || this.getTipoLancamento() != null){
+				 
 				PropertyFilter filter = new PropertyFilter();
+
 				filter.setTheClass(Lancamento.class);
-				filter.addProperty("descricao", getDescricao());
+				
+				if(this.idLoja != null && !this.idLoja.equals("0")){
+					Loja loja = new Loja();
+					loja.setId(new Long(this.idLoja));
+					filter.addProperty("loja", loja);	
+				}
+				
+				if(this.idFornecedor != null && !this.idFornecedor.equals("0")){
+					Fornecedor fornecedor = new Fornecedor();
+					fornecedor.setId(new Long(this.idFornecedor));
+					filter.addProperty("fornecedor", fornecedor);	
+				}
+				
+				if(this.idGrupo != null && !this.idGrupo.equals("0")){
+					GrupoLancamento grupo = new GrupoLancamento();
+					grupo.setId(new Long(this.idGrupo));
+					filter.addProperty("grupo", grupo);	
+				}
+				
+				if(this.descricao != null && !this.descricao.equals("")){
+					filter.addProperty("descricao", this.descricao);
+				}
+				
+				filter.addProperty("tipoLancamento", this.tipoLancamento);
+				
+				if (this.getDataInicial() != null && this.getDataFinal() != null){	
+					if(this.getDataInicial().after(this.getDataFinal())){
+						throw new Exception("A Data Final deve ser maior que a Data Inicial.");
+					}
+					
+					filter.addPropertyInterval("dataVencimento", this.getDataInicial(), IntervalObject.MAIOR_IGUAL);
+					this.getDataFinal().setDate(this.getDataFinal().getDate()+1);
+					filter.addPropertyInterval("dataVencimento", this.getDataFinal(), IntervalObject.MENOR_IGUAL);
+				}
+				
+				if(this.getIdSituacao() != null && !this.getIdSituacao().equals("T")){
+					filter.addProperty("situacao", this.getIdSituacao());	
+				}
+				
 				Collection col = getFachada().consultarFormaRecebimento(filter);
 				if (col == null || col.size() == 0){
 					setExisteRegistros(false);
@@ -147,24 +225,29 @@ public class LancamentoBackBean extends BackBean {
 					ctx.addMessage(null, msg);
 				}else if (col != null){
 					if(col.size() == 1){
-						Lancamento lancamento = getFachada().consultarLancamentoPorId(new Long(getId()));
+						Lancamento lancamento = (Lancamento)col.iterator().next();
 						this.setId(lancamento.getId().toString());
 						this.setDescricao(lancamento.getDescricao());
 						this.setTipoLancamento(lancamento.getTipoLancamento());
 						this.setDataLancamento(lancamento.getDataLancamento());
 						this.setDataPagamento(lancamento.getDataPagamento());
 						this.setDataVencimento(lancamento.getDataVencimento());
-						this.setIdForma(lancamento.getForma().getId().toString());
-						this.setForma(lancamento.getForma());
 						this.setIdGrupo(lancamento.getGrupo().getId().toString());
-						this.setGrupo(lancamento.getGrupo());
 						this.setIdEntradaProduto(lancamento.getIdEntradaProduto());
 						this.setIdLoja(lancamento.getLoja().getId().toString());
-						this.setLoja(lancamento.getLoja());
 						this.setNumeroDocumento(lancamento.getNumeroDocumento());
 						this.setObservacao(lancamento.getObservacao());
 						this.setValor(lancamento.getValor());
-						return "proxima";
+						this.setIdSituacao(lancamento.getSituacao());
+						this.setDescricaoSituacao(retornaDescricaoSituacao(this.getIdSituacao()));
+						if(lancamento.getFornecedor() != null){
+							this.setIdFornecedor(lancamento.getFornecedor().getId().toString());	
+						}
+						if(this.getTipoLancamento().equals(Lancamento.DEBITO)){
+							return "proximaContaAPagar";	
+						}else if(this.getTipoLancamento().equals(Lancamento.CREDITO)){
+							return "proximaContaAReceber";
+						}
 					}else{
 						setExisteRegistros(true);
 						this.setLancamentos(col);
@@ -177,6 +260,11 @@ public class LancamentoBackBean extends BackBean {
 					setLancamentos(c);
 				}else{
 					setExisteRegistros(false);
+					setLancamentos(null);
+					FacesContext ctx = FacesContext.getCurrentInstance();
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Nenhum Registro Encontrado", "");
+					ctx.addMessage(null, msg);
 				}
 			}
 		}catch(ObjectNotFoundException e){
@@ -195,24 +283,52 @@ public class LancamentoBackBean extends BackBean {
 		}
 		return "mesma";
 	}
+	
+	public Lancamento montaObjetoLancamento(String operacao){
+		Lancamento lancamento = new Lancamento();
 
-	public String alterar(){
-		try {
-			Lancamento lancamento = new Lancamento();
-
+		if(operacao.equals("I")){
+			if (getId()==null) lancamento.setId(getIdInc(Lancamento.class));
+			lancamento.setSituacao(Lancamento.ABERTO);
+		}else if(operacao.equals("A")){
 			lancamento.setId(new Long(this.id));
-			lancamento.setDescricao(this.descricao);
-			lancamento.setTipoLancamento(this.tipoLancamento);
-			lancamento.setDataLancamento(this.dataLancamento);
-			lancamento.setDataPagamento(this.dataPagamento);
-			lancamento.setDataVencimento(this.dataVencimento);
-			lancamento.setForma(this.forma);
-			lancamento.setGrupo(this.grupo);
-			lancamento.setIdEntradaProduto(this.idEntradaProduto);
-			lancamento.setLoja(this.loja);
-			lancamento.setNumeroDocumento(this.numeroDocumento);
-			lancamento.setObservacao(this.observacao);
-			lancamento.setValor(this.valor);
+			lancamento.setSituacao(this.getIdSituacao());
+		}		
+		lancamento.setDescricao(this.descricao);
+		lancamento.setDataLancamento(this.dataLancamento);
+		lancamento.setDataPagamento(this.dataPagamento);
+		lancamento.setDataVencimento(this.dataVencimento);
+		lancamento.setIdEntradaProduto(this.idEntradaProduto);
+		lancamento.setNumeroDocumento(this.numeroDocumento);
+		lancamento.setObservacao(this.observacao);
+		lancamento.setValor(this.valor);
+		lancamento.setIdEntradaProduto(this.idEntradaProduto);
+
+		Loja loja = new Loja();
+		loja.setId(new Long(this.idLoja));
+		lancamento.setLoja(loja);
+
+		GrupoLancamento grupo = new GrupoLancamento();
+		grupo.setId(new Long(this.idGrupo));
+		lancamento.setGrupo(grupo);
+		
+		if(this.idFornecedor != null && !this.idFornecedor.equals("0")){
+			Fornecedor fornecedor = new Fornecedor();
+			fornecedor.setId(new Long(this.idFornecedor));
+			lancamento.setFornecedor(fornecedor);
+		}
+
+		return lancamento;
+	}
+
+	public String alterarContaAPagar(){
+		try {
+			validarSituacaoLancamento("ALTERAR");
+			validarLancamento();
+			
+			Lancamento lancamento = montaObjetoLancamento("A");
+
+			lancamento.setTipoLancamento(Lancamento.DEBITO);
 
 			getFachada().alterarLancamento(lancamento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -230,25 +346,16 @@ public class LancamentoBackBean extends BackBean {
 		return "mesma";
 	}
 
-	public String excluir(){
+	public String alterarContaAReceber(){
 		try {
-			Lancamento lancamento = new Lancamento();
+			validarSituacaoLancamento("ALTERAR");
+			validarLancamento();
+			
+			Lancamento lancamento = montaObjetoLancamento("A");
 
-			lancamento.setId(new Long(this.id));
-			lancamento.setDescricao(this.descricao);
-			lancamento.setTipoLancamento(this.tipoLancamento);
-			lancamento.setDataLancamento(this.dataLancamento);
-			lancamento.setDataPagamento(this.dataPagamento);
-			lancamento.setDataVencimento(this.dataVencimento);
-			lancamento.setForma(this.forma);
-			lancamento.setGrupo(this.grupo);
-			lancamento.setIdEntradaProduto(this.idEntradaProduto);
-			lancamento.setLoja(this.loja);
-			lancamento.setNumeroDocumento(this.numeroDocumento);
-			lancamento.setObservacao(this.observacao);
-			lancamento.setValor(this.valor);
+			lancamento.setTipoLancamento(Lancamento.CREDITO);
 
-			getFachada().excluirLancamento(lancamento);
+			getFachada().alterarLancamento(lancamento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -261,9 +368,33 @@ public class LancamentoBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-
 		return "mesma";
 	}
+
+	public String cancelar(){
+		try {
+			validarSituacaoLancamento("CANCELAR");
+			
+			Lancamento lancamento = getFachada().consultarLancamentoPorId(new Long(this.id));
+			
+			lancamento.setSituacao(Lancamento.CANCELADO);
+			
+			getFachada().alterarLancamento(lancamento);
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+					"Operação Realizada com Sucesso!", "");
+			ctx.addMessage(null, msg);
+			resetBB();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return "mesma";
+	}
+	
 	// Lojas 
 	private List<Loja> carregarLojas() {
 		
@@ -339,7 +470,45 @@ public class LancamentoBackBean extends BackBean {
 		return arrayFormas;
 
 	}
-	
+
+//	 Fornecedores
+	private List<Fornecedor> carregarFornecedores() {
+		
+		List<Fornecedor> fornecedores = null;
+		try {
+			fornecedores = (ArrayList<Fornecedor>)getFachada().consultarTodosFornecedores();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return fornecedores;
+	}
+
+	public SelectItem[] getFornecedores() {
+		SelectItem[] arrayFornecedores = null;
+		try {
+			List<Fornecedor> fornecedores = carregarFornecedores();
+			arrayFornecedores = new SelectItem[fornecedores.size()+1];
+			int i = 0;
+			arrayFornecedores[i++] = new SelectItem("0", "");
+			for(Fornecedor formaTmp : fornecedores){
+				SelectItem item = new SelectItem(formaTmp.getId().toString(), formaTmp.getNomeFantasia());
+				arrayFornecedores[i++] = item;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayFornecedores;
+
+	}
+
 //	Grupos
 	private List<GrupoLancamento> carregarGrupos() {
 		
@@ -380,20 +549,21 @@ public class LancamentoBackBean extends BackBean {
 	public void resetBB(){
 		this.setId(null);
 		this.setDescricao(null);
-		this.setTipoLancamento(Lancamento.CREDITO);
+		this.setTipoLancamento(Lancamento.DEBITO);
 		this.setDataLancamento(new Date(System.currentTimeMillis()));
 		this.setDataPagamento(null);
 		this.setDataVencimento(null);
-		this.setIdForma(null);
-		this.setForma(null);
-		this.setIdGrupo(null);
-		this.setGrupo(null);
+		this.setIdGrupo("0");
 		this.setIdEntradaProduto(null);
-		this.setIdLoja(null);
-		this.setLoja(null);
+		this.setIdLoja("0");
+		this.setIdFornecedor("0");
 		this.setNumeroDocumento(null);
 		this.setObservacao(null);
 		this.setValor(null);
+		this.setDataInicial(null);
+		this.setDataFinal(null);
+		this.setIdSituacao("T");
+		this.setDescricaoSituacao(retornaDescricaoSituacao(this.getIdSituacao()));
 	}
 
 
@@ -472,31 +642,14 @@ public class LancamentoBackBean extends BackBean {
 	public void setDataVencimento(Date dataVencimento) {
 		this.dataVencimento = dataVencimento;
 	}
-	public FormaRecebimento getForma() {
-		return forma;
-	}
-	public void setForma(FormaRecebimento forma) {
-		this.forma = forma;
-	}
-	public GrupoLancamento getGrupo() {
-		return grupo;
-	}
-	public void setGrupo(GrupoLancamento grupo) {
-		this.grupo = grupo;
-	}
+		
 	public Long getIdEntradaProduto() {
 		return idEntradaProduto;
 	}
 	public void setIdEntradaProduto(Long idEntradaProduto) {
 		this.idEntradaProduto = idEntradaProduto;
 	}
-	public Loja getLoja() {
-		return loja;
-	}
-	public void setLoja(Loja loja) {
-		this.loja = loja;
-	}
-	public String getNumeroDocumento() {
+		public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
 	public void setNumeroDocumento(String numeroDocumento) {
@@ -520,16 +673,111 @@ public class LancamentoBackBean extends BackBean {
 	public void setIdLoja(String idLoja) {
 		this.idLoja = idLoja;
 	}
-	public String getIdForma() {
-		return idForma;
-	}
-	public void setIdForma(String idForma) {
-		this.idForma = idForma;
-	}
 	public String getIdGrupo() {
 		return idGrupo;
 	}
 	public void setIdGrupo(String idGrupo) {
 		this.idGrupo = idGrupo;
+	}
+	
+	public void validarLancamento() throws AppException {
+		if(this.idLoja == null || this.idLoja.equals("0")){
+			throw new AppException("O Campo Loja é obrigatório!");
+		}
+		if(this.dataLancamento == null || this.dataLancamento.equals("")){
+			throw new AppException("O Campo Data é obrigatório!");
+		}
+		if(this.idGrupo == null || this.idGrupo.equals("0")){
+			throw new AppException("O Campo Grupo de Lançamento é obrigatório!");
+		}
+		if(this.descricao == null || this.descricao.equals("")){
+			throw new AppException("O Campo Descrição é obrigatório!");
+		}
+		if(this.numeroDocumento == null || this.numeroDocumento.equals("")){
+			throw new AppException("O Campo Número do Documento é obrigatório!");
+		}
+		if(this.dataVencimento == null || this.dataVencimento.equals("")){
+			throw new AppException("O Campo Vencimento é obrigatório!");
+		}
+		if(this.valor == null || this.valor.equals(BigDecimal.ZERO.setScale(2))){
+			throw new AppException("O Campo Valor é obrigatório!");
+		}
+	}
+	
+	public String retornaDescricaoSituacao(String situacao){
+		String descricao = "";
+		
+		if(situacao.equals("A")){
+			descricao = "ABERTO";
+		}else if(situacao.equals("P")){
+			descricao = "PAGO PARCIAL";
+		}else if(situacao.equals("F")){
+			descricao = "FINALIZADO";
+		}else if(situacao.equals("C")){
+			descricao = "CANCELADO";
+		}
+		
+		return descricao;
+	}
+	
+	public void validarSituacaoLancamento(String acao) throws AppException {
+		if(acao.equals("CANCELAR")){
+			if(this.getIdSituacao() != null && !this.getIdSituacao().equals("A")){
+				throw new AppException("O Lançamento não pode ser Cancelado. A Situação atual é: " + retornaDescricaoSituacao(this.getIdSituacao()));
+			}
+		}else if(acao.equals("ALTERAR")){
+			if(this.getIdSituacao() != null && (this.getIdSituacao().equals("F") || this.getIdSituacao().equals("C"))){
+				throw new AppException("O Lançamento não pode ser Alterado. A Situação atual é: " + retornaDescricaoSituacao(this.getIdSituacao()));
+			}
+		}		
+	}
+	
+	public String getIdFornecedor() {
+		return idFornecedor;
+	}
+	public void setIdFornecedor(String idFornecedor) {
+		this.idFornecedor = idFornecedor;
+	}
+	public void setFornecedores(SelectItem[] fornecedores) {
+		this.fornecedores = fornecedores;
+	}
+	public Date getDataFinal() {
+		return dataFinal;
+	}
+	public void setDataFinal(Date dataFinal) {
+		this.dataFinal = dataFinal;
+	}
+	public Date getDataInicial() {
+		return dataInicial;
+	}
+	public void setDataInicial(Date dataInicial) {
+		this.dataInicial = dataInicial;
+	}
+	public String getIdSituacao() {
+		return idSituacao;
+	}
+	public void setIdSituacao(String idSituacao) {
+		this.idSituacao = idSituacao;
+	}
+	public SelectItem[] getListaSituacao() {
+		SelectItem[] lista = new SelectItem[5];
+		lista[0] = new SelectItem("T", "Todos");
+		lista[1] = new SelectItem("A", "Aberto");
+		lista[2] = new SelectItem("P", "Pago Parcial");
+		lista[3] = new SelectItem("F", "Finalizado");
+		lista[4] = new SelectItem("C", "Cancelado");
+		if(this.getIdSituacao() == null || this.getIdSituacao().equals("")){
+			this.setIdSituacao("T");
+		}
+		return lista;
+	}
+	public void setListaSituacao(SelectItem[] listaSituacao) {
+		this.listaSituacao = listaSituacao;
+	}
+	public String getDescricaoSituacao() {
+		return descricaoSituacao;
+	}
+	public void setDescricaoSituacao(String descricaoSituacao) {
+		this.descricaoSituacao = descricaoSituacao;
 	}
 }

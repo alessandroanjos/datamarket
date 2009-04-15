@@ -53,7 +53,6 @@
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Descrição"></h:outputLabel>
@@ -61,13 +60,12 @@
 												value="#{grupoLancamentoBB.descricao}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="descricao" styleClass="msgErro" />
 										</div>
 									</li>
 								</ul>
 							</fieldset>	
 							<div class="listagem">
-								<t:dataTable id="componentes" value="#{grupoLancamentoBB.grupoLancamentos}"
+								<t:dataTable id="grupoLancamentos" value="#{grupoLancamentoBB.grupoLancamentos}"
 									var="grupoLancamento" rowClasses="rowA,rowB" width="90%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
@@ -87,7 +85,8 @@
 										<f:facet name="header">
 											<h:outputText value="Tipo Registro" /> 
 										</f:facet>
-										<h:outputText value="#{grupoLancamento.tipoRegistro}" /> 
+										<h:outputText rendered="#{grupoLancamento.tipoRegistro == 'U'}" value="Usuário" /> 
+										<h:outputText rendered="#{grupoLancamento.tipoRegistro == 'S'}" value="Sistema" /> 
 									</h:column>
 								</t:dataTable>	
 										<div>
