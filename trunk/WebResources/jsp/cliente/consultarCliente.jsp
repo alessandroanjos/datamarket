@@ -142,7 +142,8 @@
 										<f:facet name="header">
 											<h:outputText value="Tipo Pessoa" /> 
 										</f:facet>
-										<h:outputText value="#{cliente.tipoPessoa}" /> 
+										<h:outputText rendered="#{cliente.tipoPessoa == 'F'}" value="Física" /> 
+										<h:outputText rendered="#{cliente.tipoPessoa == 'J'}" value="Jurídica" /> 
 									</h:column>	
 									<h:column>
 										<f:facet name="header">
