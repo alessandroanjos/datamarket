@@ -70,6 +70,15 @@
 		<many-to-one name="fornecedor" class="com.infinity.datamarket.comum.fornecedor.Fornecedor" update="true" insert="true">
           <column name="ID_FORNECEDOR" not-null="false"/>
         </many-to-one>
+        
+        <set name="itensPagamento" inverse="true" cascade="save-update, delete-orphan"
+			lazy="false">
+			<key>
+				<column name="ID_LANCAMENTO" />
+			</key>
+			<one-to-many
+				class="com.infinity.datamarket.comum.financeiro.BaixaLancamento" />
+		</set>
     </class>
 
 </hibernate-mapping>
