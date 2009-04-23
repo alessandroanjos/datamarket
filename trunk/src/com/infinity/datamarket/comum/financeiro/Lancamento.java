@@ -1,6 +1,7 @@
 package com.infinity.datamarket.comum.financeiro;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
@@ -35,6 +36,16 @@ public class Lancamento extends Persistente{
 	private Long idEntradaProduto;
 	private Fornecedor fornecedor;
 	private String situacao;
+	
+	private Collection<BaixaLancamento> itensPagamento;
+	
+	public Collection<BaixaLancamento> getItensPagamento() {
+		return itensPagamento;
+	}
+	
+	public void setItensPagamento(Collection<BaixaLancamento> itensPagamento) {
+		this.itensPagamento = itensPagamento;
+	}
 	
 	public String getSituacao() {
 		return situacao;
