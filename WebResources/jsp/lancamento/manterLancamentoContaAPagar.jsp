@@ -36,7 +36,7 @@
 				</strong>
 			</div>				
 		</div>
-		<h:form id="frmManterLancamento">
+		<h:form id="frmManterLancamentoContaAPagar">
 				<div id="content">
 						<div id="primarioContentContainerInternas">
 							<ul>

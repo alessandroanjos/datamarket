@@ -35,7 +35,7 @@
 				</strong>
 			</div>				
 		</div>
-		<h:form id="frmInserirLancamento" binding="#{lancamentoBB.init}">
+		<h:form id="frmInserirLancamentoContaAPagar" binding="#{lancamentoBB.init}">
 				<div id="content">
 						<div id="primarioContentContainerInternas">
 							<ul>

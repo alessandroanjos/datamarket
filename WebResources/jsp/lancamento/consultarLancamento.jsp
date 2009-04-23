@@ -37,7 +37,7 @@
 			</div>				
 		</div>		
 
-		<h:form id="frmConsultarGrupoLancamento" binding="#{lancamentoBB.init}">
+		<h:form id="frmConsultarLancamento" binding="#{lancamentoBB.init}">
 				
 				<div id="content">
 				
