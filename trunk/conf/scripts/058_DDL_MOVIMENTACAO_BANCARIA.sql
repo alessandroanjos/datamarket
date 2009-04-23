@@ -1,10 +1,10 @@
 CREATE TABLE [dbo].[MOVIMENTACAO_BANCARIA] (
   [ID] int NOT NULL,
   [ID_CONTA] int NOT NULL,
-  [TIPO] int NULL,
+  [TIPO] char(1) COLLATE Latin1_General_CI_AI NOT NULL,
   [NUMERO] varchar(20) COLLATE Latin1_General_CI_AI NULL,
-  [DATA] datetime NULL,
-  [VALOR] numeric(18, 2) NULL,
+  [DATA] datetime NOT NULL,
+  [VALOR] numeric(18, 2) NOT NULL,
   [ID_FORMA] numeric(18, 0) NULL,
   PRIMARY KEY CLUSTERED ([ID], [ID_CONTA]),
   CONSTRAINT [FK_MOVIMENTACAO_BANCARIA_CONTA] FOREIGN KEY ([ID_CONTA]) 
