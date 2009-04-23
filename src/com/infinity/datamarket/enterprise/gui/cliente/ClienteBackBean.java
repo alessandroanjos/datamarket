@@ -633,12 +633,12 @@ public class ClienteBackBean extends BackBean {
 			if(this.getNomeFantasia() == null || this.getNomeFantasia().equals("")){
 				throw new AppException("O campo Nome Fantasia é obrigatório.");
 			}
-			if(this.getInscricaoEstadual() == null || this.getInscricaoEstadual().equals("")){
-				throw new AppException("O campo Inscrição Estadual é obrigatório.");
-			}
-			if(this.getInscricaoMunicipal() == null || this.getInscricaoMunicipal().equals("")){
-				throw new AppException("O campo Inscrição Municipal é obrigatório.");
-			}
+//			if(this.getInscricaoEstadual() == null || this.getInscricaoEstadual().equals("")){
+//				throw new AppException("O campo Inscrição Estadual é obrigatório.");
+//			}
+//			if(this.getInscricaoMunicipal() == null || this.getInscricaoMunicipal().equals("")){
+//				throw new AppException("O campo Inscrição Municipal é obrigatório.");
+//			}
 		}		
 	}
 
