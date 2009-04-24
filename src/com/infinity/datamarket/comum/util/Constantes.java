@@ -12,5 +12,7 @@ public class Constantes {
 	public static final int DOIS_DECIMAL = 3;
 	public static final String CONSTANTE_VALOR = "V";
 	public static final String CONSTANTE_QUANTIDADE = "Q";
+	public static final String TIPO_OPERACAO_DEBITO = "D";
+	public static final String TIPO_OPERACAO_CREDITO = "C";
 	
 }

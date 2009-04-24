@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.conta.ContaCorrente" table="CONTA_CORRENTE" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="18"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+
+
+        <property name="idAgencia" type="java.lang.String" update="true" insert="true">
+            <column name="AGENCIA" length="10" not-null="true"/>
+        </property>
+        
+        <property name="numero" type="java.lang.String" update="true" insert="true">
+	            <column name="NUMERO" length="10" not-null="true"/>
+        </property>
+        
+        <property name="nome" type="java.lang.String" update="true" insert="true">
+		            <column name="NOME" length="20" not-null="true"/>
+        </property>
+        
+        <property name="saldo" type="java.math.BigDecimal" update="true" insert="true">
+	            <column name="SALDO" length="20" not-null="true"/>
+        </property>  
+        
+        <property name="situacao" type="java.lang.String" update="true" insert="true">
+            <column name="SITUACAO" length="1" not-null="true"/>
+        </property>
+        
+        <many-to-one name="banco" class="com.infinity.datamarket.comum.banco.Banco" update="true" insert="true">
+	          <column name="ID_BANCO" not-null="false"/>
+        </many-to-one>
+
+
+    </class>
+
+</hibernate-mapping>

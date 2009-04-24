@@ -1138,6 +1138,130 @@
 		</navigation-case>
 	</navigation-rule>
 
+<!-- ContaCorrente -->
+	<navigation-rule>
+		<from-view-id>/jsp/contaCorrente/inserirContaCorrente.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{contaCorrenteBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/contaCorrente/inserirContaCorrente.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{contaCorrenteBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/contaCorrente/consultarContaCorrente.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{contaCorrenteBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/contaCorrente/consultarContaCorrente.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{contaCorrenteBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/contaCorrente/manterContaCorrente.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{contaCorrenteBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/contaCorrente/manterContaCorrente.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{contaCorrenteBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/contaCorrente/consultarContaCorrente.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- GrupoLancamento -->
+	<navigation-rule>
+		<from-view-id>/jsp/grupoLancamento/inserirGrupoLancamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{grupoLancamentoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/grupoLancamento/inserirGrupoLancamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{grupoLancamentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/grupoLancamento/consultarGrupoLancamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{grupoLancamentoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/grupoLancamento/manterGrupoLancamento.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{grupoLancamentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/grupoLancamento/manterGrupoLancamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{grupoLancamentoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/grupoLancamento/consultarGrupoLancamento.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+<!-- Movimentacao Bancaria -->
+	<navigation-rule>
+		<from-view-id>/jsp/movimentacaoBancaria/inserirMovimentacaoBancaria.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{movimentacaoBancariaBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/movimentacaoBancaria/inserirMovimentacaoBancaria.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{movimentacaoBancariaBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/movimentacaoBancaria/consultarMovimentacaoBancaria.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{movimentacaoBancariaBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/movimentacaoBancaria/consultarMovimentacaoBancaria.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{movimentacaoBancariaBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/movimentacaoBancaria/manterMovimentacaoBancaria.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{movimentacaoBancariaBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/movimentacaoBancaria/manterMovimentacaoBancaria.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{movimentacaoBancariaBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/movimentacaoBancaria/consultarMovimentacaoBancaria.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
 	<!-- GrupoLancamento -->
 	<navigation-rule>
 		<from-view-id>/jsp/grupoLancamento/inserirGrupoLancamento.jsp</from-view-id>
@@ -2845,6 +2969,89 @@
 		<managed-property>
 		    <property-name>desagil</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>		
+	</managed-bean>
+
+<!-- Conta Corrente -->
+	<managed-bean>
+		<managed-bean-name>contaCorrenteBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.conta.ContaCorrenteBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idAgencia</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
+		    <property-name>nome</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>saldo</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
+		    <property-name>situacao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idBanco</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>		
+	</managed-bean>
+
+<!-- Movimentacao Bancaria -->
+	<managed-bean>
+		<managed-bean-name>movimentacaoBancariaBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.conta.MovimentacaoBancariaBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idConta</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
+		    <property-name>tipo</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>numero</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
+		    <property-name>data</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>valor</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <null-value/>
+		</managed-property>	
+		<managed-property>
+		    <property-name>idForma</property-name>
+		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>		
 	</managed-bean>

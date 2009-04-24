@@ -6,12 +6,18 @@ import java.util.Date;
 
 import com.infinity.datamarket.autorizador.AutorizacaoCartaoProprio;
 import com.infinity.datamarket.autorizador.CadastroAutorizacaoCartaoProprio;
+import com.infinity.datamarket.comum.banco.Banco;
+import com.infinity.datamarket.comum.banco.CadastroBanco;
 import com.infinity.datamarket.comum.cliente.CadastroCliente;
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.clientepagamento.CadastroClientePagamento;
 import com.infinity.datamarket.comum.clientepagamento.ClientePagamento;
 import com.infinity.datamarket.comum.componente.CadastroComponente;
 import com.infinity.datamarket.comum.componente.Componente;
+import com.infinity.datamarket.comum.conta.CadastroContaCorrente;
+import com.infinity.datamarket.comum.conta.CadastroMovimentacaoBancaria;
+import com.infinity.datamarket.comum.conta.ContaCorrente;
+import com.infinity.datamarket.comum.conta.MovimentacaoBancaria;
 import com.infinity.datamarket.comum.estoque.AjusteEstoque;
 import com.infinity.datamarket.comum.estoque.CadastroAjusteEstoque;
 import com.infinity.datamarket.comum.estoque.CadastroEntradaProduto;
@@ -74,6 +80,7 @@ import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.comum.util.SistemaException;
 import com.infinity.datamarket.infocomponent.CadastroInfoComponente;
 import com.infinity.datamarket.infocomponent.InfoComponent;
@@ -223,6 +230,18 @@ public class Fachada {
 	private CadastroLancamento getCadastroLancamento() {
 		return CadastroLancamento.getInstancia();
 	}	
+	
+	private CadastroBanco getCadastroBanco() {
+		return CadastroBanco.getInstancia();
+	}	
+	
+	private CadastroContaCorrente getCadastroContaCorrente() {
+		return CadastroContaCorrente.getInstancia();
+	}
+	
+	private CadastroMovimentacaoBancaria getCadastroMovimentacaoBancaria() {
+		return CadastroMovimentacaoBancaria.getInstancia();
+	}
 	
 	private GerenciadorRelatorio getGerenciadorRelatorio(){
 		return GerenciadorRelatorio.getInstancia();
@@ -6301,5 +6320,526 @@ public class Fachada {
 			}
 		}
 	}
+ /// Bancos 
+	public void excluirBanco(Banco banco) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroBanco().excluir(banco);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
+	public void alterarBanco(Banco banco) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroBanco().alterar(banco);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
 	
+	public void inserirBanco(Banco banco) throws AppException{
+	try{
+		RepositoryManagerHibernateUtil.beginTrasaction();
+		getCadastroBanco().inserir(banco);
+		RepositoryManagerHibernateUtil.commitTransation();
+	}catch(AppException e){
+		try{
+			RepositoryManagerHibernateUtil.rollbackTransation();
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+		throw e;
+	}catch(Throwable e){
+		try{
+			RepositoryManagerHibernateUtil.rollbackTransation();
+			throw new SistemaException(e);
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+	}finally{
+		try{
+			RepositoryManagerHibernateUtil.closeSession();
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+	}
+}
+	public Collection consultarTodosBancos() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroBanco().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	public Banco consultarBancoPorID(String id) throws AppException{
+		Banco banco = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			banco = getCadastroBanco().consultarPorId(new Long(id));
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return banco;
+	}
+	public Collection consultarBanco(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroBanco().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+//	/ Conta Corrente
+	public void excluirContaCorrente(ContaCorrente contaCorrente) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroContaCorrente().excluir(contaCorrente);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
+	public void alterarContaCorrente(ContaCorrente contaCorrente) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroContaCorrente().alterar(contaCorrente);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public void inserirContaCorrente(ContaCorrente contaCorrente) throws AppException{
+	try{
+		RepositoryManagerHibernateUtil.beginTrasaction();
+		getCadastroContaCorrente().inserir(contaCorrente);
+		RepositoryManagerHibernateUtil.commitTransation();
+	}catch(AppException e){
+		try{
+			RepositoryManagerHibernateUtil.rollbackTransation();
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+		throw e;
+	}catch(Throwable e){
+		try{
+			RepositoryManagerHibernateUtil.rollbackTransation();
+			throw new SistemaException(e);
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+	}finally{
+		try{
+			RepositoryManagerHibernateUtil.closeSession();
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+	}
+}
+	public Collection consultarTodosContaCorrente() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroContaCorrente().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	public ContaCorrente consultarContaCorrentePorID(String id) throws AppException{
+		ContaCorrente contaCorrente = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			contaCorrente = getCadastroContaCorrente().consultarPorId(new Long(id));
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return contaCorrente;
+	}
+	public Collection consultarContaCorrente(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroContaCorrente().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+// Movimentacao Bancaria
+	
+	public void excluirMovimentacaoBancaria(MovimentacaoBancaria movimentacaoBancaria) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroMovimentacaoBancaria().excluir(movimentacaoBancaria);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
+	public void alterarMovimentacaoBancaria(MovimentacaoBancaria movimentacaoBancaria) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroMovimentacaoBancaria().alterar(movimentacaoBancaria);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+	public void inserirMovimentacaoBancaria(MovimentacaoBancaria movimentacaoBancaria) throws AppException{
+	try{
+		RepositoryManagerHibernateUtil.beginTrasaction();
+		getCadastroMovimentacaoBancaria().inserir(movimentacaoBancaria);
+		ContaCorrente conta = getCadastroContaCorrente().consultarPorId(movimentacaoBancaria.getConta().getId());
+		if (movimentacaoBancaria.getTipo().equals(Constantes.TIPO_OPERACAO_DEBITO)) {
+			conta.setSaldo(conta.getSaldo().subtract(movimentacaoBancaria.getConta().getSaldo()));
+		} else {
+			conta.setSaldo(conta.getSaldo().add(movimentacaoBancaria.getConta().getSaldo()));
+		}
+		RepositoryManagerHibernateUtil.commitTransation();
+	}catch(AppException e){
+		try{
+			RepositoryManagerHibernateUtil.rollbackTransation();
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+		throw e;
+	}catch(Throwable e){
+		try{
+			RepositoryManagerHibernateUtil.rollbackTransation();
+			throw new SistemaException(e);
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+	}finally{
+		try{
+			RepositoryManagerHibernateUtil.closeSession();
+		}catch(Exception ex){
+			throw new SistemaException(ex);
+		}
+	}
+}
+	public Collection consultarTodosMovimentacaoBancaria() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroMovimentacaoBancaria().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	public MovimentacaoBancaria consultarMovimentacaoBancariaPorID(String id) throws AppException{
+		MovimentacaoBancaria movimentacaoBancaria = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			movimentacaoBancaria = getCadastroMovimentacaoBancaria().consultarPorId(new Long(id));
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return movimentacaoBancaria;
+	}
+	public Collection consultarMovimentacaoBancaria(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroMovimentacaoBancaria().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
 }
