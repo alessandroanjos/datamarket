@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.conta.MovimentacaoBancaria" table="MOVIMENTACAO_BANCARIA" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="18"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+        <property name="tipo" type="java.lang.String" update="true" insert="true">
+	            <column name="TIPO" length="1" not-null="true"/>
+        </property>
+        
+        <property name="numero" type="java.lang.String" update="true" insert="true">
+		    <column name="NUMERO" length="20" not-null="true"/>
+        </property>
+        
+        <property name="data" type="java.util.Date" update="true" insert="true">
+	  	    <column name="DATA" length="20" not-null="false"/>
+	  	</property>
+        
+        <property name="valor" type="java.math.BigDecimal" update="true" insert="true">
+	            <column name="VALOR" length="20" not-null="true"/>
+        </property>  
+        
+        <many-to-one name="conta" class="com.infinity.datamarket.comum.conta.ContaCorrente" update="true" insert="true">
+	          <column name="ID_CONTA" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="forma" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento" update="true" insert="true">
+	          <column name="ID_FORMA" not-null="false"/>
+        </many-to-one>
+
+    </class>
+
+</hibernate-mapping>
