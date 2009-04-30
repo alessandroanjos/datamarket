@@ -72,7 +72,7 @@
         </many-to-one>
         
         <set name="itensPagamento" inverse="true" cascade="save-update, delete-orphan"
-			lazy="false">
+			lazy="false" order-by="ID">
 			<key>
 				<column name="ID_LANCAMENTO" />
 			</key>

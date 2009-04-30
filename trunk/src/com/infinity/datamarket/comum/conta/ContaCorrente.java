@@ -57,4 +57,35 @@ public class ContaCorrente extends Persistente{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	public ContaCorrente(){
+		
+	}
+	@Override
+	public int hashCode() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(banco);
+		sb.append(idAgencia);
+		sb.append(nome);
+		sb.append(numero);
+		sb.append(saldo);
+		sb.append(situacao);
+		return sb.toString().hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final ContaCorrente other = (ContaCorrente) obj;
+		if (getId() == null) {
+			if (other.getId() != null)
+				return false;
+		} else if (!getId().equals(other.getId()))
+			return false;
+		return true;
+	}
 }

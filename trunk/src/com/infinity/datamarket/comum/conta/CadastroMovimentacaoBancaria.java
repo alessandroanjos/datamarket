@@ -2,9 +2,11 @@ package com.infinity.datamarket.comum.conta;
 
 import java.util.Collection;
 
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.Constantes;
 
 public class CadastroMovimentacaoBancaria extends Cadastro {
 	private static CadastroMovimentacaoBancaria instancia;
@@ -29,6 +31,13 @@ public class CadastroMovimentacaoBancaria extends Cadastro {
 	}
 	public void inserir(MovimentacaoBancaria movimentacaoBancaria) throws AppException{
 		getRepositorio().insert(movimentacaoBancaria);
+		ContaCorrente conta = Fachada.getInstancia().consultarContaCorrentePorID(movimentacaoBancaria.getConta().getId().toString());
+		if (movimentacaoBancaria.getTipo().equals(Constantes.TIPO_OPERACAO_DEBITO)) {
+			conta.setSaldo(conta.getSaldo().subtract(movimentacaoBancaria.getValor()));
+		} else {
+			conta.setSaldo(conta.getSaldo().add(movimentacaoBancaria.getValor()));
+		}
+		getRepositorio().update(conta);
 	}
 	
 	public void alterar(MovimentacaoBancaria movimentacaoBancaria) throws AppException{

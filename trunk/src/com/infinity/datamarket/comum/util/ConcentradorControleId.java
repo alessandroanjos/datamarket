@@ -8,7 +8,7 @@ import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernat
 public class ConcentradorControleId extends Cadastro{
 	private static ConcentradorControleId instancia;
 
-	private ConcentradorControleId(){
+	public ConcentradorControleId(){
 
 	}
 

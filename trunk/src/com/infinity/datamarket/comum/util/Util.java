@@ -1,5 +1,6 @@
 package com.infinity.datamarket.comum.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -26,6 +27,10 @@ public class Util {
 		Date data2 = new GregorianCalendar(d2_ano,d2_mes,d2_dia).getTime();
 		
 		return data1.compareTo(data2);
+	}
+	
+	public static String retornaDataFormatoDDMMYYYY(Date dataParametro){
+		return new SimpleDateFormat("dd/MM/yyyy").format(dataParametro);
 	}
 	
 	public static boolean validacpf(String strCpf){ // formato XXX.XXX.XXX-XX   

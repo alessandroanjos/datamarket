@@ -14,7 +14,6 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
 import com.infinity.datamarket.comum.financeiro.Lancamento;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
