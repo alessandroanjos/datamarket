@@ -273,6 +273,21 @@
 			<from-outcome>manterLancamentoContaAReceber</from-outcome>
 			<to-view-id>/jsp/lancamento/consultarLancamento.jsp</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>baixarLancamentoContaAPagar</from-outcome>
+			<to-view-id>/jsp/baixaLancamento/baixarLancamentoConta.jsp</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>baixarLancamentoContaAReceber</from-outcome>
+			<to-view-id>/jsp/baixaLancamento/baixarLancamentoConta.jsp</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>consultarBaixaLancamento</from-outcome>
+			<to-view-id>/jsp/baixaLancamento/consultarBaixaLancamento.jsp</to-view-id>
+		</navigation-case>
 				
 		<navigation-case>
 			<from-outcome>inserirTransacao</from-outcome>
@@ -1218,6 +1233,34 @@
 			<to-view-id>/jsp/grupoLancamento/consultarGrupoLancamento.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/baixaLancamento/consultarBaixaLancamento.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{baixaLancamentoBB.consultar}</from-action>
+			<from-outcome>proximaContaAPagar</from-outcome>
+			<to-view-id>/jsp/baixaLancamento/baixarLancamentoConta.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{baixaLancamentoBB.consultar}</from-action>
+			<from-outcome>proximaContaAReceber</from-outcome>
+			<to-view-id>/jsp/baixaLancamento/baixarLancamentoConta.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{baixaLancamentoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/baixaLancamento/baixarLancamentoConta.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{baixaLancamentoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/baixaLancamento/consultarBaixaLancamento.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>		
 
 <!-- Movimentacao Bancaria -->
 	<navigation-rule>
@@ -3155,6 +3198,131 @@
 		<managed-property>
 		    <property-name>idSituacao</property-name>
 		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+
+<!-- Baixa Lancamento -->
+	<managed-bean>
+		<managed-bean-name>baixaLancamentoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.baixaLancamento.BaixaLancamentoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>id</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>dataLancamento</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
+		    <property-name>dataVencimento</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
+		    <property-name>dataPagamento</property-name>
+		    <property-class>java.util.Date</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>numeroDocumento</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>		
+		<managed-property>
+		    <property-name>tipoLancamento</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>						
+		<managed-property>
+		    <property-name>valor</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <value>0.00</value>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>observacao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		
+		<managed-property>
+		    <property-name>idEntradaProduto</property-name>
+		    <property-class>java.lang.Long</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idFornecedor</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idLoja</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idGrupo</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idSituacao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>lancamento</property-name>
+		    <property-class>com.infinity.datamarket.comum.financeiro.Lancamento</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>listaSituacao</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>listaTipoPessoa</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>contasCorrentes</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>bancos</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>fornecedores</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>lancamentos</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>formas</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>grupos</property-name>
+		    <property-class>java.util.Collection</property-class>
 		    <null-value/>
 		</managed-property>
 	</managed-bean>
