@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.financeiro.BaixaLancamento" table="BAIXA_LANCAMENTO" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <composite-id name="pk" class="com.infinity.datamarket.comum.financeiro.BaixaLancamentoPK">
+           <key-property name="id" column="ID" type="java.lang.Long"/>
+           <key-property name="idLancamento" column="ID_LANCAMENTO" type="java.lang.Long"/>
+        </composite-id>
+        
+		
+       	<many-to-one name="formaRecebimento" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento">
+          <column name="ID_FORMA_RECEBIMENTO" not-null="false"/>
+        </many-to-one>
+
+
+		<many-to-one name="contaCorrente" class="com.infinity.datamarket.comum.conta.ContaCorrente">
+          <column name="ID_CONTA_CORRENTE" not-null="false"/>
+        </many-to-one>
+       
+        
+        <property name="valor" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR" length="20" not-null="false"/>
+        </property>    
+
+        <property name="valorAcrescimo" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR_ACRESCIMO" length="20" not-null="false"/>
+        </property>    
+
+        <property name="valorDesconto" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR_DESCONTO" length="20" not-null="false"/>
+        </property>    
+
+        <property name="valorTotalItem" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR_TOTAL_ITEM" length="20" not-null="false"/>
+        </property>    
+
+		<property name="numeroDocumento" type="java.lang.String" update="true" insert="true">
+            <column name="NUMERO_DOCUMENTO" length="100" not-null="false"/>
+        </property>
+   
+       
+        <many-to-one name="banco" class="com.infinity.datamarket.comum.banco.Banco">
+          <column name="BANCO" not-null="false"/>
+        </many-to-one>
+        
+        
+        <property name="agencia" type="java.lang.String" update="true" insert="true">
+            <column name="AGENCIA" length="10" not-null="false"/>
+        </property>
+        
+        <property name="numeroConta" type="java.lang.String" update="true" insert="true">
+            <column name="NUMERO_CONTA" length="10" not-null="false"/>
+        </property>
+        
+        <property name="numeroCheque" type="java.lang.String" update="true" insert="true">
+            <column name="NUMERO_CHEQUE" length="10" not-null="false"/>
+        </property>
+        
+        <property name="tipoPessoaCheque" type="java.lang.String" update="true" insert="true">
+            <column name="TIPO_PESSOA_CHEQUE" length="1" not-null="false"/>
+        </property>
+        
+        <property name="cpfCnpjCheque" type="java.lang.String" update="true" insert="true">
+            <column name="CPF_CNPJ_PESSOA_CHEQUE" length="14" not-null="false"/>
+        </property>
+        
+        <property name="dataCheque" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_CHEQUE" not-null="false"/>
+        </property>
+        
+        <property name="situacao" type="java.lang.String" update="true" insert="true">
+            <column name="SITUACAO" length="1" not-null="false"/>
+        </property>
+        
+        <property name="itemLancadoCtaCorrente" type="java.lang.String" update="true" insert="true">
+            <column name="ITEM_LANCADO_CTA_CORRENTE" length="1" not-null="false"/>
+        </property>
+        
+        <property name="dataBaixa" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_BAIXA" not-null="true"/>
+        </property>
+        
+    </class>
+</hibernate-mapping>

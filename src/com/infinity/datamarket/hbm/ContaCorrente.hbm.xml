@@ -6,7 +6,7 @@
 
 
 <hibernate-mapping>
-    <class name="com.infinity.datamarket.comum.conta.ContaCorrente" table="CONTA_CORRENTE" dynamic-update="false" dynamic-insert="false" lazy="false">
+    <class name="com.infinity.datamarket.comum.conta.ContaCorrente" table="CONTA_CORRENTE" dynamic-update="true" dynamic-insert="false" lazy="false">
         
         <id
             name="id"

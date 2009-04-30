@@ -38,6 +38,7 @@ public class Lancamento extends Persistente{
 	private String situacao;
 	
 	private Collection<BaixaLancamento> itensPagamento;
+	private Collection<BaixaLancamento> itensPagamentoExcluidos;
 	
 	public Collection<BaixaLancamento> getItensPagamento() {
 		return itensPagamento;
@@ -144,5 +145,14 @@ public class Lancamento extends Persistente{
 		} else if (!getId().equals(other.getId()))
 			return false;
 		return true;
+	}
+
+	public Collection<BaixaLancamento> getItensPagamentoExcluidos() {
+		return itensPagamentoExcluidos;
+	}
+
+	public void setItensPagamentoExcluidos(
+			Collection<BaixaLancamento> itensPagamentoExcluidos) {
+		this.itensPagamentoExcluidos = itensPagamentoExcluidos;
 	}	
 }

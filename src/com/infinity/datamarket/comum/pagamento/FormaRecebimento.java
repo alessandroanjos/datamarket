@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
-import org.hibernate.proxy.HibernateProxyHelper;
-
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class FormaRecebimento extends Persistente{

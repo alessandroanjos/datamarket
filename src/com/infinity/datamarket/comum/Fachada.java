@@ -1854,6 +1854,36 @@ public class Fachada {
 			}
 		}
 	}
+	
+	public void baixarLancamento(Lancamento lancamento) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroLancamento().baixar(lancamento);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
 	public void excluirLancamento(Lancamento Lancamento) throws AppException{
 
 		try{
@@ -6726,12 +6756,6 @@ public class Fachada {
 	try{
 		RepositoryManagerHibernateUtil.beginTrasaction();
 		getCadastroMovimentacaoBancaria().inserir(movimentacaoBancaria);
-		ContaCorrente conta = getCadastroContaCorrente().consultarPorId(movimentacaoBancaria.getConta().getId());
-		if (movimentacaoBancaria.getTipo().equals(Constantes.TIPO_OPERACAO_DEBITO)) {
-			conta.setSaldo(conta.getSaldo().subtract(movimentacaoBancaria.getConta().getSaldo()));
-		} else {
-			conta.setSaldo(conta.getSaldo().add(movimentacaoBancaria.getConta().getSaldo()));
-		}
 		RepositoryManagerHibernateUtil.commitTransation();
 	}catch(AppException e){
 		try{
