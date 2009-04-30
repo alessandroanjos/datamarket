@@ -15,6 +15,7 @@ form ul{
 	padding:0;
 	list-style-type:none;
 	font-size:100%;
+	
 }
 form li{
 	margin:0;
@@ -177,6 +178,10 @@ li.direita{
 form li.normal div {
 	width:auto !important;
 	float:left;
+}
+form li.direita div {
+	width:auto !important;
+	float:right;
 }
 
 input.checkbox, input.radio{
