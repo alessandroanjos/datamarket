@@ -5,10 +5,11 @@ import java.util.Collection;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroAutorizadora extends Cadastro{
 	private static CadastroAutorizadora instancia;
-	private static Class CLASSE = Autorizadora.class;
+	
 	private CadastroAutorizadora(){}
 	public static CadastroAutorizadora getInstancia(){
 		if (instancia == null){
@@ -16,30 +17,33 @@ public class CadastroAutorizadora extends Cadastro{
 		}
 		return instancia;
 	}
+	
+
+	public IRepositorioAutorizadora getRepositorio() {
+	
+		return (IRepositorioAutorizadora) super.getRepositorio(IRepositorio.REPOSITORIO_AUTORIZADORA);
+	}	
 
 	public Autorizadora consultarPorId(Long id) throws AppException{
-		return (Autorizadora) getRepositorio().findById(CLASSE, id);
+		return (Autorizadora) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(Autorizadora autorizadora) throws AppException{
-		getRepositorio().insert(autorizadora);
-		inserirDadoLote(autorizadora);
+		getRepositorio().inserir(autorizadora);
 	}
 	
 	public void alterar(Autorizadora autorizadora) throws AppException{
-		getRepositorio().update(autorizadora);
-		alterarDadoLote(autorizadora);
+		getRepositorio().alterar(autorizadora);
 	}
 	
 	public void excluir(Autorizadora autorizadora) throws AppException{
-		getRepositorio().remove(autorizadora);
-		excluirDadoLote(autorizadora);
+		getRepositorio().excluir(autorizadora);
 	}
 
 }

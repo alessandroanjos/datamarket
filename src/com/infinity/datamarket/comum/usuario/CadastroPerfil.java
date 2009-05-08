@@ -6,9 +6,9 @@ package com.infinity.datamarket.comum.usuario;
 import java.util.Collection;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 /**
  * @author jonas
@@ -16,7 +16,7 @@ import com.infinity.datamarket.comum.util.Cadastro;
  */
 public class CadastroPerfil extends Cadastro {
 	private static CadastroPerfil instancia;
-	private static Class CLASSE = Perfil.class;
+	
 	private CadastroPerfil(){}
 	public static CadastroPerfil getInstancia(){
 		if (instancia == null){
@@ -24,54 +24,40 @@ public class CadastroPerfil extends Cadastro {
 		}
 		return instancia;
 	}
+	
+	public IRepositorioPerfil getRepositorio(){
+		return (IRepositorioPerfil) getRepositorio(IRepositorio.REPOSITORIO_PERFIL);
+	}
 
 	public Perfil consultarPorId(Long id) throws AppException{
-		return (Perfil) getRepositorio().findById(CLASSE, id);
+		return getRepositorio().consultarPorId(id);
 	}
 	
 	public void inserir(Perfil perfil) throws AppException{
-		getRepositorio().insert(perfil);
-		inserirDadoLote(perfil);
+		getRepositorio().inserir(perfil);
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	
 	public Perfil consultarPorPK(Long id) throws AppException{
-		return (Perfil) getRepositorio().findById(CLASSE, id);
+		return getRepositorio().consultarPorPK(id);
 	}
 	
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	
 	public void alterar(Perfil perfil) throws AppException{
-		getRepositorio().update(perfil);
-		alterarDadoLote(perfil);
+		getRepositorio().alterar(perfil);
 	}
 	
-	public void excluir(Perfil perfil) throws AppException{
-		getRepositorio().remove(perfil);
-		excluirDadoLote(perfil);
+	public void excluir(Perfil perfil) throws AppException{		
+		getRepositorio().excluir(perfil);
 	}
 	
-	/**
-	 * Metodo responsavel por trazer uma lista com os perfis onde o perfil passado
-	 * como parâmetro é Perfil Superior
-	 * @param perfilSuperior
-	 * @return
-	 */
 	public Collection consultarPerfisPorPerfilSuperior(Perfil perfil) throws AppException {
-			
-		Collection col = null;
-		PropertyFilter filter = new PropertyFilter();
-		filter.setTheClass(CLASSE);
-		filter.addProperty("perfilSuperior.id", perfil.getId());
-		filter.addOrderByProperty("perfilSuperior.id", PropertyFilter.ASC);
-	
-		col = this.consultar(filter);
-		
-		return col;
+			return getRepositorio().consultarPerfisPorPerfilSuperior(perfil);
 	}
 }

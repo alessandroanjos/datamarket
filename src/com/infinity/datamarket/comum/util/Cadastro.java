@@ -19,31 +19,8 @@ import com.infinity.datamarket.comum.lote.DadoLote;
  */
 public class Cadastro {
 
-	 public IRepositorio getRepositorio(){
-	 	return RepositorioHI.getInstancia();
-	}
-	 
-	private void manterDadoLote(Serializable obj, String operacao) throws AppException{
-		Parametro p = (Parametro) getRepositorio().findById(Parametro.class, "LOTE");
-		int numeroProximoLote = Integer.parseInt(p.getValor()) + 1;
-		DadoLote dado = new DadoLote();
-		dado.setLote(numeroProximoLote);
-		dado.setDado(obj);
-		dado.setOperacao(operacao);
-		getRepositorio().insert(dado);
+	public IRepositorio getRepositorio(String repositorio){
+		return ServiceLocator.getInstancia().getRepositoprio(repositorio);
 	}
 	
-	public void inserirDadoLote(Serializable obj) throws AppException{
-		manterDadoLote(obj, DadoLote.INSERIR);
-	}
-	
-	public void alterarDadoLote(Serializable obj) throws AppException{
-		manterDadoLote(obj, DadoLote.ALTERAR);
-	}
-	
-	public void excluirDadoLote(Serializable obj) throws AppException{
-		manterDadoLote(obj, DadoLote.EXCLUIR);
-	}
-	
-
 }

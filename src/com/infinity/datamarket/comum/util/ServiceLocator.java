@@ -44,6 +44,10 @@ public class ServiceLocator {
 	public Mic getMic(String strMic){
 		return (Mic) getObject(strMic);
 	}
+	
+	public IRepositorio getRepositoprio(String strRepositorio){
+		return (IRepositorio) getObject(strRepositorio);
+	}
 
 	public Tela getTela(String tela){
 		String strTela = rs.getString(tela);

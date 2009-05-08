@@ -9,6 +9,7 @@ import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 /**
  * @author jonas
@@ -25,32 +26,37 @@ public class CadastroFuncionalidade extends Cadastro {
 		return instancia;
 	}
 
+	
+	public IRepositorioFuncionalidade getRepositorio() {
+		return (IRepositorioFuncionalidade) super.getRepositorio(IRepositorio.REPOSITORIO_FUNCIONALIDADE);
+	}
+	
 	public Funcionalidade consultarPorId(Long id) throws AppException{
-		return (Funcionalidade) getRepositorio().findById(CLASSE, id);
+		return getRepositorio().consultarPorId(id);
 	}
 	
 	public void inserir(Funcionalidade funcionalidade) throws AppException{
-		getRepositorio().insert(funcionalidade);
+		getRepositorio().inserir(funcionalidade);
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	
 	public Funcionalidade consultarPorPK(Long id) throws AppException{
-		return (Funcionalidade) getRepositorio().findById(CLASSE, id);
+		return (Funcionalidade) getRepositorio().consultarPorPK(id);
 	}
 	
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	
 	public void alterar(Funcionalidade funcionalidade) throws AppException{
-		getRepositorio().update(funcionalidade);
+		getRepositorio().alterar(funcionalidade);
 	}
 	
 	public void excluir(Funcionalidade funcionalidade) throws AppException{
-		getRepositorio().remove(funcionalidade);
+		getRepositorio().excluir(funcionalidade);
 	}
 	
 	/**

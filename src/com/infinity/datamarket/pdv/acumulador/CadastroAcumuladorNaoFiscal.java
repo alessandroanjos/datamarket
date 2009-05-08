@@ -5,11 +5,13 @@ package com.infinity.datamarket.pdv.acumulador;
 
 import java.util.Collection;
 
+import com.infinity.datamarket.autorizador.IRepositorioAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.Constantes;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 /**
  * @author alessandro
@@ -25,18 +27,22 @@ public class CadastroAcumuladorNaoFiscal extends Cadastro {
 		}
 		return instancia;
 	}
+	
+	private IRepositorioAcumuladorNaoFiscal getRepositorio(){
+		return (IRepositorioAcumuladorNaoFiscal) getRepositorio(IRepositorio.REPOSITORIO_ACUMULADOR_NAO_FISCAL);
+	}
 
 	public AcumuladorNaoFiscal consultarPorId(Long id) throws AppException{
-		return (AcumuladorNaoFiscal) getRepositorio().findById(CLASSE, id);
+		return (AcumuladorNaoFiscal) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	
 	
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 
 }

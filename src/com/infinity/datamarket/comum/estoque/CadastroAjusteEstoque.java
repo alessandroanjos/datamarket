@@ -6,11 +6,11 @@ import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroAjusteEstoque extends Cadastro{
 	
 	private static CadastroAjusteEstoque instancia;
-	private static Class CLASSE = AjusteEstoque.class;
 	private CadastroAjusteEstoque(){}
 	public static CadastroAjusteEstoque getInstancia(){
 		if (instancia == null){
@@ -18,19 +18,28 @@ public class CadastroAjusteEstoque extends Cadastro{
 		}
 		return instancia;
 	}
+	
+	
+	public IRepositorioAjusteEstoque getRepositorio() {
+		return (IRepositorioAjusteEstoque) super.getRepositorio(IRepositorio.REPOSITORIO_AJUSTE_ESTOQUE);
+	}
+	
+	public IRepositorioEstoqueProduto getRepositorioEstoqueProduto() {
+		return (IRepositorioEstoqueProduto) super.getRepositorio(IRepositorio.REPOSITORIO_ESTOQUE_PRODUTO);
+	}
 
 	public AjusteEstoque consultarPorId(Long id) throws AppException{
-		return (AjusteEstoque) getRepositorio().findById(CLASSE, id);
+		return (AjusteEstoque) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(AjusteEstoque ajuste) throws AppException{
-		getRepositorio().insert(ajuste);
+		getRepositorio().inserir(ajuste);
 		Produto produto = ajuste.getProduto();
 		if (produto==null)
 			return;
@@ -41,9 +50,9 @@ public class CadastroAjusteEstoque extends Cadastro{
 			
 			//consulta de estoque produto
 			try {
-				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pk);
+				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pk);
 				ep.setQuantidade(ajuste.getQuantidadeDepois());
-				getRepositorio().update(ep);
+				getRepositorioEstoqueProduto().alterar(ep);
 			} catch (Exception e) {
 				// TODO: handle exception
 				EstoqueProduto ep = new EstoqueProduto();
@@ -52,7 +61,7 @@ public class CadastroAjusteEstoque extends Cadastro{
 				pkEp.setProduto(pk.getProduto());
 				ep.setPk(pkEp);
 				ep.setQuantidade(ajuste.getQuantidadeDepois());
-				getRepositorio().insert(ep);
+				getRepositorioEstoqueProduto().inserir(ep);
 			}
 	}
 	

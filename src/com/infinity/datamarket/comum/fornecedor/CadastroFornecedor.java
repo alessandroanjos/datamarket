@@ -14,14 +14,14 @@ import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 /**
  * @author alessandro
  *
  */
-public class CadastroFornecedor extends Cadastro {
+public class CadastroFornecedor extends Cadastro{
 	private static CadastroFornecedor instancia;
-	private static Class CLASSE = Fornecedor.class;
 	private CadastroFornecedor(){}
 	public static CadastroFornecedor getInstancia(){
 		if (instancia == null){
@@ -29,23 +29,29 @@ public class CadastroFornecedor extends Cadastro {
 		}
 		return instancia;
 	}
+	
+	
+	public IRepositorioFornecedor getRepositorio() {
+		return (IRepositorioFornecedor) super.getRepositorio(IRepositorio.REPOSITORIO_FORNECEDOR);
+	}
+	
 	public Fornecedor consultarPorId(Long id) throws AppException{
-		return (Fornecedor) getRepositorio().findById(CLASSE, id);
+		return (Fornecedor) getRepositorio().consultarPorId(id);
 	}
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(Fornecedor fornecedor) throws AppException{
-		getRepositorio().insert(fornecedor);
+		getRepositorio().inserir(fornecedor);
 		
 	}
 	public void alterar(Fornecedor fornecedor) throws AppException{
-		getRepositorio().update(fornecedor);
+		getRepositorio().alterar(fornecedor);
 	}
 	public void excluir(Fornecedor fornecedor) throws AppException{
-		getRepositorio().remove(fornecedor);
+		getRepositorio().excluir(fornecedor);
 	}	
 }

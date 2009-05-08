@@ -5,11 +5,10 @@ import java.util.Collection;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroPlanoPagamento extends Cadastro{
 	private static CadastroPlanoPagamento instancia;
-	private static Class CLASSE = PlanoPagamento.class;
-	private static Class CLASSE_CHEQUE_PRE = PlanoPagamentoChequePredatado.class;
 	private CadastroPlanoPagamento(){}
 	public static CadastroPlanoPagamento getInstancia(){
 		if (instancia == null){
@@ -17,35 +16,38 @@ public class CadastroPlanoPagamento extends Cadastro{
 		}
 		return instancia;
 	}
+	
+	
+	public IRepositorioPlanoPagamento  getRepositorio() {
+		// TODO Auto-generated method stub
+		return (IRepositorioPlanoPagamento) super.getRepositorio(IRepositorio.REPOSITORIO_PLANO_PAGAMENTO);
+	}
 
 	public PlanoPagamento consultarPorId(Long id) throws AppException{
-		return (PlanoPagamento) getRepositorio().findById(CLASSE, id);
+		return (PlanoPagamento) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(PlanoPagamento planoPagamento) throws AppException{
-		getRepositorio().insert(planoPagamento);
-		inserirDadoLote(planoPagamento);
+		getRepositorio().inserir(planoPagamento);
 	}
 	
 	public void alterar(PlanoPagamento planoPagamento) throws AppException{
-		getRepositorio().update(planoPagamento);
-		alterarDadoLote(planoPagamento);
+		getRepositorio().alterar(planoPagamento);
 	}
 	
 	public void excluir(PlanoPagamento planoPagamento) throws AppException{
-		getRepositorio().remove(planoPagamento);
-		excluirDadoLote(planoPagamento);
+		getRepositorio().excluir(planoPagamento);
 	}
 	
 	// Plano de Pagamento Pre-datado
 	public Collection consultarTodosPreDatado() throws AppException{
-		return getRepositorio().findAll(CLASSE_CHEQUE_PRE);
+		return getRepositorio().consultarTodosPreDatado();
 	}
 	
 }

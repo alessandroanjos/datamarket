@@ -5,11 +5,11 @@ import java.util.Collection;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroBaixaLancamento extends Cadastro{
 
 	private static CadastroBaixaLancamento instancia;
-	private static Class CLASSE = BaixaLancamento.class;
 	private CadastroBaixaLancamento(){}
 	
 	public static CadastroBaixaLancamento getInstancia(){
@@ -18,26 +18,31 @@ public class CadastroBaixaLancamento extends Cadastro{
 		}
 		return instancia;
 	}
+	
+	
+	public IRepositorioBaixaLancamento getRepositorio() {
+		return (IRepositorioBaixaLancamento) super.getRepositorio(IRepositorio.REPOSITORIO_BAIXA_LANCAMENTO);
+	}
 
 	public BaixaLancamento consultarPorId(Long id) throws AppException{
-		return (BaixaLancamento) getRepositorio().findById(CLASSE, id);
+		return (BaixaLancamento) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(BaixaLancamento baixaLancamento) throws AppException{
-		getRepositorio().insert(baixaLancamento);
+		getRepositorio().inserir(baixaLancamento);
 	}
 
 	public void alterar(BaixaLancamento baixaLancamento) throws AppException{
-		getRepositorio().update(baixaLancamento);
+		getRepositorio().alterar(baixaLancamento);
 	}
 
 	public void excluir(BaixaLancamento baixaLancamento) throws AppException{
-		getRepositorio().remove(baixaLancamento);
+		getRepositorio().excluir(baixaLancamento);
 	}
 }

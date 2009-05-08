@@ -18,18 +18,14 @@ public class ConcentradorControleId extends Cadastro{
 		}
 		return instancia;
 	}
+	
+	
+	public IRepositorioControleId getRepositorio() {
+		return (IRepositorioControleId) super.getRepositorio(IRepositorio.REPOSITORIO_CONTROLE_ID);
+	}
 
 	public Long retornaMaxId(Class classe){
-		Long maxId = null;
-		
-		Query query = RepositoryManagerHibernateUtil.currentSession().createQuery("select max(id) from " + classe.getSimpleName());
-		Long qretorno = (Long)query.uniqueResult(); 		
-		if (qretorno != null){
-			maxId = qretorno;	
-		}else{
-			maxId = new Long(0);
-		}	
-		return maxId;
+		return getRepositorio().retornaMaxId(classe);
 	}
 
 	public Controle getControle(Class classe) {
@@ -39,14 +35,14 @@ public class ConcentradorControleId extends Cadastro{
 			
 				RepositoryManagerHibernateUtil.beginTrasaction();
 				try {
-					retorno = (Controle) getRepositorio().findById(Controle.class, classe.getSimpleName());
+					retorno = getRepositorio().getControle(classe);
 				}catch(ObjectNotFoundException e){
 				}
 				if (retorno == null) {
 					retorno = new Controle();
 					retorno.setChave(classe.getSimpleName());
 					retorno.setValor(retornaMaxId(classe)+1);
-					getRepositorio().insert(retorno);
+					getRepositorio().inserirControle(retorno);
 				} else {
 					retorno.setValor(retorno.getValor()+1);
 				}
@@ -78,7 +74,7 @@ public class ConcentradorControleId extends Cadastro{
 		
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			getRepositorio().update(controle);
+			getRepositorio().atualizarControle(controle);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{

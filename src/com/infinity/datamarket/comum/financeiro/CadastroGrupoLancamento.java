@@ -6,10 +6,10 @@ import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroGrupoLancamento extends Cadastro{
 	private static CadastroGrupoLancamento instancia;
-	private static Class CLASSE = GrupoLancamento.class;
 	private CadastroGrupoLancamento(){}
 	public static CadastroGrupoLancamento getInstancia(){
 		if (instancia == null){
@@ -17,30 +17,33 @@ public class CadastroGrupoLancamento extends Cadastro{
 		}
 		return instancia;
 	}
+	
+	
+	public IRepositorioGrupoLancamento getRepositorio() {
+		// TODO Auto-generated method stub
+		return (IRepositorioGrupoLancamento) super.getRepositorio(IRepositorio.REPOSITORIO_GRUPO_LANCAMENTO);
+	}
 
 	public GrupoLancamento consultarPorId(Long id) throws AppException{
-		return (GrupoLancamento) getRepositorio().findById(CLASSE, id);
+		return (GrupoLancamento) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(GrupoLancamento grupo) throws AppException{
-		getRepositorio().insert(grupo);
-		inserirDadoLote(grupo);
+		getRepositorio().inserir(grupo);
 	}
 
 	public void alterar(GrupoLancamento grupo) throws AppException{
-		getRepositorio().update(grupo);
-		alterarDadoLote(grupo);
+		getRepositorio().alterar(grupo);
 	}
 
 	public void excluir(GrupoLancamento grupo) throws AppException{
-		getRepositorio().remove(grupo);
-		excluirDadoLote(grupo);
+		getRepositorio().excluir(grupo);
 	}
 
 }

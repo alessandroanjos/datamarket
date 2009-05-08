@@ -8,6 +8,7 @@ import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 import com.infinity.datamarket.comum.util.SistemaException;
 
 public class ConcentradorMaquina extends Cadastro{
@@ -21,13 +22,18 @@ public class ConcentradorMaquina extends Cadastro{
 		}
 		return instancia;
 	}
+	
+	
+	public IRepositorioMaquina getRepositorio() {
+		return (IRepositorioMaquina) super.getRepositorio(IRepositorio.REPOSITORIO_MAQUINA);
+	}
 
 	public Tecla consultaTecla(IPropertyFilter filtro) throws AppException{
 		Collection col = null;
 
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			col = getRepositorio().filter(filtro, true);
+			col = getRepositorio().consultaTecla(filtro);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
@@ -62,7 +68,7 @@ public class ConcentradorMaquina extends Cadastro{
 
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			tecla = (Tecla) getRepositorio().findById(Tecla.class, id);
+			tecla = (Tecla) getRepositorio().consultaTeclaPorId(id);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
@@ -94,7 +100,7 @@ public class ConcentradorMaquina extends Cadastro{
 
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			col = getRepositorio().filter(filtro, true);
+			col = getRepositorio().consultaMacroOperacao(filtro);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
@@ -123,52 +129,6 @@ public class ConcentradorMaquina extends Cadastro{
 			return null;
 		}
 	}
-	
-	
-	public void consulta() throws AppException{
-		Tecla tecla = null;
-
-		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
-			
-			PropertyFilter filter = new PropertyFilter();
-			filter.setTheClass(DadoLote.class);
-			filter.addProperty("lote", 7);
-			filter.addOrderByProperty("sequencial", filter.ASC);
-			getRepositorio().filter(filter, true);
-			
-			RepositoryManagerHibernateUtil.commitTransation();
-		}catch(AppException e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-			throw e;
-		}catch(Throwable e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-				throw new SistemaException(e);
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}
-	}
-	
-	public static void  main(String[] a){
-		try {
-			ConcentradorMaquina.getInstancia().consulta();
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+		
 	
 }

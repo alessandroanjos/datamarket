@@ -10,10 +10,12 @@ import com.infinity.datamarket.comum.cliente.CadastroCliente;
 import com.infinity.datamarket.comum.cliente.Cliente;
 
 import com.infinity.datamarket.comum.estoque.CadastroEstoque;
+import com.infinity.datamarket.comum.estoque.CadastroEstoqueProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoquePK;
 import com.infinity.datamarket.comum.estoque.EstoqueProduto;
 import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
+import com.infinity.datamarket.comum.estoque.IRepositorioEstoqueProduto;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -22,6 +24,7 @@ import com.infinity.datamarket.comum.usuario.CadastroLoja;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 import com.infinity.datamarket.comum.util.ValidationException;
 
 public class CadastroOperacao extends Cadastro{
@@ -33,9 +36,17 @@ public class CadastroOperacao extends Cadastro{
 		}
 		return instancia;
 	}
+	
+	public IRepositorioEstoqueProduto getRepositorioEstoqueProduto() {
+		return (IRepositorioEstoqueProduto) super.getRepositorio(IRepositorio.REPOSITORIO_ESTOQUE_PRODUTO);
+	}
+		
+	public IRepositorioOperacao getRepositorio() {
+		return (IRepositorioOperacao) super.getRepositorio(IRepositorio.REPOSITORIO_OPERACAO);
+	}
 
 	public void inserirES(Operacao operacao) throws AppException{		
-		getRepositorio().insert(operacao);
+		getRepositorio().inserir(operacao);
 		if (operacao instanceof OperacaoDevolucao){
 			OperacaoDevolucao operacaoDevolucao = (OperacaoDevolucao) operacao;
 			if(operacaoDevolucao.getStatus() != ConstantesOperacao.CANCELADO){
@@ -58,14 +69,14 @@ public class CadastroOperacao extends Cadastro{
 							p.setId(new Long(evir.getProdutoOperacaoItemRegistrado().getIdProduto()));
 							pk.setProduto(p);
 							try{
-								EstoqueProduto estoqueProduto = CadastroEstoque.getInstancia().consultarEstoqueProduto(pk);
+								EstoqueProduto estoqueProduto = CadastroEstoqueProduto.getInstancia().consultarPorId(pk);
 								estoqueProduto.setQuantidade(estoqueProduto.getQuantidade().add(evir.getQuantidade()));
-								getRepositorio().update(estoqueProduto);
+								getRepositorioEstoqueProduto().alterar(estoqueProduto);
 							}catch(ObjectNotFoundException ex){
 								EstoqueProduto estoqueProduto = new EstoqueProduto();
 								estoqueProduto.setPk(pk);
 								estoqueProduto.setQuantidade(evir.getQuantidade().negate());
-								getRepositorio().insert(estoqueProduto);
+								getRepositorioEstoqueProduto().inserir(estoqueProduto);
 							}catch(Exception ex){
 								System.out.println("Estoque da loja "+evir.getPk().getLoja()+" não foi atualizado");
 								ex.printStackTrace();
@@ -80,24 +91,24 @@ public class CadastroOperacao extends Cadastro{
 
 	
 	public void alterar(Operacao operacao)throws AppException{
-		getRepositorio().update(operacao);
+		getRepositorio().alterar(operacao);
 	}
 
 	public Operacao consultarPorPK(OperacaoPK pk) throws AppException{
-		Operacao operacao = (Operacao) getRepositorio().findById(Operacao.class, pk);
+		Operacao operacao = (Operacao) getRepositorio().consultarPorPK(pk);
 		return operacao;
 	}
 		
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	
 	public void alterarStatus(OperacaoPK pk, int status) throws AppException{		
 		if (status == ConstantesOperacao.ABERTO || status == ConstantesOperacao.CANCELADO||
 				status == ConstantesOperacao.FECHADO || status == ConstantesOperacao.EM_PROCESSAMENTO){
-			Operacao operacao = (Operacao) getRepositorio().findById(Operacao.class, pk);
+			Operacao operacao = (Operacao) getRepositorio().consultarPorPK(pk);
 			operacao.setStatus(status);
-			getRepositorio().update(operacao);
+			getRepositorio().alterar(operacao);
 		}else{
 			throw new ValidationException("Status de Operação Inválido");
 		}

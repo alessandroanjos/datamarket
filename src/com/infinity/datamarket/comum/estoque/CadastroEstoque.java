@@ -12,6 +12,7 @@ import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 /**
  * @author alessandro
@@ -19,7 +20,7 @@ import com.infinity.datamarket.comum.util.Cadastro;
  */
 public class CadastroEstoque extends Cadastro {
 	private static CadastroEstoque instancia;
-	private static Class CLASSE = Estoque.class;
+
 	private CadastroEstoque(){}
 	public static CadastroEstoque getInstancia(){
 		if (instancia == null){
@@ -27,45 +28,37 @@ public class CadastroEstoque extends Cadastro {
 		}
 		return instancia;
 	}
+	
+	
+	public IRepositorioEstoque getRepositorio() {
+		// TODO Auto-generated method stub
+		return (IRepositorioEstoque) super.getRepositorio(IRepositorio.REPOSITORIO_ESTOQUE);
+	}
 
 	public Estoque consultarPorId(EstoquePK id) throws AppException{
-		return (Estoque) getRepositorio().findById(CLASSE, id);
+		return (Estoque) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
-	
-	public EstoqueProduto consultarEstoqueProduto(EstoqueProdutoPK id) throws AppException{
-		  return (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, id);
-	}
-	
+		
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(Estoque componente) throws AppException{
-		getRepositorio().insert(componente);
+		getRepositorio().inserir(componente);
 	}
 	
 	public void alterar(Estoque componente) throws AppException{
-		getRepositorio().update(componente);
+		getRepositorio().alterar(componente);
 	}
 	
 	public void excluir(Estoque componente) throws AppException{
-		getRepositorio().remove(componente);
+		getRepositorio().excluir(componente);
 	}
 	
 	public Collection consultarTodosPorLoja(String idLoja) throws AppException{
-		Session sessao = RepositoryManagerHibernateUtil.currentSession();
-		
-		StringBuffer sql = new StringBuffer();
-		sql.append("from Estoque estoque ");
-		sql.append("where estoque.pk.loja.id = " + idLoja);
-		
-		Query query = sessao.createQuery(sql.toString());
-		
-		Collection c = query.list();
-     
-		return c;
+		return getRepositorio().consultarTodosPorLoja(idLoja);
 	}
 }

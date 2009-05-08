@@ -1,19 +1,18 @@
 package com.infinity.datamarket.comum.cliente;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.transacao.ClienteTransacao;
-import com.infinity.datamarket.comum.transacao.Transacao;
+import com.infinity.datamarket.comum.transacao.IRepositorioTransacao;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroCliente extends Cadastro {
 	private static CadastroCliente instancia;
-	private static Class CLASSE = Cliente.class;
 	private CadastroCliente(){}
 	
 	public static CadastroCliente getInstancia(){
@@ -23,31 +22,40 @@ public class CadastroCliente extends Cadastro {
 		return instancia;
 	}
 	
+	
+	public IRepositorioCliente getRepositorio() {
+		return (IRepositorioCliente) super.getRepositorio(IRepositorio.REPOSITORIO_CLIENTE);
+	}
+	
+	public IRepositorioTransacao getRepositorioTransacao() {
+		return (IRepositorioTransacao) super.getRepositorio(IRepositorio.REPOSITORIO_TRANSACAO);
+	}
+	
 	public Cliente consultarPorId(Long id) throws AppException{
-		return (Cliente) getRepositorio().findById(CLASSE, id);
+		return (Cliente) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	
 	public Cliente consultarPorPK(Long id) throws AppException{
-		return (Cliente) getRepositorio().findById(CLASSE, id);
+		return (Cliente) getRepositorio().consultarPorPK(id);
 	}
 	
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(Cliente cliente) throws AppException{
-		getRepositorio().insert(cliente);
+		getRepositorio().inserir(cliente);
 	}
 	
 	public void alterar(Cliente cliente) throws AppException{
-		getRepositorio().update(cliente);
+		getRepositorio().alterar(cliente);
 		IPropertyFilter filter = new PropertyFilter();
 		filter.setTheClass(ClienteTransacao.class);
 		filter.addProperty("cpfCnpj", cliente.getCpfCnpj());
-		Collection colecaoClienteTransacao = consultar(filter);
+		Collection colecaoClienteTransacao = getRepositorioTransacao().consultarClienteTransacao(filter);
 		if(colecaoClienteTransacao != null && colecaoClienteTransacao.size() > 0){
 			Iterator itClienteTransacao = colecaoClienteTransacao.iterator();
 			while(itClienteTransacao.hasNext()){
@@ -72,13 +80,13 @@ public class CadastroCliente extends Cadastro {
 					cliTrans.setCelular(cliente.getFoneCelular());
 			    	cliTrans.setPessoaContato(cliente.getPessoaContato());
 			    	cliTrans.setReferenciaBancaria(cliente.getReferenciaComercial());
-			    	getRepositorio().update(cliTrans);
+			    	getRepositorioTransacao().atualizarCliente(cliTrans);
 				}
 			}
 		}
 	}
 	
 	public void excluir(Cliente cliente) throws AppException{
-		getRepositorio().remove(cliente);
+		getRepositorio().excluir(cliente);
 	}
 }
