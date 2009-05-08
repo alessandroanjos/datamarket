@@ -29,12 +29,16 @@ public class ConcentradorParametro extends Cadastro{
 		return instancia;
 	}
 
+	
+	public IRepositorioParametro getRepositorio() {
+		return (IRepositorioParametro) super.getRepositorio(IRepositorio.REPOSITORIO_PARAMETRO);
+	}
 
 	public Parametro getParametro(String chave) {
 		Parametro retorno = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			retorno = (Parametro) getRepositorio().findById(Parametro.class, chave);
+			retorno = (Parametro) getRepositorio().getParametro(chave);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
@@ -63,7 +67,7 @@ public class ConcentradorParametro extends Cadastro{
 		
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			getRepositorio().update(parametro);
+			getRepositorio().atualizarParametro(parametro);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
@@ -85,6 +89,36 @@ public class ConcentradorParametro extends Cadastro{
 				throw new SistemaException(ex);
 			}
 		}
+	}
+	
+	public String consultarURLApp() throws AppException{
+		String url = "http://localhost:8080";
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();				
+			Parametro p = (Parametro) getRepositorio().getParametro("URL");
+			url = p.getValor();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				RepositoryManagerHibernateUtil.closeSession();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return url;
 	}
 
 }

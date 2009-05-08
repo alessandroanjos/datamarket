@@ -16,16 +16,5 @@ import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernat
  */
 public class RepositorioHI extends RepositoryManagerHibernate implements IRepositorio{
 
-	private static RepositorioHI instancia;
-
-	private RepositorioHI(){
-
-	}
-
-	public static RepositorioHI getInstancia(){
-		if (instancia == null){
-			instancia = new RepositorioHI();
-		}
-		return instancia;
-	}
+	
 }

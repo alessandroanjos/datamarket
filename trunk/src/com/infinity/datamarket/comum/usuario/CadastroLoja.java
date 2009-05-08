@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroLoja extends Cadastro{
 	private static CadastroLoja instancia;
@@ -16,35 +17,37 @@ public class CadastroLoja extends Cadastro{
 		}
 		return instancia;
 	}
+	
+	
+	public IRepositorioLoja getRepositorio() {
+		return (IRepositorioLoja) super.getRepositorio(IRepositorio.REPOSITORIO_LOJA);
+	}
 
 	public Loja consultarPorId(Long id) throws AppException{
-		return (Loja) getRepositorio().findById(CLASSE, id);
+		return (Loja) getRepositorio().consultarPorId(id);
 	}
 	
 	public void inserir(Loja loja) throws AppException{
-		getRepositorio().insert(loja);
-		inserirDadoLote(loja);
+		getRepositorio().inserir(loja);		
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	
 	public Loja consultarPorPK(Long id) throws AppException{
-		return (Loja) getRepositorio().findById(CLASSE, id);
+		return getRepositorio().consultarPorPK(id);
 	}
 	
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	
 	public void alterar(Loja loja) throws AppException{
-		getRepositorio().update(loja);
-		alterarDadoLote(loja);
+		getRepositorio().alterar(loja);
 	}
 	
 	public void excluir(Loja loja) throws AppException{
-		getRepositorio().remove(loja);
-		excluirDadoLote(loja);
+		getRepositorio().excluir(loja);
 	}
 }

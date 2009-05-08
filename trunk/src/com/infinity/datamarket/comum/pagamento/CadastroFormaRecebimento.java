@@ -5,10 +5,11 @@ import java.util.Collection;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroFormaRecebimento extends Cadastro{
 	private static CadastroFormaRecebimento instancia;
-	private static Class CLASSE = FormaRecebimento.class;
+	
 	private CadastroFormaRecebimento(){}
 	public static CadastroFormaRecebimento getInstancia(){
 		if (instancia == null){
@@ -17,29 +18,30 @@ public class CadastroFormaRecebimento extends Cadastro{
 		return instancia;
 	}
 
+	public IRepositorioFormaRecebomento getRepositorio() {
+		return (IRepositorioFormaRecebomento) super.getRepositorio(IRepositorio.REPOSITORIO_FORMA_RECEBIMENTO);
+	}
+	
 	public FormaRecebimento consultarPorId(Long id) throws AppException{
-		return (FormaRecebimento) getRepositorio().findById(CLASSE, id);
+		return (FormaRecebimento) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(FormaRecebimento formaRecebimento) throws AppException{
-		getRepositorio().insert(formaRecebimento);
-		inserirDadoLote(formaRecebimento);
+		getRepositorio().inserir(formaRecebimento);
 	}
 	
 	public void alterar(FormaRecebimento formaRecebimento) throws AppException{
-		getRepositorio().update(formaRecebimento);
-		alterarDadoLote(formaRecebimento);
+		getRepositorio().alterar(formaRecebimento);
 	}
 	
 	public void excluir(FormaRecebimento formaRecebimento) throws AppException{
-		getRepositorio().remove(formaRecebimento);
-		excluirDadoLote(formaRecebimento);
+		getRepositorio().excluir(formaRecebimento);
 	}
 
 }

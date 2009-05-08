@@ -5,10 +5,10 @@ import java.util.Collection;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroBanco extends Cadastro{
 	private static CadastroBanco instancia;
-	private static Class CLASSE = Banco.class;
 	private CadastroBanco(){}
 	public static CadastroBanco getInstancia(){
 		if (instancia == null){
@@ -16,30 +16,32 @@ public class CadastroBanco extends Cadastro{
 		}
 		return instancia;
 	}
+	
+	
+	public IRepositorioBanco getRepositorio() {
+		return (IRepositorioBanco) super.getRepositorio(IRepositorio.REPOSITORIO_BANCO);
+	}
 
 	public Banco consultarPorId(Long id) throws AppException{
-		return (Banco) getRepositorio().findById(CLASSE, id);
+		return (Banco) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(Banco banco) throws AppException{
-		getRepositorio().insert(banco);
-		inserirDadoLote(banco);
+		getRepositorio().inserir(banco);
 	}
 	
 	public void alterar(Banco banco) throws AppException{
-		getRepositorio().update(banco);
-		alterarDadoLote(banco);
+		getRepositorio().alterar(banco);
 	}
 	
 	public void excluir(Banco banco) throws AppException{
-		getRepositorio().remove(banco);
-		excluirDadoLote(banco);
+		getRepositorio().excluir(banco);
 	}
 
 }

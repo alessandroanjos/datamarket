@@ -8,6 +8,7 @@ import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernat
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.IRepositorio;
 import com.infinity.datamarket.comum.util.RepositorioHI;
+import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.SistemaException;
 
 public class AtualizadorLote {
@@ -25,8 +26,8 @@ public class AtualizadorLote {
 		return instancia;
 	}
 	
-	public IRepositorio getRepositorio(){
-	 	return RepositorioHI.getInstancia();
+	public IRepositorioDadoLote getRepositorio(){
+	 	return (IRepositorioDadoLote) ServiceLocator.getInstancia().getRepositoprio(IRepositorio.REPOSITORIO_LOTE);
 	}
 	
 	public void atualizarLote(Collection col) throws AppException{
@@ -37,11 +38,11 @@ public class AtualizadorLote {
 			while(i.hasNext()){				
 				DadoLote dado = (DadoLote) i.next();
 				if (dado.getOperacao().equals(dado.INSERIR)){
-					getRepositorio().insert(dado.getDado());
+					getRepositorio().inserir(dado.getDado());
 				}else if (dado.getOperacao().equals(dado.ALTERAR)){
-					getRepositorio().merge(dado.getDado());
+					getRepositorio().alterar(dado.getDado());
 				}else if (dado.getOperacao().equals(dado.EXCLUIR)){	
-					getRepositorio().remove(dado.getDado());
+					getRepositorio().excluir(dado.getDado());
 				}
 				RepositoryManagerHibernateUtil.currentSession().flush();
 				RepositoryManagerHibernateUtil.currentSession().evict(dado.getDado());

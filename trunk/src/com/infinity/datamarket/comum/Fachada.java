@@ -80,6 +80,7 @@ import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.comum.util.SistemaException;
 import com.infinity.datamarket.infocomponent.CadastroInfoComponente;
@@ -105,6 +106,10 @@ public class Fachada {
 
 	private CadastroUsuario getCadastroUsuario(){
 		return CadastroUsuario.getInstancia();
+	}
+	
+	private ConcentradorParametro getConcentradorParametro(){
+		return ConcentradorParametro.getInstancia();
 	}
 	
 	private CadastroTipoProduto getCadastroTipoProduto(){
@@ -633,33 +638,7 @@ public class Fachada {
 	}
 	
 	public String consultarURLApp() throws AppException{
-		String url = "";
-		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
-			url = getCadastroUsuario().consultarURLApp();
-			RepositoryManagerHibernateUtil.commitTransation();
-		}catch(AppException e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-			throw e;
-		}catch(Throwable e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-				throw new SistemaException(e);
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}
-		return url;
+		return getConcentradorParametro().consultarURLApp();		
 	}
 	
 	public Loja consultarLojaPorId(Long id) throws AppException{
@@ -4314,7 +4293,7 @@ public class Fachada {
 		EstoqueProduto estoque = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			estoque = getCadastroEstoque().consultarEstoqueProduto(id);
+			estoque = getCadastroEstoqueProduto().consultarPorId(id);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{

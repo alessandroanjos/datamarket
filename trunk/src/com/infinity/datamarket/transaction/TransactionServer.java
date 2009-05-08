@@ -39,8 +39,5 @@ public class TransactionServer implements TransactionServerRemote, TransactionSe
 		getFachada().getInstancia().inserirTransacaoES(transacao);
 		System.out.println("TRANSACAO INSERIDA >> "+transacao.getPk());
 	}
-		
-	public IRepositorio getRepositorio(){
-	 	return RepositorioHI.getInstancia();
-	}
+	
 }

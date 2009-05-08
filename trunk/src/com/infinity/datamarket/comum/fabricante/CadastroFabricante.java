@@ -14,6 +14,7 @@ import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 /**
  * @author alessandro
@@ -21,7 +22,6 @@ import com.infinity.datamarket.comum.util.Cadastro;
  */
 public class CadastroFabricante extends Cadastro {
 	private static CadastroFabricante instancia;
-	private static Class CLASSE = Fabricante.class;
 	private CadastroFabricante(){}
 	public static CadastroFabricante getInstancia(){
 		if (instancia == null){
@@ -29,26 +29,29 @@ public class CadastroFabricante extends Cadastro {
 		}
 		return instancia;
 	}
+	
+	public IRepositorioFabricante getRepositorio() {
+		// TODO Auto-generated method stub
+		return (IRepositorioFabricante) super.getRepositorio(IRepositorio.REPOSITORIO_FABRICANTE);
+	}
+	
 	public Fabricante consultarPorId(Long id) throws AppException{
-		return (Fabricante) getRepositorio().findById(CLASSE, id);
+		return (Fabricante) getRepositorio().consultarPorId(id);
 	}
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(Fabricante fabricante) throws AppException{
-		getRepositorio().insert(fabricante);
-		inserirDadoLote(fabricante);
+		getRepositorio().inserir(fabricante);
 		
 	}
 	public void alterar(Fabricante fabricante) throws AppException{
-		getRepositorio().update(fabricante);
-		alterarDadoLote(fabricante);
+		getRepositorio().alterar(fabricante);
 	}
 	public void excluir(Fabricante fabricante) throws AppException{
-		getRepositorio().remove(fabricante);
-		excluirDadoLote(fabricante);
+		getRepositorio().excluir(fabricante);
 	}	
 }

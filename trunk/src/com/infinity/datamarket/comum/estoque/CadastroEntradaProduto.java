@@ -8,11 +8,12 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.Constantes;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroEntradaProduto extends Cadastro{
 	
 	private static CadastroEntradaProduto instancia;
-	private static Class CLASSE = EntradaProduto.class;
+	
 	private CadastroEntradaProduto(){}
 	public static CadastroEntradaProduto getInstancia(){
 		if (instancia == null){
@@ -20,19 +21,31 @@ public class CadastroEntradaProduto extends Cadastro{
 		}
 		return instancia;
 	}
+	
+	
+	
+	public IRepositorioEntradaProduto getRepositorio() {
+		// TODO Auto-generated method stub
+		return (IRepositorioEntradaProduto) super.getRepositorio(IRepositorio.REPOSITORIO_ENTRADA_PRODUTO);
+	}
+	
+	public IRepositorioEstoqueProduto getRepositorioEstoqueProduto() {
+		// TODO Auto-generated method stub
+		return (IRepositorioEstoqueProduto) super.getRepositorio(IRepositorio.REPOSITORIO_ESTOQUE_PRODUTO);
+	}
 
 	public EntradaProduto consultarPorId(Long id) throws AppException{
-		return (EntradaProduto) getRepositorio().findById(CLASSE, id);
+		return (EntradaProduto) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(EntradaProduto entradaProduto) throws AppException{
-		getRepositorio().insert(entradaProduto);
+		getRepositorio().inserir(entradaProduto);
 		Collection col = entradaProduto.getProdutosEntrada();
 		if (col==null)
 			return;
@@ -45,9 +58,9 @@ public class CadastroEntradaProduto extends Cadastro{
 			pep.getPk().setId(entradaProduto.getId());
 			//consulta de estoque produto
 			try {
-				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pk);
+				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pk);
 				ep.setQuantidade(ep.getQuantidade().add(pep.getQuantidade()));
-				getRepositorio().update(ep);
+				getRepositorioEstoqueProduto().alterar(ep);
 			} catch (ObjectNotFoundException e) {
 				// TODO: handle exception
 				EstoqueProduto ep = new EstoqueProduto();
@@ -56,14 +69,14 @@ public class CadastroEntradaProduto extends Cadastro{
 				pkEp.setProduto(pk.getProduto());
 				ep.setPk(pkEp);
 				ep.setQuantidade(pep.getQuantidade());
-				getRepositorio().insert(ep);
+				getRepositorioEstoqueProduto().inserir(ep);
 			}
 	
 		}
 	}
 	
 	public void alterar(EntradaProduto entradaProduto) throws AppException{
-		getRepositorio().update(entradaProduto);
+		getRepositorio().alterar(entradaProduto);
 		Collection col = entradaProduto.getProdutosEntrada();
 		Iterator it = col.iterator();
 		while(it.hasNext()){
@@ -73,18 +86,18 @@ public class CadastroEntradaProduto extends Cadastro{
 			pk.setProduto(pep.getPk().getProduto());
 			
 			//consulta de estoque produto
-			EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pk);
+			EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pk);
 			if(entradaProduto.getStatus().equals(Constantes.STATUS_ATIVO)){
 				ep.setQuantidade(ep.getQuantidade().add(pep.getQuantidade()));	
 			}else if(entradaProduto.getStatus().equals(Constantes.STATUS_CANCELADO)){
 				ep.setQuantidade(ep.getQuantidade().subtract(pep.getQuantidade()));
 			}			
-			getRepositorio().update(ep);
+			getRepositorioEstoqueProduto().alterar(ep);
 		}
 	}
 	
 	public void excluir(EntradaProduto entradaProduto) throws AppException{
-		getRepositorio().remove(entradaProduto);
+		getRepositorio().excluir(entradaProduto);
 		Collection col = entradaProduto.getProdutosEntrada();
 		Iterator it = col.iterator();
 		while(it.hasNext()){
@@ -94,9 +107,9 @@ public class CadastroEntradaProduto extends Cadastro{
 			pk.setProduto(pep.getPk().getProduto());
 			
 			//consulta de estoque produto
-			EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pk);
+			EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pk);
 			ep.setQuantidade(ep.getQuantidade().subtract(pep.getQuantidade()));
-			getRepositorio().update(ep);
+			getRepositorioEstoqueProduto().alterar(ep);
 		}
 	}	
 

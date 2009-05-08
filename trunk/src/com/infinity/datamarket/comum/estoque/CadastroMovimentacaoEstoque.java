@@ -7,6 +7,7 @@ import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 import com.infinity.datamarket.comum.util.ObjetoInexistenteException;
 
 public class CadastroMovimentacaoEstoque extends Cadastro{
@@ -27,18 +28,29 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 	}
 	
 	
+	public IRepositorioMovimentacaoEstoque getRepositorio() {
+		// TODO Auto-generated method stub
+		return (IRepositorioMovimentacaoEstoque) super.getRepositorio(IRepositorio.REPOSITORIO_MOVIMENTACAO_ESTOQUE);
+	}
+	
+	public IRepositorioEstoqueProduto getRepositorioEstoqueProduto() {
+		// TODO Auto-generated method stub
+		return (IRepositorioEstoqueProduto) super.getRepositorio(IRepositorio.REPOSITORIO_ESTOQUE_PRODUTO);
+	}
+	
+	
 	public MovimentacaoEstoque consultarPorId(Long id) throws AppException{
-		return (MovimentacaoEstoque) getRepositorio().findById(CLASSE, id);
+		return (MovimentacaoEstoque) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(MovimentacaoEstoque movimentacaoEstoque) throws AppException{
-		getRepositorio().insert(movimentacaoEstoque);
+		getRepositorio().inserir(movimentacaoEstoque);
 		Collection col = movimentacaoEstoque.getProdutosMovimentacao();
 		if (col==null)
 			return;
@@ -46,10 +58,10 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 		while(it.hasNext()){
 		
 			ProdutoMovimentacaoEstoque pme = (ProdutoMovimentacaoEstoque) it.next();
-			pme.getPk().setId(movimentacaoEstoque.getId());
-			ProdutoMovimentacaoEstoquePK pk = pme.getPk();
-			pk.setId(movimentacaoEstoque.getId());
-			getRepositorio().insert(pme);
+//			pme.getPk().setId(movimentacaoEstoque.getId());
+//			ProdutoMovimentacaoEstoquePK pk = pme.getPk();
+//			pk.setId(movimentacaoEstoque.getId());
+//			getRepositorio().insert(pme);
 			
 			EstoqueProdutoPK pkEp = new EstoqueProdutoPK();
 			pkEp.setEstoque(movimentacaoEstoque.getEstoqueEntrada());
@@ -57,15 +69,15 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 			
 			//adiciona saldo produto para o novo estoque
 			try {
-				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pkEp);
+				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pkEp);
 				ep.setQuantidade(ep.getQuantidade().add(pme.getQuantidade()));
-				getRepositorio().update(ep);
+				getRepositorioEstoqueProduto().alterar(ep);
 			} catch (ObjectNotFoundException e) {
 				// TODO: handle exception
 				EstoqueProduto ep = new EstoqueProduto();
 				ep.setPk(pkEp);
 				ep.setQuantidade(pme.getQuantidade());
-				getRepositorio().insert(ep);
+				getRepositorioEstoqueProduto().inserir(ep);
 			}
 			
 			pkEp = new EstoqueProdutoPK();
@@ -73,9 +85,9 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 			pkEp.setProduto(pme.getProduto());
 			//retira saldo produto para o novo estoque
 			try {
-				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pkEp);
+				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pkEp);
 				ep.setQuantidade(ep.getQuantidade().subtract(pme.getQuantidade()));
-				getRepositorio().update(ep);
+				getRepositorioEstoqueProduto().alterar(ep);
 			} catch (ObjectNotFoundException e) {
 				// TODO: handle exception
 			}
@@ -84,14 +96,14 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 	}
 	
 	public void alterar(MovimentacaoEstoque movimentacaoEstoque) throws AppException{
-		getRepositorio().update(movimentacaoEstoque);
+		getRepositorio().alterar(movimentacaoEstoque);
 	}
 	public void excluir(MovimentacaoEstoque movimentacaoEstoque) throws AppException{
-		getRepositorio().remove(movimentacaoEstoque);
+		getRepositorio().excluir(movimentacaoEstoque);
 	}
 	
 	public void cancelar(MovimentacaoEstoque movimentacaoEstoque) throws AppException{
-		getRepositorio().update(movimentacaoEstoque);
+		getRepositorio().alterar(movimentacaoEstoque);
 		
 		Collection col = movimentacaoEstoque.getProdutosMovimentacao();
 		
@@ -108,9 +120,9 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 			
 			//adiciona saldo produto para o novo estoque
 			try {
-				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pkEp);
+				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pkEp);
 				ep.setQuantidade(ep.getQuantidade().subtract(pme.getQuantidade()));
-				getRepositorio().update(ep);
+				getRepositorioEstoqueProduto().alterar(ep);
 			} catch (ObjectNotFoundException e) {
 				e.printStackTrace();
 			}			
@@ -120,9 +132,9 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 			pkEp.setProduto(pme.getProduto());
 			//retira saldo produto para o novo estoque
 			try {
-				EstoqueProduto ep = (EstoqueProduto) getRepositorio().findById(EstoqueProduto.class, pkEp);
+				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pkEp);
 				ep.setQuantidade(ep.getQuantidade().add(pme.getQuantidade()));
-				getRepositorio().update(ep);
+				getRepositorioEstoqueProduto().alterar(ep);
 			} catch (ObjectNotFoundException e) {
 				e.printStackTrace();
 			}			

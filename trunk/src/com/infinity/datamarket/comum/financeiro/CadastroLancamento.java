@@ -12,11 +12,13 @@ import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.ConcentradorControleId;
 import com.infinity.datamarket.comum.util.Controle;
+import com.infinity.datamarket.comum.util.IRepositorio;
+import com.infinity.datamarket.comum.util.IRepositorioControleId;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class CadastroLancamento extends Cadastro{
 	private static CadastroLancamento instancia;
-	private static Class CLASSE = Lancamento.class;
+	
 	private CadastroLancamento(){}
 	public static CadastroLancamento getInstancia(){
 		if (instancia == null){
@@ -25,22 +27,32 @@ public class CadastroLancamento extends Cadastro{
 		return instancia;
 	}
 
+	
+	public IRepositorioLancamento getRepositorio() {
+		// TODO Auto-generated method stub
+		return (IRepositorioLancamento) super.getRepositorio(IRepositorio.REPOSITORIO_LANCAMENTO);
+	}
+	
 	public Lancamento consultarPorId(Long id) throws AppException{
-		return (Lancamento) getRepositorio().findById(CLASSE, id);
+		return getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(Lancamento lancamento) throws AppException{
-		getRepositorio().insert(lancamento);
+		getRepositorio().inserir(lancamento);
+	}
+	
+	public IRepositorioControleId getRepositorioControleId() {
+		return (IRepositorioControleId) super.getRepositorio(IRepositorio.REPOSITORIO_CONTROLE_ID);
 	}
 
 	public void baixar(Lancamento lancamento) throws AppException{
-		getRepositorio().update(lancamento);
+		getRepositorio().alterar(lancamento);
 		if(lancamento.getSituacao().equals(Lancamento.PAGTO_PARCIAL) || lancamento.getSituacao().equals(Lancamento.FINALIZADO)){
 			Iterator<BaixaLancamento> it = lancamento.getItensPagamento().iterator();
 			while(it.hasNext()){
@@ -90,17 +102,17 @@ public class CadastroLancamento extends Cadastro{
 		MovimentacaoBancaria movimentacao = new MovimentacaoBancaria();
 		Controle retorno = null;
 		try {
-			retorno = (Controle) getRepositorio().findById(Controle.class, MovimentacaoBancaria.class.getSimpleName());
+			retorno = (Controle) getRepositorioControleId().getControle(MovimentacaoBancaria.class);
 		}catch(ObjectNotFoundException e){
 		}
 		if (retorno == null) {
 			retorno = new Controle();
 			retorno.setChave(MovimentacaoBancaria.class.getSimpleName());
 			retorno.setValor(new ConcentradorControleId().retornaMaxId(MovimentacaoBancaria.class)+1);
-			getRepositorio().insert(retorno);
+			getRepositorioControleId().inserirControle(retorno);
 		} else {
 			retorno.setValor(retorno.getValor()+1);
-			getRepositorio().update(retorno);
+			getRepositorioControleId().atualizarControle(retorno);
 		}
 
 		movimentacao.setId(retorno.getValor());
@@ -115,11 +127,11 @@ public class CadastroLancamento extends Cadastro{
 	}
 	
 	public void alterar(Lancamento lancamento) throws AppException{
-		getRepositorio().update(lancamento);
+		getRepositorio().alterar(lancamento);
 	}
 
 	public void excluir(Lancamento lancamento) throws AppException{
-		getRepositorio().remove(lancamento);
+		getRepositorio().excluir(lancamento);
 	}
 
 }

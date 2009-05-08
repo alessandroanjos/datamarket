@@ -6,6 +6,7 @@ import java.util.Collection;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 
 public class CadastroInfoComponente extends Cadastro {
@@ -18,21 +19,26 @@ public class CadastroInfoComponente extends Cadastro {
 		}
 		return instancia;
 	}
+	
+	
+	public IRepositorioInfoComponente getRepositorio() {		
+		return (IRepositorioInfoComponente) super.getRepositorio(IRepositorio.REPOSITORIO_INFO_COMPONENTE);
+	}
 
 	public InfoComponent consultarPorId(String id) throws AppException{
-		return (InfoComponent) getRepositorio().findById(CLASSE, id);
+		return getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	
 	public void alterar(InfoComponent infoComponente) throws AppException{
-		getRepositorio().update(infoComponente);
+		getRepositorio().alterar(infoComponente);
 	}
 	
 	public void inserir(InfoComponent infoComponente) throws AppException{
-		getRepositorio().insert(infoComponente);
+		getRepositorio().inserir(infoComponente);
 	}
 	
 

@@ -2,16 +2,14 @@ package com.infinity.datamarket.comum.produto;
 
 import java.util.Collection;
 
-import com.infinity.datamarket.comum.lote.DadoLote;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroUnidade extends Cadastro{
 	
 	private static CadastroUnidade instancia;
-	
-	private static final Class CLASSE = Unidade.class;
 	
 	public static CadastroUnidade getInstancia(){
 		if (instancia == null){
@@ -20,30 +18,32 @@ public class CadastroUnidade extends Cadastro{
 		return instancia;
 	}
 	
+	public IRepositorioUnidade getRepositorio() {
+		// TODO Auto-generated method stub
+		return (IRepositorioUnidade) super.getRepositorio(IRepositorio.REPOSITORIO_UNIDADE);
+	}
+	
 	public void inserir(Unidade unidade) throws AppException{
-		getRepositorio().insert(unidade);
-		inserirDadoLote(unidade);
+		getRepositorio().inserir(unidade);
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	
 	public Unidade consultarPorPK(Long id) throws AppException{
-		return (Unidade) getRepositorio().findById(CLASSE, id);
+		return (Unidade) getRepositorio().consultarPorPK(id);
 	}
 	
 	public Collection consultarTodos() throws AppException{
-		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	
 	public void alterar(Unidade unidade) throws AppException{
-		getRepositorio().update(unidade);
-		alterarDadoLote(unidade);
+		getRepositorio().alterar(unidade);
 	}
 	
 	public void excluir(Unidade unidade) throws AppException{
-		getRepositorio().remove(unidade);
-		excluirDadoLote(unidade);
+		getRepositorio().excluir(unidade);
 	}
 }

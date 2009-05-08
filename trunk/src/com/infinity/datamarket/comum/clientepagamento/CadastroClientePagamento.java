@@ -7,6 +7,7 @@ import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroClientePagamento extends Cadastro {
 	private static CadastroClientePagamento instancia;
@@ -20,35 +21,35 @@ public class CadastroClientePagamento extends Cadastro {
 		return instancia;
 	}
 	
+	public IRepositorioClientePagamento getRepositorio() {
+		return (IRepositorioClientePagamento) super.getRepositorio(IRepositorio.REPOSITORIO_CLIENTE_PAGAMENTO);
+	}
+	
 	public ClientePagamento consultarPorId(Long id) throws AppException{
-		return (ClientePagamento) getRepositorio().findById(CLASSE, id);
+		return (ClientePagamento) getRepositorio().consultarPorId(id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
-		return getRepositorio().filter(filter, false);
+		return getRepositorio().consultar(filter);
 	}
 	
 	public ClientePagamento consultarPorPK(Long id) throws AppException{
-		return (ClientePagamento) getRepositorio().findById(CLASSE, id);
+		return getRepositorio().consultarPorPK(id);
 	}
 	
 	public Collection consultarTodos() throws AppException{
-		PropertyFilter filter = new PropertyFilter();
-		filter.setTheClass(CLASSE);
-		filter.addOrderByProperty("dataPagamento", PropertyFilter.DESC);
-		return getRepositorio().filter(filter, false);
-//		return getRepositorio().findAll(CLASSE);
+		return getRepositorio().consultarTodos();
 	}
 	public void inserir(ClientePagamento clientePagamento) throws AppException{
-		getRepositorio().insert(clientePagamento);
+		getRepositorio().inserir(clientePagamento);
 	}
 	
 	public void alterar(ClientePagamento clientePagamento) throws AppException{
-		getRepositorio().update(clientePagamento);
+		getRepositorio().alterar(clientePagamento);
 	}
 	
 	public void excluir(ClientePagamento clientePagamento) throws AppException{
-		getRepositorio().remove(clientePagamento);
+		getRepositorio().excluir(clientePagamento);
 	}
 	
 	public Long retornaMaxIDClientePagamento() throws AppException{
@@ -66,12 +67,9 @@ public class CadastroClientePagamento extends Cadastro {
 				}				
 			}
 		} catch (AppException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-//		Query q = RepositoryManagerHibernateUtil.currentSession().createQuery("select max(i");
-//		q.list();
 		return ++maxIDClientePagamento;
 	}
 }
