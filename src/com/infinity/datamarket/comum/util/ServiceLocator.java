@@ -12,7 +12,7 @@ public class ServiceLocator {
 	ResourceBundle rs;
 	private ServiceLocator() {
 		pool = new Hashtable();
-		rs = ResourceBundle.getBundle("Telas");
+		rs = ResourceBundle.getBundle("JNDI");
 	}
 
 	public static synchronized ServiceLocator getInstancia(){
