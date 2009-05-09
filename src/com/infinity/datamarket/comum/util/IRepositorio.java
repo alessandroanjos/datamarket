@@ -16,7 +16,6 @@ import com.infinity.datamarket.comum.repositorymanager.IRepositoryManager;
  */
 public interface IRepositorio{
 	public static final String REPOSITORIO_PERFIL = "REPOSITORIO_PERFIL";
-	public static final String REPOSITORIO_LOTE = "REPOSITORIO_LOTE";
 	public static final String REPOSITORIO_AUTORIZACAO_CARTAO_PROPRIO = "REPOSITORIO_AUTORIZACAO_CARTAO_PROPRIO";
 	public static final String REPOSITORIO_ACUMULADOR_NAO_FISCAL = "REPOSITORIO_ACUMULADOR_NAO_FISCAL";
 	public static final String REPOSITORIO_INFO_COMPONENTE = "REPOSITORIO_INFO_COMPONENTE";
