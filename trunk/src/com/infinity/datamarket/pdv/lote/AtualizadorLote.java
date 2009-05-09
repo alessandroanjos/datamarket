@@ -27,7 +27,7 @@ public class AtualizadorLote {
 	}
 	
 	public IRepositorioDadoLote getRepositorio(){
-	 	return (IRepositorioDadoLote) ServiceLocator.getInstancia().getRepositoprio(IRepositorio.REPOSITORIO_LOTE);
+	 	return (IRepositorioDadoLote) ServiceLocator.getInstancia().getRepositoprio(IRepositorio.REPOSITORIO_DADO_LOTE);
 	}
 	
 	public void atualizarLote(Collection col) throws AppException{
