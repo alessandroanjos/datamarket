@@ -1,6 +1,9 @@
 package com.infinity.datamarket.comum.conta;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
@@ -12,6 +15,9 @@ import com.infinity.datamarket.comum.util.IRepositorio;
 public class CadastroMovimentacaoBancaria extends Cadastro {
 	private static CadastroMovimentacaoBancaria instancia;
 	private static Class CLASSE = MovimentacaoBancaria.class;
+	
+	private Set<ContaCorrente> hashContas = new HashSet<ContaCorrente>();
+	
 	private CadastroMovimentacaoBancaria(){}
 	public static CadastroMovimentacaoBancaria getInstancia(){
 		if (instancia == null){
@@ -42,13 +48,32 @@ public class CadastroMovimentacaoBancaria extends Cadastro {
 	public void inserir(MovimentacaoBancaria movimentacaoBancaria) throws AppException{
 		getRepositorio().inserir(movimentacaoBancaria);
 		ContaCorrente conta = Fachada.getInstancia().consultarContaCorrentePorID(movimentacaoBancaria.getConta().getId().toString());
+		
+		if(hashContas != null){
+			Iterator<ContaCorrente> it = hashContas.iterator();
+			while (it.hasNext()){
+				ContaCorrente cc = it.next();
+				if(cc.getId().equals(conta.getId())){
+					conta = cc;
+					break;
+				}
+			}
+		}else{
+			hashContas = new HashSet<ContaCorrente>();
+		}
+		
 		if (movimentacaoBancaria.getTipo().equals(Constantes.TIPO_OPERACAO_DEBITO)) {
 			conta.setSaldo(conta.getSaldo().subtract(movimentacaoBancaria.getValor()));
 		} else {
 			conta.setSaldo(conta.getSaldo().add(movimentacaoBancaria.getValor()));
 		}
-		getRepositorioContaCorrente().alterar(conta);
+		
+		hashContas.add(conta);
+		
+		getRepositorio().update(conta);
 	}
+	
+	
 	
 	public void alterar(MovimentacaoBancaria movimentacaoBancaria) throws AppException{
 		getRepositorio().alterar(movimentacaoBancaria);
@@ -56,5 +81,11 @@ public class CadastroMovimentacaoBancaria extends Cadastro {
 	
 	public void excluir(MovimentacaoBancaria movimentacaoBancaria) throws AppException{
 		getRepositorio().excluir(movimentacaoBancaria);
+	}
+	public Set<ContaCorrente> getHashContas() {
+		return hashContas;
+	}
+	public void setHashContas(Set<ContaCorrente> hashContas) {
+		this.hashContas = hashContas;
 	}
 }
