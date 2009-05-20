@@ -101,7 +101,10 @@ public class CadastroLancamento extends Cadastro{
 		Set<ContaCorrente> hashContas = CadastroMovimentacaoBancaria.getInstancia().getHashContas();
 		Iterator<ContaCorrente> it = hashContas.iterator();
 		while (it.hasNext()){
-			CadastroContaCorrente.getInstancia().alterar(it.next());
+			ContaCorrente cTmp = (ContaCorrente)it.next();
+			ContaCorrente c = CadastroContaCorrente.getInstancia().consultarPorId(cTmp.getId());
+			c.setSaldo(cTmp.getSaldo());
+			CadastroContaCorrente.getInstancia().alterar(c);
 		}
 	}
 	

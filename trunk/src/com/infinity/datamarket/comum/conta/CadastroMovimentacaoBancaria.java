@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
@@ -11,12 +12,13 @@ import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.comum.util.IRepositorio;
+import com.infinity.datamarket.comum.util.ObjetoClonavel;
 
 public class CadastroMovimentacaoBancaria extends Cadastro {
 	private static CadastroMovimentacaoBancaria instancia;
 	private static Class CLASSE = MovimentacaoBancaria.class;
 	
-	private Set<ContaCorrente> hashContas = new HashSet<ContaCorrente>();
+	private Set<ContaCorrente> hashContas = new TreeSet<ContaCorrente>();
 	
 	private CadastroMovimentacaoBancaria(){}
 	public static CadastroMovimentacaoBancaria getInstancia(){
@@ -59,7 +61,7 @@ public class CadastroMovimentacaoBancaria extends Cadastro {
 				}
 			}
 		}else{
-			hashContas = new HashSet<ContaCorrente>();
+			hashContas = new TreeSet<ContaCorrente>();
 		}
 		
 		if (movimentacaoBancaria.getTipo().equals(Constantes.TIPO_OPERACAO_DEBITO)) {
@@ -68,9 +70,7 @@ public class CadastroMovimentacaoBancaria extends Cadastro {
 			conta.setSaldo(conta.getSaldo().add(movimentacaoBancaria.getValor()));
 		}
 		
-		hashContas.add(conta);
-		
-		getRepositorio().update(conta);
+		hashContas.add((ContaCorrente)ObjetoClonavel.clone(conta));
 	}
 	
 	
