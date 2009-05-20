@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import com.infinity.datamarket.comum.banco.Banco;
 import com.infinity.datamarket.comum.util.Persistente;
 
-public class ContaCorrente extends Persistente{
+public class ContaCorrente extends Persistente implements Comparable{
 
 	/**
 	 * 
@@ -64,12 +64,13 @@ public class ContaCorrente extends Persistente{
 	@Override
 	public int hashCode() {
 		StringBuffer sb = new StringBuffer();
+		sb.append(getId());
 		sb.append(banco);
 		sb.append(idAgencia);
-		sb.append(nome);
-		sb.append(numero);
-		sb.append(saldo);
-		sb.append(situacao);
+//		sb.append(nome);
+//		sb.append(numero);
+//		sb.append(saldo);
+//		sb.append(situacao);
 		return sb.toString().hashCode();
 	}
 	@Override
@@ -87,5 +88,8 @@ public class ContaCorrente extends Persistente{
 		} else if (!getId().equals(other.getId()))
 			return false;
 		return true;
+	}
+	public int compareTo(Object conta) {
+		return getId().compareTo(((ContaCorrente)conta).getId());
 	}
 }
