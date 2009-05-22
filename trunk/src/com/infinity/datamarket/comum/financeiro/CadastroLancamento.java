@@ -3,21 +3,22 @@ package com.infinity.datamarket.comum.financeiro;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
-import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.conta.CadastroContaCorrente;
 import com.infinity.datamarket.comum.conta.CadastroMovimentacaoBancaria;
 import com.infinity.datamarket.comum.conta.ContaCorrente;
 import com.infinity.datamarket.comum.conta.MovimentacaoBancaria;
+import com.infinity.datamarket.comum.conta.RepositorioContaCorrente;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
+import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.ConcentradorControleId;
 import com.infinity.datamarket.comum.util.Controle;
 import com.infinity.datamarket.comum.util.IRepositorio;
 import com.infinity.datamarket.comum.util.IRepositorioControleId;
-import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class CadastroLancamento extends Cadastro{
 	private static CadastroLancamento instancia;
@@ -99,13 +100,26 @@ public class CadastroLancamento extends Cadastro{
 			}
 		}
 		Set<ContaCorrente> hashContas = CadastroMovimentacaoBancaria.getInstancia().getHashContas();
+		
+		if(hashContas.size() > 0 ){
+			RepositoryManagerHibernateUtil.beginTrasaction();
+		}
+		
 		Iterator<ContaCorrente> it = hashContas.iterator();
+		
+		
 		while (it.hasNext()){
 			ContaCorrente cTmp = (ContaCorrente)it.next();
 			ContaCorrente c = CadastroContaCorrente.getInstancia().consultarPorId(cTmp.getId());
 			c.setSaldo(cTmp.getSaldo());
-			CadastroContaCorrente.getInstancia().alterar(c);
+			RepositorioContaCorrente repCtaCorrente = (RepositorioContaCorrente)super.getRepositorio(IRepositorio.REPOSITORIO_CONTA_CORRENTE);
+			repCtaCorrente.alterar(c);			
 		}
+		
+		if(hashContas.size() > 0){
+			RepositoryManagerHibernateUtil.commitTransation();
+		}
+		CadastroMovimentacaoBancaria.getInstancia().setHashContas(new TreeSet<ContaCorrente>());
 	}
 	
 	public void lancarItemBaixaLancamentoContaCorrente(Lancamento lancamento, BaixaLancamento itemBaixaLanc, String tipoLancamento) throws AppException{
