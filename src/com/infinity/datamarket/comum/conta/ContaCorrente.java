@@ -67,10 +67,10 @@ public class ContaCorrente extends Persistente implements Comparable{
 		sb.append(getId());
 		sb.append(banco);
 		sb.append(idAgencia);
-//		sb.append(nome);
-//		sb.append(numero);
-//		sb.append(saldo);
-//		sb.append(situacao);
+		sb.append(nome);
+		sb.append(numero);
+		sb.append(saldo);
+		sb.append(situacao);
 		return sb.toString().hashCode();
 	}
 	@Override
