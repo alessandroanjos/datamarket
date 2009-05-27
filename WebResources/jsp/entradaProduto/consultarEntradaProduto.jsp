@@ -58,11 +58,7 @@
 							<fieldset>
 								<legend>Opções de filtro:</legend>
 								<ul>
-									<li class="normal">
-										<div>
-											<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
-										</div>
-								
+									<li class="normal">										
 											<div>
 												<h:outputLabel styleClass="desc" value="N.Fiscal"></h:outputLabel>
 												<h:inputText styleClass="field text" id="numeroNota"
@@ -159,24 +155,19 @@
 									</h:column>	
 						
 								</t:dataTable>
-								<ul>
-									<li class="normal">
-										<div>
-											<h:messages rendered="#{not entradaProdutoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
-										</div>
-									</li>
-								</ul>
+								<div>
+										<h:messages rendered="#{not entradaProdutoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+								</div>								
 							</div>
 							<ul>
 								<li class="buttons">
-<h:commandButton styleClass="btTxt" action="#{entradaProdutoBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" action="#{entradaProdutoBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{entradaProdutoBB.consultar}" value="Consultar"></h:commandButton>
 								</li>						
 							</ul>
 						</div>
 						<div class="clear"></div>
 					</div>
-					<jsp:include page="/jsp/rodape.jsp"></jsp:include>
 		</h:form>
 	  </body>	
 	</f:view>
