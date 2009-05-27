@@ -29,6 +29,7 @@ import com.infinity.datamarket.comum.financeiro.Lancamento;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.pagamento.ConstantesFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
+import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
@@ -1131,7 +1132,10 @@ public class BaixaLancamentoBackBean extends BackBean {
 		
 		List<ContaCorrente> contas = null;
 		try {
-			contas = (ArrayList<ContaCorrente>)getFachada().consultarTodosContaCorrente();
+			IPropertyFilter filtro = new PropertyFilter();
+			filtro.setTheClass(ContaCorrente.class);
+			filtro.addProperty("situacao", "S");
+			contas = (ArrayList<ContaCorrente>)getFachada().consultarContaCorrente(filtro);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -1231,7 +1235,10 @@ public class BaixaLancamentoBackBean extends BackBean {
 		
 		List<Banco> bancos = null;
 		try {
-			bancos = (ArrayList<Banco>)getFachada().consultarTodosBancos();
+			IPropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(Banco.class);
+			filter.addProperty("situacao", "A");
+			bancos = (ArrayList<Banco>)getFachada().consultarBanco(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();

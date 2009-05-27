@@ -91,7 +91,14 @@ public class EntradaProdutoBackBean extends BackBean {
 
 	private String idExcluir; 
 
+	String abaCorrente;
 	
+	public String getAbaCorrente() {
+		return abaCorrente;
+	}
+	public void setAbaCorrente(String abaCorrente) {
+		this.abaCorrente = abaCorrente;
+	}
 	/**
 	 * @return the produtoEntrada
 	 */
