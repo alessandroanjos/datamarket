@@ -374,6 +374,8 @@ public class DevolucaoBackBean extends BackBean {
 				
 				PropertyFilter filter = new PropertyFilter();
 				
+//				filter.setTheClass(OperacaoDevolucao.class);
+				
 				OperacaoPK operacaoPk = new OperacaoPK();
 				
 				if (this.getIdLoja() != null && !this.getIdLoja().equals("0")){	
@@ -387,9 +389,10 @@ public class DevolucaoBackBean extends BackBean {
 						throw new Exception("A Data Final deve ser maior que a Data Inicial.");
 					}
 					
-					filter.addPropertyInterval("dataDevolucao", this.getDataInicial(), IntervalObject.MAIOR_IGUAL);
-					this.getDataFinal().setDate(this.getDataFinal().getDate()+1);
-					filter.addPropertyInterval("dataDevolucao", this.getDataFinal(), IntervalObject.MENOR_IGUAL);
+					filter.addPropertyInterval("data", this.getDataInicial(), IntervalObject.MAIOR_IGUAL);
+					Date dataFinal = this.getDataFinal();
+					dataFinal.setDate(this.getDataFinal().getDate()+1);
+					filter.addPropertyInterval("data", dataFinal, IntervalObject.MENOR_IGUAL);
 				}
 				
 				if(this.getIdTipoPessoa() != null){
