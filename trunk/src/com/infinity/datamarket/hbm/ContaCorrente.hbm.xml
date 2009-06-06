@@ -45,6 +45,9 @@
 	          <column name="ID_BANCO" not-null="false"/>
         </many-to-one>
 
+        <many-to-one name="loja" class="com.infinity.datamarket.comum.usuario.Loja" update="true" insert="true">
+	          <column name="ID_LOJA" not-null="false"/>
+        </many-to-one>
 
     </class>
 

@@ -45,6 +45,14 @@
 								<ul>
 									<li class="normal">
 										<div>
+											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{estoqueBB.idLoja}"> 
+												<f:selectItems id="lojasSelectItems" value="#{estoqueBB.lojas}" />   
+											</h:selectOneMenu>
+										</div>
+										<br />
+										<br />
+										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
 											<h:inputText styleClass="field text ativo" id="id" maxlength="2" 
 											    onfocus="this.select();" onclick="this.select();"
@@ -53,7 +61,7 @@
 												<f:validateLength maximum="2" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
+											
 										</div>
 									
 										<div>
@@ -62,7 +70,7 @@
 												value="#{estoqueBB.descricao}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="descricao" styleClass="msgErro" />
+											
 										</div>
 									</li>
 								</ul>

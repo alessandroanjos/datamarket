@@ -63,7 +63,7 @@
 										</h:inputText>
 										
 									</div>
-									<h:message for="descricao" styleClass="msgErro"/>
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -77,7 +77,7 @@
 										</h:inputText>
 										
 									</div>
-									<h:message for="desagil" styleClass="msgErro"/>
+								
 								</li>
 								<li class="normal">
 									<div>
@@ -89,7 +89,7 @@
 										</h:selectOneRadio>
 										
 									</div>
-									<h:message for="situacao" styleClass="msgErro"/>
+									
 								</li>
 								<li class="buttons">
 								    <h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{autorizadoraBB.voltarConsulta}" value="Voltar"></h:commandButton>

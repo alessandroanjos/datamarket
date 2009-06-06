@@ -1,6 +1,5 @@
 package com.infinity.datamarket.comum.transacao;
 
-import java.io.Serializable;
 import java.util.Date;
 
 public class EventoTransacaoPK extends TransacaoPK{

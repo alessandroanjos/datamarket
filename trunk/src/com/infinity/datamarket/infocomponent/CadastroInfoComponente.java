@@ -11,7 +11,7 @@ import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroInfoComponente extends Cadastro {
 	private static CadastroInfoComponente instancia;
-	private static Class CLASSE = InfoComponent.class;
+//	private static Class CLASSE = InfoComponent.class;
 	private CadastroInfoComponente(){}
 	public static CadastroInfoComponente getInstancia(){
 		if (instancia == null){

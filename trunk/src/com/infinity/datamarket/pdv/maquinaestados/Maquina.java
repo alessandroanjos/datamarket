@@ -5,12 +5,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
-import sun.awt.windows.ThemeReader;
-
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
-import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.infocomponent.InfoComponent;
 import com.infinity.datamarket.infocomponent.InfoComponentPK;

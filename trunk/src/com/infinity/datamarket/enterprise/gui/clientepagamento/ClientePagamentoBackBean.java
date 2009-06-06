@@ -218,7 +218,12 @@ public class ClientePagamentoBackBean extends BackBean {
 				}
 				
 				filter.addPropertyInterval("dataPagamento", this.getDataInicial(), IntervalObject.MAIOR_IGUAL);
-				filter.addPropertyInterval("dataPagamento", this.getDataFinal(), IntervalObject.MENOR_IGUAL);
+				
+				Date dataFinal = new Date(this.getDataFinal().getTime());
+				
+				dataFinal.setDate(dataFinal.getDate()+1);
+				
+				filter.addPropertyInterval("dataPagamento", dataFinal, IntervalObject.MENOR_IGUAL);
 				
 				filter.addOrderByProperty("dataPagamento", PropertyFilter.DESC);
 				

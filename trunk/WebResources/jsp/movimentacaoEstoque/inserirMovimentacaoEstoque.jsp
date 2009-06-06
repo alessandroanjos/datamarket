@@ -106,7 +106,7 @@
 									<f:selectItems id="estoqueSelectItemsSaida"
 										value="#{movimentacaoEstoqueBB.estoques}" />
 								</h:selectOneMenu>
-								<h:message for="idEstoqueSaida" styleClass="errors" />
+								
 							</div>	
 							<div>	
 								<h:outputLabel styleClass="desc" value="Estoque Entrada"></h:outputLabel>
@@ -115,7 +115,7 @@
 									<f:selectItems id="estoqueSelectItemsEntrada"
 										value="#{movimentacaoEstoqueBB.estoques}" />
 								</h:selectOneMenu>
-								<h:message for="idEstoqueEntrada" styleClass="errors" />
+								
 							</div>
 						</li>
 
@@ -149,7 +149,7 @@
 									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
-								<h:message for="quantidade" styleClass="msgErro" />
+								
 								<h:commandButton image="/images/adicionar.png" alt="Inserir Produto" id="botaoInserirProduto"
 									action="#{movimentacaoEstoqueBB.inserirProduto}">
 								</h:commandButton>

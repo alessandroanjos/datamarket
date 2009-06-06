@@ -3,28 +3,26 @@
  */
 package com.infinity.datamarket.enterprise.gui.relatorios.produtosporsecao;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+import org.hibernate.collection.PersistentSet;
 
 import com.infinity.datamarket.comum.produto.GrupoProduto;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
-//import com.infinity.datamarket.report.ConstantsReport;
 
 /**
  * @author jonas
@@ -168,11 +166,14 @@ public class RelatorioProdutosPorSecaoBackBean extends BackBean {
 		this.grupos = grupos;
 	}
 	
-	private List<Loja> carregarLojas() {
+	private Set<Loja> carregarLojas() {
 		
-		List<Loja> lojas = null;
+//		List<Loja> lojas = null;
+//		try {
+//			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+		Set<Loja> lojas = null;
 		try {
-			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -186,7 +187,7 @@ public class RelatorioProdutosPorSecaoBackBean extends BackBean {
 	public SelectItem[] getLojas(){
 		SelectItem[] arrayLojasAssociadas = null;
 		try {
-			List<Loja> lojas = carregarLojas();
+			Set<Loja> lojas = carregarLojas();
 			arrayLojasAssociadas = new SelectItem[lojas.size()];
 			int i = 0;
 			for(Loja lojasAssociadasTmp : lojas){

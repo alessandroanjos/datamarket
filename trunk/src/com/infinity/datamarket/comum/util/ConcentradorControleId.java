@@ -1,7 +1,5 @@
 package com.infinity.datamarket.comum.util;
 
-import org.hibernate.Query;
-
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 

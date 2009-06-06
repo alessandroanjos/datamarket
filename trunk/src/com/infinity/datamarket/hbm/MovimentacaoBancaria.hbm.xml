@@ -38,10 +38,14 @@
         <many-to-one name="conta" class="com.infinity.datamarket.comum.conta.ContaCorrente" update="true" insert="true">
 	          <column name="ID_CONTA" not-null="true"/>
         </many-to-one>
+        
         <many-to-one name="forma" class="com.infinity.datamarket.comum.pagamento.FormaRecebimento" update="true" insert="true">
 	          <column name="ID_FORMA" not-null="false"/>
         </many-to-one>
 
+		<property name="saldoAnteriorConta" type="java.math.BigDecimal" update="true" insert="true">
+	            <column name="SALDO_ANTERIOR_CONTA" length="20" not-null="true"/>
+        </property> 
     </class>
 
 </hibernate-mapping>

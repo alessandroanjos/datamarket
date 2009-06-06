@@ -63,7 +63,7 @@
 										</h:inputText>
 										
 									</div>
-									<h:message for="descricao" styleClass="msgErro"/>
+									
 								</li>							
 								<li class="buttons">
 								    <h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{grupoLancamentoBB.voltarConsulta}" value="Voltar"></h:commandButton>

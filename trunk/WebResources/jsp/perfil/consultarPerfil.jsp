@@ -50,7 +50,7 @@
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Descrição"></h:outputLabel>
@@ -58,7 +58,7 @@
 												value="#{perfilBB.descricao}" required="false">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="descricao" styleClass="msgErro" />
+											
 										</div>
 										<br />
 										<br />
@@ -69,7 +69,7 @@
 													  <f:selectItems id="perfilSelectItems" 
 													  value="#{perfilBB.perfis}" />   
 											</h:selectOneMenu> 
-											<h:message for="perfis" styleClass="msgErro" />
+											
 										</div>
 									</li>
 								</ul>

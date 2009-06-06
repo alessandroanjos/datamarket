@@ -1,10 +1,7 @@
 package com.infinity.datamarket.comum.transacao;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
-
-import com.infinity.datamarket.comum.util.Persistente;
 
 public class ClienteTransacao implements Serializable {
 	

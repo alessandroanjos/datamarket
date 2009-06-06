@@ -5,11 +5,7 @@ package com.infinity.datamarket.comum.estoque;
 
 import java.util.Collection;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
-
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.IRepositorio;

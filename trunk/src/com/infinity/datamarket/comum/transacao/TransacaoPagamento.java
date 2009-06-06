@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
-import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
-
 public class TransacaoPagamento extends Transacao{
 
 	/**

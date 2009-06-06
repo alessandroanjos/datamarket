@@ -6,7 +6,6 @@
 
 package com.infinity.datamarket.pdv.gui.telas;
 
-import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 

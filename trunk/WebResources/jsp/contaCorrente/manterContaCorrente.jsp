@@ -47,12 +47,19 @@
 								</li>
 								<li class="normal">
 									<div>
+										<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+										<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{contaCorrenteBB.idLoja}"> 
+											<f:selectItems id="lojasSelectItems" value="#{contaCorrenteBB.lojas}" />   
+										</h:selectOneMenu>
+									</div>	
+									<br />
+									<br />
+									<div>
 										<h:outputLabel styleClass="desc" value="Banco"></h:outputLabel>
 										<h:selectOneMenu id="idBanco" styleClass="field select"
 											value="#{contaCorrenteBB.idBanco}" style="width: 200px;">		
 											<f:selectItems id="bancoSelectItems" value="#{contaCorrenteBB.bancos}" />
 										</h:selectOneMenu>
-										<h:message for="idBanco" styleClass="msgErro" />
 									</div>
 								</li>
 								<li class="normal">

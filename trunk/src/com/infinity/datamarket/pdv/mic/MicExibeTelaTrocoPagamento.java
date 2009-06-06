@@ -6,7 +6,6 @@ import java.util.Iterator;
 
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
-import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
 import com.infinity.datamarket.comum.transacao.EventoTransacao;
 import com.infinity.datamarket.comum.transacao.TransacaoPagamento;
 import com.infinity.datamarket.comum.util.AppException;
@@ -14,7 +13,6 @@ import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
-import com.infinity.datamarket.pdv.gui.telas.TelaTroco;
 import com.infinity.datamarket.pdv.gui.telas.TelaTrocoPagamento;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;

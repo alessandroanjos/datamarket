@@ -12,7 +12,6 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
-import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class GrupoLancamentoBackBean extends BackBean {

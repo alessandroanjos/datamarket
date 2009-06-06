@@ -94,7 +94,7 @@
 												<f:validateLength maximum="50" />
 											</h:inputText>
 										</div>
-										<h:message for="descricaoCompleta" styleClass="msgErro" />
+										
 									</li>
 									<li class="normal">
 										<div>
@@ -106,7 +106,7 @@
 											</h:inputText>
 
 										</div>
-										<h:message for="descricaoCompacta" styleClass="msgErro" />
+										
 									</li>
 									<li class="normal">
 										<div>
@@ -117,7 +117,7 @@
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateDoubleRange minimum="0.00" maximum="999999.99" />
 											</h:inputText>
-											<h:message for="precoPadrao" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Preço Promocional"></h:outputLabel>
@@ -128,7 +128,7 @@
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateDoubleRange minimum="0.00" maximum="999999.99" />
 											</h:inputText>
-											<h:message for="precoPromocional" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Preço de Compra"></h:outputLabel>
@@ -139,7 +139,7 @@
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateDoubleRange minimum="0.01" maximum="999999.99" />
 											</h:inputText>
-											<h:message for="precoCompra" styleClass="msgErro" />
+											
 										</div>
 									</li>
 									<li class="normal">
@@ -151,7 +151,7 @@
 												onkeypress="return SoNumero(event);"  required="true">
 												<f:validateLength maximum="15" />
 											</h:inputText>
-											<h:message for="codigoExterno" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Código Automação*"></h:outputLabel>
@@ -163,7 +163,7 @@
 												required="true">
 												<f:validateLength maximum="15" />
 											</h:inputText>
-											<h:message for="codigoAutomacao" styleClass="msgErro" />
+											
 										</div>
 									</li>
 									<li class="normal">
@@ -175,7 +175,7 @@
 												<f:selectItems id="tiposSelectItems"
 													value="#{produtoBB.tipos}" />
 											</h:selectOneMenu>
-											<h:message for="idTipoProduto" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Grupo de Produto*"></h:outputLabel>
@@ -185,7 +185,7 @@
 												<f:selectItems id="gruposSelectItems"
 													value="#{produtoBB.grupos}" />
 											</h:selectOneMenu>
-											<h:message for="idGrupo" styleClass="msgErro" />
+											
 										</div>
 									</li>
 									<li class="normal">
@@ -197,7 +197,7 @@
 												<f:selectItems id="unidadeSelectItems"
 													value="#{produtoBB.unidades}" />
 											</h:selectOneMenu>
-											<h:message for="idUnidade" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Imposto*"></h:outputLabel>
@@ -207,7 +207,7 @@
 												<f:selectItems id="impostosSelectItems"
 													value="#{produtoBB.impostos}" />
 											</h:selectOneMenu>
-											<h:message for="idImposto" styleClass="msgErro" />
+											
 										</div>
 									</li>
 									<li class="normal">	
@@ -219,7 +219,7 @@
 												<f:selectItems id="fabricantesSelectItems"
 													value="#{produtoBB.fabricantes}" />
 											</h:selectOneMenu>
-											<h:message for="idFabricante" styleClass="msgErro" />
+											
 										</div>
 									</li>
 								</ul>
@@ -235,7 +235,7 @@
 												value="#{produtoBB.listaLojas}">
 												<f:selectItems value="#{produtoBB.lojas}" />
 											</h:selectManyCheckbox>
-											<h:message for="listaLojas" styleClass="msgErro" />
+											
 										</div>
 
 									</li>

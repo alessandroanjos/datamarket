@@ -1,7 +1,6 @@
 package com.infinity.datamarket.comum.pagamento;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
 
 import com.infinity.datamarket.comum.util.Constantes;

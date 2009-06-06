@@ -24,13 +24,12 @@ public class LoginBackBean extends BackBean{
 	private String senha;
 	private NavigationMenuItem[] navItens;
 	
-	private static String pathAplicacao = "";    
+	private static String pathAplicacao = "";
+	
+	private static LoginBackBean instancia;
 
 	public String logar(){  
-		int i = 0;
-		try{
-			
-			
+		try{			
 			if(this.getId() == null || this.getId().equals("")){
 			   throw new AppException("Informe seu Login.");	
 			}
@@ -51,6 +50,7 @@ public class LoginBackBean extends BackBean{
 			}
 			setUsuario(usu);
 			setNavItems(usu);
+			instancia = this;
 		}catch(ObjectNotFoundException e){
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -262,6 +262,13 @@ public class LoginBackBean extends BackBean{
 //			t.printStackTrace();
 //		}
 		logout();
+	}
+	
+	public static LoginBackBean getInstancia(){
+		if(instancia == null){
+			instancia = new LoginBackBean();
+		}
+		return instancia;
 	}
 }
 

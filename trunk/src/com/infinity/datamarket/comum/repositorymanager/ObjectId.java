@@ -20,7 +20,7 @@ public class ObjectId {
 		return Id;
 	}
 	public void setId(Long chave) {
-		this.Id = Id;
+		this.Id = chave;
 	}
 
 	public boolean equals(Object _obj){

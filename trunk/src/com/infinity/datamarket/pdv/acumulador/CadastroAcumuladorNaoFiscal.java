@@ -5,12 +5,9 @@ package com.infinity.datamarket.pdv.acumulador;
 
 import java.util.Collection;
 
-import com.infinity.datamarket.autorizador.IRepositorioAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
-import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.comum.util.IRepositorio;
 
 /**
@@ -19,7 +16,7 @@ import com.infinity.datamarket.comum.util.IRepositorio;
  */
 public class CadastroAcumuladorNaoFiscal extends Cadastro {
 	private static CadastroAcumuladorNaoFiscal instancia;
-	private static Class CLASSE = AcumuladorNaoFiscal.class;
+//	private static Class CLASSE = AcumuladorNaoFiscal.class;
 	private CadastroAcumuladorNaoFiscal(){}
 	public static CadastroAcumuladorNaoFiscal getInstancia(){
 		if (instancia == null){

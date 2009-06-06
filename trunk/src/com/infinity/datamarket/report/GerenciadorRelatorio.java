@@ -632,11 +632,11 @@ public OutputStream gerarRelatorioAnaliticoOperacoesDevolucao(int loja, Date dat
 			
 			Map<String, String> parametros = new HashMap<String, String>();
 			
-			DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+//			DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
 
 			parametros.put("empresa", EMPRESA);	
 			
-			Iterator it = parametros.entrySet().iterator();
+//			Iterator it = parametros.entrySet().iterator();
 
 //			while(it.hasNext()){
 //				String o = (String)it.next();

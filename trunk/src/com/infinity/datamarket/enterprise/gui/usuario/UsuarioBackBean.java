@@ -17,6 +17,8 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.hibernate.collection.PersistentSet;
+
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -24,6 +26,7 @@ import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.usuario.Vendedor;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -52,11 +55,16 @@ public class UsuarioBackBean extends BackBean {
 	SelectItem[] tiposUsuario;
 	String idTipoUsuario;
 	
-	
-//	public UsuarioBackBean(){
-//		resetBB();
-//	}
-	
+	String idLoja;
+		
+	public String getIdLoja() {
+		return idLoja;
+	}
+
+	public void setIdLoja(String idLoja) {
+		this.idLoja = idLoja;
+	}
+
 	public String getIdTipoUsuario() {
 		return idTipoUsuario;
 	}
@@ -301,6 +309,14 @@ public class UsuarioBackBean extends BackBean {
 			if (getIdPerfil() != null && !"".equals(getIdPerfil()) && !"0".equals(getIdPerfil())){	
 				filter.addProperty("perfil.id", new Long(getIdPerfil()));
 			}
+			
+//			if (getIdLoja() != null && !"".equals(getIdLoja()) && !"0".equals(getIdLoja())){
+//				Set<Loja> lojasTmp = new HashSet<Loja>();
+//				Loja loja = new Loja();
+//				loja.setId(new Long(getIdLoja()));
+//				lojasTmp.add(getFachada().consultarLojaPorId(loja.getId()));
+//				filter.addProperty("lojas.", lojasTmp);
+//			}
 			
 			if (this.getIdTipoUsuario().equals(SIM)){
 				filter.setTheClass(Vendedor.class);
@@ -558,11 +574,14 @@ public class UsuarioBackBean extends BackBean {
 		return arrayPerfis;
 	}
 	
-	private List<Loja> carregarLojas() {
+	private Set<Loja> carregarLojas() {
 		
-		List<Loja> lojas = null;
+//		List<Loja> lojas = null;
+//		try {
+//			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+		Set<Loja> lojas = null;
 		try {
-			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -576,7 +595,7 @@ public class UsuarioBackBean extends BackBean {
 	public SelectItem[] getLojas(){
 		SelectItem[] arrayLojasAssociadas = null;
 		try {
-			List<Loja> lojas = carregarLojas();
+			Set<Loja> lojas = carregarLojas();
 			arrayLojasAssociadas = new SelectItem[lojas.size()];
 			int i = 0;
 			for(Loja lojasAssociadasTmp : lojas){

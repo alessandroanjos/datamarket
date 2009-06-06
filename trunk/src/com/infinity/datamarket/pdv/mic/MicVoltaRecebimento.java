@@ -2,7 +2,6 @@ package com.infinity.datamarket.pdv.mic;
 
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;

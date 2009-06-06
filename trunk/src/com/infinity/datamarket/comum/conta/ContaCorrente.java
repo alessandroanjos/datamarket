@@ -3,6 +3,7 @@ package com.infinity.datamarket.comum.conta;
 import java.math.BigDecimal;
 
 import com.infinity.datamarket.comum.banco.Banco;
+import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class ContaCorrente extends Persistente implements Comparable{
@@ -21,6 +22,15 @@ public class ContaCorrente extends Persistente implements Comparable{
 	private BigDecimal saldo;
 	private String situacao;
 	private Banco banco;
+	private Loja loja;
+	
+	
+	public Loja getLoja() {
+		return loja;
+	}
+	public void setLoja(Loja loja) {
+		this.loja = loja;
+	}
 	public Banco getBanco() {
 		return banco;
 	}
@@ -71,6 +81,7 @@ public class ContaCorrente extends Persistente implements Comparable{
 		sb.append(numero);
 		sb.append(saldo);
 		sb.append(situacao);
+		sb.append(loja.getId());
 		return sb.toString().hashCode();
 	}
 	@Override

@@ -7,21 +7,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.hibernate.collection.PersistentSet;
+
 import com.infinity.datamarket.comum.banco.Banco;
 import com.infinity.datamarket.comum.conta.ContaCorrente;
-import com.infinity.datamarket.comum.estoque.EntradaProduto;
-import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -47,6 +50,55 @@ public class ContaCorrenteBackBean extends BackBean {
 	private String numeroConsulta;
 	private String nomeConsulta;
 	
+	private String idLoja;
+	private Set<Loja> lojas;
+	
+	public String getIdLoja() {
+		return idLoja;
+	}
+
+	public void setIdLoja(String idLoja) {
+		this.idLoja = idLoja;
+	}
+
+	private Set<Loja> carregarLojas() {		
+		Set<Loja> lojas = null;
+		try {
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return lojas;
+	}
+
+	public SelectItem[] getLojas() {
+		SelectItem[] arrayLojas = null;
+		try {
+			Set<Loja> lojas = carregarLojas();
+			arrayLojas = new SelectItem[lojas.size()];
+			int i = 0;
+			for(Loja lojasTmp : lojas){
+				SelectItem item = new SelectItem(lojasTmp.getId().toString(), lojasTmp.getNome());
+				arrayLojas[i++] = item;
+			}
+			if(this.getIdLoja() == null && arrayLojas.length > 0){
+				this.setIdLoja(arrayLojas[0].getValue().toString());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayLojas;
+	}
+
 	public String voltarConsulta() {
 		consultar();
 		return "voltar";
@@ -76,6 +128,12 @@ public class ContaCorrenteBackBean extends BackBean {
 			contaCorrente.setSaldo(this.saldo);
 			contaCorrente.setSituacao(this.situacao);
 			contaCorrente.setBanco(this.banco);
+			
+			Loja loja = new Loja();
+			loja.setId(new Long(this.getIdLoja()));
+			
+			contaCorrente.setLoja(loja);
+			
 			if (getId()==null) contaCorrente.setId(getIdInc(ContaCorrente.class));
 			getFachada().inserirContaCorrente(contaCorrente);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -118,6 +176,12 @@ public class ContaCorrenteBackBean extends BackBean {
 				}
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(ContaCorrente.class);
+				if (getIdLoja() != null && !"0".equals(getIdLoja())){				
+					filter.addProperty("loja.id", new Long(getIdLoja()));
+				}
+				if (getIdBanco() != null && !"0".equals(getIdBanco())){				
+					filter.addProperty("banco.id", new Long(getIdBanco()));
+				}
 				if (getIdAgenciaConsulta() != null && !"".equals(getIdAgenciaConsulta())){				
 					filter.addProperty("idAgencia", getIdAgenciaConsulta());
 				}
@@ -179,8 +243,15 @@ public class ContaCorrenteBackBean extends BackBean {
 			contaCorrente.setNumero(this.numero);
 			contaCorrente.setSaldo(this.saldo);
 			contaCorrente.setSituacao(this.situacao);
-			Banco banco = getFachada().consultarBancoPorID(this.idBanco);
+			Banco banco = new Banco();
+			banco.setId(new Long(this.getIdBanco()));
 			contaCorrente.setBanco(banco);
+			
+			Loja loja = new Loja();
+			loja.setId(new Long(this.getIdLoja()));
+			
+			contaCorrente.setLoja(loja);
+			
 
 			getFachada().alterarContaCorrente(contaCorrente);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -241,7 +312,7 @@ public class ContaCorrenteBackBean extends BackBean {
 		this.setSituacao(null);
 		this.setBanco(null);
 		this.setSituacao(Constantes.SIM);
-		this.setIdBanco(null);
+		this.setIdBanco("0");
 	}
 	
 	public void resetConsultaBB() {

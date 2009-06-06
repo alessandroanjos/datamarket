@@ -1,20 +1,13 @@
 package com.infinity.datamarket.pdv.mic;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import com.infinity.datamarket.autorizador.AutorizacaoException;
 import com.infinity.datamarket.autorizador.AutorizadorServerRemote;
-import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
 import com.infinity.datamarket.autorizador.DadosConsultaCartaoProprio;
-import com.infinity.datamarket.comum.pagamento.DadosCartaoProprio;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
-import com.infinity.datamarket.pdv.gui.telas.TelaConsultaCartaoProprio;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;

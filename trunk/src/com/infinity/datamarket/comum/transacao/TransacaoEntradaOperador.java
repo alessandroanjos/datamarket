@@ -1,7 +1,6 @@
 package com.infinity.datamarket.comum.transacao;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class TransacaoEntradaOperador extends Transacao{
 

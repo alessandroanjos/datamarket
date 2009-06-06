@@ -52,12 +52,17 @@
 		</div>	
 		<h:form id="frmConsultarProduto" binding="#{produtoBB.init}">
 				<div id="content">
-				
 						<div id="primarioContentContainerInternas" style="width:100%;">
 							<fieldset>
 								<legend>Opções de filtro:</legend>
 								<ul>
 									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{produtoBB.idLoja}"> 
+												<f:selectItems id="lojasSelectItems" value="#{produtoBB.lojas}" />   
+											</h:selectOneMenu>
+										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
 											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
@@ -65,71 +70,65 @@
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Descrição Completa"></h:outputLabel>
-											<h:inputText styleClass="field text" id="descricaoCompleta" maxlength="50" size="50"
+											<h:inputText styleClass="field text" id="descricaoCompleta" maxlength="50" size="55"
 												value="#{produtoBB.descricaoCompleta}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="descricaoCompleta" styleClass="msgErro" />
 										</div>
 										<br />
 										<br />
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo de Produto"></h:outputLabel>
-											<h:selectOneMenu id="tiposProduto" styleClass="field select"
+											<h:selectOneMenu id="tiposProduto" styleClass="field select" style="width: 200px;"
 												value="#{produtoBB.idTipoProduto}" > 
 													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
 													<f:selectItems id="perfilSelectItems" 
 													  value="#{produtoBB.tiposConsulta}" />   
-											</h:selectOneMenu> 
-											<h:message for="idTipoProduto" styleClass="msgErro" />											
+											</h:selectOneMenu> 							
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Grupo de Produto"></h:outputLabel>
-											<h:selectOneMenu id="gruposProduto" styleClass="field select"
+											<h:selectOneMenu id="gruposProduto" styleClass="field select" style="width: 200px;"
 												value="#{produtoBB.idGrupo}" > 
 													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
 													<f:selectItems id="perfilSelectItems" 
 													  value="#{produtoBB.gruposConsulta}" />   
-											</h:selectOneMenu> 
-											<h:message for="idGrupo" styleClass="msgErro" />											
+											</h:selectOneMenu> 									
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Unidade"></h:outputLabel>
-											<h:selectOneMenu id="unidades" styleClass="field select"
+											<h:selectOneMenu id="unidades" styleClass="field select" style="width: 200px;"
 												value="#{produtoBB.idUnidade}" > 
 													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
 													<f:selectItems id="perfilSelectItems" 
 													  value="#{produtoBB.unidadesConsulta}" />   
-											</h:selectOneMenu> 
-											<h:message for="idUnidade" styleClass="msgErro" />											
+											</h:selectOneMenu> 							
 										</div>
+										<br />
+										<br />
 										<div>
 											<h:outputLabel styleClass="desc" value="Imposto"></h:outputLabel>
-											<h:selectOneMenu id="impostos" styleClass="field select"
+											<h:selectOneMenu id="impostos" styleClass="field select" style="width: 200px;"
 												value="#{produtoBB.idImposto}" > 
 													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
 													<f:selectItems id="perfilSelectItems" 
 													  value="#{produtoBB.impostosConsulta}" />   
-											</h:selectOneMenu> 
-											<h:message for="idImposto" styleClass="msgErro" />											
+											</h:selectOneMenu> 							
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Fabricante"></h:outputLabel>
-											<h:selectOneMenu id="fabricante"  styleClass="field select" style="width: 150px;"
+											<h:selectOneMenu id="fabricante"  styleClass="field select" style="width: 200px;"
 												value="#{produtoBB.idFabricante}" > 
 													<f:selectItems id="fabricanteSelectItems" 
 													  value="#{produtoBB.fabricantesConsulta}" />   
-											</h:selectOneMenu> 
-											<h:message for="idFabricante" styleClass="msgErro" />											
-											</li>
+											</h:selectOneMenu> 																						
 										</div>										
 									</li>
 								</ul>
-							</fieldset>	
+							</fieldset>
 							<div class="listagem">
 								<t:dataTable value="#{produtoBB.produtos}"
 									var="produto" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">

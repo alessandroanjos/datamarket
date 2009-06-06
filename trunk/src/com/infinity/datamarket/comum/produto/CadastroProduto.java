@@ -1,14 +1,11 @@
 package com.infinity.datamarket.comum.produto;
 
 import java.util.Collection;
-import java.util.List;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.IRepositorio;
-import com.infinity.datamarket.comum.util.ObjetoInexistenteException;
 
 public class CadastroProduto extends Cadastro{
 	private static CadastroProduto instancia;

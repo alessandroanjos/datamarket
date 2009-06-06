@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
@@ -14,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.hibernate.HibernateException;
+import org.hibernate.collection.PersistentSet;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.infinity.datamarket.comum.fabricante.Fabricante;
@@ -25,8 +27,10 @@ import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.ValidationException;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class ProdutoBackBean extends BackBean{
@@ -49,8 +53,19 @@ public class ProdutoBackBean extends BackBean{
 	
 	private Collection produtos;
 	
+
+	private String idLoja;
 	
-	
+	public String getIdLoja() {
+		return idLoja;
+	}
+
+
+	public void setIdLoja(String idLoja) {
+		this.idLoja = idLoja;
+	}
+
+
 	public String getCodigoAutomacao() {
 		return codigoAutomacao;
 	}
@@ -305,21 +320,26 @@ public class ProdutoBackBean extends BackBean{
 			if (getDescricaoCompleta() != null && !"".equals(getDescricaoCompleta())){				
 				filter.addProperty("descricaoCompleta", getDescricaoCompleta());
 			}
-			if (getIdTipoProduto() != null && !"".equals(getIdTipoProduto())){				
+			if (getIdTipoProduto() != null && !"0".equals(getIdTipoProduto())){				
 				filter.addProperty("tipo.id", new Long(getIdTipoProduto()));
 			}
-			if (getIdGrupo() != null && !"".equals(getIdGrupo())){				
+			if (getIdGrupo() != null && !"0".equals(getIdGrupo())){				
 				filter.addProperty("grupo.id", new Long(getIdGrupo()));
 			}
-			if (getIdImposto() != null && !"".equals(getIdImposto())){				
+			if (getIdImposto() != null && !"0".equals(getIdImposto())){				
 				filter.addProperty("imposto.id", new Long(getIdImposto()));
 			}
-			if (getIdUnidade() != null && !"".equals(getIdUnidade())){				
+			if (getIdUnidade() != null && !"0".equals(getIdUnidade())){				
 				filter.addProperty("unidade.id", new Long(getIdUnidade()));
 			}
-			if (getIdFabricante() != null && !"".equals(getIdFabricante())){				
+			if (getIdFabricante() != null && !"0".equals(getIdFabricante())){				
 				filter.addProperty("fabricante.id", new Long(getIdFabricante()));
 			}
+//			if (getIdLoja() != null && !"0".equals(getIdLoja())){
+//				Loja l = new Loja();
+//				l.setId(new Long(getIdLoja()));
+//				filter.addProperty("lojas.loja.id",l.getId());
+//			}
 			Collection col = getFachada().consultarProdutoPorFiltro(filter,false);
 			if (col == null || col.size() == 0){
 				setProdutos(null);
@@ -443,15 +463,16 @@ public class ProdutoBackBean extends BackBean{
 	
 	public SelectItem[] getGruposConsulta() {
 		SelectItem[] retorno = getGrupos(); 
-		idGrupo = "";
+//		idGrupo = "";
 		return retorno;
 	}
 	
 	public SelectItem[] getGrupos() {
 		Collection grupos = carregarGrupos();
-		SelectItem[] itens = new SelectItem[grupos.size()];
+		SelectItem[] itens = new SelectItem[grupos.size()+1];
 		Iterator it = grupos.iterator();
-		for(int i = 0;it.hasNext();i++){
+		itens[0] = new SelectItem("0","");
+		for(int i = 1;it.hasNext();i++){
 			GrupoProduto grupo = (GrupoProduto) it.next();
 			SelectItem item = new SelectItem(String.valueOf(grupo.getId()),
 					grupo.getDescricao());
@@ -478,15 +499,16 @@ public class ProdutoBackBean extends BackBean{
 	
 	public SelectItem[] getTiposConsulta() {
 		SelectItem[] retorno = getTipos(); 
-		idTipoProduto = "";
+//		idTipoProduto = "";
 		return retorno;
 	}
 	
 	public SelectItem[] getTipos() {
 		Collection tipos = carregarTipos();
-		SelectItem[] itens = new SelectItem[tipos.size()];
+		SelectItem[] itens = new SelectItem[tipos.size()+1];
+		itens[0] = new SelectItem("0","");
 		Iterator it = tipos.iterator();
-		for(int i = 0;it.hasNext();i++){
+		for(int i = 1;it.hasNext();i++){
 			TipoProduto tipo = (TipoProduto) it.next();
 			SelectItem item = new SelectItem(String.valueOf(tipo.getId()),tipo.getDescricao());
 			itens[i] = item;
@@ -512,15 +534,16 @@ public class ProdutoBackBean extends BackBean{
 	
 	public SelectItem[] getUnidadesConsulta() {
 		SelectItem[] retorno = getUnidades(); 
-		idUnidade = "";
+//		idUnidade = "";
 		return retorno;
 	}
 	
 	public SelectItem[] getUnidades() {
 		Collection unidades = carregarUnidades();
-		SelectItem[] itens = new SelectItem[unidades.size()];
+		SelectItem[] itens = new SelectItem[unidades.size()+1];
 		Iterator it = unidades.iterator();
-		for(int i = 0;it.hasNext();i++){
+		itens[0] = new SelectItem("0","");
+		for(int i = 1;it.hasNext();i++){
 			Unidade unidade = (Unidade) it.next();
 			SelectItem item = new SelectItem(String.valueOf(unidade.getId()),unidade.getDescricao());
 			itens[i] = item;
@@ -547,19 +570,20 @@ public class ProdutoBackBean extends BackBean{
 	
 	public SelectItem[] getImpostosConsulta() {
 		SelectItem[] retorno = getImpostos(); 
-		idImposto = "";
+//		idImposto = "";
 		return retorno;
 	}
 	public SelectItem[] getFabricantesConsulta() {
 		SelectItem[] retorno = getFabricantes(); 
-		idFabricante = "";
+//		idFabricante = "";
 		return retorno;
 	}
 	public SelectItem[] getImpostos() {
 		Collection impostos = carregarImpostos();
-		SelectItem[] itens = new SelectItem[impostos.size()];
+		SelectItem[] itens = new SelectItem[impostos.size()+1];
 		Iterator it = impostos.iterator();
-		for(int i = 0;it.hasNext();i++){
+		itens[0] = new SelectItem("0","");
+		for(int i = 1;it.hasNext();i++){
 			Imposto imposto = (Imposto) it.next();
 			SelectItem item = new SelectItem(String.valueOf(imposto.getId()),imposto.getDescricao());
 			itens[i] = item;
@@ -597,9 +621,12 @@ public class ProdutoBackBean extends BackBean{
 	}
 	
 	private Collection carregarLojas() {
-		Collection lojas = null;
-		try{
-			lojas = getFachada().consultarTodosLoja();
+//		Collection lojas = null;
+//		try{
+//			lojas = getFachada().consultarTodosLoja();
+		Set<Loja> lojas = null;
+		try {
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		}catch(Exception e){
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,

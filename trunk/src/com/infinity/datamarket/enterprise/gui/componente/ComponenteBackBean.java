@@ -2,21 +2,23 @@ package com.infinity.datamarket.enterprise.gui.componente;
 /**
  * 
  */
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.hibernate.collection.PersistentSet;
+
 import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -125,10 +127,24 @@ public class ComponenteBackBean extends BackBean {
 				this.setPorta(componente.getPorta());
 				this.setIdLoja(componente.getLoja().getId().toString());
 				return "proxima";
-			}else if (getDescricao() != null && !"".equals(getDescricao())){
+			}else if ((this.getId() != null && !"".equals(this.getId())) || 
+					(this.getDescricao() != null && !"".equals(this.getDescricao())) || 
+					(this.getIdLoja() != null && !"0".equals(this.getIdLoja()))){
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(Componente.class);
-				filter.addProperty("descricao", getDescricao());
+				
+				if(this.getId() != null && !this.getId().equals("")){
+					filter.addProperty("id", this.getDescricao());	
+				}
+				
+				if(this.getDescricao() != null && !this.getDescricao().equals("")){
+					filter.addProperty("descricao", this.getDescricao());	
+				}
+				
+				if(this.getIdLoja() != null && !this.getIdLoja().equals("0")){
+					filter.addProperty("loja.id", new Long(this.getIdLoja()));	
+				}
+				
 				Collection col = getFachada().consultarComponentes(filter);
 				if (col == null || col.size() == 0){
 					setExisteRegistros(false);
@@ -247,11 +263,14 @@ public class ComponenteBackBean extends BackBean {
 		this.setIdLoja(null);
 	}
 	
-    private List<Loja> carregarLojas() {
+    private Set<Loja> carregarLojas() {
 		
-		List<Loja> lojas = null;
+//		List<Loja> lojas = null;
+//		try {
+//			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+		Set<Loja> lojas = null;
 		try {
-			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -265,7 +284,7 @@ public class ComponenteBackBean extends BackBean {
 	public SelectItem[] getLojas(){
 		SelectItem[] arrayLojas = null;
 		try {
-			List<Loja> lojas = carregarLojas();
+			Set<Loja> lojas = carregarLojas();
 			arrayLojas = new SelectItem[lojas.size()];
 			int i = 0;
 			for(Loja lojaTmp : lojas){

@@ -2,16 +2,12 @@ package com.infinity.datamarket.pdv.gerenciadorperifericos.components;
 
 	import java.awt.Toolkit;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Locale;
 
 import javax.swing.JTextField;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.MaskFormatter;
 import javax.swing.text.PlainDocument;
-import javax.swing.text.SimpleAttributeSet;
 
 import com.infinity.datamarket.comum.util.StringUtil;
 

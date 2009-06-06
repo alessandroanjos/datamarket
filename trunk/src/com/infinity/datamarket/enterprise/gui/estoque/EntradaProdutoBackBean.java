@@ -15,18 +15,22 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.collection.PersistentSet;
+
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
-import com.infinity.datamarket.comum.estoque.EstoquePK;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProdutoPK;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.produto.Produto;
+import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -34,6 +38,7 @@ import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalOb
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class EntradaProdutoBackBean extends BackBean {
@@ -41,10 +46,6 @@ public class EntradaProdutoBackBean extends BackBean {
 	EntradaProduto entradaProduto;
 
 	private static final int HashSet = 0;
-//	public EntradaProdutoBackBean() {
-//		// TODO Auto-generated constructor stub
-//		setDataEntrada(new Date(System.currentTimeMillis()));
-//	}
 	private String id;
 	private String numeroNota;
 	private Date dataEmissaoNota;
@@ -65,6 +66,8 @@ public class EntradaProdutoBackBean extends BackBean {
 	
 	private String idStatus;
 	private SelectItem[] listaStatus;
+	
+	private SelectItem[] lojas;
     
 	// Atributos para montar os Produtos
 	private String idProduto; 
@@ -570,8 +573,13 @@ public class EntradaProdutoBackBean extends BackBean {
 					} 
 					if (getDataInicio() != null && !"".equals(getDataInicio())) {
 						filter.addPropertyInterval("dataEntrada",getDataInicio(), IntervalObject.MAIOR_IGUAL);
-						if (getDataFinal() != null && !"".equals(getDataFinal()))
-						filter.addPropertyInterval("dataEntrada",getDataFinal(), IntervalObject.MENOR_IGUAL);
+						if (getDataFinal() != null && !"".equals(getDataFinal())){
+							Date dataFinal = new Date(this.getDataFinal().getTime());					
+							dataFinal.setDate(dataFinal.getDate()+1);
+							filter.addPropertyInterval("dataEntrada", dataFinal, IntervalObject.MENOR_IGUAL);
+						}
+							
+						
 						
 					}
 					if(this.getIdStatus() != null){
@@ -713,7 +721,12 @@ public class EntradaProdutoBackBean extends BackBean {
 	private List<Estoque> carregarEstoques() {
 
 		try {
-			estoques = (ArrayList<Estoque>) getFachada().consultarTodosEstoques();
+        	IPropertyFilter filter = new PropertyFilter();
+        	filter.setTheClass(Estoque.class);
+        	
+        	filter.addProperty("pk.loja.id", new Long(this.getIdLoja() != null ? this.getIdLoja():"0"));
+        	
+        	estoques = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -745,6 +758,60 @@ public class EntradaProdutoBackBean extends BackBean {
 
 		return arrayEstoques;
 	}
+	
+    private Set<Loja> carregarLojas() {
+		Set<Loja> lojas = null;
+		try {
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return lojas;
+	}
+
+
+	public SelectItem[] getLojas() {
+		SelectItem[] arrayLojas = null;
+		try {
+			Set<Loja> lojas = carregarLojas();
+			arrayLojas = new SelectItem[lojas.size()];
+			int i = 0;
+			for (Loja lojaTmp : lojas) { 
+				SelectItem item = new SelectItem(lojaTmp.getId().toString(), lojaTmp.getNome());
+				arrayLojas[i++] = item;
+			}
+			if(this.getIdLoja() == null){
+				this.setIdLoja((String)arrayLojas[0].getValue());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+
+		return arrayLojas;
+	}
+	
+	public void carregarEstoquesPorLoja(ValueChangeEvent event){
+        try {
+        	this.getEstoques();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		}
+	}
+
+
+	
 	public String resetBB() {
 		this.setId(null);
 		this.setNumeroNota(null);

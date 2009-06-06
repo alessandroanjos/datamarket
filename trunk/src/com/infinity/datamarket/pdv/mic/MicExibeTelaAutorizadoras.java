@@ -2,14 +2,10 @@ package com.infinity.datamarket.pdv.mic;
 
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import com.infinity.datamarket.comum.pagamento.Autorizadora;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
-import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
@@ -18,7 +14,6 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.gui.telas.TelaAutorizadoras;
-import com.infinity.datamarket.pdv.gui.telas.TelaPlanos;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 

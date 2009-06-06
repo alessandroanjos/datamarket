@@ -85,7 +85,7 @@
 												<f:validateLength maximum="50" />
 											</h:inputText>
 										</div>
-										<h:message for="nome" styleClass="msgErro"/>
+										
 									</li>
 									<li class="normal">
 										<div>
@@ -98,7 +98,7 @@
 												<f:validator validatorId="LongValidator"/>
 											</h:inputSecret>
 										</div>
-										<h:message for="senha" styleClass="msgErro"/>
+										
 									</li>
 									<li class="normal">
 										<div>
@@ -109,7 +109,7 @@
 													  value="#{usuarioBB.perfis}" />   
 											</h:selectOneMenu>
 										</div>
-										<h:message for="perfis" styleClass="msgErro"/>
+										
 									</li>
 									<li class="normal">
 										<div>
@@ -119,7 +119,7 @@
 											    <f:selectItems id="situacao" value="#{usuarioBB.tiposUsuario}" />
 											</h:selectOneRadio>											
 										</div>
-										<h:message for="vendedor" styleClass="msgErro"/>
+										
 									</li>
 									<li class="normal">
 										<div>
@@ -132,7 +132,7 @@
 												<f:validator validatorId="BigDecimalValidator"/>
 											</h:inputText>
 										</div>
-										<h:message for="comissao" styleClass="msgErro"/>		
+												
 									</li>
 								</ul>
 							</div>
@@ -146,7 +146,7 @@
 											</h:selectManyCheckbox>	
 										</div>									
 									</li>															
-									<h:message for="idListaLojasAssociadas" styleClass="msgErro"/>
+									
 								</ul>
 							</div>
 							<ul>

@@ -58,37 +58,49 @@
 							<fieldset>
 								<legend>Opções de filtro:</legend>
 								<ul>
-									<li class="normal">										
-											<div>
-												<h:outputLabel styleClass="desc" value="N.Fiscal"></h:outputLabel>
-												<h:inputText styleClass="field text" id="numeroNota"
-													maxlength="15" size="15" rendered="true"
-													value="#{entradaProdutoBB.numeroNota}">
-													<f:validateLength maximum="15" />
-												</h:inputText>
-											</div>
-											<div>	
-												<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
-												<h:selectOneMenu id="idStatus" style="width: 200px;" value="#{entradaProdutoBB.idStatus}"> 
-													<f:selectItems id="statusSelectItems" value="#{entradaProdutoBB.listaStatus}" />   
-												</h:selectOneMenu>
-											</div>										
-											<div>
-												<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
-												<t:inputText maxlength="10" size="10"
-													styleClass="field text data" forceId="dataInicio"
-													value="#{entradaProdutoBB.dataInicio}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-													id="dataInicio" />
-													
-											</div>	
-											<div>	
-												<h:outputLabel styleClass="desc" value=" Data Final "></h:outputLabel>
-												<t:inputText styleClass="field text data"
-													maxlength="10" size="10" forceId="dataFinal" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-													value="#{entradaProdutoBB.dataFinal}" id="dataFinal">										
-													</t:inputText>
-													
-											</div>								
+									<li class="normal">	
+										<div>
+											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{entradaProdutoBB.idLoja}" onchange="submit();" valueChangeListener="#{entradaProdutoBB.carregarEstoquesPorLoja}"> 
+												<f:selectItems id="lojasSelectItems" value="#{entradaProdutoBB.lojas}" />   
+											</h:selectOneMenu>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
+											<h:selectOneMenu id="idEstoque" style="width: 200px;" value="#{entradaProdutoBB.idEstoque}"> 
+												<f:selectItems id="estoquesSelectItems" value="#{entradaProdutoBB.estoques}" />   
+											</h:selectOneMenu>
+										</div>									
+										<br />
+										<br />
+										<div>
+											<h:outputLabel styleClass="desc" value="N.Fiscal"></h:outputLabel>
+											<h:inputText styleClass="field text" id="numeroNota"
+												maxlength="15" size="15" rendered="true"
+												value="#{entradaProdutoBB.numeroNota}">
+												<f:validateLength maximum="15" />
+											</h:inputText>
+										</div>
+										<div>	
+											<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
+											<h:selectOneMenu id="idStatus" style="width: 200px;" value="#{entradaProdutoBB.idStatus}"> 
+												<f:selectItems id="statusSelectItems" value="#{entradaProdutoBB.listaStatus}" />   
+											</h:selectOneMenu>
+										</div>										
+										<div>
+											<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
+											<t:inputText maxlength="10" size="10"
+												styleClass="field text data" forceId="dataInicio"
+												value="#{entradaProdutoBB.dataInicio}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
+												id="dataInicio" />
+										</div>	
+										<div>	
+											<h:outputLabel styleClass="desc" value=" Data Final "></h:outputLabel>
+											<t:inputText styleClass="field text data"
+												maxlength="10" size="10" forceId="dataFinal" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
+												value="#{entradaProdutoBB.dataFinal}" id="dataFinal">										
+												</t:inputText>
+										</div>								
 									</li>
 								</ul>
 							</fieldset>	

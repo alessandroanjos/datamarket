@@ -103,18 +103,21 @@
 						</li>
 						<li class="normal">
 							<div>
-								<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
-								<h:selectOneMenu id="idEstoque" styleClass="field select" onchange="submit();" immediate="true"
-									value="#{ajusteEstoqueBB.idEstoque}" valueChangeListener="#{ajusteEstoqueBB.recuperaQuantidadeAntes}">
-									<f:selectItems id="estoqueSelectItems" 
-										value="#{ajusteEstoqueBB.estoques}"  />
-										
+								<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+								<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{ajusteEstoqueBB.idLoja}" onchange="submit();" valueChangeListener="#{ajusteEstoqueBB.carregarEstoquesPorLoja}"> 
+									<f:selectItems id="lojasSelectItems" value="#{ajusteEstoqueBB.lojas}" />   
 								</h:selectOneMenu>
-								<h:message for="idEstoque" styleClass="errors" />
 							</div>
-						</li>
-
-						<li class="normal">
+							<div>
+								<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
+								<h:selectOneMenu id="idEstoque" style="width: 200px;" 
+									value="#{ajusteEstoqueBB.idEstoque}">
+									<f:selectItems id="estoqueSelectItems"
+										value="#{ajusteEstoqueBB.estoques}" />
+								</h:selectOneMenu>
+							</div>
+							<br />
+							<br />
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
 								<h:inputText styleClass="field text ativo" id="idProduto" 
@@ -125,51 +128,43 @@
 								<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Produto"  styleClass="btTxt" id="botaoConsultarProduto"
 								onmousedown="showPopUp(this,'frmInserirAjusteEstoque','find')"
 								onclick="return false" value="Consultar Produto"></h:commandButton>
-								
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
 								<h:inputText styleClass="field text ativo" id="descricao" 
 									maxlength="50" size="50" readonly="true" value="#{ajusteEstoqueBB.descricao}" size="50">
 									<f:validateLength maximum="50" />
-									
  							    </h:inputText>
 							</div>
 						</li>
-
 						<li class="normal">
 							 <div>
 								<h:outputLabel styleClass="desc" value="Qtd. Atual"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeAntes"  readonly="true" maxlength="7"
-									size="10" value="#{ajusteEstoqueBB.quantidadeAntes}">
+									size="12" value="#{ajusteEstoqueBB.quantidadeAntes}">
 									<f:validateLength maximum="7" />
 								</h:inputText>
-								<h:message for="quantidadeAntes" styleClass="msgErro" />
 							</div>
 							<div>
-								<h:outputLabel styleClass="desc" value="Qtd. Depois*"></h:outputLabel>
+								<h:outputLabel styleClass="desc" value="Qtd. Ajustada*"></h:outputLabel>
 								<h:inputText styleClass="field text" id="quantidadeDepois" maxlength="7"
-									size="10" value="#{ajusteEstoqueBB.quantidadeDepois}" 
+									size="12" value="#{ajusteEstoqueBB.quantidadeDepois}" 
 									onkeydown="returnQTD(BackSpace(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));" >
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
-								<h:message for="quantidadeDepois" styleClass="msgErro" />
 							</div>
 						</li>	
-
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" action="#{ajusteEstoqueBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 							<h:commandButton styleClass="btTxt" id="botaoInserir"
 								action="#{ajusteEstoqueBB.inserir}" value="Inserir"></h:commandButton>
 						</li>
 					</ul>
-
 				</div>
 				<div class="clear"></div>
 			</div>
-			
 		</h:form>
 	 </body>			
 	</f:view>

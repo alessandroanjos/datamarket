@@ -65,7 +65,7 @@
 											<f:validateLength maximum="4" />
 										</h:inputText>
 									</div>
-									<h:message for="id" styleClass="msgErro" />
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -75,7 +75,7 @@
 											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
-									<h:message for="nome" styleClass="msgErro" />
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -85,7 +85,7 @@
 											<f:selectItems id="gruposSelectItems" value="#{grupoProdutoBB.grupos}" />
 										</h:selectOneMenu>
 									</div>
-									<h:message for="idSuperior" styleClass="msgErro" />
+									
 								</li>
 								<li class="buttons">
 								<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{grupoProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>								

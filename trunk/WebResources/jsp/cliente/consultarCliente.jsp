@@ -85,7 +85,6 @@
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
@@ -93,7 +92,6 @@
 												value="#{clienteBB.idTipoPessoa}" layout="lineDirection" required="true">
 												<f:selectItems id="tipoPessoaLista" value="#{clienteBB.listaTipoPessoa}"/>
 											</h:selectOneRadio>
-											<h:message for="tipoPessoa" styleClass="msgErro"/>
 										</div>
 									<br />
 									<br />
@@ -105,7 +103,6 @@
 												onkeypress="return SoNumero(event);">
 												<f:validateLength minimum="11" maximum="18" />
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
 										</div>												
 										<div>
 											<h:outputLabel styleClass="desc" value="Nome Cliente/Razão Social"></h:outputLabel>
@@ -113,7 +110,6 @@
 												value="#{clienteBB.nomeCliente}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="nomeCliente" styleClass="msgErro" />
 										</div>						
 									</li>
 								</ul>

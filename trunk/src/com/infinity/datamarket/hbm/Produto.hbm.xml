@@ -48,27 +48,27 @@
             <column name="PRECO_COMPRA" length="20" not-null="false"/>
         </property>
         
-	<many-to-one name="tipo" class="com.infinity.datamarket.comum.produto.TipoProduto" update="true" insert="true">
-          <column name="ID_TIPO_PRODUTO" not-null="true"/>
-        </many-to-one>
-
-	<many-to-one name="unidade" class="com.infinity.datamarket.comum.produto.Unidade" update="true" insert="true">
-          <column name="ID_UNIDADE" not-null="true"/>
-        </many-to-one>
-	<many-to-one name="imposto" class="com.infinity.datamarket.comum.produto.Imposto" update="true" insert="true">
-          <column name="ID_IMPOSTO" not-null="true"/>
-        </many-to-one>
-	<many-to-one name="grupo" class="com.infinity.datamarket.comum.produto.GrupoProduto" update="true" insert="true">
-          <column name="ID_GRUPO_PRODUTO" not-null="true"/>
-        </many-to-one>
-
-	<many-to-one name="fabricante" class="com.infinity.datamarket.comum.fabricante.Fabricante" update="true" insert="true">
-          <column name="ID_FABRICANTE" not-null="false"/>
-    </many-to-one> 
-    
-	<set name="lojas" table="PRODUTO_LOJA" lazy="false">
-             <key column="ID_PRODUTO" />
-             <many-to-many column="ID_LOJA" class="com.infinity.datamarket.comum.usuario.Loja"/>
+		<many-to-one name="tipo" class="com.infinity.datamarket.comum.produto.TipoProduto" update="true" insert="true">
+	          <column name="ID_TIPO_PRODUTO" not-null="true"/>
+	        </many-to-one>
+	
+		<many-to-one name="unidade" class="com.infinity.datamarket.comum.produto.Unidade" update="true" insert="true">
+	          <column name="ID_UNIDADE" not-null="true"/>
+	        </many-to-one>
+		<many-to-one name="imposto" class="com.infinity.datamarket.comum.produto.Imposto" update="true" insert="true">
+	          <column name="ID_IMPOSTO" not-null="true"/>
+	        </many-to-one>
+		<many-to-one name="grupo" class="com.infinity.datamarket.comum.produto.GrupoProduto" update="true" insert="true">
+	          <column name="ID_GRUPO_PRODUTO" not-null="true"/>
+	        </many-to-one>
+	
+		<many-to-one name="fabricante" class="com.infinity.datamarket.comum.fabricante.Fabricante" update="true" insert="true">
+	          <column name="ID_FABRICANTE" not-null="false"/>
+	    </many-to-one> 
+	    
+		<set name="lojas" table="PRODUTO_LOJA" lazy="false">
+             <key column="ID_PRODUTO"/>
+             <many-to-many column="ID_LOJA" class="com.infinity.datamarket.comum.usuario.Loja" property-ref="id"/>
         </set>
 
     </class>

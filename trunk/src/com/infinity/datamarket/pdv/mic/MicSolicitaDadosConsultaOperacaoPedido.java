@@ -6,7 +6,6 @@ import com.infinity.datamarket.comum.operacao.OperacaoPK;
 import com.infinity.datamarket.comum.operacao.OperacaoPedido;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.ValidationException;
-import com.infinity.datamarket.operacao.OperacaoServerRemote;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
@@ -14,8 +13,6 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
-import com.infinity.datamarket.pdv.util.ServerConfig;
-import com.infinity.datamarket.pdv.util.ServiceLocator;
 
 public class MicSolicitaDadosConsultaOperacaoPedido extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){

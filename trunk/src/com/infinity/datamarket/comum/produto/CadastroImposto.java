@@ -11,7 +11,7 @@ public class CadastroImposto extends Cadastro{
 	
 	private static CadastroImposto instancia;
 	
-	private static final Class CLASSE = Imposto.class;
+//	private static final Class CLASSE = Imposto.class;
 	
 	public static CadastroImposto getInstancia(){
 		if (instancia == null){

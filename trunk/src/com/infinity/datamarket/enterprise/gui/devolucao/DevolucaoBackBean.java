@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIParameter;
@@ -16,6 +17,8 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.collection.PersistentSet;
 
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
@@ -85,10 +88,13 @@ public class DevolucaoBackBean extends BackBean {
 		this.idLoja = idLoja;
 	}
 
-	private List<Loja> carregarLojas() {		
-		List<Loja> lojas = null;
+	private Set<Loja> carregarLojas() {		
+//		List<Loja> lojas = null;
+//		try {
+//			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+		Set<Loja> lojas = null;
 		try {
-			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -102,7 +108,7 @@ public class DevolucaoBackBean extends BackBean {
 	public SelectItem[] getLojas() {
 		SelectItem[] arrayLojas = null;
 		try {
-			List<Loja> lojas = carregarLojas();
+			Set<Loja> lojas = carregarLojas();
 			arrayLojas = new SelectItem[lojas.size()];
 			int i = 0;
 			for(Loja lojasTmp : lojas){
@@ -382,7 +388,7 @@ public class DevolucaoBackBean extends BackBean {
 					operacaoPk.setLoja(Integer.parseInt(this.getIdLoja()));
 				}
 				
-				filter.addProperty("pk", operacaoPk);
+				filter.addProperty("pk.loja", operacaoPk.getLoja());
 
 				if (this.getDataInicial() != null && this.getDataFinal() != null){	
 					if(this.getDataInicial().after(this.getDataFinal())){
@@ -390,25 +396,25 @@ public class DevolucaoBackBean extends BackBean {
 					}
 					
 					filter.addPropertyInterval("data", this.getDataInicial(), IntervalObject.MAIOR_IGUAL);
-					Date dataFinal = this.getDataFinal();
-					dataFinal.setDate(this.getDataFinal().getDate()+1);
+					Date dataFinal = new Date(this.getDataFinal().getTime());
+					dataFinal.setDate(dataFinal.getDate()+1);
 					filter.addPropertyInterval("data", dataFinal, IntervalObject.MENOR_IGUAL);
 				}
 				
 				if(this.getIdTipoPessoa() != null){
 					if(this.getCpfCnpj() != null && !this.getCpfCnpj().equals("")){
-						filter.setTheClass(OperacaoDevolucao.class);
+//						filter.setTheClass(OperacaoDevolucao.class);
 						if(this.getIdTipoPessoa().equals(Cliente.PESSOA_FISICA)){
 							filter.addProperty("cliente.tipoPessoa", Cliente.PESSOA_FISICA);
 						}else{
 							filter.addProperty("cliente.tipoPessoa", Cliente.PESSOA_JURIDICA);
 						}
 						filter.addProperty("cliente.cpfCnpj", this.getCpfCnpj().replace(".", "").replace("-", "").replace("/", ""));
-					}else{
-						filter.setTheClass(Operacao.class);	
+//					}else{
+//						filter.setTheClass(Operacao.class);	
 					}						
-				}else{
-					filter.setTheClass(Operacao.class);
+//				}else{
+//					filter.setTheClass(Operacao.class);
 				}				
 				
 				if(!this.getIdSituacao().equals("0")){
@@ -416,6 +422,8 @@ public class DevolucaoBackBean extends BackBean {
 				}
 
 				this.nomeCliente = this.getNomeCliente();
+				
+				filter.setTheClass(OperacaoDevolucao.class);
 				
 				Collection col = getFachada().consultarOperacao(filter);
 				

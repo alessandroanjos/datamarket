@@ -7,7 +7,6 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.gui.telas.TelaConsultaCartaoProprio;
-import com.infinity.datamarket.pdv.gui.telas.TelaMenssagem;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 

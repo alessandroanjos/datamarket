@@ -1,20 +1,12 @@
 package com.infinity.datamarket.infocomponent;
 
 import java.util.Date;
-import java.util.Hashtable;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
-import javax.jms.Session;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 
 import com.infinity.datamarket.comum.Fachada;
 

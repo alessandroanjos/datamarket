@@ -3,9 +3,6 @@ package com.infinity.datamarket.pdv.mic;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
-
-import net.sf.jasperreports.view.JasperViewer;
 
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;

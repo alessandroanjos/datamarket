@@ -1,11 +1,8 @@
 package com.infinity.datamarket.pdv.mic;
 
-import java.math.BigDecimal;
-
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ObjetoInexistenteException;
-import com.infinity.datamarket.comum.util.StringUtil;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;

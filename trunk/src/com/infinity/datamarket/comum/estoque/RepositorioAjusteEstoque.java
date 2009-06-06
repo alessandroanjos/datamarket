@@ -2,11 +2,9 @@ package com.infinity.datamarket.comum.estoque;
 
 import java.util.Collection;
 
-import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Repositorio;
-import com.sun.mail.iap.Response;
 
 public class RepositorioAjusteEstoque extends Repositorio implements IRepositorioAjusteEstoque{
 	

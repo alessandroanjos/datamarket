@@ -45,46 +45,60 @@
 								<legend>Opções de filtro:</legend>
 								<ul>
 									<li class="normal">
-											<div>
-												<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
-												<t:inputText readonly="false" maxlength="10" size="10"
-													styleClass="field text" forceId="dataInicio"
-													onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-													value="#{movimentacaoEstoqueBB.dataInicio}"
-													id="dataInicio" />
-											</div>	
-											<div>	
-												<h:outputLabel styleClass="desc" value="Data Final"></h:outputLabel>
-												<t:inputText readonly="false" styleClass="field text"
-													maxlength="10" size="10" forceId="dataFinal"
-													onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-													value="#{movimentacaoEstoqueBB.dataFinal}" id="dataFinal" />
-											</div>
-											<div>
-												<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
-												<h:selectOneMenu id="idEstoque" styleClass="field select" style="width:250px;" 
-													value="#{movimentacaoEstoqueBB.idEstoque}" >   
-														  <f:selectItems id="estoqueSelectItems" 
-														  value="#{movimentacaoEstoqueBB.estoques}" />   
-												</h:selectOneMenu> 
-											</div>	
-											<br/>
-											<br/>
-											<div>
-												<h:outputLabel styleClass="desc" value="Tipo Movimentação"></h:outputLabel>
-												<h:selectOneRadio  styleClass="field select" id="tipoMovimentacao" 
-													value="#{movimentacaoEstoqueBB.tipoMovimentacao}" layout="lineDirection" required="true">
-												    <f:selectItems id="situacao" value="#{movimentacaoEstoqueBB.tipoMovimentoItens}" />							
-												</h:selectOneRadio>
-											</div>
-											<div>
-												<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
-												<h:selectOneRadio  styleClass="field select" id="status" 
-													value="#{movimentacaoEstoqueBB.status}" layout="lineDirection" required="true">
-												    <f:selectItems id="situacao" value="#{movimentacaoEstoqueBB.listaStatus}" />							
-												</h:selectOneRadio>
-											</div>		
-									<h:message for="status" styleClass="msgErro"/>							
+										<div>
+											<h:outputLabel styleClass="desc" value="Loja Saída"></h:outputLabel>
+											<h:selectOneMenu id="idLojaSaida" style="width: 200px;" value="#{movimentacaoEstoqueBB.idLojaSaida}"> 
+												<f:selectItems id="lojasSelectItems" value="#{movimentacaoEstoqueBB.lojasSaida}" />   
+											</h:selectOneMenu>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Estoque Saída"></h:outputLabel>
+											<h:selectOneMenu id="idEstoqueSaida" styleClass="field select" style="width:250px;" 
+												value="#{movimentacaoEstoqueBB.idEstoqueSaida}" >   
+													  <f:selectItems id="estoqueSelectItems" 
+													  value="#{movimentacaoEstoqueBB.estoquesSaida}" />   
+											</h:selectOneMenu> 
+										</div>
+										<br/>
+										<br/>
+										<div>
+											<h:outputLabel styleClass="desc" value="Loja Entrada"></h:outputLabel>
+											<h:selectOneMenu id="idLojaEntrada" style="width: 200px;" value="#{movimentacaoEstoqueBB.idLojaEntrada}"> 
+												<f:selectItems id="lojasSelectItems" value="#{movimentacaoEstoqueBB.lojasEntrada}" />   
+											</h:selectOneMenu>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Estoque Entrada"></h:outputLabel>
+											<h:selectOneMenu id="idEstoqueEntrada" styleClass="field select" style="width:250px;" 
+												value="#{movimentacaoEstoqueBB.idEstoqueEntrada}" >   
+													  <f:selectItems id="estoqueSelectItems" 
+													  value="#{movimentacaoEstoqueBB.estoquesEntrada}" />   
+											</h:selectOneMenu> 
+										</div>
+										<br/>
+										<br/>
+										<div>
+											<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
+											<t:inputText readonly="false" maxlength="10" size="10"
+												styleClass="field text" forceId="dataInicial"
+												onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
+												value="#{movimentacaoEstoqueBB.dataInicial}"
+												id="dataInicio" />
+										</div>	
+										<div>	
+											<h:outputLabel styleClass="desc" value="Data Final"></h:outputLabel>
+											<t:inputText readonly="false" styleClass="field text"
+												maxlength="10" size="10" forceId="dataFinal"
+												onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
+												value="#{movimentacaoEstoqueBB.dataFinal}" id="dataFinal" />
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
+											<h:selectOneRadio  styleClass="field select" id="status" 
+												value="#{movimentacaoEstoqueBB.status}" layout="lineDirection" required="true">
+											    <f:selectItems id="situacao" value="#{movimentacaoEstoqueBB.listaStatus}" />							
+											</h:selectOneRadio>
+										</div>		
 									</li>
 								</ul>
 							</fieldset>	

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UISelectOne;
@@ -15,17 +16,22 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.hibernate.collection.PersistentSet;
+
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.estoque.AjusteEstoque;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoqueProduto;
 import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.produto.Produto;
+import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
+import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class AjusteEstoqueBackBean extends BackBean {
@@ -47,6 +53,9 @@ public class AjusteEstoqueBackBean extends BackBean {
     //  para uso de filtro de consulta
     private Date dataInicio;
 	private Date dataFinal;
+	
+	private String idLoja;
+	private SelectItem[] lojas;
 
     Collection<AjusteEstoque> ajusteEstoques;
     
@@ -86,7 +95,10 @@ public class AjusteEstoqueBackBean extends BackBean {
 			} else {
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(AjusteEstoque.class);
-				if (getIdEstoque() != null && !"".equals(getIdEstoque())) {
+				if (getIdLoja() != null && !"0".equals(getIdLoja())) {
+					filter.addProperty("estoque.pk.loja.id",new Long(getIdLoja()));
+				}
+				if (getIdEstoque() != null && !"0".equals(getIdEstoque())) {
 					filter.addProperty("estoque.pk.id",new Long(getIdEstoque()));
 				}
 				if (getId() != null && !"".equals(getId())) {
@@ -94,7 +106,9 @@ public class AjusteEstoqueBackBean extends BackBean {
 					return consultarFiltro(filter);
 				} else if (getDataInicio() != null && !"".equals(getDataFinal())) {
 					filter.addPropertyInterval("data",getDataInicio(), IntervalObject.MAIOR_IGUAL);
-					filter.addPropertyInterval("data",getDataFinal(), IntervalObject.MENOR_IGUAL);
+					Date dataFinal = new Date(this.getDataFinal().getTime());					
+					dataFinal.setDate(dataFinal.getDate()+1);
+					filter.addPropertyInterval("data", dataFinal, IntervalObject.MENOR_IGUAL);
 					if (getIdEstoque() == null && "".equals(getIdEstoque())) {
 					   return consultarFiltro(filter);
 					}
@@ -312,8 +326,14 @@ public class AjusteEstoqueBackBean extends BackBean {
 	}
 
 	private List<Estoque> carregarEstoques() {
+
 		try {
-			estoques = (ArrayList<Estoque>) getFachada().consultarTodosEstoques();
+        	IPropertyFilter filter = new PropertyFilter();
+        	filter.setTheClass(Estoque.class);
+        	
+        	filter.addProperty("pk.loja.id", new Long(this.getIdLoja() != null ? this.getIdLoja():"0"));
+        	
+        	estoques = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -323,14 +343,26 @@ public class AjusteEstoqueBackBean extends BackBean {
 		}
 		return estoques;
 	}
-
+	
+	public void carregarEstoquesPorLoja(ValueChangeEvent event){
+        try {
+        	this.getEstoques();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		}
+	}
+	
 	public SelectItem[] getEstoques() {
 		SelectItem[] arrayEstoques = null;
 		try {
 			List<Estoque> estoques = carregarEstoques();
-			arrayEstoques = new SelectItem[estoques.size()+1];
+			arrayEstoques = new SelectItem[estoques.size()];
 			int i = 0;
-			arrayEstoques[i++] = new SelectItem("","");
+//			arrayEstoques[i++] = new SelectItem("","");
 			for (Estoque estoqueTmp : estoques) { 
 				SelectItem item = new SelectItem(estoqueTmp.getPk().getId().toString(),estoqueTmp.getDescricao());
 				arrayEstoques[i++] = item;
@@ -639,5 +671,52 @@ public class AjusteEstoqueBackBean extends BackBean {
 
 		}
 		return "";
+	}
+
+	public String getIdLoja() {
+		return idLoja;
+	}
+
+	public void setIdLoja(String idLoja) {
+		this.idLoja = idLoja;
+	}
+
+    private Set<Loja> carregarLojas() {
+		Set<Loja> lojas = null;
+		try {
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return lojas;
+	}
+
+
+	public SelectItem[] getLojas() {
+		SelectItem[] arrayLojas = null;
+		try {
+			Set<Loja> lojas = carregarLojas();
+			arrayLojas = new SelectItem[lojas.size()];
+			int i = 0;
+			for (Loja lojaTmp : lojas) { 
+				SelectItem item = new SelectItem(lojaTmp.getId().toString(), lojaTmp.getNome());
+				arrayLojas[i++] = item;
+			}
+			if(this.getIdLoja() == null){
+				this.setIdLoja((String)arrayLojas[0].getValue());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+
+		return arrayLojas;
 	}
 }

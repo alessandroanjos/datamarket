@@ -52,7 +52,7 @@
 											value="#{movimentacaoBancariaBB.idConta}" style="width: 400px;">		
 											<f:selectItems id="contasSelectItems" value="#{movimentacaoBancariaBB.contas}" />
 										</h:selectOneMenu>
-										<h:message for="idConta" styleClass="msgErro" />
+										
 									</div>
 								</li>
 								<li class="normal">
@@ -105,7 +105,7 @@
 											value="#{movimentacaoBancariaBB.idForma}" style="width: 200px;">		
 											<f:selectItems id="formasSelectItems" value="#{movimentacaoBancariaBB.formas}" />
 										</h:selectOneMenu>
-										<h:message for="idForma" styleClass="msgErro" />
+										
 									</div>
 								</li>	
 								<li class="buttons">

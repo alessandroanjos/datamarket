@@ -44,31 +44,37 @@
 								<legend>Opções de filtro:</legend>
 								<ul>
 									<li class="normal">
-											<div>
-												<h:outputLabel styleClass="desc" value="Data Inicio"></h:outputLabel>
-												<t:inputText readonly="false" maxlength="10" size="10"
-													styleClass="field text" forceId="dataInicio"
-													value="#{ajusteEstoqueBB.dataInicio}"
-													onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-													id="dataInicio" />
-											</div>	
-											<div>	
-												<h:outputLabel styleClass="desc" value="Data Final"></h:outputLabel>
-												<t:inputText readonly="false" styleClass="field text"
-													maxlength="10" size="10" forceId="dataFinal"
-													onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-													value="#{ajusteEstoqueBB.dataFinal}" id="dataFinal" />
-											</div>
-											<!-- 
-											<div>
-												<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
-												<h:selectOneMenu id="idEstoque" styleClass="field text"
-													value="#{ajusteEstoqueBB.idEstoque}">
-													<f:selectItems id="estoqueSelectItems"
-														value="#{ajusteEstoqueBB.estoques}" />
-												</h:selectOneMenu>
-											</div>
-											 -->								
+										<div>
+											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{ajusteEstoqueBB.idLoja}" onchange="submit();" valueChangeListener="#{ajusteEstoqueBB.carregarEstoquesPorLoja}"> 
+												<f:selectItems id="lojasSelectItems" value="#{ajusteEstoqueBB.lojas}" />   
+											</h:selectOneMenu>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
+											<h:selectOneMenu id="idEstoque" style="width: 200px;" 
+												value="#{ajusteEstoqueBB.idEstoque}">
+												<f:selectItems id="estoqueSelectItems"
+													value="#{ajusteEstoqueBB.estoques}" />
+											</h:selectOneMenu>
+										</div>
+										<br />
+										<br />
+										<div>
+											<h:outputLabel styleClass="desc" value="Data Inicio"></h:outputLabel>
+											<t:inputText readonly="false" maxlength="10" size="10"
+												styleClass="field text" forceId="dataInicio"
+												value="#{ajusteEstoqueBB.dataInicio}"
+												onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
+												id="dataInicio" />
+										</div>	
+										<div>	
+											<h:outputLabel styleClass="desc" value="Data Final"></h:outputLabel>
+											<t:inputText readonly="false" styleClass="field text"
+												maxlength="10" size="10" forceId="dataFinal"
+												onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
+												value="#{ajusteEstoqueBB.dataFinal}" id="dataFinal" />
+										</div>
 									</li>
 								</ul>
 							</fieldset>	

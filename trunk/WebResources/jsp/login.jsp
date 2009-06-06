@@ -59,7 +59,7 @@
 													<f:validateLength maximum="6" />
 													<f:validator validatorId="LongValidator"/>
 												</h:inputText>
-												<h:message for="id" styleClass="msgErro"/>
+												
 											</div>
 										</li>
 										<li>
@@ -70,7 +70,7 @@
 													<f:validateLength maximum="10" />
 													<f:validator validatorId="LongValidator"/>
 												</h:inputSecret>
-												<h:message for="senha" styleClass="msgErro"/>
+												
 											</div>
 										</li>
 										<li class="buttons">

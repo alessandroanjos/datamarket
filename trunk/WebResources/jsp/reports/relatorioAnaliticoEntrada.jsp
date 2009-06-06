@@ -42,7 +42,21 @@
 							<fieldset>
 								<legend>Opções de filtro:</legend>
 								<ul>								
-									<li class="normal">										
+									<li class="normal">	
+										<div>
+											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{relatorioBB.idLoja}"> 
+												<f:selectItems id="lojasSelectItems" value="#{relatorioBB.lojas}" />   
+											</h:selectOneMenu>
+										</div>
+										<div>	
+											<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
+											<h:selectOneMenu id="idStatus" style="width: 200px;" value="#{relatorioBB.idStatus}"> 
+												<f:selectItems id="statusSelectItems" value="#{relatorioBB.listaStatus}" />   
+											</h:selectOneMenu>
+										</div>									
+										<br />
+										<br />
 										<div>
 											<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataInicial" maxlength="10" size="10" required="false"
@@ -56,14 +70,6 @@
 												value="#{relatorioBB.dataFinal}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 												<f:convertDateTime timeZone="GMT-3"/>
 											</h:inputText>										
-										</div>										
-										<br />
-										<br />
-										<div>	
-											<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
-											<h:selectOneMenu id="idStatus" style="width: 200px;" value="#{relatorioBB.idStatus}"> 
-												<f:selectItems id="statusSelectItems" value="#{relatorioBB.listaStatus}" />   
-											</h:selectOneMenu>
 										</div>	
 									</li>
 								</ul>

@@ -7,7 +7,6 @@ import com.infinity.datamarket.comum.lote.DadoLote;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.IRepositorio;
-import com.infinity.datamarket.comum.util.RepositorioHI;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.SistemaException;
 

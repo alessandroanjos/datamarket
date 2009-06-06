@@ -6,9 +6,6 @@
  */
 package com.infinity.datamarket.comum.util;
 
-import java.io.Serializable;
-
-import com.infinity.datamarket.comum.lote.DadoLote;
 
 
 /**

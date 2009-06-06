@@ -9,7 +9,7 @@ public class Estoque implements Serializable{
 	 */
 	private static final long serialVersionUID = -1105657518976458874L;
 	
-	private EstoquePK pk;
+	EstoquePK pk;
 	String descricao;
 	String estoqueVenda;
 

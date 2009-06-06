@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
@@ -13,6 +14,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.hibernate.collection.PersistentSet;
 
 import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
 import com.infinity.datamarket.comum.financeiro.Lancamento;
@@ -24,6 +26,7 @@ import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class LancamentoBackBean extends BackBean {
@@ -206,8 +209,9 @@ public class LancamentoBackBean extends BackBean {
 					}
 					
 					filter.addPropertyInterval("dataVencimento", this.getDataInicial(), IntervalObject.MAIOR_IGUAL);
-					this.getDataFinal().setDate(this.getDataFinal().getDate()+1);
-					filter.addPropertyInterval("dataVencimento", this.getDataFinal(), IntervalObject.MENOR_IGUAL);
+					Date dataFinal = new Date(this.getDataFinal().getTime());					
+					dataFinal.setDate(dataFinal.getDate()+1);
+					filter.addPropertyInterval("dataVencimento", dataFinal, IntervalObject.MENOR_IGUAL);
 				}
 				
 				if(this.getIdSituacao() != null && !this.getIdSituacao().equals("T")){
@@ -395,11 +399,14 @@ public class LancamentoBackBean extends BackBean {
 	}
 	
 	// Lojas 
-	private List<Loja> carregarLojas() {
+	private Set<Loja> carregarLojas() {
 		
-		List<Loja> lojas = null;
+//		List<Loja> lojas = null;
+//		try {
+//			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+		Set<Loja> lojas = null;
 		try {
-			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -413,7 +420,7 @@ public class LancamentoBackBean extends BackBean {
 	public SelectItem[] getLojas(){
 		SelectItem[] arrayLojas = null;
 		try {
-			List<Loja> lojas = carregarLojas();
+			Set<Loja> lojas = carregarLojas();
 			arrayLojas = new SelectItem[lojas.size()+1];
 			int i = 0;
 			arrayLojas[i++] = new SelectItem("0", "");

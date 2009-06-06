@@ -47,19 +47,25 @@
 								<ul>
 									<li class="normal">
 										<div>
-											<h:outputLabel styleClass="desc" value="Conta*"></h:outputLabel>
+											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{movimentacaoBancariaBB.idLoja}"> 
+												<f:selectItems id="lojasSelectItems" value="#{movimentacaoBancariaBB.lojas}" />   
+											</h:selectOneMenu>
+										</div>	
+										<div>
+											<h:outputLabel styleClass="desc" value="Conta Corrente*"></h:outputLabel>
 											<h:selectOneMenu id="idContaConsulta" styleClass="field select"
 												value="#{movimentacaoBancariaBB.idContaConsulta}"
 												style="width: 400px;">
 												<f:selectItems id="contasSelectItems"
 													value="#{movimentacaoBancariaBB.contas}" />
 											</h:selectOneMenu>
-											<h:message for="idContaConsulta" styleClass="msgErro" />
+											
 										</div>
-									</li>
-									<li class="normal">
+										<br />
+										<br />
 										<div>
-											<h:outputLabel styleClass="desc" value="Periodo"></h:outputLabel>
+											<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
 											<h:inputText readonly="false" maxlength="10" size="10"
 												styleClass="field text data"
 												value="#{movimentacaoBancariaBB.dataInicio}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
@@ -68,6 +74,7 @@
 											</h:inputText>
 										</div>
 										<div>	
+											<h:outputLabel styleClass="desc" value="Data Final"></h:outputLabel>
 											<h:inputText readonly="false" maxlength="10" size="10"
 												styleClass="field text data"
 												value="#{movimentacaoBancariaBB.dataFinal}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
@@ -78,61 +85,73 @@
 									</li>
 								</ul>
 							</fieldset>	
-							<div class="listagem">
+							<ul>
+								<li class="direita">
+									<div>
+										<h:outputLabel styleClass="desc" value="Saldo Anterior" rendered="#{movimentacaoBancariaBB.existeRegistros}"></h:outputLabel>
+										<h:outputText dir="rtl" style="font-size: 14px; font-weight: bold; color: red;" id="saldoAnterior" value="#{movimentacaoBancariaBB.saldoAnterior}" rendered="#{movimentacaoBancariaBB.existeRegistros}">
+											<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00"/>
+										</h:outputText>
+									</div>
+								</li>
+							</ul>
+							<div class="listagem2">
 								<t:dataTable id="componentes" value="#{movimentacaoBancariaBB.movimentacaoBancarias}"
-									var="movimentacaoBancaria" rowClasses="rowA,rowB" width="90%" renderedIfEmpty="false">
+									var="movimentacaoBancaria" rowClasses="rowA,rowB" width="90%" renderedIfEmpty="false" >
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Código" /> 
+											<h:outputText value="Número" /> 
 										</f:facet>
-										<h:commandLink value="#{movimentacaoBancaria.id}" action="#{movimentacaoBancariaBB.consultar}">
-											<f:param name="id" value="#{movimentacaoBancaria.id}"/>						
-										</h:commandLink>										 
-									</h:column>
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Tipo" /> 
-										</f:facet>
-										<h:outputText value="#{movimentacaoBancaria.tipo}" /> 
-									</h:column>
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Numero" /> 
-										</f:facet>
-										<h:commandLink value="#{movimentacaoBancaria.numero}" action="#{movimentacaoBancariaBB.consultar}">
-											<f:param name="id" value="#{movimentacaoBancaria.id}"/>						
-										</h:commandLink>
+										<h:outputText value="#{movimentacaoBancaria.numero}" rendered="#{movimentacaoBancaria.tipo == 'C'}" style="color: blue;"/> 
+										<h:outputText value="#{movimentacaoBancaria.numero}" rendered="#{movimentacaoBancaria.tipo == 'D'}" style="color: red;"/>
 									</h:column>
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Data" />
 										</f:facet>
-										<h:commandLink value="#{movimentacaoBancaria.data}" action="#{movimentacaoBancariaBB.consultar}">
-											<f:param name="id" value="#{movimentacaoBancaria.id}"/>						
-										</h:commandLink>
-									</h:column>
-									<h:column>
-										<f:facet name="header">
-											<h:outputText value="Valor" /> 
-										</f:facet>
-										<h:commandLink value="#{movimentacaoBancaria.valor}" action="#{movimentacaoBancariaBB.consultar}">
-											<f:param name="id" value="#{movimentacaoBancaria.id}"/>						
-										</h:commandLink>
+										<h:outputText value="#{movimentacaoBancaria.data}" rendered="#{movimentacaoBancaria.tipo == 'C'}" style="color: blue;"/> 
+										<h:outputText value="#{movimentacaoBancaria.data}" rendered="#{movimentacaoBancaria.tipo == 'D'}" style="color: red;"/> 
 									</h:column>
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Forma" /> 
 										</f:facet>
-										<h:commandLink value="#{movimentacaoBancaria.forma.descricao}" action="#{movimentacaoBancariaBB.consultar}">
-											<f:param name="id" value="#{movimentacaoBancaria.id}"/>						
-										</h:commandLink>
+										<h:outputText value="#{movimentacaoBancaria.forma.descricao}" rendered="#{movimentacaoBancaria.tipo == 'C'}" style="color: blue;"/> 
+										<h:outputText value="#{movimentacaoBancaria.forma.descricao}" rendered="#{movimentacaoBancaria.tipo == 'D'}" style="color: red;"/> 										
 									</h:column>
-
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Valor" /> 
+										</f:facet>
+										<h:outputText rendered="#{movimentacaoBancaria.tipo == 'C'}" value="#{movimentacaoBancaria.valor}" style="text-align: right; color: blue;">
+											<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00"/>
+										</h:outputText> 
+										<h:outputText rendered="#{movimentacaoBancaria.tipo == 'D'}" value="#{movimentacaoBancaria.valor}" style="text-align: right; color: red;">
+											<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00"/>
+										</h:outputText> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Tipo" /> 
+										</f:facet>
+										<h:outputText rendered="#{movimentacaoBancaria.tipo == 'C'}" value="Crédito" style="color: blue;"/> 
+										<h:outputText rendered="#{movimentacaoBancaria.tipo == 'D'}" value="Débito" style="color: red;"/> 
+									</h:column>
 								</t:dataTable>	
-										<div>
-											<h:messages rendered="#{not movimentacaoBancariaBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
-										</div>
+								<div>
+									<h:messages rendered="#{not movimentacaoBancariaBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+								</div>
 							</div>
+							<ul>
+								<li class="direita">
+									<div>
+										<h:outputLabel styleClass="desc" value="Saldo Atual" rendered="#{movimentacaoBancariaBB.existeRegistros}"></h:outputLabel>
+										<h:outputText dir="rtl" style="font-size: 14px; font-weight: bold; color: red;" id="saldoAtual" value="#{movimentacaoBancariaBB.saldoAtual}" rendered="#{movimentacaoBancariaBB.existeRegistros}">
+											<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00"/>
+										</h:outputText>
+									</div>
+								</li>
+							</ul>
 							<ul>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" action="#{movimentacaoBancariaBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>

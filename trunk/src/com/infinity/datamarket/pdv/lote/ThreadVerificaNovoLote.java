@@ -2,9 +2,7 @@ package com.infinity.datamarket.pdv.lote;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Iterator;
 
-import com.infinity.datamarket.comum.lote.DadoLote;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.lote.LoteServerRemote;

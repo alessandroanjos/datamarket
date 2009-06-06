@@ -7,15 +7,17 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import com.infinity.datamarket.comum.banco.Banco;
 import com.infinity.datamarket.comum.conta.ContaCorrente;
 import com.infinity.datamarket.comum.conta.MovimentacaoBancaria;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
@@ -49,6 +51,25 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 	private Date dataInicio;
 	private Date dataFinal;
 	
+	private BigDecimal saldoAnterior;
+	private BigDecimal saldoAtual;
+	
+	public BigDecimal getSaldoAnterior() {
+		return saldoAnterior;
+	}
+
+	public void setSaldoAnterior(BigDecimal saldoAnterior) {
+		this.saldoAnterior = saldoAnterior;
+	}
+
+	public BigDecimal getSaldoAtual() {
+		return saldoAtual;
+	}
+
+	public void setSaldoAtual(BigDecimal saldoAtual) {
+		this.saldoAtual = saldoAtual;
+	}
+
 	public String voltarConsulta() {
 		consultar();
 		return "voltar";
@@ -111,19 +132,8 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 	}
 
 	public String consultar() {
+		FacesContext context = FacesContext.getCurrentInstance();
 		try {
-			FacesContext context = FacesContext.getCurrentInstance();
-			Map params = context.getExternalContext().getRequestParameterMap();            
-			String param = (String)  params.get("id");
-			if (param != null && !"".equals(param)){
-				setId(param);
-			}			
-			if (getId() != null && !"".equals(getId())){
-				MovimentacaoBancaria movimentacaoBancaria = getFachada().consultarMovimentacaoBancariaPorID(getId());
-				setMovimentacaoBancaria(movimentacaoBancaria);
-				resetConsultaBB();
-				return "proxima";
-			}
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(MovimentacaoBancaria.class);
 			if (getIdContaConsulta() != null && !"".equals(getIdContaConsulta())){				
@@ -131,9 +141,15 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 			}
 			if (getDataInicio() != null && !getDataInicio().equals("") && getDataFinal() != null && !getDataFinal().equals("")) {
 				filter.addPropertyInterval("data",getDataInicio(), IntervalObject.MAIOR_IGUAL);
-				filter.addPropertyInterval("data",getDataFinal(), IntervalObject.MENOR_IGUAL);
+				
+				Date dataFinal = new Date(getDataFinal().getTime());
+				
+				dataFinal.setDate(dataFinal.getDate()+1);
+				
+				filter.addPropertyInterval("data",dataFinal, IntervalObject.MENOR_IGUAL);
 			}
 			Collection col = getFachada().consultarMovimentacaoBancaria(filter);
+			
 			if (col == null || col.size() == 0){
 				setMovimentacaoBancarias(null);
 				FacesContext ctx = FacesContext.getCurrentInstance();
@@ -142,32 +158,31 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 				ctx.addMessage(null, msg);	
 				setExisteRegistros(false);
 			}else if (col != null){
-				if(col.size() == 1){
-					MovimentacaoBancaria movimentacaoBancaria = (MovimentacaoBancaria)col.iterator().next();
-					setMovimentacaoBancaria(movimentacaoBancaria);
-					resetConsultaBB();
-					return "proxima";
-				}else{
-					setExisteRegistros(true);
-					setMovimentacaoBancarias(col);
+				setExisteRegistros(true);
+				setMovimentacaoBancarias(col);
+				Set<MovimentacaoBancaria> colMovBanc = new TreeSet<MovimentacaoBancaria>();
+				Iterator it = col.iterator();
+				while(it.hasNext()){
+					MovimentacaoBancaria movimentacao = (MovimentacaoBancaria) it.next();
+					colMovBanc.add(movimentacao);					
 				}
+				MovimentacaoBancaria[] arrayMovBanc = (MovimentacaoBancaria[])colMovBanc.toArray();
+				this.setSaldoAnterior(arrayMovBanc[0].getSaldoAnteriorConta());
+				this.setSaldoAtual(arrayMovBanc[arrayMovBanc.length-1].getSaldoAnteriorConta());
 			}
 		}catch(ObjectNotFoundException e){
 			setMovimentacaoBancarias(null);
-			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);
+			context.addMessage(null, msg);
 			setExisteRegistros(false);
 		}catch(Exception e){
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			context.addMessage(null, msg);
 			setExisteRegistros(false);
 		}
-		resetConsultaBB();
 		return "mesma";
 	}
 

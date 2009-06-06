@@ -3,14 +3,13 @@ package com.infinity.datamarket.autorizador;
 import java.util.Collection;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.usuario.IRepositorioPerfil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroAutorizacaoCartaoProprio extends Cadastro {
 	private static CadastroAutorizacaoCartaoProprio instancia;
-	private static Class CLASSE = AutorizacaoCartaoProprio.class;
+//	private static Class CLASSE = AutorizacaoCartaoProprio.class;
 	private CadastroAutorizacaoCartaoProprio(){}
 	
 	public static CadastroAutorizacaoCartaoProprio getInstancia(){

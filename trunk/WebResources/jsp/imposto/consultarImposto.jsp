@@ -65,7 +65,7 @@
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
+											
 										</div>
 									
 										<div>
@@ -74,7 +74,7 @@
 												value="#{impostoBB.descricao}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="descricao" styleClass="msgErro" />
+											
 										</div>
 									</li>
 								</ul>

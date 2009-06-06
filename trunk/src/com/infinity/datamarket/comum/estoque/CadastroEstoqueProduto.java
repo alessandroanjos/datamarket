@@ -1,10 +1,8 @@
 package com.infinity.datamarket.comum.estoque;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.IRepositorio;
@@ -12,7 +10,7 @@ import com.infinity.datamarket.comum.util.IRepositorio;
 public class CadastroEstoqueProduto extends Cadastro{
 	
 	private static CadastroEstoqueProduto instancia;
-	private static Class CLASSE = EstoqueProduto.class;
+//	private static Class CLASSE = EstoqueProduto.class;
 	private CadastroEstoqueProduto(){}
 	public static CadastroEstoqueProduto getInstancia(){
 		if (instancia == null){

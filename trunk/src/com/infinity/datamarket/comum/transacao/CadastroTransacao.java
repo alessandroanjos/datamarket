@@ -6,7 +6,6 @@ import java.util.Iterator;
 
 import com.infinity.datamarket.comum.cliente.CadastroCliente;
 import com.infinity.datamarket.comum.cliente.Cliente;
-import com.infinity.datamarket.comum.estoque.CadastroEstoque;
 import com.infinity.datamarket.comum.estoque.CadastroEstoqueProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoquePK;

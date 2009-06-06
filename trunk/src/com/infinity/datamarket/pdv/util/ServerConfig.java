@@ -2,8 +2,6 @@ package com.infinity.datamarket.pdv.util;
 
 import java.util.ResourceBundle;
 
-import javax.naming.InitialContext;
-
 public class ServerConfig {
 	
 	public static final String INITIAL_CONTEXT_FACTORY;

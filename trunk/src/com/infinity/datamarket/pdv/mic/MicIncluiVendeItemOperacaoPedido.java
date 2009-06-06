@@ -1,7 +1,6 @@
 package com.infinity.datamarket.pdv.mic;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -9,7 +8,6 @@ import java.util.Iterator;
 
 import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
 import com.infinity.datamarket.comum.operacao.OperacaoPedido;
-import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.transacao.ConstantesEventoTransacao;
 import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;

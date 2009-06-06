@@ -1,12 +1,8 @@
 package com.infinity.datamarket.pdv;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.Date;
 
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
-import com.infinity.datamarket.pdv.gui.telas.swing.TelaInicial;
-import com.infinity.datamarket.pdv.infocomponent.ThreadEnviaInfoComponent;
 import com.infinity.datamarket.pdv.maquinaestados.Estado;
 import com.infinity.datamarket.pdv.maquinaestados.Maquina;
 import com.infinity.datamarket.pdv.transacao.ThreadEnviaTransacao;
