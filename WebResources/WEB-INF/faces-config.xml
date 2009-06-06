@@ -3506,11 +3506,13 @@
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
+		<!-- 
 		<managed-property>
 		    <property-name>lojas</property-name>
 		    <property-class>javax.faces.model.SelectItem</property-class>
 		    <null-value/>
 		</managed-property>
+		 -->
 		<managed-property>
 		    <property-name>idComponente</property-name>
 		    <property-class>java.lang.String</property-class>

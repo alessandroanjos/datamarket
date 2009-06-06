@@ -123,7 +123,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
-											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{transacaoBB.idLoja}"> 
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{transacaoBB.idLoja}" onchange="submit();" valueChangeListener="#{transacaoBB.carregarComponentesPorLoja}"> 
 												<f:selectItems id="lojasSelectItems" value="#{transacaoBB.lojas}" />   
 											</h:selectOneMenu>
 										</div>									

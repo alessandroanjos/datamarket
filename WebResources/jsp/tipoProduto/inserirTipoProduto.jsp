@@ -69,7 +69,7 @@
 											size="50" value="#{tipoProdutoBB.descricao}" required="true">
 											<f:validateLength maximum="50" />
 										</h:inputText>
-										<h:message for="nome" styleClass="msgErro" />
+										
 									</div>
 								</li>
 								<li class="buttons">

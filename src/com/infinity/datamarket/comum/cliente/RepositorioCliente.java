@@ -1,11 +1,8 @@
 package com.infinity.datamarket.comum.cliente;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
-import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Repositorio;
 

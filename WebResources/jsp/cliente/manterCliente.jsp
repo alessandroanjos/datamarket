@@ -114,7 +114,7 @@
 												value="#{clienteBB.dataCadastro}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">			
 												<f:convertDateTime timeZone="GMT-3"/>
 											</h:inputText>
-											<h:message for="dataCadastro" styleClass="msgErro"/>
+											
 										</div>
 									</li>
 									<li class="normal">
@@ -124,7 +124,7 @@
 												value="#{clienteBB.idTipoPessoa}" layout="lineDirection" required="true" disabled="true">
 												<f:selectItems id="tipoPessoaLista" value="#{clienteBB.listaTipoPessoa}"/>
 											</h:selectOneRadio>
-											<h:message for="tipoPessoa" styleClass="msgErro"/>
+											
 										</div>
 									</li>
 									<li class="normal">
@@ -134,7 +134,7 @@
 											required="false" disabled="true" style="bgcolor: #dedede;">
 												<f:validateLength minimum="11" maximum="18" />
 											</h:inputText>
-											<h:message for="cpfCnpj" styleClass="msgErro" />									
+																				
 										</div>
 									</li>
 									<!-- PESSOA FISICA -->																
@@ -144,7 +144,7 @@
 											<h:inputText styleClass="field text" id="nomeCliente" maxlength="50" size="50" value="#{clienteBB.nomeCliente}" required="false">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="nomeCliente" styleClass="msgErro" />									
+																				
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Data de Nascimento"></h:outputLabel>
@@ -152,7 +152,7 @@
 												value="#{clienteBB.dataNascimento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 												<f:convertDateTime timeZone="GMT-3"/>
 											</h:inputText>
-											<h:message for="dataNascimento" styleClass="msgErro"/>
+											
 										</div>
 									</li>
 									<!-- PESSOA FISICA -->								
@@ -163,7 +163,7 @@
 											<h:inputText styleClass="field text" id="razaoSocial" maxlength="50" size="50" value="#{clienteBB.razaoSocial}" required="false">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="razaoSocial" styleClass="msgErro" />									
+																				
 										</div>
 									</li>
 									<li class="normal">
@@ -172,7 +172,7 @@
 											<h:inputText styleClass="field text" id="nomeFantasia" maxlength="50" size="50" value="#{clienteBB.nomeFantasia}" required="false">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="nomeFantasia" styleClass="msgErro" />									
+																				
 										</div>
 									</li>
 									<li class="normal">
@@ -181,14 +181,14 @@
 											<h:inputText styleClass="field text" id="inscricaoEstadual" maxlength="30" size="30" value="#{clienteBB.inscricaoEstadual}" required="false">
 												<f:validateLength maximum="30" />
 											</h:inputText>
-											<h:message for="inscricaoEstadual" styleClass="msgErro" />									
+																				
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Insc. Municipal"></h:outputLabel>
 											<h:inputText styleClass="field text" id="inscricaoMunicipal" maxlength="30" size="30" value="#{clienteBB.inscricaoMunicipal}" required="false">
 												<f:validateLength maximum="30" />
 											</h:inputText>
-											<h:message for="inscricaoMunicipal" styleClass="msgErro" />									
+																				
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Limite de Compra"></h:outputLabel>
@@ -198,7 +198,7 @@
 												<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>										
 												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
-											<h:message for="valorLimiteCompras" styleClass="msgErro" />							
+																		
 										</div>
 									</li>
 									<!-- PESSOA JURIDICA -->
@@ -212,7 +212,7 @@
 											<h:inputTextarea rows="4" id="logradouro" style="width: 80%;" styleClass="field text" value="#{clienteBB.logradouro}" required="false">
 												<f:validateLength maximum="200" />
 											</h:inputTextarea>
-											<h:message for="logradouro" styleClass="msgErro" />									
+																				
 										</div>
 									</li>
 									<li class="normal">
@@ -221,14 +221,14 @@
 											<h:inputText styleClass="field text" id="numero" maxlength="10" size="10" value="#{clienteBB.numero}" required="false" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);">
 												<f:validateLength maximum="10" />
 											</h:inputText>
-											<h:message for="numero" styleClass="msgErro" />									
+																				
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Complemento"></h:outputLabel>
 											<h:inputText styleClass="field text" id="complemento" maxlength="20" size="20" value="#{clienteBB.complemento}" required="false">
 												<f:validateLength maximum="20" />
 												</h:inputText>
-												<h:message for="complemento" styleClass="msgErro" />									
+																					
 											</div>
 										</li>
 										<li class="normal">
@@ -237,14 +237,14 @@
 												<h:inputText styleClass="field text" id="bairro" maxlength="30" size="30" value="#{clienteBB.bairro}" required="false">
 													<f:validateLength maximum="30" />
 												</h:inputText>
-												<h:message for="bairro" styleClass="msgErro" />									
+																					
 											</div>								
 											<div>
 												<h:outputLabel styleClass="desc" value="Cidade"></h:outputLabel>
 												<h:inputText styleClass="field text" id="cidade" maxlength="30" size="30" value="#{clienteBB.cidade}" required="false">
 													<f:validateLength maximum="30" />
 												</h:inputText>
-												<h:message for="cidade" styleClass="msgErro" />									
+																					
 											</div>
 										</li>
 										<li class="normal">
@@ -255,14 +255,14 @@
 													<f:selectItems id="listaUfSelectItems"
 														value="#{clienteBB.listaUf}" />
 												</h:selectOneMenu>
-												<h:message for="estado" styleClass="msgErro" />									
+																					
 											</div>						
 											<div>
 												<h:outputLabel styleClass="desc" value="CEP"></h:outputLabel>
 												<h:inputText styleClass="field text" id="cep" maxlength="10" size="10" value="#{clienteBB.cep}" required="false" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="10" />
 												</h:inputText>
-												<h:message for="cep" styleClass="msgErro" />									
+																					
 											</div>
 										</li>
 										<li class="normal">
@@ -271,21 +271,21 @@
 												<h:inputText styleClass="field text" id="foneResidencial" maxlength="12" size="12" value="#{clienteBB.foneResidencial}" required="false" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="12" />
 												</h:inputText>
-												<h:message for="foneResidencial" styleClass="msgErro" />
+												
 											</div>								
 											<div>
 												<h:outputLabel styleClass="desc" value="Fone Comercial"></h:outputLabel>
 												<h:inputText styleClass="field text" id="foneComercial" maxlength="12" size="12" value="#{clienteBB.foneComercial}" required="false" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="12" />
 												</h:inputText>
-												<h:message for="foneComercial" styleClass="msgErro" />									
+																					
 											</div>								
 											<div>
 												<h:outputLabel styleClass="desc" value="Fone Celular"></h:outputLabel>
 												<h:inputText styleClass="field text" id="foneCelular" maxlength="12" size="12" value="#{clienteBB.foneCelular}" required="false" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="12" />
 												</h:inputText>
-												<h:message for="foneCelular" styleClass="msgErro" />									
+																					
 											</div>
 										</li>
 										<li class="normal">
@@ -294,14 +294,14 @@
 												<h:inputText styleClass="field text" id="pessoaContato" maxlength="50" size="50" value="#{clienteBB.pessoaContato}" required="false">
 													<f:validateLength maximum="50" />
 												</h:inputText>
-												<h:message for="pessoaContato" styleClass="msgErro" />									
+																					
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="Fone Contato"></h:outputLabel>
 												<h:inputText styleClass="field text" id="foneContato" maxlength="12" size="12" value="#{clienteBB.foneContato}" required="false" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);">
 													<f:validateLength maximum="12" />
 												</h:inputText>
-												<h:message for="foneContato" styleClass="msgErro" />									
+																					
 											</div>
 										</li>
 										<li class="normal">
@@ -310,7 +310,7 @@
 												<h:inputTextarea rows="4" id="referenciaComercial" style="width: 80%;" styleClass="field text" value="#{clienteBB.referenciaComercial}" required="false">
 													<f:validateLength maximum="1000" />
 												</h:inputTextarea>
-												<h:message for="referenciaComercial" styleClass="msgErro" />									
+																					
 											</div>
 										</li>
 										

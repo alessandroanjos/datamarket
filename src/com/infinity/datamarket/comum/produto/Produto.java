@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Collection;
 
 import com.infinity.datamarket.comum.fabricante.Fabricante;
-import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class Produto extends Persistente{

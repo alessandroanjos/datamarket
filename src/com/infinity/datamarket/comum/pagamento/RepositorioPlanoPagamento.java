@@ -6,7 +6,7 @@ import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Repositorio;
 
-public class RepositorioPlanoPagamento extends Repositorio{
+public class RepositorioPlanoPagamento extends Repositorio implements IRepositorioPlanoPagamento{
 	private static RepositorioPlanoPagamento instancia;
 	private static Class CLASSE = PlanoPagamento.class;
 	private static Class CLASSE_CHEQUE_PRE = PlanoPagamentoChequePredatado.class;

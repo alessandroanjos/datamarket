@@ -7,13 +7,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 
-import com.infinity.datamarket.comum.estoque.AjusteEstoque;
 import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
-import com.infinity.datamarket.comum.util.ConcentradorControleId;
-import com.infinity.datamarket.comum.util.Controle;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class TipoProdutoBackBean extends BackBean{

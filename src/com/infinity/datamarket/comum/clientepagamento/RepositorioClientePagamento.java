@@ -1,7 +1,6 @@
 package com.infinity.datamarket.comum.clientepagamento;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;

@@ -2,9 +2,7 @@ package com.infinity.datamarket.pdv.maquinaestados;
 
 import java.util.Collection;
 
-import com.infinity.datamarket.comum.lote.DadoLote;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;

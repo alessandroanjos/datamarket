@@ -54,7 +54,7 @@
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
@@ -62,7 +62,7 @@
 												value="#{fornecedorBB.idTipoPessoa}" layout="lineDirection" required="true">
 												<f:selectItems id="tipoPessoaLista" value="#{fornecedorBB.listaTipoPessoa}"/>
 											</h:selectOneRadio>
-											<h:message for="tipoPessoa" styleClass="msgErro"/>
+											
 										</div>
 									<br />
 									<br />
@@ -73,14 +73,14 @@
 											<f:validateLength minimum="11" maximum="18" />
 										</h:inputText>
 									</div>
-									<h:message for="cpfCnpj" styleClass="msgErro" />											
+																				
 										<div>
 											<h:outputLabel styleClass="desc" value="Nome Fornecedor/Razão Social"></h:outputLabel>
 											<h:inputText styleClass="field text" id="nomeFornecedor" maxlength="50" size="50"
 												value="#{fornecedorBB.nomeFornecedor}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="nomeFornecedor" styleClass="msgErro" />
+											
 										</div>						
 									</li>
 								</ul>

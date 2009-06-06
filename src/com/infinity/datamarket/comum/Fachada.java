@@ -6734,6 +6734,7 @@ public class Fachada {
 	try{
 		RepositoryManagerHibernateUtil.beginTrasaction();
 		getCadastroMovimentacaoBancaria().inserir(movimentacaoBancaria);
+		getCadastroMovimentacaoBancaria().atualizarContasCorrentes();
 		RepositoryManagerHibernateUtil.commitTransation();
 	}catch(AppException e){
 		try{

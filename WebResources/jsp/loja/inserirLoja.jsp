@@ -54,7 +54,7 @@
 											<f:validator validatorId="LongValidator" />
 										</h:inputText>
 									</div>
-									<h:message for="id" styleClass="msgErro" />
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -64,7 +64,7 @@
 											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
-									<h:message for="nome" styleClass="msgErro" />
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -76,7 +76,7 @@
 											<f:validateLength maximum="15" />
 										</h:inputText>
 									</div>		
-									<h:message for="ip" styleClass="msgErro" />
+									
 								</li>
 								<li class="normal">															
 									<div>
@@ -88,7 +88,7 @@
 											<f:validateLength maximum="4" />
 										</h:inputText>
 									</div>
-									<h:message for="numeroPorta" styleClass="msgErro" />
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -97,7 +97,7 @@
 											value="#{lojaBB.idEstoqueAtual}" style="width: 200px;">		
 											<f:selectItems id="estoqueSelectItems" value="#{lojaBB.estoques}" />
 										</h:selectOneMenu>
-										<h:message for="idEstoque" styleClass="msgErro" />
+										
 									</div>
 								</li>
 								<li class="buttons">

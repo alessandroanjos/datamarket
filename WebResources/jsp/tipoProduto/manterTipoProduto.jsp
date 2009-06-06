@@ -77,7 +77,7 @@
 											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
-									<h:message for="nome" styleClass="msgErro" />
+									
 								</li>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{tipoProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>

@@ -1,18 +1,11 @@
 package com.infinity.datamarket.pdv.transacao;
 
 import java.util.Collection;
-import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.ResourceBundle;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.transacao.Transacao;
-import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.pdv.util.ServerConfig;
 import com.infinity.datamarket.pdv.util.ServiceLocator;

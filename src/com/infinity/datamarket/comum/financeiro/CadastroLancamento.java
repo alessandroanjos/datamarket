@@ -99,27 +99,28 @@ public class CadastroLancamento extends Cadastro{
 				}
 			}
 		}
-		Set<ContaCorrente> hashContas = CadastroMovimentacaoBancaria.getInstancia().getHashContas();
-		
-		if(hashContas.size() > 0 ){
-			RepositoryManagerHibernateUtil.beginTrasaction();
-		}
-		
-		Iterator<ContaCorrente> it = hashContas.iterator();
-		
-		
-		while (it.hasNext()){
-			ContaCorrente cTmp = (ContaCorrente)it.next();
-			ContaCorrente c = CadastroContaCorrente.getInstancia().consultarPorId(cTmp.getId());
-			c.setSaldo(cTmp.getSaldo());
-			RepositorioContaCorrente repCtaCorrente = (RepositorioContaCorrente)super.getRepositorio(IRepositorio.REPOSITORIO_CONTA_CORRENTE);
-			repCtaCorrente.alterar(c);			
-		}
-		
-		if(hashContas.size() > 0){
-			RepositoryManagerHibernateUtil.commitTransation();
-		}
-		CadastroMovimentacaoBancaria.getInstancia().setHashContas(new TreeSet<ContaCorrente>());
+		CadastroMovimentacaoBancaria.getInstancia().atualizarContasCorrentes();
+//		Set<ContaCorrente> hashContas = CadastroMovimentacaoBancaria.getInstancia().getHashContas();
+//		
+//		if(hashContas.size() > 0 ){
+//			RepositoryManagerHibernateUtil.beginTrasaction();
+//		}
+//		
+//		Iterator<ContaCorrente> it = hashContas.iterator();
+//		
+//		
+//		while (it.hasNext()){
+//			ContaCorrente cTmp = (ContaCorrente)it.next();
+//			ContaCorrente c = CadastroContaCorrente.getInstancia().consultarPorId(cTmp.getId());
+//			c.setSaldo(cTmp.getSaldo());
+//			RepositorioContaCorrente repCtaCorrente = (RepositorioContaCorrente)super.getRepositorio(IRepositorio.REPOSITORIO_CONTA_CORRENTE);
+//			repCtaCorrente.alterar(c);			
+//		}
+//		
+//		if(hashContas.size() > 0){
+//			RepositoryManagerHibernateUtil.commitTransation();
+//		}
+//		CadastroMovimentacaoBancaria.getInstancia().setHashContas(new TreeSet<ContaCorrente>());
 	}
 	
 	public void lancarItemBaixaLancamentoContaCorrente(Lancamento lancamento, BaixaLancamento itemBaixaLanc, String tipoLancamento) throws AppException{

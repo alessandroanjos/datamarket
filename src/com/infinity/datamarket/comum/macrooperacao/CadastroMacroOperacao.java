@@ -6,7 +6,6 @@ package com.infinity.datamarket.comum.macrooperacao;
 import java.util.Collection;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.IRepositorio;
@@ -19,7 +18,7 @@ import com.infinity.datamarket.pdv.maquinaestados.MacroOperacao;
 public class CadastroMacroOperacao extends Cadastro {
 
 	private static CadastroMacroOperacao instancia;
-	private static Class CLASSE = MacroOperacao.class;
+//	private static Class CLASSE = MacroOperacao.class;
 	private CadastroMacroOperacao(){}
 	public static CadastroMacroOperacao getInstancia(){
 		if (instancia == null){

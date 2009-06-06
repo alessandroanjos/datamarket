@@ -1,8 +1,6 @@
 package com.infinity.datamarket.comum.transacao;
 
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Date;
 
 public class TransacaoSangria extends Transacao{
 

@@ -27,6 +27,8 @@ import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.collection.PersistentSet;
+
 import com.infinity.datamarket.autorizador.AutorizadorServerRemote;
 import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.cliente.Cliente;
@@ -65,6 +67,7 @@ import com.infinity.datamarket.comum.usuario.Vendedor;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConjuntoEventoTransacao;
 import com.infinity.datamarket.comum.util.Constantes;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 import com.infinity.datamarket.pdv.util.ServerConfig;
 import com.infinity.datamarket.pdv.util.ServiceLocator;
@@ -143,7 +146,7 @@ public class TransacaoBackBean extends BackBean {
 	private String idSituacao = TransacaoVenda.ATIVO;
 	private SelectItem[] listaSituacao;
 	
-	private SelectItem[] lojas;
+	private Set<Loja> lojas;
 	private SelectItem[] componentes;
 	private SelectItem[] formasPagamento;
 	private SelectItem[] formasTroco;
@@ -209,9 +212,9 @@ public class TransacaoBackBean extends BackBean {
 		SelectItem[] arrayComponentes = null;
 		try {
 			List<Componente> componentes = carregarComponentes();
-			arrayComponentes = new SelectItem[componentes.size()+1];
+			arrayComponentes = new SelectItem[componentes.size()];
 			int i = 0;
-			arrayComponentes[i++] = new SelectItem("0", "");
+//			arrayComponentes[i++] = new SelectItem("0", "");
 			for(Componente componentesTmp : componentes){
 				SelectItem item = new SelectItem(componentesTmp.getId().toString(), componentesTmp.getDescricao());
 				arrayComponentes[i++] = item;
@@ -354,10 +357,11 @@ public class TransacaoBackBean extends BackBean {
 		return itensTransacao;
 	}
 
-	private List<Loja> carregarLojas() {		
-		List<Loja> lojas = null;
+	private Set<Loja> carregarLojas() {		
+		Set<Loja> lojas = null;
 		try {
-			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+//			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -371,7 +375,8 @@ public class TransacaoBackBean extends BackBean {
 	public SelectItem[] getLojas() {
 		SelectItem[] arrayLojas = null;
 		try {
-			List<Loja> lojas = carregarLojas();
+//			Set<Loja> lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
+			Set<Loja> lojas = carregarLojas();
 			arrayLojas = new SelectItem[lojas.size()];
 			int i = 0;
 			for(Loja lojasTmp : lojas){
@@ -380,7 +385,9 @@ public class TransacaoBackBean extends BackBean {
 			}
 			if(this.getIdLoja() == null && arrayLojas.length > 0){
 				this.setIdLoja(arrayLojas[0].getValue().toString());
+				this.getComponentes();
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -391,7 +398,7 @@ public class TransacaoBackBean extends BackBean {
 		return arrayLojas;
 	}
 
-	public void setLojas(SelectItem[] lojas) {
+	public void setLojas(Set<Loja> lojas) {
 		this.lojas = lojas;
 	}
 
@@ -720,10 +727,10 @@ public class TransacaoBackBean extends BackBean {
 
 	public void resetBB(){
 		this.setId(null);
-		this.setIdLoja("0");
-		this.setLojas(null);
-		this.setIdComponente("0");
-		this.setComponentes(null);
+//		this.setIdLoja("0");
+//		this.setLojas(null);
+//		this.setIdComponente("0");
+//		this.setComponentes(null);
 		this.setIdVendedor("0");
 		this.setIdOperador("0");
 		this.setUsuariosVendedores(null);
@@ -863,8 +870,9 @@ public class TransacaoBackBean extends BackBean {
 					}
 					
 					filter.addPropertyInterval("pk.dataTransacao", this.getDataInicial(), IntervalObject.MAIOR_IGUAL);
-					this.getDataFinal().setDate(this.getDataFinal().getDate()+1);
-					filter.addPropertyInterval("pk.dataTransacao", this.getDataFinal(), IntervalObject.MENOR_IGUAL);
+					Date dataFinal = new Date(this.getDataFinal().getTime());					
+					dataFinal.setDate(dataFinal.getDate()+1);
+					filter.addPropertyInterval("pk.dataTransacao", dataFinal, IntervalObject.MENOR_IGUAL);
 				}
 				
 				if(this.getIdSituacao() != null && !this.getIdSituacao().equals("0")){

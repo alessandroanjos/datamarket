@@ -1,6 +1,5 @@
 package com.infinity.datamarket.comum.usuario;
 
-import java.util.Collection;
 import java.util.Set;
 
 import com.infinity.datamarket.comum.util.Persistente;

@@ -1,10 +1,7 @@
 package com.infinity.datamarket.comum.transacao;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
-
-import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 
 public class TransacaoPagamentoCartaoProprio extends TransacaoPagamento{
 

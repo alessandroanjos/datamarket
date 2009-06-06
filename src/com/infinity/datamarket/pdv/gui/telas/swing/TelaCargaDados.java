@@ -1,7 +1,5 @@
 package com.infinity.datamarket.pdv.gui.telas.swing;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 
 public class TelaCargaDados extends javax.swing.JFrame implements Runnable {
     

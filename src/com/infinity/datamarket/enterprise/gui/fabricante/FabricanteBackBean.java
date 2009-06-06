@@ -10,7 +10,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.fabricante.Fabricante;
-import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;

@@ -42,13 +42,21 @@
 								<ul>
 									<li class="normal">
 										<div>
+											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{componenteBB.idLoja}"> 
+												<f:selectItems id="lojasSelectItems" value="#{componenteBB.lojas}" />   
+											</h:selectOneMenu>
+										</div>
+										<br />
+										<br />
+										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
 											<h:inputText styleClass="field text ativo" id="id" maxlength="4" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
 												value="#{componenteBB.id}" size="4" required="false">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Descrição"></h:outputLabel>
@@ -56,7 +64,7 @@
 												value="#{componenteBB.descricao}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="descricao" styleClass="msgErro" />
+											
 										</div>
 									</li>
 								</ul>
@@ -68,15 +76,21 @@
 										<f:facet name="header">
 											<h:outputText value="Código" /> 
 										</f:facet>
-										<h:outputText value="#{componente.id}" /> 
+										<h:commandLink value="#{componente.id}" action="#{componenteBB.consultar}">
+											<f:param name="id" value="#{componente.id}"/>						
+										</h:commandLink>
 									</h:column>
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Descrição" />
 										</f:facet>
-										<h:commandLink value="#{componente.descricao}" action="#{componenteBB.consultar}">
-											<f:param name="id" value="#{componente.id}"/>						
-										</h:commandLink>
+										<h:outputText value="#{componente.descricao}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Loja" />
+										</f:facet>
+										<h:outputText value="#{componente.loja.nome}" /> 
 									</h:column>
 								</t:dataTable>
 								<ul>

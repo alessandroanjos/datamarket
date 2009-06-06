@@ -53,7 +53,7 @@
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Nome"></h:outputLabel>
@@ -61,7 +61,7 @@
 												value="#{lojaBB.nome}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="descricao" styleClass="msgErro" />
+											
 										</div>									
 										<br />
 										<br />	
@@ -71,7 +71,7 @@
 												value="#{lojaBB.numeroIp}" onblur="if (!verificaIP(this.value)) alert(ERRO_ENDERECO_IP);" onkeypress="return SoNumero(event);">
 												<f:validateLength maximum="15" />
 											</h:inputText>
-											<h:message for="numeroIp" styleClass="msgErro" />
+											
 										</div>									
 										<div>
 											<h:outputLabel styleClass="desc" value="Número Porta"></h:outputLabel>
@@ -79,7 +79,7 @@
 												value="#{lojaBB.numeroPorta}">
 												<f:validateLength maximum="4" />
 											</h:inputText>
-											<h:message for="numeroPorta" styleClass="msgErro" />
+											
 										</div>
 									</li>
 								</ul>

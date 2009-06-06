@@ -3,24 +3,25 @@
  */
 package com.infinity.datamarket.enterprise.gui.estoque;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.hibernate.collection.PersistentSet;
+
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoquePK;
-import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -115,7 +116,7 @@ public class EstoqueBackBean extends BackBean {
 				setId(param);
 				setIdLoja(loja);
 			}
-			if (getId() != null && !"".equals(getId()) && getIdLoja() != null && !"".equals(getIdLoja())) {
+			if (getId() != null && !"".equals(getId()) && getIdLoja() != null && !"0".equals(getIdLoja())) {
 				EstoquePK pk = new EstoquePK();
 				pk.setId(new Long(getId()));
 				Loja l = new Loja();
@@ -127,10 +128,33 @@ public class EstoqueBackBean extends BackBean {
 
 				this.setIdLoja(estoque.getPk().getLoja().getId().toString());
 				return "proxima";
-			} else if (getDescricao() != null && !"".equals(getDescricao())) {
+			} else if ((this.getId() != null && !"".equals(this.getId())) || 
+					(this.getIdLoja() != null && !"0".equals(this.getIdLoja())) || 
+					(getDescricao() != null && !"".equals(getDescricao()))) {
+				
 				PropertyFilter filter = new PropertyFilter();
+				
 				filter.setTheClass(Estoque.class);
-				filter.addProperty("descricao", getDescricao());
+				
+				if(!this.getDescricao().equals("")){
+					filter.addProperty("descricao", getDescricao());
+				}
+				
+//				EstoquePK estoquePk = new EstoquePK();
+				if(this.getIdLoja() != null && !this.getIdLoja().equals("0")){
+//					Loja lojaTmp = new Loja();
+//					lojaTmp.setId(new Long(this.getIdLoja()));
+//					estoquePk.setLoja(getFachada().consultarLojaPorId(new Long(this.getIdLoja())));
+					filter.addProperty("pk.loja.id", new Long(this.getIdLoja()));//getFachada().consultarLojaPorId(new Long(this.getIdLoja())));
+				}
+				
+				if(this.getId() != null && !this.getId().equals("")){
+//					estoquePk.setId(new Long(this.getId()));
+					filter.addProperty("pk.id", new Long(this.getId()));
+				}
+				
+//				filter.addProperty("pk", estoquePk);
+				
 				Collection col = getFachada().consultarEstoque(filter);
 				if (col == null || col.size() == 0) {
 					this.setEstoques(col);
@@ -256,11 +280,14 @@ public class EstoqueBackBean extends BackBean {
 		return "mesma";
 	}
 
-	private List<Loja> carregarLojas() {
+	private Set<Loja> carregarLojas() {
 
-		List<Loja> lojas = null;
+//		List<Loja> lojas = null;
+//		try {
+//			lojas = (ArrayList<Loja>) getFachada().consultarTodosLoja();
+		Set<Loja> lojas = null;
 		try {
-			lojas = (ArrayList<Loja>) getFachada().consultarTodosLoja();
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -274,7 +301,7 @@ public class EstoqueBackBean extends BackBean {
 	public SelectItem[] getLojas() {
 		SelectItem[] arrayLojas = null;
 		try {
-			List<Loja> lojas = carregarLojas();
+			Set<Loja> lojas = carregarLojas();
 			arrayLojas = new SelectItem[lojas.size()];
 			int i = 0;
 			for (Loja lojaTmp : lojas) {

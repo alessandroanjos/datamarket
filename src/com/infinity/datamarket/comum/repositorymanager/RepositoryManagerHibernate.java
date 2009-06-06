@@ -217,7 +217,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
                     }
                     String attributeName = (String)it.next();
                     Object attributeValue = attributes.get(attributeName);
-                    if(attributeName.indexOf(".") != -1 && (!attributeName.endsWith(".id") || attributeName.indexOf(".") != attributeName.lastIndexOf(".")))
+                    if(!attributeName.startsWith("pk") && attributeName.indexOf(".") != -1 && (!attributeName.endsWith(".id") || attributeName.indexOf(".") != attributeName.lastIndexOf(".")))
                     {
                         criterias = joinTables(criterias, criteria, attributeName, attributeValue, _filter.isIgnoreCase(), _precise);
                     } else
@@ -255,7 +255,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
                     {
                         criteria.add(Expression.eq(attributeName, attributeValue));
                     } else
-                    if(attributeValue instanceof Boolean)
+//                    if(attributeValue instanceof Boolean)
                     {
                         criteria.add(Expression.eq(attributeName, attributeValue));
                     }
@@ -353,7 +353,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
             criteria = _cri.createCriteria(root);
             criterias.put(root, criteria);
         }
-        if(attribute.indexOf(".") != -1 && (!attribute.endsWith(".id") || attribute.indexOf(".") != attribute.lastIndexOf(".")))
+        if(!attribute.startsWith("pk") && attribute.indexOf(".") != -1 && (!attribute.endsWith(".id") || attribute.indexOf(".") != attribute.lastIndexOf(".")))
         {
             criterias = joinTables(criterias, criteria, attribute, _attributeValue, _ignoreCase, _precise);
         } else
@@ -391,7 +391,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         {
             criteria.add(Expression.eq(attribute, _attributeValue));
         } else
-        if(_attributeValue instanceof Boolean)
+//        if(_attributeValue instanceof Boolean)
         {
             criteria.add(Expression.eq(attribute, _attributeValue));
         }

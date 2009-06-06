@@ -69,7 +69,7 @@
 											<h:inputText styleClass="field text" id="descricao" maxlength="20" size="20" value="#{perfilBB.descricao}" required="true">
 												<f:validateLength maximum="20" />
 											</h:inputText>
-											<h:message for="descricao" styleClass="msgErro" />									
+																				
 										</div>
 									</li>
 									<li class="normal">
@@ -78,7 +78,7 @@
 											<h:selectOneMenu id="perfis" styleClass="field select" value="#{perfilBB.idPerfilSuperior}" style="width: 200px;">
 												<f:selectItems id="perfilSuperiorSelectItems" value="#{perfilBB.perfis}" />
 											</h:selectOneMenu>
-											<h:message for="perfilSuperior" styleClass="msgErro" />	
+												
 										</div>
 									</li>
 									<li class="normal">
@@ -91,7 +91,7 @@
 												<f:validateDoubleRange minimum="0.00" maximum="99.99" />
 												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
-											<h:message for="percentualDesconto" styleClass="msgErro" />
+											
 										</div>
 									</li>
 								</ul>

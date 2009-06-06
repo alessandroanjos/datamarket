@@ -1,9 +1,9 @@
 package com.infinity.datamarket.pdv.gerenciadorperifericos.components;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
 import java.awt.Graphics;
-import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JPasswordField;
 
 public class LimitedPasswordField extends JPasswordField{
 	private byte maxLength=0;

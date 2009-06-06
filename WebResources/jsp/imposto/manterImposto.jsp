@@ -78,7 +78,7 @@
 											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
-									<h:message for="nome" styleClass="msgErro" />
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -88,7 +88,7 @@
 											<f:validateLength maximum="2" />
 										</h:inputText>
 									</div>
-									<h:message for="impostoImpressora" styleClass="msgErro" />
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -100,7 +100,7 @@
 											<f:validateDoubleRange minimum="00.01" maximum="99.99"/>
 										</h:inputText>
 									</div>
-									<h:message for="percentual" styleClass="msgErro" />
+									
 								</li>
 								<li class="buttons">
 								  <h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{impostoBB.voltarConsulta}" value="Voltar"></h:commandButton>								

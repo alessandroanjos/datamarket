@@ -9,7 +9,6 @@ import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.AutorizacaoRecusadaException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.IRepositorio;
-import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.pdv.maquinaestados.MacroOperacao;
 
 public class CadastroUsuario extends Cadastro{

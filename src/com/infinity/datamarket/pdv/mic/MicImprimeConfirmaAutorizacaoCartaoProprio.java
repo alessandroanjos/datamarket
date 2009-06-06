@@ -7,7 +7,6 @@ import java.util.Iterator;
 import com.infinity.datamarket.autorizador.AutorizacaoException;
 import com.infinity.datamarket.autorizador.AutorizadorServerRemote;
 import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
-import com.infinity.datamarket.comum.pagamento.DadosCartaoProprio;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.StringUtil;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;

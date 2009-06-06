@@ -3,7 +3,6 @@ package com.infinity.datamarket.pdv.mic;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.Date;
 
 import com.infinity.datamarket.comum.util.ConcentradorParametro;

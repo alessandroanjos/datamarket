@@ -4,13 +4,7 @@
 package com.infinity.datamarket.comum.fabricante;
 
 import java.util.Collection;
-import java.util.Iterator;
 
-import com.infinity.datamarket.comum.estoque.CadastroEntradaProduto;
-import com.infinity.datamarket.comum.estoque.EntradaProduto;
-import com.infinity.datamarket.comum.estoque.EstoqueProduto;
-import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
-import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;

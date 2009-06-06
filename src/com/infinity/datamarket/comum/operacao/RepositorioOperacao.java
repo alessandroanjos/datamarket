@@ -6,7 +6,17 @@ import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Repositorio;
 
-public class RepositorioOperacao extends Repositorio{
+public class RepositorioOperacao extends Repositorio implements IRepositorioOperacao{
+	private static RepositorioOperacao instancia;
+//	private static Class CLASSE = Operacao.class;
+	private RepositorioOperacao(){}
+	public static RepositorioOperacao getInstancia(){
+		if (instancia == null){
+			instancia = new RepositorioOperacao();
+		}
+		return instancia;
+	}
+
 
 	public void alterar(Operacao operacao)throws AppException{
 		update(operacao);

@@ -10,7 +10,7 @@
 		extends="com.infinity.datamarket.comum.operacao.Operacao"
 		table="OPERACAO_DEVOLUCAO" lazy="false">
 
-		<key>
+		<key property-ref="pk">
 			<column name="LOJA" />
 			<column name="ID" />			
 		</key>

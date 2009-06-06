@@ -1,9 +1,7 @@
 package com.infinity.datamarket.pdv.mic;
 
 
-import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscalException;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;

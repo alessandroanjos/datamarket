@@ -1,14 +1,9 @@
 package com.infinity.datamarket.pdv.mic;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import com.infinity.datamarket.comum.pagamento.ConstantesFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
-import com.infinity.datamarket.comum.transacao.ConstantesTransacao;
-import com.infinity.datamarket.comum.transacao.TransacaoEntradaOperador;
-import com.infinity.datamarket.comum.transacao.TransacaoPK;
-import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;

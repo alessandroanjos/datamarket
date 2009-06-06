@@ -1,13 +1,10 @@
 package com.infinity.datamarket.pdv.util;
 
 import java.util.Hashtable;
-import java.util.ResourceBundle;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
-import com.infinity.datamarket.transaction.TransactionServerRemote;
 
 public class ServiceLocator {
 

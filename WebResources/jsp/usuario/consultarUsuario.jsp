@@ -40,6 +40,12 @@
 								<ul>
 									<li class="normal">
 										<div>
+											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{usuarioBB.idLoja}"> 
+												<f:selectItems id="lojasSelectItems" value="#{usuarioBB.lojas}" />   
+											</h:selectOneMenu>
+										</div>
+										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
 											<h:inputText styleClass="field text ativo" id="id" maxlength="4" 
 												onfocus="this.select();" onclick="this.select();"
@@ -48,7 +54,7 @@
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Nome"></h:outputLabel>
@@ -56,7 +62,7 @@
 												value="#{usuarioBB.nome}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="nome" styleClass="msgErro" />
+											
 										</div>
 										<br />
 										<br />
@@ -67,7 +73,7 @@
 													  <f:selectItems id="perfilSelectItems" 
 													  value="#{usuarioBB.perfis}" />   
 											</h:selectOneMenu>
-											<h:message for="perfis" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Vendedor"></h:outputLabel>
@@ -75,7 +81,7 @@
 												value="#{usuarioBB.idTipoUsuario}" layout="lineDirection" required="true" rendered="true">
 											    <f:selectItems id="situacao" value="#{usuarioBB.tiposUsuario}" />
 											</h:selectOneRadio>
-											<h:message for="vendedor" styleClass="msgErro" />
+											
 										</div>
 									</li>
 								</ul>

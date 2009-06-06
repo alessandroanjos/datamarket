@@ -1,6 +1,5 @@
 package com.infinity.datamarket.comum.fornecedor;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import com.infinity.datamarket.comum.util.Persistente;

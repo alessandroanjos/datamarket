@@ -47,15 +47,19 @@
 								<ul>
 									<li class="normal">
 										<div>
-											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="idConsulta"
-												maxlength="4" onfocus="this.select();"
-												onclick="this.select();"
-												onkeypress="return SoNumero(event);"
-												value="#{contaCorrenteBB.idConsulta}" size="4" required="false">
-												<f:validateLength maximum="4" />
-												<f:validator validatorId="LongValidator" />
-											</h:inputText>
+											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{contaCorrenteBB.idLoja}"> 
+												<f:selectItems id="lojasSelectItems" value="#{contaCorrenteBB.lojas}" />   
+											</h:selectOneMenu>
+										</div>	
+										<br />
+										<br />
+										<div>
+											<h:outputLabel styleClass="desc" value="Banco"></h:outputLabel>
+											<h:selectOneMenu id="idBanco" styleClass="field select"
+												value="#{contaCorrenteBB.idBanco}" style="width: 200px;">		
+												<f:selectItems id="bancoSelectItems" value="#{contaCorrenteBB.bancos}" />
+											</h:selectOneMenu>
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Agência"></h:outputLabel>

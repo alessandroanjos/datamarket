@@ -18,6 +18,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
+import org.hibernate.collection.PersistentSet;
 
 import com.infinity.datamarket.comum.banco.Banco;
 import com.infinity.datamarket.comum.cliente.Cliente;
@@ -36,6 +37,7 @@ import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalOb
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Util;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class BaixaLancamentoBackBean extends BackBean {
@@ -299,11 +301,14 @@ public class BaixaLancamentoBackBean extends BackBean {
 	}
 	
 //	 Lojas 
-	private List<Loja> carregarLojas() {
+	private Set<Loja> carregarLojas() {
 		
-		List<Loja> lojas = null;
+//		List<Loja> lojas = null;
+//		try {
+//			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+		Set<Loja> lojas = null;
 		try {
-			lojas = (ArrayList<Loja>)getFachada().consultarTodosLoja();
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -317,7 +322,7 @@ public class BaixaLancamentoBackBean extends BackBean {
 	public SelectItem[] getLojas(){
 		SelectItem[] arrayLojas = null;
 		try {
-			List<Loja> lojas = carregarLojas();
+			Set<Loja> lojas = carregarLojas();
 			arrayLojas = new SelectItem[lojas.size()+1];
 			int i = 0;
 			arrayLojas[i++] = new SelectItem("0", "");
@@ -535,8 +540,10 @@ public class BaixaLancamentoBackBean extends BackBean {
 					}
 					
 					filter.addPropertyInterval("dataVencimento", this.getDataInicial(), IntervalObject.MAIOR_IGUAL);
-					this.getDataFinal().setDate(this.getDataFinal().getDate()+1);
-					filter.addPropertyInterval("dataVencimento", this.getDataFinal(), IntervalObject.MENOR_IGUAL);
+					Date dataFinal = new Date(this.getDataFinal().getTime());
+					
+					dataFinal.setDate(dataFinal.getDate()+1);
+					filter.addPropertyInterval("dataVencimento", dataFinal, IntervalObject.MENOR_IGUAL);
 				}
 				
 				if(this.getIdSituacao() != null && !this.getIdSituacao().equals("T")){
@@ -874,7 +881,7 @@ public class BaixaLancamentoBackBean extends BackBean {
 		Iterator i = this.getItensBaixaLancamento().iterator();
 		while(i.hasNext()){
 			BaixaLancamento itemBaixaLanc = (BaixaLancamento) i.next();
-			BaixaLancamentoPK itemPk = new BaixaLancamentoPK(param, this.getLancamento().getId());
+//			BaixaLancamentoPK itemPk = new BaixaLancamentoPK(param, this.getLancamento().getId());
 
 			if (itemBaixaLanc.getPk().getId().equals(param)){
 				

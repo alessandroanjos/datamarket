@@ -53,7 +53,7 @@
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>												
 								
-									<h:message for="id" styleClass="msgErro"/>	
+										
 									</div>
 								</li>
 								<li class="normal">
@@ -64,7 +64,7 @@
 											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
-									<h:message for="descricao" styleClass="msgErro"/>
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -74,7 +74,7 @@
 											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
-									<h:message for="recebimentoImpressora" styleClass="msgErro"/>
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -85,7 +85,7 @@
 										    <f:selectItem itemLabel="Não" itemValue="N"/>
 										</h:selectOneRadio>
 									</div>
-									<h:message for="abrirGaveta" styleClass="msgErro"/>
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -96,7 +96,7 @@
 										    <f:selectItem itemLabel="Não" itemValue="N"/>
 										</h:selectOneRadio>
 									</div>
-									<h:message for="abrirGaveta" styleClass="msgErro"/>
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -107,7 +107,7 @@
 										    <f:selectItem itemLabel="Não" itemValue="N"/>
 										</h:selectOneRadio>
 									</div>
-									<h:message for="abrirGaveta" styleClass="msgErro"/>
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -122,7 +122,7 @@
 										</h:inputText>
 										
 									</div>
-									<h:message for="valorLimiteSangria" styleClass="msgErro"/>
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -136,7 +136,7 @@
 											<f:validator validatorId="BigDecimalValidator"/>
 										</h:inputText>												
 									</div>
-									<h:message for="valorMaxTroco" styleClass="msgErro"/>									
+																		
 								</li>
 								<li class="normal">
 									<div>
@@ -145,7 +145,7 @@
 											value="#{formaRecebimentoBB.dataInicioValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 										</h:inputText>
 									</div>
-									<h:message for="dataInicioValidade" styleClass="msgErro"/>
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -154,7 +154,7 @@
 											value="#{formaRecebimentoBB.dataFimValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 										</h:inputText>
 									</div>
-									<h:message for="dataFimValidade" styleClass="msgErro"/>									
+																		
 								</li>
 								<li class="normal">
 									<div>
@@ -165,7 +165,7 @@
 												  value="#{formaRecebimentoBB.formas}" />   
 										</h:selectOneMenu>
 									</div>
-									<h:message for="perfis" styleClass="msgErro"/>
+									
 								</li>																
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" action="#{formaRecebimentoBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>

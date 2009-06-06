@@ -6,7 +6,6 @@
  */
 package com.infinity.datamarket.comum.util;
 
-import com.infinity.datamarket.comum.repositorymanager.IRepositoryManager;
 
 /**
  * @author wagner.medeiros

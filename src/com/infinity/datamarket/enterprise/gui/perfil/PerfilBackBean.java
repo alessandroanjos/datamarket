@@ -54,10 +54,6 @@ public class PerfilBackBean extends BackBean {
 
 	SelectItem[] funcionalidadesSelecionadas;
 	
-//	public PerfilBackBean(){
-//		resetBB();
-//	}
-
 	public ArrayList getListaOperacoesAssociadas() {
 		return listaOperacoesAssociadas;
 	}

@@ -65,7 +65,7 @@
 										</h:inputText>
 										
 									</div>
-									<h:message for="descricao" styleClass="msgErro"/>
+									
 								</li>
 								<li class="normal">						
 									<div>
@@ -75,7 +75,7 @@
 												  <f:selectItems id="formaSelectItems" 
 												  value="#{planoPagamentoBB.formas}"  />   
 										</h:selectOneMenu>
-										<h:message for="idForma" styleClass="msgErro"/>		
+												
 									</div>
 								</li>
 								<li class="normal">
@@ -88,7 +88,7 @@
 											<f:validateDoubleRange  minimum="0.01" maximum="9999999.99"/>
 											<f:validator validatorId="BigDecimalValidator"/>
 										</h:inputText>
-										<h:message for="valorMinimo" styleClass="msgErro"/>
+										
 									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Máximo"></h:outputLabel>
@@ -99,7 +99,7 @@
 											<f:validateDoubleRange  minimum="0.01" />
 											<f:validator validatorId="BigDecimalValidator"/>
 										</h:inputText>
-										<h:message for="valorMaximo" styleClass="msgErro"/>
+										
 									</div>
 								</li>
 								<li class="normal">
@@ -112,7 +112,7 @@
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
 										</h:inputText>
-										<h:message for="percentualDesconto" styleClass="msgErro"/>
+										
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Perc. Acréscimo"></h:outputLabel>
@@ -123,7 +123,7 @@
 											<f:validateDoubleRange  minimum="0.00" maximum="100.00"/>
 											<f:validator validatorId="BigDecimalValidator"/>
 										</h:inputText>
-										<h:message for="percentualAcrescimo" styleClass="msgErro"/>
+										
 									</div>
 								</li>
 								<li class="normal">
@@ -133,14 +133,14 @@
 											value="#{planoPagamentoBB.dataInicioValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 											
 										</h:inputText>
-										<h:message for="dataInicioValidade" styleClass="msgErro"/>
+										
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Final Validade"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10" required="false"
 											value="#{planoPagamentoBB.dataFimValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 										</h:inputText>
-										<h:message for="dataFimValidade" styleClass="msgErro"/>
+										
 									</div>
 								</li>
 								<li class="normal">
@@ -151,7 +151,7 @@
 										    <f:selectItems id="situacao" value="#{planoPagamentoBB.situacaoItens}" />							
 										</h:selectOneRadio>
 									</div>		
-									<h:message for="status" styleClass="msgErro"/>
+									
 								</li>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{planoPagamentoBB.voltarConsulta}" value="Voltar"></h:commandButton>

@@ -9,7 +9,7 @@ import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroLoja extends Cadastro{
 	private static CadastroLoja instancia;
-	private static Class CLASSE = Loja.class;
+//	private static Class CLASSE = Loja.class;
 	private CadastroLoja(){}
 	public static CadastroLoja getInstancia(){
 		if (instancia == null){

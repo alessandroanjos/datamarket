@@ -100,7 +100,5 @@ public class Loja extends Persistente {
 
 	public void setIdEstoque(Long idEstoque) {
 		this.idEstoque = idEstoque;
-	}
-
-	
+	}		
 }

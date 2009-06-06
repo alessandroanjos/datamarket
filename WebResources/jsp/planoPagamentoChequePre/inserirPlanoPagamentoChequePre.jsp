@@ -111,7 +111,7 @@
 												<f:validateLength maximum="2" />
 												<f:validator validatorId="LongValidator" />
 											</h:inputText>
-											<h:message for="id" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
@@ -120,7 +120,7 @@
 												value="#{planoPagamentoChequePreBB.descricao}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
-											<h:message for="descricao" styleClass="msgErro" />
+											
 										</div>
 									</li>
 									<li class="normal">
@@ -135,7 +135,7 @@
 												<f:validateDoubleRange minimum="0.01" maximum="9999999.99" />
 												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
-											<h:message for="valorMinimo" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Valor Máximo*"></h:outputLabel>
@@ -148,7 +148,7 @@
 												<f:validateDoubleRange minimum="0.01" maximum="9999999.99" />
 												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
-											<h:message for="valorMaximo" styleClass="msgErro" />
+											
 										</div>
 									</li>
 									<li class="normal">
@@ -163,7 +163,7 @@
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
-											<h:message for="percentualDesconto" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Perc. Acréscimo*"></h:outputLabel>
@@ -176,7 +176,7 @@
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
-											<h:message for="percentualAcrescimo" styleClass="msgErro" />
+											
 										</div>
 									</li>
 									<li class="normal">
@@ -189,7 +189,7 @@
 												onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 
 											</h:inputText>
-											<h:message for="dataInicioValidade" styleClass="msgErro" />
+											
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Final Validade*"></h:outputLabel>
@@ -199,7 +199,7 @@
 												onkeypress="return MascaraData(this,event);"
 												onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 											</h:inputText>
-											<h:message for="dataFimValidade" styleClass="msgErro" />
+											
 										</div>
 									</li>
 									<li class="normal">
@@ -211,7 +211,7 @@
 												<f:selectItems id="situacao"
 													value="#{planoPagamentoChequePreBB.situacaoItens}" />
 											</h:selectOneRadio>
-											<h:message for="status" styleClass="msgErro" />
+											
 										</div>
 									</li>
 								</ul>
@@ -230,7 +230,7 @@
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
-											<h:message for="percentualEntrada" styleClass="msgErro" />
+											
 										</div>
 									</li>
 								</ul>
@@ -249,7 +249,7 @@
 													<f:selectItems  id="radioDataProgramada"
 														value="#{planoPagamentoChequePreBB.dataProgramadaSimNao}" />
 												</h:selectOneRadio>
-												<h:message for="dataProgramada" styleClass="msgErro" />
+												
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="Percentual*"></h:outputLabel>
@@ -262,7 +262,7 @@
 													<f:validateDoubleRange minimum="0.00" maximum="100.00" />
 													<f:validator validatorId="BigDecimalValidator" />
 												</h:inputText>
-												<h:message for="percentualParcela" styleClass="msgErro" />
+												
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="Qtd. de Dias*"></h:outputLabel>
@@ -275,7 +275,7 @@
 													<f:validateLength maximum="3" />
 													<f:validator validatorId="LongValidator" />
 												</h:inputText>
-												<h:message for="quantidadeDiasParcela" styleClass="msgErro" />
+												
 											</div>
 											<div>
 												<h:commandButton image="/images/adicionar.png" alt="Inserir Parcela" styleClass="btTxt" id="botaoInserirParcela"

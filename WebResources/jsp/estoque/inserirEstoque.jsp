@@ -54,7 +54,7 @@
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator" />
 										</h:inputText>
-										<h:message for="id" styleClass="msgErro" />
+										
 									</div>
 								</li>
 								<li class="normal">
@@ -64,7 +64,7 @@
 											size="50" value="#{estoqueBB.descricao}" required="true">
 											<f:validateLength maximum="50" />
 										</h:inputText>
-										<h:message for="nome" styleClass="msgErro" />
+										
 									</div>
 								</li>
 								<li class="normal">
@@ -74,7 +74,7 @@
 											value="#{estoqueBB.idLoja}">		
 											<f:selectItems id="lojaSelectItems" value="#{estoqueBB.lojas}" />
 										</h:selectOneMenu>
-										<h:message for="idLoja" styleClass="msgErro" />
+										
 									</div>
 								</li>														
 								<li class="buttons">

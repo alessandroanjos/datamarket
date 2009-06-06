@@ -59,7 +59,7 @@
 											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
-									<h:message for="descricao" styleClass="msgErro" />
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -69,7 +69,7 @@
 											<f:validateLength maximum="15" />
 										</h:inputText>
 									</div>
-									<h:message for="ip" styleClass="msgErro" />
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -79,7 +79,7 @@
 											<f:validateLength maximum="4" />
 										</h:inputText>
 									</div>
-									<h:message for="porta" styleClass="msgErro" />
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -90,7 +90,7 @@
 												  value="#{componenteBB.lojas}" />   
 										</h:selectOneMenu> 
 									</div>
-									<h:message for="idLoja" styleClass="msgErro" />
+									
 								</li>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" action="#{componenteBB.voltarConsulta}" value="Voltar"></h:commandButton>

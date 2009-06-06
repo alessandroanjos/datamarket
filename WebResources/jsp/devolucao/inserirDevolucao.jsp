@@ -280,8 +280,7 @@
 							<li class="direita">
 								<div>
 									<h:outputLabel styleClass="descBaixo" value="Valor Total"></h:outputLabel>
-								</div>
-								<div>
+								
 									<h:inputText styleClass="field text" id="valorTotalDevolucao" maxlength="15" size="15" 
 										value="#{devolucaoBB.valorTotalDevolucao}" dir="rtl" onkeypress="return SoNumero(event);" readonly="true">
 									</h:inputText>

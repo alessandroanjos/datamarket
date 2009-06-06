@@ -1,7 +1,5 @@
 package com.infinity.datamarket.pdv.mic;
 
-import java.util.ArrayList;
-
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;

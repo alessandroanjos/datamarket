@@ -1,13 +1,11 @@
 package com.infinity.datamarket.comum.totalizadores;
 
-import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.Iterator;
 
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Repositorio;
 
-public class RepositorioTotalizadores extends Repositorio{
+public class RepositorioTotalizadores extends Repositorio implements IRepositorioTotalizadores{
 	
 	private static RepositorioTotalizadores instancia;
 	private RepositorioTotalizadores(){}

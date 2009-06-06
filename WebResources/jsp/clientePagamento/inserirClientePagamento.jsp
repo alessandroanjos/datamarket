@@ -54,7 +54,7 @@
 										value="#{clientePagamentoBB.idCliente}" required="true" style="width: 200px;" valueChangeListener="#{clientePagamentoBB.recuperaDadosCliente}">   
 										  <f:selectItems id="clienteSelectItems" value="#{clientePagamentoBB.clientes}" />   
 									</h:selectOneMenu>
-									<h:message for="clientes" styleClass="msgErro" />
+									
 								</div>
 								</li>
 							<li class="normal">
@@ -85,7 +85,7 @@
 										required="false">
 										<f:convertDateTime timeZone="GMT-3"/>
 									</h:inputText>
-									<h:message for="dataPagamento" styleClass="msgErro"/>
+									
 								</div>							
 								<div>
 									<h:outputLabel styleClass="desc" value="Forma de Recebimento"></h:outputLabel>
@@ -93,7 +93,7 @@
 										value="#{clientePagamentoBB.idFormaRecebimento}" required="false" style="width: 200px;">   
 										  <f:selectItems id="formaSelectItems" value="#{clientePagamentoBB.formas}" />   
 									</h:selectOneMenu>
-									<h:message for="formas" styleClass="msgErro" />
+									
 								</div>
 							<div>
 									<h:outputLabel styleClass="desc" value="Valor Pagamento"></h:outputLabel>
@@ -103,7 +103,7 @@
 										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>										
 										<f:validator validatorId="BigDecimalValidator" />
 									</h:inputText>
-									<h:message for="valorPagamento" styleClass="msgErro" />							
+																
 								</div>
 							</li>									
 						</ul>						

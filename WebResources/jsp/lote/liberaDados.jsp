@@ -51,7 +51,7 @@
 											<f:validateLength maximum="8" />
 											<f:validator validatorId="LongValidator" />
 										</h:inputText>
-										<h:message for="numeroLote" styleClass="msgErro" />
+										
 									</div>
 								</li>
 								<li class="normal">
@@ -61,7 +61,7 @@
 											size="8" value="#{loteBB.qtdRegistros}">
 											<f:validateLength maximum="50" />
 										</h:inputText>
-										<h:message for="qtdRegistros" styleClass="msgErro" />
+										
 									</div>
 								</li>								
 								<li class="buttons">

@@ -40,10 +40,7 @@
 				
 				<div id="content">
 				
-						<div id="primarioContentContainerInternas">
-							<div>
-								<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
-							</div>
+						<div id="primarioContentContainerInternas">							
 							<fieldset>
 								<legend>Opções de filtro:</legend>
 								<ul>
@@ -54,7 +51,7 @@
 												value="#{clientePagamentoBB.idCliente}" required="false" style="width: 200px;">   
 												  <f:selectItems id="clienteSelectItems" value="#{clientePagamentoBB.clientes}" />   
 											</h:selectOneMenu>
-											<h:message for="clientes" styleClass="msgErro" />
+											
 										</div>
 									<br />
 									<br />
@@ -64,7 +61,7 @@
 											value="#{clientePagamentoBB.dataInicial}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 											<f:convertDateTime timeZone="GMT-3"/>
 										</h:inputText>
-										<h:message for="dataInicial" styleClass="msgErro"/>
+										
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Data Final"></h:outputLabel>
@@ -72,7 +69,7 @@
 											value="#{clientePagamentoBB.dataFinal}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 											<f:convertDateTime timeZone="GMT-3"/>
 										</h:inputText>
-										<h:message for="dataFinal" styleClass="msgErro"/>
+										
 									</div>					
 									</li>
 								</ul>
@@ -119,14 +116,13 @@
 										<h:outputText value="#{clientePagamento.valorPagamento}" dir="rtl" /> 
 									</h:column>							
 								</t:dataTable>
-								<!-- <ul>
+								<ul>
 									<li class="normal">
 										<div>
 											<h:messages rendered="#{not formaRecebimentoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 										</div>
 									</li>
 								</ul>
-								 -->
 							</div>
 							<ul>
 								<li class="buttons">

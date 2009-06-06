@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Repositorio;
 
-public class RepositorioDadoLote extends Repositorio{
+public class RepositorioDadoLote extends Repositorio implements IRepositorioDadoLote{
 	private static RepositorioDadoLote instancia;
 	
 	private RepositorioDadoLote(){}

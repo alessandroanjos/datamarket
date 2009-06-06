@@ -8,13 +8,12 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.IRepositorio;
-import com.infinity.datamarket.comum.util.ObjetoInexistenteException;
 
 public class CadastroMovimentacaoEstoque extends Cadastro{
 
 	private static CadastroMovimentacaoEstoque instancia;
 	
-	private static Class CLASSE = MovimentacaoEstoque.class;
+//	private static Class CLASSE = MovimentacaoEstoque.class;
 	
 	private CadastroMovimentacaoEstoque(){
 		

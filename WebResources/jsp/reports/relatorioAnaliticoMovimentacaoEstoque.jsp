@@ -44,8 +44,8 @@
 								<ul>								
 									<li class="normal">
 										<div>
-											<h:outputLabel styleClass="desc" value="Loja" rendered="false"></h:outputLabel>										
-											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{relatorioBB.idLoja}" rendered="false">  
+											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>										
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{relatorioBB.idLoja}">  
 												<f:selectItems id="lojasSelectItems" value="#{relatorioBB.lojas}" />   
 											</h:selectOneMenu>
 										</div>

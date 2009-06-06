@@ -4,14 +4,13 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroClientePagamento extends Cadastro {
 	private static CadastroClientePagamento instancia;
-	private static Class CLASSE = ClientePagamento.class;
+//	private static Class CLASSE = ClientePagamento.class;
 	private CadastroClientePagamento(){}
 	
 	public static CadastroClientePagamento getInstancia(){

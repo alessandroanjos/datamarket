@@ -7,14 +7,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.hibernate.HibernateException;
-import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.collection.PersistentSet;
 
 import com.infinity.datamarket.comum.fabricante.Fabricante;
 import com.infinity.datamarket.comum.produto.GrupoProduto;
@@ -22,11 +22,10 @@ import com.infinity.datamarket.comum.produto.Imposto;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.produto.Unidade;
-import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
-import com.infinity.datamarket.comum.util.ValidationException;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
  
 public class PopUpProdutoBackBean extends BackBean{
@@ -528,9 +527,12 @@ public class PopUpProdutoBackBean extends BackBean{
 	}
 	
 	private Collection carregarLojas() {
-		Collection lojas = null;
-		try{
-			lojas = getFachada().consultarTodosLoja();
+//		Collection lojas = null;
+//		try{
+//			lojas = getFachada().consultarTodosLoja();
+		Set<Loja> lojas = null;
+		try {
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		}catch(Exception e){
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,

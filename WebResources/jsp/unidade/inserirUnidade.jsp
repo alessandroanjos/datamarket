@@ -68,7 +68,7 @@
 											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
-  								<h:message for="nome" styleClass="msgErro" />
+  								
 								</li>
 								<li class="normal">
 									<div>
@@ -78,7 +78,7 @@
 											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
-									<h:message for="descricaoCompacta" styleClass="msgErro" />
+									
 								</li>
 								<li class="normal">
 									<div>
@@ -88,7 +88,7 @@
 											<f:validateLength maximum="2" />
 										</h:inputText>
 									</div>
-									<h:message for="abreviacao" styleClass="msgErro" />
+									
 								</li>
 								<li class="buttons">
 <h:commandButton styleClass="btTxt" action="#{unidadeBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
