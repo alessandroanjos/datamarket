@@ -16,13 +16,14 @@ public class Loja extends Persistente {
 	 */
 	private static final long serialVersionUID = 3232434821743619505L;
 	
-	String nome;
-	String numeroIp;
-	String numeroPorta;
-	Long idEstoque;
-	Collection lojas;
+	private String nome;
+	private String numeroIp;
+	private String numeroPorta;
+	private Long idEstoque;
+	private Long idContaCorrente;
+	private Collection lojas;
 	
-	Set usuarios;
+	private Set usuarios;
 	
 	/**
 	 * @return the usuarios
@@ -100,5 +101,13 @@ public class Loja extends Persistente {
 
 	public void setIdEstoque(Long idEstoque) {
 		this.idEstoque = idEstoque;
+	}
+
+	public Long getIdContaCorrente() {
+		return idContaCorrente;
+	}
+
+	public void setIdContaCorrente(Long idContaCorrente) {
+		this.idContaCorrente = idContaCorrente;
 	}		
 }
