@@ -30,11 +30,15 @@
             <column name="NUMERO_PORTA" length="4" not-null="true"/>
         </property>
         
-         <property name="idEstoque" type="java.lang.Long" update="true" insert="true">
+        <property name="idEstoque" type="java.lang.Long" update="true" insert="true">
             <column name="ID_ESTOQUE_ATUAL" length="4" not-null="false"/>
         </property>
         
-        <set name="usuarios" table="USUARIO_LOJA">
+        <property name="idContaCorrente" type="java.lang.Long" update="true" insert="true">
+            <column name="ID_CONTA_CORRENTE" length="4" not-null="false"/>
+        </property>
+        
+        <set name="usuarios" table="USUARIO_LOJA" lazy="true">
              <key column="ID_LOJA"/>
              <many-to-many column="ID_USUARIO" class="com.infinity.datamarket.comum.usuario.Usuario"/>
         </set>

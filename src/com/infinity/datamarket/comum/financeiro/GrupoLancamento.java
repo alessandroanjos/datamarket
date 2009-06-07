@@ -12,6 +12,7 @@ public class GrupoLancamento extends Persistente{
 	private String descricao;
 	private String tipoRegistro;
 	
+	public static final Long GRUPO_VENDA = new Long(1);
 	public static final String REGISTRO_SISTEMA = "S";
 	public static final String REGISTRO_USUARIO = "U";
 	public String getDescricao() {

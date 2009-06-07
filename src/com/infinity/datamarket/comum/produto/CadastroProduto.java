@@ -51,7 +51,8 @@ public class CadastroProduto extends Cadastro{
 	}
 	
 	public void excluir(Produto produto) throws AppException{
-		getRepositorio().excluir(produto);
+		produto.setStatus(produto.DESATIVADO);
+		getRepositorio().alterar(produto);
 	}
 
 	public Collection consultaProdutosPorSecao(String idLoja) throws AppException{

@@ -17,6 +17,8 @@ public class EventoItemPagamento extends EventoTransacao{
 	private int codigoPlano;
 
 	
+	
+	
 	private String descricaoPlano;
 
 	private String descricaoForma;
@@ -46,6 +48,17 @@ public class EventoItemPagamento extends EventoTransacao{
 		return codigoForma;
 	}
 
+	public BigDecimal getValorLiquido(){
+		BigDecimal valor = this.valorBruto;
+		if (this.getValorDesconto() != null){
+			valor = valor.subtract(this.getValorDesconto());
+		}
+		if (this.getValorAcrescimo() != null){
+			valor = valor.add(this.getValorAcrescimo());
+		}
+		return valor;
+	}
+	
 	public void setCodigoForma(int codigoForma) {
 		this.codigoForma = codigoForma;
 	}

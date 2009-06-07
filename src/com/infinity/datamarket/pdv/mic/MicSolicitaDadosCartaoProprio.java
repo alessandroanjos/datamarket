@@ -58,6 +58,7 @@ public class MicSolicitaDadosCartaoProprio extends Mic{
 							}
 							DadosCartaoProprio dados = new DadosCartaoProprio();
 							dados.setAutorizacao(dadosAutorizacao.getAutrizacao());
+							dados.setCPFCNPJ(CPFCNPJ);
 							Collection c = (Collection) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_AUTORIZACOES_CARTAO_PROPRIO);
 							if (c == null){
 								c = new ArrayList();

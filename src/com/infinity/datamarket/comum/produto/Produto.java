@@ -13,6 +13,9 @@ public class Produto extends Persistente{
 	private static final long serialVersionUID = 4520193183852821246L;
 	
 	
+	public static final String ATIVO = "A";
+	public static final String DESATIVADO = "D";
+	
 	private String codigoExterno;
 	private String codigoAutomacao;
 	private String descricaoCompleta;
@@ -26,8 +29,15 @@ public class Produto extends Persistente{
 	private GrupoProduto grupo;
 	private Fabricante fabricante;
 	private Collection lojas;
+	private String status;
 	
 	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public Imposto getImposto() {
 		return imposto;
 	}

@@ -22,6 +22,7 @@ public class Lancamento extends Persistente{
 	public static final String PAGTO_PARCIAL = "P";
 	public static final String FINALIZADO = "F";
 	public static final String CANCELADO = "C";
+	public static final String PENDENTE = "D";
 	
 	private Loja loja;
 	private Date dataLancamento;

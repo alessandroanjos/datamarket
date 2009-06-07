@@ -35,6 +35,10 @@
         <property name="descricaoCompacta" type="java.lang.String" update="true" insert="true">
             <column name="DESCRICAO_COMPACTA" length="30" not-null="true"/>
         </property>
+        
+        <property name="status" type="java.lang.String" update="true" insert="true">
+            <column name="STATUS" length="1" not-null="true"/>
+        </property>
 
         <property name="precoPadrao" type="java.math.BigDecimal" update="true" insert="true">
             <column name="PRECO_PADRAO" length="20" not-null="true"/>
