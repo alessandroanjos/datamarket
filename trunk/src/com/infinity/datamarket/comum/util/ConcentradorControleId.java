@@ -18,32 +18,19 @@ public class ConcentradorControleId extends Cadastro{
 	}
 	
 	
-	public IRepositorioControleId getRepositorio() {
-		return (IRepositorioControleId) super.getRepositorio(IRepositorio.REPOSITORIO_CONTROLE_ID);
+	public CadastroControleId getCadastro() {
+		return CadastroControleId.getInstancia();
 	}
 
 	public Long retornaMaxId(Class classe){
-		return getRepositorio().retornaMaxId(classe);
+		return getCadastro().retornaMaxId(classe);
 	}
 
 	public Controle getControle(Class classe) {
 		Controle retorno = null;
-
 		try{
-			
 				RepositoryManagerHibernateUtil.beginTrasaction();
-				try {
-					retorno = getRepositorio().getControle(classe);
-				}catch(ObjectNotFoundException e){
-				}
-				if (retorno == null) {
-					retorno = new Controle();
-					retorno.setChave(classe.getSimpleName());
-					retorno.setValor(retornaMaxId(classe)+1);
-					getRepositorio().inserirControle(retorno);
-				} else {
-					retorno.setValor(retorno.getValor()+1);
-				}
+				retorno = getCadastro().getControle(classe);
 				RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
@@ -66,34 +53,6 @@ public class ConcentradorControleId extends Cadastro{
 			}
 		}
 		return retorno;
-	}
-	
-	public void atualizarControle(Controle controle) {
-		
-		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
-			getRepositorio().atualizarControle(controle);
-			RepositoryManagerHibernateUtil.commitTransation();
-		}catch(AppException e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}catch(Throwable e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-				throw new SistemaException(e);
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}
 	}
 
 }

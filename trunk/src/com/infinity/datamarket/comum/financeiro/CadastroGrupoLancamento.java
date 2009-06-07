@@ -35,6 +35,9 @@ public class CadastroGrupoLancamento extends Cadastro{
 		return getRepositorio().consultarTodos();
 	}
 	public void inserir(GrupoLancamento grupo) throws AppException{
+		if (grupo.getId().equals(GrupoLancamento.GRUPO_VENDA)){
+			throw new AppException("Código de Grupo de Lançamento Reservado : "+GrupoLancamento.GRUPO_VENDA);
+		} 
 		getRepositorio().inserir(grupo);
 	}
 

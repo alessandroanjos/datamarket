@@ -117,7 +117,7 @@ public class MicProcessaPlano extends Mic{
 		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.CARTAO_PROPRIO)){
 			DadosCartaoProprio dados = (DadosCartaoProprio) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CARTAO_PROPRIO);
 			eventoItemPagamento = new EventoItemPagamentoCartaoProprio(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo,
-					dados.getAutorizacao());
+					dados.getAutorizacao(),dados.getCPFCNPJ());
 			eventos.add(eventoItemPagamento);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamento);
 		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.TROCA)){

@@ -21,13 +21,18 @@ public class RepositorioProduto extends Repositorio implements IRepositorioProdu
 	}
 
 	public Produto consultarPorPK(Long id) throws AppException{
-		return (Produto) findById(CLASSE, id);
+		Produto produto = (Produto) findById(CLASSE, id);
+		if (produto.getStatus().equals(produto.DESATIVADO)){
+			throw new com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException("Produto Inexistente");
+		}
+		return produto;
 	}
 
 	public Produto consultarPorCodigoExterno(String codigo) throws AppException{
 		PropertyFilter filter = new PropertyFilter();
 		filter.setTheClass(CLASSE);
 		filter.addProperty("codigoExterno", codigo);
+		filter.addProperty("status", Produto.ATIVO);
 		filter.setIgnoreCase(true);
 		List l = filter(filter, true);
 		if (l.size() > 0){
@@ -39,15 +44,19 @@ public class RepositorioProduto extends Repositorio implements IRepositorioProdu
 
 	public Collection consultarPorFiltro(IPropertyFilter filter, boolean preciso) throws AppException{
 		filter.setTheClass(CLASSE);
+		filter.addProperty("status", Produto.ATIVO);
 		List l = filter(filter, preciso);
 		return l;
 	}
 	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
+		filter.addProperty("status", Produto.ATIVO);
 		return filter(filter, false);
 	}
 	public Collection consultarTodos() throws AppException{
-		return findAll(CLASSE);
+		PropertyFilter filter = new PropertyFilter();
+		filter.setTheClass(CLASSE);		
+		return consultar(filter);
 	}
 	public void inserir(Produto produto) throws AppException{
 		insert(produto);

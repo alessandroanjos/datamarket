@@ -19,5 +19,9 @@
             <column name="AUTORIZACAO" length="50" not-null="true"/>
           </property>
           
+          <property name="CPFCNPJ" type="java.lang.String" update="true" insert="true">
+            <column name="CPFCNPJ" length="50" not-null="true"/>
+          </property>
+          
       </joined-subclass>
    </hibernate-mapping>
