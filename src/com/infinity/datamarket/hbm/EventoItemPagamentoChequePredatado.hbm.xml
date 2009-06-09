@@ -16,7 +16,8 @@
           </key>
 
 
-		  <set name="parcelas" inverse="true" cascade="all" lazy="true">
+		  <set name="parcelas" inverse="true" cascade="save-update, delete-orphan"
+			lazy="false">
                  <key>
                      <column name="LOJA"/>
                      <column name="COMPONENTE"/>

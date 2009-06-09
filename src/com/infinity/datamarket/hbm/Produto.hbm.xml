@@ -72,7 +72,7 @@
 	    
 		<set name="lojas" table="PRODUTO_LOJA" lazy="false">
              <key column="ID_PRODUTO"/>
-             <many-to-many column="ID_LOJA" class="com.infinity.datamarket.comum.usuario.Loja" property-ref="id"/>
+             <many-to-many column="ID_LOJA" class="com.infinity.datamarket.comum.usuario.Loja"/>
         </set>
 
     </class>
