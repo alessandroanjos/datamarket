@@ -38,7 +38,7 @@
             <column name="ID_CONTA_CORRENTE" length="4" not-null="false"/>
         </property>
         
-        <set name="usuarios" table="USUARIO_LOJA" lazy="true">
+        <set name="usuarios" table="USUARIO_LOJA">
              <key column="ID_LOJA"/>
              <many-to-many column="ID_USUARIO" class="com.infinity.datamarket.comum.usuario.Usuario"/>
         </set>
