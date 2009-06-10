@@ -81,12 +81,10 @@
 					<h:outputText value="#{msgs.inserirMovimentacaoEstoque}"></h:outputText>
 				</strong>
 			</div>				
-		</div>
-	
-			<div id="content">
-				<div id="primarioContentContainerInternas" >
-<h:form id="frmInserirMovimentacaoEstoque" binding="#{movimentacaoEstoqueBB.init}">
-
+		</div>	
+		<div id="content">
+			<div id="primarioContentContainerInternas" >
+				<h:form id="frmInserirMovimentacaoEstoque" binding="#{movimentacaoEstoqueBB.init}">
 					<ul>
 						<li class="normal">
 							<div>
@@ -95,42 +93,49 @@
 									showDetail="true" />
 							</div>
 						</li>
-						
-						<li class="normal" style="border-bottom:0;">
-						
 						<li class="normal">	
 							<div>
-								<h:outputLabel styleClass="desc" value="Estoque Saida"></h:outputLabel>
-								<h:selectOneMenu id="idEstoqueSaida" styleClass="field text select"
-									value="#{movimentacaoEstoqueBB.idEstoqueSaida}" style="width:100px;">
-									<f:selectItems id="estoqueSelectItemsSaida"
-										value="#{movimentacaoEstoqueBB.estoques}" />
+								<h:outputLabel styleClass="desc" value="Loja Saída"></h:outputLabel>
+								<h:selectOneMenu id="idLojaSaida" style="width: 200px;" value="#{movimentacaoEstoqueBB.idLojaSaida}" onchange="submit();" valueChangeListener="#{movimentacaoEstoqueBB.carregarEstoquesPorLojaSaida}"> 
+									<f:selectItems id="lojasSelectItems" value="#{movimentacaoEstoqueBB.lojasSaida}" />   
 								</h:selectOneMenu>
-								
-							</div>	
-							<div>	
-								<h:outputLabel styleClass="desc" value="Estoque Entrada"></h:outputLabel>
-								<h:selectOneMenu id="idEstoqueEntrada" styleClass="field text select"
-									value="#{movimentacaoEstoqueBB.idEstoqueEntrada}" style="width:100px;">
-									<f:selectItems id="estoqueSelectItemsEntrada"
-										value="#{movimentacaoEstoqueBB.estoques}" />
-								</h:selectOneMenu>
-								
 							</div>
-						</li>
-
-						<li class="normal">
+							<div>
+								<h:outputLabel styleClass="desc" value="Estoque Saída"></h:outputLabel>
+								<h:selectOneMenu id="idEstoqueSaida" style="width:250px;" 
+									value="#{movimentacaoEstoqueBB.idEstoqueSaida}" >   
+										  <f:selectItems id="estoqueSelectItems" 
+										  value="#{movimentacaoEstoqueBB.estoquesSaida}" />   
+								</h:selectOneMenu> 
+							</div>
+							<br/>
+							<br/>
+							<div>
+								<h:outputLabel styleClass="desc" value="Loja Entrada"></h:outputLabel>
+								<h:selectOneMenu id="idLojaEntrada" style="width: 200px;" value="#{movimentacaoEstoqueBB.idLojaEntrada}" onchange="submit();" valueChangeListener="#{movimentacaoEstoqueBB.carregarEstoquesPorLojaEntrada}"> 
+									<f:selectItems id="lojasSelectItems" value="#{movimentacaoEstoqueBB.lojasEntrada}" />   
+								</h:selectOneMenu>
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Estoque Entrada"></h:outputLabel>
+								<h:selectOneMenu id="idEstoqueEntrada" style="width:250px;" 
+									value="#{movimentacaoEstoqueBB.idEstoqueEntrada}" >   
+										  <f:selectItems id="estoqueSelectItems" 
+										  value="#{movimentacaoEstoqueBB.estoquesEntrada}" />   
+								</h:selectOneMenu> 
+							</div>
+							<br />
+							<br />
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
 								<h:inputText styleClass="field text" id="idProduto"
 									maxlength="9" value="#{movimentacaoEstoqueBB.idProduto}" size="12">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
-								</h:inputText>
-								
-							<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
-								onmousedown="showPopUp(this,'frmInserirMovimentacaoEstoque','find')"
-								onclick="return false" value="Consultar Produto ">
+								</h:inputText>								
+								<h:commandButton image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
+									onmousedown="showPopUp(this,'frmInserirMovimentacaoEstoque','find')"
+									onclick="return false" value="Consultar Produto ">
 								</h:commandButton>
 							</div>	
 							<div>		
@@ -148,51 +153,46 @@
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
-								</h:inputText>
-								
+								</h:inputText>								
 								<h:commandButton image="/images/adicionar.png" alt="Inserir Produto" id="botaoInserirProduto"
 									action="#{movimentacaoEstoqueBB.inserirProduto}">
 								</h:commandButton>
 							</div>
 						</li>	
-
-
 					</ul>
-
-						<div class="listagem">
-							<t:dataTable value="#{movimentacaoEstoqueBB.arrayProduto}"
-								var="produtoMovimentacao" rowClasses="rowA,rowB" width="95%">
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Produto" />
-									</f:facet>
-									<h:outputText value="#{produtoMovimentacao.produto.id}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Descrição" />
-									</f:facet>
-									<h:outputText value="#{produtoMovimentacao.produto.descricaoCompleta}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Qtd." />
-									</f:facet>
-									<h:outputText value="#{produtoMovimentacao.quantidade}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Excluir" />
-									</f:facet>
-									<h:commandLink  value=""
-										action="#{movimentacaoEstoqueBB.excluirProduto}">
-										<h:commandButton type="button" image="/images/excluir.png"/>
-										<f:param name="idExcluir" value="#{produtoMovimentacao.produto.id}" />
-									</h:commandLink>
-								</h:column>
-							</t:dataTable>
-						</div>
-
+					<div class="listagem">
+						<t:dataTable value="#{movimentacaoEstoqueBB.arrayProduto}"
+							var="produtoMovimentacao" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Produto" />
+								</f:facet>
+								<h:outputText value="#{produtoMovimentacao.produto.id}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Descrição" />
+								</f:facet>
+								<h:outputText value="#{produtoMovimentacao.produto.descricaoCompleta}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Qtd." />
+								</f:facet>
+								<h:outputText value="#{produtoMovimentacao.quantidade}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Excluir" />
+								</f:facet>
+								<h:commandLink  value=""
+									action="#{movimentacaoEstoqueBB.excluirProduto}">
+									<h:commandButton type="button" image="/images/excluir.png"/>
+									<f:param name="idExcluir" value="#{produtoMovimentacao.produto.id}" />
+								</h:commandLink>
+							</h:column>
+						</t:dataTable>
+					</div>
 					<ul>
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" action="#{movimentacaoEstoqueBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
@@ -200,7 +200,7 @@
 							<h:commandButton styleClass="btTxt" id="botaoImprimir" action="#{movimentacaoEstoqueBB.imprimirRecibo}" value="Imprimir"></h:commandButton>
 						</li>
 					</ul>
-</h:form>
+				</h:form>
 				</div>
 				<div class="clear"></div>
 			</div>

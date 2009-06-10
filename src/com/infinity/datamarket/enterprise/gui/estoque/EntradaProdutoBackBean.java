@@ -64,6 +64,8 @@ public class EntradaProdutoBackBean extends BackBean {
 	private ProdutoEntradaProduto produtoEntrada;
 	private Collection<EntradaProduto> entradasProduto;
 	
+	private Date dataVencimento;
+	
 	private String idStatus;
 	private SelectItem[] listaStatus;
 	
@@ -277,6 +279,8 @@ public class EntradaProdutoBackBean extends BackBean {
 			msg = 	"Informe Fornecedor da Nota!";
 		} else if (this.arrayProduto == null ) {
 			msg = 	"Informe pelo menos um produto na Nota!";
+		} else if (this.dataVencimento == null || "".equals(this.dataVencimento)) {
+			msg = 	"Informe a Data de Vencimento!";
 		}
 		return msg;	  
 	}
@@ -383,6 +387,8 @@ public class EntradaProdutoBackBean extends BackBean {
 			entradaProduto.setEstoque(estoque);
 			
 			entradaProduto.setStatus(Constantes.STATUS_ATIVO);
+			
+			entradaProduto.setDataVencimento(this.getDataVencimento());
 
 			getFachada().inserirEntradaProduto(entradaProduto);
 			
@@ -1313,5 +1319,11 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
 	public void setEstoque(Estoque estoque) {
 		this.estoque = estoque;
+	}
+	public Date getDataVencimento() {
+		return dataVencimento;
+	}
+	public void setDataVencimento(Date dataVencimento) {
+		this.dataVencimento = dataVencimento;
 	}
 }

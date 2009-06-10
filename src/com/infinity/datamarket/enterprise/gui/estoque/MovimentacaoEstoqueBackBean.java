@@ -13,6 +13,7 @@ import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +22,14 @@ import org.hibernate.collection.PersistentSet;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.estoque.Estoque;
+import com.infinity.datamarket.comum.estoque.EstoquePK;
 import com.infinity.datamarket.comum.estoque.EstoqueProduto;
 import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoquePK;
 import com.infinity.datamarket.comum.produto.Produto;
+import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -67,12 +70,16 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	// Atributos ProdutoMovimentacaoEstoqueEntrada
 	private Set<ProdutoMovimentacaoEstoque> arrayProduto = new HashSet<ProdutoMovimentacaoEstoque>(); 
 	private String idEstoque;
-    List<Estoque> estoques;
+	List<Estoque> estoquesEntrada;
+    List<Estoque> estoquesSaida;
 	
 	// para uso de filtro de consulta
-    private Date dataInicio;
+    private Date dataInicial;
 	private Date dataFinal;
 	private String idLoja;
+	
+	private String idLojaEntrada;
+	private String idLojaSaida;
     
 	
 	private String idExcluir; 
@@ -108,7 +115,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		return "mesma";
 	}
 
-	public void inserirProduto() { 
+	public void inserirProduto(){ 
 		
 		System.out.println("arrayProduto--> "+arrayProduto);
 		
@@ -125,6 +132,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 					"Produto inválido!", "");
 			ctx.addMessage(null, msg);
 			e.printStackTrace();
+			return;
 		} catch (AppException e) {
 
 			// TODO Auto-generated catch block
@@ -133,6 +141,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Produto não encontrado!", "");
 				ctx.addMessage(null, msg);
+				return;
 			}
 		}
 		setDescricao(produto.getDescricaoCompleta());
@@ -150,6 +159,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					msgValidacao, "");
 			ctx.addMessage(null, msg);
+			return;
 		}
 		
 		int i=0;
@@ -198,9 +208,9 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		movimentacaoEstoque.setCodigoUsuario(Integer.parseInt(getCodigoUsuarioLogado()));
 
 		Estoque estoqueSaida = null;
-		for (Iterator iter = estoques.iterator(); iter.hasNext();) {
+		for (Iterator iter = estoquesSaida.iterator(); iter.hasNext();) {
 			Estoque element = (Estoque) iter.next();
-			if (element.getPk().getId().longValue()==new Long(this.idEstoqueSaida).longValue()) {
+			if (element.getPk().getId().equals(new Long(this.idEstoqueSaida))) {
 				estoqueSaida = (Estoque)element;
 				estoqueSaida.getPk().getLoja().setIdEstoque(estoqueSaida.getPk().getId());
 			}
@@ -211,9 +221,9 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 
 		
 		Estoque estoqueEntrada = null;
-		for (Iterator iter = estoques.iterator(); iter.hasNext();) {
+		for (Iterator iter = estoquesEntrada.iterator(); iter.hasNext();) {
 			Estoque element = (Estoque) iter.next();
-			if (element.getPk().getId().longValue()==new Long(this.idEstoqueEntrada).longValue()) {
+			if (element.getPk().getId().equals(new Long(this.idEstoqueEntrada))) {
 				estoqueEntrada = (Estoque)element;
 				estoqueEntrada.getPk().getLoja().setIdEstoque(estoqueEntrada.getPk().getId());
 			}
@@ -222,21 +232,21 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		
 		movimentacaoEstoque.setEstoqueEntrada(estoqueEntrada);
 		
-	   movimentacaoEstoque.setStatus(Constantes.STATUS_ATIVO);
+	    movimentacaoEstoque.setStatus(Constantes.STATUS_ATIVO);
 	    
 	    String msgValidacao = validaMovimentacao();
-		if (msgValidacao.equals("")) {
+		
+	    if (msgValidacao.equals("")) {
 			 movimentacaoEstoque.setProdutosMovimentacao(arrayProduto);
 			// Validando quantidade disponivél;
 			
 			for (Iterator iter = arrayProduto.iterator(); iter.hasNext();) {
 				ProdutoMovimentacaoEstoque produtoTmp = (ProdutoMovimentacaoEstoque) iter.next();
-				    msgValidacao = validaProduto(produtoTmp.getProduto(),produtoTmp.getQuantidade());
-				    if (!msgValidacao.equals("")){
-					   break;
-				    }   
-				}
-				
+			    msgValidacao = validaProduto(produtoTmp.getProduto(),produtoTmp.getQuantidade());
+			    if (!msgValidacao.equals("")){
+				   break;
+			    }   
+			}
 		}
 			
 		if (!msgValidacao.equals("")) {
@@ -277,13 +287,13 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		return "mesma";
 	}
 
-	static String ERRO_ESTOQUE_ENTRADA_SAIDA_IGUAL            = "Estoque saida, igual estoque entrada.";
+	static String ERRO_ESTOQUE_ENTRADA_SAIDA_IGUAL            = "Estoque de saida igual estoque entrada para a mesma Loja.";
 	static String ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO 	  = "Quantidade solicitada do produto %1, tem que ser maior que zero";
 	static String ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL =	"Produto %1, Quantidade Solicitada %2, Quantidade Disponivél %3.";
 	static String ERRO_NENHUM_PRODUTO 						  = "É nescessario pelo menos um produto!";
 	public String validaMovimentacao() {
         
-		if (getIdEstoqueSaida().equals(getIdEstoqueEntrada())) {
+		if (this.getIdLojaSaida().equals(this.getIdLojaEntrada()) && getIdEstoqueSaida().equals(getIdEstoqueEntrada())) {
 		   return ERRO_ESTOQUE_ENTRADA_SAIDA_IGUAL;
 		}
 		if (arrayProduto == null) {
@@ -316,7 +326,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	
     public EstoqueProduto buscaEstoqueProduto(Produto produto) {
 	    	Estoque estoqueSaida = null;
-			for (Iterator iter = estoques.iterator(); iter.hasNext();) {
+			for (Iterator iter = estoquesSaida.iterator(); iter.hasNext();) {
 				Estoque element = (Estoque) iter.next();
 				if (element.getPk().getId().longValue()==new Long(this.idEstoqueSaida).longValue()) {
 					estoqueSaida = (Estoque)element;
@@ -443,36 +453,84 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				return "proxima";
 				
 			} else {
-				PropertyFilter filter = new PropertyFilter();
-				filter.setTheClass(MovimentacaoEstoque.class);
-				Loja loja = buscaLoja(getIdEstoque());
-				if (tipoMovimentacao.equals(TIPO_ENTRADA)) {
-					filter.addProperty("estoqueEntrada.pk.id", loja);
-				} else {
-					filter.addProperty("estoqueSaida.pk.id", loja);
-				}
 				
-				filter.addProperty("status", this.getStatus());
-				
-				if (getId() != null && !"".equals(getId())) {
-	            	filter.addProperty("id", getId());
-					return consultarFiltro(filter);
-				} else if (getDataInicio() != null && !getDataInicio().equals("") && getDataFinal() != null && !getDataFinal().equals("")) {
-					filter.addPropertyInterval("dataMovimentacao",getDataInicio(), IntervalObject.MAIOR_IGUAL);
-					Date dataFinal = new Date(this.getDataFinal().getTime());					
-					dataFinal.setDate(dataFinal.getDate()+1);
-					filter.addPropertyInterval("dataMovimentacao", dataFinal, IntervalObject.MENOR_IGUAL);
-					return consultarFiltro(filter);
-				} else {
-//					this.setArrayProduto(null);
-					FacesContext ctx = FacesContext.getCurrentInstance();
+				if(this.getIdLojaSaida().equals(this.getIdLojaEntrada()) && this.getIdEstoqueSaida().equals(this.getIdEstoqueEntrada())){
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Informe o periodo", "");
-					ctx.addMessage(null, msg);
+							"O estoque de saída não pode ser o mesmo do estoque de entrada para a mesma loja.", "");
+					context.addMessage(null, msg);
 					setExisteRegistros(false);
 					this.setArrayProduto(null);
 					return "mesma";
 				}
+				
+				PropertyFilter filter = new PropertyFilter();
+				filter.setTheClass(MovimentacaoEstoque.class);
+				
+				Loja lojaEntrada = null;
+				EstoquePK estoqueEntradaPk = null;
+				
+				if(this.getIdLojaEntrada() != null && !this.getIdLojaEntrada().equals("0")){
+					lojaEntrada = new Loja();
+					lojaEntrada.setId(new Long(this.getIdLojaEntrada()));
+					if(estoqueEntradaPk == null){
+						estoqueEntradaPk = new EstoquePK();
+					}
+					estoqueEntradaPk.setLoja(lojaEntrada);
+				}
+				
+				if(this.getIdEstoqueEntrada() != null && !this.getIdEstoqueEntrada().equals("0")){
+					if(estoqueEntradaPk == null){
+						estoqueEntradaPk = new EstoquePK();
+					}
+					estoqueEntradaPk.setId(new Long(this.getIdEstoqueEntrada()));
+				}
+				
+				if(estoqueEntradaPk != null){
+					filter.addProperty("estoqueEntrada.pk", estoqueEntradaPk);
+				}
+				
+				Loja lojaSaida = null;
+				EstoquePK estoqueSaidaPk = null;
+				
+				if(this.getIdLojaEntrada() != null && !this.getIdLojaEntrada().equals("0")){
+					lojaSaida = new Loja();
+					lojaSaida.setId(new Long(this.getIdLojaSaida()));
+					if(estoqueSaidaPk == null){
+						estoqueSaidaPk = new EstoquePK();
+					}
+					estoqueSaidaPk.setLoja(lojaSaida);
+				}
+				
+				if(this.getIdEstoqueSaida() != null && !this.getIdEstoqueSaida().equals("0")){
+					if(estoqueSaidaPk == null){
+						estoqueSaidaPk = new EstoquePK();
+					}
+					estoqueSaidaPk.setId(new Long(this.getIdEstoqueSaida()));
+				}
+
+				if(estoqueSaidaPk != null){
+					filter.addProperty("estoqueSaida.pk", estoqueSaidaPk);
+				}
+				
+				
+				filter.addProperty("status", this.getStatus());
+				
+				if ((getDataInicial() != null && !getDataInicial().equals("")) && (getDataFinal() != null && !getDataFinal().equals(""))) {
+					filter.addPropertyInterval("dataMovimentacao",getDataInicial(), IntervalObject.MAIOR_IGUAL);
+					Date dataFinal = new Date(this.getDataFinal().getTime());					
+					dataFinal.setDate(dataFinal.getDate()+1);
+					filter.addPropertyInterval("dataMovimentacao", dataFinal, IntervalObject.MENOR_IGUAL);
+//					return consultarFiltro(filter);
+//				} else {
+//					FacesContext ctx = FacesContext.getCurrentInstance();
+//					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+//							"Informe o período", "");
+//					ctx.addMessage(null, msg);
+//					setExisteRegistros(false);
+//					this.setArrayProduto(null);
+//					return "mesma";
+				}
+				return consultarFiltro(filter);
  			}
 		} catch (ObjectNotFoundException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -627,10 +685,6 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		}
 	}
 	private Set<Loja> carregarLojas() {
-
-//		List<Loja> lojas = null;
-//		try {
-//			lojas = (ArrayList<Loja>) getFachada().consultarTodosLoja();
 		Set<Loja> lojas = null;
 		try {
 			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
@@ -644,7 +698,31 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		return lojas;
 	}
 
-	public SelectItem[] getLojas() {
+	public void carregarEstoquesPorLojaSaida(ValueChangeEvent event){
+        try {
+        	this.getEstoquesSaida();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		}
+	}
+
+	public void carregarEstoquesPorLojaEntrada(ValueChangeEvent event){
+        try {
+        	this.getEstoquesEntrada();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		}
+	}
+	
+	public SelectItem[] getLojasEntrada() {
 		SelectItem[] arrayLojas = null;
 		try {
 			Set<Loja> lojas = carregarLojas();
@@ -656,9 +734,9 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				arrayLojas[i++] = item;
 			}
 
-			if (this.getIdLoja() == null || this.getIdLoja().equals("")
-					|| this.getIdLoja().equals("0")) {
-				this.setIdLoja((String) arrayLojas[0].getValue());
+			if (this.getIdLojaEntrada() == null || this.getIdLojaEntrada().equals("")
+					|| this.getIdLojaEntrada().equals("0")) {
+				this.setIdLojaEntrada((String) arrayLojas[0].getValue());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -667,15 +745,25 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		if (this.idLoja == null) {
-			this.idLoja = arrayLojas[0].getValue().toString();
-		}
 		return arrayLojas;
 	}
-
-	private List<Estoque> carregarEstoques() {
+	
+	public SelectItem[] getLojasSaida() {
+		SelectItem[] arrayLojas = null;
 		try {
-			estoques = (ArrayList<Estoque>) getFachada().consultarTodosEstoques();
+			Set<Loja> lojas = carregarLojas();
+			arrayLojas = new SelectItem[lojas.size()];
+			int i = 0;
+			for (Loja lojaTmp : lojas) {
+				SelectItem item = new SelectItem(lojaTmp.getId().toString(),
+						lojaTmp.getNome());
+				arrayLojas[i++] = item;
+			}
+
+			if (this.getIdLojaSaida() == null || this.getIdLojaSaida().equals("")
+					|| this.getIdLojaSaida().equals("0")) {
+				this.setIdLojaSaida((String) arrayLojas[0].getValue());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -683,8 +771,47 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		return estoques;
+		return arrayLojas;
 	}
+
+	private List<Estoque> carregarEstoquesEntrada() {
+
+		try {
+        	IPropertyFilter filter = new PropertyFilter();
+        	filter.setTheClass(Estoque.class);
+        	
+        	filter.addProperty("pk.loja.id", new Long(this.getIdLojaEntrada() != null ? this.getIdLojaEntrada():"0"));
+        	
+        	estoquesEntrada = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return estoquesEntrada;
+	}
+
+	private List<Estoque> carregarEstoquesSaida() {
+
+		try {
+        	IPropertyFilter filter = new PropertyFilter();
+        	filter.setTheClass(Estoque.class);
+        	
+        	filter.addProperty("pk.loja.id", new Long(this.getIdLojaSaida() != null ? this.getIdLojaSaida():"0"));
+        	
+        	estoquesSaida = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return estoquesSaida;
+	}
+
 	
 	
 	public SelectItem[] getTipoMovimentoItens() {
@@ -705,10 +832,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		return listaStatusItens;
 	}
 	
-	public SelectItem[] getEstoques() {
+	public SelectItem[] getEstoquesSaida() {
 		SelectItem[] arrayEstoques = null;
 		try {
-			List<Estoque> estoques = carregarEstoques();
+			List<Estoque> estoques = carregarEstoquesSaida();
 			arrayEstoques = new SelectItem[estoques.size()];
 			int i = 0;
 			for (Estoque estoqueTmp : estoques) { 
@@ -725,6 +852,28 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 
 		return arrayEstoques;
 	}
+	
+	public SelectItem[] getEstoquesEntrada() {
+		SelectItem[] arrayEstoques = null;
+		try {
+			List<Estoque> estoques = carregarEstoquesEntrada();
+			arrayEstoques = new SelectItem[estoques.size()];
+			int i = 0;
+			for (Estoque estoqueTmp : estoques) { 
+				SelectItem item = new SelectItem(estoqueTmp.getPk().getId().toString(),estoqueTmp.getDescricao());
+				arrayEstoques[i++] = item;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+
+		return arrayEstoques;
+	}
+
 	public void resetBB() {
 		this.setId(null);
 		this.setArrayProduto(null);
@@ -734,7 +883,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		resetProdutoBB();
 	}
     public void resetConsultaBB() {
-		this.setDataInicio(null);
+		this.setDataInicial(null);
 		this.setDataFinal(null);
 		this.setMovimentacaoEstoque(null);
     }
@@ -895,9 +1044,15 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	/**
 	 * @param estoques the estoques to set
 	 */
-	public void setEstoques(List<Estoque> estoques) {
-		this.estoques = estoques;
+	public void setEstoquesSaida(List<Estoque> estoquesSaida) {
+		this.estoquesSaida = estoquesSaida;
 	}
+
+	
+	public void setEstoquesEntrada(List<Estoque> estoquesEntrada) {
+		this.estoquesEntrada = estoquesEntrada;
+	}
+
 	/**
 	 * @return the quantidade
 	 */
@@ -974,14 +1129,14 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	/**
 	 * @return the dataInicio
 	 */
-	public Date getDataInicio() {
-		return dataInicio;
+	public Date getDataInicial() {
+		return dataInicial;
 	}
 	/**
 	 * @param dataInicio the dataInicio to set
 	 */
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
+	public void setDataInicial(Date dataInicial) {
+		this.dataInicial = dataInicial;
 	}
 	/**
 	 * @return the idLoja
@@ -1127,6 +1282,22 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getIdLojaEntrada() {
+		return idLojaEntrada;
+	}
+
+	public void setIdLojaEntrada(String idLojaEntrada) {
+		this.idLojaEntrada = idLojaEntrada;
+	}
+
+	public String getIdLojaSaida() {
+		return idLojaSaida;
+	}
+
+	public void setIdLojaSaida(String idLojaSaida) {
+		this.idLojaSaida = idLojaSaida;
 	}
 
 }

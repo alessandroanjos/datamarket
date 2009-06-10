@@ -46,6 +46,14 @@
 								</li>
 								<li class="normal">
 									<div>
+										<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+										<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{movimentacaoBancariaBB.idLoja}" onchange="submit();" valueChangeListener="#{movimentacaoBancariaBB.carregarContasPorLoja}"> 
+											<f:selectItems id="lojasSelectItems" value="#{movimentacaoBancariaBB.lojas}" />   
+										</h:selectOneMenu>
+									</div>	
+									<br />
+									<br />
+									<div>
 										<h:outputLabel styleClass="desc" value="Conta*"></h:outputLabel>
 										<h:selectOneMenu id="idConta" styleClass="field select"
 											value="#{movimentacaoBancariaBB.idConta}" style="width: 400px;">		

@@ -19,8 +19,6 @@
             </generator>
         </id>
 
-
-
         <property name="idAgencia" type="java.lang.String" update="true" insert="true">
             <column name="AGENCIA" length="10" not-null="true"/>
         </property>

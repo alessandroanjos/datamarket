@@ -47,13 +47,13 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Loja Saída"></h:outputLabel>
-											<h:selectOneMenu id="idLojaSaida" style="width: 200px;" value="#{movimentacaoEstoqueBB.idLojaSaida}"> 
+											<h:selectOneMenu id="idLojaSaida" style="width: 200px;" value="#{movimentacaoEstoqueBB.idLojaSaida}" onchange="submit();" valueChangeListener="#{movimentacaoEstoqueBB.carregarEstoquesPorLojaSaida}"> 
 												<f:selectItems id="lojasSelectItems" value="#{movimentacaoEstoqueBB.lojasSaida}" />   
 											</h:selectOneMenu>
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Estoque Saída"></h:outputLabel>
-											<h:selectOneMenu id="idEstoqueSaida" styleClass="field select" style="width:250px;" 
+											<h:selectOneMenu id="idEstoqueSaida" style="width:250px;" 
 												value="#{movimentacaoEstoqueBB.idEstoqueSaida}" >   
 													  <f:selectItems id="estoqueSelectItems" 
 													  value="#{movimentacaoEstoqueBB.estoquesSaida}" />   
@@ -63,13 +63,13 @@
 										<br/>
 										<div>
 											<h:outputLabel styleClass="desc" value="Loja Entrada"></h:outputLabel>
-											<h:selectOneMenu id="idLojaEntrada" style="width: 200px;" value="#{movimentacaoEstoqueBB.idLojaEntrada}"> 
+											<h:selectOneMenu id="idLojaEntrada" style="width: 200px;" value="#{movimentacaoEstoqueBB.idLojaEntrada}" onchange="submit();" valueChangeListener="#{movimentacaoEstoqueBB.carregarEstoquesPorLojaEntrada}"> 
 												<f:selectItems id="lojasSelectItems" value="#{movimentacaoEstoqueBB.lojasEntrada}" />   
 											</h:selectOneMenu>
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Estoque Entrada"></h:outputLabel>
-											<h:selectOneMenu id="idEstoqueEntrada" styleClass="field select" style="width:250px;" 
+											<h:selectOneMenu id="idEstoqueEntrada" style="width:250px;" 
 												value="#{movimentacaoEstoqueBB.idEstoqueEntrada}" >   
 													  <f:selectItems id="estoqueSelectItems" 
 													  value="#{movimentacaoEstoqueBB.estoquesEntrada}" />   
@@ -80,15 +80,15 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Data Inicial"></h:outputLabel>
 											<t:inputText readonly="false" maxlength="10" size="10"
-												styleClass="field text" forceId="dataInicial"
+												styleClass="field text"
 												onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 												value="#{movimentacaoEstoqueBB.dataInicial}"
-												id="dataInicio" />
+												id="dataInicial" />
 										</div>	
 										<div>	
 											<h:outputLabel styleClass="desc" value="Data Final"></h:outputLabel>
 											<t:inputText readonly="false" styleClass="field text"
-												maxlength="10" size="10" forceId="dataFinal"
+												maxlength="10" size="10"
 												onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 												value="#{movimentacaoEstoqueBB.dataFinal}" id="dataFinal" />
 										</div>
