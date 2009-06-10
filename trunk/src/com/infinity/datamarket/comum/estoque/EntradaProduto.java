@@ -28,6 +28,8 @@ public class EntradaProduto extends Persistente{
 	private Estoque estoque;
 	private Collection produtosEntrada;
 	
+	private Date dataVencimento;	
+	
 	private String status;
 	
 	public String getStatus() {
@@ -119,5 +121,11 @@ public class EntradaProduto extends Persistente{
 	}
 	public void setEstoque(Estoque estoque) {
 		this.estoque = estoque;
+	}
+	public Date getDataVencimento() {
+		return dataVencimento;
+	}
+	public void setDataVencimento(Date dataVencimento) {
+		this.dataVencimento = dataVencimento;
 	}
 }

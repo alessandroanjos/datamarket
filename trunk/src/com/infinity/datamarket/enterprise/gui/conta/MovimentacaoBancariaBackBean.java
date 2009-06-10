@@ -16,17 +16,24 @@ import java.util.TreeSet;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+
+import org.hibernate.collection.PersistentSet;
 
 import com.infinity.datamarket.comum.conta.ContaCorrente;
 import com.infinity.datamarket.comum.conta.MovimentacaoBancaria;
+import com.infinity.datamarket.comum.operacao.Operacao;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
+import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
+import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -43,7 +50,7 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 	private BigDecimal valor;
 	private FormaRecebimento forma;
 	  
-	private Collection<ContaCorrente> contas;
+	private SelectItem[] contas;
 	private Collection<MovimentacaoBancaria> movimentacaoBancarias;
 	private MovimentacaoBancaria movimentacaoBancaria;
 	
@@ -54,6 +61,70 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 	private BigDecimal saldoAnterior;
 	private BigDecimal saldoAtual;
 	
+	private SelectItem[] lojas;
+	private String idLoja;
+	
+	public String getIdLoja() {
+		return idLoja;
+	}
+
+	public void setIdLoja(String idLoja) {
+		this.idLoja = idLoja;
+	}
+	
+	public void carregarContasPorLoja(ValueChangeEvent event){
+        try {
+        	this.getContas();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		}
+	}
+
+	private Set<Loja> carregarLojas() {
+		Set<Loja> lojas = null;
+		try {
+			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return lojas;
+	}
+
+	public SelectItem[] getLojas() {
+		SelectItem[] arrayLojas = null;
+		try {
+			Set<Loja> lojas = carregarLojas();
+			arrayLojas = new SelectItem[lojas.size()];
+			int i = 0;
+			for (Loja lojaTmp : lojas) {
+				SelectItem item = new SelectItem(lojaTmp.getId().toString(),
+						lojaTmp.getNome());
+				arrayLojas[i++] = item;
+			}
+
+			if (this.getIdLoja() == null || this.getIdLoja().equals("")
+					|| this.getIdLoja().equals("0")) {
+				this.setIdLoja((String) arrayLojas[0].getValue());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayLojas;
+
+	}
+
 	public BigDecimal getSaldoAnterior() {
 		return saldoAnterior;
 	}
@@ -166,9 +237,16 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 					MovimentacaoBancaria movimentacao = (MovimentacaoBancaria) it.next();
 					colMovBanc.add(movimentacao);					
 				}
-				MovimentacaoBancaria[] arrayMovBanc = (MovimentacaoBancaria[])colMovBanc.toArray();
-				this.setSaldoAnterior(arrayMovBanc[0].getSaldoAnteriorConta());
-				this.setSaldoAtual(arrayMovBanc[arrayMovBanc.length-1].getSaldoAnteriorConta());
+				Object[] arrayMovBanc = (Object[])colMovBanc.toArray();
+				this.setSaldoAnterior(((MovimentacaoBancaria)arrayMovBanc[0]).getSaldoAnteriorConta());
+				MovimentacaoBancaria ultimaMov = (MovimentacaoBancaria)arrayMovBanc[arrayMovBanc.length-1];
+				BigDecimal saldoAtual = new BigDecimal("0").setScale(2);
+				if(ultimaMov.getTipo().equals(Constantes.TIPO_OPERACAO_CREDITO)){
+					saldoAtual = ultimaMov.getSaldoAnteriorConta().add(ultimaMov.getValor());
+				}else if(ultimaMov.getTipo().equals(Constantes.TIPO_OPERACAO_DEBITO)){
+					saldoAtual = ultimaMov.getSaldoAnteriorConta().subtract(ultimaMov.getValor());
+				}
+				this.setSaldoAtual(saldoAtual.setScale(2));
 			}
 		}catch(ObjectNotFoundException e){
 			setMovimentacaoBancarias(null);
@@ -291,6 +369,7 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 		this.setData(null);
 		this.setValor(null);
 		this.setIdForma(null);
+		this.setExisteRegistros(false);
 	}
 
 	public void resetConsultaBB() {
@@ -300,10 +379,18 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 	}
 //	Contas
 	private List<ContaCorrente> carregarContas() {
-		
 		List<ContaCorrente> contas = null;
 		try {
-			contas = (ArrayList<ContaCorrente>)getFachada().consultarTodosContaCorrente();
+	    	IPropertyFilter filter = new PropertyFilter();
+	    	filter.setTheClass(ContaCorrente.class);
+	    	
+	    	filter.addProperty("loja.id", new Long(this.getIdLoja() != null ? this.getIdLoja() : "0"));
+	    	
+	    	contas = (ArrayList<ContaCorrente>)getFachada().consultarContaCorrente(filter);
+
+//		List<ContaCorrente> contas = null;
+//		try {
+//			contas = (ArrayList<ContaCorrente>)getFachada().consultarTodosContaCorrente();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();

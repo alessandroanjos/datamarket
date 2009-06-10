@@ -65,7 +65,7 @@ public class MovimentacaoBancaria extends Persistente implements Comparable<Movi
 	}
 	public int compareTo(MovimentacaoBancaria o) {
 		// TODO Auto-generated method stub
-		return this.compareTo(o);
+		return getId().compareTo((Long)o.getId());
 	}
 	@Override
 	public int hashCode() {
@@ -86,5 +86,5 @@ public class MovimentacaoBancaria extends Persistente implements Comparable<Movi
 		} else if (!getId().equals(other.getId()))
 			return false;
 		return true;
-	}	
+	}
 }

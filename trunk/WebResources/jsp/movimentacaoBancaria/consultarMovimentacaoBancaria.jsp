@@ -48,7 +48,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
-											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{movimentacaoBancariaBB.idLoja}"> 
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{movimentacaoBancariaBB.idLoja}" onchange="submit();" valueChangeListener="#{movimentacaoBancariaBB.carregarContasPorLoja}"> 
 												<f:selectItems id="lojasSelectItems" value="#{movimentacaoBancariaBB.lojas}" />   
 											</h:selectOneMenu>
 										</div>	
@@ -82,22 +82,31 @@
 												<f:convertDateTime timeZone="GMT-3"/>
 											</h:inputText>
 										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Saldo Anterior" rendered="#{movimentacaoBancariaBB.existeRegistros}"></h:outputLabel>
+											<h:outputText dir="rtl" style="font-size: 12px; font-weight: bold; color: #{movimentacaoBancariaBB.saldoAnterior > 0 ? 'blue' : 'red'};" id="saldoAnterior" value="#{movimentacaoBancariaBB.saldoAnterior}" rendered="#{movimentacaoBancariaBB.existeRegistros}">
+												<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00"/>
+											</h:outputText>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Saldo Atual" rendered="#{movimentacaoBancariaBB.existeRegistros}"></h:outputLabel>
+											<h:outputText dir="rtl" style="font-size: 12px; font-weight: bold; color: #{movimentacaoBancariaBB.saldoAnterior > 0 ? 'blue' : 'red'};" id="saldoAtual" value="#{movimentacaoBancariaBB.saldoAtual}" rendered="#{movimentacaoBancariaBB.existeRegistros}">
+												<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00"/>
+											</h:outputText>
+										</div>
 									</li>
 								</ul>
 							</fieldset>	
-							<ul>
-								<li class="direita">
-									<div>
-										<h:outputLabel styleClass="desc" value="Saldo Anterior" rendered="#{movimentacaoBancariaBB.existeRegistros}"></h:outputLabel>
-										<h:outputText dir="rtl" style="font-size: 14px; font-weight: bold; color: red;" id="saldoAnterior" value="#{movimentacaoBancariaBB.saldoAnterior}" rendered="#{movimentacaoBancariaBB.existeRegistros}">
-											<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00"/>
-										</h:outputText>
-									</div>
-								</li>
-							</ul>
 							<div class="listagem2">
 								<t:dataTable id="componentes" value="#{movimentacaoBancariaBB.movimentacaoBancarias}"
 									var="movimentacaoBancaria" rowClasses="rowA,rowB" width="90%" renderedIfEmpty="false" >
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Sequencial" /> 
+										</f:facet>
+										<h:outputText value="#{movimentacaoBancaria.id}" rendered="#{movimentacaoBancaria.tipo == 'C'}" style="color: blue;"/> 
+										<h:outputText value="#{movimentacaoBancaria.id}" rendered="#{movimentacaoBancaria.tipo == 'D'}" style="color: red;"/>
+									</h:column>
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Número" /> 
@@ -142,16 +151,6 @@
 									<h:messages rendered="#{not movimentacaoBancariaBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 								</div>
 							</div>
-							<ul>
-								<li class="direita">
-									<div>
-										<h:outputLabel styleClass="desc" value="Saldo Atual" rendered="#{movimentacaoBancariaBB.existeRegistros}"></h:outputLabel>
-										<h:outputText dir="rtl" style="font-size: 14px; font-weight: bold; color: red;" id="saldoAtual" value="#{movimentacaoBancariaBB.saldoAtual}" rendered="#{movimentacaoBancariaBB.existeRegistros}">
-											<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00"/>
-										</h:outputText>
-									</div>
-								</li>
-							</ul>
 							<ul>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" action="#{movimentacaoBancariaBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>

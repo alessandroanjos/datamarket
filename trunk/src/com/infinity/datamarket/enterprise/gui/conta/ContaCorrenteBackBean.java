@@ -127,7 +127,10 @@ public class ContaCorrenteBackBean extends BackBean {
 			contaCorrente.setNumero(this.numero);
 			contaCorrente.setSaldo(this.saldo);
 			contaCorrente.setSituacao(this.situacao);
-			contaCorrente.setBanco(this.banco);
+//			contaCorrente.setBanco(this.banco);
+			Banco banco = new Banco();
+			banco.setId(new Long(this.getIdBanco()));
+			contaCorrente.setBanco(banco);
 			
 			Loja loja = new Loja();
 			loja.setId(new Long(this.getIdLoja()));
@@ -243,16 +246,15 @@ public class ContaCorrenteBackBean extends BackBean {
 			contaCorrente.setNumero(this.numero);
 			contaCorrente.setSaldo(this.saldo);
 			contaCorrente.setSituacao(this.situacao);
+			
 			Banco banco = new Banco();
 			banco.setId(new Long(this.getIdBanco()));
 			contaCorrente.setBanco(banco);
 			
 			Loja loja = new Loja();
 			loja.setId(new Long(this.getIdLoja()));
-			
 			contaCorrente.setLoja(loja);
 			
-
 			getFachada().alterarContaCorrente(contaCorrente);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,

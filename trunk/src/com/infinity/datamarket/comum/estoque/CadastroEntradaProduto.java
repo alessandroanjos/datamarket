@@ -3,11 +3,16 @@ package com.infinity.datamarket.comum.estoque;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.infinity.datamarket.comum.financeiro.IRepositorioLancamento;
+import com.infinity.datamarket.comum.financeiro.Lancamento;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.CadastroControleId;
+import com.infinity.datamarket.comum.util.ConcentradorControleId;
 import com.infinity.datamarket.comum.util.Constantes;
+import com.infinity.datamarket.comum.util.Controle;
 import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroEntradaProduto extends Cadastro{
@@ -34,6 +39,11 @@ public class CadastroEntradaProduto extends Cadastro{
 		return (IRepositorioEstoqueProduto) super.getRepositorio(IRepositorio.REPOSITORIO_ESTOQUE_PRODUTO);
 	}
 
+	public IRepositorioLancamento getRepositorioLancamento() {
+		// TODO Auto-generated method stub
+		return (IRepositorioLancamento) super.getRepositorio(IRepositorio.REPOSITORIO_LANCAMENTO);
+	}
+	
 	public EntradaProduto consultarPorId(Long id) throws AppException{
 		return (EntradaProduto) getRepositorio().consultarPorId(id);
 	}
@@ -71,8 +81,22 @@ public class CadastroEntradaProduto extends Cadastro{
 				ep.setQuantidade(pep.getQuantidade());
 				getRepositorioEstoqueProduto().inserir(ep);
 			}
-	
 		}
+		Lancamento lancamento = new Lancamento();
+		lancamento.setId(CadastroControleId.getInstancia().getControle(Lancamento.class).getValor());
+		lancamento.setDescricao("ENTRADA DE PRODUTOS");
+		lancamento.setIdEntradaProduto(entradaProduto.getId());
+		lancamento.setDataLancamento(entradaProduto.getDataEntrada());
+		lancamento.setDataVencimento(entradaProduto.getDataVencimento());
+		lancamento.setFornecedor(entradaProduto.getFornecedor());
+		lancamento.setGrupo(null);
+		lancamento.setLoja(entradaProduto.getEstoque().getPk().getLoja());
+		lancamento.setNumeroDocumento(entradaProduto.getNumeroNota());
+		lancamento.setObservacao("ENTRADA DE PRODUTOS EM ESTOQUE");
+		lancamento.setSituacao(Lancamento.ABERTO);
+		lancamento.setTipoLancamento(Lancamento.DEBITO);
+		lancamento.setValor(entradaProduto.getValor());
+		getRepositorioLancamento().inserir(lancamento);
 	}
 	
 	public void alterar(EntradaProduto entradaProduto) throws AppException{
