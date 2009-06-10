@@ -15,4 +15,16 @@ INSERT INTO [ENTERPRISE].[dbo].[GRUPO_LANCAMENTO]
            ,'GRUPO RECEBIMENTO'
            ,'S');
 
+GO
+
+
+INSERT INTO [ENTERPRISE].[dbo].[GRUPO_LANCAMENTO]
+           ([ID]
+           ,[DESCRICAO]
+           ,[TIPO_REGISTRO])
+     VALUES
+           (2
+           ,'GRUPO ENTRADA PRODUTO'
+           ,'S');
+
 
