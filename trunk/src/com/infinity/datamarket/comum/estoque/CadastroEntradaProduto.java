@@ -3,6 +3,8 @@ package com.infinity.datamarket.comum.estoque;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.infinity.datamarket.comum.financeiro.CadastroGrupoLancamento;
+import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
 import com.infinity.datamarket.comum.financeiro.IRepositorioLancamento;
 import com.infinity.datamarket.comum.financeiro.Lancamento;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
@@ -89,7 +91,7 @@ public class CadastroEntradaProduto extends Cadastro{
 		lancamento.setDataLancamento(entradaProduto.getDataEntrada());
 		lancamento.setDataVencimento(entradaProduto.getDataVencimento());
 		lancamento.setFornecedor(entradaProduto.getFornecedor());
-		lancamento.setGrupo(null);
+		lancamento.setGrupo(CadastroGrupoLancamento.getInstancia().consultarPorId(GrupoLancamento.GRUPO_ENTRADA_PRODUTO));
 		lancamento.setLoja(entradaProduto.getEstoque().getPk().getLoja());
 		lancamento.setNumeroDocumento(entradaProduto.getNumeroNota());
 		lancamento.setObservacao("ENTRADA DE PRODUTOS EM ESTOQUE");
