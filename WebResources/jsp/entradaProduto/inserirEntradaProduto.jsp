@@ -154,7 +154,7 @@
 								<h:outputLabel styleClass="desc" value="Data Vencimento*"></h:outputLabel>
 								<h:inputText readonly="false" styleClass="field text data"
 									maxlength="10" size="10" 
-									value="#{entradaProdutoBB.dataEntrada}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
+									value="#{entradaProdutoBB.dataVencimento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
 									id="dataVencimento">
 								    <f:convertDateTime timeZone="GMT-3"/>	 
 								</h:inputText>	
