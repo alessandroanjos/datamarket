@@ -13,6 +13,7 @@ import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import com.infinity.datamarket.comum.conta.ContaCorrente;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -30,6 +31,8 @@ public class LojaBackBean extends BackBean {
 	String numeroIp;
 	String numeroPorta;
 	String idEstoqueAtual;
+	String idContaAtual;
+	
 
 	public LojaBackBean() {
 		resetBB();
@@ -37,9 +40,14 @@ public class LojaBackBean extends BackBean {
 	
 	private Collection lojas;
 	SelectItem[] estoques;
+	SelectItem[] contas;
 	
 	public void setEstoques(SelectItem[] estoques) {
 		this.estoques = estoques;
+	}
+	
+	public void setContas(SelectItem[] contas) {
+		this.contas = contas;
 	}
 	/**
 	 * @return the lojas
@@ -119,7 +127,7 @@ public class LojaBackBean extends BackBean {
 			loja.setNumeroPorta(this.numeroPorta);
 
 			loja.setIdEstoque(null);
-		
+			loja.setIdContaCorrente(null);
 			getFachada().inserirLoja(loja);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -161,6 +169,11 @@ public class LojaBackBean extends BackBean {
 				}else{
 					this.setIdEstoqueAtual("0");
 				}
+				if(loja.getIdContaCorrente() != null){
+					this.setIdContaAtual(loja.getIdContaCorrente().toString());	
+				}else{
+					this.setIdContaAtual("0");
+				}
 				return "proxima";
 			}else if ((getNome() != null && !"".equals(getNome())) || 
 					(getNumeroIp() != null && !getNumeroIp().equals("")) ||
@@ -196,6 +209,11 @@ public class LojaBackBean extends BackBean {
 							this.setIdEstoqueAtual(loja.getIdEstoque().toString());	
 						}else{
 							this.setIdEstoqueAtual("0");
+						}
+						if(loja.getIdContaCorrente() != null){
+							this.setIdContaAtual(loja.getIdContaCorrente().toString());	
+						}else{
+							this.setIdContaAtual("0");
 						}
 						return "proxima";
 					}else{
@@ -238,7 +256,7 @@ public class LojaBackBean extends BackBean {
 			loja.setNumeroPorta(this.getNumeroPorta());
 			
 			loja.setIdEstoque(new Long(this.getIdEstoqueAtual()));
-			
+			loja.setIdContaCorrente(new Long(this.getIdContaAtual()));
 			getFachada().alterarLoja(loja);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -264,6 +282,7 @@ public class LojaBackBean extends BackBean {
 			loja.setNumeroPorta(this.getNumeroIp());			
 		
 			loja.setIdEstoque(new Long(this.getIdEstoqueAtual()));	
+			loja.setIdContaCorrente(new Long(this.getIdContaAtual()));
 			
 			getFachada().excluirLoja(loja);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -287,6 +306,7 @@ public class LojaBackBean extends BackBean {
 		this.setNumeroIp(null);
 		this.setNumeroPorta(null);
 		this.setIdEstoqueAtual("0");
+		this.setIdContaAtual("0");
 	}
 	
 	
@@ -313,6 +333,30 @@ public class LojaBackBean extends BackBean {
 			ctx.addMessage(null, msg);
 		}
 		return estoques;
+	}
+	
+	private List<ContaCorrente> carregarContas() {
+		
+		List<ContaCorrente> contas = null;
+		try {
+			PropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(ContaCorrente.class);
+			if (this.getId() != null){
+				Loja loja = new Loja();
+				loja.setId(new Long(this.getId()));
+				filter.addProperty("loja", loja);
+				contas = (ArrayList<ContaCorrente>)getFachada().consultarContaCorrente(filter);
+			}else{
+				contas = new ArrayList<ContaCorrente>();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return contas;
 	}
 	
 	public SelectItem[] getEstoques(){
@@ -347,6 +391,40 @@ public class LojaBackBean extends BackBean {
 		}
 		return arrayEstoques;
 	}
+	
+	
+	public SelectItem[] getContas(){
+		SelectItem[] arrayContas = null;
+		try {
+			List<ContaCorrente> contas = carregarContas();
+			
+			int i = 0;
+			SelectItem itemBranco = null;
+			if(contas.size() == 0){
+				arrayContas = new SelectItem[contas.size()+1];
+				itemBranco = new SelectItem("0", "Sem contas Cadastradas.");
+				arrayContas[i++] = itemBranco;
+			}else{
+				arrayContas = new SelectItem[contas.size()];
+			}
+			
+			for(ContaCorrente conta : contas){
+				SelectItem item = new SelectItem(conta.getId().toString(), conta.getNome());
+				arrayContas[i++] = item;
+			}
+			
+			if(this.getIdContaAtual() == null || this.getIdContaAtual().equals("") || this.getIdContaAtual().equals("0")){
+				this.setIdContaAtual((String) arrayContas[0].getValue());				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayContas;
+	}
 
 	/**
 	 * @param init the init to set
@@ -361,6 +439,14 @@ public class LojaBackBean extends BackBean {
 				setLojas(null);
 			}
 		}
+	}
+
+	public String getIdContaAtual() {
+		return idContaAtual;
+	}
+
+	public void setIdContaAtual(String idContaAtual) {
+		this.idContaAtual = idContaAtual;
 	}
 
 }
