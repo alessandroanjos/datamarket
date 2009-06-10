@@ -1,5 +1,7 @@
 package com.infinity.datamarket.comum.util;
 
+import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
+
 
 public class CadastroControleId extends Cadastro{
 	private static CadastroControleId instancia;
@@ -25,7 +27,13 @@ public class CadastroControleId extends Cadastro{
 	}
 
 	public Controle getControle(Class classe) throws AppException {
-		Controle retorno = getRepositorio().getControle(classe);		
+		Controle retorno = null;
+		try {
+			retorno = getRepositorio().getControle(classe);
+		} catch (ObjectNotFoundException e) {
+//			e.printStackTrace(); 
+		}
+				
 		if (retorno == null) {
 			retorno = new Controle();
 			retorno.setChave(classe.getSimpleName());
