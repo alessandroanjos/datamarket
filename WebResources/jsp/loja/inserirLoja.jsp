@@ -100,6 +100,15 @@
 										
 									</div>
 								</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Conta Crédito*"></h:outputLabel>
+										<h:selectOneMenu id="idConta" styleClass="field select"
+											value="#{lojaBB.idContaAtual}" style="width: 200px;">		
+											<f:selectItems id="contaSelectItems" value="#{lojaBB.contas}" />
+										</h:selectOneMenu>
+									</div>
+								</li>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" action="#{lojaBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{lojaBB.inserir}" value="Inserir"></h:commandButton>
