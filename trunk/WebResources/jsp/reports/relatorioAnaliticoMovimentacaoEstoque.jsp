@@ -44,11 +44,36 @@
 								<ul>								
 									<li class="normal">
 										<div>
-											<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>										
-											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{relatorioBB.idLoja}">  
-												<f:selectItems id="lojasSelectItems" value="#{relatorioBB.lojas}" />   
+											<h:outputLabel styleClass="desc" value="Loja Saída"></h:outputLabel>
+											<h:selectOneMenu id="idLojaSaida" style="width: 200px;" value="#{relatorioBB.idLojaSaida}" onchange="submit();" valueChangeListener="#{relatorioBB.carregarEstoquesPorLojaSaida}"> 
+												<f:selectItems id="lojasSelectItems" value="#{relatorioBB.lojasSaida}" />   
 											</h:selectOneMenu>
 										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Estoque Saída"></h:outputLabel>
+											<h:selectOneMenu id="idEstoqueSaida" style="width:250px;" 
+												value="#{relatorioBB.idEstoqueSaida}" >   
+													  <f:selectItems id="estoqueSelectItems" 
+													  value="#{relatorioBB.estoquesSaida}" />   
+											</h:selectOneMenu> 
+										</div>
+										<br/>
+										<br/>
+										<div>
+											<h:outputLabel styleClass="desc" value="Loja Entrada"></h:outputLabel>
+											<h:selectOneMenu id="idLojaEntrada" style="width: 200px;" value="#{relatorioBB.idLojaEntrada}" onchange="submit();" valueChangeListener="#{relatorioBB.carregarEstoquesPorLojaEntrada}"> 
+												<f:selectItems id="lojasSelectItems" value="#{relatorioBB.lojasEntrada}" />   
+											</h:selectOneMenu>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Estoque Entrada"></h:outputLabel>
+											<h:selectOneMenu id="idEstoqueEntrada" style="width:250px;" 
+												value="#{relatorioBB.idEstoqueEntrada}" >   
+													  <f:selectItems id="estoqueSelectItems" 
+													  value="#{relatorioBB.estoquesEntrada}" />   
+											</h:selectOneMenu> 
+										</div>
+
 										<br />															
 										<br />
 										<div>

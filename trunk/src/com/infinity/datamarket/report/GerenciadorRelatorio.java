@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -355,7 +356,7 @@ public class GerenciadorRelatorio {
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioFechamentoVenda.jasper");
             					
 			Connection con = getConnection();
-			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_VENDAS);
+			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_VENDAS, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 			//data inicio
 			Calendar c = new GregorianCalendar();
@@ -378,9 +379,10 @@ public class GerenciadorRelatorio {
 			pstm.setDate(3,new java.sql.Date(dataFim.getTime()));
 			
 			rs = pstm.executeQuery();
+			
+			verificaExistenciaDados(rs);
 				
 			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
-	
 			
             JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);
             
@@ -403,7 +405,7 @@ public class GerenciadorRelatorio {
    		return out;
 	}
 	
-public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, Date data_fim_movimento, String[] status) throws AppException{
+	public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, Date data_fim_movimento, String[] status, String idLoja, String idEstoque) throws AppException{
 		
 		OutputStream out  = new ByteArrayOutputStream();
 		ResultSet rs = null;
@@ -428,8 +430,7 @@ public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, 
 				sql = sql.replace(" IN (?)", " = \'" + status[0] + "\'");
 			}			
 
-			
-			pstm = con.prepareStatement(sql);
+			pstm = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 			//data inicio
 			Calendar c = new GregorianCalendar();
@@ -449,10 +450,14 @@ public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, 
 			
 			pstm.setDate(1,new java.sql.Date(dataInicio.getTime()));			
 			pstm.setDate(2,new java.sql.Date(dataFim.getTime()));
+			pstm.setInt(3,new Integer(idLoja).intValue());
+			pstm.setInt(4,new Integer(idEstoque).intValue());
 		
 			System.out.println(sql);
 			
 			rs = pstm.executeQuery();
+			
+			verificaExistenciaDados(rs);
 				
 			JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
 			
@@ -477,7 +482,7 @@ public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, 
    		return out;
 	}
 
-	public OutputStream gerarRelatorioAnaliticoMovimentacaoEstoque(Date data_inicio_movimento, Date data_fim_movimento) throws AppException{
+	public OutputStream gerarRelatorioAnaliticoMovimentacaoEstoque(Date data_inicio_movimento, Date data_fim_movimento, String idLojaSaida, String idEstoqueSaida, String idLojaEntrada, String idEstoqueEntrada) throws AppException{
 		
 		OutputStream out  = new ByteArrayOutputStream();
 		ResultSet rs = null;
@@ -490,7 +495,7 @@ public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, 
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioAnaliticoMovimentacaoEstoque.jasper");
 	        					
 			Connection con = getConnection();
-			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_MOVIMENTACAO_ESTOQUE);
+			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_MOVIMENTACAO_ESTOQUE, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 			//data inicio
 			Calendar c = new GregorianCalendar();
@@ -510,11 +515,17 @@ public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento, 
 			
 			pstm.setDate(1,new java.sql.Date(dataInicio.getTime()));			
 			pstm.setDate(2,new java.sql.Date(dataFim.getTime()));
+
+			pstm.setInt(3,new Integer(idLojaSaida));
+			pstm.setInt(4,new Integer(idEstoqueSaida));
+			pstm.setInt(5,new Integer(idLojaEntrada));
+			pstm.setInt(6,new Integer(idEstoqueEntrada));
 			
 			rs = pstm.executeQuery();
+			
+			verificaExistenciaDados(rs);
 				
 			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
-	
 			
 	        JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);
 	        
@@ -550,7 +561,7 @@ public OutputStream gerarRelatorioAnaliticoOperacoesDevolucao(int loja, Date dat
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioAnaliticoOperacoesDevolucao.jasper");
 	        					
 			Connection con = getConnection();
-			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_OPERACAO_DEVOLUCAO);
+			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_OPERACAO_DEVOLUCAO, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 			//data inicio
 			Calendar c = new GregorianCalendar();
@@ -573,9 +584,10 @@ public OutputStream gerarRelatorioAnaliticoOperacoesDevolucao(int loja, Date dat
 			pstm.setInt(3,loja);
 			
 			rs = pstm.executeQuery();
+			
+			verificaExistenciaDados(rs);
 				
 			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
-	
 			
 	        JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);
 	        
@@ -696,7 +708,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 						
 			Connection con = getConnection();
 			
-			pstm1 = con.prepareStatement(Queries.RELATORIO_ABC_VENDAS_TOTAL);
+			pstm1 = con.prepareStatement(Queries.RELATORIO_ABC_VENDAS_TOTAL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			InputStream input = null;
 			
 			if (tipo.equals(Constantes.CONSTANTE_VALOR)){
@@ -733,7 +745,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			
 			ResultSet rTotal = pstm1.executeQuery();
 			
-			
+			verificaExistenciaDados(rs);
 			
 			BigDecimal total = BigDecimal.ZERO; 
 			BigDecimal qtd = BigDecimal.ZERO;
@@ -787,10 +799,10 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioFechamentoCaixaOperador.jasper");
 			
 			if (operador != null && operador.intValue() != 0){
-				pstm = con.prepareStatement(Queries.RELATORIO_FECHAMENTO_CAIXA_OPERADOR);
+				pstm = con.prepareStatement(Queries.RELATORIO_FECHAMENTO_CAIXA_OPERADOR, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				pstm.setInt(4,operador.intValue());
 			}else{
-				pstm = con.prepareStatement(Queries.RELATORIO_FECHAMENTO_CAIXA_OPERADOR_GERAL);
+				pstm = con.prepareStatement(Queries.RELATORIO_FECHAMENTO_CAIXA_OPERADOR_GERAL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			}			
 			
 			//data inicio
@@ -815,6 +827,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			
 			rs = pstm.executeQuery();
 			
+			verificaExistenciaDados(rs);
 			
 			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
 				
@@ -851,7 +864,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 						
 			Connection con = getConnection();
 			
-			pstm = con.prepareStatement(Queries.RELATORIO_FECHAMENTO_CAIXA_GERAL);
+			pstm = con.prepareStatement(Queries.RELATORIO_FECHAMENTO_CAIXA_GERAL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioFechamentoCaixaGeral.jasper");
 			
@@ -877,6 +890,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			
 			rs = pstm.executeQuery();
 			
+			verificaExistenciaDados(rs);
 			
 			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
 				
@@ -916,7 +930,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			parametros.put("dataFinal", df.format(data_fim_movimento));	
 			Connection con = getConnection();
 			
-			pstm = con.prepareStatement(Queries.RELATORIO_COMISSAO_VENDEDOR);
+			pstm = con.prepareStatement(Queries.RELATORIO_COMISSAO_VENDEDOR, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioComissaoVendedor.jasper");
 			
@@ -948,6 +962,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			
 			rs = pstm.executeQuery();
 			
+			verificaExistenciaDados(rs);
 			
 			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
 				
@@ -985,7 +1000,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			parametros.put("dataAtual", df.format(new Date(System.currentTimeMillis())));	
 			Connection con = getConnection();
 			
-			pstm = con.prepareStatement(Queries.RELATORIO_ESTOQUE_ATUAL);
+			pstm = con.prepareStatement(Queries.RELATORIO_ESTOQUE_ATUAL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioEstoqueAtual.jasper");
 			
@@ -994,6 +1009,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 
 			rs = pstm.executeQuery();
 			
+			verificaExistenciaDados(rs);
 			
 			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
 				
@@ -1030,7 +1046,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 						
 			Connection con = getConnection();
 			
-			pstm = con.prepareStatement(Queries.RELATORIO_LUCRATIVIDADE_VENDAS);
+			pstm = con.prepareStatement(Queries.RELATORIO_LUCRATIVIDADE_VENDAS, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioLucroBrutoVenda.jasper");
 			
@@ -1054,9 +1070,9 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			pstm.setDate(2,new java.sql.Date(dataInicio.getTime()));			
 			pstm.setDate(3,new java.sql.Date(dataFim.getTime()));
 			
-			
 			rs = pstm.executeQuery();
 			
+			verificaExistenciaDados(rs);
 			
 			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
 				
@@ -1079,8 +1095,22 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 		}
 			
 		return out;
-	}
+	}	
+	
+	public void verificaExistenciaDados(ResultSet rs) throws AppException, SQLException{
+		int cont = 0;
+		
+		while(rs.next()){
+			cont++;
+		}
+		
+		if(cont > 0){
+			rs.first();
+		}
+		
+		if(cont == 0){
+			throw new AppException("Não existem dados a serem exibidos!");
+		}
 
-	
-	
+	}
 }
