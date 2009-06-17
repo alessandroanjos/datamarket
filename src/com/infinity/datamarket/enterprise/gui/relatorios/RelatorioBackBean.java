@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -53,6 +54,15 @@ public class RelatorioBackBean extends BackBean {
 	String idVendedor;
 	SelectItem[] vendedores;
 	
+	String idLojaSaida;
+	String idLojaEntrada;
+	String idEstoqueSaida;
+	String idEstoqueEntrada;
+	
+	SelectItem[] lojasSaida;
+	List<Estoque> estoquesSaida;
+	SelectItem[] lojasEntrada;
+	List<Estoque> estoquesEntrada;
 
 	public String getIdLoja() {
 		return idLoja;
@@ -133,8 +143,6 @@ public class RelatorioBackBean extends BackBean {
 			Set<Loja> lojas = carregarLojas();
 			arrayLojasAssociadas = new SelectItem[lojas.size()];
 			int i = 0;
-//			SelectItem item = new SelectItem("0", "Selecione uma Lojas");
-//			arrayLojasAssociadas[i++] = item;
 			for(Loja lojasAssociadasTmp : lojas){
 				SelectItem item = new SelectItem(lojasAssociadasTmp.getId().toString(), lojasAssociadasTmp.getNome());
 				arrayLojasAssociadas[i++] = item;
@@ -221,7 +229,8 @@ public class RelatorioBackBean extends BackBean {
 		return lista;
 	}
 
-	public void executarRelatorioAnaliticoEntrada(){
+	public String executarRelatorioAnaliticoEntrada(){
+		FacesContext ctx = FacesContext.getCurrentInstance();
 		try {
 			validarRelatorioAnaliticoEntrada();
 			
@@ -239,30 +248,38 @@ public class RelatorioBackBean extends BackBean {
 			ByteArrayOutputStream byteOutputStream = 
 				(ByteArrayOutputStream)getFachada().gerarRelatorioAnaliticoEntradas(this.getDataInicial(), 
 																				    this.getDataFinal(),
-																				    status);
+																				    status,
+																				    this.getIdLoja(),
+																				    this.getIdEstoque());
 			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
 			response.setContentType("application/pdf");
 			response.setHeader("Content-disposition", "attachment;filename=RelatorioAnaliticoEntrada" + System.currentTimeMillis() + ".pdf");
 			context.responseComplete();
 			out.flush();
-			out.close();			
+			out.close();
+			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
+			String mensagem = "";
+			if(e.getCause() != null && e.getCause().getMessage() != null){
+				mensagem = e.getCause().getMessage();
+			}else {
+				mensagem = e.getMessage();
+			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
+					mensagem, "");
 			ctx.addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
-			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro ao executar o Relatório!", "");
 			ctx.addMessage(null, msg);
 		}
+		return "";
 	}
 	
-	public void executarRelatorioAnaliticoMovimentacaoEstoque(){
+	public String executarRelatorioAnaliticoMovimentacaoEstoque(){
 		try {
 			validarRelatorioAnaliticoMovimentacaoEstoque();
 
@@ -271,18 +288,29 @@ public class RelatorioBackBean extends BackBean {
 			ServletOutputStream out = response.getOutputStream();
 			ByteArrayOutputStream byteOutputStream = 
 				(ByteArrayOutputStream)getFachada().gerarRelatorioAnaliticoMovimentacaoEstoque(this.getDataInicial(), 
-																							   this.getDataFinal());
+																							   this.getDataFinal(),
+																							   this.getIdLojaSaida(),
+																							   this.getIdEstoqueSaida(),
+																							   this.getIdLojaEntrada(),
+																							   this.getIdEstoqueEntrada());
 			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
 			response.setContentType("application/pdf");
 			response.setHeader("Content-disposition", "attachment;filename=RelatorioAnaliticoMovimentacaoEstoque" + System.currentTimeMillis() + ".pdf");
 			context.responseComplete();
 			out.flush();
-			out.close();			
+			out.close();
+			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
+			String mensagem = "";
+			if(e.getCause() != null && e.getCause().getMessage() != null){
+				mensagem = e.getCause().getMessage();
+			}else {
+				mensagem = e.getMessage();
+			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
+					mensagem, "");
 			ctx.addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
@@ -292,9 +320,10 @@ public class RelatorioBackBean extends BackBean {
 					"Erro ao executar o Relatório!", "");
 			ctx.addMessage(null, msg);
 		}
+		return "";
 	}
 
-	public void executarRelatorioAnaliticoOperacoesDevolucao(){
+	public String executarRelatorioAnaliticoOperacoesDevolucao(){
 		try {
 			validarRelatorioAnaliticoOperacoesDevolucao();
 
@@ -310,12 +339,19 @@ public class RelatorioBackBean extends BackBean {
 			response.setHeader("Content-disposition", "attachment;filename=RelatorioAnaliticoOperacoesDevolucao" + System.currentTimeMillis() + ".pdf");
 			context.responseComplete();
 			out.flush();
-			out.close();			
+			out.close();	
+			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
+			String mensagem = "";
+			if(e.getCause() != null && e.getCause().getMessage() != null){
+				mensagem = e.getCause().getMessage();
+			}else {
+				mensagem = e.getMessage();
+			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
+					mensagem, "");
 			ctx.addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
@@ -325,9 +361,10 @@ public class RelatorioBackBean extends BackBean {
 					"Erro ao executar o Relatório!", "");
 			ctx.addMessage(null, msg);
 		}
+		return "";
 	}
 
-	public void executarRelatorioAnaliticoFechamentoVenda(){
+	public String executarRelatorioAnaliticoFechamentoVenda(){
 		try {
 			validarRelatorioAnaliticoFechamentoVenda();
 
@@ -343,12 +380,19 @@ public class RelatorioBackBean extends BackBean {
 			response.setHeader("Content-disposition", "attachment;filename=RelatorioAnaliticoFechamentoVendas" + System.currentTimeMillis() + ".pdf");
 			context.responseComplete();
 			out.flush();
-			out.close();			
+			out.close();
+			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
+			String mensagem = "";
+			if(e.getCause() != null && e.getCause().getMessage() != null){
+				mensagem = e.getCause().getMessage();
+			}else {
+				mensagem = e.getMessage();
+			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
+					mensagem, "");
 			ctx.addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
@@ -358,14 +402,13 @@ public class RelatorioBackBean extends BackBean {
 					"Erro ao executar o Relatório!", "");
 			ctx.addMessage(null, msg);
 		}
+		return "";
 	}
 	
-	public void executarRelatorioABCVendas(){
+	public String executarRelatorioABCVendas(){
 		try {
 			validarRelatorioABCVendas();
 			
-			
-
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
 			ServletOutputStream out = response.getOutputStream();
@@ -386,18 +429,24 @@ public class RelatorioBackBean extends BackBean {
 				
 			}
 			
-			
 			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
 			response.setContentType("application/pdf");
 			response.setHeader("Content-disposition", "attachment;filename=RelatorioABCVendasValor" + System.currentTimeMillis() + ".pdf");
 			context.responseComplete();
 			out.flush();
-			out.close();			
+			out.close();
+			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
+			String mensagem = "";
+			if(e.getCause() != null && e.getCause().getMessage() != null){
+				mensagem = e.getCause().getMessage();
+			}else {
+				mensagem = e.getMessage();
+			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
+					mensagem, "");
 			ctx.addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
@@ -407,15 +456,14 @@ public class RelatorioBackBean extends BackBean {
 					"Erro ao executar o Relatório!", "");
 			ctx.addMessage(null, msg);
 		}
+		return "";
 	}
 	
 	
-	public void executarRelatorioFechamentoCaixaGeral(){
+	public String executarRelatorioFechamentoCaixaGeral(){
 		try {
 			validarRelatorioABCVendas();
 			
-			
-
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
 			ServletOutputStream out = response.getOutputStream();
@@ -429,12 +477,19 @@ public class RelatorioBackBean extends BackBean {
 			response.setHeader("Content-disposition", "attachment;filename=RelatorioFechamentoCaixaGeral" + System.currentTimeMillis() + ".pdf");
 			context.responseComplete();
 			out.flush();
-			out.close();			
+			out.close();
+			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
+			String mensagem = "";
+			if(e.getCause() != null && e.getCause().getMessage() != null){
+				mensagem = e.getCause().getMessage();
+			}else {
+				mensagem = e.getMessage();
+			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
+					mensagem, "");
 			ctx.addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
@@ -444,14 +499,13 @@ public class RelatorioBackBean extends BackBean {
 					"Erro ao executar o Relatório!", "");
 			ctx.addMessage(null, msg);
 		}
+		return "";
 	}
 	
-	public void executarRelatorioFechamentoCaixaOperador(){
+	public String executarRelatorioFechamentoCaixaOperador(){
 		try {
 			validarRelatorioABCVendas();
 			
-			
-
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
 			ServletOutputStream out = response.getOutputStream();
@@ -460,18 +514,24 @@ public class RelatorioBackBean extends BackBean {
 					(ByteArrayOutputStream)getFachada().gerarRelatorioFechamentoCaixaOperador(new Integer(this.getIdLoja()).intValue(),this.getDataInicial(), 
 																					    this.getDataFinal(),new Integer(this.getIdOperador()));
 													
-			
 			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
 			response.setContentType("application/pdf");
 			response.setHeader("Content-disposition", "attachment;filename=RelatorioFechamentoCaixaOperador" + System.currentTimeMillis() + ".pdf");
 			context.responseComplete();
 			out.flush();
-			out.close();			
+			out.close();
+			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
+			String mensagem = "";
+			if(e.getCause() != null && e.getCause().getMessage() != null){
+				mensagem = e.getCause().getMessage();
+			}else {
+				mensagem = e.getMessage();
+			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
+					mensagem, "");
 			ctx.addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
@@ -481,9 +541,10 @@ public class RelatorioBackBean extends BackBean {
 					"Erro ao executar o Relatório!", "");
 			ctx.addMessage(null, msg);
 		}
+		return "";
 	}
 	
-	public void executarRelatorioComissaoPorVendedor(){
+	public String executarRelatorioComissaoPorVendedor(){
 		try {
 			validarRelatorioComissaoPorVendedor();
 			
@@ -501,12 +562,19 @@ public class RelatorioBackBean extends BackBean {
 			response.setHeader("Content-disposition", "attachment;filename=RelatorioComissaoPorVendedor" + System.currentTimeMillis() + ".pdf");
 			context.responseComplete();
 			out.flush();
-			out.close();			
+			out.close();
+			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
+			String mensagem = "";
+			if(e.getCause() != null && e.getCause().getMessage() != null){
+				mensagem = e.getCause().getMessage();
+			}else {
+				mensagem = e.getMessage();
+			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
+					mensagem, "");
 			ctx.addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
@@ -516,9 +584,10 @@ public class RelatorioBackBean extends BackBean {
 					"Erro ao executar o Relatório!", "");
 			ctx.addMessage(null, msg);
 		}
+		return "";
 	}
 	
-	public void executarRelatorioLucroBruto(){
+	public String executarRelatorioLucroBruto(){
 		try {
 			validarRelatorioLucroBruto();
 
@@ -536,12 +605,19 @@ public class RelatorioBackBean extends BackBean {
 			response.setHeader("Content-disposition", "attachment;filename=RelatorioLucroBruto" + System.currentTimeMillis() + ".pdf");
 			context.responseComplete();
 			out.flush();
-			out.close();			
+			out.close();
+			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
+			String mensagem = "";
+			if(e.getCause() != null && e.getCause().getMessage() != null){
+				mensagem = e.getCause().getMessage();
+			}else {
+				mensagem = e.getMessage();
+			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
+					mensagem, "");
 			ctx.addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
@@ -551,9 +627,10 @@ public class RelatorioBackBean extends BackBean {
 					"Erro ao executar o Relatório!", "");
 			ctx.addMessage(null, msg);
 		}
+		return "";
 	}
 	
-	public void executarRelatorioEstoqueAtual(){
+	public String executarRelatorioEstoqueAtual(){
 		try {
 			validarRelatorioEstoqueAtual();
 
@@ -569,12 +646,19 @@ public class RelatorioBackBean extends BackBean {
 			response.setHeader("Content-disposition", "attachment;filename=RelatorioEstoqueAtual" + System.currentTimeMillis() + ".pdf");
 			context.responseComplete();
 			out.flush();
-			out.close();			
+			out.close();
+			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
+			String mensagem = "";
+			if(e.getCause() != null && e.getCause().getMessage() != null){
+				mensagem = e.getCause().getMessage();
+			}else {
+				mensagem = e.getMessage();
+			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					e.getMessage(), "");
+					mensagem, "");
 			ctx.addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
@@ -584,6 +668,7 @@ public class RelatorioBackBean extends BackBean {
 					"Erro ao executar o Relatório!", "");
 			ctx.addMessage(null, msg);
 		}
+		return "";
 	}
 	
 	public void validarRelatorioABCVendas() throws AppException{
@@ -591,10 +676,18 @@ public class RelatorioBackBean extends BackBean {
 	}
 	
 	public void validarRelatorioAnaliticoEntrada() throws AppException{
+		if(this.getIdLoja() == null || this.getIdLoja().equals("0")){
+			throw new AppException("É necessário selecionar uma Loja!");
+		} else if(this.getIdEstoque() == null || this.getIdEstoque().equals("0")){
+			throw new AppException("É necessário selecionar um Estoque!");
+		}
 		validaPeriodo();
 	}
 	
 	public void validarRelatorioAnaliticoMovimentacaoEstoque() throws AppException{
+		if(this.getIdLojaSaida() != null && this.getIdLojaEntrada() != null && this.getIdLojaSaida().equals(this.getIdLojaEntrada()) && this.getIdEstoqueSaida() != null && this.getIdEstoqueEntrada() != null && this.getIdEstoqueSaida().equals(this.getIdEstoqueEntrada())){
+			throw new AppException("Estoque de Saída deve ser diferente do Estoque de Entrada para uma mesma Loja!");
+		}
 		validaPeriodo();
 	}
 	
@@ -688,7 +781,7 @@ public class RelatorioBackBean extends BackBean {
 	}
 	
 	public void resetBB(){
-		this.setIdLoja("0");
+		this.setIdLoja(null);
 		this.setDataInicial(null);
 		this.setDataFinal(null);		
 	}
@@ -801,24 +894,19 @@ public class RelatorioBackBean extends BackBean {
 	public SelectItem[] getEstoques() {
 		SelectItem[] arrayEstoques = null;
 		try {
-			Loja loja = null;
-			if(this.getIdLoja() != null && !this.getIdLoja().equals("0")){
-				loja = (Loja)getFachada().consultarLojaPorId(new Long(this.getIdLoja()));	
-			}
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(Estoque.class);
 			
-			filter.addProperty("pk.loja", loja);
+			filter.addProperty("pk.loja.id", new Long(this.getIdLoja()));
 			List<Estoque> estoques = carregarEstoques(filter);
-			arrayEstoques = new SelectItem[estoques.size()+1];
+			arrayEstoques = new SelectItem[estoques.size()];
 			int i = 0;
-			arrayEstoques[i++] = new SelectItem("0", "");
 			for(Estoque estoquesTmp : estoques){
 				SelectItem item = new SelectItem(estoquesTmp.getPk().getId().toString(), estoquesTmp.getDescricao());
 				arrayEstoques[i++] = item;
 			}
-			if(this.getIdVendedor() == null && arrayEstoques.length > 0){
-				this.setIdVendedor(arrayEstoques[0].getValue().toString());
+			if(this.getIdEstoque() == null && arrayEstoques.length > 0){
+				this.setIdEstoque(arrayEstoques[0].getValue().toString());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -833,5 +921,187 @@ public class RelatorioBackBean extends BackBean {
 
 	public void setEstoques(SelectItem[] estoques) {
 		this.estoques = estoques;
+	}
+
+	public String getIdEstoqueEntrada() {
+		return idEstoqueEntrada;
+	}
+
+	public void setIdEstoqueEntrada(String idEstoqueEntrada) {
+		this.idEstoqueEntrada = idEstoqueEntrada;
+	}
+
+	public String getIdEstoqueSaida() {
+		return idEstoqueSaida;
+	}
+
+	public void setIdEstoqueSaida(String idEstoqueSaida) {
+		this.idEstoqueSaida = idEstoqueSaida;
+	}
+
+	public String getIdLojaEntrada() {
+		return idLojaEntrada;
+	}
+
+	public void setIdLojaEntrada(String idLojaEntrada) {
+		this.idLojaEntrada = idLojaEntrada;
+	}
+
+	public String getIdLojaSaida() {
+		return idLojaSaida;
+	}
+
+	public void setIdLojaSaida(String idLojaSaida) {
+		this.idLojaSaida = idLojaSaida;
+	}
+	
+	public SelectItem[] getLojasSaida(){
+		SelectItem[] arrayLojasAssociadas = null;
+		try {
+			Set<Loja> lojasSaida = carregarLojas();
+			arrayLojasAssociadas = new SelectItem[lojasSaida.size()];
+			int i = 0;
+			for(Loja lojasAssociadasTmp : lojasSaida){
+				SelectItem item = new SelectItem(lojasAssociadasTmp.getId().toString(), lojasAssociadasTmp.getNome());
+				arrayLojasAssociadas[i++] = item;
+			}
+			if(this.getIdLojaSaida() == null){
+				this.setIdLojaSaida(arrayLojasAssociadas[0].getValue().toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayLojasAssociadas;
+	}
+
+	public SelectItem[] getLojasEntrada(){
+		SelectItem[] arrayLojasAssociadas = null;
+		try {
+			Set<Loja> lojasEntrada = carregarLojas();
+			arrayLojasAssociadas = new SelectItem[lojasEntrada.size()];
+			int i = 0;
+			for(Loja lojasAssociadasTmp : lojasEntrada){
+				SelectItem item = new SelectItem(lojasAssociadasTmp.getId().toString(), lojasAssociadasTmp.getNome());
+				arrayLojasAssociadas[i++] = item;
+			}
+			if(this.getIdLojaEntrada() == null){
+				this.setIdLojaEntrada(arrayLojasAssociadas[0].getValue().toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return arrayLojasAssociadas;
+	}	
+	
+	public SelectItem[] getEstoquesSaida() {
+		SelectItem[] arrayEstoques = null;
+		try {
+			List<Estoque> estoques = carregarEstoquesSaida();
+			arrayEstoques = new SelectItem[estoques.size()];
+			int i = 0;
+			for (Estoque estoqueTmp : estoques) { 
+				SelectItem item = new SelectItem(estoqueTmp.getPk().getId().toString(),estoqueTmp.getDescricao());
+				arrayEstoques[i++] = item;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+
+		return arrayEstoques;
+	}
+	
+	public SelectItem[] getEstoquesEntrada() {
+		SelectItem[] arrayEstoques = null;
+		try {
+			List<Estoque> estoques = carregarEstoquesEntrada();
+			arrayEstoques = new SelectItem[estoques.size()];
+			int i = 0;
+			for (Estoque estoqueTmp : estoques) { 
+				SelectItem item = new SelectItem(estoqueTmp.getPk().getId().toString(),estoqueTmp.getDescricao());
+				arrayEstoques[i++] = item;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+
+		return arrayEstoques;
+	}
+	
+	private List<Estoque> carregarEstoquesEntrada() {
+
+		try {
+        	IPropertyFilter filter = new PropertyFilter();
+        	filter.setTheClass(Estoque.class);
+        	
+        	filter.addProperty("pk.loja.id", new Long(this.getIdLojaEntrada() != null ? this.getIdLojaEntrada():"0"));
+        	
+        	estoquesEntrada = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return estoquesEntrada;
+	}
+
+	private List<Estoque> carregarEstoquesSaida() {
+
+		try {
+        	IPropertyFilter filter = new PropertyFilter();
+        	filter.setTheClass(Estoque.class);
+        	
+        	filter.addProperty("pk.loja.id", new Long(this.getIdLojaSaida() != null ? this.getIdLojaSaida():"0"));
+        	
+        	estoquesSaida = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			ctx.addMessage(null, msg);
+		}
+		return estoquesSaida;
+	}
+	
+	public void carregarEstoquesPorLojaSaida(ValueChangeEvent event){
+        try {
+        	this.getEstoquesSaida();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		}
+	}
+	
+	public void carregarEstoquesPorLojaEntrada(ValueChangeEvent event){
+        try {
+        	this.getEstoquesEntrada();
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		}
 	}
 }

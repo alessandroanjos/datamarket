@@ -507,11 +507,11 @@ public class Fachada {
 		return out;
 	}
 	
-	public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento,Date data_fim_movimento, String[] status) throws AppException{		
+	public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento,Date data_fim_movimento, String[] status, String idLoja, String idEstoque) throws AppException{		
 		OutputStream out = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoEntradas(data_inicio_movimento, data_fim_movimento, status);
+			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoEntradas(data_inicio_movimento, data_fim_movimento, status, idLoja, idEstoque);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
@@ -537,11 +537,11 @@ public class Fachada {
 		return out;
 	}
 	
-	public OutputStream gerarRelatorioAnaliticoMovimentacaoEstoque(Date data_inicio_movimento,Date data_fim_movimento) throws AppException{		
+	public OutputStream gerarRelatorioAnaliticoMovimentacaoEstoque(Date data_inicio_movimento,Date data_fim_movimento, String idLojaSaida, String idEstoqueSaida, String idLojaEntrada, String idEstoqueEntrada) throws AppException{		
 		OutputStream out = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoMovimentacaoEstoque(data_inicio_movimento, data_fim_movimento);
+			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoMovimentacaoEstoque(data_inicio_movimento, data_fim_movimento, idLojaSaida, idEstoqueSaida, idLojaEntrada, idEstoqueEntrada);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
