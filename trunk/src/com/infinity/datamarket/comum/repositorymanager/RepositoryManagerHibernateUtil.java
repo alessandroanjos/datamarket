@@ -25,7 +25,11 @@ public class RepositoryManagerHibernateUtil {
     public static final SessionFactory sessionFactory;
     public static final ThreadLocal session = new ThreadLocal();
     public static final ThreadLocal transation = new ThreadLocal();
+	private static final Configuration configuration;
 
+	public static Configuration getConfiguration() throws HibernateException {
+		 return configuration;
+	}
 
     public static Session currentSession() throws HibernateException{
         Session s = (Session)session.get();
@@ -149,7 +153,8 @@ public class RepositoryManagerHibernateUtil {
     {
         try
         {
-            sessionFactory = new Configuration().configure().buildSessionFactory();
+        	configuration = new Configuration().configure();
+            sessionFactory = configuration.buildSessionFactory();
         }
         catch(HibernateException ex)
         {
