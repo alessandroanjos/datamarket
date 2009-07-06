@@ -12,6 +12,7 @@ import com.infinity.datamarket.comum.pagamento.Autorizadora;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class AutorizadoraBackBean extends BackBean {
@@ -32,17 +33,38 @@ public class AutorizadoraBackBean extends BackBean {
 		return "voltar";
 	}
 
+	public void validarAutorizadora() throws AppException{
+		
+		if(this.getId() == null || this.getId().equals("")){
+			throw new AppException("É necessário informar um Código.");
+		}
+		
+		if(this.getDescricao() == null || this.getDescricao().equals("")){
+			throw new AppException("É necessário informar uma Descrição.");
+		}
+		
+		if(this.getDesagil() == null || (this.getDesagil() != null && this.getDesagil().setScale(2).equals(new BigDecimal("0.00")))){
+			throw new AppException("É necessário informar um Deságil.");
+		}
+		
+		if(this.getSituacao() == null || this.getSituacao().equals("")){
+			throw new AppException("É necessário informar uma Situação.");
+		}
+	}
 
 	public String inserir(){
-		Autorizadora autorizadora = new Autorizadora();
-		
-		if (getId()==null) autorizadora.setId(getIdInc(Autorizadora.class));
-		
-		autorizadora.setDescricao(this.descricao);
-		autorizadora.setDesagil(this.desagil);
-		autorizadora.setSituacao(this.situacao); 
-		
 		try {
+			
+			validarAutorizadora();
+			
+			Autorizadora autorizadora = new Autorizadora();
+			
+			if (getId()==null) autorizadora.setId(getIdInc(Autorizadora.class));
+			
+			autorizadora.setDescricao(this.descricao);
+			autorizadora.setDesagil(this.desagil);
+			autorizadora.setSituacao(this.situacao); 
+			
 			getFachada().inserirAutorizadora(autorizadora);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -53,6 +75,11 @@ public class AutorizadoraBackBean extends BackBean {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Autorizadora já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -132,6 +159,9 @@ public class AutorizadoraBackBean extends BackBean {
 	
 	public String alterar(){
 		try {
+			
+			validarAutorizadora();
+			
 			Autorizadora autorizadora = new Autorizadora();
 			
 			autorizadora.setId(new Long(this.id));
@@ -145,6 +175,11 @@ public class AutorizadoraBackBean extends BackBean {
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();

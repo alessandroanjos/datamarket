@@ -64,21 +64,38 @@ public class EstoqueBackBean extends BackBean {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public void validarEstoque() throws AppException{
+		if(this.getId() == null || this.getId().equals("")){
+			throw new AppException("É necessário informar o Código.");
+		}
+		
+		if(this.getDescricao() == null || this.getDescricao().equals("")){
+			throw new AppException("É necessário informar uma Descrição.");
+		}
+		
+		if(this.getIdLoja() == null || this.getIdLoja().equals("0")){
+			throw new AppException("É necessário informar uma Loja.");
+		}
+	}
 
 	public String inserir() {
-		Estoque estoque = new Estoque();
-		EstoquePK pk = new EstoquePK();
 		
-		pk.setId(new Long(this.id));
-		estoque.setDescricao(this.descricao);
-		
-		Loja loja = new Loja();
-		loja.setId(new Long(this.idLoja));
-		pk.setLoja(loja);
-		
-		estoque.setPk(pk);
-
 		try {
+			validarEstoque();
+			
+			Estoque estoque = new Estoque();
+			EstoquePK pk = new EstoquePK();
+			
+			pk.setId(new Long(this.id));
+			estoque.setDescricao(this.descricao);
+			
+			Loja loja = new Loja();
+			loja.setId(new Long(this.idLoja));
+			pk.setLoja(loja);
+			
+			estoque.setPk(pk);
+			
 			getFachada().inserirEstoque(estoque);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -209,6 +226,9 @@ public class EstoqueBackBean extends BackBean {
 
 	public String alterar() {
 		try {
+			
+			validarEstoque();
+			
 			Estoque estoque = new Estoque();
 			EstoquePK pk = new EstoquePK();
 			

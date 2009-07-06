@@ -19,6 +19,7 @@ import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -148,9 +149,51 @@ public class FormaRecebimentoBackBean extends BackBean {
 	public void setValorMaxTroco(BigDecimal valorMaxTroco) {
 		this.valorMaxTroco = valorMaxTroco;
 	}
+	
+	public void validarFormaRecebimento() throws AppException {
+		if(this.getId() == null || this.getId().equals("")){
+			throw new AppException("É necessário informar o Código.");
+		}
+
+		if(this.getDescricao() == null || this.getDescricao().equals("")){
+			throw new AppException("É necessário informar uma Descrição.");
+		}
+
+		if(this.getRecebimentoImpressora() == null || this.getRecebimentoImpressora().equals("")){
+			throw new AppException("É necessário informar a Descrição no Recebimento em Impressora.");
+		}
+		
+		if(this.getValorMaxTroco() == null || (this.getValorMaxTroco() != null && this.getValorMaxTroco().setScale(2).equals(new BigDecimal("0.00")))){
+			throw new AppException("É necessário informar um Valor máximo para Troco.");
+		}
+
+		if(this.getValorLimiteSangria() == null || (this.getValorLimiteSangria() != null && this.getValorLimiteSangria().setScale(2).equals(new BigDecimal("0.00")))){
+			throw new AppException("É necessário informar um Valor Limite para Sangrias.");
+		}
+
+		if(this.getDataInicioValidade() == null || this.getDataInicioValidade().equals("")){
+			throw new AppException("É necessário informar a Data de Início da Validade.");
+		}
+
+		if(this.getDataFimValidade() == null || this.getDataFimValidade().equals("")){
+			throw new AppException("É necessário informar a Data Final da Validade.");
+		}
+		
+		if(this.getDataInicioValidade().compareTo(this.getDataFimValidade()) >= 0){
+			throw new AppException("A Data Final da Validade deve ser maior que a Data de Início da Validade.");
+		}
+
+//		if(this.getPlanos() == null || this.getPlanos().size() == 0){
+//			throw new AppException("É necessário informar selecionar pelo menos um Plano.");
+//		}
+
+	}
 
 	public String inserir() {
 		try {
+			
+			validarFormaRecebimento();
+			
 			FormaRecebimento formaRecebimento = new FormaRecebimento();
 			
 			formaRecebimento.setId(new Long(this.id));
@@ -180,6 +223,11 @@ public class FormaRecebimentoBackBean extends BackBean {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Forma de recebimento já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -309,6 +357,9 @@ public class FormaRecebimentoBackBean extends BackBean {
 
 	public String alterar() {
 		try {
+			
+			validarFormaRecebimento();
+			
 			FormaRecebimento formaRecebimento = new FormaRecebimento();
 
 			formaRecebimento.setId(new Long(this.id));
@@ -335,6 +386,12 @@ public class FormaRecebimentoBackBean extends BackBean {
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();

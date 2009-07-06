@@ -12,6 +12,7 @@ import com.infinity.datamarket.comum.produto.Imposto;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class ImpostoBackBean extends BackBean{
@@ -42,12 +43,30 @@ public class ImpostoBackBean extends BackBean{
 		this.id = id;
 	}
 	
+	public void validarImposto() throws AppException{
+		if(this.getDescricao() == null || this.getDescricao().equals("")){
+			throw new AppException("É necessário informar uma Descrição.");
+		}
+		
+		if(this.getImpostoImpressora() == null || this.getImpostoImpressora().equals("")){
+			throw new AppException("É necessário informar um Imposto para Impressora.");
+		}
+		
+		if(this.getPercentual() == null || (this.getPercentual() != null && new BigDecimal(this.getPercentual()).setScale(2).equals(new BigDecimal("0.00")))){
+			throw new AppException("É necessário informar um Percentual do Imposto.");
+		}
+	}
+	
 	public String inserir(){
-		Imposto imposto = new Imposto();
-		imposto.setDescricao(getDescricao());
-		imposto.setImpostoImpressora(getImpostoImpressora());
-		imposto.setPercentual(new BigDecimal(getPercentual()));
 		try {
+
+			validarImposto();
+			
+			Imposto imposto = new Imposto();
+			imposto.setDescricao(getDescricao());
+			imposto.setImpostoImpressora(getImpostoImpressora());
+			imposto.setPercentual(new BigDecimal(getPercentual()));
+			
 			if (getId()==null) imposto.setId(getIdInc(Imposto.class));
 			getFachada().inserirImposto(imposto);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -59,6 +78,12 @@ public class ImpostoBackBean extends BackBean{
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Imposto já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,6 +167,9 @@ public class ImpostoBackBean extends BackBean{
 	
 	public String alterar(){
 		try {
+			
+			validarImposto();
+			
 			Imposto imposto = new Imposto();
 			imposto.setId(new Long(getId()));
 			imposto.setDescricao(getDescricao());
@@ -153,6 +181,12 @@ public class ImpostoBackBean extends BackBean{
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();

@@ -18,6 +18,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -68,24 +69,48 @@ public class ComponenteBackBean extends BackBean {
 	}
 
 
-	public void validarComponentePorLoja(Componente componente){
+	public void validarComponentePorLoja(Componente componente) throws AppException{
 		
 	}
 	
-	
-	public String inserir(){
-		Componente componente = new Componente();
+	public void validarComponente() throws AppException{
+		if(this.getId() == null || this.getId().equals("")){
+			throw new AppException("É necessário informar o Código.");
+		}
+
+		if(this.getDescricao() == null || this.getDescricao().equals("")){
+			throw new AppException("É necessário informar uma Descrição.");
+		}
 		
-		componente.setId(new Long(this.id));
-		componente.setDescricao(this.descricao);
-	    componente.setIp(this.ip);
-	    componente.setPorta(this.porta);
-	    componente.setVersao("");
-		Loja loja = new Loja();
-		loja.setId(new Long(this.idLoja));
-	    componente.setLoja(loja);
-	    
+		if(this.getIp() == null || this.getIp().equals("")){
+			throw new AppException("É necessário informar um IP.");
+		}
+		
+		if(this.getPorta() == null || this.getPorta().equals("")){
+			throw new AppException("É necessário informar uma Porta.");
+		}
+		
+		if(this.getIdLoja() == null || this.getIdLoja().equals("0")){
+			throw new AppException("É necessário informar uma Loja.");
+		}
+	}
+
+	public String inserir(){
 		try {
+			
+			validarComponente();
+			
+			Componente componente = new Componente();
+			
+			componente.setId(new Long(this.id));
+			componente.setDescricao(this.descricao);
+		    componente.setIp(this.ip);
+		    componente.setPorta(this.porta);
+		    componente.setVersao("");
+			Loja loja = new Loja();
+			loja.setId(new Long(this.idLoja));
+		    componente.setLoja(loja);
+		    
 			validarComponentePorLoja(componente);
 			
 			getFachada().inserirComponente(componente);
@@ -99,13 +124,18 @@ public class ComponenteBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Componente já Existente!", "");
 			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
+//		resetBB();
 		return "mesma";
 	}
 	
@@ -215,6 +245,11 @@ public class ComponenteBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -222,7 +257,7 @@ public class ComponenteBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
+//		resetBB();
 		return "mesma";
 	}
 	

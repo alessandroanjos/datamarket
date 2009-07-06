@@ -24,6 +24,7 @@ import com.infinity.datamarket.comum.pagamento.PlanoPagamentoChequePredatado;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -77,9 +78,38 @@ public class PlanoPagamentoBackBean extends BackBean {
 		this.planos = planos;
 	}
 
+	public void validarPlanoPagamento() throws AppException{
+		
+		if(this.getId() == null || this.getId().equals("")){
+			throw new AppException("É necessário informar o Código.");
+		}
+
+		if(this.getDescricao() == null || this.getDescricao().equals("")){
+			throw new AppException("É necessário informar uma Descrição.");
+		}
+		
+		if(this.getDataInicioValidade() == null || this.getDataInicioValidade().equals("")){
+			throw new AppException("É necessário informar uma Data de Início de Validade.");
+		}
+		
+		if(this.getDataFimValidade() == null || this.getDataFimValidade().equals("")){
+			throw new AppException("É necessário informar uma Data Final de Validade.");
+		}
+		
+		if(this.getDataInicioValidade().compareTo(this.getDataFimValidade()) >= 0){
+			throw new AppException("A Data Final de Validade deve ser maior que a Data de Início de Validade.");
+		}
+		
+		if(this.getIdForma() == null || this.getIdForma().equals("")){
+			throw new AppException("É necessário informar uma Forma de Recebimento Associada.");
+		}
+	}
 
 	public String inserir(){
 		try {			
+			
+			validarPlanoPagamento();
+			
 			PlanoPagamento planoPagamento = new PlanoPagamento();
 			preenchePlanoPagamento(planoPagamento, INSERIR);
 			getFachada().inserirPlanoPagamento(planoPagamento);
@@ -93,10 +123,15 @@ public class PlanoPagamentoBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Forma de recebimento já Existente!", "");
 			ctx.addMessage(null, msg);
-		} catch (Exception e) {
+		} catch (AppException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (Exception e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
 		return "mesma";
@@ -194,6 +229,9 @@ public class PlanoPagamentoBackBean extends BackBean {
 	
 	public String alterar(){
 		try {
+			
+			validarPlanoPagamento();
+			
 			PlanoPagamento planoPagamento = new PlanoPagamento();
 			
 			preenchePlanoPagamento(planoPagamento, ALTERAR);
@@ -204,11 +242,17 @@ public class PlanoPagamentoBackBean extends BackBean {
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
-		} catch (Exception e) {
+		} catch (AppException e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
 		return "mesma";
@@ -380,7 +424,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 		this.situacaoItens = situacaoItens;
 	}
 	
-	public void preenchePlanoPagamento(PlanoPagamento plano, String acao) throws Exception{
+	public void preenchePlanoPagamento(PlanoPagamento plano, String acao) throws AppException{
 		PlanoPagamento planoPagamento = null;
 		
 		if(plano instanceof PlanoPagamentoChequePredatado){
@@ -403,7 +447,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 			forma.setId(new Long(this.getIdForma()));
 			planoPagamento.setForma(forma);
 		}else{
-			throw new Exception("É obrigatório selecionar uma Forma de Recebimento Associada.");
+			throw new AppException("É obrigatório selecionar uma Forma de Recebimento Associada.");
 		}
 	}
 	/**
