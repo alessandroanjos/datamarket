@@ -26,6 +26,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Perfil;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 import com.infinity.datamarket.pdv.maquinaestados.MacroOperacao;
 
@@ -130,9 +131,28 @@ public class PerfilBackBean extends BackBean {
 		this.percentualDesconto = percentualDesconto;
 	}
 	
+	public void validarPerfil() throws AppException{
+		if(this.getDescricao() == null || this.getDescricao().equals("")){
+			throw new AppException("É necessário informar uma Descrição.");
+		}
+		
+		if(this.getPercentualDesconto() == null || this.getPercentualDesconto().setScale(2).compareTo(new BigDecimal("0.00")) < 1){
+			throw new AppException("É necessário informar um Percentual de Desconto.");
+		}
+		
+		if(this.getListaOperacoesAssociadas() == null || this.getListaOperacoesAssociadas().size() == 0){
+			throw new AppException("É necessário informar pelo menos uma Operação Associada.");
+		}
+		
+		if(this.arvore == null || this.arvore.getChildCount() == 0){
+			throw new AppException("É necessário informar pelo menos uma Funcionalidade Associada.");
+		}
+	}
+	
 	public String inserir(){
 		
 		try {
+			validarPerfil();
 			// Perfil
 			Perfil perfil = new Perfil();
 			
@@ -203,13 +223,18 @@ public class PerfilBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Perfil já Existente!", "");
 			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
+//		resetBB();
 		return "mesma";
 	}	
 
@@ -368,6 +393,8 @@ public class PerfilBackBean extends BackBean {
 	
 	public String alterar(){
 		try {
+			validarPerfil();
+			
 			Perfil perfil = new Perfil();
 			perfil.setId(new Long(this.getId()));
 			perfil.setDescricao(this.getDescricao());

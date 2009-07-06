@@ -53,7 +53,7 @@ public class RepositorioEstoque extends Repositorio implements IRepositorioEstoq
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append("from Estoque estoque ");
-		sql.append("where estoque.pk.loja.id = " + idLoja);
+		sql.append("where estoque.pk.loja.id = '" + ((idLoja == null || idLoja.equals("")== true)?"0":idLoja) + "'");
 		
 		Query query = sessao.createQuery(sql.toString());
 		
