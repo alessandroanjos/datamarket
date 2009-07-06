@@ -48,7 +48,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 										<h:inputText styleClass="field text ativo" id="id" maxlength="4" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
-											value="#{componenteBB.id}" size="4" required="true">
+											value="#{componenteBB.id}" size="4" >
 											<f:validateLength maximum="4" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>
@@ -60,7 +60,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50"
-											value="#{componenteBB.descricao}" required="true">
+											value="#{componenteBB.descricao}" >
 											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
@@ -70,7 +70,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Número IP*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="ip" maxlength="15" size="15"
-											value="#{componenteBB.ip}" required="true" onblur="if (!verificaIP(this.value)) alert(ERRO_ENDERECO_IP);" onfocus="this.select();" onclick="this.select();"  onkeypress="return SoNumero(event);">
+											value="#{componenteBB.ip}"  onblur="if (!verificaIP(this.value)) alert(ERRO_ENDERECO_IP);" onfocus="this.select();" onclick="this.select();"  onkeypress="return SoNumero(event);">
 											<f:validateLength maximum="15" />
 										</h:inputText>
 									</div>
@@ -80,7 +80,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Porta*"></h:outputLabel>
 										<h:inputText styleClass="field text inteiro" id="porta" maxlength="4" size="4" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
-											value="#{componenteBB.porta}" required="true">
+											value="#{componenteBB.porta}" >
 											<f:validateLength maximum="4" />
 										</h:inputText>
 									</div>
@@ -90,7 +90,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Loja*"></h:outputLabel>
 										<h:selectOneMenu id="idLoja" styleClass="field select"
-											value="#{componenteBB.idLoja}" required="true">   
+											value="#{componenteBB.idLoja}" >   
 												  <f:selectItems id="lojaSelectItems" 
 												  value="#{componenteBB.lojas}" />   
 										</h:selectOneMenu> 

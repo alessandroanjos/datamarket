@@ -47,7 +47,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" required="true"
+										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" 
 											value="#{autorizadoraBB.descricao}">
 											<f:validateLength maximum="50" />
 										</h:inputText>
@@ -59,7 +59,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Deságil"></h:outputLabel>
 										<h:inputText styleClass="field text" id="desagil" maxlength="6" size="6" dir="rtl"
-											value="#{autorizadoraBB.desagil}" required="true" 
+											value="#{autorizadoraBB.desagil}"  
 											onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 											<f:validateLength maximum="6" />
 											<f:validateDoubleRange  minimum="0.00" maximum="999.99"/>
@@ -72,7 +72,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Ativa"></h:outputLabel>
-										<h:selectOneRadio  styleClass="field select"  id="situacao"  required="true"
+										<h:selectOneRadio  styleClass="field select"  id="situacao"  
 											value="#{autorizadoraBB.situacao}"  layout="lineDirection" rendered="true">
 										    <f:selectItem itemLabel="Sim" itemValue="S" />
 										    <f:selectItem itemLabel="Não" itemValue="N"/>

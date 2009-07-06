@@ -51,7 +51,7 @@
 										<h:inputText styleClass="field text ativo" id="id" maxlength="3" 
 											onfocus="this.select();" onclick="this.select();"
 											onkeypress="return SoNumero(event);"
-											value="#{planoPagamentoBB.id}" size="4" required="true">
+											value="#{planoPagamentoBB.id}" size="4" >
 											<f:validateLength maximum="4" />
 											<f:validator validatorId="LongValidator"/>
 										</h:inputText>												
@@ -61,7 +61,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" required="true"
+										<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50" 
 											value="#{planoPagamentoBB.descricao}">
 											<f:validateLength maximum="50" />
 										</h:inputText>
@@ -73,7 +73,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Forma de Receb. Associada"></h:outputLabel>
 										<h:selectOneMenu id="idForma" styleClass="field select" style="width: 190px;" 
-											value="#{planoPagamentoBB.idForma}" required="true"> 
+											value="#{planoPagamentoBB.idForma}" > 
 												  <f:selectItems id="formaSelectItems" 
 												  value="#{planoPagamentoBB.formas}"  />   
 										</h:selectOneMenu>
@@ -149,7 +149,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Situação*"></h:outputLabel>
 										<h:selectOneRadio  styleClass="field select" id="status" 
-											value="#{planoPagamentoBB.status}" layout="lineDirection" required="true">
+											value="#{planoPagamentoBB.status}" layout="lineDirection" >
 										    <f:selectItems id="situacao" value="#{planoPagamentoBB.situacaoItens}" />							
 										</h:selectOneRadio>
 									</div>		

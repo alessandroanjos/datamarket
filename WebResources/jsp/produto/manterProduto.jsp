@@ -83,7 +83,7 @@
 											<h:outputLabel styleClass="desc" value="Descrição Completa*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="descricaoCompleta"
 												maxlength="50" size="50"
-												value="#{produtoBB.descricaoCompleta}" required="true">
+												value="#{produtoBB.descricaoCompleta}" >
 												<f:validateLength maximum="50" />
 											</h:inputText>
 										</div>
@@ -94,7 +94,7 @@
 											<h:outputLabel styleClass="desc" value="Descrição Compacta*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="descricaoCompacta"
 												maxlength="30" size="30"
-												value="#{produtoBB.descricaoCompacta}" required="true">
+												value="#{produtoBB.descricaoCompacta}" >
 												<f:validateLength maximum="30" />
 											</h:inputText>
 
@@ -106,7 +106,7 @@
 											<h:outputLabel styleClass="desc" value="Preço Padrão*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="precoPadrao"
 												maxlength="10" size="10" value="#{produtoBB.precoPadrao}"
-												required="true" dir="rtl"
+												 dir="rtl"
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateDoubleRange minimum="0.00" maximum="999999.99" />
 											</h:inputText>
@@ -143,7 +143,7 @@
 												maxlength="15" size="17" value="#{produtoBB.codigoExterno}"
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);" 
-												required="true">
+												>
 												<f:validateLength maximum="15" />
 											</h:inputText>
 											
@@ -155,7 +155,7 @@
 												value="#{produtoBB.codigoAutomacao}"
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);" 
-												required="true">
+												>
 												<f:validateLength maximum="15" />
 											</h:inputText>
 											
@@ -166,7 +166,7 @@
 											<h:outputLabel styleClass="desc" value="Tipo de Produto*"></h:outputLabel>
 											<h:selectOneMenu id="tipos" styleClass="field select"
 												style="width: 200px;" value="#{produtoBB.idTipoProduto}"
-												required="true">
+												>
 												<f:selectItems id="tiposSelectItems"
 													value="#{produtoBB.tipos}" />
 											</h:selectOneMenu>
@@ -176,7 +176,7 @@
 											<h:outputLabel styleClass="desc" value="Grupo de Produto*"></h:outputLabel>
 											<h:selectOneMenu id="grupos" styleClass="field select"
 												style="width: 200px;" value="#{produtoBB.idGrupo}"
-												required="true">
+												>
 												<f:selectItems id="gruposSelectItems"
 													value="#{produtoBB.grupos}" />
 											</h:selectOneMenu>
@@ -188,7 +188,7 @@
 											<h:outputLabel styleClass="desc" value="Unidade*"></h:outputLabel>
 											<h:selectOneMenu id="unidades" styleClass="field select"
 												style="width: 200px;" value="#{produtoBB.idUnidade}"
-												required="true">
+												>
 												<f:selectItems id="unidadeSelectItems"
 													value="#{produtoBB.unidades}" />
 											</h:selectOneMenu>
@@ -198,7 +198,7 @@
 											<h:outputLabel styleClass="desc" value="Imposto*"></h:outputLabel>
 											<h:selectOneMenu id="impostos" styleClass="field select"
 												style="width: 200px;" value="#{produtoBB.idImposto}"
-												required="true">
+												>
 												<f:selectItems id="impostosSelectItems"
 													value="#{produtoBB.impostos}" />
 											</h:selectOneMenu>
@@ -210,7 +210,7 @@
 											<h:outputLabel styleClass="desc" value="Fabricante*"></h:outputLabel>
 											<h:selectOneMenu id="Fabricantes" styleClass="field select"
 												style="width: 200px;" value="#{produtoBB.idFabricante}"
-												required="true">
+												>
 												<f:selectItems id="fabricantesSelectItems"
 													value="#{produtoBB.fabricantes}" />
 											</h:selectOneMenu>

@@ -51,7 +51,7 @@
 								<div>
 									<h:outputLabel styleClass="desc" value="Cliente"></h:outputLabel>
 									<h:selectOneMenu id="clientes" styleClass="field select" onchange="submit();" immediate="true"
-										value="#{clientePagamentoBB.idCliente}" required="true" style="width: 200px;" valueChangeListener="#{clientePagamentoBB.recuperaDadosCliente}">   
+										value="#{clientePagamentoBB.idCliente}"  style="width: 200px;" valueChangeListener="#{clientePagamentoBB.recuperaDadosCliente}">   
 										  <f:selectItems id="clienteSelectItems" value="#{clientePagamentoBB.clientes}" />   
 									</h:selectOneMenu>
 									

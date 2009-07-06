@@ -66,7 +66,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="nome" maxlength="50"
-											size="50" value="#{tipoProdutoBB.descricao}" required="true">
+											size="50" value="#{tipoProdutoBB.descricao}" >
 											<f:validateLength maximum="50" />
 										</h:inputText>
 										

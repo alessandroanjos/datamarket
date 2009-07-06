@@ -59,7 +59,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
 											<h:selectOneRadio  styleClass="field select" id="tipoPessoa" 
-												value="#{fabricanteBB.idTipoPessoa}" layout="lineDirection" required="true">
+												value="#{fabricanteBB.idTipoPessoa}" layout="lineDirection" >
 												<f:selectItems id="tipoPessoaLista" value="#{fabricanteBB.listaTipoPessoa}"/>
 											</h:selectOneRadio>
 											

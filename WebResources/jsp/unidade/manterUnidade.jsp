@@ -72,7 +72,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="nome" maxlength="50"
-											size="50" value="#{unidadeBB.descricao}" required="true">
+											size="50" value="#{unidadeBB.descricao}" >
 											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
@@ -82,7 +82,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição Compacta*"></h:outputLabel>
 										<h:inputText styleClass="field text ativo" id="descricaoCompacta" maxlength="20"
-											value="#{unidadeBB.descricaoCompacta}" size="20" required="true">
+											value="#{unidadeBB.descricaoCompacta}" size="20" >
 											<f:validateLength maximum="20" />
 										</h:inputText>
 									</div>
@@ -92,7 +92,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Abreviação*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="abreviacao" maxlength="2"
-											size="5" value="#{unidadeBB.abreviacao}" required="true">
+											size="5" value="#{unidadeBB.abreviacao}" >
 											<f:validateLength maximum="2" />
 										</h:inputText>
 									</div>

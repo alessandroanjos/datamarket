@@ -97,7 +97,7 @@
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo Lançamento"></h:outputLabel>
-											<h:selectOneRadio  styleClass="field select"  id="tipoLancamento"  required="true"
+											<h:selectOneRadio  styleClass="field select"  id="tipoLancamento"  
 												value="#{lancamentoBB.tipoLancamento}"  layout="lineDirection" rendered="true">
 											    <f:selectItem itemLabel="à Pagar" itemValue="D" />
 											    <f:selectItem itemLabel="à Receber" itemValue="C"/>

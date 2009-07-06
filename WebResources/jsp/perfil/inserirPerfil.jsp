@@ -57,7 +57,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-											<h:inputText styleClass="field text" id="descricao" maxlength="20" size="20" value="#{perfilBB.descricao}" required="true">
+											<h:inputText styleClass="field text" id="descricao" maxlength="20" size="20" value="#{perfilBB.descricao}" >
 												<f:validateLength maximum="20" />
 											</h:inputText>
 										</div>
@@ -77,7 +77,7 @@
 											<h:outputLabel styleClass="desc" value="Perc. de Desconto*"></h:outputLabel>
 											<h:inputText styleClass="field text" dir="rtl" id="percentualDesconto" maxlength="5" size="5" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
-                      							 value="#{perfilBB.percentualDesconto}" required="true">
+                      							 value="#{perfilBB.percentualDesconto}" >
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="99.99" />
 												<f:validator validatorId="BigDecimalValidator" />

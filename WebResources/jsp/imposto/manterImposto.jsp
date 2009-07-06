@@ -64,7 +64,7 @@
 										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
 											onfocus="this.select();" onclick="this.select();"
 											onkeypress="return SoNumero(event);"
-											value="#{impostoBB.id}" size="3" disabled="true" required="true">
+											value="#{impostoBB.id}" size="3" disabled="true" >
 											<f:validateLength maximum="3" />
 										</h:inputText>
 									</div>
@@ -74,7 +74,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="nome" maxlength="50"
-											size="50" value="#{impostoBB.descricao}" required="true">
+											size="50" value="#{impostoBB.descricao}" >
 											<f:validateLength maximum="50" />
 										</h:inputText>
 									</div>
@@ -84,7 +84,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Imposto Impressora*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="impostoImpressora" maxlength="2"
-											size="2" value="#{impostoBB.impostoImpressora}" required="true">
+											size="2" value="#{impostoBB.impostoImpressora}" >
 											<f:validateLength maximum="2" />
 										</h:inputText>
 									</div>
@@ -94,7 +94,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Percentual*"></h:outputLabel>
 										<h:inputText styleClass="field monetario" id="percentual" maxlength="5"
-											size="5" value="#{impostoBB.percentual}" required="true" 
+											size="5" value="#{impostoBB.percentual}"  
 											onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 											<f:validateLength maximum="5" />
 											<f:validateDoubleRange minimum="00.01" maximum="99.99"/>

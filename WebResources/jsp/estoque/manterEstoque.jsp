@@ -49,7 +49,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 										<h:inputText styleClass="field text ativo" id="id" maxlength="2" onkeypress="return SoNumero(event);"
-											value="#{estoqueBB.id}" size="2" required="true" readonly="true">
+											value="#{estoqueBB.id}" size="2"  readonly="true">
 											<f:validateLength maximum="2" />
 											<f:validator validatorId="LongValidator" />
 										</h:inputText>
@@ -60,7 +60,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="nome" maxlength="50"
-											size="50" value="#{estoqueBB.descricao}" required="true">
+											size="50" value="#{estoqueBB.descricao}" >
 											<f:validateLength maximum="50" />
 										</h:inputText>
 										
