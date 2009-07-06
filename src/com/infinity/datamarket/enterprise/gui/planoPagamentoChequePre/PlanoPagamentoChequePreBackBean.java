@@ -24,6 +24,7 @@ import com.infinity.datamarket.comum.pagamento.PlanoPagamentoChequePredatado;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.planoPagamento.PlanoPagamentoBackBean;
 
@@ -123,23 +124,23 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 		this.setParcelas(null);
 	}
 	
-	public void validarBackBean() throws Exception{
+	public void validarBackBean() throws AppException{
 		if(this.getId() == null || this.getId().equals("")){
-			throw new Exception("O campo Código é obrigatório.");
+			throw new AppException("O campo Código é obrigatório.");
 		}		
 		if(this.getDescricao() == null || this.getDescricao().equals("")){
-			throw new Exception("O campo Descrição é obrigatório.");
+			throw new AppException("O campo Descrição é obrigatório.");
 		}
 		if(this.getIdForma() == null || this.getIdForma().equals("0")){
-			throw new Exception("O campo Forma Associada é obrigatório.");
+			throw new AppException("O campo Forma Associada é obrigatório.");
 		}
 		
 		if(this.getValorMinimo() == null || this.getValorMinimo().compareTo(new BigDecimal("0")) <= 0){
-			throw new Exception("O campo Valor Mínimo é obrigatório.");
+			throw new AppException("O campo Valor Mínimo é obrigatório.");
 		}
 		
 		if(this.getValorMaximo() == null || this.getValorMaximo().compareTo(new BigDecimal("0")) <= 0){
-			throw new Exception("O campo Valor Máximo é obrigatório.");
+			throw new AppException("O campo Valor Máximo é obrigatório.");
 		}
 		
 		/*if(this.getPercDesconto() == null || this.getPercDesconto().compareTo(new BigDecimal("0")) < 0){
@@ -151,24 +152,26 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 		}*/
 
 		if(this.getDataInicioValidade() == null || this.getDataInicioValidade().equals("")){
-			throw new Exception("É necessário informar a Data Inicial de Validade.");
+			throw new AppException("É necessário informar a Data Inicial de Validade.");
 		}
 		
 		if(this.getDataFimValidade() == null || this.getDataFimValidade().equals("")){
-			throw new Exception("É necessário informar a Data Final de Validade.");
+			throw new AppException("É necessário informar a Data Final de Validade.");
 		}
 		
 		if(this.getStatus() == null){
-			throw new Exception("É necessário selecionar uma Situação.");
+			throw new AppException("É necessário selecionar uma Situação.");
 		}
 
 		if(this.getParcelas() == null || (this.getParcelas() != null && this.getParcelas().size() == 0)){
-			throw new Exception("É necessário ter pelo menos uma parcela.");
+			throw new AppException("É necessário ter pelo menos uma parcela.");
 		}
 	}
 	
 	public String inserir(){
 		try {	
+			
+			
 			setIdForma(Constantes.FORMA_CHEQUE_PRE);
 			validarBackBean();
 			
@@ -207,10 +210,15 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Forma de recebimento já Existente!", "");
 			ctx.addMessage(null, msg);
-		} catch (Exception e) {
+		} catch (AppException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (Exception e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}		
 		return "mesma";
@@ -256,11 +264,15 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			ctx.addMessage(null, msg);
 			this.resetBB();
 			this.setPlanos(null);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (AppException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (Exception e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
 		return "mesma";

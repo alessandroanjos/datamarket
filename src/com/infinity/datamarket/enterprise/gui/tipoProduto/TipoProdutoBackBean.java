@@ -11,6 +11,7 @@ import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class TipoProdutoBackBean extends BackBean{
@@ -38,10 +39,19 @@ public class TipoProdutoBackBean extends BackBean{
 		this.id = id;
 	}
 	
+	public void validarTipoProduto() throws AppException{
+		if(this.getDescricao() == null || this.getDescricao().equals("")){
+			throw new AppException("É necessário informar uma Descrição.");
+		}
+	}
+	
 	public String inserir(){
-		TipoProduto tipo = new TipoProduto();
-		tipo.setDescricao(this.getDescricao());
 		try {
+			
+			validarTipoProduto();
+			
+			TipoProduto tipo = new TipoProduto();
+			tipo.setDescricao(this.getDescricao());
 
 			if (getId()==null) tipo.setId(getIdInc(TipoProduto.class));
 			
@@ -55,6 +65,11 @@ public class TipoProdutoBackBean extends BackBean{
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Tipo de Produto já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -129,6 +144,8 @@ public class TipoProdutoBackBean extends BackBean{
 	
 	public String alterar(){
 		try {
+			validarTipoProduto();
+			
 			TipoProduto tipo = new TipoProduto();
 			tipo.setId(new Long(id));
 			tipo.setDescricao(getDescricao());
@@ -138,6 +155,12 @@ public class TipoProdutoBackBean extends BackBean{
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();

@@ -27,6 +27,7 @@ import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.usuario.Loja;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ValidationException;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
@@ -265,9 +266,55 @@ public class ProdutoBackBean extends BackBean{
 		}
 		this.listaLojas = listaLojas;
 	}
+	
+	public void validarProduto() throws AppException{
+		
+		if(this.getCodigoExterno() == null || this.getCodigoExterno().equals("")){
+			throw new AppException("É necessário informar um Código Externo.");
+		}
+		
+		if(this.getCodigoAutomacao() == null || this.getCodigoAutomacao().equals("")){
+			throw new AppException("É necessário informar um Código de Automação.");
+		}
+
+		if(this.getDescricaoCompleta() == null || this.getDescricaoCompleta().equals("")){
+			throw new AppException("É necessário informar uma Descrição Completa.");
+		}
+
+		if(this.getDescricaoCompacta() == null || this.getDescricaoCompacta().equals("")){
+			throw new AppException("É necessário informar uma Descrição Compacta.");
+		}
+
+		if(this.getPrecoPadrao() == null || (this.getPrecoPadrao() != null && new BigDecimal(this.getPrecoPadrao()).setScale(2).equals(new BigDecimal("0.00")))){
+			throw new AppException("É necessário informar um Preço Padrão.");
+		}
+
+		if(this.getIdImposto() == null || this.getIdImposto().equals("0")){
+			throw new AppException("É necessário informar um Imposto.");
+		}
+
+		if(this.getIdTipoProduto() == null || this.getIdTipoProduto().equals("0")){
+			throw new AppException("É necessário informar um Tipo de Produto.");
+		}
+
+		if(this.getIdUnidade() == null || this.getIdUnidade().equals("0")){
+			throw new AppException("É necessário informar uma Unidade.");
+		}
+
+		if(this.getIdGrupo() == null || this.getIdGrupo().equals("0")){
+			throw new AppException("É necessário informar um Grupo de Produto.");
+		}
+
+		if(this.getListaLojas() == null || this.getListaLojas().length == 0){
+			throw new AppException("É necessário informar pelo menos uma Loja.");
+		}
+	}
 
 	public String inserir(){
 		try {
+
+			validarProduto();
+			
 			getFachada().inserirProduto(getProduto(this.INSERIR));
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -279,6 +326,12 @@ public class ProdutoBackBean extends BackBean{
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Produto já Existente!", "");
+			ctx.addMessage(null, msg);
+
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 
 		} catch (Exception e) {
@@ -400,6 +453,9 @@ public class ProdutoBackBean extends BackBean{
 	
 	public String alterar(){
 		try {
+			
+			validarProduto();
+			
 			getFachada().alterarProduto(getProduto(this.ALTERAR));
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -411,6 +467,12 @@ public class ProdutoBackBean extends BackBean{
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
 			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+
 		} catch (Exception e) {
 			
 			if (e.getCause().getCause() instanceof HibernateException) {

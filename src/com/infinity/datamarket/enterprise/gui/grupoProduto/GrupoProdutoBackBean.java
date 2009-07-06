@@ -13,6 +13,7 @@ import com.infinity.datamarket.comum.produto.GrupoProduto;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ValidationException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -48,16 +49,23 @@ public class GrupoProdutoBackBean extends BackBean{
 		this.id = id;
 	}
 	
-	public String inserir(){
-		GrupoProduto grupo = new GrupoProduto();
-		if (idSuperior != null && !"".equals(idSuperior)){
-			GrupoProduto grupoSuperior = new GrupoProduto();
-			grupoSuperior.setId(new Long(idSuperior));
-			grupo.setGrupoSuperior(grupoSuperior);
+	public void validarGrupoProduto() throws AppException{
+		if(this.getDescricao() == null || this.getDescricao().equals("")){
+			throw new AppException("É necessário informar uma Descrição.");
 		}
-		grupo.setDescricao(descricao);
+	}
+	
+	public String inserir(){
 		try {
+			validarGrupoProduto();
 			
+			GrupoProduto grupo = new GrupoProduto();
+			if (idSuperior != null && !"".equals(idSuperior)){
+				GrupoProduto grupoSuperior = new GrupoProduto();
+				grupoSuperior.setId(new Long(idSuperior));
+				grupo.setGrupoSuperior(grupoSuperior);
+			}
+			grupo.setDescricao(descricao);
 			if (getId()==null) grupo.setId(getIdInc(GrupoProduto.class));
 			
 			getFachada().inserirGrupoProduto(grupo);
@@ -70,6 +78,12 @@ public class GrupoProdutoBackBean extends BackBean{
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Grupo de Produto já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -153,6 +167,7 @@ public class GrupoProdutoBackBean extends BackBean{
 	
 	public String alterar(){
 		try {
+			validarGrupoProduto();
 			GrupoProduto grupo = new GrupoProduto();
 			if (idSuperior != null && !"".equals(idSuperior)){
 				GrupoProduto grupoSuperior = new GrupoProduto();
@@ -168,6 +183,11 @@ public class GrupoProdutoBackBean extends BackBean{
 			ctx.addMessage(null, msg);
 			resetBB();
 		} catch (ValidationException e){
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");

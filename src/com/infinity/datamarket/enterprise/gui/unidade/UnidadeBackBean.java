@@ -11,6 +11,7 @@ import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 public class UnidadeBackBean extends BackBean{
@@ -41,12 +42,31 @@ public class UnidadeBackBean extends BackBean{
 		this.id = id;
 	}
 	
+	public void validadeUnidade() throws AppException{
+		if(this.getDescricao() == null || this.getDescricao().equals("")){
+			throw new AppException("É necessário informar uma Descrição.");
+		}
+		
+		if(this.getDescricaoCompacta() == null || this.getDescricaoCompacta().equals("")){
+			throw new AppException("É necessário informar uma Descrição Compacta.");
+		}
+		
+		if(this.getAbreviacao() == null || this.getAbreviacao().equals("")){
+			throw new AppException("É necessário informar uma Abreviação.");
+		}
+	}
+	
 	public String inserir(){
-		Unidade unidade = new Unidade();
-		unidade.setDescricao(getDescricao());
-		unidade.setDescricaoDisplay(getDescricaoCompacta());
-		unidade.setAbreviacao(getAbreviacao());
+	
 		try {
+			
+			validadeUnidade();
+			
+			Unidade unidade = new Unidade();
+			unidade.setDescricao(getDescricao());
+			unidade.setDescricaoDisplay(getDescricaoCompacta());
+			unidade.setAbreviacao(getAbreviacao());
+			
 			getFachada().inserirUnidade(unidade);
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -57,6 +77,11 @@ public class UnidadeBackBean extends BackBean{
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Unidade já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -139,6 +164,8 @@ public class UnidadeBackBean extends BackBean{
 	
 	public String alterar(){
 		try {
+			validadeUnidade();
+			
 			Unidade unidade = new Unidade();
 			unidade.setId(new Long(getId()));
 			unidade.setDescricao(getDescricao());
@@ -150,6 +177,12 @@ public class UnidadeBackBean extends BackBean{
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
