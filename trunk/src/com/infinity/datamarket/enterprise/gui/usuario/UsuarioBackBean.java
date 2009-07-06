@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
@@ -21,7 +22,6 @@ import org.hibernate.collection.PersistentSet;
 
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.usuario.Usuario;
@@ -302,28 +302,49 @@ public class UsuarioBackBean extends BackBean {
 
 				return "proxima";
 			}
-			PropertyFilter filter = new PropertyFilter();
-			if (getNome() != null && !"".equals(getNome())){	
-				filter.addProperty("nome", getNome());
-			}
-			if (getIdPerfil() != null && !"".equals(getIdPerfil()) && !"0".equals(getIdPerfil())){	
-				filter.addProperty("perfil.id", new Long(getIdPerfil()));
-			}
 			
-//			if (getIdLoja() != null && !"".equals(getIdLoja()) && !"0".equals(getIdLoja())){
-//				Set<Loja> lojasTmp = new HashSet<Loja>();
-//				Loja loja = new Loja();
-//				loja.setId(new Long(getIdLoja()));
-//				lojasTmp.add(getFachada().consultarLojaPorId(loja.getId()));
-//				filter.addProperty("lojas.", lojasTmp);
-//			}
+			Usuario usuTmp = null;
 			
 			if (this.getIdTipoUsuario().equals(SIM)){
-				filter.setTheClass(Vendedor.class);
+				usuTmp = new Vendedor();
 			}else{
-				filter.setTheClass(Usuario.class);
+				usuTmp = new Usuario();
 			}
-			Collection col = getFachada().consultarUsuario(filter);
+			
+			if (getNome() != null && !"".equals(getNome())){	
+				usuTmp.setNome(this.getNome());
+			}
+			
+			if (getIdPerfil() != null && !"".equals(getIdPerfil()) && !"0".equals(getIdPerfil())){	
+				Perfil perfil = new Perfil();
+				perfil.setId(new Long(this.getIdPerfil()));
+				usuTmp.setPerfil(perfil);
+			}
+			
+			Collection col = getFachada().consultarUsuariosPorFiltro(usuTmp, this.getIdLoja());
+			
+//			PropertyFilter filter = new PropertyFilter();
+//			if (getNome() != null && !"".equals(getNome())){	
+//				filter.addProperty("nome", getNome());
+//			}
+//			if (getIdPerfil() != null && !"".equals(getIdPerfil()) && !"0".equals(getIdPerfil())){	
+//				filter.addProperty("perfil.id", new Long(getIdPerfil()));
+//			}
+//			
+//			if (this.getIdLoja() != null && !"".equals(this.getIdLoja()) && !"0".equals(this.getIdLoja())){
+//				Loja loja = new Loja();
+//				loja.setId(new Long(getIdLoja()));
+//				filter.addProperty("loja", loja);
+//			}
+//			
+//			if (this.getIdTipoUsuario().equals(SIM)){
+//				filter.setTheClass(Vendedor.class);
+//			}else{
+//				filter.setTheClass(Usuario.class);
+//			}
+			
+//			Collection col = getFachada().consultarUsuario(filter);
+			
 			if (col == null || col.size() == 0){
 				setExisteRegistros(false);
 				this.setListaUsuarios(null);

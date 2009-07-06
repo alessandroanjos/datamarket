@@ -59,4 +59,7 @@ public class CadastroProduto extends Cadastro{
 		return null;
 	}
 
+	public Collection consultarProdutosPorFiltro(Produto produto, String idLoja) throws AppException{
+		return getRepositorio().consultarProdutosPorFiltro(produto, idLoja);		
+	}
 }
