@@ -304,11 +304,14 @@ public class UsuarioBackBean extends BackBean {
 			}
 			
 			Usuario usuTmp = null;
+			boolean usuVendedor = false;
 			
 			if (this.getIdTipoUsuario().equals(SIM)){
 				usuTmp = new Vendedor();
+				usuVendedor = true;
 			}else{
 				usuTmp = new Usuario();
+				usuVendedor = false;
 			}
 			
 			if (getNome() != null && !"".equals(getNome())){	
@@ -321,7 +324,7 @@ public class UsuarioBackBean extends BackBean {
 				usuTmp.setPerfil(perfil);
 			}
 			
-			Collection col = getFachada().consultarUsuariosPorFiltro(usuTmp, this.getIdLoja());
+			Collection col = getFachada().consultarUsuariosPorFiltro(usuTmp, this.getIdLoja(), usuVendedor);
 			
 //			PropertyFilter filter = new PropertyFilter();
 //			if (getNome() != null && !"".equals(getNome())){	

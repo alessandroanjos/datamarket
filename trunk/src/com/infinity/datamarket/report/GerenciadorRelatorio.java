@@ -703,7 +703,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 		PreparedStatement pstm1 = null;
 		try{
 			Map parametros = new HashMap();
-	
+	 
 			parametros.put("empresa", EMPRESA);				
 						
 			Connection con = getConnection();
@@ -745,21 +745,24 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			
 			ResultSet rTotal = pstm1.executeQuery();
 			
-			verificaExistenciaDados(rs);
-			
 			BigDecimal total = BigDecimal.ZERO; 
 			BigDecimal qtd = BigDecimal.ZERO;
 			if (rTotal.next()){
-				total = rTotal.getBigDecimal("valor");
-				total = total.setScale(2, BigDecimal.ROUND_DOWN);
-				qtd = rTotal.getBigDecimal("qtd");
-				qtd = qtd.setScale(3, BigDecimal.ROUND_DOWN);
+				if(rTotal.getBigDecimal("valor") != null){
+					total = rTotal.getBigDecimal("valor");
+					total = total.setScale(2, BigDecimal.ROUND_DOWN);
+				}
+				if(rTotal.getBigDecimal("qtd") != null){
+					qtd = rTotal.getBigDecimal("qtd");
+					qtd = qtd.setScale(3, BigDecimal.ROUND_DOWN);	
+				}				
 			}
 			parametros.put("total", total);
 			parametros.put("qtd", qtd);
 			
 			rs = pstm.executeQuery();
 			
+			verificaExistenciaDados(rs);
 			
 			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
 				

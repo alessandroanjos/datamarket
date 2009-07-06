@@ -16,5 +16,5 @@ public interface IRepositorioUsuario extends IRepositorio{
 	public void alterar(Usuario usuario) throws AppException;
 	public void excluir(Usuario usuario) throws AppException;
 	public Usuario consultarPorId_IdMacro(Long id) throws AppException;
-	public Collection consultarUsuariosPorFiltro(Usuario usuario, String idLoja) throws AppException;
+	public Collection consultarUsuariosPorFiltro(Usuario usuario, String idLoja, boolean vendedor) throws AppException;
 }

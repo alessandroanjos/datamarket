@@ -60,12 +60,19 @@ public class RepositorioUsuario extends Repositorio implements IRepositorioUsuar
 		return (Usuario) findById(CLASSE, id);		
 	}
 	
-	public Collection consultarUsuariosPorFiltro(Usuario usuario, String idLoja) throws AppException{
+	public Collection consultarUsuariosPorFiltro(Usuario usuario, String idLoja, boolean vendedor) throws AppException{
 		Collection<Usuario> col = new ArrayList<Usuario>();
 		Session session = RepositoryManagerHibernateUtil.currentSession();
 		StringBuffer sqlSetence = new StringBuffer();
-		sqlSetence.append("SELECT u.* from USUARIO u, USUARIO_LOJA ul ");
-		sqlSetence.append("WHERE u.id = ul.id_usuario ");
+		if(vendedor){
+			sqlSetence.append("SELECT u.* from USUARIO u, VENDEDOR v, USUARIO_LOJA ul ");
+			sqlSetence.append("WHERE u.id = v.id_usuario and u.id = ul.id_usuario ");
+		}else{
+			sqlSetence.append("SELECT u.* from USUARIO u, USUARIO_LOJA ul ");
+			sqlSetence.append("WHERE u.id = ul.id_usuario ");
+		}
+		
+		
 		if(usuario.getNome() != null){
 			sqlSetence.append("AND UPPER(u.nome) LIKE '%" + usuario.getNome().toUpperCase() + "%' ");	
 		}		
@@ -81,7 +88,11 @@ public class RepositorioUsuario extends Repositorio implements IRepositorioUsuar
 			while(it.hasNext()){
 				Object[] obj = (Object[])it.next();
 				if(obj != null){
-					col.add((Usuario)session.get(Usuario.class, new Long((Integer)obj[0])));
+					if(vendedor){
+						col.add((Vendedor)session.get(Vendedor.class, new Long((Integer)obj[0])));
+					}else{
+						col.add((Usuario)session.get(Usuario.class, new Long((Integer)obj[0])));	
+					}					
 				}
 			}
 		}		

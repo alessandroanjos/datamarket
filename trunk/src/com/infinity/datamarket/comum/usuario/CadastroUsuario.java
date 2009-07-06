@@ -96,8 +96,8 @@ public class CadastroUsuario extends Cadastro{
 		return col;
 	}
 	
-	public Collection consultarUsuariosPorFiltro(Usuario usuario, String idLoja) throws AppException{
-		return getRepositorio().consultarUsuariosPorFiltro(usuario, idLoja);
+	public Collection consultarUsuariosPorFiltro(Usuario usuario, String idLoja, boolean vendedor) throws AppException{
+		return getRepositorio().consultarUsuariosPorFiltro(usuario, idLoja, vendedor);
 	}
 
 }

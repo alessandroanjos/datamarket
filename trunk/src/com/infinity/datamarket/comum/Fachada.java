@@ -3732,11 +3732,11 @@ public class Fachada {
 		return c;
 	}
 
-	public Collection consultarUsuariosPorFiltro(Usuario usuario, String idLoja) throws AppException{
+	public Collection consultarUsuariosPorFiltro(Usuario usuario, String idLoja, boolean vendedor) throws AppException{
 		Collection c = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			c = getCadastroUsuario().consultarUsuariosPorFiltro(usuario, idLoja);
+			c = getCadastroUsuario().consultarUsuariosPorFiltro(usuario, idLoja, vendedor);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
