@@ -793,10 +793,10 @@ public class RelatorioBackBean extends BackBean {
 		this.idVendedor = idVendedor;
 	}
 	
-	private List<Usuario> carregarUsuarios(IPropertyFilter filter) {		
+	private List<Usuario> carregarUsuarios(Usuario usuario, String idLoja) {		
 		List<Usuario> usuarios = null;
 		try {
-			usuarios = (ArrayList<Usuario>)getFachada().consultarUsuario(filter);
+			usuarios = (ArrayList<Usuario>)getFachada().consultarUsuariosPorFiltro(usuario, idLoja, true);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -810,15 +810,9 @@ public class RelatorioBackBean extends BackBean {
 	public SelectItem[] getVendedores() {
 		SelectItem[] arrayVendedores = null;
 		try {
-			Loja loja = null;
-			if(this.getIdLoja() != null && !this.getIdLoja().equals("0")){
-				loja = (Loja)getFachada().consultarLojaPorId(new Long(this.getIdLoja()));	
-			}
-			PropertyFilter filter = new PropertyFilter();
-			filter.setTheClass(Vendedor.class);
+			Usuario usuario = new Usuario();
 			
-			filter.addProperty("lojas", loja);
-			List<Usuario> usuariosVendedores = carregarUsuarios(filter);
+			List<Usuario> usuariosVendedores = carregarUsuarios(usuario, this.getIdLoja());
 			arrayVendedores = new SelectItem[usuariosVendedores.size()+1];
 			int i = 0;
 			arrayVendedores[i++] = new SelectItem("0", "Todos");
