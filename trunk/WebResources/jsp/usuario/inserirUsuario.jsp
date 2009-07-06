@@ -80,7 +80,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
-											<h:inputText styleClass="field text" id="nome" maxlength="50" size="50" required="true"
+											<h:inputText styleClass="field text" id="nome" maxlength="50" size="50" 
 												value="#{usuarioBB.nome}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
@@ -91,7 +91,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Senha Numérica*"></h:outputLabel>
 											<h:inputSecret styleClass="field text" id="senha" redisplay="true" maxlength="10" size="12"
-												value="#{usuarioBB.senha}" required="true" 
+												value="#{usuarioBB.senha}"  
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);">
 												<f:validateLength maximum="10" />
@@ -104,7 +104,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Perfil*"></h:outputLabel>
 											<h:selectOneMenu id="perfis" styleClass="field select"
-												value="#{usuarioBB.idPerfil}" required="true" style="width: 200px;">   
+												value="#{usuarioBB.idPerfil}"  style="width: 200px;">   
 													  <f:selectItems id="perfilSelectItems" 
 													  value="#{usuarioBB.perfis}" />   
 											</h:selectOneMenu>
@@ -115,7 +115,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Vendedor*"></h:outputLabel>
 											<h:selectOneRadio  styleClass="field radio ehvendedor" id="vendedor" 
-												value="#{usuarioBB.idTipoUsuario}" layout="lineDirection" required="true" rendered="true">
+												value="#{usuarioBB.idTipoUsuario}" layout="lineDirection"  rendered="true">
 											    <f:selectItems id="situacao" value="#{usuarioBB.tiposUsuario}" />
 											</h:selectOneRadio>											
 										</div>

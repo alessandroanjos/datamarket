@@ -111,7 +111,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Ativa"></h:outputLabel>
-										<h:selectOneRadio  styleClass="field select"  id="situacao"  required="true"
+										<h:selectOneRadio  styleClass="field select"  id="situacao"  
 											value="#{contaCorrenteBB.situacao}"  layout="lineDirection" rendered="true">
 										    <f:selectItem itemLabel="Sim" itemValue="S"/>
 										    <f:selectItem itemLabel="Não" itemValue="N"/>

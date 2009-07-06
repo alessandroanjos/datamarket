@@ -70,7 +70,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Ordenação"></h:outputLabel>
 											<h:selectOneRadio  styleClass="field radio" id="ordenacao" 
-												value="#{relatorioBB.idTipoOrdenacao}" layout="lineDirection" required="true" rendered="true">
+												value="#{relatorioBB.idTipoOrdenacao}" layout="lineDirection"  rendered="true">
 											    <f:selectItems id="situacao" value="#{relatorioBB.listaTiposOrdenacao}" />
 											</h:selectOneRadio>
 										</div>										

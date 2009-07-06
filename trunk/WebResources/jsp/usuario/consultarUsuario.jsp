@@ -69,7 +69,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Perfil"></h:outputLabel>
 											<h:selectOneMenu id="perfis" styleClass="field select"
-												value="#{usuarioBB.idPerfil}" required="true" style="width: 200px;">   
+												value="#{usuarioBB.idPerfil}"  style="width: 200px;">   
 													  <f:selectItems id="perfilSelectItems" 
 													  value="#{usuarioBB.perfis}" />   
 											</h:selectOneMenu>
@@ -78,7 +78,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Vendedor"></h:outputLabel>
 											<h:selectOneRadio  styleClass="field radio vendedor" id="vendedor" 
-												value="#{usuarioBB.idTipoUsuario}" layout="lineDirection" required="true" rendered="true">
+												value="#{usuarioBB.idTipoUsuario}" layout="lineDirection"  rendered="true">
 											    <f:selectItems id="situacao" value="#{usuarioBB.tiposUsuario}" />
 											</h:selectOneRadio>
 											

@@ -104,7 +104,7 @@
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
 											<h:inputText styleClass="field text ativo" id="id" onkeypress="return SoNumero(event);"
 												maxlength="4" value="#{clienteBB.id}" size="4" disabled="true"
-												required="true">
+												>
 												<f:validateLength maximum="4" />
 											</h:inputText>
 										</div>
@@ -121,7 +121,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
 											<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoa" 
-												value="#{clienteBB.idTipoPessoa}" layout="lineDirection" required="true" disabled="true">
+												value="#{clienteBB.idTipoPessoa}" layout="lineDirection"  disabled="true">
 												<f:selectItems id="tipoPessoaLista" value="#{clienteBB.listaTipoPessoa}"/>
 											</h:selectOneRadio>
 											

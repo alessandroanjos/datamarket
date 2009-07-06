@@ -95,7 +95,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
 											<h:selectOneRadio  styleClass="field select" id="status" 
-												value="#{movimentacaoEstoqueBB.status}" layout="lineDirection" required="true">
+												value="#{movimentacaoEstoqueBB.status}" layout="lineDirection" >
 											    <f:selectItems id="situacao" value="#{movimentacaoEstoqueBB.listaStatus}" />							
 											</h:selectOneRadio>
 										</div>		

@@ -112,7 +112,7 @@
 									<div>
 										<h:outputLabel styleClass="desc" value="Tipo Pessoa*"></h:outputLabel>
 										<h:selectOneRadio  styleClass="field select tipopessoa" id="tipoPessoa" 
-											value="#{fornecedorBB.idTipoPessoa}" layout="lineDirection" required="true">
+											value="#{fornecedorBB.idTipoPessoa}" layout="lineDirection" >
 											<f:selectItems id="tipoPessoaLista" value="#{fornecedorBB.listaTipoPessoa}"/>
 										</h:selectOneRadio>
 										
@@ -122,7 +122,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="CPF/CNPJ*"></h:outputLabel>
-										<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpj" maxlength="18" size="18" value="#{fornecedorBB.cpfCnpj}" required="true"
+										<h:inputText styleClass="field text tipocpfcnpj" id="cpfCnpj" maxlength="18" size="18" value="#{fornecedorBB.cpfCnpj}" 
 										onfocus="this.select();" onclick="this.select();"
 										onkeypress="return SoNumero(event);">
 											<f:validateLength minimum="11" maximum="18" />

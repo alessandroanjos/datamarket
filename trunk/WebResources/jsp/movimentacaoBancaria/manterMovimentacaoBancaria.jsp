@@ -58,7 +58,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Tipo"></h:outputLabel>
-										<h:selectOneRadio  styleClass="field select"  id="tipo"  required="true"
+										<h:selectOneRadio  styleClass="field select"  id="tipo"  
 											value="#{movimentacaoBancariaBB.tipo}"  layout="lineDirection" rendered="true">
 										    <f:selectItem itemLabel="Crédito" itemValue="C"/>
 										    <f:selectItem itemLabel="Débito"  itemValue="D"/>
