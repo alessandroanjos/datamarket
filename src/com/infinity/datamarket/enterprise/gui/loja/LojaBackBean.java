@@ -19,6 +19,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -117,8 +118,33 @@ public class LojaBackBean extends BackBean {
 		this.idEstoqueAtual = idEstoqueAtual;
 	}
 	
+	public void validarLoja() throws AppException{
+		if(this.getId() == null || this.getId().equals("")){
+			throw new AppException("É necessário informar o Código.");
+		}
+		
+		if(this.getId() != null && this.getId().equals("0")){
+			throw new AppException("O Código deve ser diferente de 0 (zero).");
+		}
+		
+		if(this.getNome() == null || this.getNome().equals("")){
+			throw new AppException("É necessário informar um Nome para a Loja.");
+		}
+		
+		if(this.getNumeroIp() == null || this.getNumeroIp().equals("")){
+			throw new AppException("É necessário informar um IP para a Loja.");
+		}
+		
+		if(this.getNumeroPorta() == null || this.getNumeroPorta().equals("")){
+			throw new AppException("É necessário informar uma Porta para a Loja.");
+		}		
+	}
+	
 	public String inserir(){
 		try {
+			
+			validarLoja();
+			
 			Loja loja = new Loja();
 			
 			loja.setId(new Long(this.id));
@@ -139,13 +165,18 @@ public class LojaBackBean extends BackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Loja já Existente!", "");
 			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			ctx.addMessage(null, msg);
 		}
-		resetBB();
+//		resetBB();
 		return "mesma";
 	}
 	
@@ -249,6 +280,9 @@ public class LojaBackBean extends BackBean {
 	
 	public String alterar(){
 		try {
+			
+			validarLoja();
+			
 			Loja loja = new Loja();
 			loja.setId(new Long(this.getId()));
 			loja.setNome(this.getNome());
@@ -341,7 +375,7 @@ public class LojaBackBean extends BackBean {
 		try {
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(ContaCorrente.class);
-			if (this.getId() != null){
+			if (this.getId() != null && !this.getId().equals("")){
 				Loja loja = new Loja();
 				loja.setId(new Long(this.getId()));
 				filter.addProperty("loja", loja);
@@ -366,8 +400,8 @@ public class LojaBackBean extends BackBean {
 			
 			int i = 0;
 			SelectItem itemBranco = null;
-			if(estoques.size() == 0){
-				arrayEstoques = new SelectItem[estoques.size()+1];
+			if(estoques == null || estoques.size() == 0){
+				arrayEstoques = new SelectItem[1];
 				itemBranco = new SelectItem("0", "Sem estoques Cadastrados.");
 				arrayEstoques[i++] = itemBranco;
 			}else{
@@ -400,8 +434,8 @@ public class LojaBackBean extends BackBean {
 			
 			int i = 0;
 			SelectItem itemBranco = null;
-			if(contas.size() == 0){
-				arrayContas = new SelectItem[contas.size()+1];
+			if(contas == null || contas.size() == 0){
+				arrayContas = new SelectItem[1];
 				itemBranco = new SelectItem("0", "Sem contas Cadastradas.");
 				arrayContas[i++] = itemBranco;
 			}else{

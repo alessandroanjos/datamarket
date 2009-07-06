@@ -26,6 +26,7 @@ import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.usuario.Vendedor;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -198,10 +199,30 @@ public class UsuarioBackBean extends BackBean {
 	public void setPerfis(SelectItem[] perfis) {
 		this.perfis = perfis;
 	}
+	
+	public void validarUsuario() throws AppException{
+		if(this.getNome() == null || this.getNome().equals("")){
+			throw new AppException("É necessário informar o Nome.");
+		}
+		
+		if(this.getSenha() == null || this.getSenha().equals("")){
+			throw new AppException("É necessário informar uma Senha.");
+		}
+		
+		if(this.getIdPerfil() == null || this.getIdPerfil().equals("")){
+			throw new AppException("É necessário selecionar um Perfil.");
+		}
+		
+		if(this.getListaLojasAssociadas() == null || (this.getListaLojasAssociadas() != null && this.getListaLojasAssociadas().size() == 0)){
+			throw new AppException("É necessário associar o usuário a pelo menos uma Loja.");
+		}
+	}
 
 	public String inserir(){
 		
 		try {
+			validarUsuario();
+			
 			Usuario usuario = null;
 			if (this.getIdTipoUsuario().equals(SIM)){
 				Vendedor vendedor = new Vendedor();
@@ -217,8 +238,12 @@ public class UsuarioBackBean extends BackBean {
 			
 			usuario.setNome(this.getNome());
 
-			Perfil perfilTmp = getFachada().consultarPerfilPorPK(new Long(this.getIdPerfil()));
-			usuario.setPerfil(perfilTmp);
+			if(this.getIdPerfil() != null && !this.getIdPerfil().equals("0")){
+				Perfil p = new Perfil();
+				p.setId(new Long(this.getIdPerfil()));
+				usuario.setPerfil(p);
+			}
+
 			usuario.setSenha(this.getSenha());
 			
 			if(this.getListaLojasAssociadas() != null && this.getListaLojasAssociadas().size() > 0){
@@ -249,6 +274,12 @@ public class UsuarioBackBean extends BackBean {
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Usuário já Existente!", "");
+			ctx.addMessage(null, msg);
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -422,6 +453,8 @@ public class UsuarioBackBean extends BackBean {
 	
 	public String alterar(){
 		try {
+			validarUsuario();
+			
 			Usuario usuario = null;
 			
 			if (this.getIdTipoUsuario().equals(SIM)){
@@ -437,11 +470,10 @@ public class UsuarioBackBean extends BackBean {
 			usuario.setNome(this.getNome());
 			usuario.setSenha(this.getSenha());
 			
-			if(!this.getIdPerfil().equals("0")){
-				Perfil perfil = getFachada().consultarPerfilPorPK(new Long(this.getIdPerfil()));
-				usuario.setPerfil(perfil);
-			}else{
-				throw new Exception("É obrigatório selecionar um perfil.");
+			if(this.getIdPerfil() != null && !this.getIdPerfil().equals("0")){
+				Perfil p = new Perfil();
+				p.setId(new Long(this.getIdPerfil()));
+				usuario.setPerfil(p);
 			}
 			
 			if(this.getListaLojasAssociadas() != null && this.getListaLojasAssociadas().size() > 0){
@@ -467,6 +499,12 @@ public class UsuarioBackBean extends BackBean {
 					"Operação Realizada com Sucesso!", "");
 			ctx.addMessage(null, msg);
 			resetBB();
+		} catch (AppException e) {
+			e.printStackTrace();
+			FacesContext ctx = FacesContext.getCurrentInstance();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesContext ctx = FacesContext.getCurrentInstance();
