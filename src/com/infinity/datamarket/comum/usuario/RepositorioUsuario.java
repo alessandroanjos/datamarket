@@ -1,8 +1,15 @@
 package com.infinity.datamarket.comum.usuario;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Repositorio;
 
@@ -53,4 +60,31 @@ public class RepositorioUsuario extends Repositorio implements IRepositorioUsuar
 		return (Usuario) findById(CLASSE, id);		
 	}
 	
+	public Collection consultarUsuariosPorFiltro(Usuario usuario, String idLoja) throws AppException{
+		Collection<Usuario> col = new ArrayList<Usuario>();
+		Session session = RepositoryManagerHibernateUtil.currentSession();
+		StringBuffer sqlSetence = new StringBuffer();
+		sqlSetence.append("SELECT u.* from USUARIO u, USUARIO_LOJA ul ");
+		sqlSetence.append("WHERE u.id = ul.id_usuario ");
+		if(usuario.getNome() != null){
+			sqlSetence.append("AND UPPER(u.nome) LIKE '%" + usuario.getNome().toUpperCase() + "%' ");	
+		}		
+		if(usuario.getPerfil() != null){
+			sqlSetence.append("AND u.id_perfil = " + usuario.getPerfil().getId() + " ");	
+		}		
+		sqlSetence.append("AND ul.id_loja = " + idLoja);
+		sqlSetence.append(" ORDER BY u.ID");
+		SQLQuery query = session.createSQLQuery(sqlSetence.toString());
+		List result = query.list();
+		if(result != null && result.size() > 0){
+			Iterator it = result.iterator();
+			while(it.hasNext()){
+				Object[] obj = (Object[])it.next();
+				if(obj != null){
+					col.add((Usuario)session.get(Usuario.class, new Long((Integer)obj[0])));
+				}
+			}
+		}		
+		return col;
+	}
 }

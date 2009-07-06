@@ -271,4 +271,3 @@ public class LoginBackBean extends BackBean{
 		return instancia;
 	}
 }
-

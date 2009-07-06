@@ -1,10 +1,17 @@
 package com.infinity.datamarket.comum.produto;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ObjetoInexistenteException;
 import com.infinity.datamarket.comum.util.Repositorio;
@@ -73,4 +80,54 @@ public class RepositorioProduto extends Repositorio implements IRepositorioProdu
 		excluirDadoLote(produto);
 	}
 
+	public Collection consultarProdutosPorFiltro(Produto produto, String idLoja) throws AppException{
+		Collection<Produto> col = new ArrayList<Produto>();
+		Session session = RepositoryManagerHibernateUtil.currentSession();
+		StringBuffer sqlSetence = new StringBuffer();
+		sqlSetence.append("SELECT p.* from PRODUTO p, PRODUTO_LOJA pl ");
+		sqlSetence.append("WHERE p.id = pl.id_produto ");
+		
+		if(produto.getDescricaoCompleta() != null){
+			sqlSetence.append("AND UPPER(p.descricao_completa) LIKE '%" + produto.getDescricaoCompleta().toUpperCase() + "%' ");	
+		}
+		
+		if (produto.getTipo() != null && produto.getTipo().getId() != null && !produto.getTipo().getId().equals(new Long(0))){
+			sqlSetence.append("AND p.id_tipo_produto = " + produto.getTipo().getId() + " ");
+		}
+		
+		if (produto.getGrupo() != null && produto.getGrupo().getId() != null && !produto.getGrupo().getId().equals(new Long(0))){
+			sqlSetence.append("AND p.id_grupo_produto = " + produto.getGrupo().getId() + " ");
+		}
+		
+		if (produto.getImposto() != null && produto.getImposto().getId() != null && !produto.getImposto().getId().equals(new Long(0))){
+			sqlSetence.append("AND p.id_imposto = " + produto.getImposto().getId() + " ");
+		}
+		
+		if (produto.getUnidade() != null && produto.getUnidade().getId() != null && !produto.getUnidade().getId().equals(new Long(0))){
+			sqlSetence.append("AND p.id_unidade = " + produto.getUnidade().getId() + " ");
+		}
+		
+		if (produto.getFabricante() != null && produto.getFabricante().getId() != null && !produto.getFabricante().getId().equals(new Long(0))){
+			sqlSetence.append("AND p.id_fabricante = " + produto.getFabricante().getId() + " ");
+		}
+		
+		sqlSetence.append("AND pl.id_loja = " + idLoja);		
+		sqlSetence.append(" ORDER BY p.DESCRICAO_COMPLETA");
+		
+		SQLQuery query = session.createSQLQuery(sqlSetence.toString());
+		
+		List result = query.list();
+		
+		if(result != null && result.size() > 0){
+			Iterator it = result.iterator();
+			while(it.hasNext()){
+				Object[] obj = (Object[])it.next();
+				if(obj != null){
+					col.add((Produto)session.get(Produto.class, new Long(((BigDecimal)obj[0]).toString())));
+				}
+			}
+		}		
+		return col;
+	}
 }
+

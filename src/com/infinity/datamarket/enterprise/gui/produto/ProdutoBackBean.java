@@ -26,8 +26,6 @@ import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.ValidationException;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
@@ -315,32 +313,56 @@ public class ProdutoBackBean extends BackBean{
 				setProduto(produto);
 				return "proxima";
 			}
-			PropertyFilter filter = new PropertyFilter();
-			filter.setTheClass(Produto.class);
+//			PropertyFilter filter = new PropertyFilter();
+//			filter.setTheClass(Produto.class);
+//			if (getDescricaoCompleta() != null && !"".equals(getDescricaoCompleta())){				
+//				filter.addProperty("descricaoCompleta", getDescricaoCompleta());
+//			}
+//			if (getIdTipoProduto() != null && !"0".equals(getIdTipoProduto())){				
+//				filter.addProperty("tipo.id", new Long(getIdTipoProduto()));
+//			}
+//			if (getIdGrupo() != null && !"0".equals(getIdGrupo())){				
+//				filter.addProperty("grupo.id", new Long(getIdGrupo()));
+//			}
+//			if (getIdImposto() != null && !"0".equals(getIdImposto())){				
+//				filter.addProperty("imposto.id", new Long(getIdImposto()));
+//			}
+//			if (getIdUnidade() != null && !"0".equals(getIdUnidade())){				
+//				filter.addProperty("unidade.id", new Long(getIdUnidade()));
+//			}
+//			if (getIdFabricante() != null && !"0".equals(getIdFabricante())){				
+//				filter.addProperty("fabricante.id", new Long(getIdFabricante()));
+//			}
+			Produto prod = new Produto();
 			if (getDescricaoCompleta() != null && !"".equals(getDescricaoCompleta())){				
-				filter.addProperty("descricaoCompleta", getDescricaoCompleta());
+				prod.setDescricaoCompleta(getDescricaoCompleta());
 			}
-			if (getIdTipoProduto() != null && !"0".equals(getIdTipoProduto())){				
-				filter.addProperty("tipo.id", new Long(getIdTipoProduto()));
+			if (getIdTipoProduto() != null && !"0".equals(getIdTipoProduto())){
+				TipoProduto tpProd = new TipoProduto();
+				tpProd.setId(new Long(getIdTipoProduto()));
+				prod.setTipo(tpProd);
 			}
-			if (getIdGrupo() != null && !"0".equals(getIdGrupo())){				
-				filter.addProperty("grupo.id", new Long(getIdGrupo()));
+			if (getIdGrupo() != null && !"0".equals(getIdGrupo())){
+				GrupoProduto gpProd = new GrupoProduto();
+				gpProd.setId(new Long(getIdGrupo()));
+				prod.setGrupo(gpProd);
 			}
 			if (getIdImposto() != null && !"0".equals(getIdImposto())){				
-				filter.addProperty("imposto.id", new Long(getIdImposto()));
+				Imposto imp = new Imposto();
+				imp.setId(new Long(getIdImposto()));
+				prod.setImposto(imp);
 			}
 			if (getIdUnidade() != null && !"0".equals(getIdUnidade())){				
-				filter.addProperty("unidade.id", new Long(getIdUnidade()));
+				Unidade uni = new Unidade();
+				uni.setId(new Long(getIdUnidade()));
+				prod.setUnidade(uni);
 			}
 			if (getIdFabricante() != null && !"0".equals(getIdFabricante())){				
-				filter.addProperty("fabricante.id", new Long(getIdFabricante()));
+				Fabricante fab = new Fabricante();
+				fab.setId(new Long(getIdFabricante()));
+				prod.setFabricante(fab);
 			}
-//			if (getIdLoja() != null && !"0".equals(getIdLoja())){
-//				Loja l = new Loja();
-//				l.setId(new Long(getIdLoja()));
-//				filter.addProperty("lojas.loja.id",l.getId());
-//			}
-			Collection col = getFachada().consultarProdutoPorFiltro(filter,false);
+			Collection col = getFachada().consultarProdutosPorFiltro(prod, this.getIdLoja());
 			if (col == null || col.size() == 0){
 				setProdutos(null);
 				FacesContext ctx = FacesContext.getCurrentInstance();

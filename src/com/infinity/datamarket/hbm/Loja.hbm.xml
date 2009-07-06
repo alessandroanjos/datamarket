@@ -6,7 +6,7 @@
 
 
 <hibernate-mapping>
-    <class name="com.infinity.datamarket.comum.usuario.Loja" table="LOJA" dynamic-update="false" dynamic-insert="false" lazy="false">
+    <class name="com.infinity.datamarket.comum.usuario.Loja" table="LOJA" dynamic-update="false" dynamic-insert="false" lazy="false" >
         <id
             name="id"
             column="ID"
@@ -37,8 +37,8 @@
         <property name="idContaCorrente" type="java.lang.Long" update="true" insert="true">
             <column name="ID_CONTA_CORRENTE" length="4" not-null="false"/>
         </property>
-        
-        <set name="usuarios" table="USUARIO_LOJA">
+         
+        <set name="usuarios" table="USUARIO_LOJA" cascade="save-update">
              <key column="ID_LOJA"/>
              <many-to-many column="ID_USUARIO" class="com.infinity.datamarket.comum.usuario.Usuario"/>
         </set>
