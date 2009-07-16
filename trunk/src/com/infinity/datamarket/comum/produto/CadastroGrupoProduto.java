@@ -3,6 +3,7 @@ package com.infinity.datamarket.comum.produto;
 import java.util.Collection;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.IRepositorio;
@@ -51,6 +52,15 @@ public class CadastroGrupoProduto extends Cadastro{
 	}
 	
 	public void excluir(GrupoProduto grupoProduto) throws AppException{
-		getRepositorio().excluir(grupoProduto);
+		PropertyFilter filter = new PropertyFilter();
+		filter.setTheClass(GrupoProduto.class);
+		filter.addProperty("grupoSuperior", grupoProduto);				
+		Collection c = getRepositorio().consultar(filter);		
+		if (c != null && c.size() > 0){
+			throw new ValidationException("Grupo de produto superior não pode ser excluido pois existe referência com outro grupos");
+		}else{
+			getRepositorio().excluir(grupoProduto);
+		}
+		
 	}
 }
