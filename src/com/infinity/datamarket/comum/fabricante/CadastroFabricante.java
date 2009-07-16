@@ -5,7 +5,9 @@ package com.infinity.datamarket.comum.fabricante;
 
 import java.util.Collection;
 
+import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.IRepositorio;
@@ -39,10 +41,24 @@ public class CadastroFabricante extends Cadastro {
 		return getRepositorio().consultarTodos();
 	}
 	public void inserir(Fabricante fabricante) throws AppException{
+		PropertyFilter filter = new PropertyFilter();
+		filter.setTheClass(Fabricante.class);
+		filter.addProperty("cpfCnpj", fabricante.getCpfCnpj());
+		Collection c = getRepositorio().consultar(filter);
+		if (c != null && c.size() > 0){
+			throw new AppException("Fabricante com mesmo CPF/CNPJ já cadastrado");
+		}
 		getRepositorio().inserir(fabricante);
 		
 	}
 	public void alterar(Fabricante fabricante) throws AppException{
+		PropertyFilter filter = new PropertyFilter();
+		filter.setTheClass(Fabricante.class);
+		filter.addProperty("cpfCnpj", fabricante.getCpfCnpj());
+		Collection c = getRepositorio().consultar(filter);
+		if (c != null && c.size() > 0){
+			throw new AppException("Fabricante com mesmo CPF/CNPJ já cadastrado");
+		}
 		getRepositorio().alterar(fabricante);
 	}
 	public void excluir(Fabricante fabricante) throws AppException{

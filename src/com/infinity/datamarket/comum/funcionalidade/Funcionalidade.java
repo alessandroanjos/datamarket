@@ -19,9 +19,9 @@ public class Funcionalidade extends Persistente{
 	private String largura;
 	private String altura;
 	
-	private Set perfis;
+	//private Set perfis;
 	
-	private Collection funcionalidades;
+//	private Collection funcionalidades;
 	
 	private Collection funcionalidadesFilhas;
 	
@@ -43,16 +43,16 @@ public class Funcionalidade extends Persistente{
 	/**
 	 * @return the funcionalidades
 	 */
-	public Collection getFuncionalidades() {
-		return funcionalidades;
-	}
-
-	/**
-	 * @param perfis the perfis to set
-	 */
-	public void setFuncionalidades(Collection funcionalidades) {
-		this.funcionalidades = funcionalidades;
-	}
+//	public Collection getFuncionalidades() {
+//		return funcionalidades;
+//	}
+//
+//	/**
+//	 * @param perfis the perfis to set
+//	 */
+//	public void setFuncionalidades(Collection funcionalidades) {
+//		this.funcionalidades = funcionalidades;
+//	}
 
 	public String getDescricao() {
 		return descricao;
@@ -62,13 +62,13 @@ public class Funcionalidade extends Persistente{
 		this.descricao = descricao;
 	}
 
-	public Set getPerfis() {
-		return perfis;
-	}
-
-	public void setPerfis(Set perfis) {
-		this.perfis = perfis;
-	}
+//	public Set getPerfis() {
+//		return perfis;
+//	}
+//
+//	public void setPerfis(Set perfis) {
+//		this.perfis = perfis;
+//	}
 
 	public Funcionalidade getFuncionalidadeSuperior() {
 		return funcionalidadeSuperior;
@@ -115,9 +115,9 @@ public class Funcionalidade extends Persistente{
 		int result = 1;
 		result = PRIME * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = PRIME * result + ((funcionalidadeSuperior == null) ? 0 : funcionalidadeSuperior.hashCode());
-		result = PRIME * result + ((funcionalidades == null) ? 0 : funcionalidades.hashCode());
-		result = PRIME * result + ((funcionalidadesFilhas == null) ? 0 : funcionalidadesFilhas.hashCode());
-		result = PRIME * result + ((perfis == null) ? 0 : perfis.hashCode());
+//		result = PRIME * result + ((funcionalidades == null) ? 0 : funcionalidades.hashCode());
+//		result = PRIME * result + ((funcionalidadesFilhas == null) ? 0 : funcionalidadesFilhas.hashCode());
+//		result = PRIME * result + ((perfis == null) ? 0 : perfis.hashCode());
 		result = PRIME * result + ((situacao == null) ? 0 : situacao.hashCode());
 		result = PRIME * result + ((url == null) ? 0 : url.hashCode());
 		return result;
@@ -145,21 +145,21 @@ public class Funcionalidade extends Persistente{
 				return false;
 		} else if (!funcionalidadeSuperior.equals(other.funcionalidadeSuperior))
 			return false;
-		if (funcionalidades == null) {
-			if (other.funcionalidades != null)
-				return false;
-		} else if (!funcionalidades.equals(other.funcionalidades))
-			return false;
-		if (funcionalidadesFilhas == null) {
-			if (other.funcionalidadesFilhas != null)
-				return false;
-		} else if (!funcionalidadesFilhas.equals(other.funcionalidadesFilhas))
-			return false;
-		if (perfis == null) {
-			if (other.perfis != null)
-				return false;
-		} else if (!perfis.equals(other.perfis))
-			return false;
+//		if (funcionalidades == null) {
+//			if (other.funcionalidades != null)
+//				return false;
+//		} else if (!funcionalidades.equals(other.funcionalidades))
+//			return false;
+//		if (funcionalidadesFilhas == null) {
+//			if (other.funcionalidadesFilhas != null)
+//				return false;
+//		} else if (!funcionalidadesFilhas.equals(other.funcionalidadesFilhas))
+//			return false;
+//		if (perfis == null) {
+//			if (other.perfis != null)
+//				return false;
+//		} else if (!perfis.equals(other.perfis))
+//			return false;
 		if (situacao == null) {
 			if (other.situacao != null)
 				return false;

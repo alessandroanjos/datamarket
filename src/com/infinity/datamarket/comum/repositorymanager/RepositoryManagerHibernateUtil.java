@@ -32,7 +32,7 @@ public class RepositoryManagerHibernateUtil {
 	}
 
     public static Session currentSession() throws HibernateException{
-        Session s = (Session)session.get();
+    	Session s = (Session)session.get();
         if(s == null || !s.isOpen())
         {
             s = sessionFactory.openSession();
@@ -70,7 +70,7 @@ public class RepositoryManagerHibernateUtil {
             {
                 t.commit();
                 transation.set(null);
-                closeSession();
+//                closeSession();
             }
         }
         catch(HibernateException e)
@@ -99,7 +99,7 @@ public class RepositoryManagerHibernateUtil {
         }
         finally
         {
-            closeSession();
+//            closeSession();
         }
     }
 

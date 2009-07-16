@@ -119,7 +119,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         try
         {
             Session session = null;
-            session = RepositoryManagerHibernateUtil.currentSession();
+            session = RepositoryManagerHibernateUtil.currentSession();            
             session.update(_obj);
         }
         catch(HibernateException ex)
@@ -163,7 +163,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
     {
         try
         {
-        	Serializable obj = findById(_class, _id);
+        	Serializable obj = findById(_class, _id);        	
             remove(obj);
         }
         catch(Exception ex)

@@ -79,10 +79,6 @@ public class CadastroMovimentacaoBancaria extends Cadastro {
 	public void atualizarContasCorrentes() throws AppException {
 		Set<ContaCorrente> hashContas = CadastroMovimentacaoBancaria.getInstancia().getHashContas();
 		
-		if(hashContas.size() > 0 ){
-			RepositoryManagerHibernateUtil.beginTrasaction();
-		}
-		
 		Iterator<ContaCorrente> it = hashContas.iterator();
 		
 		while (it.hasNext()){
@@ -93,9 +89,7 @@ public class CadastroMovimentacaoBancaria extends Cadastro {
 			repCtaCorrente.alterar(c);			
 		}
 		
-		if(hashContas.size() > 0){
-			RepositoryManagerHibernateUtil.commitTransation();
-		}
+		
 		this.setHashContas(new TreeSet<ContaCorrente>());
 	}
 	

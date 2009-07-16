@@ -1,7 +1,5 @@
 package com.infinity.datamarket.comum.util;
 
-import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
-import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 
 public class ConcentradorControleId extends Cadastro{
 	private static ConcentradorControleId instancia;
@@ -29,29 +27,10 @@ public class ConcentradorControleId extends Cadastro{
 	public Controle getControle(Class classe) {
 		Controle retorno = null;
 		try{
-				RepositoryManagerHibernateUtil.beginTrasaction();
-				retorno = getCadastro().getControle(classe);
-				RepositoryManagerHibernateUtil.commitTransation();
-		}catch(AppException e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
+			retorno = getCadastro().getControle(classe);				
 		}catch(Throwable e){
-			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
-				throw new SistemaException(e);
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}
+			throw new SistemaException(e);
+		}		
 		return retorno;
 	}
 

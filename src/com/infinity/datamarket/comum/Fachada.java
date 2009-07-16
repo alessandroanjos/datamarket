@@ -317,7 +317,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -347,7 +347,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -378,7 +378,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -408,7 +408,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -439,7 +439,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -469,7 +469,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -499,7 +499,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -529,7 +529,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -559,7 +559,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -589,7 +589,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -628,7 +628,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -662,7 +662,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -692,7 +692,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -722,7 +722,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -752,7 +752,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -799,7 +799,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -843,7 +843,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -885,7 +885,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -914,7 +914,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -944,7 +944,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -974,7 +974,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1003,7 +1003,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1031,7 +1031,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1060,7 +1060,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1089,7 +1089,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1118,7 +1118,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1149,7 +1149,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1178,7 +1178,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1208,7 +1208,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1240,7 +1240,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1271,7 +1271,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1299,7 +1299,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1327,7 +1327,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1355,7 +1355,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1384,7 +1384,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1416,7 +1416,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1448,7 +1448,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1476,7 +1476,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1504,7 +1504,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1532,7 +1532,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1561,7 +1561,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1591,7 +1591,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1623,7 +1623,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1651,7 +1651,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1679,7 +1679,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1707,7 +1707,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1736,7 +1736,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1766,7 +1766,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1798,7 +1798,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1826,7 +1826,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1855,7 +1855,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1884,7 +1884,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1912,7 +1912,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1941,7 +1941,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -1971,7 +1971,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2002,7 +2002,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2031,7 +2031,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2061,7 +2061,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2091,7 +2091,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2120,7 +2120,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2148,7 +2148,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2179,7 +2179,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2208,7 +2208,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2238,7 +2238,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2268,7 +2268,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2297,7 +2297,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2325,7 +2325,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2356,7 +2356,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2385,7 +2385,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2415,7 +2415,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2445,7 +2445,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2474,7 +2474,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2502,7 +2502,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2530,7 +2530,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2558,7 +2558,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2586,7 +2586,7 @@ public class Fachada {
 		}
 	}finally{
 		try{
-			RepositoryManagerHibernateUtil.closeSession();
+			
 		}catch(Exception ex){
 			throw new SistemaException(ex);
 		}
@@ -2614,7 +2614,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2642,7 +2642,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2670,7 +2670,7 @@ public class Fachada {
 		}
 	}finally{
 		try{
-			RepositoryManagerHibernateUtil.closeSession();
+			
 		}catch(Exception ex){
 			throw new SistemaException(ex);
 		}
@@ -2699,7 +2699,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2728,7 +2728,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2758,7 +2758,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2787,7 +2787,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2817,7 +2817,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2846,7 +2846,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2873,7 +2873,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2903,7 +2903,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2932,7 +2932,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2962,7 +2962,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -2992,7 +2992,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3002,6 +3002,7 @@ public class Fachada {
 	
 	public void alterarGrupoProduto(GrupoProduto grupo) throws AppException{
 		try{
+			RepositoryManagerHibernateUtil.currentSession().clear();
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			getCadastroGrupoProduto().alterar(grupo);
 			RepositoryManagerHibernateUtil.commitTransation();
@@ -3021,7 +3022,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3030,6 +3031,7 @@ public class Fachada {
 	
 	public void excluirGrupoProduto(GrupoProduto grupo) throws AppException{
 		try{
+			RepositoryManagerHibernateUtil.currentSession().clear();
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			getCadastroGrupoProduto().excluir(grupo);
 			RepositoryManagerHibernateUtil.commitTransation();
@@ -3049,7 +3051,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3079,7 +3081,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3108,7 +3110,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3138,7 +3140,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3168,7 +3170,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3198,7 +3200,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3208,6 +3210,7 @@ public class Fachada {
 	
 	public void alterarPerfil(Perfil perfil) throws AppException{
 		try{
+			RepositoryManagerHibernateUtil.currentSession().clear();
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			getCadastroPerfil().alterar(perfil);
 			RepositoryManagerHibernateUtil.commitTransation();
@@ -3227,7 +3230,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3235,6 +3238,7 @@ public class Fachada {
 	}
 	public void excluirPerfil(Perfil perfil) throws AppException{
 		try{
+			RepositoryManagerHibernateUtil.currentSession().clear();
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			getCadastroPerfil().excluir(perfil);
 			RepositoryManagerHibernateUtil.commitTransation();
@@ -3254,7 +3258,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3284,7 +3288,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3313,7 +3317,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3343,7 +3347,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3373,7 +3377,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3402,7 +3406,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3429,7 +3433,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3459,7 +3463,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3488,7 +3492,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3518,7 +3522,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3547,7 +3551,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3574,7 +3578,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3603,7 +3607,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3633,7 +3637,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3663,7 +3667,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3695,7 +3699,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3724,7 +3728,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3754,7 +3758,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3784,7 +3788,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3814,7 +3818,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3843,7 +3847,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3870,7 +3874,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3900,7 +3904,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3929,7 +3933,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3959,7 +3963,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -3989,7 +3993,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4019,7 +4023,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4048,7 +4052,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4075,7 +4079,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4103,7 +4107,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4136,7 +4140,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4165,7 +4169,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4193,7 +4197,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4221,7 +4225,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4249,7 +4253,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4278,7 +4282,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4310,7 +4314,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4341,7 +4345,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4371,7 +4375,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4404,7 +4408,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4433,7 +4437,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4462,7 +4466,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4492,7 +4496,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4520,7 +4524,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4548,7 +4552,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4576,7 +4580,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4605,7 +4609,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4637,7 +4641,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4668,7 +4672,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4696,7 +4700,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4724,7 +4728,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4752,7 +4756,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4781,7 +4785,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4813,7 +4817,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4843,7 +4847,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4875,7 +4879,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4904,7 +4908,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4933,7 +4937,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4961,7 +4965,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -4990,7 +4994,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5019,7 +5023,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5051,7 +5055,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5082,7 +5086,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5111,7 +5115,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5140,7 +5144,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5170,7 +5174,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5198,7 +5202,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5227,7 +5231,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5256,7 +5260,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5292,7 +5296,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5321,7 +5325,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5351,7 +5355,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5381,7 +5385,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5410,7 +5414,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5438,7 +5442,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5468,7 +5472,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5497,7 +5501,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5527,7 +5531,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5557,7 +5561,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5586,7 +5590,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5614,7 +5618,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5643,7 +5647,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5675,7 +5679,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5704,7 +5708,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5733,7 +5737,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5762,7 +5766,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5792,7 +5796,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5822,7 +5826,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5851,7 +5855,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5879,7 +5883,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5908,7 +5912,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5937,7 +5941,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5967,7 +5971,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -5997,7 +6001,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6027,7 +6031,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6057,7 +6061,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6087,7 +6091,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6116,7 +6120,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6145,7 +6149,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6175,7 +6179,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6191,12 +6195,16 @@ public class Fachada {
 				if (operacaoDevolucao.getCliente() != null){
 					try{
 						RepositoryManagerHibernateUtil.beginTrasaction();
-						getCadastroTransacao().inserirCliente(operacaoDevolucao.getCliente());
+						ClienteTransacao cliente = getCadastroTransacao().consultarClienteTransacaoPorID(operacaoDevolucao.getCliente().getCpfCnpj());
+						if (cliente == null){
+							getCadastroTransacao().inserirCliente(operacaoDevolucao.getCliente());
+						}else{
+							RepositoryManagerHibernateUtil.currentSession().clear();
+							getCadastroTransacao().atualizarCliente(operacaoDevolucao.getCliente());
+						}
 						RepositoryManagerHibernateUtil.commitTransation();
-					}catch(Exception e){					
-						RepositoryManagerHibernateUtil.beginTrasaction();
-						getCadastroTransacao().atualizarCliente(operacaoDevolucao.getCliente());
-						RepositoryManagerHibernateUtil.commitTransation();
+					}catch(Exception e){		
+						RepositoryManagerHibernateUtil.rollbackTransation();						
 					}
 				}
 			}
@@ -6219,7 +6227,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6236,7 +6244,8 @@ public class Fachada {
 						RepositoryManagerHibernateUtil.beginTrasaction();
 						getCadastroTransacao().inserirCliente(operacaoDevolucao.getCliente());
 						RepositoryManagerHibernateUtil.commitTransation();
-					}catch(Exception e){					
+					}catch(Exception e){
+						RepositoryManagerHibernateUtil.rollbackTransation();
 						RepositoryManagerHibernateUtil.beginTrasaction();
 						getCadastroTransacao().atualizarCliente(operacaoDevolucao.getCliente());
 						RepositoryManagerHibernateUtil.commitTransation();
@@ -6262,7 +6271,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6291,7 +6300,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6321,7 +6330,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6352,7 +6361,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6383,7 +6392,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6411,7 +6420,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6439,7 +6448,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6467,7 +6476,7 @@ public class Fachada {
 		}
 	}finally{
 		try{
-			RepositoryManagerHibernateUtil.closeSession();
+			
 		}catch(Exception ex){
 			throw new SistemaException(ex);
 		}
@@ -6495,7 +6504,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6524,7 +6533,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6553,7 +6562,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6583,7 +6592,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6611,7 +6620,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6639,7 +6648,7 @@ public class Fachada {
 		}
 	}finally{
 		try{
-			RepositoryManagerHibernateUtil.closeSession();
+			
 		}catch(Exception ex){
 			throw new SistemaException(ex);
 		}
@@ -6667,7 +6676,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6696,7 +6705,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6725,7 +6734,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6756,7 +6765,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6784,7 +6793,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6813,7 +6822,7 @@ public class Fachada {
 		}
 	}finally{
 		try{
-			RepositoryManagerHibernateUtil.closeSession();
+			
 		}catch(Exception ex){
 			throw new SistemaException(ex);
 		}
@@ -6841,7 +6850,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6870,7 +6879,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
@@ -6899,7 +6908,7 @@ public class Fachada {
 			}
 		}finally{
 			try{
-				RepositoryManagerHibernateUtil.closeSession();
+				
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
