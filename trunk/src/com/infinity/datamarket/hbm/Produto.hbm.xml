@@ -70,7 +70,7 @@
 	          <column name="ID_FABRICANTE" not-null="false"/>
 	    </many-to-one> 
 	    
-		<set name="lojas" table="PRODUTO_LOJA" lazy="false">
+		<set name="lojas" table="PRODUTO_LOJA" lazy="true">
              <key column="ID_PRODUTO"/>
              <many-to-many column="ID_LOJA" class="com.infinity.datamarket.comum.usuario.Loja"/>
         </set>

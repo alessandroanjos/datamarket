@@ -32,7 +32,7 @@
             <column name="INPUT_SIZE" length="20" not-null="true"/>
         </property>
 
-        <set name="finalizadoras" table="ESTADO_TECLA" lazy="false">
+        <set name="finalizadoras" table="ESTADO_TECLA" lazy="true">
              <key column="ID_ESTADO" />
              <many-to-many column="ID_TECLA" class="com.infinity.datamarket.pdv.maquinaestados.Tecla"/>
         </set>

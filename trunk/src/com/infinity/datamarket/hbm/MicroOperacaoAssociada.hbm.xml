@@ -23,7 +23,7 @@
           <column name="ID_MICRO_OPERACAO" not-null="true"/>
         </many-to-one>
 
-        <set name="saidas" table="SAIDA_MICRO_OPERACAO_ASSOCIADA" lazy="false">
+        <set name="saidas" table="SAIDA_MICRO_OPERACAO_ASSOCIADA" lazy="true">
              <key column="ID_MICRO_OPERACAO_ASSOCIADA" />
              <many-to-many column="ID_SAIDA_MICRO_OPERACAO" class="com.infinity.datamarket.pdv.maquinaestados.SaidaMicroOperacaoAssociada"/>
         </set>

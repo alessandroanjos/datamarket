@@ -43,10 +43,12 @@
             <column name="ALTURA" length="4" not-null="false"/>
         </property>
         
-         <set name="perfis" table="PERFIL_FUNCIONALIDADE" cascade="all" lazy="false" inverse="true">
+        <!--   
+        <set name="perfis" table="PERFIL_FUNCIONALIDADE" cascade="all" lazy="true" inverse="true">
              <key column="ID_FUNCIONALIDADE" />
              <many-to-many column="ID_PERFIL" class="com.infinity.datamarket.comum.usuario.Perfil"/>
-        </set>          
+        </set>
+        -->          
     </class>
 
 </hibernate-mapping>

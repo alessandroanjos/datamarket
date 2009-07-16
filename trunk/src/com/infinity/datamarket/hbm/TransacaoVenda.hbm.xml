@@ -84,7 +84,7 @@
 		</many-to-one>
 
 		<set name="eventosTransacao" inverse="true" cascade="save-update, delete-orphan"
-			lazy="false">
+			lazy="true">
 			<key>
 				<column name="LOJA" />
 				<column name="COMPONENTE" />
