@@ -32,7 +32,7 @@
           <column name="ID_PERFIL" not-null="true"/>
         </many-to-one>
         
-        <set name="lojas" table="USUARIO_LOJA" cascade="save-update" lazy="false" order-by="ID_LOJA">
+        <set name="lojas" table="USUARIO_LOJA" cascade="save-update" lazy="true" order-by="ID_LOJA">
              <key column="ID_USUARIO"/>
              <many-to-many column="ID_LOJA" class="com.infinity.datamarket.comum.usuario.Loja"/>
         </set>

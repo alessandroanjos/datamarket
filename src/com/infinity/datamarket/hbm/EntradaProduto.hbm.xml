@@ -63,8 +63,13 @@
 	<many-to-one name="fornecedor" class="com.infinity.datamarket.comum.fornecedor.Fornecedor" update="true" insert="true">
           <column name="ID_FORNECEDOR" not-null="false"/>
     </many-to-one>
+    
+    <many-to-one name="estoque" class="com.infinity.datamarket.comum.estoque.Estoque">
+            	<column name="ID_ESTOQUE"/>
+            	<column name="ID_LOJA"/>
+    </many-to-one>
 
-	<set name="produtosEntrada" inverse="true" cascade="all" lazy="false">
+	<set name="produtosEntrada" inverse="true" cascade="all" lazy="true">
         <key>
             <column name="ID_ENTRADA_PRODUTO"/>
         </key>
