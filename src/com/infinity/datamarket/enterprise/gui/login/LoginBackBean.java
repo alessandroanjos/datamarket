@@ -13,6 +13,7 @@ import org.hibernate.JDBCException;
 
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
+import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
@@ -91,6 +92,7 @@ public class LoginBackBean extends BackBean{
 	}
 
 	public Usuario getUsuario() {
+		usuario = (Usuario) RepositoryManagerHibernateUtil.currentSession().load(usuario.getClass().getName(), usuario.getId());
 		return usuario;
 	}
 
@@ -244,6 +246,7 @@ public class LoginBackBean extends BackBean{
 	}
 
 	public Usuario getUsuarioLogado() {
+		usuarioLogado = (Usuario) RepositoryManagerHibernateUtil.currentSession().load(usuarioLogado.getClass().getName(), usuarioLogado.getId());
 		return usuarioLogado;
 	}
 

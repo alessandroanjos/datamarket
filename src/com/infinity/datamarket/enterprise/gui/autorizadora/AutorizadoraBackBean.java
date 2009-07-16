@@ -35,10 +35,6 @@ public class AutorizadoraBackBean extends BackBean {
 
 	public void validarAutorizadora() throws AppException{
 		
-		if(this.getId() == null || this.getId().equals("")){
-			throw new AppException("É necessário informar um Código.");
-		}
-		
 		if(this.getDescricao() == null || this.getDescricao().equals("")){
 			throw new AppException("É necessário informar uma Descrição.");
 		}

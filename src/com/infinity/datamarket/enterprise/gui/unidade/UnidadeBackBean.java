@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 
+import com.infinity.datamarket.comum.produto.GrupoProduto;
 import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -63,6 +64,7 @@ public class UnidadeBackBean extends BackBean{
 			validadeUnidade();
 			
 			Unidade unidade = new Unidade();
+			unidade.setId(getIdInc(Unidade.class));
 			unidade.setDescricao(getDescricao());
 			unidade.setDescricaoDisplay(getDescricaoCompacta());
 			unidade.setAbreviacao(getAbreviacao());
