@@ -153,7 +153,7 @@ public class EstoqueBackBean extends BackBean {
 				
 				filter.setTheClass(Estoque.class);
 				
-				if(!this.getDescricao().equals("")){
+				if(this.getDescricao() != null && !this.getDescricao().equals("")){
 					filter.addProperty("descricao", getDescricao());
 				}
 				

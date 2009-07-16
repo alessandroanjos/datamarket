@@ -19,7 +19,9 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
+import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -155,6 +157,9 @@ public class LojaBackBean extends BackBean {
 			loja.setIdEstoque(null);
 			loja.setIdContaCorrente(null);
 			getFachada().inserirLoja(loja);
+			Usuario u = LoginBackBean.getInstancia().getUsuarioLogado();
+			u.getLojas().add(loja);
+			getFachada().alterarUsuario(u);			
 			FacesContext ctx = FacesContext.getCurrentInstance();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");

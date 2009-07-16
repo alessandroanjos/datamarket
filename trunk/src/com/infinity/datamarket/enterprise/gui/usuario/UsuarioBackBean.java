@@ -533,8 +533,8 @@ public class UsuarioBackBean extends BackBean {
 			usuario.setSenha(this.getSenha());
 //			
 			if (!this.getIdPerfil().equals("0")) {
-				Perfil perfil = getFachada().consultarPerfilPorPK(
-						new Long(this.getIdPerfil()));
+				Perfil perfil = new Perfil();
+				perfil.setId(new Long(this.getIdPerfil()));
 				usuario.setPerfil(perfil);
 			} else {
 				usuario.setPerfil(null);

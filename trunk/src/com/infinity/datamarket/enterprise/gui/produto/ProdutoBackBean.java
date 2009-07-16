@@ -215,6 +215,7 @@ public class ProdutoBackBean extends BackBean{
 		GrupoProduto grupo = new GrupoProduto();
 		grupo.setId(new Long(getIdGrupo()));
 		p.setGrupo(grupo);
+		p.setStatus(Produto.ATIVO);
 		p.setLojas(criaLojas(listaLojas));
 		if (getIdFabricante() != null && !"0".equals(getIdFabricante())){
 			Fabricante fabricante = new Fabricante();
@@ -533,6 +534,7 @@ public class ProdutoBackBean extends BackBean{
 		this.idFabricante = null;
 		this.idImposto = null;
 		this.idGrupo = null;
+		this.listaLojas = null;
 	}
 	
 	public String voltarConsulta(){

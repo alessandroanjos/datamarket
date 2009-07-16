@@ -242,6 +242,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			
 			for (Iterator iter = arrayProduto.iterator(); iter.hasNext();) {
 				ProdutoMovimentacaoEstoque produtoTmp = (ProdutoMovimentacaoEstoque) iter.next();
+				produtoTmp.getPk().setId(movimentacaoEstoque.getId());
 			    msgValidacao = validaProduto(produtoTmp.getProduto(),produtoTmp.getQuantidade());
 			    if (!msgValidacao.equals("")){
 				   break;

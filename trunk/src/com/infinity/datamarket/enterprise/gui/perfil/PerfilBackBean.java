@@ -159,7 +159,9 @@ public class PerfilBackBean extends BackBean {
 			perfil.setDescricao(this.getDescricao());
 			
 			if(!this.getIdPerfilSuperior().equals("0")){
-				Perfil perfilSuperior= getFachada().consultarPerfilPorPK(new Long(this.getIdPerfilSuperior()));
+				//Perfil perfilSuperior= getFachada().consultarPerfilPorPK(new Long(this.getIdPerfilSuperior()));
+				Perfil perfilSuperior= new Perfil();
+				perfilSuperior.setId(new Long(this.getIdPerfilSuperior()));
 				perfil.setPerfilSuperior(perfilSuperior);
 			}else{
 				perfil.setPerfilSuperior(null);
@@ -175,7 +177,7 @@ public class PerfilBackBean extends BackBean {
 					String idMacroOperacao = (String)lista.get(i);
 					MacroOperacao macroOperacao = new MacroOperacao();
 					macroOperacao.setId(new Long(idMacroOperacao));
-					macroOperacao = getFachada().consultarMacroOperacaoPorPK(macroOperacao.getId());
+					//macroOperacao = getFachada().consultarMacroOperacaoPorPK(macroOperacao.getId());
 					macroOperacoesTmp.add(macroOperacao);					
 				}
 				perfil.setOperacoes(macroOperacoesTmp);
@@ -194,7 +196,7 @@ public class PerfilBackBean extends BackBean {
 					String idFuncionalidade = (String)listaFuncSelecionadas.get(i);
 					Funcionalidade funcionalidade = new Funcionalidade();
 					funcionalidade.setId(new Long(idFuncionalidade));
-					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
+					//funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
 					arrayCodFuncionalidades.add(idFuncionalidade);
 					montaListaCodigosFuncionalidades(funcionalidade, arrayCodFuncionalidades);
 				}
@@ -204,7 +206,7 @@ public class PerfilBackBean extends BackBean {
 					String codFuncionalidade = arrayCodFuncionalidades.get(i);
 					Funcionalidade funcionalidade = new Funcionalidade();
 					funcionalidade.setId(new Long(codFuncionalidade));
-					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
+//					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
 					funcionalidadesTmp.add(funcionalidade);
 				}
 				perfil.setFuncionalidades(funcionalidadesTmp);
@@ -400,7 +402,9 @@ public class PerfilBackBean extends BackBean {
 			perfil.setDescricao(this.getDescricao());
 			
 			if(!this.getIdPerfilSuperior().equals("0")){
-				Perfil perfilSuperior= getFachada().consultarPerfilPorPK(new Long(this.getIdPerfilSuperior()));
+				//Perfil perfilSuperior= getFachada().consultarPerfilPorPK(new Long(this.getIdPerfilSuperior()));
+				Perfil perfilSuperior= new Perfil();
+				perfilSuperior.setId(new Long(this.getIdPerfilSuperior()));
 				perfil.setPerfilSuperior(perfilSuperior);
 			}else{
 				perfil.setPerfilSuperior(null);
@@ -420,7 +424,7 @@ public class PerfilBackBean extends BackBean {
 					String idMacroOperacao = (String)lista.get(i);
 					MacroOperacao macroOperacao = new MacroOperacao();
 					macroOperacao.setId(new Long(idMacroOperacao));
-					macroOperacao = getFachada().consultarMacroOperacaoPorPK(macroOperacao.getId());
+//					macroOperacao = getFachada().consultarMacroOperacaoPorPK(macroOperacao.getId());
 					macroOperacoesTmp.add(macroOperacao);					
 				}
 				perfil.setOperacoes(macroOperacoesTmp);
@@ -439,7 +443,7 @@ public class PerfilBackBean extends BackBean {
 					String idFuncionalidade = (String)listaFuncSelecionadas.get(i);
 					Funcionalidade funcionalidade = new Funcionalidade();
 					funcionalidade.setId(new Long(idFuncionalidade));
-					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
+//					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
 					arrayCodFuncionalidades.add(idFuncionalidade);
 					montaListaCodigosFuncionalidades(funcionalidade, arrayCodFuncionalidades);
 				}
@@ -449,7 +453,7 @@ public class PerfilBackBean extends BackBean {
 					String codFuncionalidade = arrayCodFuncionalidades.get(i);
 					Funcionalidade funcionalidade = new Funcionalidade();
 					funcionalidade.setId(new Long(codFuncionalidade));
-					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
+//					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
 					funcionalidadesTmp.add(funcionalidade);
 				}
 				perfil.setFuncionalidades(funcionalidadesTmp);
@@ -481,8 +485,8 @@ public class PerfilBackBean extends BackBean {
 			perfil.setDescricao(this.getDescricao());
 
 			if (!this.getIdPerfilSuperior().equals("0")) {
-				Perfil perfilSuperior = getFachada().consultarPerfilPorPK(
-						new Long(this.getIdPerfilSuperior()));
+				Perfil perfilSuperior= new Perfil();
+				perfilSuperior.setId(new Long(this.getIdPerfilSuperior()));
 				perfil.setPerfilSuperior(perfilSuperior);
 			} else {
 				perfil.setPerfilSuperior(null);
@@ -497,7 +501,7 @@ public class PerfilBackBean extends BackBean {
 					String idMacroOperacao = (String)lista.get(i);
 					MacroOperacao macroOperacao = new MacroOperacao();
 					macroOperacao.setId(new Long(idMacroOperacao));
-					macroOperacao = getFachada().consultarMacroOperacaoPorPK(macroOperacao.getId());
+//					macroOperacao = getFachada().consultarMacroOperacaoPorPK(macroOperacao.getId());
 					macroOperacoesTmp.add(macroOperacao);					
 				}
 				perfil.setOperacoes(macroOperacoesTmp);
@@ -512,7 +516,7 @@ public class PerfilBackBean extends BackBean {
 					String idFuncionalidade = (String)lista.get(i);
 					Funcionalidade funcionalidade = new Funcionalidade();
 					funcionalidade.setId(new Long(idFuncionalidade));
-					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
+//					funcionalidade = getFachada().consultarFuncionalidadePorPK(funcionalidade.getId());
 					macroOperacoesTmp.add(funcionalidade);					
 				}
 				perfil.setFuncionalidades(macroOperacoesTmp);
