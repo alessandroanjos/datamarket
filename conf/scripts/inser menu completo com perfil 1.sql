@@ -95,7 +95,13 @@ insert into funcionalidade values (404,  401, 'Consultar Lançamentos'           
 insert into funcionalidade values (405,  400, 'Grupo de Lançamentos'                , 'S', NULL                                                       , 0    , 0   )
 insert into funcionalidade values (406,  405, 'Inserir Grupo de Lançamento'         , 'S', 'grupoLancamento/inserirGrupoLancamento'                   , 800  , 600 )
 insert into funcionalidade values (407,  405, 'Consultar Grupo de Lançamento'       , 'S', 'grupoLancamento/consultarGrupoLancamento'                 , 800  , 600 )
-
+insert into funcionalidade values (408,  400, 'Baixa de Lançamentos'                , 'S', 'baixaLancamento/consultarBaixaLancamento'                 , 800  , 600 )
+insert into funcionalidade values (409,  400, 'Movimentação Bancária'               , 'S', NULL                                                       , 800  , 600 )
+insert into funcionalidade values (410,  409, 'Inserir Movimentação'                , 'S', 'movimentacaoBancaria/inserirMovimentacaoBancaria'         , 800  , 600 )
+insert into funcionalidade values (411,  409, 'Manter Movimentação'                 , 'S', 'movimentacaoBancaria/consultarMovimentacaoBancaria'       , 800  , 600 )
+insert into funcionalidade values (412,  400, 'Conta Corrente'                      , 'S', NULL                                                       , 800  , 600 )
+insert into funcionalidade values (413,  412, 'Inserir Conta Corrente'              , 'S', 'contaCorrente/inserirContaCorrente'                       , 800  , 600 )
+insert into funcionalidade values (414,  412, 'Manter Conta Corrente'               , 'S', 'contaCorrente/consultarContaCorrente'                     , 800  , 600 )
                                                                                                                                                                       
 insert into funcionalidade values (999, NULL, 'Logout'                              , 'S', 'logout'                                                   , 0    , 0   )
 
