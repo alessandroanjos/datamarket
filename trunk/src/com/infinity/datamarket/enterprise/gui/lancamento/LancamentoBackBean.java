@@ -501,7 +501,7 @@ public class LancamentoBackBean extends BackBean {
 			int i = 0;
 			arrayFornecedores[i++] = new SelectItem("0", "");
 			for(Fornecedor formaTmp : fornecedores){
-				SelectItem item = new SelectItem(formaTmp.getId().toString(), formaTmp.getNomeFantasia());
+				SelectItem item = new SelectItem(formaTmp.getId().toString(), formaTmp.getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)?formaTmp.getNomeFornecedor():formaTmp.getNomeFantasia());
 				arrayFornecedores[i++] = item;
 			}
 		} catch (Exception e) {
