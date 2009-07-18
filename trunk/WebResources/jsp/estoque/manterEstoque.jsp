@@ -69,7 +69,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Lojas"></h:outputLabel>
-										<h:selectOneMenu id="idLoja" styleClass="field select"
+										<h:selectOneMenu id="idLoja" styleClass="field select" disabled="true"
 											value="#{estoqueBB.idLoja}">		
 											<f:selectItems id="lojaSelectItems" value="#{estoqueBB.lojas}" />
 										</h:selectOneMenu>
