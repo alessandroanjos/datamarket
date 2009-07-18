@@ -47,12 +47,6 @@ public class ConcentradorMaquina extends Cadastro{
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
 		}
 		if (col.size() > 0){
 			return (Tecla) col.iterator().next();
@@ -82,12 +76,6 @@ public class ConcentradorMaquina extends Cadastro{
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
 		}
 		return tecla;
 	}
@@ -112,12 +100,6 @@ public class ConcentradorMaquina extends Cadastro{
 				RepositoryManagerHibernateUtil.rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Throwable ex){
 				throw new SistemaException(ex);
 			}
 		}

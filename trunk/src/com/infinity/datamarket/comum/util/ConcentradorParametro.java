@@ -1,5 +1,7 @@
 package com.infinity.datamarket.comum.util;
 
+import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
+
 
 public class ConcentradorParametro extends Cadastro{
 
@@ -35,31 +37,69 @@ public class ConcentradorParametro extends Cadastro{
 
 	public Parametro getParametro(String chave) {
 		Parametro retorno = null;
-		try{
-			retorno = (Parametro) getRepositorio().getParametro(chave);			
+		try{			
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			retorno = (Parametro) getRepositorio().getParametro(chave);	
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
 		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
 				throw new SistemaException(e);
-		}
-		
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}		
 		return retorno;
 	}
 	
 	public void atualizarParametro(Parametro parametro) {
 		
 		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
 			getRepositorio().atualizarParametro(parametro);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
 		}catch(Throwable e){
-			throw new SistemaException(e);
-		}
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}	
 	}
 	
 	public String consultarURLApp() throws AppException{
 		String url = "http://localhost:8080";
-		try{				
+		try{	
+			RepositoryManagerHibernateUtil.beginTrasaction();
 			Parametro p = (Parametro) getRepositorio().getParametro("URL");
 			url = p.getValor();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
 		}catch(Throwable e){
-			throw new SistemaException(e);
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
 		}
 		
 		return url;
