@@ -120,7 +120,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Observação"></h:outputLabel>
-										<h:inputTextarea styleClass="field text" id="observacao" style="width: 100%;" cols="1" rows="3" value="#{lancamentoBB.observacao}">
+										<h:inputTextarea styleClass="field text" id="observacao" style="width: 100%;" cols="100" rows="3" value="#{lancamentoBB.observacao}">
 											<f:validateLength maximum="250" />
 										</h:inputTextarea>
 									</div>

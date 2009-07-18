@@ -64,13 +64,13 @@
 					</div>
 					<div id="primarioContentContainerInternas">
 						<ul>
-							<li class="normal">
+							
 								<div>
 									<h:messages errorClass="msgSistemaErro"
 										infoClass="msgSistemaSucesso" globalOnly="true"
 										showDetail="true" />
 								</div>
-							</li>
+							
 						</ul>
 						<h:form id="frmAlterarProduto" binding="#{produtoBB.init}"
 							onsubmit="javascript:getId('frmAlterarProduto:abaCorrente').value = strAbaCorrente;">

@@ -38,11 +38,11 @@
 					<div id="primarioContentContainerInternas" >
 						<h:form id="frmInserirLoja"  binding="#{lojaBB.init}" >
 							<ul>
-								<li class="normal">
-									<div>
-										<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
-									</div>
-								</li>
+								
+								<div>
+									<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+								</div>
+							
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
