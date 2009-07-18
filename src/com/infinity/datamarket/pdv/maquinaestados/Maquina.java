@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
@@ -97,8 +98,8 @@ public class Maquina implements Serializable{
     	Mic microOperacao = ServiceLocator.getInstancia().getMic(mic.getMicroOperacao().getClasse());
         System.out.println("Maquina::Cod "+mic.getId()+" ::MicroOperacao ["+mic.getMicroOperacao().getClasse()+"]");
         int alternativa = 0;
-        try{
-        	alternativa = microOperacao.exec(gerenciadorPerifericos, param);
+        try{        	
+        	alternativa = microOperacao.exec(gerenciadorPerifericos, param);        	
         }catch(Throwable t){
         	t.printStackTrace();
         	getMicroOperacaoExcessao().exec(gerenciadorPerifericos, param);
@@ -120,6 +121,7 @@ public class Maquina implements Serializable{
         private Estado estAtual;
         public void run(){
             try{
+            	RepositoryManagerHibernateUtil.currentSession().load(estadoAtual, estadoAtual.getId());
             	ParametroMacroOperacao param = null;
                 EntradaDisplay entrada = null;
                 if (estadoAtual.getFinalizadoras() != null && estadoAtual.getFinalizadoras().size() > 0){
@@ -174,8 +176,10 @@ public class Maquina implements Serializable{
 	        		}
         		}
                 new ThreadProcessaMacro(estadoAtual);
-            }catch(Exception ex){
+            }catch(Exception ex){            	
             	ex.printStackTrace();
+            }finally{
+            	RepositoryManagerHibernateUtil.closeSession();
             }
         }
 

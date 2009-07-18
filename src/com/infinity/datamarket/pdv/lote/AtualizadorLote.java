@@ -62,12 +62,6 @@ public class AtualizadorLote {
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
-		}finally{
-			try{
-				RepositoryManagerHibernateUtil.closeSession();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
 		}
 	}
 
