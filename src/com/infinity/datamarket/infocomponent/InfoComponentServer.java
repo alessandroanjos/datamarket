@@ -9,6 +9,7 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 
 @MessageDriven(mappedName = "jms/InfoComponentServer", activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"), 
@@ -22,7 +23,9 @@ public class InfoComponentServer implements MessageListener {
 				if (obj.getObject() instanceof InfoComponent){
 					InfoComponent info = (InfoComponent) obj.getObject();
 					info.setDataAtualizacao(new Date());
+					RepositoryManagerHibernateUtil.currentSession();
 					Fachada.getInstancia().salvarInfoComponent(info);
+					RepositoryManagerHibernateUtil.closeSession();
 				}				
 			}
 			
