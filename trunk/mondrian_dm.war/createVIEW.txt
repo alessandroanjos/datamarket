@@ -1,0 +1,15 @@
+CREATE VIEW [dbo].[VW_VENDAS]
+AS
+SELECT     TOP (100) PERCENT tv.COD_USU_VENDEDOR, tv.COD_USU_OPERADOR, pir.LOJA, pir.DATA_TRANSACAO, pir.CODIGO_EXTERNO, 
+                      pir.DESCRICAO_COMPLETA, SUM(eir.QUANTIDADE) AS qtd, SUM(eir.PRECO) AS valor, SUM(eir.LUCRO) AS lucro, SUM(eir.DESCONTO) AS desconto, 
+                      pir.TIPO
+FROM         dbo.PRODUTO_ITEM_REGISTRADO AS pir INNER JOIN
+                      dbo.EVENTO_ITEM_REGISTRADO AS eir ON pir.LOJA = eir.LOJA AND pir.COMPONENTE = eir.COMPONENTE AND 
+                      pir.NUM_TRANSACAO = eir.NUM_TRANSACAO AND pir.DATA_TRANSACAO = eir.DATA_TRANSACAO AND 
+                      pir.NUM_EVENTO = eir.NUM_EVENTO INNER JOIN
+                      dbo.TRANSACAO_VENDA AS tv ON eir.LOJA = tv.LOJA AND eir.COMPONENTE = tv.COMPONENTE AND eir.NUM_TRANSACAO = tv.NUM_TRANSACAO AND
+                       eir.DATA_TRANSACAO = tv.DATA_TRANSACAO
+WHERE     (tv.SITUACAO <> 'C') AND (eir.SITUACAO <> 'C')
+GROUP BY tv.COD_USU_VENDEDOR, tv.COD_USU_OPERADOR, pir.LOJA, pir.DATA_TRANSACAO, pir.CODIGO_EXTERNO, pir.DESCRICAO_COMPLETA, 
+                      pir.TIPO
+ORDER BY valor
