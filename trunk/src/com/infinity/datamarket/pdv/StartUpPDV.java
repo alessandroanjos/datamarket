@@ -36,8 +36,8 @@ public class StartUpPDV {
 		est.setInputType(0);
 		Maquina maquina = Maquina.getInstancia(est, new Date(), ger);
 //		ti.jProgressBar1.setValue(75);
-//		ThreadEnviaTransacao t1 = new ThreadEnviaTransacao();
-//		t1.start();
+		ThreadEnviaTransacao t1 = new ThreadEnviaTransacao();
+		t1.start();
 		maquina.iniciar();
 		RepositoryManagerHibernateUtil.closeSession();
 //		ti.jProgressBar1.setValue(100);
