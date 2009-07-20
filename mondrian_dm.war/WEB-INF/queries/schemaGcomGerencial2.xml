@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Schema name="OLAPGcom">
+	<Cube name="ConsolidacaoVenda">
+		<Table name="VW_VENDAS" schema="dbo" />
+		<Dimension name="TIPO_PRODUTO" foreignKey="TIPO"
+			caption="Tipo de Produto">
+			<Hierarchy name="TIPO_PRODUTO" hasAll="true" allMemberName="Todas" primaryKey="ID">
+				<Table name="TIPO_PRODUTO" schema="dbo" />
+				<Level name="Tipo de Produto"
+					column="DESCRICAO" uniqueMembers="false" />
+			</Hierarchy>
+		</Dimension>
+		<Dimension name="OPERADOR" foreignKey="COD_USU_OPERADOR"  caption="Operador">
+			<Hierarchy name="OPERADOR" hasAll="true" allMemberName="Todas" primaryKey="ID">
+				<Table name="USUARIO" schema="dbo" />
+				<Level name="Operador" column="ID" uniqueMembers="false" />
+			</Hierarchy>
+		</Dimension>
+		<Dimension name="LOJA" foreignKey="LOJA" caption="Loja">
+			<Hierarchy name="LOJA" hasAll="true" allMemberName="Todas" primaryKey="ID">
+				<Table name="LOJA" schema="dbo" />
+				<Level name="Loja" column="NOME" uniqueMembers="false" />
+			</Hierarchy>
+		</Dimension>
+		
+		<Dimension name="DESCRICAO_COMPLETA" caption="Produto">
+			<Hierarchy name="DESCRICAO_COMPLETA" hasAll="true" allMemberName="Todos">
+				<Level name="Produto"
+					column="DESCRICAO_COMPLETA" uniqueMembers="false"
+					allMemberName="Todos" />
+			</Hierarchy>
+
+		</Dimension>
+		<Dimension name="DATA_TRANSACAO" caption="Data">
+			<Hierarchy name="DATA_TRANSACAO" hasAll="true" allMemberName="Todos">
+				<Level name="Data"
+					column="DATA_TRANSACAO" uniqueMembers="false"
+					allMemberName="Todos" />
+			</Hierarchy>
+		</Dimension>
+		
+	
+<Measure name="Quantidade" column="qtd"  aggregator="sum" datatype="Integer" formatString="#,###.##" />
+<Measure name="Valor" column="valor"  aggregator="sum" datatype="Integer" formatString="#,###.##" />
+<Measure name="Lucro" column="lucro"  aggregator="sum" datatype="Integer" formatString="#,###.##" />
+<Measure name="Desconto" column="desconto"  aggregator="sum" datatype="Integer" formatString="#,###.##" />
+
+
+	</Cube>
+</Schema>
