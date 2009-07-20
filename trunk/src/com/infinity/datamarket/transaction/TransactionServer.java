@@ -3,6 +3,7 @@ package com.infinity.datamarket.transaction;
 import javax.ejb.Stateless;
 
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.transacao.Transacao;
 import com.infinity.datamarket.comum.util.AppException;
 
@@ -19,7 +20,9 @@ public class TransactionServer implements TransactionServerRemote, TransactionSe
 		return Fachada.getInstancia();
 	}
 	public void inserirTransacao(Transacao transacao) throws AppException{
+		RepositoryManagerHibernateUtil.currentSession();
 		getFachada().getInstancia().inserirTransacaoES(transacao);
+		RepositoryManagerHibernateUtil.closeSession();
 		System.out.println("TRANSACAO INSERIDA >> "+transacao.getPk());
 	}
 	
