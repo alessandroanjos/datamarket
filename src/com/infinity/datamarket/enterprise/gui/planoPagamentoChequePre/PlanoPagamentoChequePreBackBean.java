@@ -396,7 +396,9 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 					}
 				}
 			}else{
-				Collection c = getFachada().consultarTodosPlanosChequePre();
+				PropertyFilter filter = new PropertyFilter();
+				filter.setTheClass(PlanoPagamentoChequePredatado.class);
+				Collection c = getFachada().consultarPlanoPagamento(filter);
 				if(c != null && c.size() > 0){
 					setExisteRegistros(true);
 					setPlanos(c);
