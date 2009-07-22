@@ -192,7 +192,9 @@ public class PlanoPagamentoBackBean extends BackBean {
 					}
 				}
 			}else{
-				Collection c = getFachada().consultarTodosPlanos();
+				PropertyFilter filter = new PropertyFilter();
+				filter.setTheClass(PlanoPagamento.class);
+				Collection c = getFachada().consultarPlanoPagamento(filter);
 				if(c != null && c.size() > 0){
 					setExisteRegistros(true);
 				}else{

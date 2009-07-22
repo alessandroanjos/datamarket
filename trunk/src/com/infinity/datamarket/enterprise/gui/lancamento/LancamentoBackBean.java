@@ -721,6 +721,8 @@ public class LancamentoBackBean extends BackBean {
 			descricao = "FINALIZADO";
 		}else if(situacao.equals("C")){
 			descricao = "CANCELADO";
+		}else if(situacao.equals("D")){
+			descricao = "PENDENTE";
 		}
 		
 		return descricao;
@@ -766,12 +768,13 @@ public class LancamentoBackBean extends BackBean {
 		this.idSituacao = idSituacao;
 	}
 	public SelectItem[] getListaSituacao() {
-		SelectItem[] lista = new SelectItem[5];
+		SelectItem[] lista = new SelectItem[6];
 		lista[0] = new SelectItem("T", "Todos");
 		lista[1] = new SelectItem("A", "Aberto");
 		lista[2] = new SelectItem("P", "Pago Parcial");
 		lista[3] = new SelectItem("F", "Finalizado");
 		lista[4] = new SelectItem("C", "Cancelado");
+		lista[5] = new SelectItem("D", "Pendente");
 		if(this.getIdSituacao() == null || this.getIdSituacao().equals("")){
 			this.setIdSituacao("T");
 		}
