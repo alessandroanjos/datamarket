@@ -20,7 +20,8 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
-import com.infinity.datamarket.comum.pagamento.PlanoPagamentoChequePredatado;
+import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAPrazo;
+import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAVista;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -110,7 +111,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 			
 			validarPlanoPagamento();
 			
-			PlanoPagamento planoPagamento = new PlanoPagamento();
+			PlanoPagamento planoPagamento = new PlanoPagamentoAVista();
 			preenchePlanoPagamento(planoPagamento, INSERIR);
 			getFachada().inserirPlanoPagamento(planoPagamento);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -162,7 +163,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 				return "proxima";
 			}else if (getDescricao() != null && !"".equals(getDescricao())){
 				PropertyFilter filter = new PropertyFilter();
-				filter.setTheClass(PlanoPagamento.class);
+				filter.setTheClass(PlanoPagamentoAVista.class);
 				filter.addProperty("descricao", getDescricao());
 				Collection col = getFachada().consultarPlanoPagamento(filter);
 				if (col == null || col.size() == 0){
@@ -193,7 +194,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 				}
 			}else{
 				PropertyFilter filter = new PropertyFilter();
-				filter.setTheClass(PlanoPagamento.class);
+				filter.setTheClass(PlanoPagamentoAVista.class);
 				Collection c = getFachada().consultarPlanoPagamento(filter);
 				if(c != null && c.size() > 0){
 					setExisteRegistros(true);
@@ -234,7 +235,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 			
 			validarPlanoPagamento();
 			
-			PlanoPagamento planoPagamento = new PlanoPagamento();
+			PlanoPagamento planoPagamento = new PlanoPagamentoAVista();
 			
 			preenchePlanoPagamento(planoPagamento, ALTERAR);
 			
@@ -262,7 +263,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 	
 	public String excluir(){
 		try {
-			PlanoPagamento planoPagamento = new PlanoPagamento();
+			PlanoPagamento planoPagamento = new PlanoPagamentoAVista();
 			
 			planoPagamento.setId(new Long(this.id));
 			planoPagamento.setDescricao(this.descricao);
@@ -429,8 +430,10 @@ public class PlanoPagamentoBackBean extends BackBean {
 	public void preenchePlanoPagamento(PlanoPagamento plano, String acao) throws AppException{
 		PlanoPagamento planoPagamento = null;
 		
-		if(plano instanceof PlanoPagamentoChequePredatado){
-			planoPagamento = (PlanoPagamentoChequePredatado)plano;
+		if(plano instanceof PlanoPagamentoAPrazo){
+			planoPagamento = (PlanoPagamentoAPrazo)plano;
+		}else if(plano instanceof PlanoPagamentoAVista){
+			planoPagamento = (PlanoPagamentoAVista)plano;
 		}else{
 			planoPagamento = plano;
 		}

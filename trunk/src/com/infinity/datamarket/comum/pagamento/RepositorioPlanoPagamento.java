@@ -13,7 +13,8 @@ import com.infinity.datamarket.comum.util.Repositorio;
 public class RepositorioPlanoPagamento extends Repositorio implements IRepositorioPlanoPagamento{
 	private static RepositorioPlanoPagamento instancia;
 	private static Class CLASSE = PlanoPagamento.class;
-	private static Class CLASSE_CHEQUE_PRE = PlanoPagamentoChequePredatado.class;
+	private static Class CLASSE_PLANO_AVISTA = PlanoPagamentoAVista.class;
+	private static Class CLASSE_PLANO_APRAZO = PlanoPagamentoAPrazo.class;
 	private RepositorioPlanoPagamento(){}
 	public static RepositorioPlanoPagamento getInstancia(){
 		if (instancia == null){
@@ -50,9 +51,14 @@ public class RepositorioPlanoPagamento extends Repositorio implements IRepositor
 		excluirDadoLote(planoPagamento);
 	}
 	
+	// Plano de Pagamento A Vista
+	public Collection consultarTodosAVista() throws AppException{
+		return findAll(CLASSE_PLANO_AVISTA);
+	}
+	
 	// Plano de Pagamento Pre-datado
-	public Collection consultarTodosPreDatado() throws AppException{
-		return findAll(CLASSE_CHEQUE_PRE);
+	public Collection consultarTodosAPrazo() throws AppException{
+		return findAll(CLASSE_PLANO_APRAZO);
 	}
 
 }

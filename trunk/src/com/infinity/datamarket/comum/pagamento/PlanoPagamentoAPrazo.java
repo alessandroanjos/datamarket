@@ -3,7 +3,7 @@ package com.infinity.datamarket.comum.pagamento;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-public class PlanoPagamentoChequePredatado extends PlanoPagamento{
+public class PlanoPagamentoAPrazo extends PlanoPagamento{
 
 	/**
 	 * 

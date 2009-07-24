@@ -2,13 +2,13 @@ package com.infinity.datamarket.comum.pagamento;
 
 import java.io.Serializable;
 
-public class ParcelaPlanoPagamentoChequePredatadoPK implements Serializable{
+public class ParcelaPlanoPagamentoAPrazoPK implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8914372301952165565L;
-	private PlanoPagamentoChequePredatado plano;
+	private PlanoPagamentoAPrazo plano;
 	private int numeroEntrada;
 
 	public int getNumeroEntrada() {
@@ -19,10 +19,10 @@ public class ParcelaPlanoPagamentoChequePredatadoPK implements Serializable{
 		this.numeroEntrada = numeroEntrada;
 	}
 	
-	public PlanoPagamentoChequePredatado getPlano() {
+	public PlanoPagamentoAPrazo getPlano() {
 		return plano;
 	}
-	public void setPlano(PlanoPagamentoChequePredatado plano) {
+	public void setPlano(PlanoPagamentoAPrazo plano) {
 		this.plano = plano;
 	}
 

@@ -3,12 +3,12 @@ package com.infinity.datamarket.comum.pagamento;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ParcelaPlanoPagamentoChequePredatado implements Serializable, Comparable<ParcelaPlanoPagamentoChequePredatado>{
+public class ParcelaPlanoPagamentoAPrazo implements Serializable, Comparable<ParcelaPlanoPagamentoAPrazo>{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -6237638829985692672L;
-	private ParcelaPlanoPagamentoChequePredatadoPK pk;
+	private ParcelaPlanoPagamentoAPrazoPK pk;
 	
 	
 	private BigDecimal percentagemParcela;
@@ -21,10 +21,10 @@ public class ParcelaPlanoPagamentoChequePredatado implements Serializable, Compa
 	public void setPercentagemParcela(BigDecimal percentagemParcela) {
 		this.percentagemParcela = percentagemParcela;
 	}
-	public ParcelaPlanoPagamentoChequePredatadoPK getPk() {
+	public ParcelaPlanoPagamentoAPrazoPK getPk() {
 		return pk;
 	}
-	public void setPk(ParcelaPlanoPagamentoChequePredatadoPK pk) {
+	public void setPk(ParcelaPlanoPagamentoAPrazoPK pk) {
 		this.pk = pk;
 	}
 	public int getQuantidadeDias() {
@@ -34,7 +34,7 @@ public class ParcelaPlanoPagamentoChequePredatado implements Serializable, Compa
 		this.quantidadeDias = quantidadeDias;
 	}
 	
-	public int compareTo(ParcelaPlanoPagamentoChequePredatado obj) {
+	public int compareTo(ParcelaPlanoPagamentoAPrazo obj) {
 		int ret = 0;
 		if(this.getPk().getNumeroEntrada() > obj.getPk().getNumeroEntrada()){
 			ret = 1;
