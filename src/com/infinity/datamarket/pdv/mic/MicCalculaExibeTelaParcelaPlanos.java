@@ -10,9 +10,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import com.infinity.datamarket.comum.pagamento.DadosChequePredatado;
-import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatado;
+import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazo;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
-import com.infinity.datamarket.comum.pagamento.PlanoPagamentoChequePredatado;
+import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAPrazo;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.comum.util.ServiceLocator;
@@ -35,11 +35,11 @@ public class MicCalculaExibeTelaParcelaPlanos extends Mic{
 		
 		tela.setPlanoFroma(plano);
 		
-		if (plano instanceof PlanoPagamentoChequePredatado){
+		if (plano instanceof PlanoPagamentoAPrazo){
 			tela.limparParcelas();
 			
 			
-			PlanoPagamentoChequePredatado planoPre = (PlanoPagamentoChequePredatado) plano;
+			PlanoPagamentoAPrazo planoPre = (PlanoPagamentoAPrazo) plano;
 			
 			BigDecimal valorPagamento = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_PAGAMENTO_ATUAL);
 			
@@ -79,7 +79,7 @@ public class MicCalculaExibeTelaParcelaPlanos extends Mic{
 			
 			
 			while(i.hasNext()){
-				ParcelaPlanoPagamentoChequePredatado parcela = (ParcelaPlanoPagamentoChequePredatado) i.next();
+				ParcelaPlanoPagamentoAPrazo parcela = (ParcelaPlanoPagamentoAPrazo) i.next();
 				
 				BigDecimal percentualParcela = parcela.getPercentagemParcela();
 				

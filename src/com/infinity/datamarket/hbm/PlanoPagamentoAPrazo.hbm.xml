@@ -5,7 +5,7 @@
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
    <hibernate-mapping>
-      <joined-subclass name="com.infinity.datamarket.comum.pagamento.PlanoPagamentoChequePredatado" extends="com.infinity.datamarket.comum.pagamento.PlanoPagamento" table="PLANO_PAGAMENTO_CHEQUE_PRE" lazy="false">
+      <joined-subclass name="com.infinity.datamarket.comum.pagamento.PlanoPagamentoAPrazo" extends="com.infinity.datamarket.comum.pagamento.PlanoPagamento" table="PLANO_PAGAMENTO_APRAZO" lazy="false">
 
           <key>
               <column name="ID_PLANO"/>
@@ -19,7 +19,7 @@
 	        <key>
 	            <column name="ID_PLANO"/>
 	        </key>
-	        <one-to-many class="com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatado"/>
+	        <one-to-many class="com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazo"/>
     	</set>
     	
           

@@ -45,9 +45,14 @@ public class CadastroPlanoPagamento extends Cadastro{
 		getRepositorio().excluir(planoPagamento);
 	}
 	
-	// Plano de Pagamento Pre-datado
+    // Plano de Pagamento A Vista
+	public Collection consultarTodosAVista() throws AppException{
+		return getRepositorio().consultarTodosAVista();
+	}
+	
+	// Plano de Pagamento A Prazo
 	public Collection consultarTodosPreDatado() throws AppException{
-		return getRepositorio().consultarTodosPreDatado();
+		return getRepositorio().consultarTodosAPrazo();
 	}
 	
 }

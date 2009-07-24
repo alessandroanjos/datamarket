@@ -18,9 +18,10 @@ import javax.faces.model.SelectItem;
 import org.hibernate.HibernateException;
 import org.hibernate.exception.ConstraintViolationException;
 
-import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatado;
-import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoChequePredatadoPK;
-import com.infinity.datamarket.comum.pagamento.PlanoPagamentoChequePredatado;
+import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazo;
+import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazoPK;
+import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
+import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAPrazo;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -49,13 +50,13 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 	int numParcela = 0;
 	String dataProgramada;
 	SelectItem[] dataProgramadaSimNao;
-	SortedSet<ParcelaPlanoPagamentoChequePredatado> parcelas = new TreeSet<ParcelaPlanoPagamentoChequePredatado>(); 
+	SortedSet<ParcelaPlanoPagamentoAPrazo> parcelas = new TreeSet<ParcelaPlanoPagamentoAPrazo>(); 
 
-	public SortedSet<ParcelaPlanoPagamentoChequePredatado> getParcelas() {
+	public SortedSet<ParcelaPlanoPagamentoAPrazo> getParcelas() {
 		return parcelas;
 	}
 
-	public void setParcelas(SortedSet<ParcelaPlanoPagamentoChequePredatado> parcelas) {
+	public void setParcelas(SortedSet<ParcelaPlanoPagamentoAPrazo> parcelas) {
 		this.parcelas = parcelas;
 	}
 
@@ -175,11 +176,11 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			setIdForma(Constantes.FORMA_CHEQUE_PRE);
 			validarBackBean();
 			
-			PlanoPagamentoChequePredatado planoPre = new PlanoPagamentoChequePredatado();
+			PlanoPagamento planoPre = new PlanoPagamentoAPrazo();
 			
 			preenchePlanoPagamento(planoPre, INSERIR);
 			
-			planoPre.setPercentagemEntrada(this.getPercentagemEntrada());
+			((PlanoPagamentoAPrazo)planoPre).setPercentagemEntrada(this.getPercentagemEntrada());
 		
 			BigDecimal totalPercentagem = BigDecimal.ZERO;
 			totalPercentagem = totalPercentagem.add(this.getPercentagemEntrada());
@@ -187,8 +188,8 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			Iterator it = this.getParcelas().iterator();
 			
 			while (it.hasNext()){
-				ParcelaPlanoPagamentoChequePredatado parcela = (ParcelaPlanoPagamentoChequePredatado)it.next();
-				parcela.getPk().setPlano(planoPre);
+				ParcelaPlanoPagamentoAPrazo parcela = (ParcelaPlanoPagamentoAPrazo)it.next();
+				parcela.getPk().setPlano((PlanoPagamentoAPrazo)planoPre);
 				totalPercentagem = totalPercentagem.add(parcela.getPercentagemParcela());
 			}
 			
@@ -196,7 +197,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 				throw new Exception("O somatório do percentual das parcelas mais o percentual de entrada deve ser igual a 100%.");
 			}
 			
-			planoPre.setParcelas(this.getParcelas());
+			((PlanoPagamentoAPrazo)planoPre).setParcelas(this.getParcelas());
 			
 			getFachada().inserirPlanoPagamento(planoPre);
 			FacesContext ctx = FacesContext.getCurrentInstance();
@@ -230,11 +231,11 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			validarBackBean();
 			
 			BigDecimal totalPercentagem = BigDecimal.ZERO;
-			PlanoPagamentoChequePredatado planoPre = new PlanoPagamentoChequePredatado();
+			PlanoPagamento planoPre = new PlanoPagamentoAPrazo();
 			
 			preenchePlanoPagamento(planoPre, ALTERAR);
 			
-			planoPre.setPercentagemEntrada(this.getPercentagemEntrada());
+			((PlanoPagamentoAPrazo)planoPre).setPercentagemEntrada(this.getPercentagemEntrada());
 			
 			totalPercentagem = totalPercentagem.add(this.getPercentagemEntrada());
 			
@@ -245,12 +246,12 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			Iterator it = this.getParcelas().iterator();
 			
 			while (it.hasNext()){
-				ParcelaPlanoPagamentoChequePredatado parcela = (ParcelaPlanoPagamentoChequePredatado)it.next();
-				parcela.getPk().setPlano(planoPre);
+				ParcelaPlanoPagamentoAPrazo parcela = (ParcelaPlanoPagamentoAPrazo)it.next();
+				parcela.getPk().setPlano((PlanoPagamentoAPrazo)planoPre);
 				totalPercentagem = totalPercentagem.add(parcela.getPercentagemParcela());
 			}
 			
-			planoPre.setParcelas(this.getParcelas());
+			((PlanoPagamentoAPrazo)planoPre).setParcelas(this.getParcelas());
 			
 			if(totalPercentagem.compareTo(new BigDecimal("100")) != 0){
 				throw new Exception("O somatório do percentual das parcelas mais o percentual de entrada deve ser igual a 100%.");
@@ -281,13 +282,13 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 	public String excluir(){
 		try {
 			setIdForma(Constantes.FORMA_CHEQUE_PRE);
-			PlanoPagamentoChequePredatado planoPre = new PlanoPagamentoChequePredatado();
+			PlanoPagamento planoPre = new PlanoPagamentoAPrazo();
 			
 			preenchePlanoPagamento(planoPre, ALTERAR);
 			
-			planoPre.setPercentagemEntrada(this.getPercentagemEntrada());
+			((PlanoPagamentoAPrazo)planoPre).setPercentagemEntrada(this.getPercentagemEntrada());
 			
-			planoPre.setParcelas(null);
+			((PlanoPagamentoAPrazo)planoPre).setParcelas(null);
 			
 			getFachada().excluirPlanoPagamento(planoPre);
 			
@@ -329,7 +330,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 				setId(param);
 			}
 			if (getId() != null && !"".equals(getId())){
-				PlanoPagamentoChequePredatado planoPagamento = (PlanoPagamentoChequePredatado)getFachada().consultarPlanoPagamentoPorId(new Long(getId()));
+				PlanoPagamentoAPrazo planoPagamento = (PlanoPagamentoAPrazo)getFachada().consultarPlanoPagamentoPorId(new Long(getId()));
 				this.setId(planoPagamento.getId().toString());
 				this.setDescricao(planoPagamento.getDescricao());
 				this.setStatus(planoPagamento.getStatus());
@@ -345,17 +346,17 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 		        Iterator it = planoPagamento.getParcelas().iterator();
 				
 		        if(this.getParcelas() == null){
-					this.setParcelas(new TreeSet<ParcelaPlanoPagamentoChequePredatado>());
+					this.setParcelas(new TreeSet<ParcelaPlanoPagamentoAPrazo>());
 				}
 
 		        while(it.hasNext()){
-		        	this.getParcelas().add((ParcelaPlanoPagamentoChequePredatado)it.next());
+		        	this.getParcelas().add((ParcelaPlanoPagamentoAPrazo)it.next());
 		        }		       
 		        
 				return "proxima";
 			}else if (getDescricao() != null && !"".equals(getDescricao())){
 				PropertyFilter filter = new PropertyFilter();
-				filter.setTheClass(PlanoPagamentoChequePredatado.class);
+				filter.setTheClass(PlanoPagamentoAPrazo.class);
 				filter.addProperty("descricao", getDescricao());
 				Collection col = getFachada().consultarPlanoPagamento(filter);
 				if (col == null || col.size() == 0){
@@ -367,7 +368,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 					ctx.addMessage(null, msg);					
 				}else if (col != null){
 					if(col.size() == 1){
-						PlanoPagamentoChequePredatado planoPagamento = (PlanoPagamentoChequePredatado)getFachada().consultarPlanoPagamentoPorId(new Long(getId()));
+						PlanoPagamentoAPrazo planoPagamento = (PlanoPagamentoAPrazo)getFachada().consultarPlanoPagamentoPorId(new Long(getId()));
 						this.setId(planoPagamento.getId().toString());
 						this.setDescricao(planoPagamento.getDescricao());
 						this.setStatus(planoPagamento.getStatus());
@@ -383,11 +384,11 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 				        Iterator it = planoPagamento.getParcelas().iterator();
 						
 				        if(this.getParcelas() == null){
-							this.setParcelas(new TreeSet<ParcelaPlanoPagamentoChequePredatado>());
+							this.setParcelas(new TreeSet<ParcelaPlanoPagamentoAPrazo>());
 						}
 
 				        while(it.hasNext()){
-				        	this.getParcelas().add((ParcelaPlanoPagamentoChequePredatado)it.next());
+				        	this.getParcelas().add((ParcelaPlanoPagamentoAPrazo)it.next());
 				        }		       
 						return "proxima";
 					}else{
@@ -397,7 +398,7 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 				}
 			}else{
 				PropertyFilter filter = new PropertyFilter();
-				filter.setTheClass(PlanoPagamentoChequePredatado.class);
+				filter.setTheClass(PlanoPagamentoAPrazo.class);
 				Collection c = getFachada().consultarPlanoPagamento(filter);
 				if(c != null && c.size() > 0){
 					setExisteRegistros(true);
@@ -455,8 +456,8 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 				this.setPercentualRestante(this.getPercentualTotal().subtract(this.getPercentagemEntrada()));
 			}
 			
-			ParcelaPlanoPagamentoChequePredatado parcela = new ParcelaPlanoPagamentoChequePredatado();
-			ParcelaPlanoPagamentoChequePredatadoPK parcelaPK = new ParcelaPlanoPagamentoChequePredatadoPK();
+			ParcelaPlanoPagamentoAPrazo parcela = new ParcelaPlanoPagamentoAPrazo();
+			ParcelaPlanoPagamentoAPrazoPK parcelaPK = new ParcelaPlanoPagamentoAPrazoPK();
 						
 			parcelaPK.setPlano(null);
 			
@@ -466,13 +467,13 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			parcela.setDataProgramada(getDataProgramada());
 			
 			if(this.getParcelas() == null){
-				this.setParcelas(new TreeSet<ParcelaPlanoPagamentoChequePredatado>());
+				this.setParcelas(new TreeSet<ParcelaPlanoPagamentoAPrazo>());
 			}
 			
-			Iterator<ParcelaPlanoPagamentoChequePredatado> itParcelas = this.getParcelas().iterator();
+			Iterator<ParcelaPlanoPagamentoAPrazo> itParcelas = this.getParcelas().iterator();
 			
 			while (itParcelas.hasNext()){
-				ParcelaPlanoPagamentoChequePredatado parcelaTmp = itParcelas.next();
+				ParcelaPlanoPagamentoAPrazo parcelaTmp = itParcelas.next();
 				if(parcelaTmp.getQuantidadeDias() > quantidadeDiasParcelaAnterior){
 					quantidadeDiasParcelaAnterior = parcelaTmp.getQuantidadeDias();
 					percentualParcelasParcial = percentualParcelasParcial.add(parcelaTmp.getPercentagemParcela());
@@ -509,10 +510,10 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			Map params = context.getExternalContext().getRequestParameterMap();  
 			String param = (String)  params.get("idExcluir");
 			
-			Iterator<ParcelaPlanoPagamentoChequePredatado> itParcelas = this.getParcelas().iterator();
+			Iterator<ParcelaPlanoPagamentoAPrazo> itParcelas = this.getParcelas().iterator();
 			
 			while (itParcelas.hasNext()){
-				ParcelaPlanoPagamentoChequePredatado parcelaTmp = itParcelas.next();
+				ParcelaPlanoPagamentoAPrazo parcelaTmp = itParcelas.next();
 				if(parcelaTmp.getPk().getNumeroEntrada() == Integer.parseInt(param)){
 					this.setPercentualRestante(this.getPercentualRestante().add(parcelaTmp.getPercentagemParcela()));
 					this.getParcelas().remove(parcelaTmp);

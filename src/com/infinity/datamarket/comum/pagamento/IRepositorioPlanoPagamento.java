@@ -14,6 +14,7 @@ public interface IRepositorioPlanoPagamento extends IRepositorio{
 	public void inserir(PlanoPagamento planoPagamento) throws AppException;	
 	public void alterar(PlanoPagamento planoPagamento) throws AppException;
 	public void excluir(PlanoPagamento planoPagamento) throws AppException;
-	public Collection consultarTodosPreDatado() throws AppException;
+	public Collection consultarTodosAVista() throws AppException;
+	public Collection consultarTodosAPrazo() throws AppException;
 	
 }
