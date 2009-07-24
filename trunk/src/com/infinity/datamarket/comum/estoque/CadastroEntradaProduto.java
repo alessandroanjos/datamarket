@@ -12,9 +12,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.CadastroControleId;
-import com.infinity.datamarket.comum.util.ConcentradorControleId;
 import com.infinity.datamarket.comum.util.Constantes;
-import com.infinity.datamarket.comum.util.Controle;
 import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroEntradaProduto extends Cadastro{

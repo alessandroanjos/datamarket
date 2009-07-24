@@ -317,36 +317,36 @@ public class ProdutoBackBean extends BackBean{
 			validarProduto();
 			
 			getFachada().inserirProduto(getProduto(this.INSERIR));
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Produto já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 
 		} catch (Exception e) {
 			if (e.getCause() instanceof ConstraintViolationException) {
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Código externo já existe!", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 			} else {
 				e.printStackTrace();
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Erro de Sistema!", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 			}
 			
 		}
@@ -419,10 +419,10 @@ public class ProdutoBackBean extends BackBean{
 			Collection col = getFachada().consultarProdutosPorFiltro(prod, this.getIdLoja());
 			if (col == null || col.size() == 0){
 				setProdutos(null);
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Nenhum Registro Encontrado", "");
-				ctx.addMessage(null, msg);	
+				getContextoApp().addMessage(null, msg);	
 				setExisteRegistros(false);
 			}else if (col != null){
 				if(col.size() == 1){
@@ -436,17 +436,17 @@ public class ProdutoBackBean extends BackBean{
 			}
 		}catch(ObjectNotFoundException e){
 			setProdutos(null);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			setExisteRegistros(false);
 		}catch(Exception e){
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			setExisteRegistros(false);
 		}
 		return "mesma";
@@ -458,44 +458,44 @@ public class ProdutoBackBean extends BackBean{
 			validarProduto();
 			
 			getFachada().alterarProduto(getProduto(this.ALTERAR));
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (ValidationException e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 
 		} catch (Exception e) {
 			
 			if (e.getCause().getCause() instanceof HibernateException) {
 				
 			   if (e.getCause().getCause().getCause() instanceof ConstraintViolationException) {
-				   FacesContext ctx = FacesContext.getCurrentInstance();
+				   
 				   FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Código externo já existe!", "");
-				   ctx.addMessage(null, msg);
+				   getContextoApp().addMessage(null, msg);
 			   } else {
 					e.printStackTrace();
-					FacesContext ctx = FacesContext.getCurrentInstance();
+					
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 							"Erro de Sistema!", "");
-					ctx.addMessage(null, msg);
+					getContextoApp().addMessage(null, msg);
 			   }
 			} else {
 				e.printStackTrace();
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Erro de Sistema!", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 			}
 		}
 
@@ -505,17 +505,17 @@ public class ProdutoBackBean extends BackBean{
 	public String excluir(){
 		try {
 			getFachada().excluirProduto(getProduto(this.EXCLUIR));
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -575,10 +575,10 @@ public class ProdutoBackBean extends BackBean{
 		try{
 			grupos = getFachada().consultarTodosGruposProduto();
 		}catch(Exception e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return grupos;
 	}
@@ -610,10 +610,10 @@ public class ProdutoBackBean extends BackBean{
 		try{
 			tipos = getFachada().consultarTodosTipoProduto();
 		}catch(Exception e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return tipos;
 	}
@@ -645,10 +645,10 @@ public class ProdutoBackBean extends BackBean{
 		try{
 			unidades = getFachada().consultarTodasUnidades();
 		}catch(Exception e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return unidades;
 	}
@@ -685,10 +685,10 @@ public class ProdutoBackBean extends BackBean{
 		try{
 			impostos = getFachada().consultarTodosImpostos();
 		}catch(Exception e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return impostos;
 	}
@@ -714,10 +714,10 @@ public class ProdutoBackBean extends BackBean{
 		try {
 			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		}catch(Exception e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return lojas;
 	}
@@ -786,10 +786,10 @@ public class ProdutoBackBean extends BackBean{
 			fabricantes = (ArrayList<Fabricante>) getFachada().consultarTodosFabricantees();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return fabricantes;
 	}
@@ -817,10 +817,10 @@ public class ProdutoBackBean extends BackBean{
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		if (this.idFabricante== null) {
 			this.idFabricante = arrayFabricantes[0].getValue().toString();

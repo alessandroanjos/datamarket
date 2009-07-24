@@ -200,10 +200,10 @@ public class TransacaoBackBean extends BackBean {
 //			componentes = (ArrayList<Componente>)getFachada().consultarTodosComponentes();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return componentes;
 	}
@@ -221,10 +221,10 @@ public class TransacaoBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayComponentes;
 	}
@@ -245,10 +245,10 @@ public class TransacaoBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return formasTroco;
 	}
@@ -267,10 +267,10 @@ public class TransacaoBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayFormas;
 	}
@@ -296,10 +296,10 @@ public class TransacaoBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayFormas;
 	}
@@ -364,10 +364,10 @@ public class TransacaoBackBean extends BackBean {
 			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return lojas;
 	}
@@ -390,10 +390,10 @@ public class TransacaoBackBean extends BackBean {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayLojas;
 	}
@@ -456,10 +456,10 @@ public class TransacaoBackBean extends BackBean {
 			usuarios = (ArrayList<Usuario>)getFachada().consultarUsuario(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return usuarios;
 	}
@@ -488,10 +488,10 @@ public class TransacaoBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayUsuarios;
 	}
@@ -518,10 +518,10 @@ public class TransacaoBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayUsuarios;
 	}
@@ -902,10 +902,10 @@ public class TransacaoBackBean extends BackBean {
 				if (col == null || col.size() == 0){
 					setExisteRegistros(false);
 					this.setTransacoes(null);
-					FacesContext ctx = FacesContext.getCurrentInstance();
+					
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
+					getContextoApp().addMessage(null, msg);					
 				}else if (col != null){
 					if(col.size() == 1){
 						
@@ -932,16 +932,16 @@ public class TransacaoBackBean extends BackBean {
 		}catch(ObjectNotFoundException e){
 			setExisteRegistros(false);
 			this.setTransacoes(null);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			getContextoApp().addMessage(null, msg);			
 		}catch(Exception e){
 			setExisteRegistros(false);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -1547,10 +1547,10 @@ public class TransacaoBackBean extends BackBean {
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		this.setValorFormaPagamento(new BigDecimal("0.00"));
 		this.setAbaCorrente("tabMenuDiv2");
@@ -1838,36 +1838,36 @@ public class TransacaoBackBean extends BackBean {
 			
 			this.confirmaAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 
 			resetBB();
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Transação de Venda já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 //			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
@@ -1888,10 +1888,10 @@ public class TransacaoBackBean extends BackBean {
 					servletOutputStream.flush();
 					servletOutputStream.close();
 				}else{
-					FacesContext ctx = FacesContext.getCurrentInstance();
+					
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Não existe Recibo para imprimir!", "");
-					ctx.addMessage(null, msg);
+					getContextoApp().addMessage(null, msg);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -2003,10 +2003,10 @@ public class TransacaoBackBean extends BackBean {
 			
 			this.confirmaAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			
 			this.setTransacaoVenda(transVenda);
 			
@@ -2024,26 +2024,26 @@ public class TransacaoBackBean extends BackBean {
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Transação de Venda já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
@@ -2132,36 +2132,36 @@ public class TransacaoBackBean extends BackBean {
 			
 			this.confirmaAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 	
 			resetBB();
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Transação de Venda já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.desfazAutorizacaoCartaoProprio(listaAutorizacaoCartaoProprio);
 			this.setAbaCorrente("tabMenuDiv0");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
@@ -2298,10 +2298,10 @@ public class TransacaoBackBean extends BackBean {
 			autorizadoras = (ArrayList<Autorizadora>)getFachada().consultarTodasAutorizadoras();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return autorizadoras;
 	}
@@ -2322,10 +2322,10 @@ public class TransacaoBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayAutorizadoras;
 	}
@@ -2559,10 +2559,10 @@ public class TransacaoBackBean extends BackBean {
 			if(this.getCpfCnpjClienteCadastro() != null && !this.getCpfCnpjClienteCadastro().equals("")){
 				cpfCnpj = this.getCpfCnpjClienteCadastro().trim().replace(".", "").replace("-", "").replace("/", "");
 			}else{
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Para consultar o Cliente é necessário informar o CPF/CNPJ.", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 				this.setAbaCorrente("tabMenuDiv3");
 				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 				return "mesma";
@@ -2594,10 +2594,10 @@ public class TransacaoBackBean extends BackBean {
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Cliente não encontrado para o CPF/CNPJ informado.", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.setAbaCorrente("tabMenuDiv3");
 			this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			return "mesma";
@@ -2688,10 +2688,10 @@ public class TransacaoBackBean extends BackBean {
         	this.getComponentes();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 

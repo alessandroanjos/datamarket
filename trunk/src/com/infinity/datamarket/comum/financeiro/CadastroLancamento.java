@@ -2,17 +2,11 @@ package com.infinity.datamarket.comum.financeiro;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
 
-import com.infinity.datamarket.comum.conta.CadastroContaCorrente;
 import com.infinity.datamarket.comum.conta.CadastroMovimentacaoBancaria;
-import com.infinity.datamarket.comum.conta.ContaCorrente;
 import com.infinity.datamarket.comum.conta.MovimentacaoBancaria;
-import com.infinity.datamarket.comum.conta.RepositorioContaCorrente;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
-import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.ConcentradorControleId;

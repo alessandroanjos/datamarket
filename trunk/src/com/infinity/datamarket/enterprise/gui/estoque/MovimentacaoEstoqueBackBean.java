@@ -127,20 +127,20 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		try {
 			produto = Fachada.getInstancia().consultarProdutoPorPK(new Long(this.idProduto));
 		} catch (NumberFormatException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Produto inválido!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			e.printStackTrace();
 			return;
 		} catch (AppException e) {
 
 			// TODO Auto-generated catch block
 			if  (e instanceof ObjectNotFoundException) {
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Produto não encontrado!", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 				return;
 			}
 		}
@@ -155,10 +155,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			msgValidacao = validaProduto(produto,new BigDecimal(qtd));
 		}
 		if (!msgValidacao.equals("")) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					msgValidacao, "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			return;
 		}
 		
@@ -251,39 +251,39 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		}
 			
 		if (!msgValidacao.equals("")) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					msgValidacao, "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			return "mesma";
 		}
 	    
 		try {
 			getFachada().inserirMovimentacaoEstoque(movimentacaoEstoque);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			
 			this.setMovimentacaoProdutoEstoque(movimentacaoEstoque);
 			
 			resetBB();
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Entrada já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -357,30 +357,30 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			movimentacaoEstoque.setStatus(Constantes.STATUS_CANCELADO);
 
 			getFachada().cancelarMovimentacaoEstoque(movimentacaoEstoque);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			
 			this.setMovimentacaoProdutoEstoque(movimentacaoEstoque);
 			
 			resetBB();
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Entrada já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
     }
@@ -392,28 +392,28 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 //		
 //		try {
 //			getFachada().alterarEntradaProduto(entradaProduto);
-//			FacesContext ctx = FacesContext.getCurrentInstance();
+//			
 //			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 //					"Operação Realizada com Sucesso!", "");
-//			ctx.addMessage(null, msg);
+//			getContextoApp().addMessage(null, msg);
 //			
 //			resetBB();
 //		} catch (ObjectExistentException e) {
-//			FacesContext ctx = FacesContext.getCurrentInstance();
+//			
 //			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 //					"Entrada já Existente!", "");
-//			ctx.addMessage(null, msg);
+//			getContextoApp().addMessage(null, msg);
 //		} catch (AppException e) {
-//			FacesContext ctx = FacesContext.getCurrentInstance();
+//			
 //			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 //					e.getMessage(), "");
-//			ctx.addMessage(null, msg);
+//			getContextoApp().addMessage(null, msg);
 //		} catch (Exception e) {
 //			e.printStackTrace();
-//			FacesContext ctx = FacesContext.getCurrentInstance();
+//			
 //			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 //					"Erro de Sistema!", "");
-//			ctx.addMessage(null, msg);
+//			getContextoApp().addMessage(null, msg);
 //		}
 //		resetBB();
 //		return "mesma";
@@ -523,10 +523,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 					filter.addPropertyInterval("dataMovimentacao", dataFinal, IntervalObject.MENOR_IGUAL);
 //					return consultarFiltro(filter);
 //				} else {
-//					FacesContext ctx = FacesContext.getCurrentInstance();
+//					
 //					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 //							"Informe o período", "");
-//					ctx.addMessage(null, msg);
+//					getContextoApp().addMessage(null, msg);
 //					setExisteRegistros(false);
 //					this.setArrayProduto(null);
 //					return "mesma";
@@ -534,19 +534,19 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				return consultarFiltro(filter);
  			}
 		} catch (ObjectNotFoundException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			setExisteRegistros(false);
 			this.setArrayProduto(null);
 			return "mesma";
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			setExisteRegistros(false);
 			this.setArrayProduto(null);
 			return "mesma";
@@ -578,11 +578,11 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		}
 		if (col == null || col.size() == 0) {
 			
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(
 					FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			setExisteRegistros(false);
 			this.setArrayProduto(null);
 		} else if (col != null) {
@@ -655,10 +655,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				produtosEstoque = getFachada().consultarTodosProdutos();
 				if (produtosEstoque == null || produtosEstoque.size() == 0){
 					setProdutosEstoque(null);
-					FacesContext ctx = FacesContext.getCurrentInstance();
+					
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
+					getContextoApp().addMessage(null, msg);					
 				} else {
 					setExisteRegistros(true);
 					setProdutosEstoque(produtosEstoque);
@@ -673,16 +673,16 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			}
 		}catch(ObjectNotFoundException e){
 			setProdutosEstoque(null);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			getContextoApp().addMessage(null, msg);			
 		}catch(Exception e){
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 	private Set<Loja> carregarLojas() {
@@ -691,10 +691,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return lojas;
 	}
@@ -704,10 +704,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
         	this.getEstoquesSaida();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 
@@ -716,10 +716,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
         	this.getEstoquesEntrada();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 	
@@ -741,10 +741,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayLojas;
 	}
@@ -767,10 +767,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayLojas;
 	}
@@ -786,10 +786,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
         	estoquesEntrada = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return estoquesEntrada;
 	}
@@ -805,10 +805,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
         	estoquesSaida = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return estoquesSaida;
 	}
@@ -845,10 +845,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 
 		return arrayEstoques;
@@ -866,10 +866,10 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 
 		return arrayEstoques;
@@ -1243,17 +1243,17 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 				servletOutputStream.flush();
 				servletOutputStream.close();
 			}else{
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Não existe Recibo para imprimir!", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"Erro ao imprimir o Recibo!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 	

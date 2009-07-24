@@ -3,7 +3,6 @@ package com.infinity.datamarket.enterprise.gui.lote;
 import java.util.Collection;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 import com.infinity.datamarket.comum.lote.DadoLote;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -41,10 +40,10 @@ public class LoteBackBean extends BackBean{
 	
 	public String liberarLote(){
 		if (this.numeroLote == null || this.qtdRegistros == null || this.numeroLote.equals("") || this.qtdRegistros.equals("")){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Consulte a Próxima Liberação Antes de Liberar", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}else if (Integer.parseInt(getQtdRegistros()) > 0){
 			try {
 				Parametro param = new Parametro();
@@ -52,23 +51,23 @@ public class LoteBackBean extends BackBean{
 				int novoLote = Integer.parseInt(numeroLote )+1;
 				param.setValorInteiro(novoLote);
 				ConcentradorParametro.getInstancia().atualizarParametro(param);
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Operação Realizada com Sucesso!", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 				setNumeroLote(novoLote+"");
 				setQtdRegistros("0");
 			} catch (Exception e) {
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Erro de Sistema", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 			}
 		}else{
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Não ha registros a serem liberados", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -85,10 +84,10 @@ public class LoteBackBean extends BackBean{
 			
 			setQtdRegistros(col.size()+"");
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			setQtdRegistros("");
 			setNumeroLote("");
 		}
