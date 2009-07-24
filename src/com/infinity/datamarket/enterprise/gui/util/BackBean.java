@@ -6,6 +6,7 @@ import java.util.Properties;
 import java.util.TimeZone;
 
 import javax.faces.component.html.HtmlForm;
+import javax.faces.context.FacesContext;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.util.ConcentradorControleId;
@@ -36,6 +37,8 @@ public class BackBean {
 	TimeZone timeZone;
 	
 	int idInc = 0;
+	
+	public FacesContext contextoApp = null;
 	
 	public Fachada getFachada(){
 		return Fachada.getInstancia();
@@ -146,5 +149,9 @@ public class BackBean {
 	 */
 	public void setIdInc(int idInc) {
 		this.idInc = idInc;
+	}
+
+	public FacesContext getContextoApp() {
+		return FacesContext.getCurrentInstance();
 	}
 }

@@ -215,26 +215,26 @@ public class PerfilBackBean extends BackBean {
 			}
 		    if (getId()==null) perfil.setId(getIdInc(Perfil.class));
 			getFachada().inserirPerfil(perfil);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Perfil já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 //		resetBB();
 		return "mesma";
@@ -314,10 +314,10 @@ public class PerfilBackBean extends BackBean {
 				if (col == null || col.size() == 0){
 					setExisteRegistros(false);
 					this.setListaPerfis(null);
-					FacesContext ctx = FacesContext.getCurrentInstance();
+					
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
+					getContextoApp().addMessage(null, msg);					
 				}else if (col != null){
 					if(col.size() == 1){
 						Perfil perfil = (Perfil)col.iterator().next();
@@ -368,16 +368,16 @@ public class PerfilBackBean extends BackBean {
 			}
 		}catch(ObjectNotFoundException e){
 			this.setPerfis(null);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			getContextoApp().addMessage(null, msg);			
 			setExisteRegistros(false);
 		}catch(Exception e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			setExisteRegistros(false);
 		}
 //		this.setId(null);
@@ -462,17 +462,17 @@ public class PerfilBackBean extends BackBean {
 			}
 			
 			getFachada().alterarPerfil(perfil);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", e.getMessage());
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -536,17 +536,17 @@ public class PerfilBackBean extends BackBean {
 			perfil.setPerfilSuperior(null);
 			getFachada().alterarPerfil(perfil);	
 			getFachada().excluirPerfil(perfil);	
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", e.getMessage());
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		
 		return "mesma";
@@ -583,10 +583,10 @@ public class PerfilBackBean extends BackBean {
 			perfis = (ArrayList<Perfil>)getFachada().consultarTodosPerfil();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return perfis;
 	}
@@ -609,10 +609,10 @@ public class PerfilBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayPerfis;
 	}
@@ -624,10 +624,10 @@ public class PerfilBackBean extends BackBean {
 			operacoes = (ArrayList<MacroOperacao>)getFachada().consultarTodosMacroOperacao();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return operacoes;
 	}
@@ -644,10 +644,10 @@ public class PerfilBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayOperacoesAssociadas;
 	}
@@ -664,10 +664,10 @@ public class PerfilBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayFuncionalidadesAssociadas;
 	}
@@ -680,10 +680,10 @@ public class PerfilBackBean extends BackBean {
 			setarFuncionalidadesFilhas(funcionalidades.iterator());
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return funcionalidades;
 	}
@@ -703,10 +703,10 @@ public class PerfilBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 	

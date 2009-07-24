@@ -214,26 +214,26 @@ public class FormaRecebimentoBackBean extends BackBean {
 			}			
 			formaRecebimento.setPlanos(this.planos);
 			getFachada().inserirFormaRecebimento(formaRecebimento);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Forma de recebimento já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -279,11 +279,11 @@ public class FormaRecebimentoBackBean extends BackBean {
 				if (col == null || col.size() == 0) {
 					setExisteRegistros(false);
 					this.setFormasRecebimentos(col);
-					FacesContext ctx = FacesContext.getCurrentInstance();
+					
 					FacesMessage msg = new FacesMessage(
 							FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);
+					getContextoApp().addMessage(null, msg);
 					this.setExisteRegistros(false);
 				} else if (col != null) {
 					if (col.size() == 1) {
@@ -329,16 +329,16 @@ public class FormaRecebimentoBackBean extends BackBean {
 		} catch (ObjectNotFoundException e) {
 			this.setExisteRegistros(false);
 			this.setFormasRecebimentos(null);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
 			this.setExisteRegistros(false);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 //		this.setId(null);
 //		this.setDescricao(null);
@@ -381,23 +381,23 @@ public class FormaRecebimentoBackBean extends BackBean {
 			formaRecebimento.setPlanos(this.planos);
 
 			getFachada().alterarFormaRecebimento(formaRecebimento);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (AppException e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -425,17 +425,17 @@ public class FormaRecebimentoBackBean extends BackBean {
 			}	
 			formaRecebimento.setPlanos(this.planos);
 			getFachada().excluirFormaRecebimento(formaRecebimento);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 
 		return "mesma";
@@ -475,10 +475,10 @@ public class FormaRecebimentoBackBean extends BackBean {
 			formas = (ArrayList<FormaRecebimento>)getFachada().consultarTodosFormaRecebimento();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return formas;
 	}
@@ -501,10 +501,10 @@ public class FormaRecebimentoBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayFormas;
 	}

@@ -66,21 +66,21 @@ public class BancoBackBean extends BackBean {
 			banco.setDescricao(this.descricao);
 
 			getFachada().inserirBanco(banco);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Forma de recebimento já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -109,11 +109,11 @@ public class BancoBackBean extends BackBean {
 				if (col == null || col.size() == 0) {
 					setExisteRegistros(false);
 					this.setBancos(col);
-					FacesContext ctx = FacesContext.getCurrentInstance();
+					
 					FacesMessage msg = new FacesMessage(
 							FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);
+					getContextoApp().addMessage(null, msg);
 					this.setExisteRegistros(false);
 				} else if (col != null) {
 					if (col.size() == 1) {
@@ -140,16 +140,16 @@ public class BancoBackBean extends BackBean {
 		} catch (ObjectNotFoundException e) {
 			this.setExisteRegistros(false);
 			this.setBancos(null);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
 			this.setExisteRegistros(false);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 
 		return "mesma";
@@ -164,17 +164,17 @@ public class BancoBackBean extends BackBean {
 
 
 			getFachada().alterarBanco(banco);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -186,17 +186,17 @@ public class BancoBackBean extends BackBean {
 			banco.setId(new Long(this.id));
 			banco.setDescricao(this.descricao);
 			getFachada().excluirBanco(banco);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 
 		return "mesma";

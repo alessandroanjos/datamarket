@@ -23,7 +23,6 @@ import org.hibernate.collection.PersistentSet;
 
 import com.infinity.datamarket.comum.conta.ContaCorrente;
 import com.infinity.datamarket.comum.conta.MovimentacaoBancaria;
-import com.infinity.datamarket.comum.operacao.Operacao;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
@@ -77,10 +76,10 @@ public class MovimentacaoBancariaBackBean extends BackBean {
         	this.getContas();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 
@@ -90,10 +89,10 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return lojas;
 	}
@@ -116,10 +115,10 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayLojas;
 
@@ -178,26 +177,26 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 			movimentacaoBancaria.setForma(forma);
 			
 			getFachada().inserirMovimentacaoBancaria(movimentacaoBancaria);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Forma de recebimento já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);			
+			getContextoApp().addMessage(null, msg);			
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -223,10 +222,10 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 			
 			if (col == null || col.size() == 0){
 				setMovimentacaoBancarias(null);
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Nenhum Registro Encontrado", "");
-				ctx.addMessage(null, msg);	
+				getContextoApp().addMessage(null, msg);	
 				setExisteRegistros(false);
 			}else if (col != null){
 				setExisteRegistros(true);
@@ -285,22 +284,22 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 
 			movimentacaoBancaria.setForma(forma);
 			getFachada().alterarMovimentacaoBancaria(movimentacaoBancaria);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -327,17 +326,17 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 			movimentacaoBancaria.setForma(forma);
 			
 			getFachada().excluirMovimentacaoBancaria(movimentacaoBancaria);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 
 		return "mesma";
@@ -393,10 +392,10 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 //			contas = (ArrayList<ContaCorrente>)getFachada().consultarTodosContaCorrente();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return contas;
 	}
@@ -414,10 +413,10 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayContas;
 
@@ -431,10 +430,10 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 			formas = (ArrayList<FormaRecebimento>)getFachada().consultarTodosFormaRecebimento();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return formas;
 	}
@@ -452,10 +451,10 @@ public class MovimentacaoBancariaBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayFormas;
 

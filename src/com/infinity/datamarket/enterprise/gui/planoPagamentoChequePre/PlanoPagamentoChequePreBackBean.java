@@ -200,27 +200,27 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			((PlanoPagamentoAPrazo)planoPre).setParcelas(this.getParcelas());
 			
 			getFachada().inserirPlanoPagamento(planoPre);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.resetBB();
 			this.setPlanos(null);
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Forma de recebimento já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}		
 		return "mesma";
 	}
@@ -259,22 +259,22 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			
 			getFachada().alterarPlanoPagamento(planoPre);
 			
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.resetBB();
 			this.setPlanos(null);
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -292,25 +292,25 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 			
 			getFachada().excluirPlanoPagamento(planoPre);
 			
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			this.resetBB();
 			this.setPlanos(null);
 		} catch (Exception e) {
 			if (e.getCause().getCause() instanceof HibernateException) {
 				if (e.getCause().getCause().getCause() instanceof ConstraintViolationException) {
-					FacesContext ctx = FacesContext.getCurrentInstance();
+					
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Existe informções relcionadas com o plano que deseja excluir!", "");
-					ctx.addMessage(null, msg);
+					getContextoApp().addMessage(null, msg);
 				}
 			} else {
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Erro de Sistema", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 				e.printStackTrace();
 			}
 
@@ -362,10 +362,10 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 				if (col == null || col.size() == 0){
 					setExisteRegistros(false);
 					this.setPlanos(col);
-					FacesContext ctx = FacesContext.getCurrentInstance();
+					
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
+					getContextoApp().addMessage(null, msg);					
 				}else if (col != null){
 					if(col.size() == 1){
 						PlanoPagamentoAPrazo planoPagamento = (PlanoPagamentoAPrazo)getFachada().consultarPlanoPagamentoPorId(new Long(getId()));
@@ -411,16 +411,16 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 		}catch(ObjectNotFoundException e){
 			setExisteRegistros(false);
 			this.setPlanos(null);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			getContextoApp().addMessage(null, msg);			
 		}catch(Exception e){
 			setExisteRegistros(false);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 //		this.setId(null);
 //		this.setDescricao(null);
@@ -494,10 +494,10 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 				this.setPercentualRestante(this.getPercentualRestante().subtract(parcela.getPercentagemParcela()));
 			}		
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		this.setPercentagemParcela(null);
 		this.setQuantidadeDias(0);
@@ -524,10 +524,10 @@ public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
 				numParcela = 0;
 			}
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro ao tentar excluir a Parcela!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}

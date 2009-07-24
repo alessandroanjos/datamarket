@@ -116,18 +116,18 @@ public class AjusteEstoqueBackBean extends BackBean {
 				return consultarFiltro(filter);				
  			}
 		} catch (ObjectNotFoundException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			setAjusteEstoques(null);
 			setExisteRegistros(false);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		
 		return resetBB();
@@ -143,11 +143,11 @@ public class AjusteEstoqueBackBean extends BackBean {
 			e.printStackTrace();
 		}
 		if (col == null || col.size() == 0) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(
 					FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			setAjusteEstoques(null);
 			setExisteRegistros(false);
 		} else if (col != null) {
@@ -224,26 +224,26 @@ public class AjusteEstoqueBackBean extends BackBean {
 		try {
 			
 			if (this.idProduto.equals("")) {
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Informe o Produto!", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 				return "mesma";
 			}
 
 			if (this.quantidadeDepois==null) {
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Informe a quantidade depois!", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 				return "mesma";
 			}
 
 			if (recuperaQuantidadEstoque(idProduto).equals("mesma")) {
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Produto inválido!", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 				return "mesma";
 			}
 			
@@ -273,38 +273,38 @@ public class AjusteEstoqueBackBean extends BackBean {
 			ajusteEstoque.setProduto(produto);
 			
 			getFachada().inserirAjusteEstoque(ajusteEstoque);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Ajuste de estoque já existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			if  (e instanceof ObjectNotFoundException) {
 				this.setDescricao(null);
 				this.setQuantidadeAntes(null);
 				this.setQuantidadeDepois(null);
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Produto não encontrado!", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 			} else {
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						e.getMessage(), "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -336,10 +336,10 @@ public class AjusteEstoqueBackBean extends BackBean {
         	estoques = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return estoques;
 	}
@@ -349,10 +349,10 @@ public class AjusteEstoqueBackBean extends BackBean {
         	this.getEstoques();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 	
@@ -369,10 +369,10 @@ public class AjusteEstoqueBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 
 		return arrayEstoques;
@@ -592,15 +592,15 @@ public class AjusteEstoqueBackBean extends BackBean {
 					if  (e instanceof ObjectNotFoundException) {
 						this.setDescricao(null);
 						this.setQuantidadeAntes(null);
-						FacesContext ctx = FacesContext.getCurrentInstance();
+						
 						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 								"Produto não encontrado!", "");
-						ctx.addMessage(null, msg);
+						getContextoApp().addMessage(null, msg);
 					} else {
-						FacesContext ctx = FacesContext.getCurrentInstance();
+						
 						FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 								e.getMessage(), "");
-						ctx.addMessage(null, msg);
+						getContextoApp().addMessage(null, msg);
 					}	
 				}
 			}
@@ -687,10 +687,10 @@ public class AjusteEstoqueBackBean extends BackBean {
 			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return lojas;
 	}
@@ -711,10 +711,10 @@ public class AjusteEstoqueBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 
 		return arrayLojas;

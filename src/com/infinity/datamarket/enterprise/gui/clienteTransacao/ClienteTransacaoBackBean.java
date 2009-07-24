@@ -101,10 +101,10 @@ public class ClienteTransacaoBackBean extends BackBean {
 			if (col == null || col.size() == 0){
 				setExisteRegistros(false);
 				this.setClientesTransacao(null);
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Nenhum Registro Encontrado", "");
-				ctx.addMessage(null, msg);					
+				getContextoApp().addMessage(null, msg);					
 			}else if (col != null){
 				setExisteRegistros(true);
 				Iterator it = col.iterator();
@@ -119,16 +119,16 @@ public class ClienteTransacaoBackBean extends BackBean {
 		} catch (ObjectNotFoundException e){
 				setExisteRegistros(false);
 			this.setClientesTransacao(null);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			getContextoApp().addMessage(null, msg);			
 		} catch (Exception e){
 			setExisteRegistros(false);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 	

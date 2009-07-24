@@ -23,7 +23,6 @@ import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Usuario;
-import com.infinity.datamarket.comum.usuario.Vendedor;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
@@ -88,10 +87,10 @@ public class RelatorioBackBean extends BackBean {
 			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return lojas;
 	}
@@ -102,10 +101,10 @@ public class RelatorioBackBean extends BackBean {
 			usuarios = (ArrayList<Usuario>)getFachada().consultarTodosUsuario();			
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return usuarios;
 	}
@@ -127,10 +126,10 @@ public class RelatorioBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayOperadores;
 				
@@ -151,10 +150,10 @@ public class RelatorioBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayLojasAssociadas;
 	}
@@ -229,7 +228,7 @@ public class RelatorioBackBean extends BackBean {
 	}
 
 	public String executarRelatorioAnaliticoEntrada(){
-		FacesContext ctx = FacesContext.getCurrentInstance();
+		
 		try {
 			validarRelatorioAnaliticoEntrada();
 			
@@ -268,12 +267,12 @@ public class RelatorioBackBean extends BackBean {
 			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					mensagem, "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro ao executar o Relatório!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "";
 	}
@@ -301,7 +300,7 @@ public class RelatorioBackBean extends BackBean {
 			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			String mensagem = "";
 			if(e.getCause() != null && e.getCause().getMessage() != null){
 				mensagem = e.getCause().getMessage();
@@ -310,14 +309,14 @@ public class RelatorioBackBean extends BackBean {
 			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					mensagem, "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro ao executar o Relatório!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "";
 	}
@@ -342,7 +341,7 @@ public class RelatorioBackBean extends BackBean {
 			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			String mensagem = "";
 			if(e.getCause() != null && e.getCause().getMessage() != null){
 				mensagem = e.getCause().getMessage();
@@ -351,14 +350,14 @@ public class RelatorioBackBean extends BackBean {
 			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					mensagem, "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro ao executar o Relatório!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "";
 	}
@@ -383,7 +382,7 @@ public class RelatorioBackBean extends BackBean {
 			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			String mensagem = "";
 			if(e.getCause() != null && e.getCause().getMessage() != null){
 				mensagem = e.getCause().getMessage();
@@ -392,14 +391,14 @@ public class RelatorioBackBean extends BackBean {
 			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					mensagem, "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro ao executar o Relatório!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "";
 	}
@@ -437,7 +436,7 @@ public class RelatorioBackBean extends BackBean {
 			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			String mensagem = "";
 			if(e.getCause() != null && e.getCause().getMessage() != null){
 				mensagem = e.getCause().getMessage();
@@ -446,14 +445,14 @@ public class RelatorioBackBean extends BackBean {
 			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					mensagem, "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro ao executar o Relatório!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "";
 	}
@@ -480,7 +479,7 @@ public class RelatorioBackBean extends BackBean {
 			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			String mensagem = "";
 			if(e.getCause() != null && e.getCause().getMessage() != null){
 				mensagem = e.getCause().getMessage();
@@ -489,14 +488,14 @@ public class RelatorioBackBean extends BackBean {
 			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					mensagem, "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro ao executar o Relatório!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "";
 	}
@@ -522,7 +521,7 @@ public class RelatorioBackBean extends BackBean {
 			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			String mensagem = "";
 			if(e.getCause() != null && e.getCause().getMessage() != null){
 				mensagem = e.getCause().getMessage();
@@ -531,14 +530,14 @@ public class RelatorioBackBean extends BackBean {
 			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					mensagem, "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro ao executar o Relatório!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "";
 	}
@@ -565,7 +564,7 @@ public class RelatorioBackBean extends BackBean {
 			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			String mensagem = "";
 			if(e.getCause() != null && e.getCause().getMessage() != null){
 				mensagem = e.getCause().getMessage();
@@ -574,14 +573,14 @@ public class RelatorioBackBean extends BackBean {
 			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					mensagem, "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro ao executar o Relatório!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "";
 	}
@@ -608,7 +607,7 @@ public class RelatorioBackBean extends BackBean {
 			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			String mensagem = "";
 			if(e.getCause() != null && e.getCause().getMessage() != null){
 				mensagem = e.getCause().getMessage();
@@ -617,14 +616,14 @@ public class RelatorioBackBean extends BackBean {
 			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					mensagem, "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro ao executar o Relatório!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "";
 	}
@@ -649,7 +648,7 @@ public class RelatorioBackBean extends BackBean {
 			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			String mensagem = "";
 			if(e.getCause() != null && e.getCause().getMessage() != null){
 				mensagem = e.getCause().getMessage();
@@ -658,14 +657,14 @@ public class RelatorioBackBean extends BackBean {
 			}
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					mensagem, "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (IOException e) {			
 			e.printStackTrace();
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro ao executar o Relatório!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "";
 	}
@@ -799,10 +798,10 @@ public class RelatorioBackBean extends BackBean {
 			usuarios = (ArrayList<Usuario>)getFachada().consultarUsuariosPorFiltro(usuario, idLoja, true);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return usuarios;
 	}
@@ -825,10 +824,10 @@ public class RelatorioBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayVendedores;
 	}
@@ -842,10 +841,10 @@ public class RelatorioBackBean extends BackBean {
         	this.getVendedores();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 
@@ -863,10 +862,10 @@ public class RelatorioBackBean extends BackBean {
 			estoques = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return estoques;
 	}
@@ -876,10 +875,10 @@ public class RelatorioBackBean extends BackBean {
         	this.getEstoques();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 
@@ -903,10 +902,10 @@ public class RelatorioBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayEstoques;
 	}
@@ -963,10 +962,10 @@ public class RelatorioBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayLojasAssociadas;
 	}
@@ -986,10 +985,10 @@ public class RelatorioBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayLojasAssociadas;
 	}	
@@ -1006,10 +1005,10 @@ public class RelatorioBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 
 		return arrayEstoques;
@@ -1027,10 +1026,10 @@ public class RelatorioBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 
 		return arrayEstoques;
@@ -1047,10 +1046,10 @@ public class RelatorioBackBean extends BackBean {
         	estoquesEntrada = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return estoquesEntrada;
 	}
@@ -1066,10 +1065,10 @@ public class RelatorioBackBean extends BackBean {
         	estoquesSaida = (ArrayList<Estoque>)getFachada().consultarEstoque(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return estoquesSaida;
 	}
@@ -1079,10 +1078,10 @@ public class RelatorioBackBean extends BackBean {
         	this.getEstoquesSaida();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 	
@@ -1091,10 +1090,10 @@ public class RelatorioBackBean extends BackBean {
         	this.getEstoquesEntrada();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 }

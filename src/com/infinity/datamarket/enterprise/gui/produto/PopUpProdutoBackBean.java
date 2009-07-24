@@ -308,10 +308,10 @@ public class PopUpProdutoBackBean extends BackBean{
 				col = getFachada().consultarTodosProdutos();
 				if (col == null || col.size() == 0){
 					setProdutos(null);
-					FacesContext ctx = FacesContext.getCurrentInstance();
+					
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);	
+					getContextoApp().addMessage(null, msg);	
 					setExisteRegistros(false);
 				} else {
 					setExisteRegistros(true);
@@ -325,19 +325,19 @@ public class PopUpProdutoBackBean extends BackBean{
 			}
 		}catch(ObjectNotFoundException e){
 			setProdutos(null);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			setExisteRegistros(false);
 			
 		}catch(Exception e){
 			e.printStackTrace();
 			setProdutos(null);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			setExisteRegistros(false);
 			
 		}
@@ -398,10 +398,10 @@ public class PopUpProdutoBackBean extends BackBean{
 		try{
 			grupos = getFachada().consultarTodosGruposProduto();
 		}catch(Exception e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return grupos;
 	}
@@ -432,10 +432,10 @@ public class PopUpProdutoBackBean extends BackBean{
 		try{
 			tipos = getFachada().consultarTodosTipoProduto();
 		}catch(Exception e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return tipos;
 	}
@@ -466,10 +466,10 @@ public class PopUpProdutoBackBean extends BackBean{
 		try{
 			unidades = getFachada().consultarTodasUnidades();
 		}catch(Exception e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return unidades;
 	}
@@ -505,10 +505,10 @@ public class PopUpProdutoBackBean extends BackBean{
 		try{
 			impostos = getFachada().consultarTodosImpostos();
 		}catch(Exception e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return impostos;
 	}
@@ -534,10 +534,10 @@ public class PopUpProdutoBackBean extends BackBean{
 		try {
 			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		}catch(Exception e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return lojas;
 	}
@@ -589,10 +589,10 @@ public class PopUpProdutoBackBean extends BackBean{
 			fabricantes = (ArrayList<Fabricante>) getFachada().consultarTodosFabricantees();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return fabricantes;
 	}
@@ -620,10 +620,10 @@ public class PopUpProdutoBackBean extends BackBean{
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		if (this.idFabricante== null) {
 			this.idFabricante = arrayFabricantes[0].getValue().toString();

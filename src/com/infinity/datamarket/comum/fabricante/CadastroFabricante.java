@@ -5,7 +5,6 @@ package com.infinity.datamarket.comum.fabricante;
 
 import java.util.Collection;
 
-import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;

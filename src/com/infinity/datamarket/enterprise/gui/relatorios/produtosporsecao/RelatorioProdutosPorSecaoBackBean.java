@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -132,10 +131,10 @@ public class RelatorioProdutosPorSecaoBackBean extends BackBean {
 			grupos = (ArrayList<GrupoProduto>)getFachada().consultarTodosGruposProduto();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return grupos;
 	}
@@ -152,10 +151,10 @@ public class RelatorioProdutosPorSecaoBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayGruposAssociados;
 	}
@@ -176,10 +175,10 @@ public class RelatorioProdutosPorSecaoBackBean extends BackBean {
 			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return lojas;
 	}
@@ -196,10 +195,10 @@ public class RelatorioProdutosPorSecaoBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayLojasAssociadas;
 	}

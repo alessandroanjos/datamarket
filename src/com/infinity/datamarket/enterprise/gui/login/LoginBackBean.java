@@ -6,7 +6,6 @@ import java.util.Iterator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlForm;
-import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.custom.navmenu.NavigationMenuItem;
 import org.hibernate.JDBCException;
@@ -42,10 +41,10 @@ public class LoginBackBean extends BackBean{
 			
 			Usuario usu = getFachada().loginUsuario(new Long(id), senha);
 			if (usu == null){
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Usuário e/ou Senha inválido(s).","");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 				resetBB();
 				return "erro";
 			}
@@ -53,14 +52,14 @@ public class LoginBackBean extends BackBean{
 			setNavItems(usu);
 			instancia = this;
 		}catch(ObjectNotFoundException e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Usuário e/ou Senha inválido(s).","");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 			return "erro";
 		}catch(AppException e){
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			String msgErro = e.getMessage();
 			if(e.getCause() instanceof JDBCException){
 				msgErro = "Erro de comunicação com o Banco de Dados.";
@@ -68,7 +67,7 @@ public class LoginBackBean extends BackBean{
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					msgErro,"");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			resetBB();
 			return "erro";
 		}

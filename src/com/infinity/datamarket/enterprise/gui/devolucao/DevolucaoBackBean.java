@@ -26,7 +26,6 @@ import com.infinity.datamarket.comum.operacao.ConstantesEventoOperacao;
 import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoPK;
-import com.infinity.datamarket.comum.operacao.Operacao;
 import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
 import com.infinity.datamarket.comum.operacao.OperacaoPK;
 import com.infinity.datamarket.comum.operacao.ProdutoOperacaoItemRegistrado;
@@ -97,10 +96,10 @@ public class DevolucaoBackBean extends BackBean {
 			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return lojas;
 	}
@@ -120,10 +119,10 @@ public class DevolucaoBackBean extends BackBean {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return arrayLojas;
 	}
@@ -430,10 +429,10 @@ public class DevolucaoBackBean extends BackBean {
 				if (col == null || col.size() == 0){
 					setExisteRegistros(false);
 					this.setDevolucoes(null);
-					FacesContext ctx = FacesContext.getCurrentInstance();
+					
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
-					ctx.addMessage(null, msg);					
+					getContextoApp().addMessage(null, msg);					
 				}else if (col != null){
 					if(col.size() == 1){
 						
@@ -470,16 +469,16 @@ public class DevolucaoBackBean extends BackBean {
 		}catch(ObjectNotFoundException e){
 			setExisteRegistros(false);
 			this.setDevolucoes(null);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Nenhum Registro Encontrado", "");
-			ctx.addMessage(null, msg);			
+			getContextoApp().addMessage(null, msg);			
 		}catch(Exception e){
 			setExisteRegistros(false);
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "mesma";
 	}
@@ -603,10 +602,10 @@ public class DevolucaoBackBean extends BackBean {
 			this.setQuantidade(new BigDecimal("1000").movePointLeft(3));
 			this.setValorItem(new BigDecimal("000").movePointLeft(2));
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 	}
 	
@@ -682,23 +681,23 @@ public class DevolucaoBackBean extends BackBean {
 			this.setIdOperacaoDevolucao(String.valueOf(devolucao.getPk().getId()));
 			resetBB();
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Devolução já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			return "mesma";
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			return "mesma";
 		} catch (Exception e) {
 			e.printStackTrace();
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			return "mesma";
 		}		
 		return "proximaOk";
@@ -717,22 +716,22 @@ public class DevolucaoBackBean extends BackBean {
 //			this.setIdOperacaoDevolucao(String.valueOf(devolucao.getPk().getId()));
 			resetBB();
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Devolução já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			return "mesma";
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			return "mesma";
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 			return "mesma";
 		}
 		return "proximaOk";
@@ -751,20 +750,20 @@ public class DevolucaoBackBean extends BackBean {
 			
 			resetBB();
 		} catch (ObjectExistentException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Devolução já Existente!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (AppException e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
-			FacesContext ctx = FacesContext.getCurrentInstance();
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
-			ctx.addMessage(null, msg);
+			getContextoApp().addMessage(null, msg);
 		}
 		return "proximaOk";
 	}
@@ -783,10 +782,10 @@ public class DevolucaoBackBean extends BackBean {
 				servletOutputStream.flush();
 				servletOutputStream.close();
 			}else{
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Não existe Recibo para imprimir!", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -836,10 +835,10 @@ public class DevolucaoBackBean extends BackBean {
 					this.setClienteTransacao(clienteTransacao);
 				}
 			} catch (ObjectNotFoundException e){
-				FacesContext ctx = FacesContext.getCurrentInstance();
+				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Cliente com o CPF/CNPF informado Inexistente no Cadastro!", "");
-				ctx.addMessage(null, msg);
+				getContextoApp().addMessage(null, msg);
 				this.cpfCnpj = (String)params.get("cpfCnpj");
 			} catch (Exception e) {
 				e.printStackTrace();			
