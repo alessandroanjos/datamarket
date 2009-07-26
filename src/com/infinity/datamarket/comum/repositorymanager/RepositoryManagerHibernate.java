@@ -191,145 +191,29 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         }
         return (Serializable)obj;
     }
+    
+    public Object filterUniqueResult(IPropertyFilter _filter) throws AppException{
+	    Object obj = null;
+    	try{    
+	    	obj = getCriteria(_filter, true).uniqueResult();	    	
+	    }
+	    catch(Exception ex)
+	    {
+	        ex.printStackTrace();
+	        throw new RepositoryControlerException("Creating the Filter", ex);
+	    }
+	    if (obj == null){
+	    	throw new com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException("Object not found");
+	    }
+	    return obj;
+    }
 
     public List filter(IPropertyFilter _filter, boolean _precise)
         throws AppException
     {
-        List list = null;
-        Map attributes = _filter.getProperties();
-        Collection nullAttributes = _filter.getPropertiesNull();
-        Map intervalAttributes = _filter.getPropertiesInterval();
-        Session session = null;
-        try
-        {
-            session = RepositoryManagerHibernateUtil.currentSession();
-            Criteria criteria = session.createCriteria(_filter.getTheClass());
-            if(attributes != null)
-            {
-                Set keys = attributes.keySet();
-                Iterator it = keys.iterator();
-                Map criterias = new Hashtable();
-                do
-                {
-                    if(!it.hasNext())
-                    {
-                        break;
-                    }
-                    String attributeName = (String)it.next();
-                    Object attributeValue = attributes.get(attributeName);
-                    if(!attributeName.startsWith("pk") && attributeName.indexOf(".") != -1 && (!attributeName.endsWith(".id") || attributeName.indexOf(".") != attributeName.lastIndexOf(".")))
-                    {
-                        criterias = joinTables(criterias, criteria, attributeName, attributeValue, _filter.isIgnoreCase(), _precise);
-                    } else
-                    if((attributeValue instanceof String))
-                    {
-                        if(_precise)
-                        {
-                            if(_filter.isIgnoreCase())
-                            {
-                                criteria.add(Expression.ilike(attributeName, attributeValue));
-                            } else
-                            {
-                                criteria.add(Expression.like(attributeName, attributeValue));
-                            }
-                        } else
-                        if(_filter.isIgnoreCase())
-                        {
-                            attributeValue = "%" + attributeValue + "%";
-                            criteria.add(Expression.ilike(attributeName, attributeValue));
-                        } else
-                        {
-                            attributeValue = "%" + attributeValue + "%";
-                            criteria.add(Expression.like(attributeName, attributeValue));
-                        }
-                    } else
-                    if((attributeValue instanceof Number) && ((Number)attributeValue).shortValue() != 0)
-                    {
-                        criteria.add(Expression.eq(attributeName, attributeValue));
-                    } else
-                    if(attributeValue instanceof Date)
-                    {
-                        criteria.add(Expression.eq(attributeName, attributeValue));
-                    } else
-                    if(attributeValue instanceof Boolean)
-                    {
-                        criteria.add(Expression.eq(attributeName, attributeValue));
-                    } else
-//                    if(attributeValue instanceof Boolean)
-                    {
-                        criteria.add(Expression.eq(attributeName, attributeValue));
-                    }
-                } while(true);
-            }
-            if(nullAttributes != null)
-            {
-                String attributeName;
-                for(Iterator itNull = nullAttributes.iterator(); itNull.hasNext(); criteria.add(Expression.isNull(attributeName)))
-                {
-                    attributeName = (String)itNull.next();
-                }
-
-            }
-            if(intervalAttributes != null)
-            {
-                Set intervals = intervalAttributes.keySet();
-                Iterator itIntervals = intervals.iterator();
-                do
-                {
-                    if(!itIntervals.hasNext())
-                    {
-                        break;
-                    }
-                    PropertyFilter.IntervalObject interval = (PropertyFilter.IntervalObject)itIntervals.next();
-                    Object attributeValue = intervalAttributes.get(interval);
-                    if(interval.getComparationType() == 3)
-                    {
-                        criteria.add(Expression.gt(interval.getPropertyName(), attributeValue));
-                    } else
-                    if(interval.getComparationType() == 4)
-                    {
-                        criteria.add(Expression.ge(interval.getPropertyName(), attributeValue));
-                    } else
-                    if(interval.getComparationType() == 1)
-                    {
-                        criteria.add(Expression.lt(interval.getPropertyName(), attributeValue));
-                    } else
-                    if(interval.getComparationType() == 2)
-                    {
-                        criteria.add(Expression.le(interval.getPropertyName(), attributeValue));
-                    }
-                    if(interval.getComparationType() == 5)
-                    {
-                        criteria.add(Expression.isNotNull(interval.getPropertyName()));
-                       
-                    }
-
-                } while(true);
-            }
-            Map orders = _filter.getOrderBy();
-            if(orders != null)
-            {
-                Set keys = orders.keySet();
-                Iterator it = keys.iterator();
-                do
-                {
-                    if(!it.hasNext())
-                    {
-                        break;
-                    }
-                    String attribute = (String)it.next();
-                    Object order = _filter.getOrderBy().get(attribute);
-                    if(order.equals("ASC"))
-                    {
-                        criteria.addOrder(Order.asc(attribute));
-                    } else
-                    if(order.equals("DESC"))
-                    {
-                        criteria.addOrder(Order.desc(attribute));
-                    }
-                } while(true);
-            }
-            list = criteria.list();
+        List list = null;        
+        try{
+            list = getCriteria(_filter, _precise).list();
         }
         catch(Exception ex)
         {
@@ -397,4 +281,138 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         }
         return criterias;
     }
+    
+    private Criteria getCriteria(IPropertyFilter _filter, boolean _precise){
+    	Map attributes = _filter.getProperties();
+        Collection nullAttributes = _filter.getPropertiesNull();
+        Map intervalAttributes = _filter.getPropertiesInterval();
+    	Session session = RepositoryManagerHibernateUtil.currentSession();
+        Criteria criteria = session.createCriteria(_filter.getTheClass());
+        if(attributes != null)
+        {
+            Set keys = attributes.keySet();
+            Iterator it = keys.iterator();
+            Map criterias = new Hashtable();
+            do
+            {
+                if(!it.hasNext())
+                {
+                    break;
+                }
+                String attributeName = (String)it.next();
+                Object attributeValue = attributes.get(attributeName);
+                if(!attributeName.startsWith("pk") && attributeName.indexOf(".") != -1 && (!attributeName.endsWith(".id") || attributeName.indexOf(".") != attributeName.lastIndexOf(".")))
+                {
+                    criterias = joinTables(criterias, criteria, attributeName, attributeValue, _filter.isIgnoreCase(), _precise);
+                } else
+                if((attributeValue instanceof String))
+                {
+                    if(_precise)
+                    {
+                        if(_filter.isIgnoreCase())
+                        {
+                            criteria.add(Expression.ilike(attributeName, attributeValue));
+                        } else
+                        {
+                            criteria.add(Expression.like(attributeName, attributeValue));
+                        }
+                    } else
+                    if(_filter.isIgnoreCase())
+                    {
+                        attributeValue = "%" + attributeValue + "%";
+                        criteria.add(Expression.ilike(attributeName, attributeValue));
+                    } else
+                    {
+                        attributeValue = "%" + attributeValue + "%";
+                        criteria.add(Expression.like(attributeName, attributeValue));
+                    }
+                } else
+                if((attributeValue instanceof Number) && ((Number)attributeValue).shortValue() != 0)
+                {
+                    criteria.add(Expression.eq(attributeName, attributeValue));
+                } else
+                if(attributeValue instanceof Date)
+                {
+                    criteria.add(Expression.eq(attributeName, attributeValue));
+                } else
+                if(attributeValue instanceof Boolean)
+                {
+                    criteria.add(Expression.eq(attributeName, attributeValue));
+                } else
+//                if(attributeValue instanceof Boolean)
+                {
+                    criteria.add(Expression.eq(attributeName, attributeValue));
+                }
+            } while(true);
+        }
+        if(nullAttributes != null)
+        {
+            String attributeName;
+            for(Iterator itNull = nullAttributes.iterator(); itNull.hasNext(); criteria.add(Expression.isNull(attributeName)))
+            {
+                attributeName = (String)itNull.next();
+            }
+
+        }
+        if(intervalAttributes != null)
+        {
+            Set intervals = intervalAttributes.keySet();
+            Iterator itIntervals = intervals.iterator();
+            do
+            {
+                if(!itIntervals.hasNext())
+                {
+                    break;
+                }
+                PropertyFilter.IntervalObject interval = (PropertyFilter.IntervalObject)itIntervals.next();
+                Object attributeValue = intervalAttributes.get(interval);
+                if(interval.getComparationType() == 3)
+                {
+                    criteria.add(Expression.gt(interval.getPropertyName(), attributeValue));
+                } else
+                if(interval.getComparationType() == 4)
+                {
+                    criteria.add(Expression.ge(interval.getPropertyName(), attributeValue));
+                } else
+                if(interval.getComparationType() == 1)
+                {
+                    criteria.add(Expression.lt(interval.getPropertyName(), attributeValue));
+                } else
+                if(interval.getComparationType() == 2)
+                {
+                    criteria.add(Expression.le(interval.getPropertyName(), attributeValue));
+                }
+                if(interval.getComparationType() == 5)
+                {
+                    criteria.add(Expression.isNotNull(interval.getPropertyName()));
+                   
+                }
+
+            } while(true);
+        }
+        Map orders = _filter.getOrderBy();
+        if(orders != null)
+        {
+            Set keys = orders.keySet();
+            Iterator it = keys.iterator();
+            do
+            {
+                if(!it.hasNext())
+                {
+                    break;
+                }
+                String attribute = (String)it.next();
+                Object order = _filter.getOrderBy().get(attribute);
+                if(order.equals("ASC"))
+                {
+                    criteria.addOrder(Order.asc(attribute));
+                } else
+                if(order.equals("DESC"))
+                {
+                    criteria.addOrder(Order.desc(attribute));
+                }
+            } while(true);
+        }
+        return criteria;
+    }    
 }

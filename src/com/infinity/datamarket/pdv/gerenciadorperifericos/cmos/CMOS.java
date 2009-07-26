@@ -108,12 +108,18 @@ public class CMOS implements Serializable{
 
 	public void gravar(String chave, Object valor){
 		hash.put(chave, valor);
-		gravaCmos(hash);
+		Thread t = new Thread(){
+			public void run(){
+				gravaCmos(hash);
+			}
+		};
+		t.start();
+		
 	}
 
 	private synchronized void gravaCmos(Object obj){
 		try{
-			synchronized (cmos) {
+			synchronized (hash) {
 				ByteArrayOutputStream bout = new ByteArrayOutputStream();
 				ObjectOutputStream out = new ObjectOutputStream(bout);				
 				out.writeObject(obj);
