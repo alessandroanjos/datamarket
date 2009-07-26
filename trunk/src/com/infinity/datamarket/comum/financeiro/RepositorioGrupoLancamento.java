@@ -3,6 +3,7 @@ package com.infinity.datamarket.comum.financeiro;
 import java.util.Collection;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Repositorio;
 
@@ -18,14 +19,22 @@ public class RepositorioGrupoLancamento extends Repositorio implements IReposito
 	}
 
 	public GrupoLancamento consultarPorId(Long id) throws AppException{
-		return (GrupoLancamento) findById(CLASSE, id);
-	}
+		PropertyFilter filter = new PropertyFilter();
+		filter.setTheClass(CLASSE);
+		filter.addProperty("tipoRegistro", GrupoLancamento.REGISTRO_USUARIO);
+		filter.addProperty("id", id);
+		return (GrupoLancamento) filterUniqueResult(filter);
+	}	
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
+		filter.addProperty("tipoRegistro", GrupoLancamento.REGISTRO_USUARIO);		
 		return filter(filter, false);
 	}
 	public Collection consultarTodos() throws AppException{
-		return findAll(CLASSE);
+		PropertyFilter filter = new PropertyFilter();
+		filter.setTheClass(CLASSE);
+		filter.addProperty("tipoRegistro", GrupoLancamento.REGISTRO_USUARIO);		
+		return filter(filter,false);
 	}
 	public void inserir(GrupoLancamento grupo) throws AppException{
 		insert(grupo);
