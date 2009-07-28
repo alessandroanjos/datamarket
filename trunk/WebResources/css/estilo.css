@@ -1,0 +1,109 @@
+* {
+	font: 11px Trebuchet MS, Verdana, Tahoma, Arial, Sans-Serif;
+	text-align: left;
+	background-color: transparent;
+	padding: 0;
+	margin: 0;
+}
+.overlay {
+	background: #000;
+}
+div.jqmAlert,
+div.jqmConfirm {
+	display: none;
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	width: 480px;
+	margin-left: -240px;
+}
+div.jqmAlertWindow,
+div.jqmConfirmWindow {
+	height:auto;
+	width: auto;
+	margin: auto;
+	max-width:480px;
+	padding: 0 10px 10px;
+	background:#DCDCDC;
+	border:3px solid #E6E6FA;
+	text-align: center;
+}
+.jqmAlertTitle,
+.jqmConfirmTitle {
+	margin:5px 2px;
+	height:10px;
+	color:black;
+	background:#DCDCDC;
+}
+.jqmAlertTitle h1,
+.jqmConfirmTitle h1 {
+	font-size: 12px;
+	font-weight: bold;
+}
+div.jqmAlertContent,
+div.jqmConfirmContent {
+	padding:5px 20px 5px;
+	margin:10px 5px 5px 5px;
+	border:1px dotted #111;
+	letter-spacing:0px;
+	background:#FFFAF0;
+}
+div.jqmAlertContent span,
+div.jqmConfirmContent span {
+	color:#708090;
+	font-size:16px;
+	vertical-align: 25px;
+	padding: 0 0 0 10px;
+	font-weight: bold;
+}
+div.jqmAlert .jqmClose em,
+div.jqmConfirm .jqmClose em {
+	display:none;
+}
+div.jqmAlert .jqmClose,
+div.jqmConfirm .jqmClose {
+  width:20px;
+  height:20px;
+  display:block;
+  float:right;
+  clear:right;
+  background:transparent url(sair.gif) 0 0 no-repeat;
+}
+
+div.jqmAlert input,
+div.jqmConfirm input {
+	text-align: center;
+	width: auto;
+	font-size: 13px;
+	background-color: #6E7B8B;
+	color: #191970;
+	font-weight: bold;
+	border-width: 1px;
+	margin-top: 5px;
+	padding: 4px 10px 4px 10px;
+}
+
+* html div.jqmAlert,
+* html div.jqmConfirm {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+
+.clearfix:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+.clearfix {
+	display: block;
+}
