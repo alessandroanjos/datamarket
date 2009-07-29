@@ -32,11 +32,11 @@
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
 				<strong>
-					<h:outputText value="#{msgs.consultarPlanoPagamentoChequePre}"></h:outputText>
+					<h:outputText value="#{msgs.consultarPlanoPagamentoAPrazo}"></h:outputText>
 				</strong>
 			</div>				
 		</div>	
-		<h:form id="frmConsultarPlanoPagamentoChequePre" binding="#{planoPagamentoChequePreBB.init}">
+		<h:form id="frmConsultarPlanoPagamentoChequePre" binding="#{planoPagamentoAPrazoBB.init}">
 					
 				<div id="content">
 				
@@ -50,7 +50,7 @@
 											<h:inputText styleClass="field text ativo" id="id" maxlength="4" 
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);"
-												value="#{planoPagamentoChequePreBB.id}" size="4" required="false">
+												value="#{planoPagamentoAPrazoBB.id}" size="4" required="false">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
 											</h:inputText>
@@ -59,7 +59,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Descrição"></h:outputLabel>
 											<h:inputText styleClass="field text" id="descricao" maxlength="50" size="50"
-												value="#{planoPagamentoChequePreBB.descricao}">
+												value="#{planoPagamentoAPrazoBB.descricao}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
 											
@@ -68,7 +68,7 @@
 								</ul>
 							</fieldset>	
 							<div class="listagem">
-								<t:dataTable value="#{planoPagamentoChequePreBB.planos}"
+								<t:dataTable value="#{planoPagamentoAPrazoBB.planos}"
 									var="planosChequePre" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
@@ -80,7 +80,7 @@
 										<f:facet name="header">
 											<h:outputText value="Descrição" />
 										</f:facet>
-										<h:commandLink value="#{planosChequePre.descricao}" action="#{planoPagamentoChequePreBB.consultar}">
+										<h:commandLink value="#{planosChequePre.descricao}" action="#{planoPagamentoAPrazoBB.consultar}">
 											<f:param name="id" value="#{planosChequePre.id}"/>						
 										</h:commandLink>
 									</h:column>
@@ -88,15 +88,15 @@
 								<ul>
 									<li class="normal">
 										<div>
-											<h:messages rendered="#{not planoPagamentoChequePreBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+											<h:messages rendered="#{not planoPagamentoAPrazoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
 										</div>
 									</li>
 								</ul>															
 							</div>
 							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" action="#{planoPagamentoChequePreBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{planoPagamentoChequePreBB.consultar}" value="Consultar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" action="#{planoPagamentoAPrazoBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{planoPagamentoAPrazoBB.consultar}" value="Consultar"></h:commandButton>
 								</li>						
 							</ul>
 						</div>
