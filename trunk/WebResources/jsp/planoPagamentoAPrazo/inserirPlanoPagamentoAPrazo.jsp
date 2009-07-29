@@ -64,7 +64,7 @@
 				<div id="topoGeral">
 					<div id="tituloPaginaGeral">
 						<strong> <h:outputText
-								value="#{msgs.inserirPlanoPagamentoChequePre}"></h:outputText> </strong>
+								value="#{msgs.inserirPlanoPagamentoAPrazo}"></h:outputText> </strong>
 					</div>
 				</div>
 				<div id="content">
@@ -84,10 +84,10 @@
 					</div>
 					<div id="primarioContentContainerInternas">
 						<h:form id="frmInserirPlanoPagamentoChequePre"
-							binding="#{planoPagamentoChequePreBB.init}"
+							binding="#{planoPagamentoAPrazoBB.init}"
 							onsubmit="javascript:getId('frmInserirPlanoPagamentoChequePre:abaCorrente').value = strAbaCorrente;">
 							<h:inputHidden id="abaCorrente"
-								value="#{planoPagamentoChequePreBB.abaCorrente}"></h:inputHidden>
+								value="#{planoPagamentoAPrazoBB.abaCorrente}"></h:inputHidden>
 							<div id="tabDiv0">
 							<ul>
 							<li class="normal">
@@ -106,7 +106,7 @@
 												maxlength="2" 
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);"
-												value="#{planoPagamentoChequePreBB.id}" size="3"
+												value="#{planoPagamentoAPrazoBB.id}" size="3"
 												required="false">
 												<f:validateLength maximum="2" />
 												<f:validator validatorId="LongValidator" />
@@ -117,7 +117,7 @@
 											<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="descricao"
 												maxlength="50" size="50" required="false"
-												value="#{planoPagamentoChequePreBB.descricao}">
+												value="#{planoPagamentoAPrazoBB.descricao}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
 											
@@ -128,7 +128,7 @@
 											<h:outputLabel styleClass="desc" value="Valor Mínimo*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="valorMinimo"
 												maxlength="10" size="10"
-												value="#{planoPagamentoChequePreBB.valorMinimo}" dir="rtl"
+												value="#{planoPagamentoAPrazoBB.valorMinimo}" dir="rtl"
 												required="false" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="10" />
@@ -141,7 +141,7 @@
 											<h:outputLabel styleClass="desc" value="Valor Máximo*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="valorMaximo"
 												maxlength="10" size="10"
-												value="#{planoPagamentoChequePreBB.valorMaximo}" dir="rtl"
+												value="#{planoPagamentoAPrazoBB.valorMaximo}" dir="rtl"
 												required="false" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="10" />
@@ -156,7 +156,7 @@
 											<h:outputLabel styleClass="desc" value="Perc. Desconto*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="percentualDesconto"
 												maxlength="5" size="5"
-												value="#{planoPagamentoChequePreBB.percDesconto}" dir="rtl"
+												value="#{planoPagamentoAPrazoBB.percDesconto}" dir="rtl"
 												required="false" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="5" />
@@ -169,7 +169,7 @@
 											<h:outputLabel styleClass="desc" value="Perc. Acréscimo*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="percentualAcrescimo"
 												maxlength="5" size="5"
-												value="#{planoPagamentoChequePreBB.percAcrescimo}" dir="rtl"
+												value="#{planoPagamentoAPrazoBB.percAcrescimo}" dir="rtl"
 												required="false" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="5" />
@@ -184,7 +184,7 @@
 											<h:outputLabel styleClass="desc" value="Inicio Validade*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataInicioValidade"
 												maxlength="10" size="10" required="false"
-												value="#{planoPagamentoChequePreBB.dataInicioValidade}"
+												value="#{planoPagamentoAPrazoBB.dataInicioValidade}"
 												onkeypress="return MascaraData(this,event);"
 												onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 
@@ -195,7 +195,7 @@
 											<h:outputLabel styleClass="desc" value="Final Validade*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataFimValidade"
 												maxlength="10" size="10" required="false"
-												value="#{planoPagamentoChequePreBB.dataFimValidade}"
+												value="#{planoPagamentoAPrazoBB.dataFimValidade}"
 												onkeypress="return MascaraData(this,event);"
 												onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 											</h:inputText>
@@ -206,10 +206,10 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Situação*"></h:outputLabel>
 											<h:selectOneRadio styleClass="field select" id="status"
-												value="#{planoPagamentoChequePreBB.status}"
+												value="#{planoPagamentoAPrazoBB.status}"
 												layout="lineDirection">
 												<f:selectItems id="situacao"
-													value="#{planoPagamentoChequePreBB.situacaoItens}" />
+													value="#{planoPagamentoAPrazoBB.situacaoItens}" />
 											</h:selectOneRadio>
 											
 										</div>
@@ -223,7 +223,7 @@
 											<h:outputLabel styleClass="desc" value="Perc. Entrada*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="percentualEntrada"
 												maxlength="5" size="5"
-												value="#{planoPagamentoChequePreBB.percentagemEntrada}"
+												value="#{planoPagamentoAPrazoBB.percentagemEntrada}"
 												dir="rtl" required="false"
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="5" />
@@ -244,10 +244,10 @@
 												<h:outputLabel styleClass="desc" value="Data Programada*"></h:outputLabel>
 												<h:selectOneRadio onclick="mostraCampos(this.value);" styleClass="field select tipopessoa"
 													id="dataProgramada"
-													value="#{planoPagamentoChequePreBB.dataProgramada}"
+													value="#{planoPagamentoAPrazoBB.dataProgramada}"
 													layout="lineDirection" >
 													<f:selectItems  id="radioDataProgramada"
-														value="#{planoPagamentoChequePreBB.dataProgramadaSimNao}" />
+														value="#{planoPagamentoAPrazoBB.dataProgramadaSimNao}" />
 												</h:selectOneRadio>
 												
 											</div>
@@ -255,7 +255,7 @@
 												<h:outputLabel styleClass="desc" value="Percentual*"></h:outputLabel>
 												<h:inputText styleClass="field text" id="percentualParcela"
 													maxlength="6" size="6"
-													value="#{planoPagamentoChequePreBB.percentagemParcela}"
+													value="#{planoPagamentoAPrazoBB.percentagemParcela}"
 													dir="rtl" required="false" 
 													onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 													<f:validateLength maximum="6" />
@@ -268,7 +268,7 @@
 												<h:outputLabel styleClass="desc" value="Qtd. de Dias*"></h:outputLabel>
 												<h:inputText styleClass="field text ativo"
 													id="quantidadeDiasParcela" dir="rtl" maxlength="3"
-													value="#{planoPagamentoChequePreBB.quantidadeDias}"
+													value="#{planoPagamentoAPrazoBB.quantidadeDias}"
 													size="3" rendered="true"
 													onfocus="this.select();" onclick="this.select();"
 													onkeypress="return SoNumero(event);">
@@ -279,13 +279,13 @@
 											</div>
 											<div>
 												<h:commandButton image="/images/adicionar.png" alt="Inserir Parcela" styleClass="btTxt" id="botaoInserirParcela"
-													action="#{planoPagamentoChequePreBB.inserirParcela}"
+													action="#{planoPagamentoAPrazoBB.inserirParcela}"
 													value="Inserir"></h:commandButton>
 											</div>
 										</li>
 									</ul>
 									<div class="listagemSimples">
-										<t:dataTable value="#{planoPagamentoChequePreBB.parcelas}"
+										<t:dataTable value="#{planoPagamentoAPrazoBB.parcelas}"
 											var="parcela" rowClasses="rowA,rowB" width="95%"
 											renderedIfEmpty="false">
 											<h:column>
@@ -312,7 +312,7 @@
 												</f:facet>
 										<
 										<h:commandLink value="Excluir"
-													action="#{planoPagamentoChequePreBB.excluirParcela}">
+													action="#{planoPagamentoAPrazoBB.excluirParcela}">
 													<f:param name="idExcluir"
 														value="#{parcela.pk.numeroEntrada}" />
 												</h:commandLink>
@@ -323,9 +323,9 @@
 							</div>
 							<ul>
 								<li class="buttons">
-									<h:commandButton styleClass="btTxt" action="#{planoPagamentoChequePreBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
+									<h:commandButton styleClass="btTxt" action="#{planoPagamentoAPrazoBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoInserir"
-										action="#{planoPagamentoChequePreBB.inserir}" value="Inserir"></h:commandButton>
+										action="#{planoPagamentoAPrazoBB.inserir}" value="Inserir"></h:commandButton>
 								</li>
 							</ul>
 						</h:form>

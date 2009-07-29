@@ -62,7 +62,7 @@
 				<div id="topoGeral">
 					<div id="tituloPaginaGeral">
 						<strong> <h:outputText
-								value="#{msgs.manterPlanoPagamentoChequePre}"></h:outputText> </strong>
+								value="#{msgs.manterPlanoPagamentoAPrazo}"></h:outputText> </strong>
 					</div>
 				</div>
 				<div id="content">
@@ -85,7 +85,7 @@
 						<h:form id="frmManterPlanoPagamentoChequePre"
 							onsubmit="javascript:getId('frmManterPlanoPagamentoChequePre:abaCorrente').value = strAbaCorrente;">
 							<h:inputHidden id="abaCorrente"
-								value="#{planoPagamentoChequePreBB.abaCorrente}"></h:inputHidden>
+								value="#{planoPagamentoAPrazoBB.abaCorrente}"></h:inputHidden>
 							<div id="tabDiv0">
 							<ul>
 							<li class="normal">
@@ -104,7 +104,7 @@
 												maxlength="2" 
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);"
-												value="#{planoPagamentoChequePreBB.id}" size="3"
+												value="#{planoPagamentoAPrazoBB.id}" size="3"
 												required="false" readonly="true">
 												<f:validateLength maximum="2" />
 												<f:validator validatorId="LongValidator" />
@@ -115,7 +115,7 @@
 											<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="descricao"
 												maxlength="50" size="50" required="false"
-												value="#{planoPagamentoChequePreBB.descricao}">
+												value="#{planoPagamentoAPrazoBB.descricao}">
 												<f:validateLength maximum="50" />
 											</h:inputText>
 											
@@ -126,7 +126,7 @@
 											<h:outputLabel styleClass="desc" value="Valor Mínimo*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="valorMinimo"
 												maxlength="10" size="10"
-												value="#{planoPagamentoChequePreBB.valorMinimo}" dir="rtl"
+												value="#{planoPagamentoAPrazoBB.valorMinimo}" dir="rtl"
 												required="false" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="10" />
@@ -139,7 +139,7 @@
 											<h:outputLabel styleClass="desc" value="Valor Máximo*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="valorMaximo"
 												maxlength="10" size="10"
-												value="#{planoPagamentoChequePreBB.valorMaximo}" dir="rtl"
+												value="#{planoPagamentoAPrazoBB.valorMaximo}" dir="rtl"
 												required="false" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="10" />
@@ -154,7 +154,7 @@
 											<h:outputLabel styleClass="desc" value="Perc. Desconto*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="percentualDesconto"
 												maxlength="5" size="5"
-												value="#{planoPagamentoChequePreBB.percDesconto}" dir="rtl"
+												value="#{planoPagamentoAPrazoBB.percDesconto}" dir="rtl"
 												required="false" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="5" />
@@ -167,7 +167,7 @@
 											<h:outputLabel styleClass="desc" value="Perc. Acréscimo*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="percentualAcrescimo"
 												maxlength="5" size="5"
-												value="#{planoPagamentoChequePreBB.percAcrescimo}" dir="rtl"
+												value="#{planoPagamentoAPrazoBB.percAcrescimo}" dir="rtl"
 												required="false" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="5" />
@@ -182,7 +182,7 @@
 											<h:outputLabel styleClass="desc" value="Inicio Validade*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataInicioValidade"
 												maxlength="10" size="10"
-												value="#{planoPagamentoChequePreBB.dataInicioValidade}"
+												value="#{planoPagamentoAPrazoBB.dataInicioValidade}"
 												onkeypress="return MascaraData(this,event);"
 												onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 
@@ -193,7 +193,7 @@
 											<h:outputLabel styleClass="desc" value="Final Validade*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataFimValidade"
 												maxlength="10" size="10"
-												value="#{planoPagamentoChequePreBB.dataFimValidade}"
+												value="#{planoPagamentoAPrazoBB.dataFimValidade}"
 												onkeypress="return MascaraData(this,event);"
 												onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 											</h:inputText>
@@ -204,10 +204,10 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Situação*"></h:outputLabel>
 											<h:selectOneRadio styleClass="field select" id="status"
-												value="#{planoPagamentoChequePreBB.status}"
+												value="#{planoPagamentoAPrazoBB.status}"
 												layout="lineDirection">
 												<f:selectItems id="situacao"
-													value="#{planoPagamentoChequePreBB.situacaoItens}" />
+													value="#{planoPagamentoAPrazoBB.situacaoItens}" />
 											</h:selectOneRadio>
 											
 										</div>
@@ -221,7 +221,7 @@
 											<h:outputLabel styleClass="desc" value="Perc. Entrada*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="percentualEntrada"
 												maxlength="5" size="5"
-												value="#{planoPagamentoChequePreBB.percentagemEntrada}"
+												value="#{planoPagamentoAPrazoBB.percentagemEntrada}"
 												dir="rtl" required="false"
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="5" />
@@ -236,94 +236,91 @@
 									<li class="normal">
 										<div id="primarioContentContainerInternas">
 											<fieldset>
-												<legend>
-													Parcelas
-												</legend>
-												<ul>
-													<li class="normal">
-														<div>
-															<h:outputLabel styleClass="desc" value="Data Programada*"></h:outputLabel>
-															<h:selectOneRadio onclick="mostraCampos(this.value);" styleClass="field select tipopessoa"
-																id="dataProgramada"
-																value="#{planoPagamentoChequePreBB.dataProgramada}"
-																layout="lineDirection">
-																<f:selectItems id="radioDataProgramada"
-																	value="#{planoPagamentoChequePreBB.dataProgramadaSimNao}" />
-															</h:selectOneRadio>
-															
-														</div>
-														<div>
-															<h:outputLabel styleClass="desc" value="Percentual*"></h:outputLabel>
-															<h:inputText styleClass="field text"
-																id="percentualParcela" maxlength="6" size="6"
-																value="#{planoPagamentoChequePreBB.percentagemParcela}"
-																dir="rtl" required="false"
-																onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
-																<f:validateLength maximum="6" />
-																<f:validateDoubleRange minimum="0.00" maximum="100.00" />
-																<f:validator validatorId="BigDecimalValidator" />
-															</h:inputText>
-															
-														</div>
-														<div>
-															<h:outputLabel styleClass="desc" value="Qtd. de Dias*"></h:outputLabel>
-															<h:inputText styleClass="field text ativo"
-																id="quantidadeDiasParcela" dir="rtl" maxlength="3"
-																value="#{planoPagamentoChequePreBB.quantidadeDias}"
-																size="3" rendered="true"
-																onfocus="this.select();" onclick="this.select();"
-																onkeypress="return SoNumero(event);">
-																<f:validateLength maximum="3" />
-																<f:validator validatorId="LongValidator" />
-															</h:inputText>
-															
-														</div>
-														<div style="vertical-align: bottom;">
-															<h:commandButton styleClass="btTxt"
-																image="/images/adicionar.png" alt="Inserir Parcela"
-																id="botaoInserirParcela"
-																action="#{planoPagamentoChequePreBB.inserirParcela}"
-																value="Inserir Parcela"></h:commandButton>
-														</div>
-														<br />
-														<br />
-														<div class="listagemSimples">
-															<t:dataTable
-																value="#{planoPagamentoChequePreBB.parcelas}"
-																var="parcela" rowClasses="rowA,rowB" width="95%">
-																<h:column>
-																	<f:facet name="header">
-																		<h:outputText value="Código" />
-																	</f:facet>
-																	<h:outputText value="#{parcela.pk.numeroEntrada}" />
-																</h:column>
-																<h:column>
-																	<f:facet name="header">
-																		<h:outputText value="Percentual Parcela" />
-																	</f:facet>
-																	<h:outputText value="#{parcela.percentagemParcela}" />
-																</h:column>
-																<h:column>
-																	<f:facet name="header">
-																		<h:outputText value="Quantidade Dias" />
-																	</f:facet>
-																	<h:outputText value="#{parcela.quantidadeDias}" />
-																</h:column>
-																<h:column>
-																	<f:facet name="header">
-																		<h:outputText value="Ação" />
-																	</f:facet>
-																	<h:commandLink value="Excluir"
-																		action="#{planoPagamentoChequePreBB.excluirParcela}">
-																		<f:param name="idExcluir"
-																			value="#{parcela.pk.numeroEntrada}" />
-																	</h:commandLink>
-																</h:column>
-															</t:dataTable>
-														</div>
-													</li>
-												</ul>
-											</fieldset>
+									<legend>
+										<b>Parcelas</b>
+									</legend>
+									<ul>
+										<li class="normal">
+											<div>
+												<h:outputLabel styleClass="desc" value="Data Programada*"></h:outputLabel>
+												<h:selectOneRadio onclick="mostraCampos(this.value);" styleClass="field select tipopessoa"
+													id="dataProgramada"
+													value="#{planoPagamentoAPrazoBB.dataProgramada}"
+													layout="lineDirection" >
+													<f:selectItems  id="radioDataProgramada"
+														value="#{planoPagamentoAPrazoBB.dataProgramadaSimNao}" />
+												</h:selectOneRadio>
+												
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Percentual*"></h:outputLabel>
+												<h:inputText styleClass="field text" id="percentualParcela"
+													maxlength="6" size="6"
+													value="#{planoPagamentoAPrazoBB.percentagemParcela}"
+													dir="rtl" required="false" 
+													onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
+													<f:validateLength maximum="6" />
+													<f:validateDoubleRange minimum="0.00" maximum="100.00" />
+													<f:validator validatorId="BigDecimalValidator" />
+												</h:inputText>
+												
+											</div>
+											<div>
+												<h:outputLabel styleClass="desc" value="Qtd. de Dias*"></h:outputLabel>
+												<h:inputText styleClass="field text ativo"
+													id="quantidadeDiasParcela" dir="rtl" maxlength="3"
+													value="#{planoPagamentoAPrazoBB.quantidadeDias}"
+													size="3" rendered="true"
+													onfocus="this.select();" onclick="this.select();"
+													onkeypress="return SoNumero(event);">
+													<f:validateLength maximum="3" />
+													<f:validator validatorId="LongValidator" />
+												</h:inputText>
+												
+											</div>
+											<div>
+												<h:commandButton image="/images/adicionar.png" alt="Inserir Parcela" styleClass="btTxt" id="botaoInserirParcela"
+													action="#{planoPagamentoAPrazoBB.inserirParcela}"
+													value="Inserir"></h:commandButton>
+											</div>
+										</li>
+									</ul>
+									<div class="listagemSimples">
+										<t:dataTable value="#{planoPagamentoAPrazoBB.parcelas}"
+											var="parcela" rowClasses="rowA,rowB" width="95%"
+											renderedIfEmpty="false">
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Código" />
+												</f:facet>
+												<h:outputText value="#{parcela.pk.numeroEntrada}" />
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Percentual" />
+												</f:facet>
+												<h:outputText value="#{parcela.percentagemParcela}" />
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Qtd. de dias" />
+												</f:facet>
+												<h:outputText value="#{parcela.quantidadeDias}" />
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Ação" />
+												</f:facet>
+										<
+										<h:commandLink value="Excluir"
+													action="#{planoPagamentoAPrazoBB.excluirParcela}">
+													<f:param name="idExcluir"
+														value="#{parcela.pk.numeroEntrada}" />
+												</h:commandLink>
+											</h:column>
+										</t:dataTable>
+									</div>
+								</fieldset>
 										</div>
 									</li>
 								</ul>
@@ -332,12 +329,12 @@
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" immediate="true"
 										id="botaoVoltar"
-										action="#{planoPagamentoChequePreBB.voltarConsulta}"
+										action="#{planoPagamentoAPrazoBB.voltarConsulta}"
 										value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar"
-										action="#{planoPagamentoChequePreBB.alterar}" value="Alterar"></h:commandButton>
+										action="#{planoPagamentoAPrazoBB.alterar}" value="Alterar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir"
-										action="#{planoPagamentoChequePreBB.excluir}" value="Excluir"></h:commandButton>
+										action="#{planoPagamentoAPrazoBB.excluir}" value="Excluir"></h:commandButton>
 								</li>
 							</ul>
 							<!-- xxxxxxxxxxxxxxx -->
