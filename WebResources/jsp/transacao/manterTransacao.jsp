@@ -290,7 +290,7 @@
 				</strong>
 			</div>				
 		</div>	
-		<div id="content">
+		<div class="jqmAlert" id="alerta"><div class="jqmAlertWindow"><div class="jqmAlertTitle clearfix"><a href="#" onclick="javascript:fecharAlerta();" class="jqmClose"><em>Fechar</em></a><h1>Alerta</h1></div><div class="jqmAlertContent" id="jqmAlertContent"></div><input type="button" value="Ok" onclick="javascript:fecharAlerta();" /></div></div><div id="content">
 			<div class="tabMenu">
 				<ul>
 					<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)"><span><a href="#">Transação</a></span></li>
@@ -303,7 +303,7 @@
 			<div id="primarioContentContainerInternas">
 				<h:form id="frmManterTransacao" binding="#{transacaoBB.init}" onsubmit="javascript:getId('frmManterTransacao:abaCorrente').value = strAbaCorrente;getId('frmManterTransacao:abaCadastroClienteCorrente').value = strAbaCadastroClienteCorrente;">
 					<div>
-						<h:messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+						<%@ include file="/jsp/mensagem_erro.jsp"%>
 					</div>
 
 					<h:inputHidden id="abaCadastroClienteCorrente" value="#{transacaoBB.abaCadastroClienteCorrente}"></h:inputHidden>
