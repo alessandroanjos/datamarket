@@ -1,4 +1,4 @@
-package com.infinity.datamarket.enterprise.gui.planoPagamentoChequePre;
+package com.infinity.datamarket.enterprise.gui.planoPagamentoAPrazo;
 
 /**
  * 
@@ -33,12 +33,8 @@ import com.infinity.datamarket.enterprise.gui.planoPagamento.PlanoPagamentoBackB
  * @author Jonas
  *
  */
-public class PlanoPagamentoChequePreBackBean extends PlanoPagamentoBackBean {
+public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 	
-//	public PlanoPagamentoChequePreBackBean(){
-//		setPercentagemEntrada(BigDecimal.ZERO);
-//	}
-
 	String abaCorrente;
 	
 	BigDecimal percentualTotal = new BigDecimal(100.00).setScale(2);

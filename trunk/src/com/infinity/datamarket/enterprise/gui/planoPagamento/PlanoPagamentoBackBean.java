@@ -20,7 +20,6 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
-import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAPrazo;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAVista;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -428,29 +427,29 @@ public class PlanoPagamentoBackBean extends BackBean {
 	}
 	
 	public void preenchePlanoPagamento(PlanoPagamento plano, String acao) throws AppException{
-		PlanoPagamento planoPagamento = null;
-		
-		if(plano instanceof PlanoPagamentoAPrazo){
-			planoPagamento = (PlanoPagamentoAPrazo)plano;
-		}else if(plano instanceof PlanoPagamentoAVista){
-			planoPagamento = (PlanoPagamentoAVista)plano;
-		}else{
-			planoPagamento = plano;
-		}
+//		PlanoPagamento planoPagamento = null;
+//		
+//		if(plano instanceof PlanoPagamentoAPrazo){
+//			planoPagamento = (PlanoPagamentoAPrazo)plano;
+//		}else if(plano instanceof PlanoPagamentoAVista){
+//			planoPagamento = (PlanoPagamentoAVista)plano;
+//		}else{
+//			planoPagamento = plano;
+//		}
 
-		planoPagamento.setId(new Long(getId()));
-		planoPagamento.setDescricao(this.descricao);
-		planoPagamento.setStatus(this.status);
-		planoPagamento.setValorMaximo(this.valorMaximo);
-		planoPagamento.setValorMinimo(this.valorMinimo);
-		planoPagamento.setPercAcrescimo(this.percAcrescimo);
-		planoPagamento.setPercDesconto(this.percDesconto);
-		planoPagamento.setDataInicioValidade(this.dataInicioValidade);
-		planoPagamento.setDataFimValidade(this.dataFimValidade);
+		plano.setId(new Long(getId()));
+		plano.setDescricao(this.descricao);
+		plano.setStatus(this.status);
+		plano.setValorMaximo(this.valorMaximo);
+		plano.setValorMinimo(this.valorMinimo);
+		plano.setPercAcrescimo(this.percAcrescimo);
+		plano.setPercDesconto(this.percDesconto);
+		plano.setDataInicioValidade(this.dataInicioValidade);
+		plano.setDataFimValidade(this.dataFimValidade);
 		if(this.getIdForma() != null && !this.getIdForma().equals("0")){
 			FormaRecebimento forma = new FormaRecebimento();
 			forma.setId(new Long(this.getIdForma()));
-			planoPagamento.setForma(forma);
+			plano.setForma(forma);
 		}else{
 			throw new AppException("É obrigatório selecionar uma Forma de Recebimento Associada.");
 		}
