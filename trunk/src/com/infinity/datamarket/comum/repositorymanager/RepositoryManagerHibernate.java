@@ -119,7 +119,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         try
         {
             Session session = null;
-            session = RepositoryManagerHibernateUtil.currentSession();            
+            session = RepositoryManagerHibernateUtil.currentSession();
             session.update(_obj);
         }
         catch(HibernateException ex)
