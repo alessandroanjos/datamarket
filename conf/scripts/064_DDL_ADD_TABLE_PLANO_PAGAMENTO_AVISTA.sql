@@ -1,3 +1,11 @@
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PARCELA_PLAN_PAGTO_CHEQUE_PRE]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PARCELA_PLAN_PAGTO_CHEQUE_PRE]
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PLANO_PAGAMENTO_CHEQUE_PRE]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PLANO_PAGAMENTO_CHEQUE_PRE]
+GO
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PLANO_PAGAMENTO_AVISTA]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 drop table [dbo].[PLANO_PAGAMENTO_AVISTA]
 GO
@@ -14,3 +22,70 @@ ALTER TABLE [dbo].[PLANO_PAGAMENTO_AVISTA] WITH NOCHECK ADD
 	)  ON [PRIMARY] 
 GO
 
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PARCELA_PLAN_PAGTO_APRAZO]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PARCELA_PLAN_PAGTO_APRAZO]
+GO
+
+CREATE TABLE [dbo].[PARCELA_PLAN_PAGTO_APRAZO] (
+	[ID_PLANO] [numeric](18, 0) NOT NULL ,
+	[NUM_ENTRADA] [int] NOT NULL ,
+	[PERCENTAGEM_ENTRADA] [numeric](18, 0) NULL ,
+	[QTD_DIAS] [int] NULL ,
+	[DATA_PROGRAMADA] [datetime] NULL 
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[PARCELA_PLAN_PAGTO_APRAZO] WITH NOCHECK ADD 
+	CONSTRAINT [PK_PARCELA_PLAN_PAGTO_APRAZO] PRIMARY KEY  CLUSTERED 
+	(
+		[NUM_ENTRADA], 
+		[ID_PLANO]
+	)  ON [PRIMARY] 
+GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[PLANO_PAGAMENTO_APRAZO]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [dbo].[PLANO_PAGAMENTO_APRAZO]
+GO
+
+CREATE TABLE [dbo].[PLANO_PAGAMENTO_APRAZO] (
+	[ID_PLANO] [numeric](18, 0) NOT NULL ,
+	[PERCENTAGEM_ENTRADA] [numeric](18, 2) NULL 
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[PLANO_PAGAMENTO_APRAZO] WITH NOCHECK ADD 
+	CONSTRAINT [PK_PLANO_PAGAMENTO_APRAZO] PRIMARY KEY  CLUSTERED 
+	(
+		[ID_PLANO]
+	)  ON [PRIMARY] 
+GO
+
+
+
+
+ALTER TABLE [dbo].[PLANO_PAGAMENTO_AVISTA] ADD 
+	CONSTRAINT [FK_PLAN_PAG_AVISTA_PLAN_PAG] FOREIGN KEY 
+	(
+		[ID_PLANO]
+	) REFERENCES [dbo].[PLANO_PAGAMENTO] (
+		[ID]
+	)
+GO
+
+ALTER TABLE [dbo].[PLANO_PAGAMENTO_APRAZO] ADD 
+	CONSTRAINT [FK_PLAN_PAG_APRAZO_PLAN_PAG] FOREIGN KEY 
+	(
+		[ID_PLANO]
+	) REFERENCES [dbo].[PLANO_PAGAMENTO] (
+		[ID]
+	)
+GO
+
+ALTER TABLE [dbo].[PARCELA_PLAN_PAGTO_APRAZO] ADD 
+	CONSTRAINT [FK_PAR_PLAN_PAG_APRAZO_PLAN_PAG_APRAZO] FOREIGN KEY 
+	(
+		[ID_PLANO]
+	) REFERENCES [dbo].[PLANO_PAGAMENTO_APRAZO] (
+		[ID_PLANO]
+	)
+GO
