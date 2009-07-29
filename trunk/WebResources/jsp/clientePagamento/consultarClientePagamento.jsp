@@ -38,7 +38,7 @@
 		</div>
 		<h:form id="frmConsultarClientePagamento" binding="#{clientePagamentoBB.init}">
 				
-				<div id="content">
+				<div class="jqmAlert" id="alerta"><div class="jqmAlertWindow"><div class="jqmAlertTitle clearfix"><a href="#" onclick="javascript:fecharAlerta();" class="jqmClose"><em>Fechar</em></a><h1>Alerta</h1></div><div class="jqmAlertContent" id="jqmAlertContent"></div><input type="button" value="Ok" onclick="javascript:fecharAlerta();" /></div></div><div id="content">
 				
 						<div id="primarioContentContainerInternas">							
 							<fieldset>
@@ -119,7 +119,7 @@
 								<ul>
 									<li class="normal">
 										<div>
-											<h:messages rendered="#{not formaRecebimentoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>
+											<%@ include file="/jsp/mensagem_erro.jsp"%> <!--  h  messages rendered="#{not formaRecebimentoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true" /> -->
 										</div>
 									</li>
 								</ul>

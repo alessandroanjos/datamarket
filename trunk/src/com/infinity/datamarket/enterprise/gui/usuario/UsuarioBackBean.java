@@ -265,8 +265,7 @@ public class UsuarioBackBean extends BackBean {
 			getFachada().inserirUsuario(usuario);
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-					"Operação Realizada com Sucesso!"+'\n'+
-					"O código gerado foi : "+usuario.getId(), "");
+					"Operação Realizada com Sucesso! O código gerado foi : "+usuario.getId(), "");
 			getContextoApp().addMessage(null, msg);
 			resetBB();
 		} catch (ObjectExistentException e) {
