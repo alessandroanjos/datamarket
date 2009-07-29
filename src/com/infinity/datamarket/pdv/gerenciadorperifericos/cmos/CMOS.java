@@ -8,7 +8,9 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.infinity.datamarket.comum.util.SistemaException;
 
@@ -108,18 +110,19 @@ public class CMOS implements Serializable{
 
 	public void gravar(String chave, Object valor){
 		hash.put(chave, valor);
-		Thread t = new Thread(){
-			public void run(){
+//		Thread t = new Thread(){
+//			public void run(){
 				gravaCmos(hash);
-			}
-		};
-		t.start();
+//			}
+//		};
+//		t.start();
 		
 	}
 
 	private synchronized void gravaCmos(Object obj){
 		try{
-			synchronized (hash) {
+//			Map map = Collections.synchronizedMap((Map)obj);  
+			synchronized (obj) {
 				ByteArrayOutputStream bout = new ByteArrayOutputStream();
 				ObjectOutputStream out = new ObjectOutputStream(bout);				
 				out.writeObject(obj);
