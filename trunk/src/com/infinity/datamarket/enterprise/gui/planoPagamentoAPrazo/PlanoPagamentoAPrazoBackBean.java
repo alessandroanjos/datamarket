@@ -116,9 +116,10 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 	
 	public void resetBB(){
 		super.resetBB();
-//		this.setPercentagemEntrada(null);
+		this.setPercentagemEntrada(new BigDecimal("0.00"));
 		this.setDataProgramada(Constantes.NAO);
 		this.setParcelas(null);
+		this.setAbaCorrente("tabDiv0");
 	}
 	
 	public void validarBackBean() throws AppException{
@@ -250,7 +251,7 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 			((PlanoPagamentoAPrazo)planoPre).setParcelas(this.getParcelas());
 			
 			if(totalPercentagem.compareTo(new BigDecimal("100")) != 0){
-				throw new Exception("O somatório do percentual das parcelas mais o percentual de entrada deve ser igual a 100%.");
+				throw new AppException("O somatório do percentual das parcelas mais o percentual de entrada deve ser igual a 100%.");
 			}
 			
 			getFachada().alterarPlanoPagamento(planoPre);
