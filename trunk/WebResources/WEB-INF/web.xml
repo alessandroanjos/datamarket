@@ -139,6 +139,16 @@
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
+	
+	<filter>
+        <filter-name>HibernateFilter</filter-name>
+        <filter-class>com.infinity.datamarket.enterprise.gui.util.HibernateRequestFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>HibernateFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <icon>
     	<large-icon id="icone">/Enterprise.ico</large-icon>
