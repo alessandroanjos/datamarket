@@ -75,6 +75,7 @@ public class PlanoPagamento extends Persistente implements Comparable{
 		this.forma = forma;
 	}
 	public int compareTo(Object o) {
+		System.out.println("o instanceof PlanoPagamento --> "+(o instanceof PlanoPagamento));
 		if (o instanceof PlanoPagamento){
 			PlanoPagamento plano = (PlanoPagamento) o;
 			if (this.getId().intValue() > plano.getId().intValue()){
