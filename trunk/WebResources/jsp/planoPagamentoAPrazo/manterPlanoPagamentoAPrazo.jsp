@@ -35,10 +35,10 @@
 						$("input.dataProgramada").each(function(i){
 							$(this).click(function() {mostraCampos(this.value)});
 						});
-						if ($('[name=frmInserirPlanoPagamentoChequePre:dataProgramada]:checked').val() != "undefined") {
-							mostraCampos($('[name=frmInserirPlanoPagamentoChequePre:dataProgramada]:checked').val());
+						if ($('[name=frmManterPlanoPagamentoAPrazo:dataProgramada]:checked').val() != "undefined") {
+							mostraCampos($('[name=frmManterPlanoPagamentoAPrazo:dataProgramada]:checked').val());
 						}
-						strAbaCorrente = getId("frmInserirPlanoPagamentoChequePre:abaCorrente").value;
+						strAbaCorrente = getId("frmManterPlanoPagamentoAPrazo:abaCorrente").value;
 						if(strAbaCorrente != ""){							
 							selecionaMenuTab(strAbaCorrente);
 						}
@@ -49,15 +49,18 @@
 		        function mostraCampos(str) {
 					var flag = new String(str);
 					if (flag.toUpperCase() == "S") {
-					    habilita("frmInserirPlanoPagamentoChequePre:quantidadeDiasParcela");
+					    habilita("frmManterPlanoPagamentoAPrazo:quantidadeDiasParcela");
 					} else {
-						desabilita("frmInserirPlanoPagamentoChequePre:quantidadeDiasParcela");
-					    getId("frmInserirPlanoPagamentoChequePre:quantidadeDiasParcela").value = "0";
+						desabilita("frmManterPlanoPagamentoAPrazo:quantidadeDiasParcela");
+					    getId("frmManterPlanoPagamentoAPrazo:quantidadeDiasParcela").value = "0";
 					}
 		      }		
-		</script>
+			</script>
+
+
 		</head>
 		<body>
+
 			<div id="outer">
 				<div id="topoGeral">
 					<div id="tituloPaginaGeral">
@@ -81,9 +84,9 @@
 						<div class="clear"></div>
 					</div>
 					<div id="primarioContentContainerInternas">
-						
-						<h:form id="frmManterPlanoPagamentoChequePre"
-							onsubmit="javascript:getId('frmManterPlanoPagamentoChequePre:abaCorrente').value = strAbaCorrente;">
+						<h:form id="frmManterPlanoPagamentoAPrazo"
+							binding="#{planoPagamentoAPrazoBB.init}"
+							onsubmit="javascript:getId('frmManterPlanoPagamentoAPrazo:abaCorrente').value = strAbaCorrente;">
 							<h:inputHidden id="abaCorrente"
 								value="#{planoPagamentoAPrazoBB.abaCorrente}"></h:inputHidden>
 							<div id="tabDiv0">
@@ -105,7 +108,7 @@
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);"
 												value="#{planoPagamentoAPrazoBB.id}" size="3"
-												required="false" readonly="true">
+												required="false">
 												<f:validateLength maximum="2" />
 												<f:validator validatorId="LongValidator" />
 											</h:inputText>
@@ -143,7 +146,7 @@
 												required="false" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="10" />
-												<f:validateDoubleRange minimum="0.01"  />
+												<f:validateDoubleRange minimum="0.01" maximum="9999999.99" />
 												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
 											
@@ -181,7 +184,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Inicio Validade*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataInicioValidade"
-												maxlength="10" size="10"
+												maxlength="10" size="10" required="false"
 												value="#{planoPagamentoAPrazoBB.dataInicioValidade}"
 												onkeypress="return MascaraData(this,event);"
 												onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
@@ -192,7 +195,7 @@
 										<div>
 											<h:outputLabel styleClass="desc" value="Final Validade*"></h:outputLabel>
 											<h:inputText styleClass="field text" id="dataFimValidade"
-												maxlength="10" size="10"
+												maxlength="10" size="10" required="false"
 												value="#{planoPagamentoAPrazoBB.dataFimValidade}"
 												onkeypress="return MascaraData(this,event);"
 												onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
@@ -232,10 +235,7 @@
 										</div>
 									</li>
 								</ul>
-								<ul>
-									<li class="normal">
-										<div id="primarioContentContainerInternas">
-											<fieldset>
+								<fieldset>
 									<legend>
 										<b>Parcelas</b>
 									</legend>
@@ -321,9 +321,6 @@
 										</t:dataTable>
 									</div>
 								</fieldset>
-										</div>
-									</li>
-								</ul>
 							</div>
 							<ul>
 								<li class="buttons">
