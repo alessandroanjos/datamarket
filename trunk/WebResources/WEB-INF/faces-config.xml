@@ -225,13 +225,13 @@
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>inserirPlanoPagamentoChequePre</from-outcome>
-			<to-view-id>/jsp/planoPagamentoChequePre/inserirPlanoPagamentoChequePre.jsp</to-view-id>
+			<from-outcome>inserirPlanoPagamentoAPrazo</from-outcome>
+			<to-view-id>/jsp/planoPagamentoAPrazo/inserirPlanoPagamentoAPrazo.jsp</to-view-id>
 		</navigation-case>
 		
 		<navigation-case>
-			<from-outcome>manterPlanoPagamentoChequePre</from-outcome>
-			<to-view-id>/jsp/planoPagamentoChequePre/consultarPlanoPagamentoChequePre.jsp</to-view-id>
+			<from-outcome>manterPlanoPagamentoAPrazo</from-outcome>
+			<to-view-id>/jsp/planoPagamentoAPrazo/consultarPlanoPagamentoAPrazo.jsp</to-view-id>
 		</navigation-case>		
 				
 		<navigation-case>
@@ -1819,44 +1819,44 @@
 	
 	<!-- Plano de Pagamento Cheque-Pre -->
 	<navigation-rule>
-		<from-view-id>/jsp/planoPagamentoChequePre/inserirPlanoPagamentoChequePre.jsp</from-view-id>
+		<from-view-id>/jsp/planoPagamentoAPrazo/inserirPlanoPagamentoAPrazo.jsp</from-view-id>
 		<navigation-case>
-			<from-action>#{planoPagamentoChequePreBB.inserir}</from-action>
+			<from-action>#{planoPagamentoAPrazoBB.inserir}</from-action>
 			<from-outcome>mesma</from-outcome>
-			<to-view-id>/jsp/planoPagamentoChequePre/inserirPlanoPagamentoChequePre.jsp</to-view-id>
+			<to-view-id>/jsp/planoPagamentoAPrazo/inserirPlanoPagamentoAPrazo.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{planoPagamentoChequePreBB.voltarMenu}</from-action>
+			<from-action>#{planoPagamentoAPrazoBB.voltarMenu}</from-action>
 			<from-outcome>voltar</from-outcome>
 			<to-view-id>/jsp/menu.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
 	<navigation-rule>
-		<from-view-id>/jsp/planoPagamentoChequePre/consultarPlanoPagamentoChequePre.jsp</from-view-id>
+		<from-view-id>/jsp/planoPagamentoAPrazo/consultarPlanoPagamentoAPrazo.jsp</from-view-id>
 		<navigation-case>
-			<from-action>#{formaRecebimentoChequePreBB.consultar}</from-action>
+			<from-action>#{formaRecebimentoAPrazoBB.consultar}</from-action>
 			<from-outcome>mesma</from-outcome>
-			<to-view-id>/jsp/planoPagamentoChequePre/consultarPlanoPagamentoChequePre.jsp</to-view-id>
+			<to-view-id>/jsp/planoPagamentoAPrazo/consultarPlanoPagamentoAPrazo.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{planoPagamentoChequePreBB.consultar}</from-action>
+			<from-action>#{planoPagamentoAPrazoBB.consultar}</from-action>
 			<from-outcome>proxima</from-outcome>
-			<to-view-id>/jsp/planoPagamentoChequePre/manterPlanoPagamentoChequePre.jsp</to-view-id>
+			<to-view-id>/jsp/planoPagamentoAPrazo/manterPlanoPagamentoAPrazo.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-action>#{planoPagamentoChequePreBB.voltarMenu}</from-action>
+			<from-action>#{planoPagamentoAPrazoBB.voltarMenu}</from-action>
 			<from-outcome>voltar</from-outcome>
 			<to-view-id>/jsp/menu.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
 	<navigation-rule>
-		<from-view-id>/jsp/planoPagamentoChequePre/manterPlanoPagamentoChequePre.jsp</from-view-id>
+		<from-view-id>/jsp/planoPagamentoAPrazo/manterPlanoPagamentoAPrazo.jsp</from-view-id>
 		<navigation-case>
-			<from-action>#{planoPagamentoChequePreBB.voltarConsulta}</from-action>
+			<from-action>#{planoPagamentoAPrazoBB.voltarConsulta}</from-action>
 			<from-outcome>voltar</from-outcome>
-			<to-view-id>/jsp/planoPagamentoChequePre/consultarPlanoPagamentoChequePre.jsp</to-view-id>
+			<to-view-id>/jsp/planoPagamentoAPrazo/consultarPlanoPagamentoAPrazo.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
@@ -3400,9 +3400,9 @@
 		<!-- PLANO DE PAGAMENTO CHEQUE-PRE BACK BEAN -->
 	
 	<managed-bean>
-		<managed-bean-name>planoPagamentoChequePreBB</managed-bean-name>
+		<managed-bean-name>planoPagamentoAPrazoBB</managed-bean-name>
 		<managed-bean-class>
-			com.infinity.datamarket.enterprise.gui.planoPagamentoChequePre.PlanoPagamentoChequePreBackBean
+			com.infinity.datamarket.enterprise.gui.planoPagamentoAPrazo.PlanoPagamentoAPrazoBackBean
 		</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 		<managed-property>
