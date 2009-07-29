@@ -5,9 +5,6 @@ import java.util.Collection;
 
 public class PlanoPagamentoAPrazo extends PlanoPagamento{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1665020148129076387L;
 	
 	private BigDecimal percentagemEntrada;
@@ -29,5 +26,4 @@ public class PlanoPagamentoAPrazo extends PlanoPagamento{
 	public void setPercentagemEntrada(BigDecimal percentagemEntrada) {
 		this.percentagemEntrada = percentagemEntrada;
 	}
-
 }
