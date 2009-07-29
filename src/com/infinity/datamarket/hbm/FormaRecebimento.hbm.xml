@@ -46,7 +46,7 @@
               <column name="ID_FORMA_TROCO" not-null="false"/>
        </many-to-one>
 
-       <set name="planos" lazy="false" inverse="true">
+       <set name="planos" lazy="true" inverse="true">
              <key column="ID_FORMA"/>
              <one-to-many  class="com.infinity.datamarket.comum.pagamento.PlanoPagamento"/>
        </set>
