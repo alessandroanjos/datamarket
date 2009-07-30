@@ -15,6 +15,14 @@ public class ParcelaPlanoPagamentoAPrazo implements Serializable, Comparable<Par
 	private int quantidadeDias;
 	private String dataProgramada;
 	
+	public ParcelaPlanoPagamentoAPrazo(){
+		
+	}
+	
+	public ParcelaPlanoPagamentoAPrazo(ParcelaPlanoPagamentoAPrazoPK pk){
+		this.pk = pk;
+	}
+
 	public BigDecimal getPercentagemParcela() {
 		return percentagemParcela;
 	}
