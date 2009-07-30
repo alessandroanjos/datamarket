@@ -1,12 +1,10 @@
 package com.infinity.datamarket.enterprise.gui.planoPagamentoAPrazo;
 
-/**
- * 
- */
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -46,7 +44,18 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 	int numParcela = 0;
 	String dataProgramada;
 	SelectItem[] dataProgramadaSimNao;
-	SortedSet<ParcelaPlanoPagamentoAPrazo> parcelas = new TreeSet<ParcelaPlanoPagamentoAPrazo>(); 
+	SortedSet<ParcelaPlanoPagamentoAPrazo> parcelas = new TreeSet<ParcelaPlanoPagamentoAPrazo>();
+	SortedSet<ParcelaPlanoPagamentoAPrazo> parcelasRemovidas = new TreeSet<ParcelaPlanoPagamentoAPrazo>();
+	PlanoPagamentoAPrazo planoPagtoAPrazo = null;
+
+	public SortedSet<ParcelaPlanoPagamentoAPrazo> getParcelasRemovidas() {
+		return parcelasRemovidas;
+	}
+
+	public void setParcelasRemovidas(
+			SortedSet<ParcelaPlanoPagamentoAPrazo> parcelasRemovidas) {
+		this.parcelasRemovidas = parcelasRemovidas;
+	}
 
 	public SortedSet<ParcelaPlanoPagamentoAPrazo> getParcelas() {
 		return parcelas;
@@ -225,11 +234,13 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 	public String alterar(){
 		try {
 			setIdForma(Constantes.FORMA_CHEQUE_PRE);
+			
 			validarBackBean();
 			
 			BigDecimal totalPercentagem = BigDecimal.ZERO;
-			PlanoPagamento planoPre = new PlanoPagamentoAPrazo();
 			
+			PlanoPagamento planoPre = new PlanoPagamentoAPrazo();//(PlanoPagamentoAPrazo)getFachada().consultarPlanoPagamentoPorId(new Long(this.getId()));//
+
 			preenchePlanoPagamento(planoPre, ALTERAR);
 			
 			((PlanoPagamentoAPrazo)planoPre).setPercentagemEntrada(this.getPercentagemEntrada());
@@ -241,22 +252,26 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 			}
 			
 			Iterator it = this.getParcelas().iterator();
+
+			Set<ParcelaPlanoPagamentoAPrazo> conjParcelas = new TreeSet<ParcelaPlanoPagamentoAPrazo>();
 			
 			while (it.hasNext()){
 				ParcelaPlanoPagamentoAPrazo parcela = (ParcelaPlanoPagamentoAPrazo)it.next();
 				parcela.getPk().setPlano((PlanoPagamentoAPrazo)planoPre);
+				conjParcelas.add(parcela);
 				totalPercentagem = totalPercentagem.add(parcela.getPercentagemParcela());
 			}
 			
-			((PlanoPagamentoAPrazo)planoPre).setParcelas(this.getParcelas());
+//			((PlanoPagamentoAPrazo)planoPre).setParcelas(this.getParcelas());
+
+			((PlanoPagamentoAPrazo)planoPre).setParcelas(conjParcelas);
 			
 			if(totalPercentagem.compareTo(new BigDecimal("100")) != 0){
 				throw new AppException("O somatório do percentual das parcelas mais o percentual de entrada deve ser igual a 100%.");
 			}
 			
 			getFachada().alterarPlanoPagamento(planoPre);
-			
-			
+
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			getContextoApp().addMessage(null, msg);
@@ -267,8 +282,7 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
 			getContextoApp().addMessage(null, msg);
-		} catch (Exception e) {
-			
+		} catch (Exception e) {			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			getContextoApp().addMessage(null, msg);
@@ -349,7 +363,7 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 		        while(it.hasNext()){
 		        	this.getParcelas().add((ParcelaPlanoPagamentoAPrazo)it.next());
 		        }		       
-		        
+		        this.setPlanoPagtoAPrazo((PlanoPagamentoAPrazo)planoPagamento);
 				return "proxima";
 			}else if (getDescricao() != null && !"".equals(getDescricao())){
 				PropertyFilter filter = new PropertyFilter();
@@ -496,7 +510,7 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 					e.getMessage(), "");
 			getContextoApp().addMessage(null, msg);
 		}
-		this.setPercentagemParcela(null);
+		this.setPercentagemParcela(new BigDecimal("0.00"));
 		this.setQuantidadeDias(0);
 		return "mesma";
 	}
@@ -514,6 +528,8 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 				if(parcelaTmp.getPk().getNumeroEntrada() == Integer.parseInt(param)){
 					this.setPercentualRestante(this.getPercentualRestante().add(parcelaTmp.getPercentagemParcela()));
 					this.getParcelas().remove(parcelaTmp);
+					parcelaTmp.getPk().setPlano(this.getPlanoPagtoAPrazo());
+					this.getParcelasRemovidas().add(parcelaTmp);
 					break;
 				}
 			}
@@ -571,5 +587,13 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 	 */
 	public void setDataProgramada(String dataProgramada) {
 		this.dataProgramada = dataProgramada;
+	}
+
+	public PlanoPagamentoAPrazo getPlanoPagtoAPrazo() {
+		return planoPagtoAPrazo;
+	}
+
+	public void setPlanoPagtoAPrazo(PlanoPagamentoAPrazo planoPagtoAPrazo) {
+		this.planoPagtoAPrazo = planoPagtoAPrazo;
 	}
 }

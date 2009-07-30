@@ -6,9 +6,9 @@
 
 
 <hibernate-mapping>
-    <class name="com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazo" table="PARCELA_PLAN_PAGTO_APRAZO" dynamic-update="false" dynamic-insert="false" lazy="false">
+    <class name="com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazo" table="PARCELA_PLAN_PAGTO_APRAZO" dynamic-update="true" dynamic-insert="true" lazy="false">
         
-        <composite-id name="pk" class="com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazoPK">			
+        <composite-id name="pk" class="com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazoPK">		 	
 	   		<key-many-to-one name="plano" class="com.infinity.datamarket.comum.pagamento.PlanoPagamentoAPrazo" column="ID_PLANO"/>
             <key-property name="numeroEntrada" column="NUM_ENTRADA" type="integer"/>
          </composite-id>
