@@ -70,6 +70,8 @@
 						<div class="clear"></div>
 					</div>
 					<div id="primarioContentContainerInternas">
+					<h:form id="frmInserirProduto" binding="#{produtoBB.init}"
+							onsubmit="javascript:getId('frmInserirProduto:abaCorrente').value = strAbaCorrente;">
 						<ul>
 							<li class="normal">
 								<div>
@@ -79,8 +81,7 @@
 								</div>
 							</li>
 						</ul>
-						<h:form id="frmInserirProduto" binding="#{produtoBB.init}"
-							onsubmit="javascript:getId('frmInserirProduto:abaCorrente').value = strAbaCorrente;">
+						
 							<h:inputHidden id="abaCorrente" value="#{produtoBB.abaCorrente}">
 							</h:inputHidden>
 							<div id="tabDiv0">
