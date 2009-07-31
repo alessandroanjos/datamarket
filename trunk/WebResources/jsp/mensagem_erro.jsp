@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t"%>
 
-<t:stylesheet path="/css/estilo.css"></t:stylesheet>
+
 <t:stylesheet path="/css/alert/SyntaxHighlighter.css"></t:stylesheet>
 
     <script type="text/javascript" src="/EnterpriseServer/js/alert/shCore.js" language="javascript"></script>
@@ -20,7 +20,7 @@
                 "<div style='padding:30px'>" + msn +  " " +
                 "</div>", 
                 {
-                    okButtonText: "      OK"
+                    okButtonText: "OK"
                 }
             );
         }    

@@ -36,7 +36,7 @@
 			</div>				
 		</div>	
 					
-				<div class="jqmAlert" id="alerta"><div class="jqmAlertWindow"><div class="jqmAlertTitle clearfix"><a href="#" onclick="javascript:fecharAlerta();" class="jqmClose"><em>Fechar</em></a><h1>Alerta</h1></div><div class="jqmAlertContent" id="jqmAlertContent"></div><input type="button" value="Ok" onclick="javascript:fecharAlerta();" /></div></div><div id="content">					
+				<div id="content">					
 					<div id="primarioContentContainerInternas">
 <!-- xxxxxxxxxxxxxxx -->					
 		<h:form id="frmInserirClientePagamento" binding="#{clientePagamentoBB.init}">

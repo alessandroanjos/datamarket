@@ -23,8 +23,7 @@
 			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 		
-			
-<t:stylesheet path="/css/estilo.css"></t:stylesheet>
+
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
       	</head>
@@ -39,7 +38,7 @@
 				</div>
 				
 				
-				<div class="jqmAlert" id="alerta"><div class="jqmAlertWindow"><div class="jqmAlertTitle clearfix"><a href="#" onclick="javascript:fecharAlerta();" class="jqmClose"><em>Fechar</em></a><h1>Alerta</h1></div><div class="jqmAlertContent" id="jqmAlertContent"></div><input type="button" value="Ok" onclick="javascript:fecharAlerta();" /></div></div><div id="content">
+				<div id="content">
 					<div id="primarioContentContainerInternas" >
 						<h:form id="frmInserirLoja"  binding="#{lojaBB.init}" >
 					        <ul>
