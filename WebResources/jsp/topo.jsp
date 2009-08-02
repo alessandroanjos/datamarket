@@ -7,7 +7,7 @@
 <f:verbatim>		
 <script type="text/javascript">
 
-			window.onload = function(){ inicializar() };
+			//window.onload = function(){ inicializar() };
 			
 			function inicializar() {
 				$("input.field, select.field").each(function(i){

@@ -23,15 +23,15 @@
 		<t:stylesheet path="/css/default.css" enabledOnUserRole="true"></t:stylesheet>
 		<t:stylesheet path="/css/form.css" enabledOnUserRole="true"></t:stylesheet>
 		<script type="text/javascript">
-			window.onload = function(){ inicializar() };
-			function inicializar() {
+
+			function inicializar2() {
 				var objID = getId('frmLogin:id');
 				alert(objID);
 				objID.focus();
 			}
 		</script>
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="inicializar();exibirMensagemErro();">
 			<jsp:include page="/jsp/topo.jsp?user=Desconhecido"></jsp:include>	
 			<h:form id="frmLogin"  binding="#{loginBB.init}">
 		
