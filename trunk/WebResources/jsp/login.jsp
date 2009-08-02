@@ -31,7 +31,7 @@
 			}
 		</script>
 	</head>
-	<body>
+	<body onload="exibirMensagemErro();">
 			<jsp:include page="/jsp/topo.jsp?user=Desconhecido"></jsp:include>	
 			<h:form id="frmLogin"  binding="#{loginBB.init}">
 		

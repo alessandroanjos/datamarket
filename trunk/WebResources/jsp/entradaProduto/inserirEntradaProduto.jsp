@@ -91,7 +91,7 @@
 			getId("frmInserirEntradaProdutos:valor").value = valorTotalCupom.toFixed(2);
          }
      </script>
-<body>
+<body onload="exibirMensagemErro();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">

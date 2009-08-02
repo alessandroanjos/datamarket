@@ -26,38 +26,18 @@
         }    
 
 	
-function alertaErro2(mensagem){
-	ModalPopupsAlert1(mensagem);
-}
-
-function alertaErro(mensagem){
-
-	document.getElementById('content').style.display = 'none';
-	document.getElementById('alerta').style.display = 'block';
-	
-	document.getElementById('jqmAlertContent').innerHTML= mensagem;
-
-}
-function fecharAlerta(){
-
-	document.getElementById('alerta').style.display = 'none';
-
-	document.getElementById('content').style.display = 'block';
-
-}
-
 	function exibirMensagemErro() {
 	
 		if ('<h:messages />' != '') {
 		try{
-			alertaErro2('<h:messages />');
+			ModalPopupsAlert1('<h:messages />');
 		} catch(e)	 {
 			alert(e);
 		}
 		}
 	}
 
-	exibirMensagemErro();
+//	exibirMensagemErro();
 
 	
 // -->

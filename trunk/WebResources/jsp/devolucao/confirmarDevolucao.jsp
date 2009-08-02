@@ -27,7 +27,7 @@
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>				
 	</head>
-	<body>
+	<body onload="exibirMensagemErro();">
 		<div id="outer">			
 			<div id="content">
 				<div id="primarioContentContainerInternas">

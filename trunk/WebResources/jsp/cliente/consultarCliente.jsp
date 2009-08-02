@@ -62,7 +62,7 @@
 		
 		</script>
 		</head>
-		<body>
+		<body onload="exibirMensagemErro();">
 			<div id="outer">
 				<div id="topoGeral">
 					<div id="tituloPaginaGeral">

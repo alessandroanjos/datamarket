@@ -19,7 +19,7 @@
 
 </head>
   
-<body>
+<body onload="exibirMensagemErro();">
 	<f:view>
 		Erro<br>
 	</f:view>
