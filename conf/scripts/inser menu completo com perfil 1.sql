@@ -87,6 +87,7 @@ insert into funcionalidade values (308,  306, 'Operador'                        
 insert into funcionalidade values (309,  300, 'Comissão Por Vendedor'               , 'S', 'reports/relatorioComissaoPorVendedor'                     , 800  , 350 )
 insert into funcionalidade values (310,  300, 'Estoque Atual'                       , 'S', 'reports/relatorioEstoqueAtual'                            , 800  , 350 )
 insert into funcionalidade values (311,  300, 'Lucro Bruto'                         , 'S', 'reports/relatorioLucroBruto'                              , 800  , 350 )
+insert into funcionalidade values (312,  300, 'Lançamentos'                         , 'S', 'reports/relatorioAnaliticoLancamentos'                    , 800  , 500 )
 
 insert into funcionalidade values (400, NULL, 'Financeiro'                          , 'S', NULL                                                       , 0    , 0   )
 insert into funcionalidade values (401,  400, 'Lançamentos'                         , 'S', NULL                                                       , 0    , 0   )

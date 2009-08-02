@@ -68,7 +68,7 @@ public class LoginBackBean extends BackBean{
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					msgErro,"");
 			getContextoApp().addMessage(null, msg);
-			resetBB();
+//			resetBB();
 			return "erro";
 		}
 		setId(null);

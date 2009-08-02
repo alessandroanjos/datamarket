@@ -2652,7 +2652,7 @@ public class Fachada {
 			}
 		}
 	}
-	
+
 	public void inserirPlanoPagamento(PlanoPagamento planoPagamento) throws AppException{
 	try{
 		RepositoryManagerHibernateUtil.beginTrasaction();
@@ -6919,4 +6919,35 @@ public class Fachada {
 		}
 		return c;
 	}
+	
+	public OutputStream gerarRelatorioAnaliticoLancamentos(int loja, Date dataInicial, Date dataFinal, String tipoLancamento, String idCliente, String idFornecedor, String idGrupoLancamento, String statusLancamento) throws AppException{		
+		OutputStream out = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoLancamentos(loja, dataInicial, dataFinal, tipoLancamento, idCliente, idFornecedor, idGrupoLancamento, statusLancamento);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return out;
+	}
+
 }
