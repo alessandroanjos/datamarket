@@ -14,7 +14,7 @@
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	</head>
 
-	<body>
+	<body onload="exibirMensagemErro();">
 
 		<jsp:forward page="/jsp/login.faces"></jsp:forward>
 	</body>

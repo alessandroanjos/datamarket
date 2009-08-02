@@ -64,7 +64,7 @@
 			    }	
 			</script>
 		</head>
-
+<body onload="exibirMensagemErro();">
 		<h:form id="frmPopUpCliente">
 			<div id="content">
 
@@ -146,5 +146,6 @@
 				<div class="clear"></div>
 			</div>
 		</h:form>
+		</body>
 	</f:view>
 </html>
