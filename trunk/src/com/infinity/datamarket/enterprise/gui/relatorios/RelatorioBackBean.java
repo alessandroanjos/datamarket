@@ -18,7 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.collection.PersistentSet;
 
+import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.estoque.Estoque;
+import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
+import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
@@ -61,6 +64,59 @@ public class RelatorioBackBean extends BackBean {
 	List<Estoque> estoquesSaida;
 	SelectItem[] lojasEntrada;
 	List<Estoque> estoquesEntrada;
+	
+	private String idCliente;
+	private String idFornecedor;
+	private String idGrupoLancamento;
+	private String idStatusLancamento;
+	private String tipoLancamento;
+	private SelectItem[] listaStatusLancamento;
+
+	public String getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(String idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public String getIdFornecedor() {
+		return idFornecedor;
+	}
+
+	public void setIdFornecedor(String idFornecedor) {
+		this.idFornecedor = idFornecedor;
+	}
+
+	public String getIdGrupoLancamento() {
+		return idGrupoLancamento;
+	}
+
+	public void setIdGrupoLancamento(String idGrupoLancamento) {
+		this.idGrupoLancamento = idGrupoLancamento;
+	}
+
+	public String getIdStatusLancamento() {
+		return idStatusLancamento;
+	}
+
+	public void setIdStatusLancamento(String idStatusLancamento) {
+		this.idStatusLancamento = idStatusLancamento;
+	}
+
+	public SelectItem[] getListaStatusLancamento() {
+		SelectItem[] lista = new SelectItem[6];
+		lista[0] = new SelectItem("T", "Todos");
+		lista[1] = new SelectItem("A", "Aberto");
+		lista[2] = new SelectItem("P", "Pago Parcial");
+		lista[3] = new SelectItem("F", "Finalizado");
+		lista[4] = new SelectItem("C", "Cancelado");
+		lista[5] = new SelectItem("D", "Pendente");
+		if(this.getIdStatusLancamento() == null || this.getIdStatusLancamento().equals("")){
+			this.setIdStatusLancamento("T");
+		}
+		return lista;
+	}
 
 	public String getIdLoja() {
 		return idLoja;
@@ -702,7 +758,14 @@ public class RelatorioBackBean extends BackBean {
 		}
 		validaPeriodo();
 	}
-	
+
+	public void validarRelatorioAnaliticoLancamentos() throws AppException{
+		if(this.getIdLoja() == null || this.getIdLoja().equals("0")){
+			throw new AppException("É necessário selecionar uma Loja!");
+		}
+		validaPeriodo();
+	}
+
 	public void validarRelatorioComissaoPorVendedor() throws AppException{
 		validaPeriodo();
 	}
@@ -1095,5 +1158,172 @@ public class RelatorioBackBean extends BackBean {
 					e.getMessage(), "");
 			getContextoApp().addMessage(null, msg);
 		}
+	}
+	
+	public String executarRelatorioAnaliticoLancamentos(){
+		try {
+			validarRelatorioAnaliticoLancamentos();
+
+			FacesContext context = FacesContext.getCurrentInstance();
+			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+			ServletOutputStream out = response.getOutputStream();
+			ByteArrayOutputStream byteOutputStream = 
+				(ByteArrayOutputStream)getFachada().gerarRelatorioAnaliticoLancamentos(new Integer(this.getIdLoja()).intValue(), 
+																				  this.getDataInicial(), 
+																				  this.getDataFinal(),
+																				  this.getTipoLancamento(),
+																				  this.getIdCliente(),
+																				  this.getIdFornecedor(),
+																				  this.getIdGrupoLancamento(),
+																				  this.getIdStatusLancamento());
+			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
+			response.setContentType("application/pdf");
+			response.setHeader("Content-disposition", "attachment;filename=RelatorioAnaliticoFechamentoVendas" + System.currentTimeMillis() + ".pdf");
+			context.responseComplete();
+			out.flush();
+			out.close();
+			return "";
+		} catch (AppException e) {
+			e.printStackTrace();
+			
+			String mensagem = "";
+			if(e.getCause() != null && e.getCause().getMessage() != null){
+				mensagem = e.getCause().getMessage();
+			}else {
+				mensagem = e.getMessage();
+			}
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensagem, "");
+			getContextoApp().addMessage(null, msg);
+		} catch (IOException e) {			
+			e.printStackTrace();
+			e.printStackTrace();
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro ao executar o Relatório!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+		return "";
+	}
+
+	public String getTipoLancamento() {
+		return tipoLancamento;
+	}
+
+	public void setTipoLancamento(String tipoLancamento) {
+		this.tipoLancamento = tipoLancamento;
+	}
+
+//	 Fornecedores
+	private List<Fornecedor> carregarFornecedores() {
+		
+		List<Fornecedor> fornecedores = null;
+		try {
+			fornecedores = (ArrayList<Fornecedor>)getFachada().consultarTodosFornecedores();
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+		return fornecedores;
+	}
+
+	public SelectItem[] getFornecedores() {
+		SelectItem[] arrayFornecedores = null;
+		try {
+			List<Fornecedor> fornecedores = carregarFornecedores();
+			arrayFornecedores = new SelectItem[fornecedores.size()+1];
+			int i = 0;
+			arrayFornecedores[i++] = new SelectItem("0", "");
+			for(Fornecedor formaTmp : fornecedores){
+				SelectItem item = new SelectItem(formaTmp.getId().toString(), formaTmp.getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)?formaTmp.getNomeFornecedor():formaTmp.getNomeFantasia());
+				arrayFornecedores[i++] = item;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+		return arrayFornecedores;
+
+	}
+
+//	Grupos
+	private List<GrupoLancamento> carregarGrupos() {
+		
+		List<GrupoLancamento> grupos = null;
+		try {
+			grupos = (ArrayList<GrupoLancamento>)getFachada().consultarTodosGrupoLancamentos();
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+		return grupos;
+	}
+
+	public SelectItem[] getGruposLancamento() {
+		SelectItem[] arrayGrupos = null;
+		try {
+			List<GrupoLancamento> formas = carregarGrupos();
+			arrayGrupos = new SelectItem[formas.size()+1];
+			int i = 0;
+			arrayGrupos[i++] = new SelectItem("0", "");
+			for(GrupoLancamento grupoTmp : formas){
+				SelectItem item = new SelectItem(grupoTmp.getId().toString(), grupoTmp.getDescricao());
+				arrayGrupos[i++] = item;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+		return arrayGrupos;
+	}
+
+//	 Clientes
+	private List<Cliente> carregarClientes() {
+		
+		List<Cliente> clientes = null;
+		try {
+			clientes = (ArrayList<Cliente>)getFachada().consultarTodosClientes();
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+		return clientes;
+	}
+
+	public SelectItem[] getClientes() {
+		SelectItem[] arrayClientes = null;
+		try {
+			List<Cliente> clientes = carregarClientes();
+			arrayClientes = new SelectItem[clientes.size()+1];
+			int i = 0;
+			arrayClientes[i++] = new SelectItem("0", "");
+			for(Cliente clienteTmp : clientes){
+				SelectItem item = new SelectItem(clienteTmp.getId().toString(), clienteTmp.getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)?clienteTmp.getNomeCliente():clienteTmp.getNomeFantasia());
+				arrayClientes[i++] = item;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+		return arrayClientes;
+
 	}
 }

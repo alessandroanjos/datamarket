@@ -338,6 +338,16 @@
 	<navigation-rule>
 		<from-view-id>/jsp/erro.jsp</from-view-id>
 	</navigation-rule>
+
+	<!-- RELATORIO ANALITICO LANCAMENTOS -->
+	<navigation-rule>
+		<from-view-id>/jsp/reports/relatorioAnaliticoLancamentos.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{relatorioBB.executarRelatorioAnaliticoLancamentos}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/reports/relatorioAnaliticoLancamentos.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	
 	<!-- RELATORIO ANALITICO ENTRADA -->
 	<navigation-rule>

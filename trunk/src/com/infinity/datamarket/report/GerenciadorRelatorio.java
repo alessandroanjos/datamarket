@@ -1114,6 +1114,70 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 		if(cont == 0){
 			throw new AppException("Não existem dados a serem exibidos!");
 		}
+	}
+	
+	public OutputStream gerarRelatorioAnaliticoLancamentos(int loja, Date dataInicial, Date dataFinal, String tipoLancamento, String idCliente, String idFornecedor, String idGrupoLancamento, String statusLancamento) throws AppException{
+		
+		OutputStream out  = new ByteArrayOutputStream();
+		ResultSet rs = null;
+		PreparedStatement pstm = null;
+		try{
+			Map parametros = new HashMap();
 
+			parametros.put("empresa", EMPRESA);				
+						
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioAnaliticoLancamentos.jasper");
+            					
+			Connection con = getConnection();
+			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_VENDAS, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			
+			//data inicio
+			Calendar c = new GregorianCalendar();
+			c.setTime(dataInicial);
+			int d1_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d1_mes = c.get(Calendar.MONTH);
+			int d1_ano = c.get(Calendar.YEAR);
+			Date dataInicio = new GregorianCalendar(d1_ano,d1_mes,d1_dia).getTime();
+			
+			//dataFim
+			c = new GregorianCalendar();
+			c.setTime(dataFinal);
+			int d2_dia = c.get(Calendar.DAY_OF_MONTH);
+			int d2_mes = c.get(Calendar.MONTH);
+			int d2_ano = c.get(Calendar.YEAR);
+			Date dataFim = new GregorianCalendar(d2_ano,d2_mes,d2_dia,23,59,59).getTime();
+			
+			pstm.setInt(1,loja);
+			pstm.setDate(2,new java.sql.Date(dataInicio.getTime()));			
+			pstm.setDate(3,new java.sql.Date(dataFim.getTime()));
+			pstm.setString(4, tipoLancamento);
+			pstm.setString(5, idCliente);
+			pstm.setString(6, idFornecedor);
+			pstm.setString(7, idGrupoLancamento);
+			pstm.setString(8, statusLancamento);
+			
+			rs = pstm.executeQuery();
+			
+			verificaExistenciaDados(rs);
+				
+			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
+			
+            JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);            
+   		}catch(Exception e){
+			e.printStackTrace();
+			throw new RelatorioException(e);
+		}finally{
+			try{
+				if (rs != null){
+					rs.close();
+				}
+				if (pstm != null){
+					pstm.close();
+				}
+			}catch(Exception e){
+				throw new RelatorioException(e);
+			}
+		}   		
+   		return out;
 	}
 }
