@@ -112,6 +112,9 @@ public class LancamentoBackBean extends BackBean {
 		try {
 			validarLancamento();
 			
+			if(this.getIdCliente() == null || this.getIdCliente().equals("")){
+				throw new AppException("O Campo Cliente é obrigatório!");
+			}
 			Lancamento lancamento = montaObjetoLancamento("I");
 			
 			ClienteTransacao cliente = new ClienteTransacao();
