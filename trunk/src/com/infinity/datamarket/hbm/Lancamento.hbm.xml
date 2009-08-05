@@ -71,7 +71,7 @@
           <column name="ID_FORNECEDOR" not-null="false"/>
         </many-to-one>
         
-		<many-to-one name="cliente" class="com.infinity.datamarket.comum.cliente.Cliente" update="true" insert="true">
+		<many-to-one name="cliente" class="com.infinity.datamarket.comum.transacao.ClienteTransacao" update="true" insert="true">
           <column name="ID_CLIENTE" not-null="false"/>
         </many-to-one>
 

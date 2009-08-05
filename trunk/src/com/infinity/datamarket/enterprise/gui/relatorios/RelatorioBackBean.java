@@ -25,6 +25,7 @@ import com.infinity.datamarket.comum.financeiro.Lancamento;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
@@ -1386,11 +1387,11 @@ public class RelatorioBackBean extends BackBean {
 	}
 
 //	 Clientes
-	private List<Cliente> carregarClientes() {
+	private List<ClienteTransacao> carregarClientes() {
 		
-		List<Cliente> clientes = null;
+		List<ClienteTransacao> clientes = null;
 		try {
-			clientes = (ArrayList<Cliente>)getFachada().consultarTodosClientes();
+			clientes = (ArrayList<ClienteTransacao>)getFachada().consultarTodosClientes();
 		} catch (Exception e) {
 			e.printStackTrace();
 			
@@ -1404,12 +1405,12 @@ public class RelatorioBackBean extends BackBean {
 	public SelectItem[] getClientes() {
 		SelectItem[] arrayClientes = null;
 		try {
-			List<Cliente> clientes = carregarClientes();
+			List<ClienteTransacao> clientes = carregarClientes();
 			arrayClientes = new SelectItem[clientes.size()+1];
 			int i = 0;
 			arrayClientes[i++] = new SelectItem("0", "");
-			for(Cliente clienteTmp : clientes){
-				SelectItem item = new SelectItem(clienteTmp.getId().toString(), clienteTmp.getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)?clienteTmp.getNomeCliente():clienteTmp.getNomeFantasia());
+			for(ClienteTransacao clienteTmp : clientes){
+				SelectItem item = new SelectItem(clienteTmp.getCpfCnpj().toString(), clienteTmp.getNomeCliente());
 				arrayClientes[i++] = item;
 			}
 		} catch (Exception e) {
