@@ -21,6 +21,7 @@ import org.hibernate.collection.PersistentSet;
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
+import com.infinity.datamarket.comum.financeiro.Lancamento;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -69,8 +70,12 @@ public class RelatorioBackBean extends BackBean {
 	private String idFornecedor;
 	private String idGrupoLancamento;
 	private String idStatusLancamento;
+	private String idTipoRelatorioContasAPagar;
+	private String idTipoRelatorioContasAReceber;
 	private String tipoLancamento;
 	private SelectItem[] listaStatusLancamento;
+	private SelectItem[] listaTipoRelatorioContasAPagar;
+	private SelectItem[] listaTipoRelatorioContasAReceber;
 
 	public String getIdCliente() {
 		return idCliente;
@@ -114,6 +119,28 @@ public class RelatorioBackBean extends BackBean {
 		lista[5] = new SelectItem("D", "Pendente");
 		if(this.getIdStatusLancamento() == null || this.getIdStatusLancamento().equals("")){
 			this.setIdStatusLancamento("T");
+		}
+		return lista;
+	}
+	
+	public SelectItem[] getListaTipoRelatorioContasAPagar() {
+		SelectItem[] lista = new SelectItem[3];
+		lista[0] = new SelectItem("0", "Contas à Pagar");
+		lista[1] = new SelectItem("1", "Contas Pagas");
+		lista[2] = new SelectItem("2", "Contas Vencidas");
+		if(this.getIdTipoRelatorioContasAPagar() == null || this.getIdTipoRelatorioContasAPagar().equals("")){
+			this.setIdTipoRelatorioContasAPagar("0");
+		}
+		return lista;
+	}
+
+	public SelectItem[] getListaTipoRelatorioContasAReceber() {
+		SelectItem[] lista = new SelectItem[3];
+		lista[0] = new SelectItem("3", "Contas à Receber");
+		lista[1] = new SelectItem("4", "Contas Recebidas");
+		lista[2] = new SelectItem("5", "Contas Vencidas");
+		if(this.getIdTipoRelatorioContasAReceber() == null || this.getIdTipoRelatorioContasAReceber().equals("")){
+			this.setIdTipoRelatorioContasAReceber("3");
 		}
 		return lista;
 	}
@@ -759,7 +786,14 @@ public class RelatorioBackBean extends BackBean {
 		validaPeriodo();
 	}
 
-	public void validarRelatorioAnaliticoLancamentos() throws AppException{
+	public void validarRelatorioAnaliticoLancamentosContasAPagar() throws AppException{
+		if(this.getIdLoja() == null || this.getIdLoja().equals("0")){
+			throw new AppException("É necessário selecionar uma Loja!");
+		}
+		validaPeriodo();
+	}
+
+	public void validarRelatorioAnaliticoLancamentosContasAReceber() throws AppException{
 		if(this.getIdLoja() == null || this.getIdLoja().equals("0")){
 			throw new AppException("É necessário selecionar uma Loja!");
 		}
@@ -839,6 +873,20 @@ public class RelatorioBackBean extends BackBean {
 	
 	public void limparRelatorioEstoqueAtual(){
 		resetBB();
+	}
+	
+	public void limparRelatorioAnaliticoLancamentosContasAPagar(){
+		resetBB();
+		this.setIdGrupoLancamento("0");
+		this.setIdFornecedor("0");
+		this.setIdTipoRelatorioContasAPagar("0");
+	}
+
+	public void limparRelatorioAnaliticoLancamentosContasAReceber(){
+		resetBB();
+		this.setIdGrupoLancamento("0");
+		this.setIdCliente("0");
+		this.setIdTipoRelatorioContasAReceber("3");
 	}
 	
 	public void resetBB(){
@@ -1160,9 +1208,10 @@ public class RelatorioBackBean extends BackBean {
 		}
 	}
 	
-	public String executarRelatorioAnaliticoLancamentos(){
+	public String executarRelatorioAnaliticoLancamentosContasAPagar(){
+		
 		try {
-			validarRelatorioAnaliticoLancamentos();
+			validarRelatorioAnaliticoLancamentosContasAPagar();
 
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
@@ -1170,15 +1219,62 @@ public class RelatorioBackBean extends BackBean {
 			ByteArrayOutputStream byteOutputStream = 
 				(ByteArrayOutputStream)getFachada().gerarRelatorioAnaliticoLancamentos(new Integer(this.getIdLoja()).intValue(), 
 																				  this.getDataInicial(), 
-																				  this.getDataFinal(),
-																				  this.getTipoLancamento(),
-																				  this.getIdCliente(),
+																				  this.getDataFinal(), 
+																				  Lancamento.DEBITO,
+																				  null,
 																				  this.getIdFornecedor(),
 																				  this.getIdGrupoLancamento(),
-																				  this.getIdStatusLancamento());
+																				  Integer.parseInt(this.getIdTipoRelatorioContasAPagar()));
 			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
 			response.setContentType("application/pdf");
-			response.setHeader("Content-disposition", "attachment;filename=RelatorioAnaliticoFechamentoVendas" + System.currentTimeMillis() + ".pdf");
+			response.setHeader("Content-disposition", "attachment;filename=RelatorioAnaliticoLancamentosContasAPagar" + System.currentTimeMillis() + ".pdf");
+			context.responseComplete();
+			out.flush();
+			out.close();
+			return "";
+		} catch (AppException e) {
+			e.printStackTrace();
+			
+			String mensagem = "";
+			if(e.getCause() != null && e.getCause().getMessage() != null){
+				mensagem = e.getCause().getMessage();
+			}else {
+				mensagem = e.getMessage();
+			}
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					mensagem, "");
+			getContextoApp().addMessage(null, msg);
+		} catch (IOException e) {			
+			e.printStackTrace();
+			e.printStackTrace();
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro ao executar o Relatório!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+		return "";
+	}
+
+	public String executarRelatorioAnaliticoLancamentosContasAReceber(){
+		
+		try {
+			validarRelatorioAnaliticoLancamentosContasAReceber();
+
+			FacesContext context = FacesContext.getCurrentInstance();
+			HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
+			ServletOutputStream out = response.getOutputStream();
+			ByteArrayOutputStream byteOutputStream = 
+				(ByteArrayOutputStream)getFachada().gerarRelatorioAnaliticoLancamentos(new Integer(this.getIdLoja()).intValue(), 
+																				  this.getDataInicial(), 
+																				  this.getDataFinal(), 
+																				  Lancamento.CREDITO,
+																				  this.getIdCliente(),
+																				  null,
+																				  this.getIdGrupoLancamento(),
+																				  Integer.parseInt(this.getIdTipoRelatorioContasAReceber()));
+			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
+			response.setContentType("application/pdf");
+			response.setHeader("Content-disposition", "attachment;filename=RelatorioAnaliticoLancamentosContasAReceber" + System.currentTimeMillis() + ".pdf");
 			context.responseComplete();
 			out.flush();
 			out.close();
@@ -1325,5 +1421,22 @@ public class RelatorioBackBean extends BackBean {
 		}
 		return arrayClientes;
 
+	}
+
+	public String getIdTipoRelatorioContasAPagar() {
+		return idTipoRelatorioContasAPagar;
+	}
+
+	public void setIdTipoRelatorioContasAPagar(String idTipoRelatorioContasAPagar) {
+		this.idTipoRelatorioContasAPagar = idTipoRelatorioContasAPagar;
+	}
+
+	public String getIdTipoRelatorioContasAReceber() {
+		return idTipoRelatorioContasAReceber;
+	}
+
+	public void setIdTipoRelatorioContasAReceber(
+			String idTipoRelatorioContasAReceber) {
+		this.idTipoRelatorioContasAReceber = idTipoRelatorioContasAReceber;
 	}
 }

@@ -306,6 +306,7 @@ public class LancamentoBackBean extends BackBean {
 		lancamento.setObservacao(this.observacao);
 		lancamento.setValor(this.valor);
 		lancamento.setIdEntradaProduto(this.idEntradaProduto);
+		lancamento.setCliente(null);
 
 		Loja loja = new Loja();
 		loja.setId(new Long(this.idLoja));

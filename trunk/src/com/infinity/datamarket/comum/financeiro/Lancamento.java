@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
+import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.Persistente;
@@ -37,6 +38,7 @@ public class Lancamento extends Persistente{
 	private Long idEntradaProduto;
 	private Fornecedor fornecedor;
 	private String situacao;
+	private Cliente cliente;
 	
 	private Collection<BaixaLancamento> itensPagamento;
 	private Collection<BaixaLancamento> itensPagamentoExcluidos;
@@ -155,5 +157,13 @@ public class Lancamento extends Persistente{
 	public void setItensPagamentoExcluidos(
 			Collection<BaixaLancamento> itensPagamentoExcluidos) {
 		this.itensPagamentoExcluidos = itensPagamentoExcluidos;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}	
 }
