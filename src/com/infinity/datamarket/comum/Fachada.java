@@ -6920,11 +6920,11 @@ public class Fachada {
 		return c;
 	}
 	
-	public OutputStream gerarRelatorioAnaliticoLancamentos(int loja, Date dataInicial, Date dataFinal, String tipoLancamento, String idCliente, String idFornecedor, String idGrupoLancamento, String statusLancamento) throws AppException{		
+	public OutputStream gerarRelatorioAnaliticoLancamentos(int loja, Date dataInicial, Date dataFinal, String tipoLancamento, String idCliente, String idFornecedor, String idGrupoLancamento, int tipoRelatorio) throws AppException{		
 		OutputStream out = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoLancamentos(loja, dataInicial, dataFinal, tipoLancamento, idCliente, idFornecedor, idGrupoLancamento, statusLancamento);
+			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoLancamentos(loja, dataInicial, dataFinal, tipoLancamento, idCliente, idFornecedor, idGrupoLancamento, tipoRelatorio);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{

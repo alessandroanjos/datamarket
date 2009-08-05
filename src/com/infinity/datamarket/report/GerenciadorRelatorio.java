@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.faces.model.SelectItem;
+
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperRunManager;
 
@@ -43,6 +45,7 @@ import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
+import com.infinity.datamarket.comum.financeiro.Lancamento;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
 import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
@@ -1116,20 +1119,62 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 		}
 	}
 	
-	public OutputStream gerarRelatorioAnaliticoLancamentos(int loja, Date dataInicial, Date dataFinal, String tipoLancamento, String idCliente, String idFornecedor, String idGrupoLancamento, String statusLancamento) throws AppException{
+	public OutputStream gerarRelatorioAnaliticoLancamentos(int loja, Date dataInicial, Date dataFinal, String tipoLancamento, String idCliente, String idFornecedor, String idGrupoLancamento, int tipoRelatorio) throws AppException{
 		
 		OutputStream out  = new ByteArrayOutputStream();
 		ResultSet rs = null;
 		PreparedStatement pstm = null;
+		String statusLancamento = "";
+		DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+		String consultaSQL = "";
 		try{
 			Map parametros = new HashMap();
 
-			parametros.put("empresa", EMPRESA);				
-						
+			parametros.put("empresa", EMPRESA);
+			
+			String nomeRelatorio = "Relatório de Contas ";
+
+			switch (tipoRelatorio) {
+				case 0:
+					nomeRelatorio = nomeRelatorio.concat("à Pagar");
+					statusLancamento = "A,P,D";
+					consultaSQL = Queries.RELATORIO_LANCAMENTOS_CONTAS_EM_ABERTO;
+					break;
+				case 1:
+					nomeRelatorio = nomeRelatorio.concat("Pagas");
+					statusLancamento = "F";
+					consultaSQL = Queries.RELATORIO_LANCAMENTOS_CONTAS_FINALIZADAS;
+					break;
+				case 2:
+					nomeRelatorio = nomeRelatorio.concat("Vencidas");
+					statusLancamento = "A,P,D";
+					consultaSQL = Queries.RELATORIO_LANCAMENTOS_CONTAS_VENCIDAS;
+					break;
+				case 3:
+					nomeRelatorio = nomeRelatorio.concat("à Receber");
+					statusLancamento = "A,P,D";
+					consultaSQL = Queries.RELATORIO_LANCAMENTOS_CONTAS_EM_ABERTO;
+					break;
+				case 4:
+					nomeRelatorio = nomeRelatorio.concat("Recebidas");
+					statusLancamento = "F";
+					consultaSQL = Queries.RELATORIO_LANCAMENTOS_CONTAS_FINALIZADAS;
+					break;
+				case 5:
+					nomeRelatorio = nomeRelatorio.concat("Vencidas");
+					statusLancamento = "A,P,D";
+					consultaSQL = Queries.RELATORIO_LANCAMENTOS_CONTAS_VENCIDAS;
+					break;
+				default:
+					break;
+			}
+			
+			parametros.put("nomeRelatorio", nomeRelatorio);
+			
 			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioAnaliticoLancamentos.jasper");
             					
 			Connection con = getConnection();
-			pstm = con.prepareStatement(Queries.RELATORIO_ANALITICO_VENDAS, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			pstm = con.prepareStatement(consultaSQL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			
 			//data inicio
 			Calendar c = new GregorianCalendar();
@@ -1155,6 +1200,8 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			pstm.setString(6, idFornecedor);
 			pstm.setString(7, idGrupoLancamento);
 			pstm.setString(8, statusLancamento);
+			
+			parametros.put("periodo", f.format(dataInicio) + " a " + f.format(dataFim));
 			
 			rs = pstm.executeQuery();
 			
