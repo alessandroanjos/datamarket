@@ -24,6 +24,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
+import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
@@ -55,6 +56,7 @@ public class LancamentoBackBean extends BackBean {
 	private Date dataFinal;
 	
 	SelectItem[] fornecedores;
+	private String idCliente;
 	
 	Collection lancamentos,formas,grupos;
 	
@@ -111,6 +113,10 @@ public class LancamentoBackBean extends BackBean {
 			validarLancamento();
 			
 			Lancamento lancamento = montaObjetoLancamento("I");
+			
+			ClienteTransacao cliente = new ClienteTransacao();
+			cliente.setCpfCnpj(this.getIdCliente().replace('.', ' ').replace('-', ' ').replace('/', ' '));
+			lancamento.setCliente(cliente);
 			
 			lancamento.setTipoLancamento(Lancamento.CREDITO);
 
@@ -790,4 +796,49 @@ public class LancamentoBackBean extends BackBean {
 	public void setDescricaoSituacao(String descricaoSituacao) {
 		this.descricaoSituacao = descricaoSituacao;
 	}
+	
+//	 Clientes
+	private List<ClienteTransacao> carregarClientes() {
+		
+		List<ClienteTransacao> clientes = null;
+		try {
+			clientes = (ArrayList<ClienteTransacao>)getFachada().consultarTodosClientes();
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+		return clientes;
+	}
+
+	public SelectItem[] getClientes() {
+		SelectItem[] arrayClientes = null;
+		try {
+			List<ClienteTransacao> clientes = carregarClientes();
+			arrayClientes = new SelectItem[clientes.size()+1];
+			int i = 0;
+			arrayClientes[i++] = new SelectItem("0", "");
+			for(ClienteTransacao clienteTmp : clientes){
+				SelectItem item = new SelectItem(clienteTmp.getCpfCnpj().toString(), clienteTmp.getNomeCliente());
+				arrayClientes[i++] = item;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+		return arrayClientes;
+
+	}
+	public String getIdCliente() {
+		return idCliente;
+	}
+	public void setIdCliente(String idCliente) {
+		this.idCliente = idCliente;
+	}
+
 }

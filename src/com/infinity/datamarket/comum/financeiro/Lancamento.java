@@ -6,6 +6,7 @@ import java.util.Date;
 
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
+import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.Persistente;
 
@@ -38,7 +39,7 @@ public class Lancamento extends Persistente{
 	private Long idEntradaProduto;
 	private Fornecedor fornecedor;
 	private String situacao;
-	private Cliente cliente;
+	private ClienteTransacao cliente;
 	
 	private Collection<BaixaLancamento> itensPagamento;
 	private Collection<BaixaLancamento> itensPagamentoExcluidos;
@@ -159,11 +160,11 @@ public class Lancamento extends Persistente{
 		this.itensPagamentoExcluidos = itensPagamentoExcluidos;
 	}
 
-	public Cliente getCliente() {
+	public ClienteTransacao getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(ClienteTransacao cliente) {
 		this.cliente = cliente;
 	}	
 }
