@@ -341,11 +341,20 @@
 
 	<!-- RELATORIO ANALITICO LANCAMENTOS -->
 	<navigation-rule>
-		<from-view-id>/jsp/reports/relatorioAnaliticoLancamentos.jsp</from-view-id>
+		<from-view-id>/jsp/reports/relatorioAnaliticoLancamentosContasAPagar.jsp</from-view-id>
 		<navigation-case>
-			<from-action>#{relatorioBB.executarRelatorioAnaliticoLancamentos}</from-action>
+			<from-action>#{relatorioBB.executarRelatorioAnaliticoLancamentosContasAPagar}</from-action>
 			<from-outcome>mesma</from-outcome>
-			<to-view-id>/jsp/reports/relatorioAnaliticoLancamentos.jsp</to-view-id>
+			<to-view-id>/jsp/reports/relatorioAnaliticoLancamentosContasAPagar.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/jsp/reports/relatorioAnaliticoLancamentosContasAReceber.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{relatorioBB.executarRelatorioAnaliticoLancamentosContasAReceber}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/reports/relatorioAnaliticoLancamentosContasAReceber.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	
