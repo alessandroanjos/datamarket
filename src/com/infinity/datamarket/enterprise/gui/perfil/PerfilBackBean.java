@@ -136,7 +136,7 @@ public class PerfilBackBean extends BackBean {
 			throw new AppException("É necessário informar uma Descrição.");
 		}
 		
-		if(this.getPercentualDesconto() == null || this.getPercentualDesconto().setScale(2).compareTo(new BigDecimal("0.00")) < 1){
+		if(this.getPercentualDesconto() == null || this.getPercentualDesconto().setScale(2).compareTo(new BigDecimal("0.00")) < 0){
 			throw new AppException("É necessário informar um Percentual de Desconto.");
 		}
 		
@@ -189,7 +189,9 @@ public class PerfilBackBean extends BackBean {
 			List<String> listaFuncSelecionadas = new ArrayList<String>();
 			
 		    this.processNodes(listaFuncSelecionadas, this.arvore.getChildren().iterator());
-		    
+		    // logout
+		    listaFuncSelecionadas.add("999");
+
 		    if(listaFuncSelecionadas != null && listaFuncSelecionadas.size() > 0){
 		    	List<String> arrayCodFuncionalidades = new ArrayList<String>();
 				for (int i = 0; i < listaFuncSelecionadas.size(); i++) {
@@ -436,6 +438,8 @@ public class PerfilBackBean extends BackBean {
 			List<String> listaFuncSelecionadas = new ArrayList<String>();
 			
 		    this.processNodes(listaFuncSelecionadas, this.arvore.getChildren().iterator());
+		    // logout
+		    listaFuncSelecionadas.add("999");
 		    
 		    if(listaFuncSelecionadas != null && listaFuncSelecionadas.size() > 0){
 		    	List<String> arrayCodFuncionalidades = new ArrayList<String>();
@@ -774,27 +778,43 @@ public class PerfilBackBean extends BackBean {
 		this.arvoreFuncionalidades = arvoreFuncionalidades;
 	}
 
-	public void processNodes(List<String> listaFuncSelecionadas, Iterator iterator){
+//	private static int contFilhos = 0;
+	
+	public int processNodes(List<String> listaFuncSelecionadas, Iterator iterator){
+		int contFilhos = 0;
 		 for (Iterator iter = iterator; iter.hasNext();) {
 			 Object obj = iter.next();
 			 if(obj instanceof TreeNodeChecked){
 				   TreeNodeChecked tree = (TreeNodeChecked) obj; 
 				   if(tree.getChildren() != null && tree.getChildren().size() > 0){
-					   processNodes(listaFuncSelecionadas, tree.getChildren().iterator());
+					   int result = processNodes(listaFuncSelecionadas, tree.getChildren().iterator());
+					   if(result > 0){
+						   listaFuncSelecionadas.add(tree.getIdentifier());
+					       System.out.println("Inseri o no: "+tree.getIdentifier() + " - " + tree.getDescription());
+					       contFilhos++;
+					   }
 					   if(tree.isChecked() == true) { 
 					       listaFuncSelecionadas.add(tree.getIdentifier());
+					       System.out.println("Inseri o no: "+tree.getIdentifier() + " - " + tree.getDescription());
+					       contFilhos++;
 					   }   
 				   }else if(tree.isChecked() == true) { 
 				       listaFuncSelecionadas.add(tree.getIdentifier());
+				       System.out.println("Inseri o no: "+tree.getIdentifier() + " - " + tree.getDescription());
+				       contFilhos++;
 				   } 
 			 }else if (obj instanceof TreeNodeBase){
-				 TreeNodeBase tree = (TreeNodeBase) obj;
-//				 listaFuncSelecionadas.add(tree.getIdentifier());
+				 TreeNodeBase tree = (TreeNodeBase) obj;				 
 				 if(tree.getChildren() != null && tree.getChildren().size() > 0){
-					 processNodes(listaFuncSelecionadas, tree.getChildren().iterator());
+					 int result = processNodes(listaFuncSelecionadas, tree.getChildren().iterator());
+					 if((result > 0 || (Integer.parseInt(tree.getIdentifier()) % 100 == 0)) || !tree.isLeaf()){
+						 listaFuncSelecionadas.add(tree.getIdentifier());
+						 System.out.println("Inseri o no: "+tree.getIdentifier() + " - " + tree.getDescription());
+					 }
 				 }
 			 }
 		 }
+		 return contFilhos;
 	}
 	
 	public void marcarFuncionalidadesAssociadas(List<String> listaFuncSelecionadas, Iterator iterator){

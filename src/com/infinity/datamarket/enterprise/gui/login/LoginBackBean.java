@@ -45,7 +45,7 @@ public class LoginBackBean extends BackBean{
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 						"Usuário e/ou Senha inválido(s).","");
 				getContextoApp().addMessage(null, msg);
-				resetBB();
+//				resetBB();
 				return "erro";
 			}
 			setUsuario(usu);
@@ -56,7 +56,7 @@ public class LoginBackBean extends BackBean{
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Usuário e/ou Senha inválido(s).","");
 			getContextoApp().addMessage(null, msg);
-			resetBB();
+//			resetBB();
 			return "erro";
 		}catch(AppException e){
 			

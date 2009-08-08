@@ -812,20 +812,23 @@ public class Fachada {
 	
 	
 	public void inserirTransacaoES(Transacao trans) throws AppException{
-
 		try{
 			if (trans instanceof TransacaoVenda){
 				TransacaoVenda transVenda = (TransacaoVenda) trans;
 				if (transVenda.getCliente() != null){
 					try{
 						RepositoryManagerHibernateUtil.beginTrasaction();
-						getCadastroTransacao().inserirCliente(transVenda.getCliente());
+						ClienteTransacao cliente = getCadastroTransacao().consultarClienteTransacaoPorID(transVenda.getCliente().getCpfCnpj());
+						if (cliente == null){
+							getCadastroTransacao().inserirCliente(transVenda.getCliente());
+						}else{
+							RepositoryManagerHibernateUtil.currentSession().evict(cliente);
+							getCadastroTransacao().atualizarCliente(transVenda.getCliente());
+						}
 						RepositoryManagerHibernateUtil.commitTransation();
-					}catch(Exception e){					
-						RepositoryManagerHibernateUtil.beginTrasaction();
-						getCadastroTransacao().atualizarCliente(transVenda.getCliente());
-						RepositoryManagerHibernateUtil.commitTransation();
-					}
+					}catch(Exception e){		
+						RepositoryManagerHibernateUtil.rollbackTransation();						
+					}					
 				}
 			}
 			RepositoryManagerHibernateUtil.beginTrasaction();
