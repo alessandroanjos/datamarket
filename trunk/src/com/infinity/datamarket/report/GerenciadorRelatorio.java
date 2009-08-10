@@ -55,6 +55,7 @@ import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.comum.util.JExtenso;
+import com.infinity.datamarket.comum.util.ObjetoClonavel;
 import com.infinity.datamarket.comum.util.Queries;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
@@ -379,7 +380,7 @@ public class GerenciadorRelatorio {
 			pstm.setDate(3,new java.sql.Date(dataFim.getTime()));
 			
 			rs = pstm.executeQuery();
-			
+//			ResultSet rsTest = (ResultSet)ObjetoClonavel.clone(rs);
 			verificaExistenciaDados(rs);
 				
 			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
@@ -1108,7 +1109,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 		}
 		
 		if(cont > 0){
-			rs.first();
+			rs.beforeFirst();
 		}
 		
 		if(cont == 0){
