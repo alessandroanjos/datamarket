@@ -29,6 +29,7 @@ public class OpSolicitaCliente extends Mic{
 					if (tela.retorno == TelaCadastroClientePDV.OK){
 						ClienteTransacao cliente = tela.getClienteTransacao();
 						TransacaoVenda transVenda = (TransacaoVenda) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
+						System.out.println("OpSolicitaCliente.exec: cliente.getCpfCnpj(): "+cliente.getCpfCnpj());
 						transVenda.setCliente(cliente);
 						gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_VENDA_ATUAL,transVenda);
 					}

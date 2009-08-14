@@ -1,15 +1,22 @@
 package com.infinity.datamarket.comum.util;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.faces.model.SelectItem;
 
 public class Util {
 	
 	public static final String STRING_VAZIA = "";
+	public static final String EXTENSAO_ZIP = ".zip";
 
 	public static int comparaDatasSemHora(Date d1, Date d2){
 		Calendar c = new GregorianCalendar();
@@ -225,5 +232,108 @@ public class Util {
 		}
 		Date d2 = new Date();
 		System.out.println(comparaDatasSemHora(d1, d2));
+	}
+	
+	public static void compactaArquivoZip(String[] arqs, String nomeZip) {
+		
+		String nomeFinalArquivo;
+
+		// verifica o nome do arquivo zip
+		if ((nomeZip == null) || (nomeZip.trim().equals(""))) {
+		   return;
+		}
+
+		// verifica o conteúdo da lista de nomes de arquivos a serem
+		// zipados
+		if ((arqs == null) || (arqs.length < 1)) {
+			return;
+		}
+
+		// cria o FileOutputStream com o nome do arquivo zip que deve ser criado
+		FileOutputStream fout = null;
+		try {
+			nomeFinalArquivo = colocaExtensao(nomeZip);
+			fout = new FileOutputStream(nomeFinalArquivo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		ZipOutputStream zout = new ZipOutputStream(fout);
+		for (int i = 0; i < arqs.length; ++i) {
+			String arq = retiraDiretorio(arqs[i], File.separator);
+			// garante que a entrada nao possui informacao de diretorio
+
+			ZipEntry ze = new ZipEntry(arq);
+			ze.setMethod(ZipEntry.DEFLATED);
+			try {
+				zout.putNextEntry(ze);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			//Envia os dados para o arquivo
+			RandomAccessFile inFile = null;
+			try {
+				inFile = new RandomAccessFile(arqs[i], "r");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			byte bb[] = new byte[1024];
+			int amount;
+			try {
+				while ((amount = inFile.read(bb)) > 0) { // != -1
+					zout.write(bb, 0, amount);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			finally {
+				if (zout != null) {
+					try {
+						zout.closeEntry();
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+				}
+				if (inFile != null) {
+					try {
+						inFile.close();
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+				}
+			}
+		}
+		if (zout != null) {
+			try {
+				zout.close();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+	}
+
+
+	public static String retiraDiretorio(String arquivo, String barra) {
+		int ultimaBarra = arquivo.lastIndexOf(barra);
+
+		if (ultimaBarra != -1) {
+			char[] newArquivo = new char[arquivo.length() - ultimaBarra-1];
+			for (int i = ultimaBarra +1;  i  < arquivo.length(); i++) {
+				newArquivo[i-ultimaBarra -1] = arquivo.charAt(i);
+			}
+			return new String(newArquivo);
+		} else {
+			return new String(arquivo);
+		}
+
+	}
+
+	public static String colocaExtensao(String path) {
+		String res = path;
+		if (!res.toLowerCase().endsWith(EXTENSAO_ZIP)) {
+			res = res + EXTENSAO_ZIP;
+		}
+		return res;
 	}
 }

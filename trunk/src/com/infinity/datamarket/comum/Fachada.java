@@ -762,21 +762,26 @@ public class Fachada {
 
 	
 	
-
+ 
 	public void inserirTransacao(Transacao trans) throws AppException{
 
 		try{
+			System.out.println("Fachada.inserirTransacao: trans instanceof TransacaoVenda: "+(trans instanceof TransacaoVenda));
 			if (trans instanceof TransacaoVenda){
 				TransacaoVenda transVenda = (TransacaoVenda) trans;
 				if (transVenda.getCliente() != null){
+					System.out.println("Fachada.inserirTransacao: transVenda.getCliente().getCpfCnpj(): "+transVenda.getCliente().getCpfCnpj());
 					try{
 						RepositoryManagerHibernateUtil.beginTrasaction();
 						ClienteTransacao cliente = getCadastroTransacao().consultarClienteTransacaoPorID(transVenda.getCliente().getCpfCnpj());
+						System.out.println("Fachada.inserirTransacao: cliente: "+cliente);
 						if (cliente == null){
 							getCadastroTransacao().inserirCliente(transVenda.getCliente());
+							System.out.println("Fachada.inserirTransacao: inseri o cliente");
 						}else{
 							RepositoryManagerHibernateUtil.currentSession().evict(cliente);
 							getCadastroTransacao().atualizarCliente(transVenda.getCliente());
+							System.out.println("Fachada.inserirTransacao: alterei o cliente");
 						}
 						RepositoryManagerHibernateUtil.commitTransation();
 					}catch(Exception e){		
@@ -784,6 +789,7 @@ public class Fachada {
 					}					
 				}
 			}
+			System.out.println("Fachada.inserirTransacao: inserindo a transacao com chave: "+trans.getPk().toString());
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			getCadastroTransacao().inserir(trans);
 			RepositoryManagerHibernateUtil.commitTransation();
