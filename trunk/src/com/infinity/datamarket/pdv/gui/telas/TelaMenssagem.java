@@ -6,6 +6,8 @@
 
 package com.infinity.datamarket.pdv.gui.telas;
 
+import java.io.File;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -45,10 +47,13 @@ public class TelaMenssagem extends Tela{
         painelTop.setBounds(0,0,800, 100);
 
         //imgLogo = new JLabel(new javax.swing.ImageIcon("C:\\eclipse3.2\\workspace\\MaquinaEstados\\bin\\logo.bmp"));
-        imgLogo = new JLabel(new javax.swing.ImageIcon(LOGO_CLIENTE));
-        imgLogo.setBounds(5, 10, 340, 83);
+        if (new File(LOGO_CLIENTE).exists()){
+	        imgLogo = new JLabel(new javax.swing.ImageIcon(LOGO_CLIENTE));
+	        imgLogo.setBounds(5, 10, 340, 83);
+	        painelTop.add(imgLogo);
+        }
         painelTop.setLayout(null);
-        painelTop.add(imgLogo);
+        
 
         getPainel().add(painelTop);
 
