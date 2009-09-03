@@ -1,0 +1,1 @@
+update estado set descricao = 'Caixa Livre' where id = 2
