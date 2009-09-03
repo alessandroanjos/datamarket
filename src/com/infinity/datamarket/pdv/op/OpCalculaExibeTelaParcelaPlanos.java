@@ -122,7 +122,7 @@ public class OpCalculaExibeTelaParcelaPlanos extends Mic{
 			
 			gerenciadorPerifericos.atualizaTela(tela);
 			
-			gerenciadorPerifericos.getDisplay().setMensagem("Confirma? [ENTRA][VOLTA]");
+			gerenciadorPerifericos.getDisplay().setMensagem("Confirma? [ENTRA] [ESC]");
 			try {
 				EntradaDisplay entrada = gerenciadorPerifericos.getDisplay().lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA}, Display.MASCARA_NUMERICA, 0);
 				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){

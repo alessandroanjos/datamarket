@@ -14,7 +14,7 @@ public class OpConfirmaCancelamentoUltimoCupom extends Mic{
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
-			gerenciadorPerifericos.getDisplay().setMensagem("Canc. Cupom? [ENTRA][VOLTA]");
+			gerenciadorPerifericos.getDisplay().setMensagem("Canc. Cupom? [ENTRA] [ESC]");
 			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
 			if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 				return ALTERNATIVA_1;
