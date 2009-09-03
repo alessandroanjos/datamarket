@@ -16,7 +16,7 @@ public class OpSolicitaConsultaProdutoSobreposicao extends Mic{
 		String codigo=null;
 		try{
 
-			gerenciadorPerifericos.getDisplay().setMensagem("Cons: Codigo do Produto");
+			gerenciadorPerifericos.getDisplay().setMensagem("Cons: Código do Produto");
 			
 			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
 			if (entrada.getTeclaFinalizadora() == 10){

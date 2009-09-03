@@ -43,7 +43,7 @@ public class OpSolicitaDadosCheque extends Mic{
 												banco = entrada3.getDado();
 												if (!"".equals(banco)){
 													while(agencia == null || "".equals(agencia)){
-														gerenciadorPerifericos.getDisplay().setMensagem("Agencia");
+														gerenciadorPerifericos.getDisplay().setMensagem("Agência");
 														EntradaDisplay entrada4 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 5);
 														if (entrada4.getTeclaFinalizadora() == 10){
 															agencia = entrada4.getDado();
@@ -55,7 +55,7 @@ public class OpSolicitaDadosCheque extends Mic{
 																		conta = entrada5.getDado();
 																		if (!"".equals(conta)){
 																			while(numeroCheque == null || "".equals(numeroCheque)){
-																				gerenciadorPerifericos.getDisplay().setMensagem("Numero Cheque");
+																				gerenciadorPerifericos.getDisplay().setMensagem("Número Cheque");
 																				EntradaDisplay entrada6 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 8);
 																				if (entrada6.getTeclaFinalizadora() == 10){
 																					numeroCheque = entrada6.getDado();

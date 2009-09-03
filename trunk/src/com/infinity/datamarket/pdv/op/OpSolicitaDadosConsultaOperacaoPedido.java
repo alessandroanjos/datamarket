@@ -22,7 +22,7 @@ public class OpSolicitaDadosConsultaOperacaoPedido extends Mic{
 		
 		try{
 			while(operacao == null || "".equals(operacao)){
-				gerenciadorPerifericos.getDisplay().setMensagem("Numero do Pedido");
+				gerenciadorPerifericos.getDisplay().setMensagem("Número do Pedido");
 				EntradaDisplay entrada3 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
 				if (entrada3.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 					operacao = entrada3.getDado();

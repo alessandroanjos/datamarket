@@ -15,7 +15,7 @@ public class OpSolicitaConsultaProdutoDesconto extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		String codigo=null;
 		try{
-			gerenciadorPerifericos.getDisplay().setMensagem("Desc: Codigo do Produto");
+			gerenciadorPerifericos.getDisplay().setMensagem("Desc: Código do Produto");
 			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
 			if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 				codigo = entrada.getDado();
