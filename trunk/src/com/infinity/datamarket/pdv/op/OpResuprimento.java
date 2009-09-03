@@ -16,7 +16,7 @@ public class OpResuprimento extends Mic{
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
-			gerenciadorPerifericos.getDisplay().setMensagem("Resuprimento");
+			gerenciadorPerifericos.getDisplay().setMensagem("Ressuprimento");
 			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_MONETARIA, 5);
 			if (entrada.getTeclaFinalizadora() == 10){
 				String valor = entrada.getDado();

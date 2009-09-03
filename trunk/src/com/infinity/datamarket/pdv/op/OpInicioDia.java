@@ -18,7 +18,7 @@ public class OpInicioDia extends Mic{
 		if (dataMov != null){
 			
 			if (Util.comparaDatasSemHora(dataMov, dataAtual) >= 0){
-				gerenciadorPerifericos.getDisplay().setMensagem("Movimento Dia Fechado");
+				gerenciadorPerifericos.getDisplay().setMensagem("Movimento do Dia Fechado");
 				try {
 					gerenciadorPerifericos.esperaVolta();
 				} catch (AppException e) {

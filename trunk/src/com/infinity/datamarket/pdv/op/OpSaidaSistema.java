@@ -11,7 +11,7 @@ public class OpSaidaSistema extends Mic{
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
-			gerenciadorPerifericos.getDisplay().setMensagem("Sair do PDV? [ENTRA][VOLTA]");
+			gerenciadorPerifericos.getDisplay().setMensagem("Sair do PDV? [ENTRA] [ESC]");
 			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
 			if (entrada.getTeclaFinalizadora() == 10){
 				System.exit(0);

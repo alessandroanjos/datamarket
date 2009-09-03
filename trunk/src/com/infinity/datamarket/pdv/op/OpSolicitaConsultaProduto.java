@@ -30,9 +30,9 @@ public class OpSolicitaConsultaProduto extends Mic{
 				quantidade = new BigDecimal(1);
 			}
 			if (quantidade.compareTo(BigDecimal.ONE) > 0){
-				gerenciadorPerifericos.getDisplay().setMensagem("Canc: "+StringUtil.numeroToString(quantidade, 3, 0, ",", ".", true)+" x "+"Cod Produto");
+				gerenciadorPerifericos.getDisplay().setMensagem("Canc: "+StringUtil.numeroToString(quantidade, 3, 0, ",", ".", true)+" x "+"Cód. Produto");
 			}else{
-				gerenciadorPerifericos.getDisplay().setMensagem("Canc: Codigo do Produto");
+				gerenciadorPerifericos.getDisplay().setMensagem("Canc: Código do Produto");
 			}
 			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
 			if (entrada.getTeclaFinalizadora() == 10){

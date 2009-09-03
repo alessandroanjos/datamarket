@@ -12,7 +12,7 @@ public class OpConfirmaCancelamentoPagamento extends Mic{
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try {
-			gerenciadorPerifericos.getDisplay().setMensagem("Canc. Pagto? [ENTRA][VOLTA]");
+			gerenciadorPerifericos.getDisplay().setMensagem("Canc. Pagto? [ENTRA] [ESC]");
 			EntradaDisplay entrada;
 			
 			entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);

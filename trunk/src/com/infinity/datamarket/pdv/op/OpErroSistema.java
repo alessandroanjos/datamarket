@@ -9,7 +9,7 @@ public class OpErroSistema extends Mic{
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
-			gerenciadorPerifericos.getDisplay().setMensagem("Erro de Sistema  [VOLTA]");
+			gerenciadorPerifericos.getDisplay().setMensagem("Erro de Sistema  [ESC]");
 			gerenciadorPerifericos.esperaVolta();
 			gerenciadorPerifericos.getDisplay().setMensagem("");
 		}catch (AppException e){
