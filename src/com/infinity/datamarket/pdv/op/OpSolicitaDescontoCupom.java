@@ -30,7 +30,7 @@ public class OpSolicitaDescontoCupom extends Mic{
 				TransacaoVenda transacao = (TransacaoVenda) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
 				
 				if (transacao.getDescontoCupom() != null && transacao.getDescontoCupom().compareTo(new BigDecimal(0)) > 0){
-					gerenciadorPerifericos.getDisplay().setMensagem("Desconto já Efetuado");
+					gerenciadorPerifericos.getDisplay().setMensagem("Desconto já efetuado");
 					gerenciadorPerifericos.esperaVolta();
 					return ALTERNATIVA_1;
 				}
@@ -39,7 +39,7 @@ public class OpSolicitaDescontoCupom extends Mic{
 					Iterator i = transacao.getEventosTransacao().iterator();
 					while(i.hasNext()){
 						if (i.next() instanceof EventoItemPagamento){
-							gerenciadorPerifericos.getDisplay().setMensagem("Pagamento já Efetuado");
+							gerenciadorPerifericos.getDisplay().setMensagem("Pagamento já efetuado");
 							gerenciadorPerifericos.esperaVolta();
 							return ALTERNATIVA_1;
 						}					
