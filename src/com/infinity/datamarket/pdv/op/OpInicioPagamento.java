@@ -20,7 +20,7 @@ public class OpInicioPagamento extends Mic{
 		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TROCO_ATUAL, BigDecimal.ZERO);
 		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TROCO_ATUAL, BigDecimal.ZERO);
 		gerenciadorPerifericos.getCmos().gravar(CMOS.DESCONTO,BigDecimal.ZERO);
-		gerenciadorPerifericos.getCmos().gravar(CMOS.ACRESSIMO,BigDecimal.ZERO);
+		gerenciadorPerifericos.getCmos().gravar(CMOS.ACRESCIMO,BigDecimal.ZERO);
 		gerenciadorPerifericos.getCmos().gravar(CMOS.DADOS_CONSULTA_CARTAO_PROPRIO,null);
 		return ALTERNATIVA_1;
 	}
