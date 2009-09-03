@@ -16,7 +16,7 @@ public class TransacaoPagamento extends Transacao{
 	private Date dataHoraFim;
 	private BigDecimal valor;
 	private BigDecimal desconto;
-	private BigDecimal acressimo;
+	private BigDecimal acrescimo;
 	private String situacao;
 
 	
@@ -44,7 +44,7 @@ public class TransacaoPagamento extends Transacao{
 		this.dataHoraFim = dataHoraFim;
 		this.valor = valor;
 		this.desconto = desconto;
-		this.acressimo = acressimo;
+		this.acrescimo = acressimo;
 		this.situacao = situacao;
 	}
 
@@ -52,12 +52,12 @@ public class TransacaoPagamento extends Transacao{
 
 	}
 
-	public BigDecimal getAcressimo() {
-		return acressimo;
+	public BigDecimal getAcrescimo() {
+		return acrescimo;
 	}
 
-	public void setAcressimo(BigDecimal acressimo) {
-		this.acressimo = acressimo;
+	public void setAcrescimo(BigDecimal acressimo) {
+		this.acrescimo = acressimo;
 	}
 
 	public String getCodigoUsuarioOperador() {

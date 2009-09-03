@@ -109,7 +109,7 @@ public class CadastroTransacao extends Cadastro{
 					Cliente cli = (Cliente) c.iterator().next();
 					BigDecimal valorLimite = cli.getValorLimiteDisponivel().setScale(2);
 					System.out.println("Valor Limite "+ valorLimite);
-					BigDecimal valorPagamento = transPagamento.getValor().subtract(transPagamento.getAcressimo()).add(transPagamento.getDesconto());					
+					BigDecimal valorPagamento = transPagamento.getValor().subtract(transPagamento.getAcrescimo()).add(transPagamento.getDesconto());					
 					System.out.println("Novo Pagamento "+ valorPagamento);
 					valorLimite = valorLimite.add(valorPagamento);
 					System.out.println("Novo Valor Limite "+ valorLimite);

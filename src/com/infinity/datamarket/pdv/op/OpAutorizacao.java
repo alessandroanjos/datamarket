@@ -52,7 +52,7 @@ public class OpAutorizacao extends Mic{
 
 				}
 			}catch(AutorizacaoRecusadaException ex){
-				gerenciadorPerifericos.getDisplay().setMensagem("Autorizacao Recusada");
+				gerenciadorPerifericos.getDisplay().setMensagem("Autorização Recusada");
 				try{
 					gerenciadorPerifericos.esperaVolta();
 					return ALTERNATIVA_2;

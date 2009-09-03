@@ -21,7 +21,11 @@ public class RepositorioGrupoLancamento extends Repositorio implements IReposito
 	public GrupoLancamento consultarPorId(Long id) throws AppException{
 		PropertyFilter filter = new PropertyFilter();
 		filter.setTheClass(CLASSE);
-		filter.addProperty("tipoRegistro", GrupoLancamento.REGISTRO_USUARIO);
+		if(id.equals(GrupoLancamento.GRUPO_VENDA) || id.equals(GrupoLancamento.GRUPO_ENTRADA_PRODUTO)){
+			filter.addProperty("tipoRegistro", GrupoLancamento.REGISTRO_SISTEMA);
+		}else{
+			filter.addProperty("tipoRegistro", GrupoLancamento.REGISTRO_USUARIO);	
+		}
 		filter.addProperty("id", id);
 		return (GrupoLancamento) filterUniqueResult(filter);
 	}	

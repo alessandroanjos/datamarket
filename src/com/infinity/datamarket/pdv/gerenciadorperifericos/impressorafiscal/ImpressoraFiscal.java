@@ -24,7 +24,7 @@ public interface ImpressoraFiscal {
 	public void cancelaItem(String indice) throws ImpressoraFiscalException;
 	public void cancelaCupom() throws ImpressoraFiscalException;
 	public void efetuaPagamento(BigDecimal valor, String forma) throws ImpressoraFiscalException;
-	public void fechaCupom(String forma, BigDecimal desconto, BigDecimal acressimo,String tipoDescontoAcressimo,BigDecimal valorTotal, String mensagem) throws ImpressoraFiscalException;
+	public void fechaCupom(String forma, BigDecimal desconto, BigDecimal acressimo,String tipoDescontoAcrescimo,BigDecimal valorTotal, String mensagem) throws ImpressoraFiscalException;
 	public void terminaFechaCupom(String mensagem) throws ImpressoraFiscalException;
 	public void iniciaFechamentoCupom(BigDecimal desconto, BigDecimal acressimo) throws ImpressoraFiscalException;
 	public void imprimeRelatorioGerencial(String texto) throws ImpressoraFiscalException;

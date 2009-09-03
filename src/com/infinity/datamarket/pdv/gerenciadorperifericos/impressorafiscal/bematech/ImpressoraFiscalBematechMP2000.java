@@ -144,12 +144,12 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Seriali
 		trataRetorno(iRetorno);
 	}
 	
-	public void fechaCupom(String forma, BigDecimal desconto, BigDecimal acressimo,String tipoDescontoAcressimo,BigDecimal valorTotal, String mensagem) throws ImpressoraFiscalException{
+	public void fechaCupom(String forma, BigDecimal desconto, BigDecimal acressimo,String tipoDescontoAcrescimo,BigDecimal valorTotal, String mensagem) throws ImpressoraFiscalException{
 		int iRetorno = 0;
 		if (desconto!= null && desconto.compareTo(BigDecimal.ZERO) > 0){
-			iRetorno = lib.Bematech_FI_FechaCupom(forma, DESCONTO, tipoDescontoAcressimo!=null?tipoDescontoAcressimo:"", desconto!= null?desconto.setScale(2).toString():"", valorTotal.setScale(2).toString(), mensagem);
+			iRetorno = lib.Bematech_FI_FechaCupom(forma, DESCONTO, tipoDescontoAcrescimo!=null?tipoDescontoAcrescimo:"", desconto!= null?desconto.setScale(2).toString():"", valorTotal.setScale(2).toString(), mensagem);
 		}else if (acressimo!= null && acressimo.compareTo(BigDecimal.ZERO) > 0){
-			iRetorno = lib.Bematech_FI_FechaCupom(forma, ACRESSIMO, tipoDescontoAcressimo!=null?tipoDescontoAcressimo:"", desconto!= null?desconto.setScale(2).toString():"", valorTotal.setScale(2).toString(), mensagem);
+			iRetorno = lib.Bematech_FI_FechaCupom(forma, ACRESSIMO, tipoDescontoAcrescimo!=null?tipoDescontoAcrescimo:"", desconto!= null?desconto.setScale(2).toString():"", valorTotal.setScale(2).toString(), mensagem);
 		}else{
 			iRetorno = lib.Bematech_FI_FechaCupom(forma, ACRESSIMO, ImpressoraFiscal.DESCONTO_VALOR, "0", valorTotal.setScale(2).toString(), mensagem);
 		}
