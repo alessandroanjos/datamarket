@@ -45,7 +45,7 @@ public class OpSolicitaValorPagamentoCartaoProprio extends Mic{
 											String acressimo = entrada3.getDado();
 											BigDecimal valorAcrescimo = new BigDecimal(acressimo).setScale(2,BigDecimal.ROUND_DOWN);
 											gerenciadorPerifericos.getCmos().gravar(CMOS.DESCONTO,valorDesconto);
-											gerenciadorPerifericos.getCmos().gravar(CMOS.ACRESSIMO,valorAcrescimo);
+											gerenciadorPerifericos.getCmos().gravar(CMOS.ACRESCIMO,valorAcrescimo);
 											valorPagamento = valorPagamento.add(valorAcrescimo).subtract(valorDesconto);
 											gerenciadorPerifericos.getCmos().gravar(CMOS.SUB_TOTAL, valorPagamento);
 											gerenciadorPerifericos.getCmos().gravar(CMOS.TOTAL, valorPagamento);

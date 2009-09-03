@@ -57,7 +57,7 @@ public class CMOS implements Serializable{
 	public static final String DATA_ULTIMA_ABERTURA = "DATA_ULTIMA_ABERTURA";
 	public static final String TIPO_TRANSACAO = "TIPO_TRANSACAO";
 	public static final String DESCONTO = "DESCONTO";
-	public static final String ACRESSIMO = "ACRESSIMO";
+	public static final String ACRESCIMO = "ACRESCIMO";
 	public static final String TRANSACAO_PAGAMENTO_ATUAL = "TRANSACAO_PAGAMENTO_ATUAL";
 	public static final String DATA_MOVIMENTO = "DATA_MOVIMENTO";
 	public static final String OPERACAO_DEVOLUCAO = "OPERACAO_DEVOLUCAO";

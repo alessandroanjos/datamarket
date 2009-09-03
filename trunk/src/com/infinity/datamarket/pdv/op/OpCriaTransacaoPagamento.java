@@ -29,7 +29,7 @@ public class OpCriaTransacaoPagamento extends Mic{
 		TransacaoPK pk = new TransacaoPK(loja,componente,numeroTransacao,dataInicio);
 		
 		BigDecimal desconto = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.DESCONTO);
-		BigDecimal acressimo = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.ACRESSIMO);
+		BigDecimal acressimo = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.ACRESCIMO);
 		BigDecimal valor = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.SUB_TOTAL);
 		DadosConsultaCartaoProprio dados = (DadosConsultaCartaoProprio) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CONSULTA_CARTAO_PROPRIO);
 
