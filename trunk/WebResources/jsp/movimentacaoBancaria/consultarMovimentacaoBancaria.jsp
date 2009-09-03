@@ -90,8 +90,8 @@
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Saldo Atual" rendered="#{movimentacaoBancariaBB.existeRegistros}"></h:outputLabel>
-											<h:outputText dir="rtl" style="font-size: 12px; font-weight: bold; color: #{movimentacaoBancariaBB.saldoAnterior > 0 ? 'blue' : 'red'};" id="saldoAtual" value="#{movimentacaoBancariaBB.saldoAtual}" rendered="#{movimentacaoBancariaBB.existeRegistros}">
-												<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00"/>
+											<h:outputText dir="rtl" style="font-size: 12px; font-weight: bold; color: #{movimentacaoBancariaBB.saldoAtual > 0 ? 'blue' : 'red'};" id="saldoAtual" value="#{movimentacaoBancariaBB.saldoAtual < 0 ? movimentacaoBancariaBB.saldoAtual*-1 : movimentacaoBancariaBB.saldoAtual}" rendered="#{movimentacaoBancariaBB.existeRegistros}">
+												<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
 											</h:outputText>
 										</div>
 									</li>
