@@ -63,11 +63,11 @@
 										</h:inputText>
 									</div>
 									<div>
-										<h:outputLabel styleClass="desc" value="Fornecedor"></h:outputLabel>
-										<h:selectOneMenu id="idFornecedor" styleClass="field select" style="width: 200px;"
-											value="#{lancamentoBB.idFornecedor}" required="false">   
-												  <f:selectItems id="fornecedorSelectItems" 
-												  value="#{lancamentoBB.fornecedores}" />   
+										<h:outputLabel styleClass="desc" value="Cliente"></h:outputLabel>
+										<h:selectOneMenu id="idCliente" styleClass="field select" style="width: 200px;"
+											value="#{lancamentoBB.idCliente}" required="false">   
+												  <f:selectItems id="clienteSelectItems" 
+												  value="#{lancamentoBB.clientes}" />   
 										</h:selectOneMenu> 
 									</div>
 								</li>
