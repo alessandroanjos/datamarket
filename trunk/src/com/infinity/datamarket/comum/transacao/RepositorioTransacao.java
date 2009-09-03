@@ -60,7 +60,11 @@ public class RepositorioTransacao extends Repositorio implements IRepositorioTra
 	}
 	
 	public ClienteTransacao consultarClienteTransacaoPorID(String id) throws AppException{
-		return (ClienteTransacao) findById(ClienteTransacao.class, id);
+		try {
+			return (ClienteTransacao) findById(ClienteTransacao.class, id);	
+		} catch (AppException e) {
+			return null;
+		}		
 	}
 
 	public Collection consultarClienteTransacao(IPropertyFilter filter) throws AppException{

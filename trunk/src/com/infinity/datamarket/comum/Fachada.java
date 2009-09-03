@@ -4,6 +4,8 @@ import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Date;
 
+import org.hibernate.ObjectNotFoundException;
+
 import com.infinity.datamarket.autorizador.AutorizacaoCartaoProprio;
 import com.infinity.datamarket.autorizador.CadastroAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.banco.Banco;
@@ -824,22 +826,34 @@ public class Fachada {
 				if (transVenda.getCliente() != null){
 					try{
 						RepositoryManagerHibernateUtil.beginTrasaction();
+						System.out.println("Fachada.inserirTransacaoES:: cpfClienteTransacao--> "+transVenda.getCliente().getCpfCnpj());
 						ClienteTransacao cliente = getCadastroTransacao().consultarClienteTransacaoPorID(transVenda.getCliente().getCpfCnpj());
+						System.out.println("Fachada.inserirTransacaoES:: cliente--> "+cliente);
 						if (cliente == null){
 							getCadastroTransacao().inserirCliente(transVenda.getCliente());
+							System.out.println("Fachada.inserirTransacaoES:: inserir o cliente");
 						}else{
 							RepositoryManagerHibernateUtil.currentSession().evict(cliente);
 							getCadastroTransacao().atualizarCliente(transVenda.getCliente());
+							System.out.println("Fachada.inserirTransacaoES:: atualizei o cliente");
 						}
 						RepositoryManagerHibernateUtil.commitTransation();
 					}catch(Exception e){		
-						RepositoryManagerHibernateUtil.rollbackTransation();						
+						System.out.println("Fachada.inserirTransacaoES:: excecao--> "+e.getCause());
+						if(e.getCause() instanceof ObjectNotFoundException){
+							getCadastroTransacao().inserirCliente(transVenda.getCliente());
+							RepositoryManagerHibernateUtil.commitTransation();	
+						}else{
+							RepositoryManagerHibernateUtil.rollbackTransation();	
+						}												
 					}					
 				}
 			}
+			System.out.println("Fachada.inserirTransacaoES:: vou inserir a transacao com chave--> "+trans.getPk().toString());
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			getCadastroTransacao().inserirES(trans);
 			RepositoryManagerHibernateUtil.commitTransation();
+			System.out.println("Fachada.inserirTransacaoES:: foi inserida a transacao com chave--> "+trans.getPk().toString());
 		}catch(AppException e){
 			try{
 				RepositoryManagerHibernateUtil.rollbackTransation();

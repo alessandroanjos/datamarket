@@ -50,7 +50,7 @@
 			<column name="DESCONTO" length="20" not-null="false" />
 		</property>
 		
-		<property name="acressimo" type="java.math.BigDecimal"
+		<property name="acrescimo" type="java.math.BigDecimal"
 			update="true" insert="true">
 			<column name="ACRESSIMO" length="20" not-null="false" />
 		</property>

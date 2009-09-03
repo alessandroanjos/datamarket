@@ -8,9 +8,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 import com.infinity.datamarket.comum.util.SistemaException;
 
@@ -113,7 +111,7 @@ public class CMOS implements Serializable{
 //		Thread t = new Thread(){
 //			public void run(){
 				gravaCmos(hash);
-//			}
+//			} 
 //		};
 //		t.start();
 		

@@ -290,7 +290,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 
 	static String ERRO_ESTOQUE_ENTRADA_SAIDA_IGUAL            = "Estoque de saida igual estoque entrada para a mesma Loja.";
 	static String ERRO_QUANTIDADE_SOLICITADA_IGUAL_ZERO 	  = "Quantidade solicitada do produto %1, tem que ser maior que zero";
-	static String ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL =	"Produto %1, Quantidade Solicitada %2, Quantidade Disponivél %3.";
+	static String ERRO_QUANTIDADE_SOLICITADA_MAIOR_DISPONIVEL =	"Produto %1, Quantidade Solicitada %2, Quantidade Disponível %3.";
 	static String ERRO_NENHUM_PRODUTO 						  = "É nescessario pelo menos um produto!";
 	public String validaMovimentacao() {
         

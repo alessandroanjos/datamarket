@@ -23,7 +23,7 @@ public class ImpressoraFiscalVirtual implements ImpressoraFiscal{
 		
 	}
 
-	public void fechaCupom(String forma, BigDecimal desconto, BigDecimal acressimo, String tipoDescontoAcressimo, BigDecimal valorTotal, String mensagem) throws ImpressoraFiscalException {
+	public void fechaCupom(String forma, BigDecimal desconto, BigDecimal acressimo, String tipoDescontoAcrescimo, BigDecimal valorTotal, String mensagem) throws ImpressoraFiscalException {
 		// TODO Auto-generated method stub
 		
 	}

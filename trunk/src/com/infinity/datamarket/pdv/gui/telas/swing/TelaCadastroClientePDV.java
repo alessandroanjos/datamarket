@@ -139,22 +139,26 @@ public class TelaCadastroClientePDV extends JDialog {
 				    	}
 				    	ClienteServerRemote remote = (ClienteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
 						ClienteTransacao cliente = remote.consultarClienteTransacaoPorID(cpfCnpj);
-						if (cliente.getTipoPessoa().equals(ClienteTransacao.PESSOA_JURIDICA)){
-							jTextFieldInscEstadual.setText(cliente.getInscricaoEstadual());
-							jTextFieldInscMunicipal.setText(cliente.getInscricaoMunicipal());
-							jTextFieldRazaoSocial.setText(cliente.getRazaoSocial());
+						if(cliente != null){
+							if (cliente.getTipoPessoa().equals(ClienteTransacao.PESSOA_JURIDICA)){
+								jTextFieldInscEstadual.setText(cliente.getInscricaoEstadual());
+								jTextFieldInscMunicipal.setText(cliente.getInscricaoMunicipal());
+								jTextFieldRazaoSocial.setText(cliente.getRazaoSocial());
+							}
+							jTextFieldNome.setText(cliente.getNomeCliente());
+							jTextAreaRefBancaria.setText(cliente.getReferenciaBancaria());
+							jTextFieldCelular.setText(cliente.getCelular());
+							jTextFieldCep.setText(cliente.getCep());
+							jTextFieldCidade.setText(cliente.getCidade());
+							jTextFieldComplemento.setText(cliente.getComplemento());
+							jTextFieldContato.setText(cliente.getPessoaContato());						
+							jTextFieldLogradouro.setText(cliente.getLogradouro());
+							jTextFieldNumero.setText(cliente.getNumero());						
+							jTextFieldTelefone.setText(cliente.getFone());
+							jComboBoxEstado.setSelectedItem(cliente.getEstado());
+						}else{
+							throw new AppException("Cliente não Encontrado");
 						}
-						jTextFieldNome.setText(cliente.getNomeCliente());
-						jTextAreaRefBancaria.setText(cliente.getReferenciaBancaria());
-						jTextFieldCelular.setText(cliente.getCelular());
-						jTextFieldCep.setText(cliente.getCep());
-						jTextFieldCidade.setText(cliente.getCidade());
-						jTextFieldComplemento.setText(cliente.getComplemento());
-						jTextFieldContato.setText(cliente.getPessoaContato());						
-						jTextFieldLogradouro.setText(cliente.getLogradouro());
-						jTextFieldNumero.setText(cliente.getNumero());						
-						jTextFieldTelefone.setText(cliente.getFone());
-						jComboBoxEstado.setSelectedItem(cliente.getEstado());
 						jTextFieldNome.requestFocus();
 					
 					}catch(AppException ex){

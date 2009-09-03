@@ -464,6 +464,20 @@ public class TransacaoBackBean extends BackBean {
 		return usuarios;
 	}
 
+	private List<Usuario> carregarUsuariosVendedores(Usuario usuario, boolean ehVendedor) {		
+		List<Usuario> usuarios = null;
+		try {
+			usuarios = (ArrayList<Usuario>)getFachada().consultarUsuariosPorFiltro(usuario, idLoja, ehVendedor);
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+		return usuarios;
+	}
+
 	public SelectItem[] getUsuariosVendedores() {
 		SelectItem[] arrayUsuarios = null;
 		try {
@@ -475,7 +489,7 @@ public class TransacaoBackBean extends BackBean {
 			filter.setTheClass(Vendedor.class);
 			
 			filter.addProperty("lojas", loja);
-			List<Usuario> usuariosVendedores = carregarUsuarios(filter);
+			List<Usuario> usuariosVendedores = carregarUsuariosVendedores(new Usuario(), true);
 			arrayUsuarios = new SelectItem[usuariosVendedores.size()+1];
 			int i = 0;
 			arrayUsuarios[i++] = new SelectItem("0", "");
@@ -506,7 +520,8 @@ public class TransacaoBackBean extends BackBean {
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(Usuario.class);
 			filter.addProperty("lojas", loja);
-			List<Usuario> usuariosOperadores = carregarUsuarios(filter);
+//			List<Usuario> usuariosOperadores = carregarUsuarios(filter);
+			List<Usuario> usuariosOperadores = carregarUsuariosVendedores(new Usuario(), false);
 			arrayUsuarios = new SelectItem[usuariosOperadores.size()];
 			int i = 0;
 			for(Usuario usuariosTmp : usuariosOperadores){
@@ -847,22 +862,24 @@ public class TransacaoBackBean extends BackBean {
 				
 				PropertyFilter filter = new PropertyFilter();
 				
+				filter.setTheClass(TransacaoVenda.class);
+				
 				TransacaoPK transPk = new TransacaoPK();
 				
 				if (this.getIdLoja() != null && !this.getIdLoja().equals("0")){	
 					transPk.setLoja(Integer.parseInt(this.getIdLoja()));
-//					filter.addProperty("pk.loja", this.getIdLoja());
+					filter.addProperty("pk.loja", Integer.parseInt(this.getIdLoja()));
 				}
 				if (this.getIdComponente() != null && !this.getIdComponente().equals("0")){	
 					transPk.setComponente(Integer.parseInt(this.getIdComponente()));
-//					filter.addProperty("pk.componente", this.getIdComponente());
+					filter.addProperty("pk.componente", Integer.parseInt(this.getIdComponente()));
 				}
 				if (this.getNsuTransacao() != null && !this.getNsuTransacao().equals("")){
 					transPk.setNumeroTransacao(this.getNsuTransacao().intValue());
-//					filter.addProperty("pk.numeroTransacao", this.getNsuTransacao());
+					filter.addProperty("pk.numeroTransacao", this.getNsuTransacao());
 				}
 				
-				filter.addProperty("pk", transPk);
+//				filter.addProperty("pk", transPk);
 				
 				if (this.getDataInicial() != null && this.getDataFinal() != null){	
 					if(this.getDataInicial().after(this.getDataFinal())){
@@ -881,7 +898,7 @@ public class TransacaoBackBean extends BackBean {
 				
 				if(this.getIdTipoPessoaCadastro() != null){
 					if(this.getCpfCnpjClienteCadastro() != null && !this.getCpfCnpjClienteCadastro().equals("")){
-						filter.setTheClass(TransacaoVenda.class);
+//						filter.setTheClass(TransacaoVenda.class);
 						if(this.getIdTipoPessoaCadastro().equals(Cliente.PESSOA_FISICA)){
 							filter.addProperty("cliente.tipoPessoa", Cliente.PESSOA_FISICA);
 						}else{
@@ -889,10 +906,10 @@ public class TransacaoBackBean extends BackBean {
 						}
 						filter.addProperty("cliente.cpfCnpj", this.getCpfCnpjClienteCadastro().replace(".", "").replace("-", "").replace("/", ""));
 					}else{
-						filter.setTheClass(Transacao.class);	
+//						filter.setTheClass(Transacao.class);	
 					}						
 				}else{
-					filter.setTheClass(Transacao.class);
+//					filter.setTheClass(Transacao.class);
 				}				
 
 				this.nomeClienteCadastro = this.getNomeClienteCadastro();
@@ -2092,7 +2109,7 @@ public class TransacaoBackBean extends BackBean {
 
 			transVenda.setValorCupom(this.getValorTotalCupom());
 //			transVenda.setValorTroco(this.getValorTroco());
-			if(this.getValorTroco() == null){
+			if(this.getValorTroco() == null || this.getValorTroco().equals(BigDecimal.ZERO)){
 				transVenda.setValorTroco(BigDecimal.ZERO);
 				transVenda.setFormaTroco(null);
 			}else{
