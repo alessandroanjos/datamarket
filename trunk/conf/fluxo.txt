@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> 
+<maquinaEstado>
+  <listaMicroperacao>
+    <operacao id="OpSolicitaCartao" classe="br.com.teste.OpSolicitaCartao"/>
+    <operacao id="OpExibeTelaTotalizacao" classe="br.com.teste.OpExibeTelaTotalizacao"/>
+    <operacao id="OpTotalizaImpressora" classe="br.com.teste.OpTotalizaImpressora"/>
+    <operacao id="OpSolicitaPG" classe="br.com.teste.OpSolicitaPG"/>
+    <operacao id="OpExibeErroTotalizacao" classe="br.com.teste.OpExibeErroTotalizacao"/>
+    <operacao id="OpSolicitaPGDinheiro" classe="br.com.teste.OpSolicitaPGDinheiro"/>
+
+  </listaMicroperacao>
+  <listaEstado>
+    <estado codigo="VENDA1" descricao="Venda" inputType="0" inputSize="0"/>
+    <estado codigo="VENDA2" descricao="Venda" inputType="0" inputSize="0"/>
+    <estado codigo="VENDA3" descricao="Venda" inputType="0" inputSize="0"/>
+    <estado codigo="VENDA4" descricao="Venda" inputType="0" inputSize="0"/>
+    <estado codigo="PAGAMENTO" descricao="Pagamento" inputType="0" inputSize="0"/>
+  </listaEstado>
+  <listaTecla>
+    <tecla codigo="ESPACO" descricao="Espaco" codigoASCI="84" />
+  </listaTecla>
+  <listaMacroOperacao>
+    <macroOperacao estadoAtual="VENDA1" proximoEstado="PAGAMENTO" tecla="ESPACO" codigoFluxo="A" descricao="Totalizacao">
+      <saidaMicroOperacaoAssociada codigoFluxo="A" operacao="OpExibeTelaTotalizacao">
+      	<saida tipoSaida="1" codigoFluxoDestino="C" />
+      	<saida tipoSaida="2" codigoFluxoDestino="C" />
+      </saidaMicroOperacaoAssociada>
+      <saidaMicroOperacaoAssociada codigoFluxo="D" operacao="OpTotalizaImpressora" >
+      	<saida tipoSaida="1"  codigoFluxoDestino="H" />
+      </saidaMicroOperacaoAssociada>
+      <saidaMicroOperacaoAssociada codigoFluxo="C" operacao="OpTotalizaImpressora" >
+      	<saida tipoSaida="1"  codigoFluxoDestino="A" />
+      </saidaMicroOperacaoAssociada>
+      <saidaMicroOperacaoAssociada codigoFluxo="E" operacao="OpSolicitaPG" >
+      	<saida tipoSaida="1" codigoFluxoDestino="F" />
+      </saidaMicroOperacaoAssociada>
+      <saidaMicroOperacaoAssociada codigoFluxo="F" operacao="OpSolicitaPGDinheiro" >
+      	<saida tipoSaida="2" codigoFluxoDestino="H" />
+      </saidaMicroOperacaoAssociada>
+      <saidaMicroOperacaoAssociada codigoFluxo="H" operacao="OpExibeErroTotalizacao" >
+      	
+      </saidaMicroOperacaoAssociada>
+    </macroOperacao>
+  </listaMacroOperacao>
+</maquinaEstado>
