@@ -1,5 +1,6 @@
 package com.infinity.datamarket.pdv.maquinaestados;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import com.infinity.datamarket.comum.util.Persistente;
@@ -19,6 +20,9 @@ public class MicroOperacaoAssociada extends Persistente{
 		this.microOperacao = microOperacao;
 	}
 	public Collection getSaidas() {
+		if (saidas == null) {
+			saidas = new ArrayList();
+		}
 		return saidas;
 	}
 	public void setSaidas(Collection saidas) {
