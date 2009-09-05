@@ -38,7 +38,7 @@ public class LeitorFluxo {
 	
 	public static void main(String[] a ) {
 		try {
-			lerArquivoXM("c:\\fluxo.txt"); 
+			lerArquivoXM("D:\\workspace\\Datamarket\\datamarket\\conf\\fluxo.txt"); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
