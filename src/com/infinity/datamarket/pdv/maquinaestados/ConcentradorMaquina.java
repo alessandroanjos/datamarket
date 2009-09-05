@@ -1,5 +1,6 @@
 package com.infinity.datamarket.pdv.maquinaestados;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
@@ -9,7 +10,7 @@ import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.IRepositorio;
 import com.infinity.datamarket.comum.util.SistemaException;
 
-public class ConcentradorMaquina extends Cadastro{
+public class ConcentradorMaquina extends Cadastro implements ControladorMaquinaEstado, Serializable{
 	private static ConcentradorMaquina instancia;
 	private ConcentradorMaquina(){
 

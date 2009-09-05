@@ -31,20 +31,22 @@ public class Maquina implements Serializable{
 	private Estado estadoAtual;
     private Date dataMov;
     private GerenciadorPerifericos gerenciadorPerifericos;
+    private ControladorMaquinaEstado controladorMaquinaEstado;
     private ThreadVerificaNovoLote threadVerificaNovoLote; 
 
     private static Maquina instancia;
 
-    public static Maquina getInstancia(Estado estado, Date dataMov, GerenciadorPerifericos gerenciadorPerifericos){
+    public static Maquina getInstancia(Estado estado, Date dataMov, GerenciadorPerifericos gerenciadorPerifericos, ControladorMaquinaEstado controladorME){
         if(instancia == null){
-            instancia = new Maquina(estado, dataMov, gerenciadorPerifericos);
+            instancia = new Maquina(estado, dataMov, gerenciadorPerifericos,controladorME);
         }
         return instancia;
     }
-    private Maquina(Estado estado, Date dataMov, GerenciadorPerifericos gerenciadorPerifericos){
+    private Maquina(Estado estado, Date dataMov, GerenciadorPerifericos gerenciadorPerifericos, ControladorMaquinaEstado controladorME){
         this.estadoAtual = estado;
         this.dataMov = dataMov;
         this.gerenciadorPerifericos = gerenciadorPerifericos;
+        this.controladorMaquinaEstado = controladorME;
     }
     public void iniciar(){
         Tela tela = (Tela) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
@@ -77,8 +79,8 @@ public class Maquina implements Serializable{
         threadVerificaNovoLote.start();
         new ThreadProcessaMacro(estadoAtual);
     }
-    private ConcentradorMaquina getConcentradorMaquina(){
-        return ConcentradorMaquina.getInstancia();
+    private ControladorMaquinaEstado getConcentradorMaquina(){
+        return controladorMaquinaEstado;
     }
 
     private MicroOperacaoAssociada getProxMicro(int alternativa, Collection saidas){
