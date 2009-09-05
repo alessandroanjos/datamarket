@@ -9,6 +9,7 @@
 package com.infinity.datamarket.pdv.gui.telas;
 
 import java.awt.Font;
+import java.io.File;
 import java.math.BigDecimal;
 
 import javax.swing.JFrame;
@@ -70,10 +71,12 @@ public class TelaCupom extends Tela{
         painelTop.setLayout(null);
         painelTop.setBackground(new java.awt.Color(0, 0, 100));
         painelTop.setBounds(0,0,800, 100);
-        imgLogo = new JLabel(new javax.swing.ImageIcon(LOGO_CLIENTE));
-        imgLogo.setBounds(5, 10, 340, 83);
+        if(new File(LOGO_CLIENTE).exists()) {
+            imgLogo = new JLabel(new javax.swing.ImageIcon(LOGO_CLIENTE));
+            imgLogo.setBounds(5, 10, 340, 83);
+            painelTop.add(imgLogo);
+        }
         painelTop.setLayout(null);
-        painelTop.add(imgLogo);
 
         getPainel().add(painelTop);
 

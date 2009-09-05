@@ -1,5 +1,6 @@
 package com.infinity.datamarket.pdv.maquinaestados;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -7,7 +8,7 @@ import java.util.Iterator;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 
-public class MaquinaEstado {
+public class MaquinaEstado implements ControladorMaquinaEstado, Serializable {
 
 	private Collection estados = new ArrayList();
 	private Collection teclas = new ArrayList();
@@ -15,7 +16,6 @@ public class MaquinaEstado {
 	private Collection macroOperacoes = new ArrayList();
 	
 	public MaquinaEstado(Collection estados, Collection teclas, Collection micOperacaos, Collection macroOperacoes) {
-		super();
 		this.estados = estados;
 		this.teclas = teclas;
 		this.micOperacaos = micOperacaos;
@@ -34,7 +34,7 @@ public class MaquinaEstado {
 				return macro;
 			}
 		}
-		
+
 		return null;
 	}
 	

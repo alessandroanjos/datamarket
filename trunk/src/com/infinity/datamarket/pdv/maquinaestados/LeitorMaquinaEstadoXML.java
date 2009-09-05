@@ -16,7 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
-public class LeitorXMLMaquinaEstado {
+public class LeitorMaquinaEstadoXML {
 	
 	public static String CONST_maquinaEstado = "maquinaEstado";
 	public static String CONST_listaMicroperacao = "listaMicroperacao";
@@ -33,7 +33,7 @@ public class LeitorXMLMaquinaEstado {
 	
 	public static void main(String[] a ) {
 		try {
-			lerArquivoXM("D:\\workspace\\Datamarket\\datamarket\\conf\\fluxo.xml"); 
+			lerArquivoXM("D:\\workspace\\Datamarket\\datamarket\\conf\\fluxoPDV.xml"); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

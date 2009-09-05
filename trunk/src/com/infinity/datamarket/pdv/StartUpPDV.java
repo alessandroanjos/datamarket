@@ -9,13 +9,16 @@ import java.util.Vector;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
+import com.infinity.datamarket.pdv.maquinaestados.ConcentradorMaquina;
+import com.infinity.datamarket.pdv.maquinaestados.ControladorMaquinaEstado;
 import com.infinity.datamarket.pdv.maquinaestados.Estado;
+import com.infinity.datamarket.pdv.maquinaestados.LeitorMaquinaEstadoXML;
 import com.infinity.datamarket.pdv.maquinaestados.Maquina;
 import com.infinity.datamarket.pdv.transacao.ThreadEnviaTransacao;
 
 
 public class StartUpPDV {
-	public static void main(String[] a){
+	public static void main(String[] a) throws Exception{
 		
 		backupTraces();
 		
@@ -34,6 +37,11 @@ public class StartUpPDV {
 //
 //		ti.setVisible(true);
 //		ti.jProgressBar1.setValue(25);
+		
+		ControladorMaquinaEstado contr = ConcentradorMaquina.getInstancia();
+		
+		//ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("fluxoPDV.xml");
+		
 		RepositoryManagerHibernateUtil.currentSession();
 		GerenciadorPerifericos ger = GerenciadorPerifericos.getInstancia();
 //		ti.jProgressBar1.setValue(50);
@@ -42,7 +50,7 @@ public class StartUpPDV {
 		est.setId(new Long(1));
 		est.setInputSize(0);
 		est.setInputType(0);
-		Maquina maquina = Maquina.getInstancia(est, new Date(), ger);
+		Maquina maquina = Maquina.getInstancia(est, new Date(), ger, contr);
 //		ti.jProgressBar1.setValue(75);
 		ThreadEnviaTransacao t1 = new ThreadEnviaTransacao();
 		t1.start();

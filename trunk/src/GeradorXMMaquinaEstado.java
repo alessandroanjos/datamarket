@@ -23,7 +23,7 @@ public class GeradorXMMaquinaEstado {
 	public static Map main(String tabela) {
 		Map map = new HashMap();
 		try {			
-			FileOutputStream out = new FileOutputStream(new File("D:\\workspace\\Datamarket\\datamarket\\conf\\fluxo.xml")); 
+			FileOutputStream out = new FileOutputStream(new File("D:\\workspace\\Datamarket\\datamarket\\conf\\fluxoPDV.xml")); 
 			out.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?> ".getBytes());
 			out.write("\n".getBytes());
 			out.write("<maquinaEstado>".getBytes());
