@@ -1,5 +1,6 @@
 package com.infinity.datamarket.pdv.maquinaestados;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -54,6 +55,9 @@ public class Estado extends Persistente{
 	}
 
 	public Collection getFinalizadoras() {
+		if (finalizadoras == null) {
+			finalizadoras = new ArrayList();
+		}
 		return finalizadoras;
 	}
 

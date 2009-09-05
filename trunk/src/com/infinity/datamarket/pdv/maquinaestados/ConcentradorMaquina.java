@@ -25,7 +25,7 @@ public class ConcentradorMaquina extends Cadastro{
 	public IRepositorioMaquina getRepositorio() {
 		return (IRepositorioMaquina) super.getRepositorio(IRepositorio.REPOSITORIO_MAQUINA);
 	}
-
+/*
 	public Tecla consultaTecla(IPropertyFilter filtro) throws AppException{
 		Collection col = null;
 
@@ -54,7 +54,7 @@ public class ConcentradorMaquina extends Cadastro{
 			return null;
 		}
 	}
-
+*/
 	public Tecla consultaTeclaPorId(Long id) throws AppException{
 		Tecla tecla = null;
 
