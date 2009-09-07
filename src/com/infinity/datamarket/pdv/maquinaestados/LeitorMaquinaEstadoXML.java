@@ -305,7 +305,7 @@ public class LeitorMaquinaEstadoXML {
 							saida.setSaida(Integer.parseInt(tipoSaida));
 							saida.setMicroOperacaoAssociada(operacaoAssociada);
 							saida.setId(new Long(opAss.getSaidas().size() + 1));
-							opAss.getSaidas().add(operacaoAssociada);
+							opAss.getSaidas().add(saida);
 						}
 					}
 					return opAss;
