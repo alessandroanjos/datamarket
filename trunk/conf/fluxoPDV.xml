@@ -1,107 +1,107 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?> 
 <maquinaEstado>
   <listaMicroperacao>
-    <operacao id="OpExibeTelaFechadoParcial" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaFechadoParcial"/>
-    <operacao id="OpExibeDisplayFechadoParcial" classe="class com.infinity.datamarket.pdv.op.OpExibeDisplayFechadoParcial"/>
-    <operacao id="OpAutorizacao" classe="class com.infinity.datamarket.pdv.op.OpAutorizacao"/>
-    <operacao id="OpExibeDisplayFechado" classe="class com.infinity.datamarket.pdv.op.OpExibeDisplayFechado"/>
-    <operacao id="OpAlternativaDois" classe="class com.infinity.datamarket.pdv.op.OpAlternativaDois"/>
-    <operacao id="OpSaidaSistema" classe="class com.infinity.datamarket.pdv.op.OpSaidaSistema"/>
-    <operacao id="OpEntradaAutorizador" classe="class com.infinity.datamarket.pdv.op.OpEntradaAutorizador"/>
-    <operacao id="OpEntradaOperador" classe="class com.infinity.datamarket.pdv.op.OpEntradaOperador"/>
-    <operacao id="OpExibeDisplayDisponivel" classe="class com.infinity.datamarket.pdv.op.OpExibeDisplayDisponivel"/>
-    <operacao id="OpExibeTelaDisponivel" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaDisponivel"/>
-    <operacao id="OpSolicitaFundoTroco" classe="class com.infinity.datamarket.pdv.op.OpSolicitaFundoTroco"/>
-    <operacao id="OpSolicitaVendedor" classe="class com.infinity.datamarket.pdv.op.OpSolicitaVendedor"/>
-    <operacao id="OpExibeDisplayVenda" classe="class com.infinity.datamarket.pdv.op.OpExibeDisplayVenda"/>
-    <operacao id="OpConsultaProduto" classe="class com.infinity.datamarket.pdv.op.OpConsultaProduto"/>
-    <operacao id="OpExibeTelaTotal" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaTotal"/>
-    <operacao id="OpExibeDisplayTotal" classe="class com.infinity.datamarket.pdv.op.OpExibeDisplayTotal"/>
-    <operacao id="OpExibeTelaTroco" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaTroco"/>
-    <operacao id="OpExibeDisplayTroco" classe="class com.infinity.datamarket.pdv.op.OpExibeDisplayTroco"/>
-    <operacao id="OpExibeTelaVenda" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaVenda"/>
-    <operacao id="OpInicioVenda" classe="class com.infinity.datamarket.pdv.op.OpInicioVenda"/>
-    <operacao id="OpSolicitaConsultaProduto" classe="class com.infinity.datamarket.pdv.op.OpSolicitaConsultaProduto"/>
-    <operacao id="OpExibeTelaCancela" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaCancela"/>
-    <operacao id="OpSolicitaDesconto" classe="class com.infinity.datamarket.pdv.op.OpSolicitaDesconto"/>
-    <operacao id="OpSolicitaConsultaProdutoDesconto" classe="class com.infinity.datamarket.pdv.op.OpSolicitaConsultaProdutoDesconto"/>
-    <operacao id="OpMultiplicacao" classe="class com.infinity.datamarket.pdv.op.OpMultiplicacao"/>
-    <operacao id="OpExibeDisplayMultiplicacao" classe="class com.infinity.datamarket.pdv.op.OpExibeDisplayMultiplicacao"/>
-    <operacao id="OpSangria" classe="class com.infinity.datamarket.pdv.op.OpSangria"/>
-    <operacao id="OpResuprimento" classe="class com.infinity.datamarket.pdv.op.OpResuprimento"/>
-    <operacao id="OpExibeDisplayPausa" classe="class com.infinity.datamarket.pdv.op.OpExibeDisplayPausa"/>
-    <operacao id="OpConsultaProdutoNome" classe="class com.infinity.datamarket.pdv.op.OpConsultaProdutoNome"/>
-    <operacao id="OpIncluiTransacaoEntradaOperador" classe="class com.infinity.datamarket.pdv.op.OpIncluiTransacaoEntradaOperador"/>
-    <operacao id="OpCriaTransacaoVenda" classe="class com.infinity.datamarket.pdv.op.OpCriaTransacaoVenda"/>
-    <operacao id="OpIncluiProdutoItem" classe="class com.infinity.datamarket.pdv.op.OpIncluiProdutoItem"/>
-    <operacao id="OpVoltaVenda" classe="class com.infinity.datamarket.pdv.op.OpVoltaVenda"/>
-    <operacao id="OpIncluiTransacaoSangria" classe="class com.infinity.datamarket.pdv.op.OpIncluiTransacaoSangria"/>
-    <operacao id="OpIncluiTransacaoResuprimento" classe="class com.infinity.datamarket.pdv.op.OpIncluiTransacaoResuprimento"/>
-    <operacao id="OpZeraTotalizadoresNaoFiscais" classe="class com.infinity.datamarket.pdv.op.OpZeraTotalizadoresNaoFiscais"/>
-    <operacao id="OpIncluiTransacaoAbertura" classe="class com.infinity.datamarket.pdv.op.OpIncluiTransacaoAbertura"/>
-    <operacao id="OpIncluiTransacaoFechamentoX" classe="class com.infinity.datamarket.pdv.op.OpIncluiTransacaoFechamentoX"/>
-    <operacao id="OpIncluiTransacaoFechamentoZ" classe="class com.infinity.datamarket.pdv.op.OpIncluiTransacaoFechamentoZ"/>
-    <operacao id="OpExibeTelaFechado" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaFechado"/>
-    <operacao id="OpInicioRecebimentoDinheiro" classe="class com.infinity.datamarket.pdv.op.OpInicioRecebimentoDinheiro"/>
-    <operacao id="OpExibeTelaPlanos" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaPlanos"/>
-    <operacao id="OpSolicitaPlano" classe="class com.infinity.datamarket.pdv.op.OpSolicitaPlano"/>
-    <operacao id="OpProcessaPlano" classe="class com.infinity.datamarket.pdv.op.OpProcessaPlano"/>
-    <operacao id="OpVerificaFimRecebimento" classe="class com.infinity.datamarket.pdv.op.OpVerificaFimRecebimento"/>
-    <operacao id="OpIncluiTransacaoVenda" classe="class com.infinity.datamarket.pdv.op.OpIncluiTransacaoVenda"/>
-    <operacao id="OpVoltaRecebimento" classe="class com.infinity.datamarket.pdv.op.OpVoltaRecebimento"/>
-    <operacao id="OpSolicitaDescontoCupom" classe="class com.infinity.datamarket.pdv.op.OpSolicitaDescontoCupom"/>
-    <operacao id="OpConfirmaCancelamentoCupom" classe="class com.infinity.datamarket.pdv.op.OpConfirmaCancelamentoCupom"/>
-    <operacao id="OpCancelaTransacaoVenda" classe="class com.infinity.datamarket.pdv.op.OpCancelaTransacaoVenda"/>
-    <operacao id="OpExibeOperadorDisplay" classe="class com.infinity.datamarket.pdv.op.OpExibeOperadorDisplay"/>
-    <operacao id="OpConfirmaFechamentoX" classe="class com.infinity.datamarket.pdv.op.OpConfirmaFechamentoX"/>
-    <operacao id="OpConfirmaFechamentoZ" classe="class com.infinity.datamarket.pdv.op.OpConfirmaFechamentoZ"/>
-    <operacao id="OpConfirmaCancelamentoUltimoCupom" classe="class com.infinity.datamarket.pdv.op.OpConfirmaCancelamentoUltimoCupom"/>
-    <operacao id="OpCancelaUltimoCupom" classe="class com.infinity.datamarket.pdv.op.OpCancelaUltimoCupom"/>
-    <operacao id="OpInicioRecebimentoCheque" classe="class com.infinity.datamarket.pdv.op.OpInicioRecebimentoCheque"/>
-    <operacao id="OpSolicitaDadosCheque" classe="class com.infinity.datamarket.pdv.op.OpSolicitaDadosCheque"/>
-    <operacao id="OpInicioRecebimentoChequePredatado" classe="class com.infinity.datamarket.pdv.op.OpInicioRecebimentoChequePredatado"/>
-    <operacao id="OpCalculaExibeTelaParcelaPlanos" classe="class com.infinity.datamarket.pdv.op.OpCalculaExibeTelaParcelaPlanos"/>
-    <operacao id="OpSolicitaDadosChequePredatado" classe="class com.infinity.datamarket.pdv.op.OpSolicitaDadosChequePredatado"/>
-    <operacao id="OpInicioDia" classe="class com.infinity.datamarket.pdv.op.OpInicioDia"/>
-    <operacao id="OpSuprimento" classe="class com.infinity.datamarket.pdv.op.OpSuprimento"/>
-    <operacao id="OpLeituraX" classe="class com.infinity.datamarket.pdv.op.OpLeituraX"/>
-    <operacao id="OpReducaoZ" classe="class com.infinity.datamarket.pdv.op.OpReducaoZ"/>
-    <operacao id="OpAberturaCupom" classe="class com.infinity.datamarket.pdv.op.OpAberturaCupom"/>
-    <operacao id="OpVendeItem" classe="class com.infinity.datamarket.pdv.op.OpVendeItem"/>
-    <operacao id="OpFinalizaCupom" classe="class com.infinity.datamarket.pdv.op.OpFinalizaCupom"/>
-    <operacao id="OpCancelaItem" classe="class com.infinity.datamarket.pdv.op.OpCancelaItem"/>
-    <operacao id="OpCancelaCupom" classe="class com.infinity.datamarket.pdv.op.OpCancelaCupom"/>
-    <operacao id="OpRealizaSangria" classe="class com.infinity.datamarket.pdv.op.OpRealizaSangria"/>
-    <operacao id="OpInicioRecebimentoCartaoOff" classe="class com.infinity.datamarket.pdv.op.OpInicioRecebimentoCartaoOff"/>
-    <operacao id="OpExibeTelaAutorizadoras" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaAutorizadoras"/>
-    <operacao id="OpSolicitaAutorizadora" classe="class com.infinity.datamarket.pdv.op.OpSolicitaAutorizadora"/>
-    <operacao id="OpSolicitaDadosCartaoOff" classe="class com.infinity.datamarket.pdv.op.OpSolicitaDadosCartaoOff"/>
-    <operacao id="OpInicioRecebimentoCartaoProprio" classe="class com.infinity.datamarket.pdv.op.OpInicioRecebimentoCartaoProprio"/>
-    <operacao id="OpSolicitaDadosCartaoProprio" classe="class com.infinity.datamarket.pdv.op.OpSolicitaDadosCartaoProprio"/>
-    <operacao id="OpImprimeConfirmaAutorizacaoCartaoProprio" classe="class com.infinity.datamarket.pdv.op.OpImprimeConfirmaAutorizacaoCartaoProprio"/>
-    <operacao id="OpDesfazAutorizacaoCartaoProprio" classe="class com.infinity.datamarket.pdv.op.OpDesfazAutorizacaoCartaoProprio"/>
-    <operacao id="OpConfirmaLeituraX" classe="class com.infinity.datamarket.pdv.op.OpConfirmaLeituraX"/>
-    <operacao id="OpSolicitaConsultaProdutoSobreposicao" classe="class com.infinity.datamarket.pdv.op.OpSolicitaConsultaProdutoSobreposicao"/>
-    <operacao id="OpExibeTelaSobreposicao" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaSobreposicao"/>
-    <operacao id="OpDecideVoltaSobreposicao" classe="class com.infinity.datamarket.pdv.op.OpDecideVoltaSobreposicao"/>
-    <operacao id="OpImprimeRecibo" classe="class com.infinity.datamarket.pdv.op.OpImprimeRecibo"/>
-    <operacao id="OpSolicitaCliente" classe="class com.infinity.datamarket.pdv.op.OpSolicitaCliente"/>
-    <operacao id="OpSolicitaDadosConsultaCartaoProprio" classe="class com.infinity.datamarket.pdv.op.OpSolicitaDadosConsultaCartaoProprio"/>
-    <operacao id="OpExibeTelaConsultaCartaoProprio" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaConsultaCartaoProprio"/>
-    <operacao id="OpSolicitaValorPagamentoCartaoProprio" classe="class com.infinity.datamarket.pdv.op.OpSolicitaValorPagamentoCartaoProprio"/>
-    <operacao id="OpInicioPagamento" classe="class com.infinity.datamarket.pdv.op.OpInicioPagamento"/>
-    <operacao id="OpExibeTelaTotalPagamento" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaTotalPagamento"/>
-    <operacao id="OpCriaTransacaoPagamento" classe="class com.infinity.datamarket.pdv.op.OpCriaTransacaoPagamento"/>
-    <operacao id="OpConfirmaCancelamentoPagamento" classe="class com.infinity.datamarket.pdv.op.OpConfirmaCancelamentoPagamento"/>
-    <operacao id="OpCancelaTransacaoPagamento" classe="class com.infinity.datamarket.pdv.op.OpCancelaTransacaoPagamento"/>
-    <operacao id="OpIncluiTransacaoPagamento" classe="class com.infinity.datamarket.pdv.op.OpIncluiTransacaoPagamento"/>
-    <operacao id="OpExibeTelaTrocoPagamento" classe="class com.infinity.datamarket.pdv.op.OpExibeTelaTrocoPagamento"/>
-    <operacao id="OpImprimeReciboPagamento" classe="class com.infinity.datamarket.pdv.op.OpImprimeReciboPagamento"/>
-    <operacao id="OpInicioRecebimentoTroca" classe="class com.infinity.datamarket.pdv.op.OpInicioRecebimentoTroca"/>
-    <operacao id="OpSolicitaDadosConsultaOperacaoDevolucao" classe="class com.infinity.datamarket.pdv.op.OpSolicitaDadosConsultaOperacaoDevolucao"/>
-    <operacao id="OpDesfazOperacao" classe="class com.infinity.datamarket.pdv.op.OpDesfazOperacao"/>
-    <operacao id="OpConfirmaOperacao" classe="class com.infinity.datamarket.pdv.op.OpConfirmaOperacao"/>
-    <operacao id="OpImprimeMovimentoDia" classe="class com.infinity.datamarket.pdv.op.OpImprimeMovimentoDia"/>
+    <operacao id="OpExibeTelaFechadoParcial" classe="com.infinity.datamarket.pdv.op.OpExibeTelaFechadoParcial"/>
+    <operacao id="OpExibeDisplayFechadoParcial" classe="com.infinity.datamarket.pdv.op.OpExibeDisplayFechadoParcial"/>
+    <operacao id="OpAutorizacao" classe="com.infinity.datamarket.pdv.op.OpAutorizacao"/>
+    <operacao id="OpExibeDisplayFechado" classe="com.infinity.datamarket.pdv.op.OpExibeDisplayFechado"/>
+    <operacao id="OpAlternativaDois" classe="com.infinity.datamarket.pdv.op.OpAlternativaDois"/>
+    <operacao id="OpSaidaSistema" classe="com.infinity.datamarket.pdv.op.OpSaidaSistema"/>
+    <operacao id="OpEntradaAutorizador" classe="com.infinity.datamarket.pdv.op.OpEntradaAutorizador"/>
+    <operacao id="OpEntradaOperador" classe="com.infinity.datamarket.pdv.op.OpEntradaOperador"/>
+    <operacao id="OpExibeDisplayDisponivel" classe="com.infinity.datamarket.pdv.op.OpExibeDisplayDisponivel"/>
+    <operacao id="OpExibeTelaDisponivel" classe="com.infinity.datamarket.pdv.op.OpExibeTelaDisponivel"/>
+    <operacao id="OpSolicitaFundoTroco" classe="com.infinity.datamarket.pdv.op.OpSolicitaFundoTroco"/>
+    <operacao id="OpSolicitaVendedor" classe="com.infinity.datamarket.pdv.op.OpSolicitaVendedor"/>
+    <operacao id="OpExibeDisplayVenda" classe="com.infinity.datamarket.pdv.op.OpExibeDisplayVenda"/>
+    <operacao id="OpConsultaProduto" classe="com.infinity.datamarket.pdv.op.OpConsultaProduto"/>
+    <operacao id="OpExibeTelaTotal" classe="com.infinity.datamarket.pdv.op.OpExibeTelaTotal"/>
+    <operacao id="OpExibeDisplayTotal" classe="com.infinity.datamarket.pdv.op.OpExibeDisplayTotal"/>
+    <operacao id="OpExibeTelaTroco" classe="com.infinity.datamarket.pdv.op.OpExibeTelaTroco"/>
+    <operacao id="OpExibeDisplayTroco" classe="com.infinity.datamarket.pdv.op.OpExibeDisplayTroco"/>
+    <operacao id="OpExibeTelaVenda" classe="com.infinity.datamarket.pdv.op.OpExibeTelaVenda"/>
+    <operacao id="OpInicioVenda" classe="com.infinity.datamarket.pdv.op.OpInicioVenda"/>
+    <operacao id="OpSolicitaConsultaProduto" classe="com.infinity.datamarket.pdv.op.OpSolicitaConsultaProduto"/>
+    <operacao id="OpExibeTelaCancela" classe="com.infinity.datamarket.pdv.op.OpExibeTelaCancela"/>
+    <operacao id="OpSolicitaDesconto" classe="com.infinity.datamarket.pdv.op.OpSolicitaDesconto"/>
+    <operacao id="OpSolicitaConsultaProdutoDesconto" classe="com.infinity.datamarket.pdv.op.OpSolicitaConsultaProdutoDesconto"/>
+    <operacao id="OpMultiplicacao" classe="com.infinity.datamarket.pdv.op.OpMultiplicacao"/>
+    <operacao id="OpExibeDisplayMultiplicacao" classe="com.infinity.datamarket.pdv.op.OpExibeDisplayMultiplicacao"/>
+    <operacao id="OpSangria" classe="com.infinity.datamarket.pdv.op.OpSangria"/>
+    <operacao id="OpResuprimento" classe="com.infinity.datamarket.pdv.op.OpResuprimento"/>
+    <operacao id="OpExibeDisplayPausa" classe="com.infinity.datamarket.pdv.op.OpExibeDisplayPausa"/>
+    <operacao id="OpConsultaProdutoNome" classe="com.infinity.datamarket.pdv.op.OpConsultaProdutoNome"/>
+    <operacao id="OpIncluiTransacaoEntradaOperador" classe="com.infinity.datamarket.pdv.op.OpIncluiTransacaoEntradaOperador"/>
+    <operacao id="OpCriaTransacaoVenda" classe="com.infinity.datamarket.pdv.op.OpCriaTransacaoVenda"/>
+    <operacao id="OpIncluiProdutoItem" classe="com.infinity.datamarket.pdv.op.OpIncluiProdutoItem"/>
+    <operacao id="OpVoltaVenda" classe="com.infinity.datamarket.pdv.op.OpVoltaVenda"/>
+    <operacao id="OpIncluiTransacaoSangria" classe="com.infinity.datamarket.pdv.op.OpIncluiTransacaoSangria"/>
+    <operacao id="OpIncluiTransacaoResuprimento" classe="com.infinity.datamarket.pdv.op.OpIncluiTransacaoResuprimento"/>
+    <operacao id="OpZeraTotalizadoresNaoFiscais" classe="com.infinity.datamarket.pdv.op.OpZeraTotalizadoresNaoFiscais"/>
+    <operacao id="OpIncluiTransacaoAbertura" classe="com.infinity.datamarket.pdv.op.OpIncluiTransacaoAbertura"/>
+    <operacao id="OpIncluiTransacaoFechamentoX" classe="com.infinity.datamarket.pdv.op.OpIncluiTransacaoFechamentoX"/>
+    <operacao id="OpIncluiTransacaoFechamentoZ" classe="com.infinity.datamarket.pdv.op.OpIncluiTransacaoFechamentoZ"/>
+    <operacao id="OpExibeTelaFechado" classe="com.infinity.datamarket.pdv.op.OpExibeTelaFechado"/>
+    <operacao id="OpInicioRecebimentoDinheiro" classe="com.infinity.datamarket.pdv.op.OpInicioRecebimentoDinheiro"/>
+    <operacao id="OpExibeTelaPlanos" classe="com.infinity.datamarket.pdv.op.OpExibeTelaPlanos"/>
+    <operacao id="OpSolicitaPlano" classe="com.infinity.datamarket.pdv.op.OpSolicitaPlano"/>
+    <operacao id="OpProcessaPlano" classe="com.infinity.datamarket.pdv.op.OpProcessaPlano"/>
+    <operacao id="OpVerificaFimRecebimento" classe="com.infinity.datamarket.pdv.op.OpVerificaFimRecebimento"/>
+    <operacao id="OpIncluiTransacaoVenda" classe="com.infinity.datamarket.pdv.op.OpIncluiTransacaoVenda"/>
+    <operacao id="OpVoltaRecebimento" classe="com.infinity.datamarket.pdv.op.OpVoltaRecebimento"/>
+    <operacao id="OpSolicitaDescontoCupom" classe="com.infinity.datamarket.pdv.op.OpSolicitaDescontoCupom"/>
+    <operacao id="OpConfirmaCancelamentoCupom" classe="com.infinity.datamarket.pdv.op.OpConfirmaCancelamentoCupom"/>
+    <operacao id="OpCancelaTransacaoVenda" classe="com.infinity.datamarket.pdv.op.OpCancelaTransacaoVenda"/>
+    <operacao id="OpExibeOperadorDisplay" classe="com.infinity.datamarket.pdv.op.OpExibeOperadorDisplay"/>
+    <operacao id="OpConfirmaFechamentoX" classe="com.infinity.datamarket.pdv.op.OpConfirmaFechamentoX"/>
+    <operacao id="OpConfirmaFechamentoZ" classe="com.infinity.datamarket.pdv.op.OpConfirmaFechamentoZ"/>
+    <operacao id="OpConfirmaCancelamentoUltimoCupom" classe="com.infinity.datamarket.pdv.op.OpConfirmaCancelamentoUltimoCupom"/>
+    <operacao id="OpCancelaUltimoCupom" classe="com.infinity.datamarket.pdv.op.OpCancelaUltimoCupom"/>
+    <operacao id="OpInicioRecebimentoCheque" classe="com.infinity.datamarket.pdv.op.OpInicioRecebimentoCheque"/>
+    <operacao id="OpSolicitaDadosCheque" classe="com.infinity.datamarket.pdv.op.OpSolicitaDadosCheque"/>
+    <operacao id="OpInicioRecebimentoChequePredatado" classe="com.infinity.datamarket.pdv.op.OpInicioRecebimentoChequePredatado"/>
+    <operacao id="OpCalculaExibeTelaParcelaPlanos" classe="com.infinity.datamarket.pdv.op.OpCalculaExibeTelaParcelaPlanos"/>
+    <operacao id="OpSolicitaDadosChequePredatado" classe="com.infinity.datamarket.pdv.op.OpSolicitaDadosChequePredatado"/>
+    <operacao id="OpInicioDia" classe="com.infinity.datamarket.pdv.op.OpInicioDia"/>
+    <operacao id="OpSuprimento" classe="com.infinity.datamarket.pdv.op.OpSuprimento"/>
+    <operacao id="OpLeituraX" classe="com.infinity.datamarket.pdv.op.OpLeituraX"/>
+    <operacao id="OpReducaoZ" classe="com.infinity.datamarket.pdv.op.OpReducaoZ"/>
+    <operacao id="OpAberturaCupom" classe="com.infinity.datamarket.pdv.op.OpAberturaCupom"/>
+    <operacao id="OpVendeItem" classe="com.infinity.datamarket.pdv.op.OpVendeItem"/>
+    <operacao id="OpFinalizaCupom" classe="com.infinity.datamarket.pdv.op.OpFinalizaCupom"/>
+    <operacao id="OpCancelaItem" classe="com.infinity.datamarket.pdv.op.OpCancelaItem"/>
+    <operacao id="OpCancelaCupom" classe="com.infinity.datamarket.pdv.op.OpCancelaCupom"/>
+    <operacao id="OpRealizaSangria" classe="com.infinity.datamarket.pdv.op.OpRealizaSangria"/>
+    <operacao id="OpInicioRecebimentoCartaoOff" classe="com.infinity.datamarket.pdv.op.OpInicioRecebimentoCartaoOff"/>
+    <operacao id="OpExibeTelaAutorizadoras" classe="com.infinity.datamarket.pdv.op.OpExibeTelaAutorizadoras"/>
+    <operacao id="OpSolicitaAutorizadora" classe="com.infinity.datamarket.pdv.op.OpSolicitaAutorizadora"/>
+    <operacao id="OpSolicitaDadosCartaoOff" classe="com.infinity.datamarket.pdv.op.OpSolicitaDadosCartaoOff"/>
+    <operacao id="OpInicioRecebimentoCartaoProprio" classe="com.infinity.datamarket.pdv.op.OpInicioRecebimentoCartaoProprio"/>
+    <operacao id="OpSolicitaDadosCartaoProprio" classe="com.infinity.datamarket.pdv.op.OpSolicitaDadosCartaoProprio"/>
+    <operacao id="OpImprimeConfirmaAutorizacaoCartaoProprio" classe="com.infinity.datamarket.pdv.op.OpImprimeConfirmaAutorizacaoCartaoProprio"/>
+    <operacao id="OpDesfazAutorizacaoCartaoProprio" classe="com.infinity.datamarket.pdv.op.OpDesfazAutorizacaoCartaoProprio"/>
+    <operacao id="OpConfirmaLeituraX" classe="com.infinity.datamarket.pdv.op.OpConfirmaLeituraX"/>
+    <operacao id="OpSolicitaConsultaProdutoSobreposicao" classe="com.infinity.datamarket.pdv.op.OpSolicitaConsultaProdutoSobreposicao"/>
+    <operacao id="OpExibeTelaSobreposicao" classe="com.infinity.datamarket.pdv.op.OpExibeTelaSobreposicao"/>
+    <operacao id="OpDecideVoltaSobreposicao" classe="com.infinity.datamarket.pdv.op.OpDecideVoltaSobreposicao"/>
+    <operacao id="OpImprimeRecibo" classe="com.infinity.datamarket.pdv.op.OpImprimeRecibo"/>
+    <operacao id="OpSolicitaCliente" classe="com.infinity.datamarket.pdv.op.OpSolicitaCliente"/>
+    <operacao id="OpSolicitaDadosConsultaCartaoProprio" classe="com.infinity.datamarket.pdv.op.OpSolicitaDadosConsultaCartaoProprio"/>
+    <operacao id="OpExibeTelaConsultaCartaoProprio" classe="com.infinity.datamarket.pdv.op.OpExibeTelaConsultaCartaoProprio"/>
+    <operacao id="OpSolicitaValorPagamentoCartaoProprio" classe="com.infinity.datamarket.pdv.op.OpSolicitaValorPagamentoCartaoProprio"/>
+    <operacao id="OpInicioPagamento" classe="com.infinity.datamarket.pdv.op.OpInicioPagamento"/>
+    <operacao id="OpExibeTelaTotalPagamento" classe="com.infinity.datamarket.pdv.op.OpExibeTelaTotalPagamento"/>
+    <operacao id="OpCriaTransacaoPagamento" classe="com.infinity.datamarket.pdv.op.OpCriaTransacaoPagamento"/>
+    <operacao id="OpConfirmaCancelamentoPagamento" classe="com.infinity.datamarket.pdv.op.OpConfirmaCancelamentoPagamento"/>
+    <operacao id="OpCancelaTransacaoPagamento" classe="com.infinity.datamarket.pdv.op.OpCancelaTransacaoPagamento"/>
+    <operacao id="OpIncluiTransacaoPagamento" classe="com.infinity.datamarket.pdv.op.OpIncluiTransacaoPagamento"/>
+    <operacao id="OpExibeTelaTrocoPagamento" classe="com.infinity.datamarket.pdv.op.OpExibeTelaTrocoPagamento"/>
+    <operacao id="OpImprimeReciboPagamento" classe="com.infinity.datamarket.pdv.op.OpImprimeReciboPagamento"/>
+    <operacao id="OpInicioRecebimentoTroca" classe="com.infinity.datamarket.pdv.op.OpInicioRecebimentoTroca"/>
+    <operacao id="OpSolicitaDadosConsultaOperacaoDevolucao" classe="com.infinity.datamarket.pdv.op.OpSolicitaDadosConsultaOperacaoDevolucao"/>
+    <operacao id="OpDesfazOperacao" classe="com.infinity.datamarket.pdv.op.OpDesfazOperacao"/>
+    <operacao id="OpConfirmaOperacao" classe="com.infinity.datamarket.pdv.op.OpConfirmaOperacao"/>
+    <operacao id="OpImprimeMovimentoDia" classe="com.infinity.datamarket.pdv.op.OpImprimeMovimentoDia"/>
   </listaMicroperacao>
   <listaEstado>
     <estado codigo="ESTADO1" descricao="Fechado" inputType="0" inputSize="0"/>
