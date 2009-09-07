@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 
-public interface ControladorMaquinaEstado {
+public interface ControladorMaquinaEstado extends Serializable {
 
 	public Tecla consultaTeclaPorId(Long id) throws AppException;
 
