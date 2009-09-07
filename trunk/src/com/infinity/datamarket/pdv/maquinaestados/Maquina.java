@@ -33,29 +33,28 @@ public class Maquina implements Serializable{
     private GerenciadorPerifericos gerenciadorPerifericos;
     private ControladorMaquinaEstado controladorMaquinaEstado;
     private ThreadVerificaNovoLote threadVerificaNovoLote; 
-
+    private Tela telaInicial;
     private static Maquina instancia;
 
-    public static Maquina getInstancia(Estado estado, Date dataMov, GerenciadorPerifericos gerenciadorPerifericos, ControladorMaquinaEstado controladorME){
+    public static Maquina getInstancia(Estado estado, Date dataMov, GerenciadorPerifericos gerenciadorPerifericos, ControladorMaquinaEstado controladorME,Tela t ){
         if(instancia == null){
-            instancia = new Maquina(estado, dataMov, gerenciadorPerifericos,controladorME);
+            instancia = new Maquina(estado, dataMov, gerenciadorPerifericos,controladorME,t);
         }
         return instancia;
     }
-    private Maquina(Estado estado, Date dataMov, GerenciadorPerifericos gerenciadorPerifericos, ControladorMaquinaEstado controladorME){
+    private Maquina(Estado estado, Date dataMov, GerenciadorPerifericos gerenciadorPerifericos, ControladorMaquinaEstado controladorME,Tela t ){
         this.estadoAtual = estado;
         this.dataMov = dataMov;
         this.gerenciadorPerifericos = gerenciadorPerifericos;
         this.controladorMaquinaEstado = controladorME;
+        this.telaInicial = t; 
     }
     public void iniciar(){
         Tela tela = (Tela) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
         System.out.println("Maquina.iniciar: tela: "+tela);
         if (tela == null){
-            TelaMenssagem t = (TelaMenssagem) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_MENSAGEM);
-            t.setMenssagem("Caixa Fechado");
-            gerenciadorPerifericos.getDisplay().setMensagem("Caixa Fechado");
-            gerenciadorPerifericos.atualizaTela(t);
+        	gerenciadorPerifericos.getDisplay().setMensagem("Caixa Fechado");
+            gerenciadorPerifericos.atualizaTela(telaInicial);
         }else{
             gerenciadorPerifericos.atualizaTela(tela);
             System.out.println("Maquina.iniciar: atualizei a tela");
