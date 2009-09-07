@@ -39,7 +39,7 @@ public class GeradorXMMaquinaEstado {
 			out.write("\n".getBytes());
 			while (rs.next()) {
 				Class classe = Class.forName(rs.getString("CLASSE"));
-				out.write(("    <operacao id=\"" +  classe.getSimpleName() +  "\" classe=\"" + classe + "\"/>").getBytes());
+				out.write(("    <operacao id=\"" +  classe.getSimpleName() +  "\" classe=\"" + classe.getName() + "\"/>").getBytes());
 				out.write("\n".getBytes());
 			}
 			out.write("  </listaMicroperacao>".getBytes());
