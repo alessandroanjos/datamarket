@@ -12,4 +12,6 @@ public class ConstantesTela {
 	public static final String TELA_CONSULTA = "TELA_CONSULTA";
 	public static final String TELA_CONSULTA_CARTAO_PROPRIO = "TELA_CONSULTA_CARTAO_PROPRIO";
 	public static final String TELA_TOTAL_PAGAMENTO = "TELA_TOTAL_PAGAMENTO";
+	
+	public static final String TELA_AV_INICIAL = "TELA_AV_INICIAL";
 }

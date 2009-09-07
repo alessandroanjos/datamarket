@@ -1,8 +1,12 @@
 package com.infinity.datamarket.pdv.gerenciadorperifericos.display;
 
+import java.io.Serializable;
+
+import javax.swing.JTextField;
+
 import com.infinity.datamarket.comum.util.AppException;
 
-public interface Display {
+public interface Display extends Serializable{
 	public static final int MASCARA_MONETARIA = 1;
 	public static final int MASCARA_PASSWORD = 2;
 	public static final int MASCARA_NUMERICA = 3;

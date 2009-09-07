@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
+import com.infinity.datamarket.av.gerenciadorperifericos.display.AVDisplay;
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.produto.Imposto;
 import com.infinity.datamarket.comum.usuario.Loja;
@@ -171,6 +172,10 @@ public class GerenciadorPerifericos implements Serializable{
     public void atualizaTela(Tela tela) {
     	if (display instanceof FrameDisplay){
         	FrameDisplay f = (FrameDisplay) display;
+        	tela.getPainel().remove(f);
+        	tela.getPainel().add(f);
+        } else  if (display instanceof AVDisplay){
+        	AVDisplay f = (AVDisplay) display;
         	tela.getPainel().remove(f);
         	tela.getPainel().add(f);
         }

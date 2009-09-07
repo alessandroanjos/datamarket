@@ -1,4 +1,4 @@
-package com.infinity.datamarket.pdv;
+package com.infinity.datamarket.av;
 
 import java.io.File;
 import java.util.Calendar;
@@ -6,13 +6,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Vector;
 
+import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
-import com.infinity.datamarket.pdv.gui.telas.TelaMenssagem;
-import com.infinity.datamarket.pdv.maquinaestados.ConcentradorMaquina;
 import com.infinity.datamarket.pdv.maquinaestados.ControladorMaquinaEstado;
 import com.infinity.datamarket.pdv.maquinaestados.Estado;
 import com.infinity.datamarket.pdv.maquinaestados.LeitorMaquinaEstadoXML;
@@ -20,7 +19,7 @@ import com.infinity.datamarket.pdv.maquinaestados.Maquina;
 import com.infinity.datamarket.pdv.transacao.ThreadEnviaTransacao;
 
 
-public class StartUpPDV {
+public class StartUpAV {
 	public static void main(String[] a) throws Exception{
 		
 		backupTraces();
@@ -41,10 +40,9 @@ public class StartUpPDV {
 //		ti.setVisible(true);
 //		ti.jProgressBar1.setValue(25);
 		
-		ControladorMaquinaEstado contr = ConcentradorMaquina.getInstancia();
+		//ControladorMaquinaEstado contr = ConcentradorMaquina.getInstancia();
 		
-		//ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("fluxoPDV.xml");
-
+		ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("D:\\workspace\\Datamarket\\datamarket\\conf\\fluxoAV.xml");
 		
 		RepositoryManagerHibernateUtil.currentSession();
 		GerenciadorPerifericos ger = GerenciadorPerifericos.getInstancia();
@@ -54,8 +52,8 @@ public class StartUpPDV {
 		est.setId(new Long(1));
 		est.setInputSize(0);
 		est.setInputType(0);
-		TelaMenssagem t = (TelaMenssagem) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_MENSAGEM);
-    	t.setMenssagem("Caixa Fechado");
+    	TelaAVInicial t = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+        t.setMenssagem("AV Fechado");
 		Maquina maquina = Maquina.getInstancia(est, new Date(), ger, contr, t);
 //		ti.jProgressBar1.setValue(75);
 		ThreadEnviaTransacao t1 = new ThreadEnviaTransacao();

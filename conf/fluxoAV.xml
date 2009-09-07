@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> 
+<maquinaEstado>
+  <listaMicroperacao>
+    <operacao id="OpAVAutorizacao" classe="com.infinity.datamarket.av.op.OpAVAutorizacao"/>
+    <operacao id="OpAVExibeTelaDisponivel" classe="com.infinity.datamarket.av.op.OpAVExibeTelaDisponivel"/>
+  </listaMicroperacao>
+  <listaEstado>
+    <estado codigo="ESTADO1" descricao="Fechado" inputType="1" inputSize="10"/>
+    <estado codigo="ESTADO2" descricao="Aberto" inputType="1" inputSize="10"/>
+    <estado codigo="ESTADO3" descricao="Pedido" inputType="1" inputSize="10"/>
+    <estado codigo="ESTADO4" descricao="Devolução" inputType="1" inputSize="10"/>
+  </listaEstado>
+  <listaTecla>
+    <tecla codigo="TECLA1" descricao="ENTER" codigoASCI="10" />
+    <tecla codigo="TECLA2" descricao="P" codigoASCI="80" />
+    <tecla codigo="TECLA3" descricao="D" codigoASCI="68" />
+    <tecla codigo="TECLA4" descricao="ESPACO" codigoASCI="32" />
+    <tecla codigo="TECLA13" descricao="ESC" codigoASCI="27" />
+  </listaTecla>
+  <listaMacroOperacao>
+    <macroOperacao estadoAtual="ESTADO1" proximoEstado="ESTADO2" tecla="TECLA1" codigoMicroOperacaoAssociada="subFluxo1" descricao="Abertura de AV">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVAutorizacao">
+      
+ 	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAVExibeTelaDisponivel">
+<!-- 	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" /> -->      
+      </microOperacaoAssociada>
+      
+      
+    </macroOperacao>
+  </listaMacroOperacao>
+</maquinaEstado>
