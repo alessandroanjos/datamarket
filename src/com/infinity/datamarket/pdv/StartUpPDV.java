@@ -41,9 +41,9 @@ public class StartUpPDV {
 //		ti.setVisible(true);
 //		ti.jProgressBar1.setValue(25);
 		
-		ControladorMaquinaEstado contr = ConcentradorMaquina.getInstancia();
+		//ControladorMaquinaEstado contr = ConcentradorMaquina.getInstancia();
 		
-		//ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("fluxoPDV.xml");
+		ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("D:\\workspace\\Datamarket\\datamarket\\conf\\fluxoPDV.xml");
 
 		
 		RepositoryManagerHibernateUtil.currentSession();
