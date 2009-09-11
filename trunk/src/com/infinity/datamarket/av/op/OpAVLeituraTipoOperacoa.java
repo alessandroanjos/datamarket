@@ -13,7 +13,7 @@ import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 
-public class OpAVAutorizacao extends Mic{
+public class OpAVLeituraTipoOperacoa extends Mic{
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
