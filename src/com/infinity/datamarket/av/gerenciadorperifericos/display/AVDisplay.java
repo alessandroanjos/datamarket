@@ -30,7 +30,7 @@ public class AVDisplay extends JPanel implements Display{
 	private JLabel campo1;
 	private JTextField campo2;
 	private int dadoRetorno = -1;
-	private Thread threadDisplay;
+	private transient Thread threadDisplay;
 	private EventosListener ev;
 	private boolean sinal = false;
 
