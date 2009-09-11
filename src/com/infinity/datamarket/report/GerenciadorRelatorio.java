@@ -713,10 +713,10 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			InputStream input = null;
 			
 			if (tipo.equals(Constantes.CONSTANTE_VALOR)){
-				pstm = con.prepareStatement(Queries.RELATORIO_ABC_VENDAS_VALOR);
+				pstm = con.prepareStatement(Queries.RELATORIO_ABC_VENDAS_VALOR, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioABCVendasValor.jasper");
 			}else if (tipo.equals(Constantes.CONSTANTE_QUANTIDADE)){
-				pstm = con.prepareStatement(Queries.RELATORIO_ABC_VENDAS_QTD);
+				pstm = con.prepareStatement(Queries.RELATORIO_ABC_VENDAS_QTD, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioABCVendasQuantidade.jasper");
 			}			
 			
