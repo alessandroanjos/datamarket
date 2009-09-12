@@ -23,7 +23,7 @@ public class GeradorXMMaquinaEstado {
 	public static Map main(String tabela) {
 		Map map = new HashMap();
 		try {			
-			FileOutputStream out = new FileOutputStream(new File("D:\\workspace\\Datamarket\\datamarket\\conf\\fluxoPDV.xml")); 
+			FileOutputStream out = new FileOutputStream(new File("c:\\workspace\\Datamarket\\conf\\fluxoPDV.xml")); 
 			out.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?> ".getBytes());
 			out.write("\n".getBytes());
 			out.write("<maquinaEstado>".getBytes());
@@ -31,7 +31,7 @@ public class GeradorXMMaquinaEstado {
 			
 			Class.forName("net.sourceforge.jtds.jdbc.Driver");
 			
-			Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://localhost:1433/ENTERPRISE","sa","001100");
+			Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://localhost:1433/ENTERPRISE","sa","sa");
 			
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery("select * from  MICRO_OPERACAO ");
