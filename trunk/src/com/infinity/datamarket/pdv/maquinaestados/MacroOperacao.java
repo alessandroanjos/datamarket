@@ -16,21 +16,7 @@ public class MacroOperacao extends Persistente{
 	private Estado proximoEstado;
 	private MicroOperacaoAssociada microOperacaoInicial;
 	
-	private Set perfis;
-	
-	
-	/**
-	 * @return the perfis
-	 */
-	public Set getPerfis() {
-		return perfis;
-	}
-	/**
-	 * @param perfis the perfis to set
-	 */
-	public void setPerfis(Set perfis) {
-		this.perfis = perfis;
-	}
+
 	/**
 	 * @return the descricao
 	 */

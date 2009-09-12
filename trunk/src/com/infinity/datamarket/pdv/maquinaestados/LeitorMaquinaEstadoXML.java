@@ -1,5 +1,6 @@
 package com.infinity.datamarket.pdv.maquinaestados;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class LeitorMaquinaEstadoXML {
 	
 	public static void main(String[] a ) {
 		try {
-			lerArquivoXM("C:\\workspace\\Datamarket\\conf\\fluxoPDV.xml"); 
+			lerArquivoXM("fluxoPDV.xml"); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,7 +47,10 @@ public class LeitorMaquinaEstadoXML {
 		Collection mapMacroOperacao = new ArrayList();
 		
 		try{
-			File file = new File(arquivo);
+			URL url = LeitorMaquinaEstadoXML.class.getClassLoader().getResource(arquivo);
+			String arq = url.toString();
+			arq = arq.substring("file:\\".length(), arq.length());
+			File file = new File(arq);
 			DocumentBuilderFactory dbf  = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db 			= dbf.newDocumentBuilder();
 			Document doc 				= db.parse(file);
@@ -289,7 +293,7 @@ public class LeitorMaquinaEstadoXML {
 							System.out.print(" ");
 							System.out.println(codigoFluxoDestino);
 							if (codigoFluxo.equalsIgnoreCase(codigoFluxoDestino)) {
-								throw new Exception("A saida " + tipoSaida + " do Fluxo " + codigoFluxo + " está para o mesmo fluxo, fooping infinito, da macroperacao " + macroperacao);
+								//throw new Exception("A saida " + tipoSaida + " do Fluxo " + codigoFluxo + " está para o mesmo fluxo, fooping infinito, da macroperacao " + macroperacao);
 							}
 							if (collSaida.contains(tipoSaida.toUpperCase())){
 								throw new Exception("duas saidas com o mesmo código para o código do fluxo " + codigoFluxo+ " da macroperacao " + macroperacao);
