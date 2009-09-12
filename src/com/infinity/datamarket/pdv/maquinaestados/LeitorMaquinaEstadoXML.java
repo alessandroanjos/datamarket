@@ -33,7 +33,7 @@ public class LeitorMaquinaEstadoXML {
 	
 	public static void main(String[] a ) {
 		try {
-			lerArquivoXM("D:\\workspace\\Datamarket\\datamarket\\conf\\fluxoPDV.xml"); 
+			lerArquivoXM("C:\\workspace\\Datamarket\\conf\\fluxoPDV.xml"); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -289,7 +289,7 @@ public class LeitorMaquinaEstadoXML {
 							System.out.print(" ");
 							System.out.println(codigoFluxoDestino);
 							if (codigoFluxo.equalsIgnoreCase(codigoFluxoDestino)) {
-								//throw new Exception("A saida " + tipoSaida + " do Fluxo " + codigoFluxo + " está para o mesmo fluxo, fooping infinito, da macroperacao " + macroperacao);
+								throw new Exception("A saida " + tipoSaida + " do Fluxo " + codigoFluxo + " está para o mesmo fluxo, fooping infinito, da macroperacao " + macroperacao);
 							}
 							if (collSaida.contains(tipoSaida.toUpperCase())){
 								throw new Exception("duas saidas com o mesmo código para o código do fluxo " + codigoFluxo+ " da macroperacao " + macroperacao);
