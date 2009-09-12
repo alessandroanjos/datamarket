@@ -170,7 +170,6 @@
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo7" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo7" operacao="OpExibeDisplayFechado">
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo7" />
       </microOperacaoAssociada>
     </macroOperacao>
     <macroOperacao estadoAtual="ESTADO2" proximoEstado="ESTADO2" tecla="TECLA2" codigoMicroOperacaoAssociada="subFluxo9" descricao="Saida Sistema Fechado Parcial">
@@ -191,7 +190,7 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo13" operacao="OpAlternativaDois">
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo14" operacao="OpEntradaOperador">
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo14" />
+		<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo14" />
       	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo11" />
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo65" />
       </microOperacaoAssociada>
