@@ -34,5 +34,10 @@ public class Parametro implements Serializable{
 	public void setValorInteiro(int valor) {
 		this.valor = valor+"";
 	}
+
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getValor();
+	}
 	
 }

@@ -21,12 +21,12 @@ public class TelaAVInicial extends Tela{
     private javax.swing.JLabel labelLoja;
     private javax.swing.JLabel labelUsuario;
     private javax.swing.JLabel labelComponente;
-    private javax.swing.JLabel labelSenha;
+    private javax.swing.JLabel labelCliente;
     private javax.swing.JLabel labelOperacao;
     private javax.swing.JLabel labelCodigoProduto;
     private javax.swing.JLabel labelQuantidade;
     private javax.swing.JLabel labelDesconto;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTextField campoCliente;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField campoComponente;
@@ -47,14 +47,13 @@ public class TelaAVInicial extends Tela{
     	menssagem = new javax.swing.JLabel();
          labelLoja = new javax.swing.JLabel();
          campoComponente = new javax.swing.JTextField();
-         campoComponente.setText("campoComponente");
          campoLoja = new javax.swing.JTextField();
          labelUsuario = new javax.swing.JLabel();
          labelComponente = new javax.swing.JLabel();
          jScrollPane1 = new javax.swing.JScrollPane();
          jTable1 = new javax.swing.JTable();
          campoUsuario = new javax.swing.JTextField();
-         labelSenha = new javax.swing.JLabel();
+         labelCliente = new javax.swing.JLabel();
          labelOperacao = new javax.swing.JLabel();
          campoOperacao = new javax.swing.JTextField();
          labelCodigoProduto = new javax.swing.JLabel();
@@ -64,25 +63,41 @@ public class TelaAVInicial extends Tela{
          labelQuantidade = new javax.swing.JLabel();
          labelDesconto = new javax.swing.JLabel();
          campoDesconto = new javax.swing.JTextField();
-         jPasswordField1 = new javax.swing.JPasswordField();
+         campoCliente = new javax.swing.JTextField();
 
+         getPainel().add(labelLoja);
          labelLoja.setText("Loja");
-         labelLoja.setBounds(10, 20, 20, 14);
+         labelLoja.setFont(new java.awt.Font("Courier New", 1, 24));
+         labelLoja.setForeground(new java.awt.Color(255, 255, 255));
+         labelLoja.setBounds(10, 20, 60, 20);
 
-          getPainel().add(campoComponente);
-         campoComponente.setBounds(210, 20, 110, 19);
+         getPainel().add(campoLoja);
+         campoLoja.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoLoja.setBounds(70, 20, 60, 25);
 
-          getPainel().add(campoLoja);
-         campoLoja.setBounds(40, 20, 90, 19);
+         getPainel().add(labelComponente);
+         labelComponente.setText("Componente");
+         labelComponente.setFont(new java.awt.Font("Courier New", 1, 24));
+         labelComponente.setForeground(new java.awt.Color(255, 255, 255));
+         labelComponente.setBounds(160, 20, 150, 20);
 
+         getPainel().add(campoComponente);
+         campoComponente.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoComponente.setBounds(305, 20, 100, 25);
+
+         getPainel().add(labelUsuario);
          labelUsuario.setText("Usu\u00e1rio");
-          getPainel().add(labelUsuario);
-         labelUsuario.setBounds(340, 20, 36, 14);
+         labelUsuario.setFont(new java.awt.Font("Courier New", 1, 24));
+         labelUsuario.setForeground(new java.awt.Color(255, 255, 255));
+         labelUsuario.setBounds(430, 20, 120, 20);
 
-         labelComponente.setText("campoComponente");
-          getPainel().add(labelComponente);
-          labelComponente.setBounds(140, 20, 61, 20);
+         getPainel().add(campoUsuario);
+         campoLoja.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoUsuario.setBounds(535, 20, 120, 25);
 
+
+         
+         getPainel().add(jScrollPane1);
          jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
          jScrollPane1.setBorder(null);
          jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 14));
@@ -103,52 +118,74 @@ public class TelaAVInicial extends Tela{
          jTable1.setPreferredSize(new java.awt.Dimension(800, 217));
          jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
          jScrollPane1.setViewportView(jTable1);
+         
+         jScrollPane1.setBounds(0, 180, 800, 240);
 
-          getPainel().add(jScrollPane1);
-         jScrollPane1.setBounds(0, 140, 800, 240);
+         
+// Segunda linha
+         getPainel().add(labelCliente);
+         labelCliente.setText("Cliente");
+         labelCliente.setFont(new java.awt.Font("Courier New", 1, 24));
+         labelCliente.setForeground(new java.awt.Color(255, 255, 255));
+         labelCliente.setBounds(10, 80, 120, 20);
 
-          getPainel().add(campoUsuario);
-         campoUsuario.setBounds(390, 20, 140, 19);
+         getPainel().add(campoCliente);
+         campoCliente.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoCliente.setBounds(120, 80, 120, 25);
 
-         labelSenha.setText("senha");
-          getPainel().add(labelSenha);
-         labelSenha.setBounds(560, 20, 29, 14);
-
+         
+         getPainel().add(labelOperacao);
          labelOperacao.setText("Opera\u00e7\u00e3o");
-          getPainel().add(labelOperacao);
-         labelOperacao.setBounds(10, 80, 47, 14);
+         labelOperacao.setFont(new java.awt.Font("Courier New", 1, 24));
+         labelOperacao.setForeground(new java.awt.Color(255, 255, 255));
+         labelOperacao.setBounds(265, 80, 120, 20);
 
-          getPainel().add(campoOperacao);
-         campoOperacao.setBounds(60, 80, 120, 19);
+         getPainel().add(campoOperacao);
+         labelOperacao.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoOperacao.setBounds(385, 80, 120, 25);
 
+
+         
+         // Terceira linha 
+         getPainel().add(labelCodigoProduto);
          labelCodigoProduto.setText("Produto");
-          getPainel().add(labelCodigoProduto);
-         labelCodigoProduto.setBounds(190, 80, 50, 14);
+         labelCodigoProduto.setFont(new java.awt.Font("Courier New", 1, 24));
+         labelCodigoProduto.setForeground(new java.awt.Color(255, 255, 255));
+         labelCodigoProduto.setBounds(10, 140, 120, 20);
 
-          getPainel().add(campoCodigoProduto);
-         campoCodigoProduto.setBounds(240, 80, 100, 19);
+         getPainel().add(campoCodigoProduto);
+         campoCodigoProduto.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoCodigoProduto.setBounds(115, 140, 60, 25);
 
+         getPainel().add(campoDescricaoProduto);
          campoDescricaoProduto.setBackground(new java.awt.Color(236, 233, 216));
-          getPainel().add(campoDescricaoProduto);
-         campoDescricaoProduto.setBounds(340, 80, 140, 19);
+         campoDescricaoProduto.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoDescricaoProduto.setBounds(175, 140, 100, 25);
 
-          getPainel().add(campoQuantidade);
-         campoQuantidade.setBounds(560, 80, 60, 19);
+         
+         getPainel().add(labelQuantidade);
+         labelQuantidade.setText("Quantidade");         
+         labelQuantidade.setFont(new java.awt.Font("Courier New", 1, 24));
+         labelQuantidade.setForeground(new java.awt.Color(255, 255, 255));
+         labelQuantidade.setBounds(295, 140, 140, 20);
 
-         labelQuantidade.setText("Quantidade");
-          getPainel().add(labelQuantidade);
-         labelQuantidade.setBounds(500, 80, 60, 14);
+         getPainel().add(campoQuantidade);
+         campoQuantidade.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoQuantidade.setBounds(440, 140, 60, 25);
 
+         
+         getPainel().add(labelDesconto);
          labelDesconto.setText("Desconto");
-          getPainel().add(labelDesconto);
-          labelDesconto.setBounds(630, 80, 60, 14);
+         labelDesconto.setFont(new java.awt.Font("Courier New", 1, 24));
+         labelDesconto.setForeground(new java.awt.Color(255, 255, 255));
+         labelDesconto.setBounds(530, 140, 120, 20);
 
-          getPainel().add(campoDesconto);
-         campoDesconto.setBounds(680, 80, 90, 19);
+         getPainel().add(campoDesconto);
+         campoDesconto.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoDesconto.setBounds(655, 140, 60, 25);
 
-          getPainel().add(jPasswordField1);
-         jPasswordField1.setBounds(600, 20, 110, 23);
 
+         getPainel().setBackground(new java.awt.Color(0, 0, 100));
          
          campoComponente.setFocusable(false);
          campoDesconto.setFocusable(false);
