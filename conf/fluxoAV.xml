@@ -31,13 +31,13 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAVBloqueiaAV">
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo4" operacao="OpAVLeituraTipoOperacoa">
- 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo5" />
  	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo5" operacao="OpAVLeituraProduto">
+ <!--      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo5" operacao="OpAVLeituraProduto">
  	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
  	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
       </microOperacaoAssociada>
+       -->
     </macroOperacao>
     <macroOperacao estadoAtual="ESTADO2" proximoEstado="ESTADO1" tecla="TECLA13" codigoMicroOperacaoAssociada="subFluxo1" descricao="Bloqueia Av">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVBloqueiaAV">

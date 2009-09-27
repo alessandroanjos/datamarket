@@ -40,15 +40,18 @@ public class AVDisplay extends JPanel implements Display{
 	}
 
 	public void setUsuario(String usuario){
-		this.usuario.setText(MENS_USU+usuario);
+		this.usuario.setText("");
+		//	this.usuario.setText(MENS_USU+usuario);
 	}
 	
 	public void setLoja(String loja){
-		this.loja.setText(MENS_LOJA+loja);
+		this.loja.setText("");
+		//		this.loja.setText(MENS_LOJA+loja);
 	}
 	
 	public void setComponente(String componente){
-		this.componente.setText(MENS_COMPONENTE+componente);
+		this.componente.setText("");
+//		this.componente.setText(MENS_COMPONENTE+componente);
 	}
 
 
@@ -66,21 +69,24 @@ public class AVDisplay extends JPanel implements Display{
         loja.setBackground(new java.awt.Color(0, 0, 100));
         loja.setFont(new java.awt.Font("Courier New", 1, 12));
         loja.setForeground(new java.awt.Color(255, 255, 255));
-        loja.setText(MENS_LOJA);
+        loja.setText("");
+        //loja.setText(MENS_LOJA);
         loja.setBounds(5, 5, 300, 20);
         add(loja);
         
         componente.setBackground(new java.awt.Color(0, 0, 100));
         componente.setFont(new java.awt.Font("Courier New", 1, 12));
         componente.setForeground(new java.awt.Color(255, 255, 255));
-        componente.setText(MENS_COMPONENTE);
+        //componente.setText(MENS_COMPONENTE);
+        componente.setText("");
         componente.setBounds(5, 25, 300, 20);
         add(componente);
         
         usuario.setBackground(new java.awt.Color(0, 0, 100));
         usuario.setFont(new java.awt.Font("Courier New", 1, 12));
         usuario.setForeground(new java.awt.Color(255, 255, 255));
-        usuario.setText(MENS_USU);
+        usuario.setText("");
+        //usuario.setText(MENS_USU);
         usuario.setBounds(5, 45, 300, 20);
         add(usuario);
 
