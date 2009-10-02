@@ -39,11 +39,6 @@
           <column name="ID_MICRO_OPERACAO_ASSOCIADA" not-null="true"/>
         </many-to-one>
 
- 		<set name="perfis" table="PERFIL_MACRO_OPERACAO" cascade="save-update" inverse="true" lazy="true">
-             <key column="ID_MACRO_OPERACAO"/>
-             <many-to-many column="ID_PERFIL" class="com.infinity.datamarket.comum.usuario.Perfil"/>
-        </set>
-
     </class>
 
 </hibernate-mapping>

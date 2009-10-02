@@ -10,7 +10,7 @@ import com.infinity.datamarket.pdv.gui.telas.Tela;
 
 /**
  *
- * @author  wagner.medeiros
+ * @author  tosck
  */
 public class TelaAVInicial extends Tela{
 	/**
@@ -92,8 +92,8 @@ public class TelaAVInicial extends Tela{
          labelUsuario.setBounds(430, 20, 120, 20);
 
          getPainel().add(campoUsuario);
-         campoLoja.setFont(new java.awt.Font("Courier New", 1, 24));
-         campoUsuario.setBounds(535, 20, 120, 25);
+         campoUsuario.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoUsuario.setBounds(535, 20, 250, 25);
 
 
          
@@ -123,26 +123,27 @@ public class TelaAVInicial extends Tela{
 
          
 // Segunda linha
-         getPainel().add(labelCliente);
-         labelCliente.setText("Cliente");
-         labelCliente.setFont(new java.awt.Font("Courier New", 1, 24));
-         labelCliente.setForeground(new java.awt.Color(255, 255, 255));
-         labelCliente.setBounds(10, 80, 120, 20);
-
-         getPainel().add(campoCliente);
-         campoCliente.setFont(new java.awt.Font("Courier New", 1, 24));
-         campoCliente.setBounds(120, 80, 120, 25);
-
          
          getPainel().add(labelOperacao);
          labelOperacao.setText("Opera\u00e7\u00e3o");
          labelOperacao.setFont(new java.awt.Font("Courier New", 1, 24));
          labelOperacao.setForeground(new java.awt.Color(255, 255, 255));
-         labelOperacao.setBounds(265, 80, 120, 20);
+         labelOperacao.setBounds(10, 80, 120, 20);
 
          getPainel().add(campoOperacao);
          labelOperacao.setFont(new java.awt.Font("Courier New", 1, 24));
-         campoOperacao.setBounds(385, 80, 120, 25);
+         campoOperacao.setBounds(125, 80, 200, 25);
+
+         getPainel().add(labelCliente);
+         labelCliente.setText("Cliente");
+         labelCliente.setFont(new java.awt.Font("Courier New", 1, 24));
+         labelCliente.setForeground(new java.awt.Color(255, 255, 255));
+         labelCliente.setBounds(355, 80, 120, 20);
+
+         getPainel().add(campoCliente);
+         campoCliente.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoCliente.setBounds(465, 80, 320, 25);
+
 
 
          
@@ -234,4 +235,11 @@ public class TelaAVInicial extends Tela{
 	public void setCampoQuantidade(String testo) {
 		campoQuantidade.setText(testo);
 	}
+
+
+	public void setCampoCliente(String campoCliente) {
+		this.campoCliente.setText(campoCliente);
+	}
+	
+	
 }
