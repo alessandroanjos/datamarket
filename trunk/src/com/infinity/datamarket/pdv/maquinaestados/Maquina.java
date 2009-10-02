@@ -35,25 +35,28 @@ public class Maquina implements Serializable{
     private ThreadVerificaNovoLote threadVerificaNovoLote; 
     private Tela telaInicial;
     private static Maquina instancia;
+    private String mensagemInicial;
 
-    public static Maquina getInstancia(Estado estado, Date dataMov, GerenciadorPerifericos gerenciadorPerifericos, ControladorMaquinaEstado controladorME,Tela t ){
+    public static Maquina getInstancia(Estado estado, Date dataMov, GerenciadorPerifericos gerenciadorPerifericos, ControladorMaquinaEstado controladorME,Tela t, String mensagemInicial ){
         if(instancia == null){
-            instancia = new Maquina(estado, dataMov, gerenciadorPerifericos,controladorME,t);
+            instancia = new Maquina(estado, dataMov, gerenciadorPerifericos,controladorME,t, mensagemInicial);
+            
         }
         return instancia;
     }
-    private Maquina(Estado estado, Date dataMov, GerenciadorPerifericos gerenciadorPerifericos, ControladorMaquinaEstado controladorME,Tela t ){
+    private Maquina(Estado estado, Date dataMov, GerenciadorPerifericos gerenciadorPerifericos, ControladorMaquinaEstado controladorME,Tela t, String mensagemInicial ){
         this.estadoAtual = estado;
         this.dataMov = dataMov;
         this.gerenciadorPerifericos = gerenciadorPerifericos;
         this.controladorMaquinaEstado = controladorME;
         this.telaInicial = t; 
+        this.mensagemInicial = mensagemInicial;
     }
     public void iniciar(){
         Tela tela = (Tela) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
         System.out.println("Maquina.iniciar: tela: "+tela);
         if (tela == null){
-        	gerenciadorPerifericos.getDisplay().setMensagem("Caixa Fechado");
+        	gerenciadorPerifericos.getDisplay().setMensagem(mensagemInicial);
             gerenciadorPerifericos.atualizaTela(telaInicial);
         }else{
             gerenciadorPerifericos.atualizaTela(tela);

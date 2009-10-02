@@ -22,6 +22,7 @@ public class CMOS implements Serializable{
 
 	private static CMOS instancia;
 
+	public static final String CLIENTE_AV = "CLIENTE_AV";
 	public static final String TELA_ATUAL = "TELA_ATUAL";
 	public static final String ESTADO_ATUAL = "ESTADO_ATUAL";
 	public static final String MACRO_ATUAL = "MACRO_ATUAL";

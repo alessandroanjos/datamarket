@@ -32,6 +32,7 @@ public class OpAVIniciaAV extends Mic{
 			tela.setCampoDesconto("");
 			tela.setCampoLoja("" + loja);
 			tela.setCampoUsuario("");
+			tela.setCampoCliente("");
 			tela.setCampoOperacao("");
 			tela.setCampoCodigoProduto("");
 			tela.setCampoDescricaoProduto("");

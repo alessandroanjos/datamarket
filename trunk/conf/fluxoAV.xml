@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?> 
 <maquinaEstado>
   <listaMicroperacao>
-    <operacao id="OpAVAutorizacao" classe="com.infinity.datamarket.av.op.OpAVAutorizacao"/>
+    <operacao id="OpAVSolicitaUsuario" classe="com.infinity.datamarket.av.op.OpAVSolicitaUsuario"/>
     <operacao id="OpAVIniciaAV" classe="com.infinity.datamarket.av.op.OpAVIniciaAV"/>
     <operacao id="OpAVBloqueiaAV" classe="com.infinity.datamarket.av.op.OpAVBloqueiaAV"/>
     <operacao id="OpAVLeituraTipoOperacoa" classe="com.infinity.datamarket.av.op.OpAVLeituraTipoOperacoa"/>
+    <operacao id="OpAVFechaAv" classe="com.infinity.datamarket.av.op.OpAVFechaAv"/>
+    <operacao id="OpAVSolicitaCliente" classe="com.infinity.datamarket.av.op.OpAVSolicitaCliente"/>
+    <operacao id="OpAVSolicitaOperacao" classe="com.infinity.datamarket.av.op.OpAVSolicitaOperacao"/>
   </listaMicroperacao>
   <listaEstado>
     <estado codigo="ESTADO1" descricao="Fechado" inputType="0" inputSize="0"/>
@@ -23,22 +26,26 @@
     <macroOperacao estadoAtual="ESTADO1" proximoEstado="ESTADO2" tecla="TECLA1" codigoMicroOperacaoAssociada="subFluxo1" descricao="Abertura de AV">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVIniciaAV">
  	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAVAutorizacao">
- 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo4" />
- 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAVBloqueiaAV">
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo4" operacao="OpAVLeituraTipoOperacoa">
- 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
-      </microOperacaoAssociada>
- <!--      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo5" operacao="OpAVLeituraProduto">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAVSolicitaUsuario">
  	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
- 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
       </microOperacaoAssociada>
-       -->
-    </macroOperacao>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAVSolicitaOperacao">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo4" />
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo4" operacao="OpAVSolicitaCliente">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo5" />
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo5" operacao="OpAVLeituraTipoOperacoa">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVFechaAv">
+      </microOperacaoAssociada>
+'    </macroOperacao>
     <macroOperacao estadoAtual="ESTADO2" proximoEstado="ESTADO1" tecla="TECLA13" codigoMicroOperacaoAssociada="subFluxo1" descricao="Bloqueia Av">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVBloqueiaAV">
       </microOperacaoAssociada>
