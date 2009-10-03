@@ -70,8 +70,9 @@ public class Maquina implements Serializable{
         Estado est = (Estado) gerenciadorPerifericos.getCmos().ler(CMOS.ESTADO_ATUAL);
         if (est != null){
             estadoAtual = est;
-            gerenciadorPerifericos.getDisplay().setMensagem(est.getDescricao());
         }
+        gerenciadorPerifericos.getDisplay().setMensagem(estadoAtual.getDescricao());
+        gerenciadorPerifericos.getCmos().gravar(CMOS.ESTADO_ATUAL,estadoAtual);
 
         System.out.println("Maquina Iniciada");
         int lote = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValorInteiro();

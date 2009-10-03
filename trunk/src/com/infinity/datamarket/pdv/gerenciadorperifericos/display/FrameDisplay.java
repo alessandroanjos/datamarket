@@ -28,7 +28,7 @@ public class FrameDisplay extends JPanel implements Display{
 	private JLabel campo1;
 	private JTextField campo2;
 	private int dadoRetorno = -1;
-	private transient Thread threadDisplay;
+//	private transient Thread threadDisplay;
 	private EventosListener ev;
 	private boolean sinal = false;
 
@@ -132,7 +132,7 @@ public class FrameDisplay extends JPanel implements Display{
 		while (dadoRetorno == -1) {
 			sinal = true;
 			try{
-				threadDisplay = Thread.currentThread();
+//				threadDisplay = Thread.currentThread();
 				Thread.currentThread().sleep(10000);
 			}catch(Exception e){
 
@@ -306,7 +306,7 @@ public class FrameDisplay extends JPanel implements Display{
 					e.consume();
 					return;
 				}
-				threadDisplay.interrupt();
+//				threadDisplay.interrupt();
 				trava = false;
 				if (ehValorAlfaNumerico(e.getKeyCode())){
 //					if (!(campo2 instanceof MoneyTextField) && !(campo2 instanceof PercentTextField)){

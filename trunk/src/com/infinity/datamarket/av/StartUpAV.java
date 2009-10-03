@@ -55,7 +55,7 @@ public class StartUpAV {
 		GerenciadorPerifericos ger = GerenciadorPerifericos.getInstancia();
 //		ti.jProgressBar1.setValue(50);
 		Estado est = new Estado();
-		est.setDescricao("Fechado");
+		est.setDescricao("Av Fechado [ENTER]");
 		est.setId(new Long(1));
 		est.setInputSize(0);
 		est.setInputType(0);

@@ -21,7 +21,7 @@ public class OpAvSolicitaValor extends Mic{
 			Produto prod = (Produto)gerenciadorPerifericos.getCmos().ler(CMOS.PRODUTO_ATUAL);
 			
 			if (prod.getPrecoPromocional().doubleValue() != 0) {
-				gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM, prod.getPrecoPromocional());
+				gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM_PEDIDO, prod.getPrecoPromocional());
 
 				TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
 				tela.setCampoValor("R$ " + prod.getPrecoPromocional());
@@ -30,7 +30,7 @@ public class OpAvSolicitaValor extends Mic{
 				return ALTERNATIVA_1;
 
 			} else if (prod.getPrecoPadrao().doubleValue() != 0) {
-				gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM, prod.getPrecoPadrao());
+				gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM_PEDIDO, prod.getPrecoPadrao());
 
 				TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
 				tela.setCampoValor("R$ " + prod.getPrecoPadrao());
@@ -49,7 +49,7 @@ public class OpAvSolicitaValor extends Mic{
 								gerenciadorPerifericos.getDisplay().setMensagem("Valor Invalido [Volta]");
 								gerenciadorPerifericos.esperaVolta();
 							} else {
-								gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM, valorItem);
+								gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM_PEDIDO, valorItem);
 
 								TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
 								tela.setCampoValor("R$ " + valorItem);

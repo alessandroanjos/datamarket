@@ -17,9 +17,13 @@
     <operacao id="OpAvAdicionaItemPedido" classe="com.infinity.datamarket.av.op.OpAvAdicionaItemPedido"/>
     <operacao id="OpAvSolicitaDescontoValorProduto" classe="com.infinity.datamarket.av.op.OpAvSolicitaDescontoValorProduto"/>
     <operacao id="OpAvSolicitaValor" classe="com.infinity.datamarket.av.op.OpAvSolicitaValor"/>
+    <operacao id="OpAvSaidaSistema" classe="com.infinity.datamarket.av.op.OpAvSaidaSistema"/>
+    <operacao id="OpAvExibeDisplayDescricaoEstado" classe="com.infinity.datamarket.av.op.OpAvExibeDisplayDescricaoEstado"/>
+    
+    
   </listaMicroperacao>
   <listaEstado>
-    <estado codigo="Fechado" descricao="Id Usuario" inputType="0" inputSize="0"/>
+    <estado codigo="Fechado" descricao="Av Fechado [ENTER]" inputType="0" inputSize="0"/>
     <estado codigo="Aberto" descricao="Digite Operacao [1-P;2-D]" inputType="0" inputSize="0"/>
     <estado codigo="Pedido" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
     <estado codigo="Devolucao" descricao="Devolucao" inputType="3" inputSize="1"/>
@@ -31,8 +35,41 @@
     <tecla codigo="D" descricao="D" codigoASCI="68" />
     <tecla codigo="TECLA4" descricao="ESPACO" codigoASCI="32" />
     <tecla codigo="ESC" descricao="ESC" codigoASCI="27" />
+        <tecla codigo="S" descricao="S" codigoASCI="83" />
   </listaTecla>
   <listaMacroOperacao>
+	<macroOperacao estadoAtual="Fechado" proximoEstado="Fechado" tecla="S" codigoMicroOperacaoAssociada="subFluxo1" descricao="Saida Sistema Fechado">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvSaidaSistema">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAvExibeDisplayDescricaoEstado">
+      </microOperacaoAssociada>
+    </macroOperacao>
+
+	<macroOperacao estadoAtual="Aberto" proximoEstado="Aberto" tecla="S" codigoMicroOperacaoAssociada="subFluxo1" descricao="Saida Sistema Aberto">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvSaidaSistema">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAvExibeDisplayDescricaoEstado">
+      </microOperacaoAssociada>
+    </macroOperacao>
+
+	<macroOperacao estadoAtual="Devolucao" proximoEstado="Devolucao" tecla="S" codigoMicroOperacaoAssociada="subFluxo1" descricao="Saida Sistema Devolucao">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvSaidaSistema">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAvExibeDisplayDescricaoEstado">
+      </microOperacaoAssociada>
+    </macroOperacao>
+
+	<macroOperacao estadoAtual="Pedido" proximoEstado="Pedido" tecla="S" codigoMicroOperacaoAssociada="subFluxo1" descricao="Saida Sistema Pedido">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvSaidaSistema">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAvExibeDisplayDescricaoEstado">
+      </microOperacaoAssociada>
+    </macroOperacao>
+
   
     <macroOperacao estadoAtual="Fechado" proximoEstado="Aberto" tecla="ENTER" codigoMicroOperacaoAssociada="subFluxo1" descricao="Abertura de AV">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVIniciaAV">
