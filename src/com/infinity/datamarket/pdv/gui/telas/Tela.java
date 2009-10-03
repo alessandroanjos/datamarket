@@ -32,4 +32,11 @@ public class Tela implements Serializable{
 
 	}
 	public static final String LOGO_CLIENTE;
+	
+	static{
+
+		LOGO_INFINITY = "c:\\pdv\\logo_infinity.jpg";
+
+	}
+	public static final String LOGO_INFINITY;
 }

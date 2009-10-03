@@ -29,11 +29,20 @@ public class OpAVSolicitaCliente extends Mic{
 				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 					cpfCnpj = entrada.getDado();
 					if (cpfCnpj.equals("")) {
+						TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+						tela.setCampoCliente("Sem Cliente");
+						gerenciadorPerifericos.atualizaTela(tela);
+						
+						gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
 						return ALTERNATIVA_1;
 					}
 					
 					try {
 						if (new Integer(cpfCnpj).intValue() == 0) {
+							TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+							tela.setCampoCliente("Sem Cliente");
+							gerenciadorPerifericos.atualizaTela(tela);
+							gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
 							return ALTERNATIVA_1;
 						}
 					} catch (Exception e) {}
@@ -60,6 +69,8 @@ public class OpAVSolicitaCliente extends Mic{
 				gerenciadorPerifericos.atualizaTela(tela);
 
 				gerenciadorPerifericos.getCmos().gravar(CMOS.CLIENTE_AV, cli);
+
+				gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
 
 				return ALTERNATIVA_1;
 			}

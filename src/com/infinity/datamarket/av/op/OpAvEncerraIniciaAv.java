@@ -5,13 +5,14 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 
 
-public class OpAVFechaAv extends OpAVIniciaAV{
+public class OpAvEncerraIniciaAv extends OpAVIniciaAV{
 
 	public static String  MENSAGEM_INICIAL  = "AV Fechado [ENTER]";
 	            
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
 
+			super.exec(gerenciadorPerifericos,param);
 			gerenciadorPerifericos.getDisplay().setMensagem(MENSAGEM_INICIAL );
 
 		}catch(Exception e){
