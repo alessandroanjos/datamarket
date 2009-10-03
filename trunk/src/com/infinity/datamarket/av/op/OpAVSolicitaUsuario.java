@@ -104,6 +104,9 @@ public class OpAVSolicitaUsuario extends Mic{
 			return ALTERNATIVA_2;
 		}
 		
+
+		gerenciadorPerifericos.getDisplay().setMensagem(OpAVIniciaPedido.MENSAGEM_INICIAL);
+		
 		return ALTERNATIVA_1;
 	}
 }

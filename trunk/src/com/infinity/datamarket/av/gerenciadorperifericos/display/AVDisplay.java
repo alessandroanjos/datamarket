@@ -2,6 +2,7 @@ package com.infinity.datamarket.av.gerenciadorperifericos.display;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.Serializable;
 
 import javax.swing.JLabel;
@@ -18,6 +19,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.components.PercentText
 import com.infinity.datamarket.pdv.gerenciadorperifericos.components.QuantidadeTextField;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
+import com.infinity.datamarket.pdv.gui.telas.Tela;
 
 public class AVDisplay extends JPanel implements Display{
 	private long id = 123456789;
@@ -33,8 +35,8 @@ public class AVDisplay extends JPanel implements Display{
 	private transient Thread threadDisplay;
 	private EventosListener ev;
 	private boolean sinal = false;
-
-
+	private JLabel imgLogo = null;
+	
 	public AVDisplay(){
 		initComponents();
 	}
@@ -59,6 +61,14 @@ public class AVDisplay extends JPanel implements Display{
 
 		ev = new EventosListener();
 
+		 if(new File(Tela.LOGO_INFINITY).exists()) {
+			 javax.swing.ImageIcon ii = new javax.swing.ImageIcon(Tela.LOGO_INFINITY);
+			 
+			 imgLogo = new JLabel(ii);
+	         imgLogo.setBounds(0, 0, 340, 83);
+	         add(imgLogo);
+	     }
+		 
 		setLayout(null);
 		campo1 = new javax.swing.JLabel();
         campo2 = new LimitedTextField(20);

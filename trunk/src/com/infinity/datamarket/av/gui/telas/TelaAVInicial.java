@@ -131,7 +131,7 @@ public class TelaAVInicial extends Tela{
          labelOperacao.setBounds(10, 80, 120, 20);
 
          getPainel().add(campoOperacao);
-         labelOperacao.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoOperacao.setFont(new java.awt.Font("Courier New", 1, 24));
          campoOperacao.setBounds(125, 80, 200, 25);
 
          getPainel().add(labelCliente);
@@ -160,30 +160,30 @@ public class TelaAVInicial extends Tela{
 
          getPainel().add(campoDescricaoProduto);
          campoDescricaoProduto.setBackground(new java.awt.Color(236, 233, 216));
-         campoDescricaoProduto.setFont(new java.awt.Font("Courier New", 1, 24));
-         campoDescricaoProduto.setBounds(175, 140, 100, 25);
+         campoDescricaoProduto.setFont(new java.awt.Font("Courier New", 1, 20));
+         campoDescricaoProduto.setBounds(175, 140, 240, 25);
 
          
          getPainel().add(labelQuantidade);
-         labelQuantidade.setText("Quantidade");         
+         labelQuantidade.setText("Quant.");         
          labelQuantidade.setFont(new java.awt.Font("Courier New", 1, 24));
          labelQuantidade.setForeground(new java.awt.Color(255, 255, 255));
-         labelQuantidade.setBounds(295, 140, 140, 20);
+         labelQuantidade.setBounds(435, 140, 140, 20);
 
          getPainel().add(campoQuantidade);
          campoQuantidade.setFont(new java.awt.Font("Courier New", 1, 24));
-         campoQuantidade.setBounds(440, 140, 60, 25);
+         campoQuantidade.setBounds(510, 140, 60, 25);
 
          
          getPainel().add(labelDesconto);
          labelDesconto.setText("Desconto");
          labelDesconto.setFont(new java.awt.Font("Courier New", 1, 24));
          labelDesconto.setForeground(new java.awt.Color(255, 255, 255));
-         labelDesconto.setBounds(530, 140, 120, 20);
+         labelDesconto.setBounds(600, 140, 120, 20);
 
          getPainel().add(campoDesconto);
          campoDesconto.setFont(new java.awt.Font("Courier New", 1, 24));
-         campoDesconto.setBounds(655, 140, 60, 25);
+         campoDesconto.setBounds(725, 140, 60, 25);
 
 
          getPainel().setBackground(new java.awt.Color(0, 0, 100));
