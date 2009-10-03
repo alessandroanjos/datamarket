@@ -29,7 +29,7 @@ public class OpAVSolicitaCliente extends Mic{
 				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 					cpfCnpj = entrada.getDado();
 					if (cpfCnpj.equals("")) {
-						TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+						TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
 						tela.setCampoCliente("Sem Cliente");
 						gerenciadorPerifericos.atualizaTela(tela);
 						
@@ -39,7 +39,7 @@ public class OpAVSolicitaCliente extends Mic{
 					
 					try {
 						if (new Integer(cpfCnpj).intValue() == 0) {
-							TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+							TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
 							tela.setCampoCliente("Sem Cliente");
 							gerenciadorPerifericos.atualizaTela(tela);
 							gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
@@ -64,7 +64,7 @@ public class OpAVSolicitaCliente extends Mic{
 				}
 				Cliente cli = (Cliente) clientes.iterator().next();
 
-				TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+				TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
 				tela.setCampoCliente(cli.getNomeCliente());
 				gerenciadorPerifericos.atualizaTela(tela);
 

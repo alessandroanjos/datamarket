@@ -128,7 +128,7 @@ public class Maquina implements Serializable{
         public void run(){
             try{
             	System.out.println("Maquina.ThreadProcessaMacro.run: id: " + estadoAtual.getId() + " - nome: " + estadoAtual.getDescricao());
-            	RepositoryManagerHibernateUtil.currentSession().load(estadoAtual, estadoAtual.getId());
+//            	RepositoryManagerHibernateUtil.currentSession().load(estadoAtual, estadoAtual.getId());
             	ParametroMacroOperacao param = null;
                 EntradaDisplay entrada = null;
                 System.out.println("Maquina.ThreadProcessaMacro.run: qtd finalizadoras: "+estadoAtual.getFinalizadoras().size());
