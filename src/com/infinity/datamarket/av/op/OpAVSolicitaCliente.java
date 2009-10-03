@@ -7,12 +7,10 @@ import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
-import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
-import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
@@ -20,9 +18,9 @@ import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 public class OpAVSolicitaCliente extends Mic{
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
-		try{
 
-			while (true) {
+		while (true) {
+				try{
 				gerenciadorPerifericos.getDisplay().setMensagem("CPF/CNPJ Cliente - 41850351449");
 				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 14);
 				String cpfCnpj = null;
@@ -57,10 +55,15 @@ public class OpAVSolicitaCliente extends Mic{
 				try {
 					clientes = Fachada.getInstancia().consultarCliente(filter);
 				} catch (AppException e) {
-					gerenciadorPerifericos.getDisplay().setMensagem("ERRO");
+					
+					gerenciadorPerifericos.getDisplay().setMensagem("Cliente Invalido [VOLAT]");
+					gerenciadorPerifericos.esperaVolta();
+					continue;
 				}
 				if (clientes == null || clientes.size() == 0){
-					gerenciadorPerifericos.getDisplay().setMensagem("Cliente Invalido");
+					gerenciadorPerifericos.getDisplay().setMensagem("Cliente Invalido [VOLAT]");
+					gerenciadorPerifericos.esperaVolta();
+					continue;
 				}
 				Cliente cli = (Cliente) clientes.iterator().next();
 
@@ -73,16 +76,17 @@ public class OpAVSolicitaCliente extends Mic{
 				gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
 
 				return ALTERNATIVA_1;
-			}
 
-		}catch(Exception e){
-			gerenciadorPerifericos.getDisplay().setMensagem("Erro");
-			try{
-				gerenciadorPerifericos.esperaVolta();
-			}catch(AppException ex){
-
+			}catch(Exception e){
+				
+				gerenciadorPerifericos.getDisplay().setMensagem("Cliente Invalido [VOLAT]");
+				try {
+					gerenciadorPerifericos.esperaVolta();	
+				} catch (Exception ee) {
+					// TODO: handle exception
+				}
+				continue;
 			}
-			return ALTERNATIVA_2;
 		}
 	}
 }
