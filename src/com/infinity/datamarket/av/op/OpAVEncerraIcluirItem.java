@@ -23,7 +23,7 @@ public class OpAVEncerraIcluirItem extends Mic{
 		gerenciadorPerifericos.getCmos().gravar(CMOS.PRODUTO_ATUAL,null);
 		gerenciadorPerifericos.getCmos().gravar(CMOS.QUANTIDADE_ITEM,null);
 		gerenciadorPerifericos.getCmos().gravar(CMOS.DESCONTO,null);
-		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM,null);
+		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM_PEDIDO,null);
 
 		gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
 		

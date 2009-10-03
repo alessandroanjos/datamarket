@@ -19,6 +19,7 @@ public class TelaAVInicial extends Tela{
 	private static final long serialVersionUID = -631336578969656451L;
     // Variables declaration - do not modify                     
     private javax.swing.JLabel labelLoja;
+    private javax.swing.JLabel labelTotal;
     private javax.swing.JLabel labelValor;
     private javax.swing.JLabel labelUsuario;
     private javax.swing.JLabel labelComponente;
@@ -39,6 +40,7 @@ public class TelaAVInicial extends Tela{
     private javax.swing.JTextField campoDescricaoProduto;
     private javax.swing.JTextField campoQuantidade;
     private javax.swing.JTextField campoValor;
+    private javax.swing.JTextField campoTotal;
     
     public TelaAVInicial() {
         initComponents();
@@ -68,6 +70,8 @@ public class TelaAVInicial extends Tela{
          campoCliente = new javax.swing.JTextField();
          labelValor = new javax.swing.JLabel();
          campoValor = new javax.swing.JTextField();
+         labelTotal = new javax.swing.JLabel();
+         campoTotal = new javax.swing.JTextField();
 
          getPainel().add(labelLoja);
          labelLoja.setText("Loja");
@@ -99,29 +103,6 @@ public class TelaAVInicial extends Tela{
          campoUsuario.setFont(new java.awt.Font("Courier New", 1, 24));
          campoUsuario.setBounds(535, 20, 250, 25);
 
-
-         
-         getPainel().add(jScrollPane1);
-         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-         jScrollPane1.setBorder(null);
-         jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 14));
-         jTable1.setFont(new java.awt.Font("Tahoma", 0, 14));
-         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-             new Object [][] {},
-             new String [] {"Produto", "Valor", "Quantidade", "Desconto", "Total"}
-         ){
-         
-         public boolean isCellEditable(int rowIndex, int columnIndex)
-         {
-             return false;
-         }
-         });
-         jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-         jTable1.setPreferredSize(new java.awt.Dimension(800, 217));
-         jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
-         jScrollPane1.setViewportView(jTable1);
-         
-         jScrollPane1.setBounds(0, 180, 800, 240);
 
          
 // Segunda linha
@@ -185,7 +166,6 @@ public class TelaAVInicial extends Tela{
          campoQuantidade.setFont(new java.awt.Font("Courier New", 1, 24));
          campoQuantidade.setBounds(380, 140, 120, 25);
 
-         
          getPainel().add(labelDesconto);
          labelDesconto.setText("Desconto");
          labelDesconto.setFont(new java.awt.Font("Courier New", 1, 24));
@@ -196,7 +176,41 @@ public class TelaAVInicial extends Tela{
          campoDesconto.setFont(new java.awt.Font("Courier New", 1, 24));
          campoDesconto.setBounds(665, 140, 120, 25);
 
+         // grid
+         getPainel().add(jScrollPane1);
+         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+         jScrollPane1.setBorder(null);
+         jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 14));
+         jTable1.setFont(new java.awt.Font("Tahoma", 0, 14));
+         jTable1.setModel(new javax.swing.table.DefaultTableModel(
+             new Object [][] {},
+             new String [] {"Produto", "Valor", "Quantidade", "Desconto", "Total"}
+         ){
+         
+         public boolean isCellEditable(int rowIndex, int columnIndex)
+         {
+             return false;
+         }
+         });
+         jTable1.setGridColor(new java.awt.Color(255, 255, 255));
+         jTable1.setPreferredSize(new java.awt.Dimension(800, 217));
+         jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
+         jScrollPane1.setViewportView(jTable1);
+         jScrollPane1.setBounds(0, 180, 800, 240);
 
+         //total
+         getPainel().add(labelTotal);
+         labelTotal.setText("Total");
+         labelTotal.setFont(new java.awt.Font("Courier New", 1, 24));
+         labelTotal.setForeground(new java.awt.Color(255, 255, 255));
+         labelTotal.setBounds(545, 430, 120, 20);
+
+         getPainel().add(campoTotal);
+         campoTotal.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoTotal.setBounds(625, 430, 160, 25);
+
+         
+         
          getPainel().setBackground(new java.awt.Color(0, 0, 100));
          
          campoComponente.setFocusable(false);
@@ -246,6 +260,10 @@ public class TelaAVInicial extends Tela{
 
 	public void setCampoQuantidade(String testo) {
 		campoQuantidade.setText(testo);
+	}
+
+	public void setCampoTotal(String testo) {
+		campoTotal.setText(testo);
 	}
 
 	public void setCampoValor(String testo) {
