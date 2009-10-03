@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.Vector;
 
 import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
-import com.infinity.datamarket.av.op.OpAVFechaAv;
+import com.infinity.datamarket.av.op.OpAvEncerraIniciaAv;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
@@ -55,13 +55,13 @@ public class StartUpAV {
 		GerenciadorPerifericos ger = GerenciadorPerifericos.getInstancia();
 //		ti.jProgressBar1.setValue(50);
 		Estado est = new Estado();
-		est.setDescricao("FECHADO");
+		est.setDescricao("Fechado");
 		est.setId(new Long(1));
 		est.setInputSize(0);
 		est.setInputType(0);
     	TelaAVInicial t = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
         //t.setMenssagem("AV Fechado [ENTER]");
-		Maquina maquina = Maquina.getInstancia(est, new Date(), ger, contr, t, OpAVFechaAv.MENSAGEM_INICIAL);
+		Maquina maquina = Maquina.getInstancia(est, new Date(), ger, contr, t, OpAvEncerraIniciaAv.MENSAGEM_INICIAL);
 //		ti.jProgressBar1.setValue(75);
 		ThreadEnviaTransacao t1 = new ThreadEnviaTransacao();
 		t1.start();
