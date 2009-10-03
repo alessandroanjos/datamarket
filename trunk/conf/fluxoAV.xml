@@ -16,9 +16,7 @@
     <operacao id="OpAVEncerraIcluirItem" classe="com.infinity.datamarket.av.op.OpAVEncerraIcluirItem"/>
     <operacao id="OpAvAdicionaItemPedido" classe="com.infinity.datamarket.av.op.OpAvAdicionaItemPedido"/>
     <operacao id="OpAvSolicitaDescontoValorProduto" classe="com.infinity.datamarket.av.op.OpAvSolicitaDescontoValorProduto"/>
-    
-    
-    
+    <operacao id="OpAvSolicitaValor" classe="com.infinity.datamarket.av.op.OpAvSolicitaValor"/>
   </listaMicroperacao>
   <listaEstado>
     <estado codigo="Fechado" descricao="Id Usuario" inputType="0" inputSize="0"/>
@@ -78,6 +76,10 @@
 
     <macroOperacao estadoAtual="Pedido" proximoEstado="Pedido" tecla="ENTER" codigoMicroOperacaoAssociada="subFluxo1" descricao="Venda Item">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvConsultaProduto">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo11" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo11" operacao="OpAvSolicitaValor">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
       </microOperacaoAssociada>

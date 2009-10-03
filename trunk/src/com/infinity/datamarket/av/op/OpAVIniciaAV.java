@@ -23,7 +23,7 @@ public class OpAVIniciaAV extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
 
-			TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+			TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
 	        
 			String componente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).toString();
 	        int loja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();

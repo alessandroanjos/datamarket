@@ -26,46 +26,8 @@ public class OpAVIniciaPedido extends Mic{
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
-//
-//				gerenciadorPerifericos.getDisplay().setMensagem(OpAVIniciaPedido.MENSAGEM_INICIAL);
-//				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 1);
-//				int opcao = 0;
-//				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
-//					String op = entrada.getDado();
-//					if (op.equals("")) {
-//						gerenciadorPerifericos.getDisplay().setMensagem("Operacao Invalida [VOLTA]");
-//						gerenciadorPerifericos.esperaVolta();
-//						return ALTERNATIVA_2;
-//					}
-//					
-//					try {
-//						opcao = new Integer(op).intValue();
-//						if (opcao == 0) {
-//							gerenciadorPerifericos.getDisplay().setMensagem("Operacao Invalida [VOLTA]");
-//							gerenciadorPerifericos.esperaVolta();
-//							return ALTERNATIVA_2;
-//						}
-//					} catch (Exception e) {
-//						gerenciadorPerifericos.getDisplay().setMensagem("Operacao Invalida [VOLTA]");
-//						gerenciadorPerifericos.esperaVolta();
-//						return ALTERNATIVA_2;
-//					}
-//				} else if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_VOLTA){
-//					gerenciadorPerifericos.getDisplay().setMensagem("Operacao Invalida [VOLTA]");
-//					gerenciadorPerifericos.esperaVolta();
-//					return ALTERNATIVA_2;
-//				}
-//
-//				String descOperacao = "";
-//				if (opcao == 1) {
-//					descOperacao = OP_DESC_PEDIDO;
-//					gerenciadorPerifericos.getCmos().gravar(CMOS.OPERADOR_ATUAL, CMOS.OPERACAO_PEDIDO);
-//				} else if (opcao == 2) {
-//					descOperacao = OP_DESC_DEVOLUCAO;
-//					gerenciadorPerifericos.getCmos().gravar(CMOS.OPERADOR_ATUAL, CMOS.OPERACAO_DEVOLUCAO);
-//				}
 
-				TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+				TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
 				tela.setCampoOperacao(OP_DESC_PEDIDO);
 				gerenciadorPerifericos.atualizaTela(tela);
 

@@ -80,7 +80,7 @@ public class OpAVSolicitaUsuario extends Mic{
 				}
 			}
 			
-			TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+			TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
 			tela.setCampoUsuario(usu.getNome());
 			gerenciadorPerifericos.atualizaTela(tela);
 			

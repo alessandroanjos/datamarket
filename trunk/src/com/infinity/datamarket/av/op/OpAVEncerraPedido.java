@@ -13,7 +13,7 @@ public class OpAVEncerraPedido extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
 		
-		TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+		TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
 		tela.setCampoOperacao("");
 		tela.setCampoCliente("");
 		gerenciadorPerifericos.atualizaTela(tela);
