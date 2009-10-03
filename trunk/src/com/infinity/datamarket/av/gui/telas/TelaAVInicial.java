@@ -154,17 +154,17 @@ public class TelaAVInicial extends Tela{
 
          getPainel().add(campoValor);
          campoValor.setFont(new java.awt.Font("Courier New", 1, 24));
-         campoValor.setBounds(85, 140, 120, 25);
+         campoValor.setBounds(85, 140, 180, 25);
 
          getPainel().add(labelQuantidade);
          labelQuantidade.setText("Quantidade");         
          labelQuantidade.setFont(new java.awt.Font("Courier New", 1, 24));
          labelQuantidade.setForeground(new java.awt.Color(255, 255, 255));
-         labelQuantidade.setBounds(230, 140, 140, 20);
+         labelQuantidade.setBounds(270, 140, 140, 20);
 
          getPainel().add(campoQuantidade);
          campoQuantidade.setFont(new java.awt.Font("Courier New", 1, 24));
-         campoQuantidade.setBounds(380, 140, 120, 25);
+         campoQuantidade.setBounds(420, 140, 120, 25);
 
          getPainel().add(labelDesconto);
          labelDesconto.setText("Desconto");
@@ -182,16 +182,7 @@ public class TelaAVInicial extends Tela{
          jScrollPane1.setBorder(null);
          jScrollPane1.setFont(new java.awt.Font("Tahoma", 0, 14));
          jTable1.setFont(new java.awt.Font("Tahoma", 0, 14));
-         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-             new Object [][] {},
-             new String [] {"Produto", "Valor", "Quantidade", "Desconto", "Total"}
-         ){
-         
-         public boolean isCellEditable(int rowIndex, int columnIndex)
-         {
-             return false;
-         }
-         });
+         this.zerarTabela();
          jTable1.setGridColor(new java.awt.Color(255, 255, 255));
          jTable1.setPreferredSize(new java.awt.Dimension(800, 217));
          jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
@@ -275,12 +266,27 @@ public class TelaAVInicial extends Tela{
 		this.campoCliente.setText(campoCliente);
 	}
 	
+	public void zerarTabela(){
+        
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {"Produto", "Valor", "Quantidade", "Desconto", "Total"}
+        ){
+        
+        public boolean isCellEditable(int rowIndex, int columnIndex)
+        {
+            return false;
+        }
+        });
+
+	}
+	
 	public void adicionarRegistroTabela(String produto, String valor, String quantidade, String descont, String total){
 
 		javax.swing.table.DefaultTableModel table = (javax.swing.table.DefaultTableModel)jTable1.getModel();
 		
-		     Object[] linha = {produto, valor, quantidade, descont, total};    
-		     table.insertRow(0, linha);   
+	     Object[] linha = {produto, valor, quantidade, descont, total};    
+	     table.insertRow(0, linha);   
 
         
 	}

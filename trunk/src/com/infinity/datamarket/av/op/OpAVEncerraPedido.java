@@ -12,12 +12,26 @@ public class OpAVEncerraPedido extends Mic{
 	
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
-		
 		TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
+		tela.setCampoCodigoProduto("");
+		tela.setCampoDescricaoProduto("");
+		tela.setCampoValor("");
+		tela.setCampoQuantidade("");
+		tela.setCampoDesconto("");
+		tela.zerarTabela();
+		tela.setCampoTotal("");
+		
+
 		tela.setCampoOperacao("");
 		tela.setCampoCliente("");
 		gerenciadorPerifericos.atualizaTela(tela);
-		
+
+		gerenciadorPerifericos.getCmos().gravar(CMOS.PRODUTO_ATUAL,null);
+		gerenciadorPerifericos.getCmos().gravar(CMOS.QUANTIDADE_ITEM,null);
+		gerenciadorPerifericos.getCmos().gravar(CMOS.DESCONTO,null);
+		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM_PEDIDO,null);
+		gerenciadorPerifericos.getCmos().gravar(CMOS.CLIENTE_AV,null);
+
 		gerenciadorPerifericos.getDisplay().setMensagem(OpAVIniciaPedido.MENSAGEM_INICIAL);
 
 		return ALTERNATIVA_2;
