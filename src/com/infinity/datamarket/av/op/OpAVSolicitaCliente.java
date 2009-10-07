@@ -7,10 +7,12 @@ import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
+import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
@@ -27,7 +29,7 @@ public class OpAVSolicitaCliente extends Mic{
 				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 					cpfCnpj = entrada.getDado();
 					if (cpfCnpj.equals("")) {
-						TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
+						TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 						tela.setCampoCliente("Sem Cliente");
 						gerenciadorPerifericos.atualizaTela(tela);
 						
@@ -37,7 +39,7 @@ public class OpAVSolicitaCliente extends Mic{
 					
 					try {
 						if (new Integer(cpfCnpj).intValue() == 0) {
-							TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
+							TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 							tela.setCampoCliente("Sem Cliente");
 							gerenciadorPerifericos.atualizaTela(tela);
 							gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
@@ -67,7 +69,7 @@ public class OpAVSolicitaCliente extends Mic{
 				}
 				Cliente cli = (Cliente) clientes.iterator().next();
 
-				TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
+				TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 				tela.setCampoCliente(cli.getNomeCliente());
 				gerenciadorPerifericos.atualizaTela(tela);
 

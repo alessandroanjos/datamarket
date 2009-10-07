@@ -13,4 +13,5 @@ public interface Window extends Serializable {
 	public void atualizaTela(Tela tela);
 	public JFrame getFrame();
 	public void atualizaLote(int lote);
+
 }

@@ -36,7 +36,7 @@ public class OpAvAdicionaItemPedido extends Mic{
 		
 		valTotal = valTotal.add(val.multiply(new BigDecimal(quantidade)).subtract(desc));
 
-		TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
+		TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 		tela.adicionarRegistroTabela(produto, valor, quantidade + "", descont, total);
 		tela.setCampoTotal("R$ " + valTotal);
 		gerenciadorPerifericos.atualizaTela(tela);

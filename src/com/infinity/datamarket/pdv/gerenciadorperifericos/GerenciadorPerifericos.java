@@ -19,6 +19,7 @@ import com.infinity.datamarket.comum.util.ListaEventos;
 import com.infinity.datamarket.comum.util.SistemaException;
 import com.infinity.datamarket.pdv.acumulador.AcumuladorNaoFiscal;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOSArquivo;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.FrameDisplay;
@@ -46,7 +47,8 @@ public class GerenciadorPerifericos implements Serializable{
     private int componente;
   
     private static final String WINDOW = "WINDOW";
-    private static final String CMOS_VIRTUAL = "CMOS";
+    private static final String ARQUIVO_CMOS = "ARQUIVO_CMOS";
+    private static final String CMOS_CLASSE = "CMOS";
     private static final String DISPLAY_VIRTUAL = "DISPLAY";
     private static final String IMPRESSOSRA_FISCAL = "IMPRESSOSRA_FISCAL";
 
@@ -76,8 +78,10 @@ public class GerenciadorPerifericos implements Serializable{
         ResourceBundle rb = ResourceBundle.getBundle("Perifericos");
         String strWindow = rb.getString(WINDOW);
         window = carregaWindow(strWindow);
-        String strCmos = rb.getString(CMOS_VIRTUAL);
-        cmos = CMOS.getInstancia(strCmos);
+        String strArquivoCmos = rb.getString(ARQUIVO_CMOS);
+        String strCmos = rb.getString(CMOS_CLASSE);
+        cmos = (CMOS) getInstanciaClasse(strCmos);
+        cmos.setArquivo(strArquivoCmos);
         String strDisplay = rb.getString(DISPLAY_VIRTUAL);
         display = (Display) getInstanciaClasse(strDisplay);
         String strImpFiscal = rb.getString(IMPRESSOSRA_FISCAL);
@@ -124,6 +128,7 @@ public class GerenciadorPerifericos implements Serializable{
         }
     }
 
+    
     private Window carregaWindow(String parametros){
         StringTokenizer st = new StringTokenizer(parametros,",");
         String [] param = new String[6];
@@ -235,36 +240,36 @@ public class GerenciadorPerifericos implements Serializable{
 	}
 
 	public int incrementaNumeroCupom(){
-		Integer num = (Integer) cmos.ler(CMOS.NUMERO_CUPOM);
+		Integer num = (Integer) cmos.ler(CMOSArquivo.NUMERO_CUPOM);
 		int novo = 0;
 		if (num != null){
 			novo = num.intValue() + 1;
 		}
-		cmos.gravar(CMOS.NUMERO_CUPOM, new Integer(novo));
+		cmos.gravar(CMOSArquivo.NUMERO_CUPOM, new Integer(novo));
 		return novo;
 	}
 
 	public int incrementaNumeroTransacao(){
-		Integer num = (Integer) cmos.ler(CMOS.NUMERO_TRANSACAO);
+		Integer num = (Integer) cmos.ler(CMOSArquivo.NUMERO_TRANSACAO);
 		int novo = 1;
 		if (num != null){
 			novo = num.intValue() + 1;
 		}
-		cmos.gravar(CMOS.NUMERO_TRANSACAO, new Integer(novo));
+		cmos.gravar(CMOSArquivo.NUMERO_TRANSACAO, new Integer(novo));
 		return novo;
 	}
 	
 	public void zeraNumeroTransacao(){
-		cmos.gravar(CMOS.NUMERO_TRANSACAO, new Integer(0));
+		cmos.gravar(CMOSArquivo.NUMERO_TRANSACAO, new Integer(0));
 	}
 
 	public void decrementaNumeroTransacao(){
-		Integer num = (Integer) cmos.ler(CMOS.NUMERO_TRANSACAO);
+		Integer num = (Integer) cmos.ler(CMOSArquivo.NUMERO_TRANSACAO);
 		int novo = 1;
 		if (num != null){
 			novo = num.intValue() - 1;
 		}
-		cmos.gravar(CMOS.NUMERO_TRANSACAO, new Integer(novo));
+		cmos.gravar(CMOSArquivo.NUMERO_TRANSACAO, new Integer(novo));
 	}
 
 

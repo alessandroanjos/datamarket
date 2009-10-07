@@ -6,10 +6,12 @@ import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ObjetoInexistenteException;
+import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
+import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
@@ -23,7 +25,7 @@ public class OpAvSolicitaValor extends Mic{
 			if (prod.getPrecoPromocional().doubleValue() != 0) {
 				gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM_PEDIDO, prod.getPrecoPromocional());
 
-				TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
+				TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 				tela.setCampoValor("R$ " + prod.getPrecoPromocional());
 				gerenciadorPerifericos.atualizaTela(tela);
 
@@ -32,7 +34,7 @@ public class OpAvSolicitaValor extends Mic{
 			} else if (prod.getPrecoPadrao().doubleValue() != 0) {
 				gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM_PEDIDO, prod.getPrecoPadrao());
 
-				TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
+				TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 				tela.setCampoValor("R$ " + prod.getPrecoPadrao());
 				gerenciadorPerifericos.atualizaTela(tela);
 
@@ -51,7 +53,7 @@ public class OpAvSolicitaValor extends Mic{
 							} else {
 								gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM_PEDIDO, valorItem);
 
-								TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
+								TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 								tela.setCampoValor("R$ " + valorItem);
 								gerenciadorPerifericos.atualizaTela(tela);
 

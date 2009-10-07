@@ -324,7 +324,7 @@ public class AVDisplay extends JPanel implements Display{
 					e.consume();
 					return;
 				}
-				threadDisplay.interrupt();
+//				threadDisplay.interrupt();
 				trava = false;
 				if (ehValorAlfaNumerico(e.getKeyCode())){
 //					if (!(campo2 instanceof MoneyTextField) && !(campo2 instanceof PercentTextField)){
