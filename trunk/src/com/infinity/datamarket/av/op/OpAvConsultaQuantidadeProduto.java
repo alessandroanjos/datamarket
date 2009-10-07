@@ -31,7 +31,7 @@ public class OpAvConsultaQuantidadeProduto extends Mic{
 				quantidade = "1";
 			}
 	
-			TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
+			TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 			tela.setCampoQuantidade("" + quantidade);
 			gerenciadorPerifericos.atualizaTela(tela);
 	

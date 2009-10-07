@@ -12,6 +12,7 @@ import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernat
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOSArquivo;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.ControladorMaquinaEstado;
 import com.infinity.datamarket.pdv.maquinaestados.Estado;
@@ -59,6 +60,8 @@ public class StartUpAV {
 		est.setId(new Long(1));
 		est.setInputSize(0);
 		est.setInputType(0);
+		ger.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL,est);
+		
     	TelaAVInicial t = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
         //t.setMenssagem("AV Fechado [ENTER]");
 		Maquina maquina = Maquina.getInstancia(est, new Date(), ger, contr, t, OpAvEncerraIniciaAv.MENSAGEM_INICIAL);

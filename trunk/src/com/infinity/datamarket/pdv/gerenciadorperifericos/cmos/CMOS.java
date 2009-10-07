@@ -1,27 +1,7 @@
 package com.infinity.datamarket.pdv.gerenciadorperifericos.cmos;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.HashMap;
-
-import com.infinity.datamarket.comum.util.SistemaException;
-
-public class CMOS implements Serializable{
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-	private File cmos;
-	private HashMap hash;
-
-	private static CMOS instancia;
-
+public interface CMOS {
+	
 	public static final String CLIENTE_AV = "CLIENTE_AV";
 	public static final String TELA_ATUAL = "TELA_ATUAL";
 	public static final String ESTADO_ATUAL = "ESTADO_ATUAL";
@@ -66,77 +46,9 @@ public class CMOS implements Serializable{
 	public static final String OPERACAO_DEVOLUCAO = "OPERACAO_DEVOLUCAO";
 	public static final String OPERACAO_PEDIDO = "OPERACAO_PEDIDO";
 	public static final String PK_OPERACOES = "PK_OPERACOES";
-
-	private CMOS(String nome){
-
-		cmos = new File(nome);
-		hash = (HashMap) lerCmos();
-		
-
-	}
-
-	public synchronized static CMOS getInstancia(String nome){
-		if (instancia == null){
-			instancia = new CMOS(nome);
-		}
-		return instancia;
-	}
-
-	public Object ler(String chave){
-		return hash.get(chave);
-	}
-
-	private synchronized Object lerCmos(){
-		Object result;
-		try{
-			synchronized (cmos) {
-				if (cmos.length() != 0){
-					byte[] b = new byte[(int) cmos.length()];
-					FileInputStream i = new FileInputStream(cmos);
-					i.read(b);
-					ByteArrayInputStream barr = new ByteArrayInputStream(b);
-					ObjectInputStream objInp = new ObjectInputStream(barr);
-					result = objInp.readObject();
-					objInp.close();
-					i.close();
-				}else{
-					return new HashMap();
-				}
-			}
-		}catch(Exception e){
-			throw new SistemaException(e);
-		}
-		return result;
-	}
-
-	public void gravar(String chave, Object valor){
-		hash.put(chave, valor);
-//		Thread t = new Thread(){
-//			public void run(){
-				gravaCmos(hash);
-//			} 
-//		};
-//		t.start();
-		
-	}
-
-	private synchronized void gravaCmos(Object obj){
-		try{
-//			Map map = Collections.synchronizedMap((Map)obj);  
-			synchronized (obj) {
-				ByteArrayOutputStream bout = new ByteArrayOutputStream();
-				ObjectOutputStream out = new ObjectOutputStream(bout);				
-				out.writeObject(obj);
-				out.close();
-				byte[] bytes = bout.toByteArray();
-				FileOutputStream fout = new FileOutputStream(cmos);
-				fout.write(bytes);
-				fout.close();
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			throw new SistemaException(e);
-		}
-	}
-
+	
+	public void gravar(String chave, Object valor);
+	public Object ler(String chave);
+	public void setArquivo(String arquivo);
+	
 }

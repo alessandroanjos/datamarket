@@ -130,6 +130,7 @@
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo4" operacao="OpAvAdicionaItemPedido">
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="saida" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVEncerraIcluirItem">
       </microOperacaoAssociada>

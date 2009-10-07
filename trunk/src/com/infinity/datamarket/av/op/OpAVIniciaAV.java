@@ -23,7 +23,7 @@ public class OpAVIniciaAV extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
 
-			TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
+			TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 	        
 			String componente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).toString();
 	        int loja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();
@@ -42,6 +42,7 @@ public class OpAVIniciaAV extends Mic{
             gerenciadorPerifericos.atualizaTela(tela);
 
 		}catch(Exception e){
+			e.printStackTrace();
 			gerenciadorPerifericos.getDisplay().setMensagem("Erro");
 			try{
 				gerenciadorPerifericos.esperaVolta();

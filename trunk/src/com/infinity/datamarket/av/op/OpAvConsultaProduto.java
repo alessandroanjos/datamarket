@@ -59,7 +59,7 @@ public class OpAvConsultaProduto extends Mic{
 
 		gerenciadorPerifericos.getCmos().gravar(CMOS.PRODUTO_ATUAL, prod);
 
-		TelaAVInicial tela = (TelaAVInicial) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
+		TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 		tela.setCampoCodigoProduto(codigo);
 		tela.setCampoDescricaoProduto(prod.getDescricaoCompleta());
 		tela.setCampoDescricaoProduto(prod.getDescricaoCompleta());

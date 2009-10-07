@@ -13,7 +13,7 @@ import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.infocomponent.InfoComponent;
 import com.infinity.datamarket.infocomponent.InfoComponentPK;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOSArquivo;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
@@ -53,7 +53,7 @@ public class Maquina implements Serializable{
         this.mensagemInicial = mensagemInicial;
     }
     public void iniciar(){
-        Tela tela = (Tela) gerenciadorPerifericos.getCmos().ler(CMOS.TELA_ATUAL);
+        Tela tela = (Tela) gerenciadorPerifericos.getCmos().ler(CMOSArquivo.TELA_ATUAL);
         System.out.println("Maquina.iniciar: tela: "+tela);
         if (tela == null){
         	gerenciadorPerifericos.getDisplay().setMensagem(mensagemInicial);
@@ -61,18 +61,18 @@ public class Maquina implements Serializable{
         }else{
             gerenciadorPerifericos.atualizaTela(tela);
             System.out.println("Maquina.iniciar: atualizei a tela");
-            Usuario usu = (Usuario)gerenciadorPerifericos.getCmos().ler(CMOS.USUARIO_ATUAL);
+            Usuario usu = (Usuario)gerenciadorPerifericos.getCmos().ler(CMOSArquivo.USUARIO_ATUAL);
             if (usu != null){
             	gerenciadorPerifericos.getDisplay().setUsuario(usu.getNome());
             }
         }
 
-        Estado est = (Estado) gerenciadorPerifericos.getCmos().ler(CMOS.ESTADO_ATUAL);
+        Estado est = (Estado) gerenciadorPerifericos.getCmos().ler(CMOSArquivo.ESTADO_ATUAL);
         if (est != null){
             estadoAtual = est;
         }
         gerenciadorPerifericos.getDisplay().setMensagem(estadoAtual.getDescricao());
-        gerenciadorPerifericos.getCmos().gravar(CMOS.ESTADO_ATUAL,estadoAtual);
+        gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL,estadoAtual);
 
         System.out.println("Maquina Iniciada");
         int lote = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValorInteiro();
@@ -160,7 +160,7 @@ public class Maquina implements Serializable{
 //                System.out.println("Maquina.ThreadProcessaMacro.run: 6");
                 System.out.println("Maquina.ThreadProcessaMacro.run: macroOperacao: "+macroOperacao);
                 if (macroOperacao != null){
-                    gerenciadorPerifericos.getCmos().gravar(CMOS.MACRO_ATUAL, macroOperacao);
+                    gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.MACRO_ATUAL, macroOperacao);
 //                    System.out.println("Maquina.ThreadProcessaMacro.run: 7");
                     MicroOperacaoAssociada mic = macroOperacao.getMicroOperacaoInicial();
 //                    System.out.println("Maquina.ThreadProcessaMacro.run: 8");
@@ -170,7 +170,7 @@ public class Maquina implements Serializable{
                     if (alternativa == Mic.ALTERNATIVA_1){
                         estAtual = macroOperacao.getProximoEstado();
                         estadoAtual = this.estAtual;
-                        gerenciadorPerifericos.getCmos().gravar(CMOS.ESTADO_ATUAL, estAtual);
+                        gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL, estAtual);
                     }
                 }
 //                System.out.println("Maquina.ThreadProcessaMacro.run: 10");
