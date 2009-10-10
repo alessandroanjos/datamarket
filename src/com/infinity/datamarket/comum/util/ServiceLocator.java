@@ -44,7 +44,7 @@ public class ServiceLocator {
 		}
 	}
 	
-	private synchronized Object getObjectToIntancia(String strClass){
+	public synchronized Object getObjectToIntancia(String strClass){
 		if (pool.containsKey(strClass)){
 			return pool.get(strClass);
 		}else{
