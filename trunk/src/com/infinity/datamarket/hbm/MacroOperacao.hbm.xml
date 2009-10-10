@@ -23,22 +23,6 @@
             <column name="DESCRICAO" length="50" not-null="true"/>
         </property>
 
-        <many-to-one name="estadoAtual" class="com.infinity.datamarket.pdv.maquinaestados.Estado" update="false" insert="false">
-          <column name="ID_ESTADO_ATUAL" not-null="true"/>
-        </many-to-one>
-
-        <many-to-one name="proximoEstado" class="com.infinity.datamarket.pdv.maquinaestados.Estado" update="false" insert="false">
-          <column name="ID_PROXIMO_ESTADO" not-null="true"/>
-        </many-to-one>
-        
-        <many-to-one name="tecla" class="com.infinity.datamarket.pdv.maquinaestados.Tecla" update="false" insert="false">
-          <column name="ID_TECLA" not-null="true"/>
-        </many-to-one>
-        
-        <many-to-one name="microOperacaoInicial" class="com.infinity.datamarket.pdv.maquinaestados.MicroOperacaoAssociada" update="false" insert="false">
-          <column name="ID_MICRO_OPERACAO_ASSOCIADA" not-null="true"/>
-        </many-to-one>
-
     </class>
 
 </hibernate-mapping>
