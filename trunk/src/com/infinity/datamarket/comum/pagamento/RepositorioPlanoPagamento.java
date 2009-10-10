@@ -31,10 +31,7 @@ public class RepositorioPlanoPagamento extends Repositorio implements IRepositor
 		return filter(filter, false);
 	}
 	public Collection consultarTodos() throws AppException{
-		Session session = RepositoryManagerHibernateUtil.currentSession();
-		Query q = session.createQuery("from PlanoPagamento p where p.name = PlanoPagamento");
-		return q.list();
-		//return findAll(CLASSE);
+		return findAll(CLASSE);
 	}
 	public void inserir(PlanoPagamento planoPagamento) throws AppException{
 		insert(planoPagamento);
