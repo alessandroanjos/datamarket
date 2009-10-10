@@ -18,6 +18,10 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.components.PercentText
 import com.infinity.datamarket.pdv.gerenciadorperifericos.components.QuantidadeTextField;
 
 public class FrameDisplay extends JPanel implements Display{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9125662698778410472L;
 	private long id = 123456789;
 	private JLabel usuario;
 	private JLabel loja;
@@ -28,7 +32,7 @@ public class FrameDisplay extends JPanel implements Display{
 	private JLabel campo1;
 	private JTextField campo2;
 	private int dadoRetorno = -1;
-//	private transient Thread threadDisplay;
+	private transient Thread threadDisplay;
 	private EventosListener ev;
 	private boolean sinal = false;
 
@@ -132,8 +136,8 @@ public class FrameDisplay extends JPanel implements Display{
 		while (dadoRetorno == -1) {
 			sinal = true;
 			try{
-//				threadDisplay = Thread.currentThread();
-				Thread.currentThread().sleep(10000);
+				threadDisplay = Thread.currentThread();
+				threadDisplay.sleep(10000);
 			}catch(Exception e){
 
 			}
@@ -306,14 +310,14 @@ public class FrameDisplay extends JPanel implements Display{
 					e.consume();
 					return;
 				}
-//				threadDisplay.interrupt();
+				threadDisplay.interrupt();
 				trava = false;
-				if (ehValorAlfaNumerico(e.getKeyCode())){
+//				if (ehValorAlfaNumerico(e.getKeyCode())){
 //					if (!(campo2 instanceof MoneyTextField) && !(campo2 instanceof PercentTextField)){
 //						//campo2.setText(campo2.getText()+e.getKeyChar());
 //						trava = true;
 //					}
-				}
+//				}
 			}
 		}
 
