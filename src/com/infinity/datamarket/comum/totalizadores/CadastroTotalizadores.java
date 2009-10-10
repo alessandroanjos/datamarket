@@ -52,5 +52,9 @@ public class CadastroTotalizadores extends Cadastro{
 			getRepositorio().atualizar(tot);
 		}
 	}
+	
+	public Collection consultarTodos() throws AppException{
+		return getRepositorio().consultarTodos();
+	}
 
 }
