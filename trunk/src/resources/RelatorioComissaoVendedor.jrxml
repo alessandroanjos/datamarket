@@ -104,7 +104,7 @@
 						mode="Opaque"
 						x="380"
 						y="1"
-						width="74"
+						width="79"
 						height="16"
 						backcolor="#CCCCCC"
 						key="textField-11"/>
@@ -274,7 +274,7 @@
 						mode="Opaque"
 						x="380"
 						y="4"
-						width="74"
+						width="79"
 						height="16"
 						backcolor="#CCCCCC"
 						key="textField-10"/>
@@ -392,7 +392,7 @@
 					<textElement>
 						<font fontName="Courier New" size="10" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{dataInicial}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{dataInicial}.toString()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -405,7 +405,7 @@
 					<textElement>
 						<font fontName="Courier New" size="10" isBold="false"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[$P{dataFinal}]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{dataFinal}.toString()]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement
@@ -542,7 +542,7 @@
 						mode="Opaque"
 						x="380"
 						y="0"
-						width="74"
+						width="79"
 						height="16"
 						backcolor="#CCCCCC"
 						key="textField-20"/>
