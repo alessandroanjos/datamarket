@@ -97,7 +97,8 @@
 								</li>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" action="#{relatorioBB.limparRelatorioAnaliticoLancamentosContasAPagar}" id="botaoLimpar" value="Limpar"></h:commandButton>
-									<h:commandButton styleClass="btTxt" id="botaoRelatorio" action="#{relatorioBB.executarRelatorioAnaliticoLancamentosAPagar}" value="Relatório"></h:commandButton>
+									<h:commandButton styleClass="btTxt" id="botaoRelatorio" action="#{relatorioBB.executarRelatorioAnaliticoLancamentosContasAPagar}" value="Relatório"></h:commandButton>
+																												  
 								</li>						
 							</ul>
 						</div>
