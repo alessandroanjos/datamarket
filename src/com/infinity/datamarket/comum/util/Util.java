@@ -197,7 +197,7 @@ public class Util {
 		}
 		if (quantidade > string.length()) {
 			StringBuffer nova = new StringBuffer(quantidade);
-			if(esquerda){
+			if(!esquerda){
 				nova.append(string);
 				quantidade -= string.length();
 				for (int i = 0; i < quantidade; i++) {
