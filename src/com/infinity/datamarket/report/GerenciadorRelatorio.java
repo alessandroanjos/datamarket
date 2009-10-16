@@ -43,6 +43,7 @@ import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.MovimentacaoEstoque;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
+import com.infinity.datamarket.comum.financeiro.Lancamento;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
 import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
@@ -52,11 +53,12 @@ import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
 import com.infinity.datamarket.comum.transacao.EventoTransacao;
 import com.infinity.datamarket.comum.transacao.TransacaoPagamentoCartaoProprio;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
+import com.infinity.datamarket.comum.usuario.CadastroLoja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.comum.util.JExtenso;
-import com.infinity.datamarket.comum.util.ObjetoClonavel;
 import com.infinity.datamarket.comum.util.Queries;
+import com.infinity.datamarket.comum.util.StringUtil;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -926,7 +928,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 		ResultSet rs = null;
 		PreparedStatement pstm = null;
 		try{
-			Map parametros = new HashMap();
+			Map<String, String> parametros = new HashMap<String, String>();
 	
 			parametros.put("empresa", EMPRESA);				
 			DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -972,10 +974,10 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 				
 	        JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);
 	        
-			}catch(Exception e){
+		} catch(Exception e){
 			e.printStackTrace();
 			throw new RelatorioException(e);
-		}finally{
+		} finally{
 			try{
 				if (rs != null){
 					rs.close();
@@ -1122,86 +1124,145 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 		OutputStream out  = new ByteArrayOutputStream();
 		ResultSet rs = null;
 		PreparedStatement pstm = null;
-		String statusLancamento = "";
 		DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-		String consultaSQL = "";
+		java.sql.Date dIni = new java.sql.Date(dataInicial.getTime());
+		java.sql.Date dFim = new java.sql.Date(dataFinal.getTime());
 		try{
-			Map parametros = new HashMap();
-
-			parametros.put("empresa", EMPRESA);
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioAnaliticoLancamentos.jasper");
 			
+			Map<String, String> parametros = new HashMap<String, String>();
+
 			String nomeRelatorio = "Relatório de Contas ";
+			StringBuffer sb = new StringBuffer();
+			
+			sb.append("SELECT L.DATA_LANCAMENTO, L.DESCRICAO, L.NUMERO_DOCUMENTO, L.DATA_VENCIMENTO, L.DATA_PAGAMENTO, ");
+			sb.append("GL.DESCRICAO AS DESCRICAO_GRUPO_LANCAMENTO, ");
+
+			if(tipoRelatorio == 0 || tipoRelatorio == 1 || tipoRelatorio == 2){
+				sb.append(" F.NOME_FANTASIA AS CLIENTE_FORNECEDOR, ");
+			}else if(tipoRelatorio == 3 || tipoRelatorio == 4 || tipoRelatorio == 5){
+				sb.append(" C.NOME_CLIENTE AS CLIENTE_FORNECEDOR, ");
+			}
+
+			sb.append("L.SITUACAO, L.VALOR, SUM(ISNULL(BL.VALOR_TOTAL_ITEM,0)) VALOR_TOTAL_PAGO ");
+			sb.append("FROM LANCAMENTO L LEFT OUTER JOIN BAIXA_LANCAMENTO BL ON L.ID = BL.ID_LANCAMENTO ");
+			sb.append(" LEFT OUTER JOIN GRUPO_LANCAMENTO GL ON L.ID_GRUPO_LANCAMENTO = GL.ID ");
+			sb.append(" LEFT OUTER JOIN FORNECEDOR F ON L.ID_FORNECEDOR = F.ID ");
+			sb.append(" LEFT OUTER JOIN CLIENTE_TRANSACAO C ON L.ID_CLIENTE = C.CPF_CNPJ ");
+			sb.append("WHERE L.ID_LOJA = " + loja + " ");
 
 			switch (tipoRelatorio) {
-				case 0:
+				case 0: //CONTAS A PAGAR
 					nomeRelatorio = nomeRelatorio.concat("à Pagar");
-					statusLancamento = "A,P,D";
-					consultaSQL = Queries.RELATORIO_LANCAMENTOS_CONTAS_EM_ABERTO;
+					sb.append(" AND L.TIPO_LANCAMENTO = \'" + Lancamento.DEBITO + "\'");
+					sb.append(" AND L.SITUACAO IN (\'" + Lancamento.ABERTO + "\',\'" + Lancamento.PAGTO_PARCIAL + "\',\'" + Lancamento.PENDENTE + "\') ");
+					
+					if(idGrupoLancamento != null && !idGrupoLancamento.equals("0")){
+						sb.append(" AND L.ID_GRUPO_LANCAMENTO = " + idGrupoLancamento);			
+					}
+					
+					if(idFornecedor != null && !idFornecedor.equals("0")){
+						sb.append(" AND L.ID_FORNECEDOR = " + idFornecedor);			
+					}
+					
+					sb.append(" AND L.DATA_LANCAMENTO BETWEEN '" + dIni + "' AND '" + dFim + "' ");
 					break;
-				case 1:
+				case 1: //CONTAS PAGAS
 					nomeRelatorio = nomeRelatorio.concat("Pagas");
-					statusLancamento = "F";
-					consultaSQL = Queries.RELATORIO_LANCAMENTOS_CONTAS_FINALIZADAS;
+					sb.append(" AND L.TIPO_LANCAMENTO = \'" + Lancamento.DEBITO + "\'");
+					sb.append(" AND L.SITUACAO = \'" + Lancamento.FINALIZADO + "\' ");
+
+					if(idGrupoLancamento != null && !idGrupoLancamento.equals("0")){
+						sb.append(" AND L.ID_GRUPO_LANCAMENTO = " + idGrupoLancamento);			
+					}
+					
+					if(idFornecedor != null && !idFornecedor.equals("0")){
+						sb.append(" AND L.ID_FORNECEDOR = " + idFornecedor);			
+					}
+					
+					sb.append(" AND L.DATA_LANCAMENTO BETWEEN '" + dIni + "' AND '" + dFim + "' ");
 					break;
-				case 2:
-					nomeRelatorio = nomeRelatorio.concat("Vencidas");
-					statusLancamento = "A,P,D";
-					consultaSQL = Queries.RELATORIO_LANCAMENTOS_CONTAS_VENCIDAS;
+				case 2: //CONTAS A PAGAR VENCIDAS
+					nomeRelatorio = nomeRelatorio.concat("à Pagar Vencidas");
+					sb.append(" AND L.TIPO_LANCAMENTO = \'" + Lancamento.DEBITO + "\'");
+					sb.append(" AND L.SITUACAO IN (\'" + Lancamento.ABERTO + "\',\'" + Lancamento.PAGTO_PARCIAL + "\',\'" + Lancamento.PENDENTE + "\') ");
+
+					if(idGrupoLancamento != null && !idGrupoLancamento.equals("0")){
+						sb.append(" AND L.ID_GRUPO_LANCAMENTO = " + idGrupoLancamento);			
+					}
+					
+					if(idFornecedor != null && !idFornecedor.equals("0")){
+						sb.append(" AND L.ID_FORNECEDOR = " + idFornecedor);			
+					}
+					
+					sb.append(" AND L.DATA_LANCAMENTO BETWEEN '" + dIni + "' AND '" + dFim + "' ");
+					
+					sb.append(" AND L.DATA_VENCIMENTO < '" + dFim + "' ");
 					break;
-				case 3:
+				case 3: //CONTAS A RECEBER
 					nomeRelatorio = nomeRelatorio.concat("à Receber");
-					statusLancamento = "A,P,D";
-					consultaSQL = Queries.RELATORIO_LANCAMENTOS_CONTAS_EM_ABERTO;
+					sb.append(" AND L.TIPO_LANCAMENTO = \'" + Lancamento.CREDITO + "\'");
+					sb.append(" AND L.SITUACAO IN (\'" + Lancamento.ABERTO + "\',\'" + Lancamento.PAGTO_PARCIAL + "\',\'" + Lancamento.PENDENTE + "\') ");
+
+					if(idGrupoLancamento != null && !idGrupoLancamento.equals("0")){
+						sb.append(" AND L.ID_GRUPO_LANCAMENTO = " + idGrupoLancamento);			
+					}
+					
+					if(idCliente != null && !idCliente.equals("0")){
+						sb.append(" AND L.ID_CLIENTE = " + idCliente);			
+					}
+					
+					sb.append(" AND L.DATA_LANCAMENTO BETWEEN '" + dIni + "' AND '" + dFim + "' ");
 					break;
-				case 4:
+				case 4: //CONTAS RECEBIDAS
 					nomeRelatorio = nomeRelatorio.concat("Recebidas");
-					statusLancamento = "F";
-					consultaSQL = Queries.RELATORIO_LANCAMENTOS_CONTAS_FINALIZADAS;
+					sb.append(" AND L.TIPO_LANCAMENTO = \'" + Lancamento.CREDITO + "\'");
+					sb.append(" AND L.SITUACAO = \'" + Lancamento.FINALIZADO + "\' ");
+
+					if(idGrupoLancamento != null && !idGrupoLancamento.equals("0")){
+						sb.append(" AND L.ID_GRUPO_LANCAMENTO = " + idGrupoLancamento);			
+					}
+
+					if(idCliente != null && !idCliente.equals("0")){
+						sb.append(" AND L.ID_CLIENTE = " + idCliente);			
+					}
+					
+					sb.append(" AND L.DATA_LANCAMENTO BETWEEN '" + dIni + "' AND '" + dFim + "' ");
 					break;
-				case 5:
-					nomeRelatorio = nomeRelatorio.concat("Vencidas");
-					statusLancamento = "A,P,D";
-					consultaSQL = Queries.RELATORIO_LANCAMENTOS_CONTAS_VENCIDAS;
+				case 5: //CONTAS A RECEBER VENCIDAS
+					nomeRelatorio = nomeRelatorio.concat("à Receber Vencidas");
+					sb.append(" AND L.TIPO_LANCAMENTO = \'" + Lancamento.CREDITO + "\'");
+					sb.append(" AND L.SITUACAO IN (\'" + Lancamento.ABERTO + "\',\'" + Lancamento.PAGTO_PARCIAL + "\',\'" + Lancamento.PENDENTE + "\') ");
+
+					if(idGrupoLancamento != null && !idGrupoLancamento.equals("0")){
+						sb.append(" AND L.ID_GRUPO_LANCAMENTO = " + idGrupoLancamento);			
+					}
+					
+					if(idCliente != null && !idCliente.equals("0")){
+						sb.append(" AND L.ID_CLIENTE = " + idCliente);			
+					}
+					
+					sb.append(" AND L.DATA_LANCAMENTO BETWEEN '" + dIni + "' AND '" + dFim + "' ");
+					
+					sb.append(" AND L.DATA_VENCIMENTO < '" + dFim + "' ");
 					break;
 				default:
 					break;
 			}
-			
-			parametros.put("nomeRelatorio", nomeRelatorio);
-			
-			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/RelatorioAnaliticoLancamentos.jasper");
+			sb.append(" GROUP BY L.DATA_LANCAMENTO, L.DESCRICAO, L.NUMERO_DOCUMENTO, L.DATA_VENCIMENTO, L.DATA_PAGAMENTO, GL.DESCRICAO, F.NOME_FANTASIA, C.NOME_CLIENTE, L.SITUACAO, L.VALOR");
+			sb.append(" ORDER BY L.DATA_LANCAMENTO, L.DESCRICAO, DESCRICAO_GRUPO_LANCAMENTO, L.DATA_VENCIMENTO");
             					
 			Connection con = getConnection();
-			pstm = con.prepareStatement(consultaSQL, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			
-			//data inicio
-			Calendar c = new GregorianCalendar();
-			c.setTime(dataInicial);
-			int d1_dia = c.get(Calendar.DAY_OF_MONTH);
-			int d1_mes = c.get(Calendar.MONTH);
-			int d1_ano = c.get(Calendar.YEAR);
-			Date dataInicio = new GregorianCalendar(d1_ano,d1_mes,d1_dia).getTime();
-			
-			//dataFim
-			c = new GregorianCalendar();
-			c.setTime(dataFinal);
-			int d2_dia = c.get(Calendar.DAY_OF_MONTH);
-			int d2_mes = c.get(Calendar.MONTH);
-			int d2_ano = c.get(Calendar.YEAR);
-			Date dataFim = new GregorianCalendar(d2_ano,d2_mes,d2_dia,23,59,59).getTime();
-			
-			pstm.setInt(1,loja);
-			pstm.setDate(2,new java.sql.Date(dataInicio.getTime()));			
-			pstm.setDate(3,new java.sql.Date(dataFim.getTime()));
-			pstm.setString(4, tipoLancamento);
-			pstm.setString(5, idCliente);
-			pstm.setString(6, idFornecedor);
-			pstm.setString(7, idGrupoLancamento);
-			pstm.setString(8, statusLancamento);
-			
-			parametros.put("periodo", f.format(dataInicio) + " a " + f.format(dataFim));
+			pstm = con.prepareStatement(sb.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+			parametros.put("empresa", EMPRESA);
+			parametros.put("nomeRelatorio", nomeRelatorio);
+			parametros.put("periodo", f.format(dataInicial) + " a " + f.format(dataFinal));
+			parametros.put("descricaoLoja", StringUtil.completaString(String.valueOf(loja), 4, '0', true) + " - " + CadastroLoja.getInstancia().consultarPorId(new Long(loja)).getNome());
 			
 			rs = pstm.executeQuery();
+			
+			System.out.println("Query relatorio tipo ["+tipoRelatorio+"]: " + sb.toString());
 			
 			verificaExistenciaDados(rs);
 				

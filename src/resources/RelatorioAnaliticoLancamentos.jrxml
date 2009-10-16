@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="RelatorioAnaliticoLancamentos"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Landscape"
+		 pageWidth="842"
+		 pageHeight="595"
+		 columnWidth="782"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="empresa" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="nomeRelatorio" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="periodo" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="descricaoLoja" isForPrompting="false" class="java.lang.String"/>
+
+	<field name="DATA_LANCAMENTO" class="java.util.Date"/>
+	<field name="DATA_VENCIMENTO" class="java.util.Date"/>
+	<field name="DATA_PAGAMENTO" class="java.util.Date"/>
+	<field name="NUMERO_DOCUMENTO" class="java.lang.String"/>
+	<field name="DESCRICAO" class="java.lang.String"/>
+	<field name="DESCRICAO_GRUPO_LANCAMENTO" class="java.lang.String"/>
+	<field name="CLIENTE_FORNECEDOR" class="java.lang.String"/>
+	<field name="SITUACAO" class="java.lang.String"/>
+	<field name="VALOR" class="java.math.BigDecimal"/>
+	<field name="VALOR_TOTAL_PAGO" class="java.math.BigDecimal"/>
+
+	<variable name="descricaoSituacao" class="java.lang.String" resetType="Report" calculation="Nothing">
+		<variableExpression><![CDATA[( $F{SITUACAO} == "A" ? "Aberto" : ( $F{SITUACAO} == "P" ? "Pago Parcial" : ( $F{SITUACAO} == "F" ? "Finalizado" : ( $F{SITUACAO} == "C" ? "Cancelado" : "Pendente" ) ) ) )]]></variableExpression>
+	</variable>
+
+		<group  name="dataGroup" >
+			<groupExpression><![CDATA[$F{DATA_LANCAMENTO}]]></groupExpression>
+			<groupHeader>
+			<band height="29"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="1"
+						y="0"
+						width="129"
+						height="15"
+						forecolor="#000000"
+						backcolor="#999999"
+						key="staticText-5"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Data Lançamento:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd/MM/yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="119"
+						y="0"
+						width="661"
+						height="15"
+						forecolor="#000000"
+						backcolor="#999999"
+						key="textField-6"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[$F{DATA_LANCAMENTO}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="16"
+						width="85"
+						height="13"
+						key="staticText-6"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Descrição]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="476"
+						y="16"
+						width="59"
+						height="13"
+						key="staticText-7"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Data Venc.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="353"
+						y="16"
+						width="107"
+						height="13"
+						key="staticText-8"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Fornecedor/Cliente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="231"
+						y="16"
+						width="99"
+						height="13"
+						key="staticText-9"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Grupo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="139"
+						y="16"
+						width="83"
+						height="13"
+						key="staticText-10"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Num. Documento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="538"
+						y="16"
+						width="58"
+						height="13"
+						key="staticText-11"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Data Pagto.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="599"
+						y="16"
+						width="63"
+						height="13"
+						key="staticText-12"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Situação]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="725"
+						y="16"
+						width="54"
+						height="13"
+						key="staticText-13"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<text><![CDATA[Valor Pago]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="664"
+						y="16"
+						width="32"
+						height="13"
+						key="staticText-14"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<text><![CDATA[Valor]]></text>
+				</staticText>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="17"  isSplitAllowed="true" >
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="71"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="1"
+						y="2"
+						width="60"
+						height="15"
+						key="staticText-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Empresa:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="61"
+						y="2"
+						width="207"
+						height="15"
+						key="textField-1"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{empresa}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="1"
+						y="46"
+						width="780"
+						height="3"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="50"
+						width="780"
+						height="17"
+						key="textField-2"/>
+					<box></box>
+					<textElement textAlignment="Center">
+						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="14" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{nomeRelatorio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="352"
+						y="2"
+						width="59"
+						height="15"
+						key="staticText-2"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Período:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="398"
+						y="2"
+						width="213"
+						height="15"
+						key="textField-3"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="false"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{periodo}.toString()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="23"
+						width="60"
+						height="15"
+						key="staticText-4"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Loja:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="61"
+						y="23"
+						width="207"
+						height="15"
+						key="textField-5"/>
+					<box></box>
+					<textElement>
+						<font fontName="Courier New" size="10"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{descricaoLoja}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="20"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="1"
+						y="3"
+						width="136"
+						height="15"
+						key="textField"
+						positionType="Float"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESCRICAO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="139"
+						y="3"
+						width="90"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{NUMERO_DOCUMENTO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="231"
+						y="3"
+						width="130"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{DESCRICAO_GRUPO_LANCAMENTO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="352"
+						y="3"
+						width="137"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{CLIENTE_FORNECEDOR}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="477"
+						y="3"
+						width="59"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{DATA_VENCIMENTO})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="538"
+						y="3"
+						width="57"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{DATA_PAGAMENTO})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="598"
+						y="3"
+						width="66"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement>
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$V{descricaoSituacao}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="649"
+						y="3"
+						width="66"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[new BigDecimal($F{VALOR}.toString()).setScale(2)]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="707"
+						y="3"
+						width="72"
+						height="15"
+						key="textField"/>
+					<box></box>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[new BigDecimal($F{VALOR_TOTAL_PAGO}.toString()).setScale(2)]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="1"
+						y="1"
+						width="780"
+						height="2"
+						key="line-2"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="17"  isSplitAllowed="true" >
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

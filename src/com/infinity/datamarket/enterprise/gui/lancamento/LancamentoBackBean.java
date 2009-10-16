@@ -20,6 +20,7 @@ import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
 import com.infinity.datamarket.comum.financeiro.Lancamento;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
+import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -805,7 +806,9 @@ public class LancamentoBackBean extends BackBean {
 		
 		List<ClienteTransacao> clientes = null;
 		try {
-			clientes = (ArrayList<ClienteTransacao>)getFachada().consultarTodosClientes();
+			IPropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(ClienteTransacao.class);
+			clientes = (ArrayList<ClienteTransacao>)getFachada().consultarClienteTransacao(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
 			

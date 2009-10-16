@@ -335,10 +335,12 @@ public class RelatorioBackBean extends BackBean {
 																				    this.getIdEstoque());
 			out.write(byteOutputStream.toByteArray(), 0, byteOutputStream.size());
 			response.setContentType("application/pdf");
-			response.setHeader("Content-disposition", "attachment;filename=RelatorioAnaliticoEntrada" + System.currentTimeMillis() + ".pdf");
+			String nomeReport = "RelatorioAnaliticoEntrada" + System.currentTimeMillis() + ".pdf";
+			response.setHeader("Content-disposition", "inline;filename=" + nomeReport);
 			context.responseComplete();
 			out.flush();
 			out.close();
+			this.setNomeRelatorio(nomeReport);
 			return "";
 		} catch (AppException e) {
 			e.printStackTrace();
@@ -1391,7 +1393,9 @@ public class RelatorioBackBean extends BackBean {
 		
 		List<ClienteTransacao> clientes = null;
 		try {
-			clientes = (ArrayList<ClienteTransacao>)getFachada().consultarTodosClientes();
+			IPropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(ClienteTransacao.class);
+			clientes = (ArrayList<ClienteTransacao>)getFachada().consultarClienteTransacao(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
 			
