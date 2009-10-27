@@ -7,7 +7,9 @@ import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.gui.telas.TelaMenssagem;
+import com.infinity.datamarket.pdv.maquinaestados.ControladorMaquinaEstado;
 import com.infinity.datamarket.pdv.maquinaestados.Estado;
+import com.infinity.datamarket.pdv.maquinaestados.LeitorMaquinaEstadoXML;
 import com.infinity.datamarket.pdv.maquinaestados.Maquina;
 import com.infinity.datamarket.pdv.transacao.ThreadEnviaTransacao;
 
