@@ -129,5 +129,7 @@
 	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/xmlsec.jar"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/lib/h2-1.1.119.jar"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/lib/mysql-connector-java-3.1.10-bin.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/lib/jboleto.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/lib/iText-2.1.7.jar"/>
 	<classpathentry kind="output" path="WebResources/WEB-INF/classes"/>
 </classpath>
