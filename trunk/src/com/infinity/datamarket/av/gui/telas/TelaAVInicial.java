@@ -206,6 +206,8 @@ public class TelaAVInicial extends Tela{
          
          campoComponente.setFocusable(false);
          campoDesconto.setFocusable(false);
+         campoValor.setFocusable(false);
+         campoTotal.setFocusable(false);
          campoLoja.setFocusable(false);
          campoUsuario.setFocusable(false);
          campoOperacao.setFocusable(false);
