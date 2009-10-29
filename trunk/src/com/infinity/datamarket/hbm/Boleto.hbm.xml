@@ -15,7 +15,7 @@
             length="18"
             unsaved-value="null"
         >
-            <generator class="assigned">
+            <generator class="increment">
             </generator>
         </id>
 

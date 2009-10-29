@@ -62,7 +62,7 @@ public class LeitorMaquinaEstadoXML {
 			}
 //			pegando todos os filhos de maquinaEstado
 			NodeList nodeList = elem.getChildNodes();
-			System.out.println("tamanho " + nodeList.getLength());
+			//System.out.println("tamanho " + nodeList.getLength());
 
 			//pegando o primerio filho
 			Node listaMicroperacao = nodeList.item(0).getNextSibling();
@@ -83,9 +83,9 @@ public class LeitorMaquinaEstadoXML {
 					String id = atributosOperacao.getNamedItem("id").getNodeValue();
 					String classe = atributosOperacao.getNamedItem("classe").getNodeValue();
 					
-					System.out.print(id);
-					System.out.print(" ");
-					System.out.println(classe);
+					//System.out.print(id);
+					//System.out.print(" ");
+					//System.out.println(classe);
 
 					MicroOperacao obj = new MicroOperacao();
 					obj.setId(new Long(mapMicOperacao.size() + 1));
@@ -117,13 +117,13 @@ public class LeitorMaquinaEstadoXML {
 					String descricao = atributosEstados.getNamedItem("descricao").getNodeValue();
 					String inputType = atributosEstados.getNamedItem("inputType").getNodeValue();
 					String inputSize = atributosEstados.getNamedItem("inputSize").getNodeValue();
-					System.out.print(codigo);
-					System.out.print(" ");
-					System.out.print(descricao);
-					System.out.print(" ");
-					System.out.print(inputType);
-					System.out.print(" ");
-					System.out.println(inputSize);
+					//System.out.print(codigo);
+					//System.out.print(" ");
+					//System.out.print(descricao);
+					//System.out.print(" ");
+					//System.out.print(inputType);
+					//System.out.print(" ");
+					//System.out.println(inputSize);
 
 					Estado obj = new Estado();
 					obj.setId(new Long(mapEstado.size() + 1));
@@ -157,11 +157,11 @@ public class LeitorMaquinaEstadoXML {
 					String descricao = atributosTeclas.getNamedItem("descricao").getNodeValue();
 					String codigoASCI = atributosTeclas.getNamedItem("codigoASCI").getNodeValue();
 
-					System.out.print(codigo);
-					System.out.print(" ");
-					System.out.print(descricao);
-					System.out.print(" ");
-					System.out.println(codigoASCI);
+					//System.out.print(codigo);
+					//System.out.print(" ");
+					//System.out.print(descricao);
+					//System.out.print(" ");
+					//System.out.println(codigoASCI);
 					
 					Tecla obj = new Tecla();
 					obj.setId(new Long(mapTecla.size() + 1));
@@ -194,15 +194,15 @@ public class LeitorMaquinaEstadoXML {
 					String codigoFluxo = atributosMacroOperacao.getNamedItem("codigoMicroOperacaoAssociada").getNodeValue();
 					String descricao = atributosMacroOperacao.getNamedItem("descricao").getNodeValue();
 
-					System.out.print(codigoEstadoAtual);
-					System.out.print(" ");
-					System.out.print(codigoProximoEstado);
-					System.out.print(" ");
-					System.out.print(codigoTecla);
-					System.out.print(" ");
-					System.out.print(codigoFluxo);
-					System.out.print(" ");
-					System.out.println(descricao);
+					//System.out.print(codigoEstadoAtual);
+					//System.out.print(" ");
+					//System.out.print(codigoProximoEstado);
+					//System.out.print(" ");
+					//System.out.print(codigoTecla);
+					//System.out.print(" ");
+					//System.out.print(codigoFluxo);
+					//System.out.print(" ");
+					//System.out.println(descricao);
 
 					if (mapEstado.get(codigoEstadoAtual) == null) {
 						throw new Exception("Não Existe o estado " + codigoEstadoAtual);
@@ -260,9 +260,9 @@ public class LeitorMaquinaEstadoXML {
 				String codigoFluxo = atributosSaidaMicroOperacaoAssociada.getNamedItem("codigoMicroOperacaoAssociada").getNodeValue();
 				String operacaoFluxo = atributosSaidaMicroOperacaoAssociada.getNamedItem("operacao").getNodeValue();
 
-				System.out.print(codigoFluxo);
-				System.out.print(" ");
-				System.out.println(operacaoFluxo);
+				//System.out.print(codigoFluxo);
+				//System.out.print(" ");
+				//System.out.println(operacaoFluxo);
 				if (codigoFluxo.equalsIgnoreCase(codigoFluxoPesquisa)) {
 					if (mapMicOperacao.get(operacaoFluxo) == null) {
 						throw new Exception("Não Existe a operacao " + operacaoFluxo);
@@ -289,9 +289,9 @@ public class LeitorMaquinaEstadoXML {
 							String tipoSaida = atributosSaida.getNamedItem("tipoSaida").getNodeValue();
 							String codigoFluxoDestino = atributosSaida.getNamedItem("codigoMicroOperacaoAssociadaDestino").getNodeValue();
 
-							System.out.print(tipoSaida);
-							System.out.print(" ");
-							System.out.println(codigoFluxoDestino);
+							//System.out.print(tipoSaida);
+							//System.out.print(" ");
+							//System.out.println(codigoFluxoDestino);
 							if (codigoFluxo.equalsIgnoreCase(codigoFluxoDestino)) {
 								//throw new Exception("A saida " + tipoSaida + " do Fluxo " + codigoFluxo + " está para o mesmo fluxo, fooping infinito, da macroperacao " + macroperacao);
 							}

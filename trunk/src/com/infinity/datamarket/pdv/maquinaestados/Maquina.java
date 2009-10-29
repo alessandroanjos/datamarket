@@ -102,8 +102,8 @@ public class Maquina implements Serializable{
     }
 
     private int processaMicroOperacao(MicroOperacaoAssociada mic, ParametroMacroOperacao param){
-    	Mic microOperacao = ServiceLocator.getInstancia().getMic(mic.getMicroOperacao().getClasse());
         System.out.println("Maquina::Cod "+mic.getId()+" ::MicroOperacao ["+mic.getMicroOperacao().getClasse()+"]");
+    	Mic microOperacao = ServiceLocator.getInstancia().getMic(mic.getMicroOperacao().getClasse());
         int alternativa = 0;
         try{        	
         	alternativa = microOperacao.exec(gerenciadorPerifericos, param);        	
