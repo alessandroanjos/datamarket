@@ -45,8 +45,8 @@ public class ContaCorrenteBackBean extends BackBean {
 	private Collection<Banco> bancos;
 	private Collection<ContaCorrente> contaCorrentes;
 	
-	private String carteira = "175";
-	private String digitoContaCorrente = "1";
+	private String carteira;
+	private String digitoContaCorrente;
 	
 	private String idConsulta;
 	private String idAgenciaConsulta;
