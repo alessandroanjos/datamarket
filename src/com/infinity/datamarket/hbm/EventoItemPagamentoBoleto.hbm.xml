@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+   <hibernate-mapping>
+      <joined-subclass name="com.infinity.datamarket.comum.transacao.EventoItemPagamentoBoleto" extends="com.infinity.datamarket.comum.transacao.EventoItemPagamento" table="EVENTO_ITEM_PAGAMENTO_BOLETO" lazy="false">
+
+          <key>
+              <column name="LOJA"/>
+              <column name="COMPONENTE"/>
+              <column name="NUM_TRANSACAO"/>
+              <column name="DATA_TRANSACAO"/>
+              <column name="NUM_EVENTO"/>
+          </key>
+
+		 <many-to-one name="boleto" class="com.infinity.datamarket.comum.boleto.Boleto" update="true" insert="true">
+          <column name="BOLETO" not-null="true"/>
+       </many-to-one>
+       
+      </joined-subclass>
+   </hibernate-mapping>

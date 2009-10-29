@@ -15,9 +15,12 @@
   	<property name="format_sql">true</property>
   	<property name="dialect">org.hibernate.dialect.HSQLDialect</property>
   	<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+			<property name="hibernate.hbm2ddl.auto">update</property>
 
    
       	<!-- Mapping files -->
+      		<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoBoleto.hbm.xml"/>
+ 	<mapping resource="com/infinity/datamarket/hbm/Boleto.hbm.xml"/>        
  	<mapping resource="com/infinity/datamarket/hbm/AjusteEstoque.hbm.xml"/>        
 	<mapping resource="com/infinity/datamarket/hbm/MacroOperacao.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Funcionalidade.hbm.xml"/>
