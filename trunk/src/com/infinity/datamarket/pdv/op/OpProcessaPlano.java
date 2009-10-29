@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
 import com.infinity.datamarket.comum.pagamento.ConstantesFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.DadosCartaoOff;
@@ -16,6 +17,7 @@ import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
 import com.infinity.datamarket.comum.transacao.ConstantesEventoTransacao;
 import com.infinity.datamarket.comum.transacao.ConstantesTransacao;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
+import com.infinity.datamarket.comum.transacao.EventoItemPagamentoBoleto;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoOff;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoProprio;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCheque;
@@ -108,6 +110,11 @@ public class OpProcessaPlano extends Mic{
 			eventoItemPagamentoChequePredatado.setParcelas(parcelas);
 			eventoItemPagamento = eventoItemPagamentoChequePredatado;
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamentoChequePredatado);
+		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.BOLETO)){
+			Boleto boleto = (Boleto) gerenciadorPerifericos.getCmos().ler(CMOS.BOLETO);
+			EventoItemPagamentoBoleto eventoItemPagamentoBoleto = new EventoItemPagamentoBoleto(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo,boleto);
+			eventos.add(eventoItemPagamentoBoleto);
+			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamentoBoleto);
 		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.CARTAO_OFF)){
 			DadosCartaoOff dados = (DadosCartaoOff) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CARTAO_OFF);
 			eventoItemPagamento = new EventoItemPagamentoCartaoOff(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo,

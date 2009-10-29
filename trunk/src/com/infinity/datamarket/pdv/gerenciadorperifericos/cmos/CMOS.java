@@ -46,6 +46,7 @@ public interface CMOS {
 	public static final String OPERACAO_DEVOLUCAO = "OPERACAO_DEVOLUCAO";
 	public static final String OPERACAO_PEDIDO = "OPERACAO_PEDIDO";
 	public static final String PK_OPERACOES = "PK_OPERACOES";
+	public static final String BOLETO = "BOLETO";
 	
 	public void gravar(String chave, Object valor);
 	public Object ler(String chave);

@@ -88,6 +88,7 @@
 	<mapping resource="com/infinity/datamarket/hbm/Autorizadora.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoCartaoOff.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoCartaoProprio.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoBoleto.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoChequePredatado.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/ParcelaEventoItemPagamentoChequePredatado.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/AutorizacaoCartaoProprio.hbm.xml"/>
