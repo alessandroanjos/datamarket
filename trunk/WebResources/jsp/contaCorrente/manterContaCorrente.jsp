@@ -83,7 +83,32 @@
 									
 									</div>
 										
+								</li>
+								
+																<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Digito*"></h:outputLabel>
+										<h:inputText styleClass="field text" id="digitoContaCorrente" maxlength="1" size="2" required="false"
+											value="#{contaCorrenteBB.digitoContaCorrente}">
+											<f:validateLength maximum="1" />
+										</h:inputText>
+									
+									</div>
+										
 								</li>								
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Carteira*"></h:outputLabel>
+										<h:inputText styleClass="field text" id="carteira" maxlength="3" size="4" required="false"
+											value="#{contaCorrenteBB.carteira}">
+											<f:validateLength maximum="3" />
+										</h:inputText>
+									
+									</div>
+										
+								</li>								
+								
+																
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>

@@ -12,10 +12,8 @@ public class ContaCorrente extends Persistente implements Comparable{
 	 * 
 	 */
 	private static final long serialVersionUID = 6474664301311452427L;
-	/**
-	 * 
-	 */
-
+	private String carteira ;
+	private String digitoContaCorrente;
 	private String idAgencia;
 	private String numero;
 	private String nome;
@@ -25,6 +23,18 @@ public class ContaCorrente extends Persistente implements Comparable{
 	private Loja loja;
 	
 	
+	public String getCarteira() {
+		return carteira;
+	}
+	public void setCarteira(String carteira) {
+		this.carteira = carteira;
+	}
+	public String getDigitoContaCorrente() {
+		return digitoContaCorrente;
+	}
+	public void setDigitoContaCorrente(String digitoContaCorrente) {
+		this.digitoContaCorrente = digitoContaCorrente;
+	}
 	public Loja getLoja() {
 		return loja;
 	}

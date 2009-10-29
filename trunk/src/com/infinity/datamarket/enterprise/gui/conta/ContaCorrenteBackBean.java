@@ -45,6 +45,9 @@ public class ContaCorrenteBackBean extends BackBean {
 	private Collection<Banco> bancos;
 	private Collection<ContaCorrente> contaCorrentes;
 	
+	private String carteira = "175";
+	private String digitoContaCorrente = "1";
+	
 	private String idConsulta;
 	private String idAgenciaConsulta;
 	private String numeroConsulta;
@@ -121,7 +124,10 @@ public class ContaCorrenteBackBean extends BackBean {
 		try {
 			validarContaCorrente();
 			ContaCorrente contaCorrente = new ContaCorrente();
-			
+
+			contaCorrente.setDigitoContaCorrente(this.digitoContaCorrente);
+			contaCorrente.setCarteira(this.carteira);
+			contaCorrente.setIdAgencia(this.idAgencia);
 			contaCorrente.setIdAgencia(this.idAgencia);
 			contaCorrente.setNome(this.nome);
 			contaCorrente.setNumero(this.numero);
@@ -246,7 +252,10 @@ public class ContaCorrenteBackBean extends BackBean {
 			contaCorrente.setNumero(this.numero);
 			contaCorrente.setSaldo(this.saldo);
 			contaCorrente.setSituacao(this.situacao);
-			
+
+			contaCorrente.setDigitoContaCorrente(this.digitoContaCorrente);
+			contaCorrente.setCarteira(this.carteira);
+
 			Banco banco = new Banco();
 			banco.setId(new Long(this.getIdBanco()));
 			contaCorrente.setBanco(banco);
@@ -287,7 +296,9 @@ public class ContaCorrenteBackBean extends BackBean {
 			contaCorrente.setSaldo(this.saldo);
 			contaCorrente.setSituacao(this.situacao);
 			contaCorrente.setBanco(this.banco);
-			
+			contaCorrente.setDigitoContaCorrente(this.digitoContaCorrente);
+			contaCorrente.setCarteira(this.carteira);
+
 			getFachada().excluirContaCorrente(contaCorrente);
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -314,9 +325,27 @@ public class ContaCorrenteBackBean extends BackBean {
 		this.setSituacao(null);
 		this.setBanco(null);
 		this.setSituacao(Constantes.SIM);
+		this.setDigitoContaCorrente(null);
+		this.setCarteira(null);
 		this.setIdBanco("0");
 	}
 	
+	public String getCarteira() {
+		return carteira;
+	}
+
+	public void setCarteira(String carteira) {
+		this.carteira = carteira;
+	}
+
+	public String getDigitoContaCorrente() {
+		return digitoContaCorrente;
+	}
+
+	public void setDigitoContaCorrente(String digitoContaCorrente) {
+		this.digitoContaCorrente = digitoContaCorrente;
+	}
+
 	public void resetConsultaBB() {
 		this.setIdConsulta(null);
 		this.setIdAgenciaConsulta(null);
@@ -335,6 +364,12 @@ public class ContaCorrenteBackBean extends BackBean {
 		}
 		if(this.saldo == null || this.saldo.equals("0") || this.saldo.equals("")){
 			throw new AppException("O Campo Saldo é obrigatório!");
+		}
+		if(this.carteira == null || this.carteira.equals("0") || this.carteira.equals("")){
+			throw new AppException("O Campo Carteira é obrigatório!");
+		}
+		if(this.digitoContaCorrente == null || this.digitoContaCorrente.equals("0") || this.digitoContaCorrente.equals("")){
+			throw new AppException("O Campo Digito Verificador é obrigatório!");
 		}
 	}
 //	Bancos
@@ -418,6 +453,9 @@ public class ContaCorrenteBackBean extends BackBean {
 		this.setNome(contaCorrente.getNome());
 		this.setNumero(contaCorrente.getNumero());
 		this.setSaldo(contaCorrente.getSaldo());
+		this.setSituacao(contaCorrente.getSituacao());
+		this.setDigitoContaCorrente(contaCorrente.getDigitoContaCorrente());
+		this.setCarteira(contaCorrente.getCarteira());
 		this.setSituacao(contaCorrente.getSituacao());
 		this.setBanco(contaCorrente.getBanco());
 		if (contaCorrente.getBanco() != null) {
