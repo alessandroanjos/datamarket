@@ -18,7 +18,7 @@ public class OpSolicitaCliente extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		
 		Parametro parametro = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.SOLICITA_CLIENTE);
-		if (Boolean.valueOf(parametro.getValor()).booleanValue()){
+		if (parametro != null && parametro != null && Boolean.valueOf(parametro.getValor()).booleanValue()){
 			try{
 				gerenciadorPerifericos.getDisplay().setMensagem("Cadastrar Cliente?");
 				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
