@@ -33,7 +33,7 @@
             <column name="CARTEIRA" length="3" not-null="true"/>
         </property>
         <property name="contaCorrente" type="java.lang.String" update="true" insert="true">
-            <column name="CONTA_CORRENTE" length="3" not-null="true"/>
+            <column name="CONTA_CORRENTE" length="5" not-null="true"/>
         </property>
         <property name="digitoContaCorrente" type="java.lang.String" update="true" insert="true">
             <column name="DIGITO_CONTA_CORRENTE" length="1" not-null="true"/>
@@ -55,43 +55,43 @@
             <column name="INSTRUCAO4" length="100"  />
         </property>
         <property name="tipoBanco" type="java.lang.Integer" update="true" insert="true">
-            <column name="TIPO_BANCO" length="100" not-null="true"/>
+            <column name="TIPO_BANCO" not-null="true"/>
         </property>
 
         <property name="dataVencimento" type="java.util.Date" update="true" insert="true">
-            <column name="DATA_vencimento" length="10" not-null="true"/>
+            <column name="DATA_vencimento" not-null="true"/>
         </property> 
 
         <property name="dataProcessamento" type="java.util.Date" update="true" insert="true">
-            <column name="DATA_PROCESSAMENTO" length="10" not-null="true"/>
+            <column name="DATA_PROCESSAMENTO" not-null="true"/>
         </property> 
 
         <property name="nomeCliente" type="java.lang.String" update="true" insert="true">
-            <column name="NOME_CLIENTE" length="10" not-null="false"/>
+            <column name="NOME_CLIENTE" length="100" not-null="false"/>
         </property> 
 
         <property name="enderecoCliente" type="java.lang.String" update="true" insert="true">
-            <column name="ENDERECO_CLIENTE" length="10" not-null="false"/>
+            <column name="ENDERECO_CLIENTE" length="100" not-null="false"/>
         </property> 
 
         <property name="bairroCliente" type="java.lang.String" update="true" insert="true">
-            <column name="BAIRRO_CLIENTE" length="10" not-null="false"/>
+            <column name="BAIRRO_CLIENTE" length="100" not-null="false"/>
         </property> 
 
         <property name="cidadeCliente" type="java.lang.String" update="true" insert="true">
-            <column name="CIDADE_CLIENTE" length="10" not-null="false"/>
+            <column name="CIDADE_CLIENTE" length="100" not-null="false"/>
         </property> 
 
         <property name="UFCliente" type="java.lang.String" update="true" insert="true">
-            <column name="UF_CLIENTE" length="10" not-null="false"/>
+            <column name="UF_CLIENTE" length="100" not-null="false"/>
         </property> 
 
         <property name="cpfCnpj" type="java.lang.String" update="true" insert="true">
-            <column name="CPF_CNPJ" length="10" not-null="false"/>
+            <column name="CPF_CNPJ" length="100" not-null="false"/>
         </property> 
 
         <property name="cepCliente" type="java.lang.String" update="true" insert="true">
-            <column name="CEP_CLIENTE" length="10" not-null="false"/>
+            <column name="CEP_CLIENTE" length="100" not-null="false"/>
         </property>
     </class>
 
