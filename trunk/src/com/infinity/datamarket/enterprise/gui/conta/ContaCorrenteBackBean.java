@@ -365,11 +365,11 @@ public class ContaCorrenteBackBean extends BackBean {
 		if(this.saldo == null || this.saldo.equals("0") || this.saldo.equals("")){
 			throw new AppException("O Campo Saldo é obrigatório!");
 		}
-		if(this.carteira == null || this.carteira.equals("0") || this.carteira.equals("")){
-			throw new AppException("O Campo Carteira é obrigatório!");
+		if(this.carteira == null || this.carteira.equals("0") || this.carteira.equals("") || this.carteira.length() != 3){
+			throw new AppException("O Campo Carteira deve ter 3 digitos!");
 		}
-		if(this.digitoContaCorrente == null || this.digitoContaCorrente.equals("0") || this.digitoContaCorrente.equals("")){
-			throw new AppException("O Campo Digito Verificador é obrigatório!");
+		if(this.digitoContaCorrente == null || this.digitoContaCorrente.equals("0") || this.digitoContaCorrente.equals("")  || this.digitoContaCorrente.length() != 1){
+			throw new AppException("O Campo Digito Verificador deve ter 1 dígito!");
 		}
 	}
 //	Bancos
