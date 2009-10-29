@@ -27,10 +27,6 @@
 	            <column name="NUMERO" length="10" not-null="true"/>
         </property>
         
-        <property name="idAgencia" type="java.lang.String" update="true" insert="true">
-            <column name="AGENCIA" length="10" not-null="true"/>
-        </property>
-
         <property name="digitoContaCorrente" type="java.lang.String" update="true" insert="true">
 		            <column name="DIGITO_CONTA_CORRENTE" length="1" not-null="true"/>
         </property>
