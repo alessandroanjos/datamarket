@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.collection.PersistentSet;
 
-import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
 import com.infinity.datamarket.comum.financeiro.Lancamento;
@@ -340,7 +339,7 @@ public class RelatorioBackBean extends BackBean {
 			context.responseComplete();
 			out.flush();
 			out.close();
-			this.setNomeRelatorio(nomeReport);
+//			this.setNomeRelatorio(nomeReport);
 			return "";
 		} catch (AppException e) {
 			e.printStackTrace();

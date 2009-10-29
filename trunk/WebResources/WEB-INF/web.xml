@@ -36,13 +36,19 @@
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
+	<servlet>
+		<servlet-name>GerarBoletoServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.GerarBoletoServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>GerarBoletoServlet</servlet-name>
+		<url-pattern>/GerarBoletoServlet.servlet</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.faces</url-pattern>
 	</servlet-mapping>
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
 	
 	<!-- servlet mapping -->   
     <servlet-mapping>   
@@ -54,6 +60,10 @@
         <url-pattern>/faces/*</url-pattern>   
     </servlet-mapping>   
 	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
 	 <!-- Extensions Filter -->   
     <filter>   
         <filter-name>extensionsFilter</filter-name>   

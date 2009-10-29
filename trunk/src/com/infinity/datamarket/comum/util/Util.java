@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,6 +39,12 @@ public class Util {
 		return data1.compareTo(data2);
 	}
 	
+				
+	public static Date formatarStringParaData(String dataParametro) throws ParseException {
+		DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+		return f.parse(dataParametro);
+	}
+		
 	public static String retornaDataFormatoDDMMYYYY(Date dataParametro){
 		return new SimpleDateFormat("dd/MM/yyyy").format(dataParametro);
 	}
@@ -335,5 +344,41 @@ public class Util {
 			res = res + EXTENSAO_ZIP;
 		}
 		return res;
+	}
+	
+	private static String dirCorrente;
+
+	// Inicializa os atributos estáticos da classe
+	static {
+		URL url = Util.class.getClassLoader().getResource("Perifericos.properties");
+		if (url != null) {
+			dirCorrente = url.toString();
+			dirCorrente =
+				dirCorrente.substring("file:\\".length(), dirCorrente.length());
+			try {
+				dirCorrente =
+					dirCorrente.substring(0, dirCorrente.indexOf("WEB-INF"));
+				dirCorrente =
+					dirCorrente.substring(0, dirCorrente.length() - 1);
+				// no caso do sistema operacional for o linux
+				// coloca a para inicial
+				int local = dirCorrente.indexOf(":");
+				if (local == -1) {
+					dirCorrente = "/" + dirCorrente;
+				}
+			} catch (Exception e) {
+			}
+		} else {
+			throw new RuntimeException( "O caminho do arquivo de configuração principal do sistema não foi encontrado: " + "Perifericos.properties");
+		}
+	}
+
+	/**
+	 * Metodo que retorna o diretorio corrente onde o sistema foi cadastrado  
+	 * 
+	 * @return
+	 */
+	public static String getDirCorrente() {
+		return dirCorrente;
 	}
 }
