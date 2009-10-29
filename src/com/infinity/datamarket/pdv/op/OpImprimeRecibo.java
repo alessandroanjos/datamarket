@@ -20,7 +20,7 @@ public class OpImprimeRecibo extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		
 		Parametro parametro = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.IMPRIME_RECIBO);
-		if (Boolean.valueOf(parametro.getValor()).booleanValue()){
+		if (parametro != null && Boolean.valueOf(parametro.getValor()).booleanValue()){
 			try{
 				gerenciadorPerifericos.getDisplay().setMensagem("Deseja Imprimir Recibo?");
 				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);

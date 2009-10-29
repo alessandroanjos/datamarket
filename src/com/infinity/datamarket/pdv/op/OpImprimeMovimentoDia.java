@@ -16,7 +16,7 @@ public class OpImprimeMovimentoDia extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		
 		Parametro parametro = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.IMPRIME_MOVIMENTO_DIA);
-		if (Boolean.valueOf(parametro.getValor()).booleanValue()){
+		if (parametro != null && Boolean.valueOf(parametro.getValor()).booleanValue()){
 		
 			gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
 							

@@ -19,7 +19,7 @@ import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 public class OpSolicitaVendedor extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		Parametro parametro = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.PEDE_VENDEDOR);
-		if (Boolean.valueOf(parametro.getValor()).booleanValue()){
+		if (parametro != null && Boolean.valueOf(parametro.getValor()).booleanValue()){
 			try{
 				gerenciadorPerifericos.getDisplay().setMensagem("Código do Vendedor");
 				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
