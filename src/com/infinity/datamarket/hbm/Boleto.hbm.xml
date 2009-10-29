@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.boleto.Boleto" table="BOLETO" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="18"
+            unsaved-value="null"
+        >
+            <generator class="assigned">
+            </generator>
+        </id>
+
+
+        <property name="cedente" type="java.lang.String" update="true" insert="true">
+            <column name="CEDENTE" length="35" not-null="true"/>
+        </property>
+        <property name="nossoNumero" type="java.lang.String" update="true" insert="true">
+            <column name="NOSSO_NUMERO" length="8" not-null="true"/>
+        </property>
+        <property name="agencia" type="java.lang.String" update="true" insert="true">
+            <column name="AGENCIA" length="4" not-null="true"/>
+        </property>
+        <property name="carteira" type="java.lang.String" update="true" insert="true">
+            <column name="CARTEIRA" length="3" not-null="true"/>
+        </property>
+        <property name="contaCorrente" type="java.lang.String" update="true" insert="true">
+            <column name="CONTA_CORRENTE" length="3" not-null="true"/>
+        </property>
+        <property name="digitoContaCorrente" type="java.lang.String" update="true" insert="true">
+            <column name="DIGITO_CONTA_CORRENTE" length="1" not-null="true"/>
+        </property>
+
+        <property name="valor" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR" length="20" not-null="true"/>
+        </property>
+        <property name="instrucao1" type="java.lang.String" update="true" insert="true">
+            <column name="INSTRUCAO1" length="100"  />
+        </property>
+        <property name="instrucao2" type="java.lang.String" update="true" insert="true">
+            <column name="INSTRUCAO2" length="100"  />
+        </property>
+        <property name="instrucao3" type="java.lang.String" update="true" insert="true">
+            <column name="INSTRUCAO3" length="100"  />
+        </property>
+        <property name="instrucao4" type="java.lang.String" update="true" insert="true">
+            <column name="INSTRUCAO4" length="100"  />
+        </property>
+        <property name="tipoBanco" type="java.lang.Integer" update="true" insert="true">
+            <column name="TIPO_BANCO" length="100" not-null="true"/>
+        </property>
+
+        <property name="dataVencimento" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_vencimento" length="10" not-null="true"/>
+        </property> 
+
+        <property name="dataProcessamento" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_PROCESSAMENTO" length="10" not-null="true"/>
+        </property> 
+
+        <property name="nomeCliente" type="java.lang.String" update="true" insert="true">
+            <column name="NOME_CLIENTE" length="10" not-null="false"/>
+        </property> 
+
+        <property name="enderecoCliente" type="java.lang.String" update="true" insert="true">
+            <column name="ENDERECO_CLIENTE" length="10" not-null="false"/>
+        </property> 
+
+        <property name="bairroCliente" type="java.lang.String" update="true" insert="true">
+            <column name="BAIRRO_CLIENTE" length="10" not-null="false"/>
+        </property> 
+
+        <property name="cidadeCliente" type="java.lang.String" update="true" insert="true">
+            <column name="CIDADE_CLIENTE" length="10" not-null="false"/>
+        </property> 
+
+        <property name="UFCliente" type="java.lang.String" update="true" insert="true">
+            <column name="UF_CLIENTE" length="10" not-null="false"/>
+        </property> 
+
+        <property name="cpfCnpj" type="java.lang.String" update="true" insert="true">
+            <column name="CPF_CNPJ" length="10" not-null="false"/>
+        </property> 
+
+        <property name="cepCliente" type="java.lang.String" update="true" insert="true">
+            <column name="CEP_CLIENTE" length="10" not-null="false"/>
+        </property>
+    </class>
+
+</hibernate-mapping>
