@@ -103,6 +103,7 @@
     <operacao id="OpConfirmaOperacao" classe="com.infinity.datamarket.pdv.op.OpConfirmaOperacao"/>
     <operacao id="OpImprimeMovimentoDia" classe="com.infinity.datamarket.pdv.op.OpImprimeMovimentoDia"/>
     <operacao id="OpInicioRecebimentoBoleto" classe="com.infinity.datamarket.pdv.op.OpInicioRecebimentoBoleto"/>
+    <operacao id="OpGeraBoleto" classe="com.infinity.datamarket.pdv.op.OpGeraBoleto"/>
   </listaMicroperacao>
   <listaEstado>
     <estado codigo="ESTADO1" descricao="Fechado" inputType="0" inputSize="0"/>
@@ -813,8 +814,12 @@
     </macroOperacao>
     <macroOperacao estadoAtual="ESTADO5" proximoEstado="ESTADO3" tecla="TECLA23" codigoMicroOperacaoAssociada="subFluxo123" descricao="Recebimento em Boleto">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo123" operacao="OpInicioRecebimentoBoleto">
-      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo127" />
+      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo123_1" />
       </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo123_1" operacao="OpGeraBoleto">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo127" />
+      </microOperacaoAssociada>
+   
    <!-- 
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo124" operacao="OpSolicitaDadosCheque">
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo125" />

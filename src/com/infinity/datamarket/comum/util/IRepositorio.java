@@ -54,4 +54,5 @@ public interface IRepositorio{
 	public static final String REPOSITORIO_TIPO_PRODUTO = "REPOSITORIO_TIPO_PRODUTO";
 	public static final String REPOSITORIO_IMPOSTO = "REPOSITORIO_IMPOSTO";
 	public static final String REPOSITORIO_PRODUTO = "REPOSITORIO_PRODUTO";
+	public static final String REPOSITORIO_BOLETO = "REPOSITORIO_BOLETO";
 }

@@ -10,6 +10,8 @@ import com.infinity.datamarket.autorizador.AutorizacaoCartaoProprio;
 import com.infinity.datamarket.autorizador.CadastroAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.banco.Banco;
 import com.infinity.datamarket.comum.banco.CadastroBanco;
+import com.infinity.datamarket.comum.boleto.Boleto;
+import com.infinity.datamarket.comum.boleto.CadastroBoleto;
 import com.infinity.datamarket.comum.cliente.CadastroCliente;
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.clientepagamento.CadastroClientePagamento;
@@ -123,6 +125,10 @@ public class Fachada {
 
 	private CadastroImposto getCadastroImposto(){
 		return CadastroImposto.getInstancia();
+	}
+
+	private CadastroBoleto getCadastroBoleto(){
+		return CadastroBoleto.getInstancia();
 	}
 	
 	private CadastroUnidade getCadastroUnidade(){
@@ -2214,11 +2220,39 @@ public class Fachada {
 	
 	
 //imposto
-	
+
 	public void inserirImposto(Imposto imposto) throws AppException{
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
 			getCadastroImposto().inserir(imposto);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
+	public void inserirBoleto(Boleto boleto) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroBoleto().inserir(boleto);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
