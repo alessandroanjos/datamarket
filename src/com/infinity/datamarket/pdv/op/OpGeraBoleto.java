@@ -12,8 +12,9 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 
-public abstract class OpGeraBoleto extends Mic{
-	protected int execRegrasFormaPlano(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param, Long idForma){
+public class OpGeraBoleto extends Mic{
+	
+	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try {
 
 			BigDecimal valorPagamento = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_PAGAMENTO_ATUAL);
