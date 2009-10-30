@@ -65,9 +65,9 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Agencia*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="idAgencia" maxlength="10" size="10" required="false"
+										<h:inputText styleClass="field text" id="idAgencia" maxlength="4" size="5" required="false"
 											value="#{contaCorrenteBB.idAgencia}">
-											<f:validateLength maximum="10" />
+											<f:validateLength maximum="4" />
 										</h:inputText>
 									
 									</div>
@@ -76,9 +76,9 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Numero*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="numero" maxlength="10" size="10" required="false"
+										<h:inputText styleClass="field text" id="numero" maxlength="5" size="6" required="false"
 											value="#{contaCorrenteBB.numero}">
-											<f:validateLength maximum="10" />
+											<f:validateLength maximum="5" />
 										</h:inputText>
 									
 									</div>
