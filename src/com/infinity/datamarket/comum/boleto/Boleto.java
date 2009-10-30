@@ -1,12 +1,13 @@
 package com.infinity.datamarket.comum.boleto;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
 
 import org.jboleto.JBoleto;
 
-import com.infinity.datamarket.comum.fabricante.Fabricante;
+import com.infinity.datamarket.comum.cliente.Cliente;
+import com.infinity.datamarket.comum.conta.ContaCorrente;
+import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class Boleto extends Persistente{
@@ -24,6 +25,10 @@ public class Boleto extends Persistente{
 	public static int TIPO_BANCO_SANTANDER = JBoleto.SANTANDER;
 	public static int TIPO_BANCO_UNIBANCO = JBoleto.UNIBANCO;
 
+	private Cliente cliente;
+	private ContaCorrente contaCorrente;
+	private Loja loja;
+	
 	private Integer tipoBanco = 0;
    	private Date dataProcessamento = new Date();
    	private String cedente = null;
@@ -34,7 +39,7 @@ public class Boleto extends Persistente{
    	private String instrucao4 = null;
    	private String agencia = null;
    	private String carteira = null;
-   	private String contaCorrente = null;
+   	private String numeroContaCorrente = null;
    	private String digitoContaCorrente = null;
 
 	private Date dataVencimento = null;
@@ -48,7 +53,6 @@ public class Boleto extends Persistente{
    	private String cpfCnpj = null;
    	private String cepCliente = null;
 
-	
 	public Boleto(Date dataVencimento, int tipoBanco, Date dataProcessamento, String cedente, String nossoNumero, String instrucao1, String instrucao2, String instrucao3, String instrucao4, String agencia, String carteira, String contaCorrente, String digitoContaCorrente, BigDecimal valor) {
 		super();
 		this.dataVencimento = dataVencimento;
@@ -62,7 +66,7 @@ public class Boleto extends Persistente{
 		this.instrucao4 = instrucao4;
 		this.agencia = agencia;
 		this.carteira = carteira;
-		this.contaCorrente = contaCorrente;
+		this.numeroContaCorrente = contaCorrente;
 		this.digitoContaCorrente = digitoContaCorrente;
 		this.valor = valor;
 	}
@@ -79,7 +83,7 @@ public class Boleto extends Persistente{
 		this.instrucao4 = instrucao4;
 		this.agencia = agencia;
 		this.carteira = carteira;
-		this.contaCorrente = contaCorrente;
+		this.numeroContaCorrente = contaCorrente;
 		this.digitoContaCorrente = digitoContaCorrente;
 		this.valor = valor;
 		this.nomeCliente = nomeCliente;
@@ -91,7 +95,19 @@ public class Boleto extends Persistente{
 		this.cepCliente = cepCliente;
 	}
 	public Boleto(){}
-
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	public Loja getLoja() {
+		return loja;
+	}
+	public void setLoja(Loja loja) {
+		this.loja = loja;
+	}
 	public String getAgencia() {
 		return agencia;
 	}
@@ -110,11 +126,11 @@ public class Boleto extends Persistente{
 	public void setCedente(String cedente) {
 		this.cedente = cedente;
 	}
-	public String getContaCorrente() {
-		return contaCorrente;
+	public String getNumeroContaCorrente() {
+		return numeroContaCorrente;
 	}
-	public void setContaCorrente(String contaCorrente) {
-		this.contaCorrente = contaCorrente;
+	public void setNumeroContaCorrente(String contaCorrente) {
+		this.numeroContaCorrente = contaCorrente;
 	}
 	public Date getDataProcessamento() {
 		return dataProcessamento;
@@ -217,5 +233,11 @@ public class Boleto extends Persistente{
 	}
 	public void setUFCliente(String cliente) {
 		UFCliente = cliente;
+	}
+	public ContaCorrente getContaCorrente() {
+		return contaCorrente;
+	}
+	public void setContaCorrente(ContaCorrente contaCorrente) {
+		this.contaCorrente = contaCorrente;
 	}
 }

@@ -104,6 +104,10 @@
     <operacao id="OpImprimeMovimentoDia" classe="com.infinity.datamarket.pdv.op.OpImprimeMovimentoDia"/>
     <operacao id="OpInicioRecebimentoBoleto" classe="com.infinity.datamarket.pdv.op.OpInicioRecebimentoBoleto"/>
     <operacao id="OpGeraBoleto" classe="com.infinity.datamarket.pdv.op.OpGeraBoleto"/>
+    <operacao id="OpImprimeBoleto" classe="com.infinity.datamarket.pdv.op.OpImprimeBoleto"/>
+    
+    
+    
   </listaMicroperacao>
   <listaEstado>
     <estado codigo="ESTADO1" descricao="Fechado" inputType="0" inputSize="0"/>
@@ -819,18 +823,6 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo123_1" operacao="OpGeraBoleto">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo127" />
       </microOperacaoAssociada>
-   
-   <!-- 
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo124" operacao="OpSolicitaDadosCheque">
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo125" />
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo127" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo125" operacao="OpExibeDisplayTotal">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo126" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo126" operacao="OpAlternativaDois">
-      </microOperacaoAssociada>
-      --> 
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo127" operacao="OpProcessaPlano">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo87" />
       </microOperacaoAssociada>
@@ -876,6 +868,9 @@
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo270" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo270" operacao="OpImprimeRecibo">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo270_1" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo270_1" operacao="OpImprimeBoleto">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo31" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo31" operacao="OpExibeDisplayDisponivel">

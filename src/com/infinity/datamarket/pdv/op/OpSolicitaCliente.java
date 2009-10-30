@@ -1,5 +1,6 @@
 package com.infinity.datamarket.pdv.op;
 
+import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
@@ -32,6 +33,20 @@ public class OpSolicitaCliente extends Mic{
 						System.out.println("OpSolicitaCliente.exec: cliente.getCpfCnpj(): "+cliente.getCpfCnpj());
 						transVenda.setCliente(cliente);
 						gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_VENDA_ATUAL,transVenda);
+
+						Boleto boleto = (Boleto)gerenciadorPerifericos.getCmos().ler(CMOS.BOLETO);
+						if (boleto != null) {
+
+							boleto.setNomeCliente(cliente.getNomeCliente());
+							boleto.setEnderecoCliente(cliente.getLogradouro());
+							boleto.setBairroCliente(cliente.getBairro());
+							boleto.setCidadeCliente(cliente.getCidade());
+							boleto.setUFCliente(cliente.getEstado());
+							boleto.setCpfCnpj(cliente.getCpfCnpj());
+							boleto.setCepCliente(cliente.getCep());
+
+							gerenciadorPerifericos.getCmos().gravar(CMOS.BOLETO,boleto);
+}
 					}
 					
 				}

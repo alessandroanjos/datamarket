@@ -19,7 +19,15 @@
             </generator>
         </id>
 
-
+		<many-to-one name="cliente" class="com.infinity.datamarket.comum.cliente.Cliente" update="true" insert="true">
+	          <column name="CLIENTE" not-null="false"/>
+	        </many-to-one>
+		<many-to-one name="contaCorrente" class="com.infinity.datamarket.comum.conta.ContaCorrente" update="true" insert="true">
+	          <column name="CONTA_CORRENTE" not-null="true"/>
+	        </many-to-one>
+		<many-to-one name="Loja" class="com.infinity.datamarket.comum.usuario.Loja" update="true" insert="true">
+	          <column name="LOJA" not-null="true"/>
+	        </many-to-one>
         <property name="cedente" type="java.lang.String" update="true" insert="true">
             <column name="CEDENTE" length="35" not-null="true"/>
         </property>
@@ -32,8 +40,8 @@
         <property name="carteira" type="java.lang.String" update="true" insert="true">
             <column name="CARTEIRA" length="3" not-null="true"/>
         </property>
-        <property name="contaCorrente" type="java.lang.String" update="true" insert="true">
-            <column name="CONTA_CORRENTE" length="5" not-null="true"/>
+        <property name="numeroContaCorrente" type="java.lang.String" update="true" insert="true">
+            <column name="NUMERO_CONTA_CORRENTE" length="5" not-null="true"/>
         </property>
         <property name="digitoContaCorrente" type="java.lang.String" update="true" insert="true">
             <column name="DIGITO_CONTA_CORRENTE" length="1" not-null="true"/>

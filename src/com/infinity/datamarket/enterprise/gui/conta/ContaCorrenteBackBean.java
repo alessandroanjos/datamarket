@@ -47,7 +47,11 @@ public class ContaCorrenteBackBean extends BackBean {
 	
 	private String carteira;
 	private String digitoContaCorrente;
-	
+	private String mensagemBoleto1;
+	private String mensagemBoleto2;
+	private String mensagemBoleto3;
+	private String mensagemBoleto4;
+
 	private String idConsulta;
 	private String idAgenciaConsulta;
 	private String numeroConsulta;
@@ -133,7 +137,12 @@ public class ContaCorrenteBackBean extends BackBean {
 			contaCorrente.setNumero(this.numero);
 			contaCorrente.setSaldo(this.saldo);
 			contaCorrente.setSituacao(this.situacao);
-//			contaCorrente.setBanco(this.banco);
+
+			contaCorrente.setMensagemBoleto1(this.mensagemBoleto1);
+			contaCorrente.setMensagemBoleto2(this.mensagemBoleto2);
+			contaCorrente.setMensagemBoleto3(this.mensagemBoleto3);
+			contaCorrente.setMensagemBoleto4(this.mensagemBoleto4);
+
 			Banco banco = new Banco();
 			banco.setId(new Long(this.getIdBanco()));
 			contaCorrente.setBanco(banco);
@@ -256,6 +265,11 @@ public class ContaCorrenteBackBean extends BackBean {
 			contaCorrente.setDigitoContaCorrente(this.digitoContaCorrente);
 			contaCorrente.setCarteira(this.carteira);
 
+			contaCorrente.setMensagemBoleto1(this.mensagemBoleto1);
+			contaCorrente.setMensagemBoleto2(this.mensagemBoleto2);
+			contaCorrente.setMensagemBoleto3(this.mensagemBoleto3);
+			contaCorrente.setMensagemBoleto4(this.mensagemBoleto4);
+
 			Banco banco = new Banco();
 			banco.setId(new Long(this.getIdBanco()));
 			contaCorrente.setBanco(banco);
@@ -299,6 +313,11 @@ public class ContaCorrenteBackBean extends BackBean {
 			contaCorrente.setDigitoContaCorrente(this.digitoContaCorrente);
 			contaCorrente.setCarteira(this.carteira);
 
+			contaCorrente.setMensagemBoleto1(this.mensagemBoleto1);
+			contaCorrente.setMensagemBoleto2(this.mensagemBoleto2);
+			contaCorrente.setMensagemBoleto3(this.mensagemBoleto3);
+			contaCorrente.setMensagemBoleto4(this.mensagemBoleto4);
+
 			getFachada().excluirContaCorrente(contaCorrente);
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -328,6 +347,10 @@ public class ContaCorrenteBackBean extends BackBean {
 		this.setDigitoContaCorrente(null);
 		this.setCarteira(null);
 		this.setIdBanco("0");
+		this.setMensagemBoleto1(null);
+		this.setMensagemBoleto2(null);
+		this.setMensagemBoleto3(null);
+		this.setMensagemBoleto4(null);
 	}
 	
 	public String getCarteira() {
@@ -353,6 +376,9 @@ public class ContaCorrenteBackBean extends BackBean {
 		this.setNomeConsulta(null);
 	}
 	public void validarContaCorrente() throws AppException {
+		if(this.idBanco == null || this.idBanco .equals("0") || this.idBanco.equals("")){
+			throw new AppException("Selecione um banco!");
+		}
 		if(this.idAgencia == null || this.idAgencia.equals("0") || this.idAgencia.equals("")){
 			throw new AppException("O Campo Agência é obrigatório!");
 		}
@@ -458,6 +484,11 @@ public class ContaCorrenteBackBean extends BackBean {
 		this.setCarteira(contaCorrente.getCarteira());
 		this.setSituacao(contaCorrente.getSituacao());
 		this.setBanco(contaCorrente.getBanco());
+
+		this.setMensagemBoleto1(contaCorrente.getMensagemBoleto1());
+		this.setMensagemBoleto2(contaCorrente.getMensagemBoleto2());
+		this.setMensagemBoleto3(contaCorrente.getMensagemBoleto3());
+		this.setMensagemBoleto4(contaCorrente.getMensagemBoleto4());
 		if (contaCorrente.getBanco() != null) {
 		    this.setIdBanco(contaCorrente.getBanco().getId().toString());
 		} else {
@@ -543,6 +574,38 @@ public class ContaCorrenteBackBean extends BackBean {
 
 	public void setNumeroConsulta(String numeroConsulta) {
 		this.numeroConsulta = numeroConsulta;
+	}
+
+	public String getMensagemBoleto1() {
+		return mensagemBoleto1;
+	}
+
+	public void setMensagemBoleto1(String mensagemBoleto1) {
+		this.mensagemBoleto1 = mensagemBoleto1;
+	}
+
+	public String getMensagemBoleto2() {
+		return mensagemBoleto2;
+	}
+
+	public void setMensagemBoleto2(String mensagemBoleto2) {
+		this.mensagemBoleto2 = mensagemBoleto2;
+	}
+
+	public String getMensagemBoleto3() {
+		return mensagemBoleto3;
+	}
+
+	public void setMensagemBoleto3(String mensagemBoleto3) {
+		this.mensagemBoleto3 = mensagemBoleto3;
+	}
+
+	public String getMensagemBoleto4() {
+		return mensagemBoleto4;
+	}
+
+	public void setMensagemBoleto4(String mensagemBoleto4) {
+		this.mensagemBoleto4 = mensagemBoleto4;
 	}
 
 }

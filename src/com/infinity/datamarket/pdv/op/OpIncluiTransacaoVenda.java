@@ -1,8 +1,16 @@
 package com.infinity.datamarket.pdv.op;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
+import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.boleto.Boleto;
+import com.infinity.datamarket.comum.transacao.ClienteTransacao;
+import com.infinity.datamarket.comum.transacao.EventoItemPagamentoBoleto;
+import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
+import com.infinity.datamarket.comum.transacao.EventoTransacao;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
@@ -33,7 +41,34 @@ public class OpIncluiTransacaoVenda extends Mic{
 		}
 		trans.setNumeroCupom(cupom);
 		trans.setValorCupom(total);
-
+		
+		if (trans.getCliente() != null) {
+			ClienteTransacao cliente = trans.getCliente();
+			Collection col = trans.getEventosTransacao();
+			if (col != null && col.size() > 0){
+				Iterator i = col.iterator();
+				while(i.hasNext()){
+					EventoTransacao evt = (EventoTransacao) i.next();
+					if (evt instanceof EventoItemPagamentoBoleto){
+						EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
+						if (ev.getBoleto() != null) {
+							Boleto boleto = ev.getBoleto();
+							if (boleto != null) {
+	
+								boleto.setNomeCliente(cliente.getNomeCliente());
+								boleto.setEnderecoCliente(cliente.getLogradouro());
+								boleto.setBairroCliente(cliente.getBairro());
+								boleto.setCidadeCliente(cliente.getCidade());
+								boleto.setUFCliente(cliente.getEstado());
+								boleto.setCpfCnpj(cliente.getCpfCnpj());
+								boleto.setCepCliente(cliente.getCep());
+//								Fachada PDV().inserirBoleto(boleto);
+							}
+						}
+					}
+				}
+			}	
+		}
 		try{
 			getFachadaPDV().inserirTransacao(trans);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.CHAVE_ULTIMA_TRANSACAO, trans.getPk());

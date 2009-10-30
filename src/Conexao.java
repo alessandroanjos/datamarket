@@ -61,7 +61,7 @@ public class Conexao {
 			boleto.setInstrucao4(instrucao4);// = "";
 			boleto.setAgencia(agencia);// = "2971";
 			boleto.setCarteira(carteira);// = "175";
-			boleto.setContaCorrente(contaCorrente);// = "08690";
+			boleto.setNumeroContaCorrente(contaCorrente);// = "08690";
 			boleto.setDigitoContaCorrente(digitoContaCorrente);// = "1";
 			boleto.setValor(valor);// = "0.01";
 
