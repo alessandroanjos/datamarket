@@ -56,9 +56,37 @@ public class OpImprimeBoleto extends Mic{
 								String instrucao4 = boleto.getInstrucao4();
 								if (instrucao4 == null) instrucao4 = "";
 								String agencia = boleto.getAgencia();
+								if (agencia.length() > 4) {
+									agencia = agencia.substring(0, 4);
+								}
+								while(agencia.length() < 4){
+									agencia = "0" + agencia;
+								}
+
 								String carteira = boleto.getCarteira();
+								if (carteira.length() > 3) {
+									carteira = carteira.substring(0, 3);
+								}
+								while(carteira.length() < 3){
+									carteira = "0" + carteira;
+								}
+								
 								String contaCorrente = boleto.getNumeroContaCorrente();
+								if (contaCorrente.length() > 5) {
+									contaCorrente = contaCorrente.substring(0, 5);
+								}
+								while(contaCorrente.length() < 5){
+									contaCorrente = "0" + contaCorrente;
+								}
+
 								String digitoContaCorrente = boleto.getDigitoContaCorrente();
+								if (digitoContaCorrente.length() > 1) {
+									digitoContaCorrente = digitoContaCorrente.substring(0, 1);
+								}
+								while(digitoContaCorrente.length() < 1){
+									digitoContaCorrente = "0" + digitoContaCorrente;
+								}
+
 								String valor = boleto.getValor().toString();
 	
 								String nomeCliente = boleto.getNomeCliente();
