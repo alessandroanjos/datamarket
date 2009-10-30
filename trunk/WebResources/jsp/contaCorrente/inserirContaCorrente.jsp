@@ -54,7 +54,7 @@
 									<br />
 									<br />
 									<div>
-										<h:outputLabel styleClass="desc" value="Banco"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Banco*"></h:outputLabel>
 										<h:selectOneMenu id="idBanco" styleClass="field select"
 											value="#{contaCorrenteBB.idBanco}" style="width: 200px;">		
 											<f:selectItems id="bancoSelectItems" value="#{contaCorrenteBB.bancos}" />
@@ -129,6 +129,42 @@
 										
 									</div>
 									
+								</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Primeira Mensagem do Boleto "></h:outputLabel>
+										<h:inputText styleClass="field text" id="mensagemBoleto1" maxlength="100" size="30" required="false"
+											value="#{contaCorrenteBB.mensagemBoleto1}">
+											<f:validateLength maximum="100" />
+										</h:inputText>
+									</div>
+								</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Segunda Mensagem do Boleto "></h:outputLabel>
+										<h:inputText styleClass="field text" id="mensagemBoleto2" maxlength="100" size="30" required="false"
+											value="#{contaCorrenteBB.mensagemBoleto2}">
+											<f:validateLength maximum="100" />
+										</h:inputText>
+									</div>
+								</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Terceira Mensagem do Boleto "></h:outputLabel>
+										<h:inputText styleClass="field text" id="mensagemBoleto3" maxlength="100" size="30" required="false"
+											value="#{contaCorrenteBB.mensagemBoleto3}">
+											<f:validateLength maximum="100" />
+										</h:inputText>
+									</div>
+								</li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Quarta Mensagem do Boleto "></h:outputLabel>
+										<h:inputText styleClass="field text" id="mensagemBoleto4" maxlength="100" size="30" required="false"
+											value="#{contaCorrenteBB.mensagemBoleto4}">
+											<f:validateLength maximum="100" />
+										</h:inputText>
+									</div>
 								</li>
 								<li class="normal">
 									<div>

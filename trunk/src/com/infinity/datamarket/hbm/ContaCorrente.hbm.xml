@@ -7,7 +7,7 @@
 
 <hibernate-mapping>
     <class name="com.infinity.datamarket.comum.conta.ContaCorrente" table="CONTA_CORRENTE" dynamic-update="true" dynamic-insert="false" lazy="false">
-        
+
         <id
             name="id"
             column="ID"
@@ -25,6 +25,10 @@
         
         <property name="numero" type="java.lang.String" update="true" insert="true">
 	            <column name="NUMERO" length="10" not-null="true"/>
+        </property>
+        
+        <property name="nome" type="java.lang.String" update="true" insert="true">
+	            <column name="NOME" length="10" not-null="true"/>
         </property>
         
         <property name="digitoContaCorrente" type="java.lang.String" update="true" insert="true">
@@ -51,6 +55,19 @@
 	          <column name="ID_LOJA" not-null="false"/>
         </many-to-one>
 
+        <property name="mensagemBoleto1" type="java.lang.String" update="true" insert="true">
+		            <column name="MSN_BOLETO_1" length="100" not-null="false"/>
+        </property>
+        <property name="mensagemBoleto2" type="java.lang.String" update="true" insert="true">
+		            <column name="MSN_BOLETO_2" length="100" not-null="false"/>
+        </property>
+        <property name="mensagemBoleto3" type="java.lang.String" update="true" insert="true">
+		            <column name="MSN_BOLETO_3" length="100" not-null="false"/>
+        </property>
+        <property name="mensagemBoleto4" type="java.lang.String" update="true" insert="true">
+		            <column name="MSN_BOLETO_4" length="100" not-null="false"/>
+        </property>
+        
     </class>
 
 </hibernate-mapping>

@@ -33,6 +33,7 @@ public class LojaBackBean extends BackBean {
 	String nome;
 	String numeroIp;
 	String numeroPorta;
+	String numeroPortaServlet;
 	String idEstoqueAtual;
 	String idContaAtual;
 	
@@ -49,6 +50,14 @@ public class LojaBackBean extends BackBean {
 		this.estoques = estoques;
 	}
 	
+	public String getNumeroPortaServlet() {
+		return numeroPortaServlet;
+	}
+
+	public void setNumeroPortaServlet(String numeroPortaServlet) {
+		this.numeroPortaServlet = numeroPortaServlet;
+	}
+
 	public void setContas(SelectItem[] contas) {
 		this.contas = contas;
 	}
@@ -140,6 +149,10 @@ public class LojaBackBean extends BackBean {
 		if(this.getNumeroPorta() == null || this.getNumeroPorta().equals("")){
 			throw new AppException("É necessário informar uma Porta para a Loja.");
 		}		
+
+		if(this.getNumeroPortaServlet() == null || this.getNumeroPortaServlet().equals("")){
+			throw new AppException("É necessário informar uma Porta do E.S. da Loja.");
+		}		
 	}
 	
 	public String inserir(){
@@ -153,6 +166,7 @@ public class LojaBackBean extends BackBean {
 			loja.setNome(this.nome);
 			loja.setNumeroIp(this.numeroIp);
 			loja.setNumeroPorta(this.numeroPorta);
+			loja.setNumeroPortaServlet(this.numeroPortaServlet);
 
 			loja.setIdEstoque(null);
 			loja.setIdContaCorrente(null);
@@ -200,6 +214,8 @@ public class LojaBackBean extends BackBean {
 				this.setNome(loja.getNome());
 				this.setNumeroIp(loja.getNumeroIp());
 				this.setNumeroPorta(loja.getNumeroPorta());
+				this.setNumeroPortaServlet(loja.getNumeroPortaServlet());
+				
 				if(loja.getIdEstoque() != null){
 					this.setIdEstoqueAtual(loja.getIdEstoque().toString());	
 				}else{
@@ -293,6 +309,7 @@ public class LojaBackBean extends BackBean {
 			loja.setNome(this.getNome());
 			loja.setNumeroIp(this.getNumeroIp());
 			loja.setNumeroPorta(this.getNumeroPorta());
+			loja.setNumeroPortaServlet(this.getNumeroPortaServlet());
 			
 			loja.setIdEstoque(new Long(this.getIdEstoqueAtual()));
 			loja.setIdContaCorrente(new Long(this.getIdContaAtual()));
@@ -318,8 +335,9 @@ public class LojaBackBean extends BackBean {
 			loja.setId(new Long(this.getId()));
 			loja.setNome(this.getNome());
 			loja.setNumeroIp(this.getNumeroIp());
-			loja.setNumeroPorta(this.getNumeroIp());			
-		
+			loja.setNumeroPorta(this.getNumeroPorta());			
+			loja.setNumeroPortaServlet(this.getNumeroPortaServlet());
+	
 			loja.setIdEstoque(new Long(this.getIdEstoqueAtual()));	
 			loja.setIdContaCorrente(new Long(this.getIdContaAtual()));
 			
@@ -344,6 +362,7 @@ public class LojaBackBean extends BackBean {
 		this.setNome(null);
 		this.setNumeroIp(null);
 		this.setNumeroPorta(null);
+		this.setNumeroPortaServlet(null);
 		this.setIdEstoqueAtual("0");
 		this.setIdContaAtual("0");
 	}

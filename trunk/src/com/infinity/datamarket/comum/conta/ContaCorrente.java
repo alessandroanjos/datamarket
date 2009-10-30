@@ -8,9 +8,6 @@ import com.infinity.datamarket.comum.util.Persistente;
 
 public class ContaCorrente extends Persistente implements Comparable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6474664301311452427L;
 	private String carteira ;
 	private String digitoContaCorrente;
@@ -21,8 +18,35 @@ public class ContaCorrente extends Persistente implements Comparable{
 	private String situacao;
 	private Banco banco;
 	private Loja loja;
-	
-	
+	private String mensagemBoleto1;
+	private String mensagemBoleto2;
+	private String mensagemBoleto3;
+	private String mensagemBoleto4;
+
+	public String getMensagemBoleto1() {
+		return mensagemBoleto1;
+	}
+	public void setMensagemBoleto1(String mensagemBoleto1) {
+		this.mensagemBoleto1 = mensagemBoleto1;
+	}
+	public String getMensagemBoleto2() {
+		return mensagemBoleto2;
+	}
+	public void setMensagemBoleto2(String mensagemBoleto2) {
+		this.mensagemBoleto2 = mensagemBoleto2;
+	}
+	public String getMensagemBoleto3() {
+		return mensagemBoleto3;
+	}
+	public void setMensagemBoleto3(String mensagemBoleto3) {
+		this.mensagemBoleto3 = mensagemBoleto3;
+	}
+	public String getMensagemBoleto4() {
+		return mensagemBoleto4;
+	}
+	public void setMensagemBoleto4(String mensagemBoleto4) {
+		this.mensagemBoleto4 = mensagemBoleto4;
+	}
 	public String getCarteira() {
 		return carteira;
 	}

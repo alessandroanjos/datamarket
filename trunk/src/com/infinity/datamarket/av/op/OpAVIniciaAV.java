@@ -27,7 +27,7 @@ public class OpAVIniciaAV extends Mic{
 	        
 			String componente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).toString();
 	        int loja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();
-	        
+
 			tela.setCampoComponente(componente);
 			tela.setCampoDesconto("");
 			tela.setCampoLoja("" + loja);

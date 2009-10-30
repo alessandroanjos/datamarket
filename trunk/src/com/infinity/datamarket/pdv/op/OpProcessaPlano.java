@@ -116,6 +116,8 @@ public class OpProcessaPlano extends Mic{
 			eventos.add(eventoItemPagamentoBoleto);
 			eventoItemPagamento = eventoItemPagamentoBoleto;
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamentoBoleto);
+			//apaga o boleto
+			gerenciadorPerifericos.getCmos().gravar(CMOS.BOLETO, null);
 		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.CARTAO_OFF)){
 			DadosCartaoOff dados = (DadosCartaoOff) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CARTAO_OFF);
 			eventoItemPagamento = new EventoItemPagamentoCartaoOff(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo,

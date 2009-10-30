@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import com.infinity.datamarket.comum.banco.Banco;
+import com.infinity.datamarket.comum.boleto.Boleto;
+import com.infinity.datamarket.comum.boleto.CadastroBoleto;
 import com.infinity.datamarket.comum.cliente.CadastroCliente;
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.conta.CadastroContaCorrente;
@@ -49,6 +51,10 @@ public class CadastroTransacao extends Cadastro{
 		return instancia;
 	}
 	
+
+	private CadastroBoleto getCadastroBoleto(){
+		return CadastroBoleto.getInstancia();
+	}
 	
 	public IRepositorioTransacao getRepositorio() {
 		return (IRepositorioTransacao) super.getRepositorio(IRepositorio.REPOSITORIO_TRANSACAO);
@@ -68,6 +74,29 @@ public class CadastroTransacao extends Cadastro{
 	}
 
 	public void inserir(Transacao trans) throws AppException{		
+		
+		if (trans instanceof TransacaoVenda ) {
+			TransacaoVenda transVenda = (TransacaoVenda) trans;
+			Collection col = transVenda.getEventosTransacao();
+			if (col != null && col.size() > 0){
+				Iterator i = col.iterator();
+				while(i.hasNext()){
+					EventoTransacao evt = (EventoTransacao) i.next();
+					if (evt instanceof EventoItemPagamentoBoleto){
+						EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
+						if (ev.getBoleto() != null) {
+							Boleto boleto = ev.getBoleto();
+							if (boleto != null) {
+	
+								getCadastroBoleto().inserir(boleto);
+
+							}
+						}
+					}
+				}
+			}	
+		}
+
 		getRepositorio().inserir(trans);
 		if (trans instanceof TransacaoResuprimento){
 			TransacaoResuprimento transResuprimento = (TransacaoResuprimento) trans;
