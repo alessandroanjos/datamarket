@@ -27,11 +27,6 @@
         </property>
         
                 
-        <property name="numeroPortaServlet" type="java.lang.String" update="true" insert="true">
-            <column name="NUMERO_PORTA_SERVLET" length="4" not-null="true"/>
-        </property>
-        
-        
         <property name="numeroPorta" type="java.lang.String" update="true" insert="true">
             <column name="NUMERO_PORTA" length="4" not-null="true"/>
         </property>

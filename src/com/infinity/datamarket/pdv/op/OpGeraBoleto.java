@@ -22,6 +22,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.pdv.util.ServerConfig;
 
 public class OpGeraBoleto extends Mic{
 	
@@ -99,15 +100,8 @@ public class OpGeraBoleto extends Mic{
 			}
 			boleto.setTipoBanco(new Integer(codigoBanco));// = "00000000000";
 
-//			boleto.setNomeCliente(nomeCliente);// = "Fabio Souza";
-//			boleto.setEnderecoCliente(enderecoCliente);// = "Rua Geek 010101";
-//			boleto.setBairroCliente(bairroCliente);// = "Rua Geek 010101";
-//			boleto.setCidadeCliente(cidadeCliente);// = "Rio de Janeiro";
-//			boleto.setUFCliente(UFCliente);// = "RJ";
-//			boleto.setCpfCnpj(cpfCnpj);// = "00000000000";
-//			boleto.setCepCliente(cepCliente);// = "00000000000";
-
-			URL urlCon = new URL("http://" + loja.getNumeroIp() + ":" + loja.getNumeroPortaServlet() + "/EnterpriseServer/GerarBoletoServlet.servlet");
+			URL urlCon = new URL("http://" + ServerConfig.HOST_SERVIDOR_ES + ":" + ServerConfig.PORTA_SERVIDOR_ES + "/" +
+					ServerConfig.CONTEXTO_SERVIDOR_ES + "/" + ServerConfig.SERVLET_GERADOR_BOLETO);
 			URLConnection huc1 = urlCon.openConnection();
 
 			huc1.setAllowUserInteraction(true);

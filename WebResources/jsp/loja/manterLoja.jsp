@@ -98,17 +98,6 @@
 										</h:inputText>
 									</div>
 								</li>
-								<li class="normal">															
-									<div>
-										<h:outputLabel styleClass="desc" value="Número Porta Servlet*"></h:outputLabel>
-										<h:inputText styleClass="field text inteiro" id="numeroPortaServlet" maxlength="4" 
-											onfocus="this.select();" onclick="this.select();"
-											onkeypress="return SoNumero(event);"
-											size="4" value="#{lojaBB.numeroPortaServlet}" >
-											<f:validateLength maximum="4" />
-										</h:inputText>
-									</div>
-								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Estoque Atual*"></h:outputLabel>

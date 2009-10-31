@@ -40,6 +40,15 @@
 		<servlet-name>GerarBoletoServlet</servlet-name>
 		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.GerarBoletoServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ReceptorTransacaoServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ReceptorTransacaoServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ReceptorTransacaoServlet</servlet-name>
+		<url-pattern>/ReceptorTransacaoServlet.servlet</url-pattern>
+	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>GerarBoletoServlet</servlet-name>

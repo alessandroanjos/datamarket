@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.banco.Banco;
 import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.boleto.CadastroBoleto;
@@ -120,6 +121,28 @@ public class CadastroTransacao extends Cadastro{
 	}
 	
 	public void inserirES(Transacao trans) throws AppException{		
+
+		if (trans instanceof TransacaoVenda ) {
+			TransacaoVenda transVenda = (TransacaoVenda) trans;
+			Collection col = transVenda.getEventosTransacao();
+			if (col != null && col.size() > 0){
+				Iterator i = col.iterator();
+				while(i.hasNext()){
+					EventoTransacao evt = (EventoTransacao) i.next();
+					if (evt instanceof EventoItemPagamentoBoleto){
+						EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
+						if (ev.getBoleto() != null) {
+							Boleto boleto = ev.getBoleto();
+							if (boleto != null) {
+								boleto.setId(new Long(boleto.getNossoNumero()));	
+								getCadastroBoleto().alterar(boleto);
+							}
+						}
+					}
+				}
+			}	
+		}
+
 		getRepositorio().inserir(trans);
 		if (trans instanceof TransacaoCancelamento){
 			TransacaoCancelamento transCanc = (TransacaoCancelamento) trans;
@@ -479,7 +502,60 @@ public class CadastroTransacao extends Cadastro{
 						baixas.add(baixa);
 						l.setItensPagamento(baixas);
 						getRepositorioLancamento().inserir(l);
+
+				}else if (eip instanceof EventoItemPagamentoBoleto){
+					EventoItemPagamentoBoleto eipb = (EventoItemPagamentoBoleto) eip;
+					Loja loja = CadastroLoja.getInstancia().consultarPorPK(new Long(eipb.getPk().getLoja()));
+					ContaCorrente contaCorrente = CadastroContaCorrente.getInstancia().consultarPorId(loja.getIdContaCorrente());								
+					Lancamento l = new Lancamento();						
+					l.setLoja(loja);
+					l.setDataLancamento(eip.getDataHoraEvento());
+					l.setDescricao(flagVenda?"VENDA":"PAGAMENTO");
+					l.setValor(eip.getValorLiquido());
+					l.setTipoLancamento(Lancamento.CREDITO);
+					Controle controle = CadastroControleId.getInstancia().getControle(Lancamento.class);
+					l.setId(controle.getValor());								
+					l.setDataVencimento(eipb.getDataHoraEvento());
+					l.setSituacao(Lancamento.PENDENTE);	
+					GrupoLancamento grupo = new GrupoLancamento();
+					grupo.setId(GrupoLancamento.GRUPO_VENDA);
+					l.setGrupo(grupo);
+					BaixaLancamentoPK pk = new BaixaLancamentoPK();
+					pk.setIdLancamento(l.getId());
+					pk.setId(new Long(1));
+					BaixaLancamento baixa = new BaixaLancamento();
+					baixa.setPk(pk);
+					baixa.setCpfCnpjCheque(eipb.getBoleto().getCpfCnpj());
+					baixa.setDataCheque(eip.getDataHoraEvento());
+					FormaRecebimento forma = new FormaRecebimento();
+					forma.setId(ConstantesFormaRecebimento.BOLETO);
+					baixa.setFormaRecebimento(forma);
+					baixa.setItemLancadoCtaCorrente(Constantes.NAO);
+					baixa.setValor(l.getValor());
+					if (eipb.getBoleto().getCpfCnpj() != null &&eipb.getBoleto().getCpfCnpj().length() > 11){
+						baixa.setTipoPessoaCheque(Cliente.PESSOA_FISICA);
+					}else{
+						baixa.setTipoPessoaCheque(Cliente.PESSOA_JURIDICA);
 					}
+					baixa.setSituacao(BaixaLancamento.ATIVO);
+//					if (eipb.getNumeroChequeLido() == null){
+//						baixa.setAgencia(eipc.getAgencia());
+//						baixa.setNumeroConta(eipc.getConta());
+//						Banco b = new Banco();
+//						b.setId(new Long(eipc.getBanco()));
+//						baixa.setBanco(b);
+//						baixa.setNumeroCheque(eipc.getNumeroCheque());
+//					}else{
+						baixa.setNumeroCheque(eipb.getBoleto().getNossoNumero()); 
+//					}
+					baixa.setContaCorrente(contaCorrente);
+					baixa.setValorTotalItem(l.getValor());
+					baixa.setDataBaixa(eip.getDataHoraEvento());
+					Set<BaixaLancamento> baixas = new HashSet<BaixaLancamento>();
+					baixas.add(baixa);
+					l.setItensPagamento(baixas);
+					getRepositorioLancamento().inserir(l);
+				}
 //					else if (eip instanceof EventoItemPagamentoCartaoProprio){
 //						EventoItemPagamentoCartaoProprio eipc = (EventoItemPagamentoCartaoProprio) eip;
 //						Loja loja = CadastroLoja.getInstancia().consultarPorPK(new Long(evt.getPk().getLoja()));

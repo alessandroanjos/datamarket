@@ -88,7 +88,7 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 //		.setProperty("hibernate.connection.username","sa")
 //		.setProperty("hibernate.connection.password","sa")
 //		.setProperty("hibernate.connection.pool_size","1");
-		File fileCfg = new File("C:\\workspace\\Datamarket\\src\\hibernate.cfg.pdv.xml");
+		File fileCfg = new File("C:\\workspace\\datamarket\\src\\hibernate.cfg.pdv.xml");
 		 
 		sessionFactory = cfg.configure(fileCfg).
 			setProperty("hibernate.connection.url","jdbc:h2:\\pdv\\db\\"+loja+"\\pdv").buildSessionFactory();

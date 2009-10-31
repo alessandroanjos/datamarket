@@ -1,5 +1,8 @@
 package com.infinity.datamarket.comum.boleto;
 
+import java.util.Collection;
+
+import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Repositorio;
 
@@ -21,9 +24,9 @@ public class RepositorioBoleto extends Repositorio implements IRepositorioBoleto
 //		inserirDadoLote(Boleto);
 	}
 //	
-//	public Collection consultar(IPropertyFilter filter) throws AppException{
-//		return filter(filter, false);
-//	}
+	public Collection consultar(IPropertyFilter filter) throws AppException{
+		return filter(filter, false);
+	}
 //	
 //	public Boleto consultarPorPK(Long id) throws AppException{
 //		return (Boleto) findById(CLASSE, id);
@@ -33,10 +36,10 @@ public class RepositorioBoleto extends Repositorio implements IRepositorioBoleto
 //		return findAll(CLASSE);
 //	}
 //	
-//	public void alterar(Boleto Boleto) throws AppException{
-//		update(Boleto);
-//		alterarDadoLote(Boleto);
-//	}
+	public void alterar(Boleto Boleto) throws AppException{
+		update(Boleto);
+		alterarDadoLote(Boleto);
+	}
 //	
 //	public void excluir(Boleto Boleto) throws AppException{
 //		remove(Boleto);

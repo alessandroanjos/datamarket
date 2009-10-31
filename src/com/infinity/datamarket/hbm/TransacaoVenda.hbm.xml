@@ -94,7 +94,7 @@
 			<one-to-many
 				class="com.infinity.datamarket.comum.transacao.EventoTransacao" />
 		</set>
-		
+
 		<set name="pedidos" inverse="true" cascade="save-update, delete-orphan"
 			lazy="false">
 			<key>
@@ -106,7 +106,6 @@
 			<one-to-many
 				class="com.infinity.datamarket.comum.operacao.OperacaoPedido" />
 		</set>
-		
 
 	</joined-subclass>
 </hibernate-mapping>
