@@ -18,7 +18,6 @@ public class Loja extends Persistente {
 	
 	private String nome;
 	private String numeroIp;
-	private String numeroPortaServlet;
 	private String numeroPorta;
 	private Long idEstoque;
 	private Long idContaCorrente;
@@ -38,14 +37,6 @@ public class Loja extends Persistente {
 	 */
 	public void setUsuarios(Set usuarios) {
 		this.usuarios = usuarios;
-	}
-
-	public String getNumeroPortaServlet() {
-		return numeroPortaServlet;
-	}
-
-	public void setNumeroPortaServlet(String numeroPortaServlet) {
-		this.numeroPortaServlet = numeroPortaServlet;
 	}
 
 	/**

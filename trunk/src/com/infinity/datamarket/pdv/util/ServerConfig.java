@@ -17,7 +17,13 @@ public class ServerConfig {
 	
 	public static final String QUEUE_INFO_COMPONENT_SERVER_JNDI;
 	public static final String CONNECTION_FACTORY;
+	public static final String HOST_SERVIDOR_ES;
+	public static final String PORTA_SERVIDOR_ES;
 
+	public static final String CONTEXTO_SERVIDOR_ES;
+	public static final String SERVLET_GERADOR_BOLETO;
+
+	
 	
 	static{
 		ResourceBundle rb = ResourceBundle.getBundle("ServerConfig");
@@ -35,6 +41,12 @@ public class ServerConfig {
 		
 		QUEUE_INFO_COMPONENT_SERVER_JNDI = rb.getString("QUEUE_INFO_COMPONENT_SERVER_JNDI");
 		CONNECTION_FACTORY = rb.getString("CONNECTION_FACTORY");
-		
-	}
+
+		HOST_SERVIDOR_ES = rb.getString("HOST_SERVIDOR_ES");
+		PORTA_SERVIDOR_ES = rb.getString("PORTA_SERVIDOR_ES");
+
+
+		CONTEXTO_SERVIDOR_ES= rb.getString("CONTEXTO_SERVIDOR_ES");
+		SERVLET_GERADOR_BOLETO= rb.getString("SERVLET_GERADOR_BOLETO");
+}
 }

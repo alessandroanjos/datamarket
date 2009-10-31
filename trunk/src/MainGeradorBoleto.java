@@ -1,11 +1,4 @@
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Date;
 
 import org.jboleto.JBoleto;
@@ -62,7 +55,7 @@ public class MainGeradorBoleto {
 			boleto.setInstrucao4(instrucao4);// = "";
 			boleto.setAgencia(agencia);// = "2971";
 			boleto.setCarteira(carteira);// = "175";
-			boleto.setContaCorrente(contaCorrente);// = "08690";
+			boleto.setNumeroContaCorrente(contaCorrente);// = "08690";
 			boleto.setDigitoContaCorrente(digitoContaCorrente);// = "1";
 			boleto.setValor(valor);// = "0.01";
 
@@ -100,7 +93,7 @@ public class MainGeradorBoleto {
 
 			jBoletoBean.setCarteira(boleto.getCarteira());
 			jBoletoBean.setAgencia(boleto.getAgencia());
-			jBoletoBean.setContaCorrente(boleto.getContaCorrente());
+			jBoletoBean.setContaCorrente(boleto.getNumeroContaCorrente());
 			jBoletoBean.setDvContaCorrente(boleto.getDigitoContaCorrente());
 
 			jBoletoBean.setNossoNumero(boleto.getNossoNumero(), 8);

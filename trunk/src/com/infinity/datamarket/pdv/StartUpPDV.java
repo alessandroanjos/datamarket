@@ -31,11 +31,10 @@ public class StartUpPDV {
 //
 //		ti.setVisible(true);
 //		ti.jProgressBar1.setValue(25);
-		
+
 		//ControladorMaquinaEstado contr = ConcentradorMaquina.getInstancia();
 		
 		ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("fluxoPDV.xml");
-
 		
 		RepositoryManagerHibernateUtil.currentSession();
 		GerenciadorPerifericos ger = GerenciadorPerifericos.getInstancia();
