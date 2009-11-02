@@ -7,15 +7,13 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Collection;
 import java.util.Date;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.conta.ContaCorrente;
-import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
+import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
@@ -32,22 +30,19 @@ public class OpGeraBoleto extends Mic{
 			BigDecimal valorPagamento = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_PAGAMENTO_ATUAL);
 
 			int idLoja = Integer.parseInt(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValor());
+			int componente = Integer.parseInt(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValor());
+			Usuario usu = (Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.OPERADOR_ATUAL);
 			Loja loja = Fachada.getInstancia().consultarLojaPorId(new Long(idLoja));
 			ContaCorrente contaCorrente = null;
 
 			try {
-				IPropertyFilter filtro = new PropertyFilter();
-				filtro.setTheClass(ContaCorrente.class);
-				filtro.addProperty("situacao", "S");
-				filtro.addProperty("loja.id", new Long(idLoja));
-				Collection coll = Fachada.getInstancia().consultarContaCorrente(filtro);
-				if (coll == null || coll.size() == 0) {
+				contaCorrente = getFachadaPDV().consultarContaCorrentePorID(loja.getIdContaCorrente() + "");
+				if (contaCorrente == null) {
 					gerenciadorPerifericos.getDisplay().setMensagem("Loja sem Conta Corrente");
 					gerenciadorPerifericos.esperaVolta();
 					gerenciadorPerifericos.getDisplay().setMensagem("A receber");
 					return ALTERNATIVA_2;
 				}
-				contaCorrente = (ContaCorrente)coll.iterator().next();
 			} catch (Exception e) {
 				gerenciadorPerifericos.getDisplay().setMensagem("Loja sem Conta Corrente");
 				gerenciadorPerifericos.esperaVolta();
@@ -67,15 +62,10 @@ public class OpGeraBoleto extends Mic{
 			String numeroContaCorrente = contaCorrente.getNumero();
 			String digitoContaCorrente = contaCorrente.getDigitoContaCorrente();
 
-//			String nomeCliente = "Fabio Souza";
-//			String enderecoCliente = "Rua Geek 010101";
-//			String bairroCliente = "Rua Geek 010101";
-//			String cidadeCliente = "Rio de Janeiro";
-//			String UFCliente = "RJ";
-//			String cpfCnpj = "00000000000";
-//			String cepCliente = "00000000000";
-
 			Boleto boleto = new Boleto();
+			if (usu != null && usu.getId() != null) 
+				boleto.setUsuario(new Integer(usu.getId().intValue()));
+			boleto.setComponente(componente);
 			boleto.setNossoNumero("00000000");
 			boleto.setLoja(idLoja);
 			boleto.setContaCorrente(contaCorrente);
@@ -151,7 +141,7 @@ public class OpGeraBoleto extends Mic{
 			e.printStackTrace();
 			return ALTERNATIVA_2;
 		} catch (IOException e) {
-			gerenciadorPerifericos.getDisplay().setMensagem("Erro na comunicação");
+			gerenciadorPerifericos.getDisplay().setMensagem("Erro na comunicação com servidor");
 			try {
 				gerenciadorPerifericos.esperaVolta();	
 			} catch (Exception ee) {}
@@ -160,7 +150,7 @@ public class OpGeraBoleto extends Mic{
 			e.printStackTrace();
 			return ALTERNATIVA_2;
 		} catch (ClassNotFoundException e) {
-			gerenciadorPerifericos.getDisplay().setMensagem("Erro na comunicação");
+			gerenciadorPerifericos.getDisplay().setMensagem("Erro na comunicação com servidor");
 			try {
 				gerenciadorPerifericos.esperaVolta();	
 			} catch (Exception ee) {}
