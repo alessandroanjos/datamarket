@@ -77,7 +77,7 @@ public class OpGeraBoleto extends Mic{
 
 			Boleto boleto = new Boleto();
 			boleto.setNossoNumero("00000000");
-			boleto.setLoja(loja);
+			boleto.setLoja(idLoja);
 			boleto.setContaCorrente(contaCorrente);
 			boleto.setDataVencimento(dataVencimento);// = "10/08/2009";
 			boleto.setDataProcessamento(dataProcessamento);// = "05/07/2009";

@@ -5,12 +5,15 @@ import java.util.Date;
 
 import org.jboleto.JBoleto;
 
-import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.conta.ContaCorrente;
-import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class Boleto extends Persistente{
+
+	public static int GERADO = 0;
+	public static int ATIVO = 1;
+	public static int CANCELADO = 2;
+	public static int PAGO = 3;
 
 	private static final long serialVersionUID = 4520193234234231246L;
 
@@ -25,10 +28,10 @@ public class Boleto extends Persistente{
 	public static int TIPO_BANCO_SANTANDER = JBoleto.SANTANDER;
 	public static int TIPO_BANCO_UNIBANCO = JBoleto.UNIBANCO;
 
-	private Cliente cliente;
+	private Integer status = new Integer(GERADO);
+	private Integer cliente;
 	private ContaCorrente contaCorrente;
-	private Loja loja;
-	
+
 	private Integer tipoBanco = 0;
    	private Date dataProcessamento = new Date();
    	private String cedente = null;
@@ -52,6 +55,10 @@ public class Boleto extends Persistente{
    	private String UFCliente = null;
    	private String cpfCnpj = null;
    	private String cepCliente = null;
+
+   	private Integer loja = null;
+   	private Integer componente = null;
+   	private Integer usuario = null;
 
 	public Boleto(Date dataVencimento, int tipoBanco, Date dataProcessamento, String cedente, String nossoNumero, String instrucao1, String instrucao2, String instrucao3, String instrucao4, String agencia, String carteira, String contaCorrente, String digitoContaCorrente, BigDecimal valor) {
 		super();
@@ -96,17 +103,24 @@ public class Boleto extends Persistente{
 	}
 	public Boleto(){}
 	
-	public Cliente getCliente() {
+	public Integer getCliente() {
 		return cliente;
 	}
-	public void setCliente(Cliente cliente) {
+	public void setCliente(Integer cliente) {
 		this.cliente = cliente;
 	}
-	public Loja getLoja() {
+	public Integer getLoja() {
 		return loja;
 	}
-	public void setLoja(Loja loja) {
+	public void setLoja(Integer loja) {
 		this.loja = loja;
+	}
+	
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 	public String getAgencia() {
 		return agencia;
@@ -239,5 +253,17 @@ public class Boleto extends Persistente{
 	}
 	public void setContaCorrente(ContaCorrente contaCorrente) {
 		this.contaCorrente = contaCorrente;
+	}
+	public Integer getComponente() {
+		return componente;
+	}
+	public void setComponente(Integer componente) {
+		this.componente = componente;
+	}
+	public Integer getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Integer usuario) {
+		this.usuario = usuario;
 	}
 }
