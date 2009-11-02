@@ -115,6 +115,11 @@
         <property name="cepCliente" type="java.lang.String" update="true" insert="true">
             <column name="CEP_CLIENTE" length="100" not-null="false"/>
         </property>
+
+		<many-to-one name="arquivosProcessado" class="com.infinity.datamarket.comum.boleto.ArquivosProcessado" update="true" insert="true">
+	          <column name="ARQUIVOS_PROCESSADO" not-null="false"/>
+	        </many-to-one>
+
     </class>
 
 </hibernate-mapping>

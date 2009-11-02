@@ -10,7 +10,9 @@ import com.infinity.datamarket.autorizador.AutorizacaoCartaoProprio;
 import com.infinity.datamarket.autorizador.CadastroAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.banco.Banco;
 import com.infinity.datamarket.comum.banco.CadastroBanco;
+import com.infinity.datamarket.comum.boleto.ArquivosProcessado;
 import com.infinity.datamarket.comum.boleto.Boleto;
+import com.infinity.datamarket.comum.boleto.CadastroArquivosProcessado;
 import com.infinity.datamarket.comum.boleto.CadastroBoleto;
 import com.infinity.datamarket.comum.cliente.CadastroCliente;
 import com.infinity.datamarket.comum.cliente.Cliente;
@@ -242,9 +244,13 @@ public class Fachada {
 	private CadastroLancamento getCadastroLancamento() {
 		return CadastroLancamento.getInstancia();
 	}	
-	
+
 	private CadastroBanco getCadastroBanco() {
 		return CadastroBanco.getInstancia();
+	}	
+
+	private CadastroArquivosProcessado getCadastroArquivosProcessado() {
+		return CadastroArquivosProcessado.getInstancia();
 	}	
 	
 	private CadastroContaCorrente getCadastroContaCorrente() {
@@ -7036,5 +7042,109 @@ public class Fachada {
 		}
 		return out;
 	}
+
+	
+	
+	
+	
+
+	public void alterar(ArquivosProcessado ArquivosProcessado) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroArquivosProcessado().alterar(ArquivosProcessado);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
+	public void inserir(ArquivosProcessado ArquivosProcessado) throws AppException{
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroArquivosProcessado().inserir(ArquivosProcessado);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	
+
+	public Collection consultarArquivosProcessado(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroArquivosProcessado().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+//	public void inserir(ArquivosProcessado ArquivosProcessado) throws AppException{
+//		getRepositorio().inserir(ArquivosProcessado);
+//	}
+//	
+//	public void alterar(ArquivosProcessado ArquivosProcessado) throws AppException{
+//		getRepositorio().alterar(ArquivosProcessado);
+//	}
+//	
+//	public Collection consultar(IPropertyFilter filter) throws AppException{
+//		return getRepositorio().consultar(filter);
+//	}
 
 }

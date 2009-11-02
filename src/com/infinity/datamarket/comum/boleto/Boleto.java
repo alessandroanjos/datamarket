@@ -60,6 +60,8 @@ public class Boleto extends Persistente{
    	private Integer componente = null;
    	private Integer usuario = null;
 
+   	private ArquivosProcessado arquivosProcessado;
+
 	public Boleto(Date dataVencimento, int tipoBanco, Date dataProcessamento, String cedente, String nossoNumero, String instrucao1, String instrucao2, String instrucao3, String instrucao4, String agencia, String carteira, String contaCorrente, String digitoContaCorrente, BigDecimal valor) {
 		super();
 		this.dataVencimento = dataVencimento;
@@ -266,4 +268,11 @@ public class Boleto extends Persistente{
 	public void setUsuario(Integer usuario) {
 		this.usuario = usuario;
 	}
+	public ArquivosProcessado getArquivosProcessado() {
+		return arquivosProcessado;
+	}
+	public void setArquivosProcessado(ArquivosProcessado arquivosProcessado) {
+		this.arquivosProcessado = arquivosProcessado;
+	}
+	
 }

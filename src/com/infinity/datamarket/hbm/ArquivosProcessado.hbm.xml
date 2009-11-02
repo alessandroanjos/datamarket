@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.boleto.ArquivosProcessado" table="ARQUIVOS_PROCESSADOS" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <id
+            name="id"
+            column="ID"
+            type="java.lang.Long"
+            length="18"
+            unsaved-value="null"
+        >
+            <generator class="increment">
+            </generator>
+        </id>
+
+        <property name="nomeArquivo" type="java.lang.Integer" update="true" insert="true">
+            <column name="NOME_ARQUIVO" not-null="true"/>
+        </property>
+
+        <property name="dataHoraInicial" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_HORA_INICIAL" not-null="true"/>
+        </property> 
+
+        <property name="dataHoraFinal" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_HORA_FINAL" not-null="false"/>
+        </property>
+
+        <property name="dataProcessamento" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_PROCESSAMENTO" not-null="true"/>
+        </property> 
+
+        <many-to-one name="banco" class="com.infinity.datamarket.comum.banco.Banco" update="true" insert="true">
+	          <column name="ID_BANCO" not-null="true"/>
+        </many-to-one>
+
+    </class>
+
+</hibernate-mapping>
