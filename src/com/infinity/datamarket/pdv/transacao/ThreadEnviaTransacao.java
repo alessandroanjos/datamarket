@@ -1,5 +1,9 @@
 package com.infinity.datamarket.pdv.transacao;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -8,6 +12,7 @@ import org.hibernate.FetchMode;
 import org.hibernate.Hibernate;
 
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.transacao.Transacao;
@@ -36,7 +41,7 @@ public class ThreadEnviaTransacao extends Thread{
 				Collection transacoes = getTransacoesNaoProcessadas();
 				Iterator i = transacoes.iterator();				
 				TransactionServerRemote remote = (TransactionServerRemote) ServiceLocator.getJNDIObject(ServerConfig.TRANSACTION_SERVER_JNDI);
-				if (remote != null){	
+				//if (remote != null){	
 					while(i.hasNext()){
 						Transacao trans = (Transacao) i.next();						
 						if (trans instanceof TransacaoVenda){
@@ -46,18 +51,44 @@ public class ThreadEnviaTransacao extends Thread{
 						}
 						System.out.println("PROCESSANDO TRANSA플O >> "+trans.getPk());
 						try{
-							
-							remote.inserirTransacao(trans);
-							Fachada.getInstancia().atualizaTransacaoProcessada(trans);
-							System.out.println("TRANSA플O PROCESSADA COM SUCESSO");
-						}catch(AppException e){
+	//						URL urlCon = new URL("http://" + loja.getNumeroIp() + ":" + loja.getNumeroPortaServlet() + "/EnterpriseServer/GerarBoletoServlet.servlet");
+							URL urlCon = new URL("http://localhost:8080/EnterpriseServer/ReceptorTransacaoServlet.servlet");
+							URLConnection huc1 = urlCon.openConnection();
+	
+							huc1.setAllowUserInteraction(true);
+							huc1.setDoOutput(true);
+	
+							ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
+							output.writeObject(trans);
+							ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
+							Object obj = input.readObject();
+							if (obj instanceof String && obj.equals("OK")) {
+								Fachada.getInstancia().atualizaTransacaoProcessada(trans);
+								System.out.println("TRANSA플O PROCESSADA COM SUCESSO");
+							} else if (obj instanceof Exception) {
+								((Exception) obj).printStackTrace();
+								System.out.println("ERRO NO PROCESSAMENTO DA TRANSA플O");
+								break;
+							}
+						} catch (Exception e) {
 							System.out.println("ERRO NO PROCESSAMENTO DA TRANSA플O");
 							e.printStackTrace();
+							break;
 						}
+
+//						try{
+//							
+//							remote.inserirTransacao(trans);
+//							Fachada.getInstancia().atualizaTransacaoProcessada(trans);
+//							System.out.println("TRANSA플O PROCESSADA COM SUCESSO");
+//						}catch(AppException e){
+//							System.out.println("ERRO NO PROCESSAMENTO DA TRANSA플O");
+//							e.printStackTrace();
+//						}
 					}
-				}else{
-					System.out.println("TRANSA합ES N홒 PROCESSADAS");
-				}
+//				}else{
+//					System.out.println("TRANSA합ES N홒 PROCESSADAS");
+//				}
 			}catch (Throwable e){
 				System.out.println(e.getMessage());
 				//e.printStackTrace();

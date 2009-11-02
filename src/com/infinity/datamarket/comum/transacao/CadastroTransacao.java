@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.banco.Banco;
 import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.boleto.CadastroBoleto;
@@ -135,6 +134,7 @@ public class CadastroTransacao extends Cadastro{
 							Boleto boleto = ev.getBoleto();
 							if (boleto != null) {
 								boleto.setId(new Long(boleto.getNossoNumero()));	
+								boleto.setStatus(Boleto.ATIVO);
 								getCadastroBoleto().alterar(boleto);
 							}
 						}
@@ -170,7 +170,7 @@ public class CadastroTransacao extends Cadastro{
 				}
 				
 				Collection col = transPagamento.getEventosTransacao();
-				gerarLancamentos(col,false);
+				gerarLancamentos(col,false,trans);
 			}
 			
 		}else if (trans instanceof TransacaoVenda){
@@ -212,7 +212,7 @@ public class CadastroTransacao extends Cadastro{
 						}
 					}
 				}
-				gerarLancamentos(col,true);
+				gerarLancamentos(col,true,trans);
 			}
 		}
 	}
@@ -383,7 +383,7 @@ public class CadastroTransacao extends Cadastro{
 		return getRepositorio().consultarClienteTransacao(filter);
 	}
 	
-	private void gerarLancamentos(Collection eventos, boolean flagVenda) throws AppException{
+	private void gerarLancamentos(Collection eventos, boolean flagVenda, Transacao trans) throws AppException{
 		if (eventos != null && eventos.size() > 0){
 			Iterator i = eventos.iterator();
 			while(i.hasNext()){
@@ -399,7 +399,8 @@ public class CadastroTransacao extends Cadastro{
 							Iterator it = parcelas.iterator();
 							while(it.hasNext()){										
 								ParcelaEventoItemPagamentoChequePredatado parcela = (ParcelaEventoItemPagamentoChequePredatado) it.next();
-								Lancamento l = new Lancamento();									
+								Lancamento l = new Lancamento();
+								l.setTransacao(trans);
 								l.setLoja(loja);
 								l.setDataLancamento(eip.getDataHoraEvento());
 								l.setDescricao(flagVenda?"VENDA":"PAGAMENTO");
@@ -456,6 +457,7 @@ public class CadastroTransacao extends Cadastro{
 						ContaCorrente conta = CadastroContaCorrente.getInstancia().consultarPorId(loja.getIdContaCorrente());								
 						Lancamento l = new Lancamento();						
 						l.setLoja(loja);
+						l.setTransacao(trans);
 						l.setDataLancamento(eip.getDataHoraEvento());
 						l.setDescricao(flagVenda?"VENDA":"PAGAMENTO");
 						l.setValor(eip.getValorLiquido());
@@ -508,7 +510,9 @@ public class CadastroTransacao extends Cadastro{
 					Loja loja = CadastroLoja.getInstancia().consultarPorPK(new Long(eipb.getPk().getLoja()));
 					ContaCorrente contaCorrente = CadastroContaCorrente.getInstancia().consultarPorId(loja.getIdContaCorrente());								
 					Lancamento l = new Lancamento();						
+					l.setBoleto(eipb.getBoleto());
 					l.setLoja(loja);
+					l.setTransacao(trans);
 					l.setDataLancamento(eip.getDataHoraEvento());
 					l.setDescricao(flagVenda?"VENDA":"PAGAMENTO");
 					l.setValor(eip.getValorLiquido());

@@ -4,9 +4,10 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 
-import com.infinity.datamarket.comum.cliente.Cliente;
+import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.transacao.ClienteTransacao;
+import com.infinity.datamarket.comum.transacao.Transacao;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.Persistente;
 
@@ -40,14 +41,24 @@ public class Lancamento extends Persistente{
 	private Fornecedor fornecedor;
 	private String situacao;
 	private ClienteTransacao cliente;
-	
+	private Transacao transacao;
+	private Boleto boleto;
+
 	private Collection<BaixaLancamento> itensPagamento;
 	private Collection<BaixaLancamento> itensPagamentoExcluidos;
-	
+
+	public Transacao getTransacao() {
+		return transacao;
+	}
+
+	public void setTransacao(Transacao transacao) {
+		this.transacao = transacao;
+	}
+
 	public Collection<BaixaLancamento> getItensPagamento() {
 		return itensPagamento;
 	}
-	
+
 	public void setItensPagamento(Collection<BaixaLancamento> itensPagamento) {
 		this.itensPagamento = itensPagamento;
 	}
@@ -166,5 +177,13 @@ public class Lancamento extends Persistente{
 
 	public void setCliente(ClienteTransacao cliente) {
 		this.cliente = cliente;
+	}
+
+	public Boleto getBoleto() {
+		return boleto;
+	}
+
+	public void setBoleto(Boleto boleto) {
+		this.boleto = boleto;
 	}	
 }
