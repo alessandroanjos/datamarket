@@ -14,6 +14,7 @@ package com.infinity.datamarket.comum.util;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public interface IRepositorio{
+	public static final String REPOSITORIO_ARQUIVO_PROCESSADO = "REPOSITORIO_ARQUIVO_PROCESSADO";
 	public static final String REPOSITORIO_PERFIL = "REPOSITORIO_PERFIL";
 	public static final String REPOSITORIO_AUTORIZACAO_CARTAO_PROPRIO = "REPOSITORIO_AUTORIZACAO_CARTAO_PROPRIO";
 	public static final String REPOSITORIO_ACUMULADOR_NAO_FISCAL = "REPOSITORIO_ACUMULADOR_NAO_FISCAL";
