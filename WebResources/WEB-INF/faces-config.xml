@@ -366,6 +366,12 @@
 			<from-outcome>mesma</from-outcome>
 			<to-view-id>/jsp/reports/relatorioAnaliticoEntrada.jsp</to-view-id>
 		</navigation-case>
+		<!-- <navigation-case>
+			<from-action>#{relatorioBB.executarRelatorioAnaliticoEntrada}</from-action>
+			<from-outcome>exibirReport</from-outcome>
+			<to-view-id>/jsp/popup/PopUpRelatorio.jsp</to-view-id>
+		</navigation-case>
+		 -->
 	</navigation-rule>
 	
 	<!-- RELATORIO ANALITICO FECHAMENTO VENDA -->
@@ -2230,7 +2236,51 @@
 		    <property-class>java.lang.String[]</property-class>
 		    <null-value/>
 		</managed-property>
-		
+		<managed-property>
+		    <property-name>idEnquadramento</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <value>R</value>
+		</managed-property>
+		<managed-property>
+		    <property-name>listaTiposEnquadramento</property-name>
+		    <property-class>javax.faces.model.SelectItem</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>itensComposicao</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>itensComposicaoModificados</property-name>
+		    <property-class>java.util.Collection</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idProdutoComposicao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricaoProdutoComposicao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>enquadramentoSelecionado</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>quantidadeProdutoComposicao</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <value>0.000</value>
+		</managed-property>
+		<managed-property>
+		    <property-name>quantidadeProdutoComposicaoTotal</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <value>0.000</value>
+		</managed-property>
 	</managed-bean>
 
 
