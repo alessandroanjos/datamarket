@@ -3,6 +3,7 @@ package com.infinity.datamarket.comum;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.hibernate.ObjectNotFoundException;
 
@@ -10,7 +11,7 @@ import com.infinity.datamarket.autorizador.AutorizacaoCartaoProprio;
 import com.infinity.datamarket.autorizador.CadastroAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.banco.Banco;
 import com.infinity.datamarket.comum.banco.CadastroBanco;
-import com.infinity.datamarket.comum.boleto.ArquivosProcessado;
+import com.infinity.datamarket.comum.boleto.ArquivoProcessado;
 import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.boleto.CadastroArquivosProcessado;
 import com.infinity.datamarket.comum.boleto.CadastroBoleto;
@@ -69,6 +70,7 @@ import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.totalizadores.CadastroTotalizadores;
 import com.infinity.datamarket.comum.totalizadores.TotalizadorNaoFiscal;
@@ -249,7 +251,7 @@ public class Fachada {
 		return CadastroBanco.getInstancia();
 	}	
 
-	private CadastroArquivosProcessado getCadastroArquivosProcessado() {
+	private CadastroArquivosProcessado getCadastroArquivoProcessado() {
 		return CadastroArquivosProcessado.getInstancia();
 	}	
 	
@@ -2282,7 +2284,47 @@ public class Fachada {
 			}
 		}
 	}
-	
+
+	public Boleto consultarBoletoID(Long idboleto) throws AppException{
+		Boleto c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			PropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(Boleto.class);
+			filter.addProperty("id", idboleto);
+			
+			Collection coll = getCadastroBoleto().consultar(filter);
+			if (coll != null) {
+				Iterator it = coll.iterator();
+				if (it.hasNext()) {
+					c = (Boleto)it.next();
+				}
+			}
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+
 	public Collection consultarImposto(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
@@ -7048,10 +7090,10 @@ public class Fachada {
 	
 	
 
-	public void alterar(ArquivosProcessado ArquivosProcessado) throws AppException{
+	public void alterarArquivoProcessado(ArquivoProcessado ArquivosProcessado) throws AppException{
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			getCadastroArquivosProcessado().alterar(ArquivosProcessado);
+			getCadastroArquivoProcessado().alterar(ArquivosProcessado);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
@@ -7076,10 +7118,10 @@ public class Fachada {
 		}
 	}
 
-	public void inserir(ArquivosProcessado ArquivosProcessado) throws AppException{
+	public void inserirArquivoProcessado(ArquivoProcessado ArquivosProcessado) throws AppException{
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			getCadastroArquivosProcessado().inserir(ArquivosProcessado);
+			getCadastroArquivoProcessado().inserir(ArquivosProcessado);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
@@ -7105,11 +7147,11 @@ public class Fachada {
 	}
 	
 
-	public Collection consultarArquivosProcessado(IPropertyFilter filter) throws AppException{
+	public Collection consultarArquivoProcessado(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			c = getCadastroArquivosProcessado().consultar(filter);
+			c = getCadastroArquivoProcessado().consultar(filter);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{

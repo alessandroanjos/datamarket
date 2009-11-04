@@ -6,7 +6,7 @@
 
 
 <hibernate-mapping>
-    <class name="com.infinity.datamarket.comum.boleto.ArquivosProcessado" table="ARQUIVOS_PROCESSADOS" dynamic-update="false" dynamic-insert="false" lazy="false">
+    <class name="com.infinity.datamarket.comum.boleto.ArquivoProcessado" table="ARQUIVO_PROCESSADO" dynamic-update="false" dynamic-insert="false" lazy="false">
         
         <id
             name="id"
@@ -15,11 +15,11 @@
             length="18"
             unsaved-value="null"
         >
-            <generator class="increment">
+            <generator class="assigned">
             </generator>
         </id>
 
-        <property name="nomeArquivo" type="java.lang.Integer" update="true" insert="true">
+        <property name="nomeArquivo" type="java.lang.String" update="true" insert="true">
             <column name="NOME_ARQUIVO" not-null="true"/>
         </property>
 
@@ -38,6 +38,15 @@
         <many-to-one name="banco" class="com.infinity.datamarket.comum.banco.Banco" update="true" insert="true">
 	          <column name="ID_BANCO" not-null="true"/>
         </many-to-one>
+        
+         <set name="pagamentosBoleto" inverse="true" cascade="save-update, delete-orphan"
+			lazy="true" order-by="ID">
+			<key>
+				<column name="ID_ARQUIVO_PROCESSADO" />
+			</key>
+			<one-to-many
+				class="com.infinity.datamarket.comum.boleto.PagamentoBoleto" />
+		</set>
 
     </class>
 
