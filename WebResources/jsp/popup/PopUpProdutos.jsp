@@ -21,22 +21,38 @@
 			<meta http-equiv="keywords" content="keyword1,keyword2,keyword3" />
 			<meta http-equiv="description" content="This is my page" />
 
-			<script type="text/javascript" src="/js/jquery.js"></script>
-			<script type="text/javascript" src="/js/global.js"></script>
-			<script type="text/javascript" src="/js/funcoes.js"></script>
-
+			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+			<script type="text/javascript"
+				src="/EnterpriseServer/js/jquery-maskedinput.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
-			<script>
-			   function send(idProduto,descricaoCompleta,precoVenda) {
-				    window.opener.setAtributo(idProduto,descricaoCompleta,precoVenda);
-			   }	
+			<script type="text/javascript">
+			
+				 window.onload = function(){ inicializar() };
+			
+			      function inicializar() {			
+					    var strEnquadramento = "<%=request.getParameter("enquadramento")%>";
+					    var flag = new String(strEnquadramento);
+					    //alert(getId("frmPopUpProduto:enquadramento").value);
+					    if (flag.toUpperCase() == "M") {
+					       getId("frmPopUpProduto:enquadramento").value = flag;
+					    }else{
+					       getId("frmPopUpProduto:enquadramento").value = new String("P,R");
+					    }						
+					    //alert(getId("frmPopUpProduto:enquadramento").value);					    
+			      }
+			
+			      function send(idProduto,descricaoCompleta,precoVenda) {
+				       window.opener.setAtributo(idProduto,descricaoCompleta,precoVenda);
+			      }	
 			</script>
 		</head>
 
 		<h:form id="frmPopUpProduto" binding="#{popupprodutoBB.init}">
 			<div id="content">
-
+				<h:inputHidden id="enquadramento" value="#{popupprodutoBB.enquadramento}"></h:inputHidden>
 				<div id="primarioContentContainerInternas">
 					<fieldset>
 						<legend>
