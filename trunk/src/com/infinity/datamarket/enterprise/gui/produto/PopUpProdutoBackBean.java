@@ -24,6 +24,7 @@ import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
@@ -48,7 +49,7 @@ public class PopUpProdutoBackBean extends BackBean{
 	
 	private Collection produtos;
 	
-	
+	private String enquadramento;
 	 
 	public String getCodigoAutomacao() {
 		return codigoAutomacao;
@@ -233,7 +234,7 @@ public class PopUpProdutoBackBean extends BackBean{
 	}
 	
 	private Collection criaLojas(String[] idLojas){
-		Collection c = new HashSet();
+		Collection<Loja> c = new HashSet<Loja>();
 		for (int i = 0; i < idLojas.length; i++){
 			Loja l = new Loja();
 			l.setId(new Long(idLojas[i]));
@@ -265,7 +266,7 @@ public class PopUpProdutoBackBean extends BackBean{
 				
 				Produto produto = getFachada().consultarProdutoPorCodigoExterno(getCodigoExterno());
 				setProduto(produto);
-				Collection col = new HashSet<Produto>();
+				Collection<Produto> col = new HashSet<Produto>();
 				col.add(produto);
 				setProdutos(col);
 				resetBB();
@@ -276,7 +277,7 @@ public class PopUpProdutoBackBean extends BackBean{
 			if (getId() != null && !"".equals(getId())){
 				Produto produto = getFachada().consultarProdutoPorPK(new Long(getId()));
 				setProduto(produto);
-				Collection col = new HashSet<Produto>();
+				Collection<Produto> col = new HashSet<Produto>();
 				col.add(produto);
 				setProdutos(col);
 				resetBB();
@@ -285,6 +286,17 @@ public class PopUpProdutoBackBean extends BackBean{
 			
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(Produto.class);
+			if(this.getEnquadramento() != null && !this.getEnquadramento().equals("")){
+				if(this.getEnquadramento().equals(Produto.MATERIA_PRIMA)){
+					filter.addProperty("enquadramento", this.getEnquadramento());		
+				}else{
+					filter.addPropertyInterval("enquadramento", Produto.MATERIA_PRIMA, IntervalObject.DIFERENTE);
+				}
+			}else{
+				filter.addPropertyInterval("enquadramento", Produto.MATERIA_PRIMA, IntervalObject.DIFERENTE);
+			}
+			
+
 			if (getDescricaoCompleta() != null && !"".equals(getDescricaoCompleta())){				
 				filter.addProperty("descricaoCompleta", getDescricaoCompleta());
 			}
@@ -661,5 +673,15 @@ public class PopUpProdutoBackBean extends BackBean{
 	 */
 	public void setIdFabricante(String idFabricante) {
 		this.idFabricante = idFabricante;
+	}
+
+
+	public String getEnquadramento() {
+		return enquadramento;
+	}
+
+
+	public void setEnquadramento(String enquadramento) {
+		this.enquadramento = enquadramento;
 	}
 }

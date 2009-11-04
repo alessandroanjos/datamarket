@@ -16,6 +16,10 @@ public class Produto extends Persistente{
 	public static final String ATIVO = "A";
 	public static final String DESATIVADO = "D";
 	
+	public static final String REVENDA = "R";
+	public static final String MATERIA_PRIMA = "M";
+	public static final String FABRICADO = "P";
+	
 	private String codigoExterno;
 	private String codigoAutomacao;
 	private String descricaoCompleta;
@@ -30,8 +34,16 @@ public class Produto extends Persistente{
 	private Fabricante fabricante;
 	private Collection lojas;
 	private String status;
+	private String enquadramento;
+	private Collection composicao;
 	
 	
+	public Collection getComposicao() {
+		return composicao;
+	}
+	public void setComposicao(Collection composicao) {
+		this.composicao = composicao;
+	}
 	public String getStatus() {
 		return status;
 	}
@@ -130,6 +142,12 @@ public class Produto extends Persistente{
 	 */
 	public void setFabricante(Fabricante fabricante) {
 		this.fabricante = fabricante;
+	}
+	public String getEnquadramento() {
+		return enquadramento;
+	}
+	public void setEnquadramento(String enquadramento) {
+		this.enquadramento = enquadramento;
 	}
 
 }

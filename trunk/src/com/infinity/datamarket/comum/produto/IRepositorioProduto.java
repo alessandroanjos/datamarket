@@ -16,6 +16,7 @@ public interface IRepositorioProduto extends IRepositorio{
 	public void inserir(Produto produto) throws AppException;
 	
 	public void alterar(Produto produto) throws AppException;
+	public void alterar(Produto produto, Collection<Composicao> itensComposicaoRemovidos) throws AppException;
 	
 	public void excluir(Produto produto) throws AppException;
 	public Collection consultarProdutosPorFiltro(Produto produto, String idLoja) throws AppException;

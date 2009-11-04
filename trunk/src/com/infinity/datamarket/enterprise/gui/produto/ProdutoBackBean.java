@@ -10,8 +10,10 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 
 import org.hibernate.HibernateException;
@@ -19,6 +21,8 @@ import org.hibernate.collection.PersistentSet;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.infinity.datamarket.comum.fabricante.Fabricante;
+import com.infinity.datamarket.comum.produto.Composicao;
+import com.infinity.datamarket.comum.produto.ComposicaoPK;
 import com.infinity.datamarket.comum.produto.GrupoProduto;
 import com.infinity.datamarket.comum.produto.Imposto;
 import com.infinity.datamarket.comum.produto.Produto;
@@ -52,6 +56,15 @@ public class ProdutoBackBean extends BackBean{
 	
 	private Collection produtos;
 	
+	private String idEnquadramento = new String(Produto.REVENDA);
+	private SelectItem[] listaTiposEnquadramento;
+	private String idProdutoComposicao;
+	private String descricaoProdutoComposicao;
+	private BigDecimal quantidadeProdutoComposicao;
+	private List<Composicao> itensComposicao = new ArrayList<Composicao>();
+	private List<Composicao> itensComposicaoModificados = new ArrayList<Composicao>();
+	private BigDecimal quantidadeProdutoComposicaoTotal;
+	private String enquadramentoSelecionado;
 
 	private String idLoja;
 	
@@ -222,6 +235,22 @@ public class ProdutoBackBean extends BackBean{
 			fabricante.setId(new Long(getIdFabricante()));
 			p.setFabricante(fabricante);
 		}
+		
+		p.setEnquadramento(this.getIdEnquadramento());
+		
+		if(this.getIdEnquadramento().equals(Produto.FABRICADO)){
+			Collection<Composicao> c = new HashSet<Composicao>();
+
+			Iterator itItensComposicao = this.getItensComposicao().iterator();
+			while(itItensComposicao.hasNext()){
+				Composicao comp = (Composicao)itItensComposicao.next();
+				comp.getPk().setIdProduto(p.getId());
+				c.add(comp);
+			}
+			
+			p.setComposicao(c);
+		}
+		
 		return p;
 	}
 	
@@ -246,6 +275,17 @@ public class ProdutoBackBean extends BackBean{
 		setIdFabricante(p.getFabricante().getId().toString());
 		carregaLojas(p.getLojas());
 		
+		if(p.getEnquadramento().equals(Produto.FABRICADO) && p.getComposicao() != null && p.getComposicao().size() > 0){
+			Iterator it = p.getComposicao().iterator();
+			while(it.hasNext()){
+				Composicao composicao = (Composicao)it.next();
+				if(composicao != null){
+					composicao.setAcao("N");
+					this.getItensComposicao().add(composicao);
+					this.setQuantidadeProdutoComposicaoTotal((this.getQuantidadeProdutoComposicaoTotal() != null ? this.getQuantidadeProdutoComposicaoTotal() : BigDecimal.ZERO).add(composicao.getQuantidade()));
+				}
+			}
+		}
 	}
 	
 	private Collection criaLojas(String[] idLojas){
@@ -316,7 +356,9 @@ public class ProdutoBackBean extends BackBean{
 
 			validarProduto();
 			
-			getFachada().inserirProduto(getProduto(this.INSERIR));
+			Produto produto = getProduto(this.INSERIR); 
+			
+			getFachada().inserirProduto(produto);
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -367,26 +409,7 @@ public class ProdutoBackBean extends BackBean{
 				setProduto(produto);
 				return "proxima";
 			}
-//			PropertyFilter filter = new PropertyFilter();
-//			filter.setTheClass(Produto.class);
-//			if (getDescricaoCompleta() != null && !"".equals(getDescricaoCompleta())){				
-//				filter.addProperty("descricaoCompleta", getDescricaoCompleta());
-//			}
-//			if (getIdTipoProduto() != null && !"0".equals(getIdTipoProduto())){				
-//				filter.addProperty("tipo.id", new Long(getIdTipoProduto()));
-//			}
-//			if (getIdGrupo() != null && !"0".equals(getIdGrupo())){				
-//				filter.addProperty("grupo.id", new Long(getIdGrupo()));
-//			}
-//			if (getIdImposto() != null && !"0".equals(getIdImposto())){				
-//				filter.addProperty("imposto.id", new Long(getIdImposto()));
-//			}
-//			if (getIdUnidade() != null && !"0".equals(getIdUnidade())){				
-//				filter.addProperty("unidade.id", new Long(getIdUnidade()));
-//			}
-//			if (getIdFabricante() != null && !"0".equals(getIdFabricante())){				
-//				filter.addProperty("fabricante.id", new Long(getIdFabricante()));
-//			}
+
 			Produto prod = new Produto();
 			if (getDescricaoCompleta() != null && !"".equals(getDescricaoCompleta())){				
 				prod.setDescricaoCompleta(getDescricaoCompleta());
@@ -457,7 +480,18 @@ public class ProdutoBackBean extends BackBean{
 			
 			validarProduto();
 			
-			getFachada().alterarProduto(getProduto(this.ALTERAR));
+			Produto produto = getProduto(this.ALTERAR);
+			
+			Collection<Composicao> cRemovidos = new ArrayList<Composicao>();
+
+			if(this.getItensComposicaoModificados() != null){
+				Iterator itItensComposicao = this.getItensComposicaoModificados().iterator();
+				while(itItensComposicao.hasNext()){
+					cRemovidos.add((Composicao)itItensComposicao.next());
+				}
+			}
+			
+			getFachada().alterarProduto(produto, cRemovidos);
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -535,6 +569,9 @@ public class ProdutoBackBean extends BackBean{
 		this.idImposto = null;
 		this.idGrupo = null;
 		this.listaLojas = null;
+		
+		resetItensComposicaoBB();
+		this.setQuantidadeProdutoComposicaoTotal(BigDecimal.ZERO.setScale(3));
 	}
 	
 	public String voltarConsulta(){
@@ -743,6 +780,17 @@ public class ProdutoBackBean extends BackBean{
 			resetBB();
 			if(VALOR_ACAO.equals(param)){
 				setProdutos(null);
+			}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
+				try {
+					Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
+					if(prod != null){
+						this.descricaoProdutoComposicao = prod.getDescricaoCompleta();
+					}
+					this.setAbaCorrente("tabMenuDiv2");
+				} catch (Exception e) {				
+					e.printStackTrace();			
+					this.setAbaCorrente("tabMenuDiv2");
+				}
 			}
 		}
 	}
@@ -859,4 +907,208 @@ public class ProdutoBackBean extends BackBean{
 	public void setIdFabricante(String idFabricante) {
 		this.idFabricante = idFabricante;
 	}
+	
+	public SelectItem[] getListaTiposEnquadramento() {
+		SelectItem[] lista = new SelectItem[3];
+		lista[0] = new SelectItem(Produto.FABRICADO, "Produto Fabricado");
+		lista[1] = new SelectItem(Produto.REVENDA, "Produto para Revenda");
+		lista[2] = new SelectItem(Produto.MATERIA_PRIMA, "Matéria-Prima");
+		if(this.getIdEnquadramento() == null || this.getIdEnquadramento().equals("")){
+			this.setIdEnquadramento(Produto.REVENDA);
+		}
+		return lista;
+	}
+
+	public void setListaTiposEnquadramento(SelectItem[] listaTiposEnquadramento) {
+		this.listaTiposEnquadramento = listaTiposEnquadramento;
+	}
+
+
+	public String getIdEnquadramento() {
+		return idEnquadramento;
+	}
+
+
+	public void setIdEnquadramento(String idEnquadramento) {
+		this.idEnquadramento = idEnquadramento;
+	}
+
+
+	public String getDescricaoProdutoComposicao() {
+		return descricaoProdutoComposicao;
+	}
+
+
+	public void setDescricaoProdutoComposicao(String descricaoProdutoComposicao) {
+		this.descricaoProdutoComposicao = descricaoProdutoComposicao;
+	}
+
+
+	public String getIdProdutoComposicao() {
+		return idProdutoComposicao;
+	}
+
+
+	public void setIdProdutoComposicao(String idProdutoComposicao) {
+		this.idProdutoComposicao = idProdutoComposicao;
+	}
+
+
+	public BigDecimal getQuantidadeProdutoComposicao() {
+		return quantidadeProdutoComposicao;
+	}
+
+
+	public void setQuantidadeProdutoComposicao(BigDecimal quantidadeProdutoComposicao) {
+		this.quantidadeProdutoComposicao = quantidadeProdutoComposicao;
+	}
+	
+	public void inserirItemComposicao(){
+		try {
+			Produto produtoItemComposicao = validarItemComposicao();
+			
+			Composicao composicaoProduto = new Composicao();
+			
+			ComposicaoPK composicaoProdutoPK = new ComposicaoPK();
+			
+			if(this.getId() != null && !this.getId().equals("")){
+				composicaoProdutoPK.setIdProduto(new Long(this.getId()));
+			}else{
+				composicaoProdutoPK.setIdProduto(null);	
+			}
+//			composicaoProdutoPK.setIdProduto(null);
+			composicaoProdutoPK.setProduto(produtoItemComposicao);
+			
+			composicaoProduto.setPk(composicaoProdutoPK);
+			
+			composicaoProduto.setQuantidade(this.getQuantidadeProdutoComposicao());
+				
+			composicaoProduto.setAcao("I");
+			
+			if(this.getItensComposicao() == null){
+				this.setItensComposicao(new ArrayList<Composicao>());
+			}		
+			this.getItensComposicao().add(composicaoProduto);
+			
+			this.setQuantidadeProdutoComposicaoTotal((this.getQuantidadeProdutoComposicaoTotal() != null ? this.getQuantidadeProdutoComposicaoTotal() : BigDecimal.ZERO).add(this.getQuantidadeProdutoComposicao()));
+			
+			resetItensComposicaoBB();
+			this.setAbaCorrente("tabMenuDiv2");
+		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			getContextoApp().addMessage(null, msg);
+			this.setAbaCorrente("tabMenuDiv2");
+		}		
+	}
+	
+	public void removerItemComposicao(ActionEvent event){
+		try {
+			UIParameter component = (UIParameter) event.getComponent().findComponent("idExcluirItemComposicao");
+			Long produtoTmp = (Long) component.getValue();
+			BigDecimal quantidade = BigDecimal.ZERO;
+	        
+	        if(this.getItensComposicaoModificados() == null){
+				this.setItensComposicaoModificados(new ArrayList<Composicao>());
+			}
+			
+			Iterator i = this.getItensComposicao().iterator();
+			while(i.hasNext()){
+				Composicao itemComposicaoTmp = (Composicao) i.next();
+				if (itemComposicaoTmp.getPk().getProduto().getId().equals(produtoTmp)){
+					this.getItensComposicao().remove(itemComposicaoTmp);
+					itemComposicaoTmp.setAcao("E");
+					this.getItensComposicaoModificados().add(itemComposicaoTmp);
+					quantidade = quantidade.add(itemComposicaoTmp.getQuantidade());
+					break;
+				}
+			}
+			this.setQuantidadeProdutoComposicaoTotal((this.getQuantidadeProdutoComposicaoTotal() != null ? this.getQuantidadeProdutoComposicaoTotal() : BigDecimal.ZERO).subtract(quantidade));
+			this.setAbaCorrente("tabMenuDiv2");
+		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					e.getMessage(), "");
+			getContextoApp().addMessage(null, msg);
+			this.setAbaCorrente("tabMenuDiv2");
+		}
+	}
+
+	public Produto validarItemComposicao() throws Exception{
+		Produto produto = null;
+		
+		if(this.getIdProdutoComposicao() == null || (this.getIdProdutoComposicao() != null && this.getIdProdutoComposicao().equals("0"))){
+			this.setAbaCorrente("tabMenuDiv2");
+			throw new Exception("É necessário informar um produto.");
+		}else{
+			produto = getFachada().consultarProdutoPorPK(new Long(this.getIdProdutoComposicao()));
+			if(produto == null){
+				this.setAbaCorrente("tabMenuDiv2");
+				throw new Exception("O Produto informado é inválido!");
+			}else{
+				if(this.getItensComposicao() != null && this.getItensComposicao().size() > 0){
+					for (Iterator iter = this.getItensComposicao().iterator(); iter.hasNext();) {
+						Composicao itemComposicaoTmp = (Composicao) iter.next();
+						if(produto.equals(itemComposicaoTmp.getPk().getProduto())){
+							this.setAbaCorrente("tabMenuDiv2");
+							throw new Exception("O Produto informado já existe na Composição!");
+						}
+					}
+				}
+			}
+		}
+		if(this.getQuantidadeProdutoComposicao() == null || (this.getQuantidadeProdutoComposicao() != null && this.getQuantidadeProdutoComposicao().compareTo(BigDecimal.ZERO.setScale(3)) <= 0)){
+			this.setAbaCorrente("tabMenuDiv2");
+			throw new Exception("A Quantidade informada é inválida!");
+		}
+		return produto;
+
+	}
+	
+	public void resetItensComposicaoBB(){
+		this.setIdProdutoComposicao(null);
+		this.setDescricaoProdutoComposicao(null);
+		this.setQuantidadeProdutoComposicao(null);
+	}
+	
+	public List<Composicao> getItensComposicao() {
+		return itensComposicao;
+	}
+
+
+	public void setItensComposicao(List<Composicao> itensComposicao) {
+		this.itensComposicao = itensComposicao;
+	}
+
+
+	public BigDecimal getQuantidadeProdutoComposicaoTotal() {
+		return quantidadeProdutoComposicaoTotal;
+	}
+
+
+	public void setQuantidadeProdutoComposicaoTotal(
+			BigDecimal quantidadeProdutoComposicaoTotal) {
+		this.quantidadeProdutoComposicaoTotal = quantidadeProdutoComposicaoTotal;
+	}
+
+
+	public List<Composicao> getItensComposicaoModificados() {
+		return itensComposicaoModificados;
+	}
+
+
+	public void setItensComposicaoModificados(
+			List<Composicao> itensComposicaoModificados) {
+		this.itensComposicaoModificados = itensComposicaoModificados;
+	}
+
+
+	public String getEnquadramentoSelecionado() {
+		return enquadramentoSelecionado;
+	}
+
+
+	public void setEnquadramentoSelecionado(String enquadramentoSelecionado) {
+		this.enquadramentoSelecionado = enquadramentoSelecionado;
+	}
+
 }

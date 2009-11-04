@@ -50,6 +50,10 @@ public class CadastroProduto extends Cadastro{
 		getRepositorio().alterar(produto);
 	}
 	
+	public void alterar(Produto produto, Collection<Composicao> itensComposicaoRemovidos) throws AppException{
+		getRepositorio().alterar(produto, itensComposicaoRemovidos);
+	}
+
 	public void excluir(Produto produto) throws AppException{
 		produto.setStatus(produto.DESATIVADO);
 		getRepositorio().alterar(produto);

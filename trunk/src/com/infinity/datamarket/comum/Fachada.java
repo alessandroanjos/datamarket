@@ -63,6 +63,7 @@ import com.infinity.datamarket.comum.produto.CadastroImposto;
 import com.infinity.datamarket.comum.produto.CadastroProduto;
 import com.infinity.datamarket.comum.produto.CadastroTipoProduto;
 import com.infinity.datamarket.comum.produto.CadastroUnidade;
+import com.infinity.datamarket.comum.produto.Composicao;
 import com.infinity.datamarket.comum.produto.GrupoProduto;
 import com.infinity.datamarket.comum.produto.Imposto;
 import com.infinity.datamarket.comum.produto.Produto;
@@ -3669,10 +3670,10 @@ public class Fachada {
 		return produto;
 	}
 	
-	public void alterarProduto(Produto produto) throws AppException{
+	public void alterarProduto(Produto produto, Collection<Composicao> itensComposicaoRemovidos) throws AppException{
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			getCadastroProduto().alterar(produto);
+			getCadastroProduto().alterar(produto, itensComposicaoRemovidos);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
