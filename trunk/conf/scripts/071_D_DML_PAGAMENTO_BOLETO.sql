@@ -1,5 +1,4 @@
-USE [ENTERPRISE]
-GO
+
 /****** Object:  Table [dbo].[PAGAMENTO_BOLETO]    Script Date: 11/03/2009 22:54:15 ******/
 SET ANSI_NULLS ON
 GO

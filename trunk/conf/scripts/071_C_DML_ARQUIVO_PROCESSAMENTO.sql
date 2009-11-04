@@ -1,5 +1,4 @@
-USE [ENTERPRISE]
-GO
+
 /****** Object:  Table [dbo].[ARQUIVO_PROCESSADO]    Script Date: 11/03/2009 22:53:24 ******/
 SET ANSI_NULLS ON
 GO
