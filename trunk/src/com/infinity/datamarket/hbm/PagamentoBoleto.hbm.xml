@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.boleto.PagamentoBoleto" table="PAGAMENTO_BOLETO" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <composite-id name="pk" class="com.infinity.datamarket.comum.boleto.PagamentoBoletoPK">
+           <key-property name="id" column="ID" type="java.lang.Long"/>
+           <key-property name="idArquivoProcessado" column="ID_ARQUIVO_PROCESSADO" type="java.lang.Long"/>
+        </composite-id>
+        
+        <property name="valor" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR" length="20" not-null="true"/>
+        </property>    
+        
+        <property name="valorDesconto" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR_DESCONTO" length="20" not-null="false"/>
+        </property>    
+        
+        <property name="valorMulta" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR_MULTA" length="20" not-null="false"/>
+        </property>    
+        
+        <property name="valorMora" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR_MORA" length="20" not-null="false"/>
+        </property>    
+
+        <property name="dataPagamento" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_PAGAMENTO" not-null="true"/>
+        </property>
+        
+        <property name="idBoleto" type="java.lang.Long" update="true" insert="true">
+            <column name="ID_BOLETO" not-null="true"/>
+        </property>
+        
+        <many-to-one name="boleto" class="com.infinity.datamarket.comum.boleto.Boleto" update="true" insert="true">
+	          <column name="BOLETO" not-null="false"/>
+	    </many-to-one>
+
+    </class>
+</hibernate-mapping>

@@ -9,7 +9,7 @@ import com.infinity.datamarket.comum.util.Repositorio;
 public class RepositorioArquivosProcessado extends Repositorio implements IRepositorioArquivosProcessado{
 	
 	private static RepositorioArquivosProcessado instancia;
-	private static Class CLASSE = ArquivosProcessado.class;
+	private static Class CLASSE = ArquivoProcessado.class;
 	private RepositorioArquivosProcessado(){}
 	public static RepositorioArquivosProcessado getInstancia(){
 		if (instancia == null){
@@ -18,8 +18,8 @@ public class RepositorioArquivosProcessado extends Repositorio implements IRepos
 		return instancia;
 	}
 
-	public ArquivosProcessado consultarPorId(Long id) throws AppException{
-		return (ArquivosProcessado) findById(CLASSE, id);
+	public ArquivoProcessado consultarPorId(Long id) throws AppException{
+		return (ArquivoProcessado) findById(CLASSE, id);
 	}
 
 	public Collection consultar(IPropertyFilter filter) throws AppException{
@@ -28,17 +28,17 @@ public class RepositorioArquivosProcessado extends Repositorio implements IRepos
 	public Collection consultarTodos() throws AppException{
 		return findAll(CLASSE);
 	}
-	public void inserir(ArquivosProcessado ArquivosProcessado) throws AppException{
+	public void inserir(ArquivoProcessado ArquivosProcessado) throws AppException{
 		insert(ArquivosProcessado);
 		inserirDadoLote(ArquivosProcessado);
 	}
 	
-	public void alterar(ArquivosProcessado ArquivosProcessado) throws AppException{
+	public void alterar(ArquivoProcessado ArquivosProcessado) throws AppException{
 		update(ArquivosProcessado);
 		alterarDadoLote(ArquivosProcessado);
 	}
 	
-	public void excluir(ArquivosProcessado ArquivosProcessado) throws AppException{
+	public void excluir(ArquivoProcessado ArquivosProcessado) throws AppException{
 		remove(ArquivosProcessado);
 		excluirDadoLote(ArquivosProcessado);
 	}

@@ -1,10 +1,13 @@
 package com.infinity.datamarket.comum.boleto;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.CadastroControleId;
+import com.infinity.datamarket.comum.util.Controle;
 import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroArquivosProcessado extends Cadastro{
@@ -25,11 +28,22 @@ public class CadastroArquivosProcessado extends Cadastro{
 		return (IRepositorioArquivosProcessado) super.getRepositorio(IRepositorio.REPOSITORIO_ARQUIVO_PROCESSADO);
 	}
 	
-	public void inserir(ArquivosProcessado ArquivosProcessado) throws AppException{
+	public void inserir(ArquivoProcessado ArquivosProcessado) throws AppException{
+		
+		Controle controle = CadastroControleId.getInstancia().getControle(ArquivoProcessado.class);
+		ArquivosProcessado.setId(controle.getValor());
+		Collection<PagamentoBoleto> coll = ArquivosProcessado.getPagamentosBoleto();
+		if (coll != null) {
+			Iterator<PagamentoBoleto> it = coll.iterator();
+			while(it.hasNext()){
+				PagamentoBoleto pb = it.next();
+				pb.getPk().setIdArquivoProcessado(controle.getValor());
+			}
+		}
 		getRepositorio().inserir(ArquivosProcessado);
 	}
 	
-	public void alterar(ArquivosProcessado ArquivosProcessado) throws AppException{
+	public void alterar(ArquivoProcessado ArquivosProcessado) throws AppException{
 		getRepositorio().alterar(ArquivosProcessado);
 	}
 	
