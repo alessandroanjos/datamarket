@@ -40,6 +40,16 @@ public class BackBean {
 	
 	public FacesContext contextoApp = null;
 	
+//	public String nomeRelatorio;
+//	
+//	public String getNomeRelatorio() {
+//		return nomeRelatorio;
+//	}
+//
+//	public void setNomeRelatorio(String nomeRelatorio) {
+//		this.nomeRelatorio = nomeRelatorio;
+//	}
+
 	public Fachada getFachada(){
 		return Fachada.getInstancia();
 	}

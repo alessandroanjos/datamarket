@@ -39,6 +39,10 @@
         <property name="status" type="java.lang.String" update="true" insert="true">
             <column name="STATUS" length="1" not-null="true"/>
         </property>
+        
+        <property name="enquadramento" type="java.lang.String" update="true" insert="true">
+            <column name="ENQUADRAMENTO" length="1" not-null="true"/>
+        </property>
 
         <property name="precoPadrao" type="java.math.BigDecimal" update="true" insert="true">
             <column name="PRECO_PADRAO" length="20" not-null="true"/>
@@ -73,6 +77,13 @@
 		<set name="lojas" table="PRODUTO_LOJA" lazy="true">
              <key column="ID_PRODUTO"/>
              <many-to-many column="ID_LOJA" class="com.infinity.datamarket.comum.usuario.Loja"/>
+        </set>
+        
+        <set name="composicao" cascade="save-update, delete-orphan" lazy="true"> 
+	        <key>
+	        	<column name="ID" />
+	        </key>            
+             <one-to-many class="com.infinity.datamarket.comum.produto.Composicao"/>
         </set>
 
     </class>

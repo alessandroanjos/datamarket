@@ -23,6 +23,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Order;
 
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Persistente;
 
@@ -366,28 +367,36 @@ public class RepositoryManagerHibernate implements IRepositoryManager
                 }
                 PropertyFilter.IntervalObject interval = (PropertyFilter.IntervalObject)itIntervals.next();
                 Object attributeValue = intervalAttributes.get(interval);
-                if(interval.getComparationType() == 3)
+                if(interval.getComparationType() == IntervalObject.MAIOR)
                 {
                     criteria.add(Expression.gt(interval.getPropertyName(), attributeValue));
                 } else
-                if(interval.getComparationType() == 4)
+                if(interval.getComparationType() == IntervalObject.MAIOR_IGUAL)
                 {
                     criteria.add(Expression.ge(interval.getPropertyName(), attributeValue));
                 } else
-                if(interval.getComparationType() == 1)
+                if(interval.getComparationType() == IntervalObject.MENOR)
                 {
                     criteria.add(Expression.lt(interval.getPropertyName(), attributeValue));
                 } else
-                if(interval.getComparationType() == 2)
+                if(interval.getComparationType() == IntervalObject.MENOR_IGUAL)
                 {
                     criteria.add(Expression.le(interval.getPropertyName(), attributeValue));
                 }
-                if(interval.getComparationType() == 5)
+                if(interval.getComparationType() == IntervalObject.NAO_NULO)
                 {
                     criteria.add(Expression.isNotNull(interval.getPropertyName()));
                    
                 }
-
+                if(interval.getComparationType() == IntervalObject.NULO)
+                {
+                    criteria.add(Expression.isNull(interval.getPropertyName()));
+                   
+                }
+                if(interval.getComparationType() == IntervalObject.DIFERENTE)
+                {
+                    criteria.add(Expression.neProperty(interval.getPropertyName(), String.valueOf(attributeValue)));                   
+                }
             } while(true);
         }
         Map orders = _filter.getOrderBy();

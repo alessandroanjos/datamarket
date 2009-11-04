@@ -75,6 +75,21 @@ public class RepositorioProduto extends Repositorio implements IRepositorioProdu
 		alterarDadoLote(produto);
 	}
 	
+	public void alterar(Produto produto, Collection<Composicao> itensComposicaoRemovidos) throws AppException{
+		if(itensComposicaoRemovidos != null){
+			Iterator<Composicao> it = itensComposicaoRemovidos.iterator();
+			while(it.hasNext()){
+				ComposicaoPK composicaoPK = it.next().getPk();
+				removeById(Composicao.class, composicaoPK);
+			}
+		}
+		update(produto);
+		if(!produto.getEnquadramento().equals(Produto.MATERIA_PRIMA)){
+			alterarDadoLote(produto);	
+		}		
+	}
+
+	
 	public void excluir(Produto produto) throws AppException{
 		remove(produto);
 		excluirDadoLote(produto);
