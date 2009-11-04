@@ -5,6 +5,8 @@ import java.util.Collection;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
+import com.infinity.datamarket.comum.util.CadastroControleId;
+import com.infinity.datamarket.comum.util.Controle;
 import com.infinity.datamarket.comum.util.IRepositorio;
 
 public class CadastroBoleto extends Cadastro{
@@ -27,6 +29,9 @@ public class CadastroBoleto extends Cadastro{
 	}
 	
 	public void inserir(Boleto Boleto) throws AppException{
+		Controle controle = CadastroControleId.getInstancia().getControle(ArquivoProcessado.class);
+		
+		Boleto.setId(controle.getValor());
 		getRepositorio().inserir(Boleto);
 	}
 	
