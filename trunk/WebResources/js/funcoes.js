@@ -369,7 +369,7 @@ function ValidaData(data){
 }
 
 function showwindow(action) {
-	alert(action);
+	//alert(action);
     window.open(action,'_blank','');
 }
 
@@ -451,12 +451,16 @@ function getId(strId) {
 }
 
 function desabilita(strId) {
+//alert("desabilita.strId--> "+strId);
+//alert(getId(strId));
   	getId(strId).disabled = true;
   	getId(strId).style.backgroundColor = "#dedede";
   	getId(strId).value = "";
 }
 
 function habilita(strId) {
+//alert("habilita.strId--> "+strId);
+//alert(getId(strId));
   	getId(strId).disabled = false;
   	getId(strId).style.backgroundColor = "white";
 }

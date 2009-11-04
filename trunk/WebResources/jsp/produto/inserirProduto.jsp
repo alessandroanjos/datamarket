@@ -32,21 +32,73 @@
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
 			<script type="text/javascript">
 
-      window.onload = function(){ inicializar() };
-
-      function inicializar() {
-
-      	$("input.field, select.field").each(function(i){
-      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
-      		$(this).blur(function() {this.style.backgroundColor = ""});
-      	});
-		strAbaCorrente = getId("frmInserirProduto:abaCorrente").value;
-		if(strAbaCorrente != ""){							
-			selecionaMenuTab(strAbaCorrente);
-		}
-      }
-
-      </script>
+			      window.onload = function(){ inicializar() };
+			
+			      function inicializar() {			
+				      	$("input.field, select.field").each(function(i){
+				      		$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
+				      		$(this).blur(function() {this.style.backgroundColor = ""});
+				      	});
+						strAbaCorrente = getId("frmInserirProduto:abaCorrente").value;
+						if(strAbaCorrente != ""){							
+							selecionaMenuTab(strAbaCorrente);
+						}
+						
+					    habilita("tabMenuDiv2");
+			      }
+			
+				  var formId; // referência ao formulário principal
+                  var winId;  // referência à janela popup
+                  // Esta função faz a chamada da janela popup.
+	              function showPopUp(action, form, target) {	
+                		if(getId("frmInserirProduto:idProdutoComposicao").value == ""){        		
+		        		    getId("frmInserirProduto:descricaoProdutoComposicao").value = "";
+		        		    getId("frmInserirProduto:quantidadeProdutoComposicao").value = parseFloat("0").toFixed(3);
+			                formId=form;
+					        if (winId != null) {
+						       winId.close();
+						    }
+			                features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
+			     			winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces?acao=init&enquadramento=M','list',features);
+				            // Formulário escondido
+			                hform=document.forms[form];                
+		                }else{
+		                	getId("frmInserirProduto:abaCorrente").value = strAbaCorrente;
+							document.forms["frmInserirProduto"].action = "/EnterpriseServer/jsp/produto/inserirProduto.faces?acaoLocal=pesquisarProdutos&codigoProduto="+getId("frmInserirProduto:idProdutoComposicao").value;
+							document.forms["frmInserirProduto"].submit();                	
+		                }
+		          }
+		
+		          // Esta função é chamada pela janela popup 
+		          // quando um usuário clica em um item na listagem.
+		          // O item selecionado é copiado para um campo de texto
+		          // no formulário principal.
+		          //
+		          function setAtributo(idProduto,descricao,precoVenda) {
+		                var form = document.forms[formId];   
+		                form[formId+":idProdutoComposicao"].value=idProduto; 
+		                form[formId+":descricaoProdutoComposicao"].value=descricao;  
+                        winId.close();
+                        selecionaMenuTab("tabMenuDiv2");
+                        getId("frmInserirProduto:quantidadeProdutoComposicao").focus();
+                      	alert(strAbaCorrente);
+                        getId('frmInserirProduto:abaCorrente').value = strAbaCorrente;
+                        selecionaMenuTab(strAbaCorrente);
+                  }
+                  
+                  //funcao responsavel por controlar a aba de composicao. esta so devera ser habilitada quando o enquadramento selecionado
+				  // for para produto fabricado (tipo P)
+				  function trataTipoEnquadramento(str){
+				      var opcao = str.value;
+ 
+ 					  if (opcao.toUpperCase() == "P") {
+				          habilita("tabMenuDiv2");
+				      }else{
+						  desabilita("tabMenuDiv2");
+						  selecionaMenuTab("tabMenuDiv0");
+					  }
+				  }
+      		 </script>
 		</head>
 		<body onload="exibirMensagemErro();">
 			<div id="outer">
@@ -57,14 +109,31 @@
 					</div>
 				</div>
 				<div id="content">
+					<div id="primarioContentContainerInternas">
+						<h:form id="frmInserirProduto2" onsubmit="javascript:getId('frmInserirProduto:abaCorrente').value = strAbaCorrente;">
+							<ul>
+								<li>
+									<div style="vertical-align: middle">
+									<h:selectOneRadio  styleClass="field radio ehvendedor" id="enquadramento" 
+												value="#{produtoBB.idEnquadramento}" layout="lineDirection"  rendered="true" onclick="javascript:trataTipoEnquadramento(this);">
+											    <f:selectItems id="situacao" value="#{produtoBB.listaTiposEnquadramento}"/>
+											</h:selectOneRadio>
+									</div>
+								</li>
+							</ul>
+						</h:form>
+					</div>
+					
 					<div class="tabMenu">
 						<ul>
-							<li id="tabMenuDiv0" class="current"
-								onclick="selecionaMenuTab(this.id)">
+							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)">
 								<span><a href="#">Produto</a> </span>
 							</li>
 							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)">
 								<span><a href="#">Lojas</a> </span>
+							</li>
+							<li id="tabMenuDiv2" onclick="selecionaMenuTab(this.id)">
+								<span><a href="#">Composição</a> </span>
 							</li>
 						</ul>
 						<div class="clear"></div>
@@ -75,16 +144,13 @@
 						<ul>
 							<li class="normal">
 								<div>
-									<%@ include file="/jsp/mensagem_erro.jsp"%> <!--  h  messages errorClass="msgSistemaErro"
-										infoClass="msgSistemaSucesso" globalOnly="true"
-										showDetail="true" /> -->
+									<%@ include file="/jsp/mensagem_erro.jsp"%> <!--  h  messages errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true" /> -->
 								</div>
 							</li>
 						</ul>
-						
-							<h:inputHidden id="abaCorrente" value="#{produtoBB.abaCorrente}">
-							</h:inputHidden>
-							<div id="tabDiv0">
+							<h:inputHidden id="enquadramentoSelecionado" value="#{produtoBB.enquadramentoSelecionado}"></h:inputHidden>
+							<h:inputHidden id="abaCorrente" value="#{produtoBB.abaCorrente}"></h:inputHidden>
+							<div id="tabDiv0" style="height: 350px;">
 								<ul>
 									<li class="normal">
 										<div>
@@ -226,11 +292,11 @@
 								</ul>
 							</div>
 
-							<div id="tabDiv1" style="display:none;">
+							<div id="tabDiv1" style="display:none;height: 350px;">
 								<ul>
 									<li class="normal">
 										<div class="div-auto-scroll"
-											style="width:400px !important; height: 142px;">
+											style="width:400px !important; height: 210px;">
 											<h:selectManyCheckbox id="listaLojas" layout="pageDirection"
 												required="false" styleClass="label"
 												value="#{produtoBB.listaLojas}">
@@ -239,6 +305,86 @@
 											
 										</div>
 
+									</li>
+								</ul>
+							</div>
+							<div id="tabDiv2" style="display:none;height: 350px;">
+								<ul>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
+											<h:inputText styleClass="field text" id="idProdutoComposicao" maxlength="6" size="6"
+												value="#{produtoBB.idProdutoComposicao}" dir="ltr" required="false" onkeypress="return SoNumero(event);">
+												<f:validateLength maximum="6" />
+											</h:inputText>
+											<h:commandButton immediate="true" image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
+												onmousedown="showPopUp(this,'frmInserirProduto','find')"
+												onclick="return false" value="">
+											</h:commandButton>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Descrição Completa*"></h:outputLabel>
+											<h:inputText styleClass="field text" id="descricaoProdutoComposicao" size="39"
+												value="#{produtoBB.descricaoProdutoComposicao}" readonly="true">
+											</h:inputText>
+										</div>									
+										<div>
+											<h:outputLabel styleClass="desc" value="Quantidade*"></h:outputLabel>
+											<h:inputText styleClass="field text" id="quantidadeProdutoComposicao" maxlength="8" size="9"
+												value="#{produtoBB.quantidadeProdutoComposicao}" dir="rtl" required="false" onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));">
+												<f:validateLength maximum="8" />
+												<f:validateDoubleRange  minimum="0.000" maximum="999.999"/>
+												<f:validator validatorId="BigDecimalValidator"/>
+											</h:inputText>
+											<h:commandButton image="/images/adicionar.png" alt="Inserir" onclick="calculaQuantidadeTotal();" styleClass="btTxt" id="botaoInserirItemComposicao" action="#{produtoBB.inserirItemComposicao}" value="Inserir"></h:commandButton>
+										</div>
+										<div style="position:relative; top:9px;">
+											
+										</div>
+	  								</li>
+								</ul>
+								<div class="listagemSimples" style="overflow:auto; height:235px;">
+									<t:dataTable value="#{produtoBB.itensComposicao}"
+										var="itemComposicao" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="Item" /> 
+											</f:facet>
+											<h:outputText style="align: center;" value="#{itemComposicao.pk.produto.id}" /> 
+										</h:column>
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="Produto" />
+											</f:facet>
+											<h:outputText style="align: left;" value="#{itemComposicao.pk.produto.descricaoCompleta}" /> 
+										</h:column>
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="Quantidade" />
+											</f:facet>
+											<h:outputText style="align: right;" value="#{itemComposicao.quantidade}" /> 
+										</h:column>	
+										<h:column>
+											<f:facet name="header">
+												<h:outputText style="align: center;" value="Ação" />
+											</f:facet>										
+											<h:commandButton image="/images/excluir.png" alt="Excluir" actionListener="#{produtoBB.removerItemComposicao}">
+												<f:param name="idExcluirItemComposicao" value="#{itemComposicao.pk.produto.id}" id="idExcluirItemComposicao"/>
+											</h:commandButton>
+										</h:column>													
+									</t:dataTable>																
+								</div>	
+								<ul>
+									<li class="direita">
+										<div>
+											<h:outputLabel styleClass="desc" value="Quantidade Total"></h:outputLabel>
+											<h:inputText styleClass="field text" id="quantidadeProdutoComposicaoTotal" maxlength="10" size="10"
+												value="#{produtoBB.quantidadeProdutoComposicaoTotal}" dir="rtl" required="false" readonly="true">
+												<f:validateLength maximum="10" />
+												<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
+												<f:validator validatorId="BigDecimalValidator"/>
+											</h:inputText>
+										</div>
 									</li>
 								</ul>
 							</div>

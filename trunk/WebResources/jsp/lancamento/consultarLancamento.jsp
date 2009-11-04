@@ -178,6 +178,7 @@
 										<h:outputText rendered="#{lancamento.situacao == 'P'}" value="Pago Parcial" /> 
 										<h:outputText rendered="#{lancamento.situacao == 'F'}" value="Finalizado" /> 
 										<h:outputText rendered="#{lancamento.situacao == 'C'}" value="Cancelado" /> 
+										<h:outputText rendered="#{lancamento.situacao == 'D'}" value="Pendente" /> 
 									</h:column>																
 								</t:dataTable>	
 								<div>
