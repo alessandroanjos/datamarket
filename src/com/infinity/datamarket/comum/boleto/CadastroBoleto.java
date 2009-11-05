@@ -60,7 +60,7 @@ public class CadastroBoleto extends Cadastro{
 			//BAIXAR O LANCAMENTO
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(Lancamento.class);
-			filter.addProperty("boleto.id", idBoleto);
+			filter.addProperty("itensPagamento.boleto.id", idBoleto);
 
 			try {
 				Collection coll = getCadastroLancamento().consultar(filter);
