@@ -553,7 +553,7 @@ public class BaixaLancamentoBackBean extends BackBean {
 					filter.addProperty("situacao", this.getIdSituacao());	
 				}
 				
-				Collection col = getFachada().consultarFormaRecebimento(filter);
+				Collection col = getFachada().consultarLancamento(filter);
 				if (col == null || col.size() == 0){
 					setExisteRegistros(false);
 					this.setLancamentos(col);

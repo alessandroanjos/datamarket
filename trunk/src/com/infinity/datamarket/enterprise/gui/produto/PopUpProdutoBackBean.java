@@ -292,8 +292,8 @@ public class PopUpProdutoBackBean extends BackBean{
 				}else{
 					filter.addPropertyInterval("enquadramento", Produto.MATERIA_PRIMA, IntervalObject.DIFERENTE);
 				}
-			}else{
-				filter.addPropertyInterval("enquadramento", Produto.MATERIA_PRIMA, IntervalObject.DIFERENTE);
+//			}else{
+//				filter.addPropertyInterval("enquadramento", Produto.MATERIA_PRIMA, IntervalObject.DIFERENTE);
 			}
 			
 
