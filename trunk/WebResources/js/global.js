@@ -28,6 +28,7 @@ function selecionaMenuTab(alvo) {
 	$("li#"+alvo).addClass('current');
 	$("div#"+alvo.replace("Menu","")).show();
 	strAbaCorrente = alvo;
+	//alert("global--> "+strAbaCorrente);
 }
 
 function selecionaMenuTabInterno(alvo) {
