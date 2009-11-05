@@ -38,7 +38,7 @@ public class CadastroBoleto extends Cadastro{
 	}
 	
 	public void inserir(Boleto Boleto) throws AppException{
-		Controle controle = CadastroControleId.getInstancia().getControle(ArquivoProcessado.class);
+		Controle controle = CadastroControleId.getInstancia().getControle(Boleto.class);
 		
 		Boleto.setId(controle.getValor());
 		getRepositorio().inserir(Boleto);
