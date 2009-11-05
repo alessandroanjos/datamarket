@@ -38,6 +38,38 @@
 				if ($('[name=frmBaixarLancamento:idTipoPessoa]:checked').val() != "undefined") {
 					mostraCampos($('[name=frmBaixarLancamento:idTipoPessoa]:checked').val());
 				}
+				alert(getId("frmBaixarLancamento:idSituacao").value);
+				if (getId("frmBaixarLancamento:idSituacao").value == "D") {
+					desabilita("frmBaixarLancamento:idContaCorrente");
+					desabilita("frmBaixarLancamento:idFormaRecebimento");
+					desabilita("frmBaixarLancamento:numeroDocumentoItemBaixa");
+					desabilita("frmBaixarLancamento:idBanco");
+					desabilita("frmBaixarLancamento:agencia");
+					desabilita("frmBaixarLancamento:numeroConta");
+					desabilita("frmBaixarLancamento:numeroCheque");
+					desabilita("frmBaixarLancamento:dataCheque");
+					desabilita("frmBaixarLancamento:idTipoPessoa");
+					desabilita("frmBaixarLancamento:cpfCnpj");
+					desabilita("frmBaixarLancamento:valorItem");
+					desabilita("frmBaixarLancamento:valorDesconto");
+					desabilita("frmBaixarLancamento:valorAcrescimo");
+					desabilita("frmBaixarLancamento:valorTotalItem");					
+				}else{
+					habilita("frmBaixarLancamento:idContaCorrente");
+					habilita("frmBaixarLancamento:idFormaRecebimento");
+					habilita("frmBaixarLancamento:numeroDocumentoItemBaixa");
+					habilita("frmBaixarLancamento:idBanco");
+					habilita("frmBaixarLancamento:agencia");
+					habilita("frmBaixarLancamento:numeroConta");
+					habilita("frmBaixarLancamento:numeroCheque");
+					habilita("frmBaixarLancamento:dataCheque");
+					habilita("frmBaixarLancamento:idTipoPessoa");
+					habilita("frmBaixarLancamento:cpfCnpj");
+					habilita("frmBaixarLancamento:valorItem");
+					habilita("frmBaixarLancamento:valorDesconto");
+					habilita("frmBaixarLancamento:valorAcrescimo");
+					habilita("frmBaixarLancamento:valorTotalItem");					
+				}
 			}
 			
 			function mostraCampos(str) {
@@ -95,6 +127,7 @@
 			</div>				
 		</div>
 		<h:form id="frmBaixarLancamento" binding="#{baixaLancamentoBB.init}">
+			<h:inputHidden id="idSituacao" value="#{baixaLancamentoBB.idSituacao}"></h:inputHidden>
 				<div id="content">
 						<div id="primarioContentContainerInternas">
 							<ul>

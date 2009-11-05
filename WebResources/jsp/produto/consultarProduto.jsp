@@ -84,7 +84,6 @@
 											<h:outputLabel styleClass="desc" value="Tipo de Produto"></h:outputLabel>
 											<h:selectOneMenu id="tiposProduto" styleClass="field select" style="width: 200px;"
 												value="#{produtoBB.idTipoProduto}" > 
-													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
 													<f:selectItems id="perfilSelectItems" 
 													  value="#{produtoBB.tiposConsulta}" />   
 											</h:selectOneMenu> 							
@@ -93,7 +92,6 @@
 											<h:outputLabel styleClass="desc" value="Grupo de Produto"></h:outputLabel>
 											<h:selectOneMenu id="gruposProduto" styleClass="field select" style="width: 200px;"
 												value="#{produtoBB.idGrupo}" > 
-													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
 													<f:selectItems id="perfilSelectItems" 
 													  value="#{produtoBB.gruposConsulta}" />   
 											</h:selectOneMenu> 									
@@ -102,7 +100,6 @@
 											<h:outputLabel styleClass="desc" value="Unidade"></h:outputLabel>
 											<h:selectOneMenu id="unidades" styleClass="field select" style="width: 200px;"
 												value="#{produtoBB.idUnidade}" > 
-													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
 													<f:selectItems id="perfilSelectItems" 
 													  value="#{produtoBB.unidadesConsulta}" />   
 											</h:selectOneMenu> 							
@@ -113,7 +110,6 @@
 											<h:outputLabel styleClass="desc" value="Imposto"></h:outputLabel>
 											<h:selectOneMenu id="impostos" styleClass="field select" style="width: 200px;"
 												value="#{produtoBB.idImposto}" > 
-													<f:selectItem id="tiposSelectItemsBranco" itemValue="" itemLabel=""/>	  
 													<f:selectItems id="perfilSelectItems" 
 													  value="#{produtoBB.impostosConsulta}" />   
 											</h:selectOneMenu> 							
