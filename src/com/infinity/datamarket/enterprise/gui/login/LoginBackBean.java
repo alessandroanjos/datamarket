@@ -190,7 +190,7 @@ public class LoginBackBean extends BackBean{
 						subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),"javascript:window.open(\""+
 										pathAplicacao+"/EnterpriseServer/jsp/"+funcAux.getUrl()+
 										".faces?"+ACAO+"="+VALOR_ACAO+																				
-										"\",\"\",\"top=50,left=50,status=no,toolbar=no,menubar=no,location=no,resize=no,height=" +
+										"\",\"\",\"top=50,left=50,status=yes,toolbar=no,menubar=no,location=no,resize=yes,height=" +
 										funcAux.getAltura() + ",width=" + funcAux.getLargura() + "\")");
 //						System.out.println(subMenuAux.getAction());
 					}					

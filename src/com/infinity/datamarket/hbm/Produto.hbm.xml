@@ -79,13 +79,12 @@
              <many-to-many column="ID_LOJA" class="com.infinity.datamarket.comum.usuario.Loja"/>
         </set>
         
-        <set name="composicao" cascade="save-update, delete-orphan" lazy="true"> 
+        <set name="composicao" inverse="true" cascade="save-update, delete-orphan" lazy="true"> 
 	        <key>
-	        	<column name="ID" />
+	        	<column name="ID_PRODUTO" />
 	        </key>            
              <one-to-many class="com.infinity.datamarket.comum.produto.Composicao"/>
         </set>
-
     </class>
 
 </hibernate-mapping>

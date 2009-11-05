@@ -84,9 +84,7 @@ public class RepositorioProduto extends Repositorio implements IRepositorioProdu
 			}
 		}
 		update(produto);
-		if(!produto.getEnquadramento().equals(Produto.MATERIA_PRIMA)){
-			alterarDadoLote(produto);	
-		}		
+		alterarDadoLote(produto);	
 	}
 
 	

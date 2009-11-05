@@ -43,9 +43,9 @@ public class ProdutoBackBean extends BackBean{
 	private String codigoAutomacao;
 	private String descricaoCompleta;
 	private String descricaoCompacta;
-	private String precoPadrao;
-	private String precoPromocional;
-	private String precoCompra;	
+	private BigDecimal precoPadrao;
+	private BigDecimal precoPromocional;
+	private BigDecimal precoCompra;	
 	private String idTipoProduto;
 	private String idUnidade;
 	private String idImposto;
@@ -56,7 +56,7 @@ public class ProdutoBackBean extends BackBean{
 	
 	private Collection produtos;
 	
-	private String idEnquadramento = new String(Produto.REVENDA);
+	private String idEnquadramento;
 	private SelectItem[] listaTiposEnquadramento;
 	private String idProdutoComposicao;
 	private String descricaoProdutoComposicao;
@@ -168,22 +168,22 @@ public class ProdutoBackBean extends BackBean{
 	}
 
 
-	public String getPrecoPadrao() {
+	public BigDecimal getPrecoPadrao() {
 		return precoPadrao;
 	}
 
 
-	public void setPrecoPadrao(String precoPadrao) {
+	public void setPrecoPadrao(BigDecimal precoPadrao) {
 		this.precoPadrao = precoPadrao;
 	}
 
 
-	public String getPrecoPromocional() {
+	public BigDecimal getPrecoPromocional() {
 		return precoPromocional;
 	}
 
 
-	public void setPrecoPromocional(String precoPromocional) {
+	public void setPrecoPromocional(BigDecimal precoPromocional) {
 		this.precoPromocional = precoPromocional;
 	}
 
@@ -209,12 +209,12 @@ public class ProdutoBackBean extends BackBean{
 		p.setCodigoAutomacao(getCodigoAutomacao());
 		p.setDescricaoCompleta(getDescricaoCompleta());
 		p.setDescricaoCompacta(getDescricaoCompacta());
-		p.setPrecoPadrao(new BigDecimal(getPrecoPadrao()));
+		p.setPrecoPadrao(getPrecoPadrao());
 		if (getPrecoPromocional() != null && !"".equals(getPrecoPromocional())){ 
-			p.setPrecoPromocional(new BigDecimal(getPrecoPromocional()));
+			p.setPrecoPromocional(getPrecoPromocional());
 		}
 		if (getPrecoCompra() != null && !"".equals(getPrecoCompra())){ 
-			p.setPrecoCompra(new BigDecimal(getPrecoCompra()));
+			p.setPrecoCompra(getPrecoCompra());
 		}
 		Imposto imp = new Imposto();
 		imp.setId(new Long(getIdImposto()));
@@ -236,9 +236,9 @@ public class ProdutoBackBean extends BackBean{
 			p.setFabricante(fabricante);
 		}
 		
-		p.setEnquadramento(this.getIdEnquadramento());
+		p.setEnquadramento(this.getEnquadramentoSelecionado());
 		
-		if(this.getIdEnquadramento().equals(Produto.FABRICADO)){
+		if(this.getEnquadramentoSelecionado().equals(Produto.FABRICADO)){
 			Collection<Composicao> c = new HashSet<Composicao>();
 
 			Iterator itItensComposicao = this.getItensComposicao().iterator();
@@ -249,6 +249,8 @@ public class ProdutoBackBean extends BackBean{
 			}
 			
 			p.setComposicao(c);
+		}else{
+			p.setComposicao(null);
 		}
 		
 		return p;
@@ -260,12 +262,12 @@ public class ProdutoBackBean extends BackBean{
 		setCodigoExterno(p.getCodigoExterno());
 		setDescricaoCompacta(p.getDescricaoCompacta());
 		setDescricaoCompleta(p.getDescricaoCompleta());
-		setPrecoPadrao(p.getPrecoPadrao().toString());
+		setPrecoPadrao(p.getPrecoPadrao());
 		if (p.getPrecoPromocional() != null){
-			setPrecoPromocional(p.getPrecoPromocional().toString());
+			setPrecoPromocional(p.getPrecoPromocional());
 		}
 		if(p.getPrecoCompra() != null){
-			setPrecoCompra(p.getPrecoCompra().toString());	
+			setPrecoCompra(p.getPrecoCompra());	
 		}		
 		setIdGrupo(p.getGrupo().getId().toString());
 		setIdImposto(p.getImposto().getId().toString());
@@ -275,7 +277,13 @@ public class ProdutoBackBean extends BackBean{
 		setIdFabricante(p.getFabricante().getId().toString());
 		carregaLojas(p.getLojas());
 		
+		this.setIdEnquadramento(p.getEnquadramento());
+		this.setEnquadramentoSelecionado(p.getEnquadramento());
+		
 		if(p.getEnquadramento().equals(Produto.FABRICADO) && p.getComposicao() != null && p.getComposicao().size() > 0){
+			if(this.getItensComposicao() == null){
+				this.setItensComposicao(new ArrayList<Composicao>());
+			}
 			Iterator it = p.getComposicao().iterator();
 			while(it.hasNext()){
 				Composicao composicao = (Composicao)it.next();
@@ -284,12 +292,12 @@ public class ProdutoBackBean extends BackBean{
 					this.getItensComposicao().add(composicao);
 					this.setQuantidadeProdutoComposicaoTotal((this.getQuantidadeProdutoComposicaoTotal() != null ? this.getQuantidadeProdutoComposicaoTotal() : BigDecimal.ZERO).add(composicao.getQuantidade()));
 				}
-			}
-		}
+			}			
+		}		
 	}
 	
 	private Collection criaLojas(String[] idLojas){
-		Collection c = new HashSet();
+		Collection<Loja> c = new HashSet<Loja>();
 		for (int i = 0; i < idLojas.length; i++){
 			Loja l = new Loja();
 			l.setId(new Long(idLojas[i]));
@@ -310,44 +318,65 @@ public class ProdutoBackBean extends BackBean{
 	
 	public void validarProduto() throws AppException{
 		
-		if(this.getCodigoExterno() == null || this.getCodigoExterno().equals("")){
-			throw new AppException("É necessário informar um Código Externo.");
-		}
-		
-		if(this.getCodigoAutomacao() == null || this.getCodigoAutomacao().equals("")){
-			throw new AppException("É necessário informar um Código de Automação.");
-		}
-
 		if(this.getDescricaoCompleta() == null || this.getDescricaoCompleta().equals("")){
+			this.setAbaCorrente("tabMenuDiv0");
 			throw new AppException("É necessário informar uma Descrição Completa.");
 		}
 
 		if(this.getDescricaoCompacta() == null || this.getDescricaoCompacta().equals("")){
+			this.setAbaCorrente("tabMenuDiv0");
 			throw new AppException("É necessário informar uma Descrição Compacta.");
 		}
 
-		if(this.getPrecoPadrao() == null || (this.getPrecoPadrao() != null && new BigDecimal(this.getPrecoPadrao()).setScale(2).equals(new BigDecimal("0.00")))){
+		if(this.getPrecoPadrao() == null || (this.getPrecoPadrao() != null && this.getPrecoPadrao().setScale(2).equals(new BigDecimal("0.00")))){
+			this.setAbaCorrente("tabMenuDiv0");
 			throw new AppException("É necessário informar um Preço Padrão.");
 		}
 
-		if(this.getIdImposto() == null || this.getIdImposto().equals("0")){
-			throw new AppException("É necessário informar um Imposto.");
+		if(this.getCodigoExterno() == null || this.getCodigoExterno().equals("")){
+			this.setAbaCorrente("tabMenuDiv0");
+			throw new AppException("É necessário informar um Código Externo.");
+		}
+		
+		if(this.getCodigoAutomacao() == null || this.getCodigoAutomacao().equals("")){
+			this.setAbaCorrente("tabMenuDiv0");
+			throw new AppException("É necessário informar um Código de Automação.");
 		}
 
 		if(this.getIdTipoProduto() == null || this.getIdTipoProduto().equals("0")){
+			this.setAbaCorrente("tabMenuDiv0");
 			throw new AppException("É necessário informar um Tipo de Produto.");
 		}
 
-		if(this.getIdUnidade() == null || this.getIdUnidade().equals("0")){
-			throw new AppException("É necessário informar uma Unidade.");
-		}
-
 		if(this.getIdGrupo() == null || this.getIdGrupo().equals("0")){
+			this.setAbaCorrente("tabMenuDiv0");
 			throw new AppException("É necessário informar um Grupo de Produto.");
 		}
 
+		if(this.getIdUnidade() == null || this.getIdUnidade().equals("0")){
+			this.setAbaCorrente("tabMenuDiv0");
+			throw new AppException("É necessário informar uma Unidade.");
+		}
+
+		if(this.getIdImposto() == null || this.getIdImposto().equals("0")){
+			this.setAbaCorrente("tabMenuDiv0");
+			throw new AppException("É necessário informar um Imposto.");
+		}
+
+		if(this.getIdFabricante() == null || this.getIdFabricante().equals("0")){
+			this.setAbaCorrente("tabMenuDiv0");
+			throw new AppException("É necessário informar um Fabricante.");
+		}
+		
 		if(this.getListaLojas() == null || this.getListaLojas().length == 0){
+			this.setAbaCorrente("tabMenuDiv0");
 			throw new AppException("É necessário informar pelo menos uma Loja.");
+		}
+		
+		if(this.getEnquadramentoSelecionado().equals(Produto.FABRICADO) && 
+				(this.getItensComposicao() == null || this.getItensComposicao().size() == 0)){
+			this.setAbaCorrente("tabMenuDiv2");
+			throw new AppException("É necessário informar a Composição do Produto Fabricado.");
 		}
 	}
 
@@ -356,7 +385,7 @@ public class ProdutoBackBean extends BackBean{
 
 			validarProduto();
 			
-			Produto produto = getProduto(this.INSERIR); 
+			Produto produto = getProduto(INSERIR); 
 			
 			getFachada().inserirProduto(produto);
 			
@@ -480,7 +509,7 @@ public class ProdutoBackBean extends BackBean{
 			
 			validarProduto();
 			
-			Produto produto = getProduto(this.ALTERAR);
+			Produto produto = getProduto(ALTERAR);
 			
 			Collection<Composicao> cRemovidos = new ArrayList<Composicao>();
 
@@ -538,7 +567,7 @@ public class ProdutoBackBean extends BackBean{
 	
 	public String excluir(){
 		try {
-			getFachada().excluirProduto(getProduto(this.EXCLUIR));
+			getFachada().excluirProduto(getProduto(EXCLUIR));
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -560,9 +589,9 @@ public class ProdutoBackBean extends BackBean{
 		this.codigoAutomacao = null;
 		this.descricaoCompleta = null;
 		this.descricaoCompacta = null;
-		this.precoPadrao = null;
-		this.precoPromocional = null;
-		this.setPrecoCompra("");
+		this.precoPadrao = BigDecimal.ZERO.setScale(2);
+		this.precoPromocional = BigDecimal.ZERO.setScale(2);
+		this.precoCompra = BigDecimal.ZERO.setScale(2);
 		this.idTipoProduto = null;
 		this.idUnidade = null;
 		this.idFabricante = null;
@@ -572,10 +601,14 @@ public class ProdutoBackBean extends BackBean{
 		
 		resetItensComposicaoBB();
 		this.setQuantidadeProdutoComposicaoTotal(BigDecimal.ZERO.setScale(3));
+		this.setItensComposicao(null);
+		this.setItensComposicaoModificados(null);
+		
+		this.setAbaCorrente("tabMenuDiv0");
 	}
 	
 	public String voltarConsulta(){
-		// resetBB();
+		 resetBB();
 		consultar();
 		return "voltar";
 	}
@@ -585,9 +618,7 @@ public class ProdutoBackBean extends BackBean{
 	}
 	
 	public SelectItem[] getGruposConsulta() {
-		SelectItem[] retorno = getGrupos(); 
-//		idGrupo = "";
-		return retorno;
+		return getGrupos();
 	}
 	
 	public SelectItem[] getGrupos() {
@@ -621,9 +652,7 @@ public class ProdutoBackBean extends BackBean{
 	}
 	
 	public SelectItem[] getTiposConsulta() {
-		SelectItem[] retorno = getTipos(); 
-//		idTipoProduto = "";
-		return retorno;
+		return getTipos();
 	}
 	
 	public SelectItem[] getTipos() {
@@ -656,9 +685,7 @@ public class ProdutoBackBean extends BackBean{
 	}
 	
 	public SelectItem[] getUnidadesConsulta() {
-		SelectItem[] retorno = getUnidades(); 
-//		idUnidade = "";
-		return retorno;
+		return getUnidades();
 	}
 	
 	public SelectItem[] getUnidades() {
@@ -689,18 +716,15 @@ public class ProdutoBackBean extends BackBean{
 		}
 		return unidades;
 	}
-	
-	
+		
 	public SelectItem[] getImpostosConsulta() {
-		SelectItem[] retorno = getImpostos(); 
-//		idImposto = "";
-		return retorno;
+		return getImpostos();
 	}
+	
 	public SelectItem[] getFabricantesConsulta() {
-		SelectItem[] retorno = getFabricantes(); 
-//		idFabricante = "";
-		return retorno;
+		return getFabricantes();
 	}
+	
 	public SelectItem[] getImpostos() {
 		Collection impostos = carregarImpostos();
 		SelectItem[] itens = new SelectItem[impostos.size()+1];
@@ -744,9 +768,6 @@ public class ProdutoBackBean extends BackBean{
 	}
 	
 	private Collection carregarLojas() {
-//		Collection lojas = null;
-//		try{
-//			lojas = getFachada().consultarTodosLoja();
 		Set<Loja> lojas = null;
 		try {
 			lojas = (PersistentSet)LoginBackBean.getInstancia().getUsuario().getLojas();
@@ -780,17 +801,18 @@ public class ProdutoBackBean extends BackBean{
 			resetBB();
 			if(VALOR_ACAO.equals(param)){
 				setProdutos(null);
-			}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
-				try {
-					Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
-					if(prod != null){
-						this.descricaoProdutoComposicao = prod.getDescricaoCompleta();
-					}
-					this.setAbaCorrente("tabMenuDiv2");
-				} catch (Exception e) {				
-					e.printStackTrace();			
-					this.setAbaCorrente("tabMenuDiv2");
+				
+			}
+		} else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
+			try {
+				Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
+				if(prod != null){
+					this.descricaoProdutoComposicao = prod.getDescricaoCompleta();
 				}
+				this.setAbaCorrente("tabMenuDiv2");
+			} catch (Exception e) {				
+				e.printStackTrace();			
+				this.setAbaCorrente("tabMenuDiv2");
 			}
 		}
 	}
@@ -815,7 +837,7 @@ public class ProdutoBackBean extends BackBean{
 	/**
 	 * @return the precoCompra
 	 */
-	public String getPrecoCompra() {
+	public BigDecimal getPrecoCompra() {
 		return precoCompra;
 	}
 
@@ -823,7 +845,7 @@ public class ProdutoBackBean extends BackBean{
 	/**
 	 * @param precoCompra the precoCompra to set
 	 */
-	public void setPrecoCompra(String precoCompra) {
+	public void setPrecoCompra(BigDecimal precoCompra) {
 		this.precoCompra = precoCompra;
 	}
 	
@@ -914,7 +936,7 @@ public class ProdutoBackBean extends BackBean{
 		lista[1] = new SelectItem(Produto.REVENDA, "Produto para Revenda");
 		lista[2] = new SelectItem(Produto.MATERIA_PRIMA, "Matéria-Prima");
 		if(this.getIdEnquadramento() == null || this.getIdEnquadramento().equals("")){
-			this.setIdEnquadramento(Produto.REVENDA);
+			this.setIdEnquadramento(Produto.FABRICADO);
 		}
 		return lista;
 	}
