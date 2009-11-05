@@ -164,14 +164,6 @@
 									</h:column>
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Boleto" />
-										</f:facet>
-
-										<h:outputText rendered="#{lancamento.boleto == null }" value="NÃO" /> 
-										<h:outputText rendered="#{lancamento.boleto != null }" value="SIM" /> 
-									</h:column>								
-									<h:column>
-										<f:facet name="header">
 											<h:outputText value="Situação" />
 										</f:facet>
 										<h:outputText rendered="#{lancamento.situacao == 'A'}" value="Aberto" /> 
