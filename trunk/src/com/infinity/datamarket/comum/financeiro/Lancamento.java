@@ -42,7 +42,6 @@ public class Lancamento extends Persistente{
 	private String situacao;
 	private ClienteTransacao cliente;
 	private Transacao transacao;
-	private Boleto boleto;
 
 	private Collection<BaixaLancamento> itensPagamento;
 	private Collection<BaixaLancamento> itensPagamentoExcluidos;
@@ -178,12 +177,4 @@ public class Lancamento extends Persistente{
 	public void setCliente(ClienteTransacao cliente) {
 		this.cliente = cliente;
 	}
-
-	public Boleto getBoleto() {
-		return boleto;
-	}
-
-	public void setBoleto(Boleto boleto) {
-		this.boleto = boleto;
-	}	
 }

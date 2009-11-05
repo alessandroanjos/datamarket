@@ -2290,17 +2290,11 @@ public class Fachada {
 		Boleto c = null;
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			PropertyFilter filter = new PropertyFilter();
-			filter.setTheClass(Boleto.class);
-			filter.addProperty("id", idboleto);
 			
-			Collection coll = getCadastroBoleto().consultar(filter);
-			if (coll != null) {
-				Iterator it = coll.iterator();
-				if (it.hasNext()) {
-					c = (Boleto)it.next();
-				}
-			}
+			
+			c=  getCadastroBoleto().consultarID(idboleto);
+
+
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{
