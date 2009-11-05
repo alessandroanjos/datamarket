@@ -2239,7 +2239,7 @@
 		<managed-property>
 		    <property-name>idEnquadramento</property-name>
 		    <property-class>java.lang.String</property-class>
-		    <value>R</value>
+		    <value>P</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>listaTiposEnquadramento</property-name>
