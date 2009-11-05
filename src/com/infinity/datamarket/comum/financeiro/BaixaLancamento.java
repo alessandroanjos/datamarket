@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.infinity.datamarket.comum.banco.Banco;
+import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.conta.ContaCorrente;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.util.Util;
@@ -35,6 +36,7 @@ public class BaixaLancamento implements Serializable{
 	private String itemLancadoCtaCorrente;
 	private String detalheFormaRecebimento;
 	private Date dataBaixa;
+	private Boleto boleto;
 	
 	public Date getDataBaixa() {
 		return dataBaixa;
@@ -204,5 +206,11 @@ public class BaixaLancamento implements Serializable{
 	
 	public BaixaLancamento(BaixaLancamentoPK pk){
 		setPk(pk);
+	}
+	public Boleto getBoleto() {
+		return boleto;
+	}
+	public void setBoleto(Boleto boleto) {
+		this.boleto = boleto;
 	}
 }

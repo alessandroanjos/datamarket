@@ -118,16 +118,6 @@ public class ThreadProcessadorArquivoRetorno extends Thread {
 				pb.setDataPagamento(dataProcessamento);
 				pb.setIdBoleto(new Long(nossoCodigo));
 
-				try {
-					Boleto bol = Fachada.getInstancia().consultarBoletoID(new Long(nossoCodigo));
-					pb.setBoleto(bol);
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (AppException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				pagamentos.add(pb);
 			} else if (primeiraLinha) {
 				

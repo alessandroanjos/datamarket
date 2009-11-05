@@ -85,6 +85,10 @@
         <property name="dataBaixa" type="java.util.Date" update="true" insert="true">
             <column name="DATA_BAIXA" not-null="true"/>
         </property>
+
+        <many-to-one name="boleto" class="com.infinity.datamarket.comum.boleto.Boleto" update="true" insert="true">
+          <column name="BOLETO" not-null="false"/>
+        </many-to-one>
         
     </class>
 </hibernate-mapping>

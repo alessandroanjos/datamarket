@@ -510,7 +510,6 @@ public class CadastroTransacao extends Cadastro{
 					Loja loja = CadastroLoja.getInstancia().consultarPorPK(new Long(eipb.getPk().getLoja()));
 					ContaCorrente contaCorrente = CadastroContaCorrente.getInstancia().consultarPorId(loja.getIdContaCorrente());								
 					Lancamento l = new Lancamento();						
-					l.setBoleto(eipb.getBoleto());
 					l.setLoja(loja);
 					l.setTransacao(trans);
 					l.setDataLancamento(eip.getDataHoraEvento());
@@ -529,6 +528,7 @@ public class CadastroTransacao extends Cadastro{
 					pk.setId(new Long(1));
 					BaixaLancamento baixa = new BaixaLancamento();
 					baixa.setPk(pk);
+					baixa.setBoleto(eipb.getBoleto());
 					baixa.setCpfCnpjCheque(eipb.getBoleto().getCpfCnpj());
 					baixa.setDataCheque(eip.getDataHoraEvento());
 					FormaRecebimento forma = new FormaRecebimento();

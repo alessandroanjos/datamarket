@@ -46,10 +46,6 @@
 			<column name="DATA_TRANSACAO" />
         </many-to-one>
 
-        <many-to-one name="boleto" class="com.infinity.datamarket.comum.boleto.Boleto" update="true" insert="true">
-          <column name="BOLETO" not-null="false"/>
-        </many-to-one>
-
         <many-to-one name="grupo" class="com.infinity.datamarket.comum.financeiro.GrupoLancamento" update="true" insert="true">
           <column name="ID_GRUPO_LANCAMENTO" not-null="false"/>
         </many-to-one>

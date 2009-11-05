@@ -3,6 +3,7 @@ package com.infinity.datamarket.comum.boleto;
 import java.util.Collection;
 import java.util.Iterator;
 
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
@@ -22,6 +23,10 @@ public class CadastroArquivosProcessado extends Cadastro{
 		}
 		return instancia;
 	}
+
+	private CadastroBoleto getCadastroBoleto(){
+		return CadastroBoleto.getInstancia();
+	}
 	
 	public IRepositorioArquivosProcessado getRepositorio() {
 		// TODO Auto-generated method stub
@@ -38,6 +43,9 @@ public class CadastroArquivosProcessado extends Cadastro{
 			while(it.hasNext()){
 				PagamentoBoleto pb = it.next();
 				pb.getPk().setIdArquivoProcessado(controle.getValor());
+
+				Boleto bol = getCadastroBoleto().baixarBoleto(pb.getIdBoleto());
+				pb.setBoleto(bol);
 			}
 		}
 		getRepositorio().inserir(ArquivosProcessado);
