@@ -3,10 +3,9 @@ package com.infinity.datamarket.pdv.op;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.jboleto.JBoleto;
-import org.jboleto.JBoletoBean;
-import org.jboleto.control.Generator;
-import org.jboleto.control.PDFGenerator;
+import br.com.kobi.JBoleto;
+import br.com.kobi.bancos.BancoBrasil;
+import br.com.kobi.control.GeraPDF;
 
 import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoBoleto;
@@ -64,19 +63,19 @@ public class OpImprimeBoleto extends Mic{
 								}
 
 								String carteira = boleto.getCarteira();
-								if (carteira.length() > 3) {
-									carteira = carteira.substring(0, 3);
+								if (carteira.length() > 2) {
+									carteira = carteira.substring(0, 2);
 								}
-								while(carteira.length() < 3){
+								while(carteira.length() < 2){
 									carteira = "0" + carteira;
 								}
-								
-								String contaCorrente = boleto.getNumeroContaCorrente();
-								if (contaCorrente.length() > 5) {
-									contaCorrente = contaCorrente.substring(0, 5);
+
+								String codigoBanco = boleto.getTipoBanco() + "";
+								if (codigoBanco.length() > 3) {
+									codigoBanco = codigoBanco.substring(0, 3);
 								}
-								while(contaCorrente.length() < 5){
-									contaCorrente = "0" + contaCorrente;
+								while(codigoBanco.length() < 3){
+									codigoBanco = "0" + codigoBanco;
 								}
 
 								String digitoContaCorrente = boleto.getDigitoContaCorrente();
@@ -85,6 +84,14 @@ public class OpImprimeBoleto extends Mic{
 								}
 								while(digitoContaCorrente.length() < 1){
 									digitoContaCorrente = "0" + digitoContaCorrente;
+								}
+
+								String contaCorrente = boleto.getNumeroContaCorrente() + digitoContaCorrente; 
+								if (contaCorrente.length() > 8) {
+									contaCorrente = contaCorrente.substring(0, 8);
+								}
+								while(contaCorrente.length() < 8){
+									contaCorrente = "0" + contaCorrente;
 								}
 
 								String valor = boleto.getValor().toString();
@@ -110,9 +117,8 @@ public class OpImprimeBoleto extends Mic{
 								String cepCliente = boleto.getCepCliente();
 								if (cepCliente == null) cepCliente = "";
 
-								int codigoBanco = boleto.getTipoBanco().intValue();
 							
-								JBoletoBean jBoletoBean = new JBoletoBean();
+								JBoleto jBoletoBean = new JBoleto();
 								
 								jBoletoBean.setDataDocumento(dataVencimento);
 								jBoletoBean.setDataProcessamento(dataProcessamento);
@@ -138,20 +144,44 @@ public class OpImprimeBoleto extends Mic{
 								jBoletoBean.setCarteira(carteira);
 								jBoletoBean.setAgencia(agencia);
 								jBoletoBean.setContaCorrente(contaCorrente);
-								jBoletoBean.setDvContaCorrente(digitoContaCorrente);
+								jBoletoBean.setLocalPagamento("");
+								jBoletoBean.setLocalPagamento2("");
+								
+//S								jBoletoBean.setDvContaCorrente(digitoContaCorrente);
 					
-								jBoletoBean.setNossoNumero(nossoNumero, 8);
-								jBoletoBean.setNoDocumento(nossoNumero);
+								if (boleto.getTipoBanco().intValue() == Boleto.TIPO_BANCO_BANCO_DO_BRASIL) {
+									jBoletoBean.setNossoNumero("000"+nossoNumero, 11);
+										
+								} else if (boleto.getTipoBanco().intValue() == Boleto.TIPO_BANCO_ITAU) {
+									jBoletoBean.setNossoNumero(nossoNumero, 8);
+										
+								} 
+//								jBoletoBean.setNoDocumento(nossoNumero);
 								jBoletoBean.setValorBoleto(valor);
-					
-								Generator generator = new PDFGenerator(jBoletoBean, codigoBanco);
-								JBoleto jBoleto = new JBoleto(generator, jBoletoBean, codigoBanco);
-
+								jBoletoBean.setBanco(codigoBanco);
+								jBoletoBean.setMoeda("9");
+						        
+												
+//								Generator generator = new PDFGenerator(jBoletoBean, codigoBanco);
+//								JBoleto jBoleto = new JBoleto(generator, jBoletoBean, codigoBanco);
+//
 								String arquivoBoleto =  idLoja + "_" + componente + "_" +  usuario.getId() + "_" +   System.currentTimeMillis() + "_" + "boleto.pdf"; // o ideal eh colocar loja + pdv + codigoOperador + timestemp;
-								jBoleto.addBoleto();
-								jBoleto.closeBoleto(Util.getDirCorrente() + "/"+ arquivoBoleto);
+//								jBoleto.addBoleto();
+//								jBoleto.closeBoleto(Util.getDirCorrente() + "/"+ arquivoBoleto);
 
-								Runtime.getRuntime().exec("cmd /c"+Util.getDirCorrente() + "/"+ arquivoBoleto);
+						        
+						        BancoBrasil bbb = new BancoBrasil(jBoletoBean);
+						        jBoletoBean.setLinhaDigitavel(bbb.getLinhaDigitavel());
+						        jBoletoBean.setCodigoBarras(bbb.getCodigoBarras());
+						            
+						        jBoletoBean.setCaminho(Util.getDirCorrente() + "/"+ arquivoBoleto);
+						        
+						        GeraPDF pdf = new GeraPDF(jBoletoBean);
+
+						        pdf.addBoleto();
+						        pdf.geraBoleto();		        
+
+						        Runtime.getRuntime().exec("cmd /c"+Util.getDirCorrente() + "/"+ arquivoBoleto);
 							} catch (Exception e) {
 								e.printStackTrace();
 

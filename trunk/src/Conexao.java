@@ -1,17 +1,11 @@
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
-
-import org.jboleto.JBoleto;
-import org.jboleto.JBoletoBean;
-import org.jboleto.control.Generator;
-import org.jboleto.control.PDFGenerator;
 
 import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.util.Util;
