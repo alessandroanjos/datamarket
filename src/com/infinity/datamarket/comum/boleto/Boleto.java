@@ -3,8 +3,6 @@ package com.infinity.datamarket.comum.boleto;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import org.jboleto.JBoleto;
-
 import com.infinity.datamarket.comum.conta.ContaCorrente;
 import com.infinity.datamarket.comum.util.Persistente;
 
@@ -17,16 +15,16 @@ public class Boleto extends Persistente{
 
 	private static final long serialVersionUID = 4520193234234231246L;
 
-	public static int TIPO_BANCO_ITAU = JBoleto.ITAU;
-	public static int TIPO_BANCO_BANCO_DO_BRASIL = JBoleto.BANCO_DO_BRASIL;
-	public static int TIPO_BANCO_BANCO_GENERICO = JBoleto.BANCO_GENERICO;
-	public static int TIPO_BANCO_BANCO_REAL = JBoleto.BANCO_REAL;
-	public static int TIPO_BANCO_BRADESCO = JBoleto.BRADESCO;
-	public static int TIPO_BANCO_CAIXA_ECONOMICA = JBoleto.CAIXA_ECONOMICA;
-	public static int TIPO_BANCO_HSBC = JBoleto.HSBC;
-	public static int TIPO_BANCO_NOSSACAIXA = JBoleto.NOSSACAIXA;
-	public static int TIPO_BANCO_SANTANDER = JBoleto.SANTANDER;
-	public static int TIPO_BANCO_UNIBANCO = JBoleto.UNIBANCO;
+	public static int TIPO_BANCO_ITAU = 341;
+	public static int TIPO_BANCO_BANCO_DO_BRASIL = 1;
+//	public static int TIPO_BANCO_BANCO_GENERICO = JBoleto.BANCO_GENERICO;
+//	public static int TIPO_BANCO_BANCO_REAL = JBoleto.BANCO_REAL;
+//	public static int TIPO_BANCO_BRADESCO = JBoleto.BRADESCO;
+	public static int TIPO_BANCO_CAIXA_ECONOMICA = 104;
+//	public static int TIPO_BANCO_HSBC = JBoleto.HSBC;
+//	public static int TIPO_BANCO_NOSSACAIXA = JBoleto.NOSSACAIXA;
+//	public static int TIPO_BANCO_SANTANDER = JBoleto.SANTANDER;
+//	public static int TIPO_BANCO_UNIBANCO = JBoleto.UNIBANCO;
 
 	private Integer status = new Integer(GERADO);
 	private Integer cliente;
