@@ -7,11 +7,16 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Collection;
 import java.util.Date;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.conta.ContaCorrente;
+import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazo;
+import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
+import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAPrazo;
+import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAVista;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
@@ -51,6 +56,37 @@ public class OpGeraBoleto extends Mic{
 			}
 			
 			Date dataVencimento = new Date();
+			
+			PlanoPagamento plano = (PlanoPagamento) gerenciadorPerifericos.getCmos().ler(CMOS.PLANO_PAGAMENTO_ATUAL);
+			if (plano  instanceof PlanoPagamentoAPrazo) {
+				PlanoPagamentoAPrazo planoAprazo = (PlanoPagamentoAPrazo) plano;
+				Collection coll = planoAprazo.getParcelas();
+				if (coll == null || !coll.isEmpty()) {
+					gerenciadorPerifericos.getDisplay().setMensagem("Forma sem plano associado");
+					try{
+						gerenciadorPerifericos.esperaVolta();
+						return ALTERNATIVA_2;
+					}catch(AppException e){
+
+					}
+				}
+				ParcelaPlanoPagamentoAPrazo parcela = (ParcelaPlanoPagamentoAPrazo) coll.iterator().next();
+				if (parcela.getQuantidadeDias() != 0) {
+					dataVencimento = com.infinity.datamarket.comum.util.Util.adicionarDia(dataVencimento, parcela.getQuantidadeDias());
+				} else if (parcela.getDataProgramada() != null) {
+					try {
+						dataVencimento = com.infinity.datamarket.comum.util.Util.formatarStringParaData(parcela.getDataProgramada());	
+					} catch (Exception e) {
+						e.printStackTrace();// TODO: handle exception
+						dataVencimento = com.infinity.datamarket.comum.util.Util.adicionarDia(dataVencimento, 3);
+					}
+				} else {
+					dataVencimento = com.infinity.datamarket.comum.util.Util.adicionarDia(dataVencimento, 3);
+				}
+			} else if (plano  instanceof PlanoPagamentoAVista) {
+				dataVencimento = com.infinity.datamarket.comum.util.Util.adicionarDia(dataVencimento, 3);
+			}
+			
 			Date dataProcessamento = new Date();
 			String cedente = loja.getNome(); // empresa que vai receber do sacado
 			String instrucao1 = contaCorrente.getMensagemBoleto1();//"APOS O VENCIMENTO COBRAR MULTA DE 2%";

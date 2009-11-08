@@ -39,7 +39,25 @@ public class Util {
 		return data1.compareTo(data2);
 	}
 	
-				
+	public static Date adicionarDia(Date d1, int quantidade){
+		Calendar c = new GregorianCalendar();
+		c.setTime(d1);
+		
+		c.add(Calendar.DAY_OF_MONTH, quantidade);
+
+		return c.getTime();
+	}
+  
+	public static Date subtrairDia(Date d1, int quantidade){
+		Calendar c = new GregorianCalendar();
+		c.setTime(d1);
+		
+		c.add(Calendar.DAY_OF_MONTH, quantidade);
+
+		return c.getTime();
+	}
+  
+
 	public static Date formatarStringParaData(String dataParametro) throws ParseException {
 		DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
 		return f.parse(dataParametro);

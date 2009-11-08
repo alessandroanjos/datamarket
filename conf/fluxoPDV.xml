@@ -818,12 +818,29 @@
     </macroOperacao>
     <macroOperacao estadoAtual="ESTADO5" proximoEstado="ESTADO3" tecla="TECLA23" codigoMicroOperacaoAssociada="subFluxo123" descricao="Recebimento em Boleto">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo123" operacao="OpInicioRecebimentoBoleto">
-      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo123_1" />
+       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo81" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo79" />
+      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo86_0" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo123_1" operacao="OpGeraBoleto">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo127" />
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo81" operacao="OpExibeTelaPlanos">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo82" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo127" operacao="OpProcessaPlano">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo82" operacao="OpSolicitaPlano">
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo83" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo86_0" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo83" operacao="OpExibeTelaTotal">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo84" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo84" operacao="OpExibeDisplayTotal">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo85" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo85" operacao="OpAlternativaDois">
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo86_0" operacao="OpGeraBoleto">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo86" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo86" operacao="OpProcessaPlano">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo87" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo87" operacao="OpVerificaFimRecebimento">
@@ -902,6 +919,11 @@
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo299" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo299" operacao="OpExibeTelaDisponivel">
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo79" operacao="OpExibeDisplayTotal">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo80" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo80" operacao="OpAlternativaDois">
       </microOperacaoAssociada>
     </macroOperacao>
     <macroOperacao estadoAtual="ESTADO5" proximoEstado="ESTADO3" tecla="TECLA17" codigoMicroOperacaoAssociada="subFluxo137" descricao="Recebimento Cheque Pre">
