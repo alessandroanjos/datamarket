@@ -42,8 +42,8 @@ public class OpImprimeBoleto extends Mic{
 						if (boleto != null) {
 							try {
 
-								String dataVencimento = Util.retornaDataFormatoDDMMYYYY(boleto.getDataProcessamento());
-								String dataProcessamento = Util.retornaDataFormatoDDMMYYYY(boleto.getDataVencimento());
+								String  dataProcessamento  = Util.retornaDataFormatoDDMMYYYY(boleto.getDataProcessamento());
+								String dataVencimento= Util.retornaDataFormatoDDMMYYYY(boleto.getDataVencimento());
 								String cedente = boleto.getCedente(); // empresa que vai receber do sacado
 								String nossoNumero = boleto.getNossoNumero();
 								String instrucao1 = boleto.getInstrucao1();

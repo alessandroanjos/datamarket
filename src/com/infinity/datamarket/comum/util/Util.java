@@ -251,14 +251,7 @@ public class Util {
 	
 	public static void main(String[] args) {
 		Date d1 = new Date();
-		try {
-			Thread.currentThread().sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Date d2 = new Date();
-		System.out.println(comparaDatasSemHora(d1, d2));
+		System.out.println(adicionarDia(d1, 3));
 	}
 	
 	public static void compactaArquivoZip(String[] arqs, String nomeZip) {
