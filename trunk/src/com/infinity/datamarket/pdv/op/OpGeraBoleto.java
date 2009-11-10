@@ -55,7 +55,7 @@ public class OpGeraBoleto extends Mic{
 				return ALTERNATIVA_2;
 			}
 			
-			Date dataVencimento = new Date();
+			Date dataVencimento = com.infinity.datamarket.comum.util.Util.adicionarDia(new Date(), 3);
 			
 			PlanoPagamento plano = (PlanoPagamento) gerenciadorPerifericos.getCmos().ler(CMOS.PLANO_PAGAMENTO_ATUAL);
 			if (plano  instanceof PlanoPagamentoAPrazo) {
@@ -83,8 +83,6 @@ public class OpGeraBoleto extends Mic{
 				} else {
 					dataVencimento = com.infinity.datamarket.comum.util.Util.adicionarDia(dataVencimento, 3);
 				}
-			} else if (plano  instanceof PlanoPagamentoAVista) {
-				dataVencimento = com.infinity.datamarket.comum.util.Util.adicionarDia(dataVencimento, 3);
 			}
 			
 			Date dataProcessamento = new Date();
