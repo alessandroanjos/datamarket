@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
 <faces-config>
@@ -516,6 +516,48 @@
 			<from-outcome>voltar</from-outcome>
 			<to-view-id>/jsp/transacao/consultarTransacao.jsp</to-view-id>
 		</navigation-case>
+	</navigation-rule>
+
+	<!-- Producao -->
+	<navigation-rule>
+		<from-view-id>/jsp/producao/inserirProducao.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{producaoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/producao/inserirProducao.jsp</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/jsp/producao/consultarProducao.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{producaoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/producao/consultarProducao.jsp</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/jsp/producao/consultarProducao.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{producaoBB.manter}</from-action>
+			<from-outcome>manter</from-outcome>
+			<to-view-id>/jsp/producao/manterProducao.jsp</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/jsp/producao/manterProducao.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{producaoBB.alterar}</from-action>
+			<from-outcome>consulta</from-outcome>
+			<to-view-id>/jsp/producao/consultarProducao.jsp</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/jsp/producao/manterProducao.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{producaoBB.excluir}</from-action>
+			<from-outcome>consulta</from-outcome>
+			<to-view-id>/jsp/producao/consultarProducao.jsp</to-view-id>
+		</navigation-case>		
 	</navigation-rule>
 	
 	<!-- TIPO DE PRODUTO -->
@@ -4419,6 +4461,24 @@
 		    <null-value/>
 		</managed-property>
 		
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>producaoBB</managed-bean-name>
+		<managed-bean-class>
+			com.infinity.datamarket.enterprise.gui.producao.ProducaoBackBean
+		</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>idProduto</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>descricao</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
 	</managed-bean>
 	
 	<validator>
