@@ -109,5 +109,19 @@ public class Loja extends Persistente {
 
 	public void setIdContaCorrente(Long idContaCorrente) {
 		this.idContaCorrente = idContaCorrente;
-	}		
+	}
+
+	@Override
+	public int hashCode() {
+		return getId().hashCode();
+	}
+
+	public boolean equals(Object obj){
+		if (obj instanceof Loja){
+			Loja lj = (Loja) obj;
+			return (this.getId().equals(lj.getId()));
+		}
+		return false;
+	}
+	
 }

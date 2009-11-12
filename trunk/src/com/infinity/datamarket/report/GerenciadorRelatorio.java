@@ -622,7 +622,7 @@ public OutputStream gerarRelatorioAnaliticoOperacoesDevolucao(int loja, Date dat
 			
 			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioLucroBrutoVenda(1, d1, new Date());
 			
-			String caminho = "c:\\pdv\\temp\\";
+			String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();//"c:\\pdv\\temp\\";
 			File dir = new File(caminho);
 			if (!dir.exists()){
 				dir.mkdir();

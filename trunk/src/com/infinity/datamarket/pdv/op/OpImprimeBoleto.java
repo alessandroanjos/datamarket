@@ -7,6 +7,7 @@ import br.com.kobi.JBoleto;
 import br.com.kobi.bancos.BancoBrasil;
 import br.com.kobi.control.GeraPDF;
 
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoBoleto;
 import com.infinity.datamarket.comum.transacao.EventoTransacao;
@@ -117,7 +118,7 @@ public class OpImprimeBoleto extends Mic{
 								String cepCliente = boleto.getCepCliente();
 								if (cepCliente == null) cepCliente = "";
 
-							
+							 
 								JBoleto jBoletoBean = new JBoleto();
 								
 								jBoletoBean.setDataDocumento(dataVencimento);
@@ -166,22 +167,26 @@ public class OpImprimeBoleto extends Mic{
 //								JBoleto jBoleto = new JBoleto(generator, jBoletoBean, codigoBanco);
 //
 								String arquivoBoleto =  idLoja + "_" + componente + "_" +  usuario.getId() + "_" +   System.currentTimeMillis() + "_" + "boleto.pdf"; // o ideal eh colocar loja + pdv + codigoOperador + timestemp;
-//								jBoleto.addBoleto();
-//								jBoleto.closeBoleto(Util.getDirCorrente() + "/"+ arquivoBoleto);
 
+//								jBoleto.addBoleto();
+								String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor(); // "c:\\pdv\\temp\\";
+//								jBoleto.closeBoleto(caminho + arquivoBoleto);
+
+
+								Runtime.getRuntime().exec("cmd /c" + caminho + arquivoBoleto);
 						        
 						        BancoBrasil bbb = new BancoBrasil(jBoletoBean);
 						        jBoletoBean.setLinhaDigitavel(bbb.getLinhaDigitavel());
 						        jBoletoBean.setCodigoBarras(bbb.getCodigoBarras());
 						            
-						        jBoletoBean.setCaminho(Util.getDirCorrente() + "/"+ arquivoBoleto);
+						        jBoletoBean.setCaminho(caminho + arquivoBoleto);
 						        
 						        GeraPDF pdf = new GeraPDF(jBoletoBean);
 
 						        pdf.addBoleto();
 						        pdf.geraBoleto();		        
 
-						        Runtime.getRuntime().exec("cmd /c"+Util.getDirCorrente() + "/"+ arquivoBoleto);
+						        Runtime.getRuntime().exec("cmd /c"+ caminho + arquivoBoleto);
 							} catch (Exception e) {
 								e.printStackTrace();
 

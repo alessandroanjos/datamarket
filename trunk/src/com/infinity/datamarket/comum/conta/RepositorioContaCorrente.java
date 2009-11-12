@@ -30,14 +30,17 @@ public class RepositorioContaCorrente extends Repositorio implements IRepositori
 	}
 	public void inserir(ContaCorrente contaCorrente) throws AppException{
 		insert(contaCorrente);
+		alterarDadoLote(contaCorrente);
 	}
 	
 	public void alterar(ContaCorrente contaCorrente) throws AppException{
 		update(contaCorrente);
+		alterarDadoLote(contaCorrente);
 	}
 	
 	public void excluir(ContaCorrente contaCorrente) throws AppException{
 		remove(contaCorrente);
+		alterarDadoLote(contaCorrente);
 	}
 
 	

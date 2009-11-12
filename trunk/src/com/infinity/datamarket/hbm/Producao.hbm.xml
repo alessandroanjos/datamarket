@@ -34,6 +34,11 @@
         <many-to-one name="produto" class="com.infinity.datamarket.comum.produto.Produto" update="true" insert="true">
           <column name="ID_PRODUTO" not-null="false"/>
         </many-to-one>
+        
+        <many-to-one name="estoque" class="com.infinity.datamarket.comum.estoque.Estoque" update="true" insert="true">
+          <column name="ID_ESTOQUE" not-null="true"/>
+          <column name="ID_LOJA" not-null="true"/>
+        </many-to-one>
 	
     </class>
 
