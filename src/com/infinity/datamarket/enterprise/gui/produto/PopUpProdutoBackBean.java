@@ -287,15 +287,12 @@ public class PopUpProdutoBackBean extends BackBean{
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(Produto.class);
 			if(this.getEnquadramento() != null && !this.getEnquadramento().equals("")){
-				if(this.getEnquadramento().equals(Produto.MATERIA_PRIMA)){
-					filter.addProperty("enquadramento", this.getEnquadramento());		
+				if(this.getEnquadramento().equals(Produto.MATERIA_PRIMA) || this.getEnquadramento().equals(Produto.FABRICADO)){
+					filter.addProperty("enquadramento", this.getEnquadramento());
 				}else{
 					filter.addPropertyInterval("enquadramento", Produto.MATERIA_PRIMA, IntervalObject.DIFERENTE);
 				}
-//			}else{
-//				filter.addPropertyInterval("enquadramento", Produto.MATERIA_PRIMA, IntervalObject.DIFERENTE);
 			}
-			
 
 			if (getDescricaoCompleta() != null && !"".equals(getDescricaoCompleta())){				
 				filter.addProperty("descricaoCompleta", getDescricaoCompleta());

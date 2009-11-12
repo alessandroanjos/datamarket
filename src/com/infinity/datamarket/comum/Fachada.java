@@ -1,9 +1,9 @@
 package com.infinity.datamarket.comum;
 
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 
 import org.hibernate.ObjectNotFoundException;
 
@@ -58,6 +58,7 @@ import com.infinity.datamarket.comum.pagamento.CadastroFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.CadastroPlanoPagamento;
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
+import com.infinity.datamarket.comum.producao.Producao;
 import com.infinity.datamarket.comum.produto.CadastroGrupoProduto;
 import com.infinity.datamarket.comum.produto.CadastroImposto;
 import com.infinity.datamarket.comum.produto.CadastroProduto;
@@ -71,7 +72,6 @@ import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
-import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.totalizadores.CadastroTotalizadores;
 import com.infinity.datamarket.comum.totalizadores.TotalizadorNaoFiscal;
@@ -90,6 +90,7 @@ import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
+import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.comum.util.SistemaException;
 import com.infinity.datamarket.infocomponent.CadastroInfoComponente;
 import com.infinity.datamarket.infocomponent.InfoComponent;
@@ -210,7 +211,10 @@ public class Fachada {
 	private com.infinity.datamarket.comum.pagamento.CadastroAutorizadora getCadastroAutorizadora(){
 		return com.infinity.datamarket.comum.pagamento.CadastroAutorizadora.getInstancia();
 	}
-
+	
+	private com.infinity.datamarket.comum.producao.CadastroProducao getCadastroProducao(){
+		return com.infinity.datamarket.comum.producao.CadastroProducao.getInstancia();
+	}
 	
 	private CadastroDadoLote getCadastroDadoLote(){
 		return CadastroDadoLote.getInstancia();
@@ -655,6 +659,10 @@ public class Fachada {
 	
 	public String consultarURLApp() throws AppException{
 		return getConcentradorParametro().consultarURLApp();		
+	}
+	
+	public Parametro consultarParametro(String chave) throws AppException{
+		return getConcentradorParametro().getParametro(chave);		
 	}
 	
 	public Loja consultarLojaPorId(Long id) throws AppException{
@@ -7183,5 +7191,210 @@ public class Fachada {
 //	public Collection consultar(IPropertyFilter filter) throws AppException{
 //		return getRepositorio().consultar(filter);
 //	}
+
+// producao
+	
+	public void inserirProducao(Producao producao) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroProducao().inserir(producao);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public void alterarProducao(Producao producao,BigDecimal quantidade) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroProducao().alterar(producao,quantidade);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public void excluirProducao(Producao producao) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			getCadastroProducao().excluir(producao);	
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+	public Producao consultarProducaoPorId(Long id) throws AppException{
+		Producao producao = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			producao = getCadastroProducao().consultarPorId(id);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return producao;
+	}
+	public Collection consultarProducao(IPropertyFilter filter) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroProducao().consultar(filter);
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	} 
+	
+	public Collection consultarTodasProducoes() throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			c = getCadastroProducao().consultarTodos();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+	
+	public Integer consultarMaiorNumeroLote() throws AppException{
+		Integer l = null;
+		try{
+			RepositoryManagerHibernateUtil.beginTrasaction();
+			l = getCadastroProducao().consultarMaiorNumeroLote();
+			RepositoryManagerHibernateUtil.commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return l;
+	}
 
 }

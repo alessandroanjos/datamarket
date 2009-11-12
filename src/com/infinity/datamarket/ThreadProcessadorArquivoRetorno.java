@@ -21,11 +21,11 @@ import com.infinity.datamarket.comum.boleto.PagamentoBoleto;
 import com.infinity.datamarket.comum.boleto.PagamentoBoletoPK;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
-import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.comum.util.Util;
 
 public class ThreadProcessadorArquivoRetorno extends Thread {
-
+	
 	public static void main(String[] a) {
 		new ThreadProcessadorArquivoRetorno().run();
 	}
@@ -35,10 +35,13 @@ public class ThreadProcessadorArquivoRetorno extends Thread {
 	public void run() {
 
 		try {
-			ArrayList todosProcessados = new ArrayList();
+			ArrayList<String> todosProcessados = new ArrayList<String>();
 
-			String diretorio = "H:\\workspace\\es\\doc\\arquivosRetornoBanco";
-
+			Parametro param = Fachada.getInstancia().consultarParametro("CAMINHO_ARQUIVOS_RET_BANCO");
+			
+//			String diretorio = "D:\\Projetos\\EnterpriseServer\\doc\\arquivosRetornoBanco\\";
+			String diretorio = param.getValor();
+			
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(ArquivoProcessado.class);
 			Collection col = null;

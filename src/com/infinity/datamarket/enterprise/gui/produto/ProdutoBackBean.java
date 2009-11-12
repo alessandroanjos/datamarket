@@ -30,6 +30,7 @@ import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.produto.Unidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ValidationException;
@@ -371,6 +372,11 @@ public class ProdutoBackBean extends BackBean{
 		if(this.getListaLojas() == null || this.getListaLojas().length == 0){
 			this.setAbaCorrente("tabMenuDiv0");
 			throw new AppException("É necessário informar pelo menos uma Loja.");
+		}
+		
+		if(this.getEnquadramentoSelecionado() == null || this.getEnquadramentoSelecionado().equals("")){
+			this.setAbaCorrente("tabMenuDiv0");
+			throw new AppException("É necessário selecionar o Enquadramento do Produto.");
 		}
 		
 		if(this.getEnquadramentoSelecionado().equals(Produto.FABRICADO) && 
@@ -805,11 +811,24 @@ public class ProdutoBackBean extends BackBean{
 			}
 		} else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
 			try {
-				Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
-				if(prod != null){
-					this.descricaoProdutoComposicao = prod.getDescricaoCompleta();
+//				Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
+				PropertyFilter filter = new PropertyFilter();
+				filter.setTheClass(Produto.class);
+				filter.addProperty("enquadramento", Produto.MATERIA_PRIMA);
+				filter.addProperty("id", new Long((String)params.get("codigoProduto")));
+				Collection c = getFachada().consultarProdutoPorFiltro(filter, true);
+				if(c == null || c.isEmpty()){
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Produto não existe no cadastro ou não é um Produto Matéria-Prima!", "");
+					getContextoApp().addMessage(null, msg);
+				}else{
+					Produto prod = (Produto)c.iterator().next();
+					
+					if(prod != null){
+						this.descricaoProdutoComposicao = prod.getDescricaoCompleta();
+					}
+					this.setAbaCorrente("tabMenuDiv2");
 				}
-				this.setAbaCorrente("tabMenuDiv2");
 			} catch (Exception e) {				
 				e.printStackTrace();			
 				this.setAbaCorrente("tabMenuDiv2");

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
 
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
@@ -23,7 +24,7 @@ public class OpImprimeMovimentoDia extends Mic{
 			try {
 				Date dataMovimento = (Date) gerenciadorPerifericos.getCmos().ler(CMOS.DATA_MOVIMENTO);
 				ByteArrayOutputStream out = (ByteArrayOutputStream) getFachadaPDV().gerarRelatorioAnaliticoVendas(gerenciadorPerifericos.getCodigoLoja(), dataMovimento, dataMovimento);
-				String caminho = "c:\\pdv\\temp\\";
+				String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();//"c:\\pdv\\temp\\";
 				File dir = new File(caminho);
 				if (!dir.exists()){
 					dir.mkdir();
