@@ -38,7 +38,7 @@
 				if ($('[name=frmBaixarLancamento:idTipoPessoa]:checked').val() != "undefined") {
 					mostraCampos($('[name=frmBaixarLancamento:idTipoPessoa]:checked').val());
 				}
-				alert(getId("frmBaixarLancamento:idSituacao").value);
+				//alert(getId("frmBaixarLancamento:idSituacao").value);
 				if (getId("frmBaixarLancamento:idSituacao").value == "D") {
 					desabilita("frmBaixarLancamento:idContaCorrente");
 					desabilita("frmBaixarLancamento:idFormaRecebimento");
@@ -116,7 +116,7 @@
             }
 		</script>		
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="exibirMensagemErro();inicializar();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">

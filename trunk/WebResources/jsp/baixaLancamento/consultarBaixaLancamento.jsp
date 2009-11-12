@@ -162,7 +162,7 @@
 											<h:outputText value="Data Vencimento" />
 										</f:facet>
 										<h:outputText value="#{lancamento.dataVencimento}" /> 
-									</h:column>
+									</h:column>																
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Situação" />
