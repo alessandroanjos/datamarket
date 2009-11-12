@@ -51,8 +51,16 @@
 											<f:selectItems id="lojasSelectItems" value="#{contaCorrenteBB.lojas}" />   
 										</h:selectOneMenu>
 									</div>	
-									<br />
-									<br />
+									<div>
+										<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
+										<h:inputText styleClass="field text" id="nome" maxlength="20" size="30" required="false"
+											value="#{contaCorrenteBB.nome}">
+											<f:validateLength maximum="20" />
+										</h:inputText>
+									
+									</div>
+									</li>
+								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Banco*"></h:outputLabel>
 										<h:selectOneMenu id="idBanco" styleClass="field select"
@@ -60,8 +68,7 @@
 											<f:selectItems id="bancoSelectItems" value="#{contaCorrenteBB.bancos}" />
 										</h:selectOneMenu>
 									</div>
-								</li>
-								<li class="normal">
+								
 									<div>
 										<h:outputLabel styleClass="desc" value="Agencia*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="idAgencia" maxlength="4" size="5" required="false"
@@ -71,8 +78,6 @@
 									
 									</div>
 
-								</li>
-								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Numero*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="numero" maxlength="5" size="6" required="false"
@@ -81,9 +86,7 @@
 										</h:inputText>
 									
 									</div>
-										
-								</li>								
-								<li class="normal">
+							
 									<div>
 										<h:outputLabel styleClass="desc" value="Digito*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="digitoContaCorrente" maxlength="1" size="2" required="false"
@@ -105,17 +108,7 @@
 									</div>
 										
 								</li>								
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="nome" maxlength="20" size="20" required="false"
-											value="#{contaCorrenteBB.nome}">
-											<f:validateLength maximum="20" />
-										</h:inputText>
-									
-									</div>
-									
-								</li>
+								
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Saldo*"></h:outputLabel>
@@ -138,8 +131,7 @@
 											<f:validateLength maximum="100" />
 										</h:inputText>
 									</div>
-								</li>
-								<li class="normal">
+								
 									<div>
 										<h:outputLabel styleClass="desc" value="Segunda Mensagem do Boleto "></h:outputLabel>
 										<h:inputText styleClass="field text" id="mensagemBoleto2" maxlength="100" size="30" required="false"
@@ -156,8 +148,6 @@
 											<f:validateLength maximum="100" />
 										</h:inputText>
 									</div>
-								</li>
-								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Quarta Mensagem do Boleto "></h:outputLabel>
 										<h:inputText styleClass="field text" id="mensagemBoleto4" maxlength="100" size="30" required="false"

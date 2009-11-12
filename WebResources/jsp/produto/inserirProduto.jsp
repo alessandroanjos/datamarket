@@ -54,7 +54,7 @@
 	              function showPopUp(action, form, target) {
 	 	                getId("frmInserirProduto:quantidadeProdutoComposicao").value = parseFloat("0").toFixed(3);	
                 		if(getId("frmInserirProduto:idProdutoComposicao").value == ""){        		
-		        		    getId("frmInserirProduto:descricaoProdutoComposicao").value = "";		        		    
+		        		    getId("frmInserirProduto:descricaoProdutoComposicao").value = "";
 			                formId=form;
 					        if (winId != null) {
 						       winId.close();
@@ -185,7 +185,7 @@
 												maxlength="10" size="10" value="#{produtoBB.precoPadrao}"
 												 dir="rtl"
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
-												<f:validateDoubleRange minimum="0.00" maximum="999999.99" />
+												<f:validator validatorId="BigDecimalValidator"/>
 											</h:inputText>
 											
 										</div>
@@ -196,7 +196,7 @@
 												value="#{produtoBB.precoPromocional}" required="false"
 												dir="rtl" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
-												<f:validateDoubleRange minimum="0.00" maximum="999999.99" />
+												<f:validator validatorId="BigDecimalValidator"/>
 											</h:inputText>
 											
 										</div>
@@ -207,7 +207,7 @@
 												value="#{produtoBB.precoCompra}" required="false"
 												dir="rtl" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
-												<f:validateDoubleRange minimum="0.01" maximum="999999.99" />
+												<f:validator validatorId="BigDecimalValidator"/>
 											</h:inputText>
 											
 										</div>

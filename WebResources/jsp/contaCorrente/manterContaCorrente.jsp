@@ -52,8 +52,16 @@
 											<f:selectItems id="lojasSelectItems" value="#{contaCorrenteBB.lojas}" />   
 										</h:selectOneMenu>
 									</div>	
-									<br />
-									<br />
+									<div>
+										<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
+										<h:inputText styleClass="field text" id="nome" maxlength="20" size="30" required="false"
+											value="#{contaCorrenteBB.nome}">
+											<f:validateLength maximum="20" />
+										</h:inputText>
+									
+									</div>
+									</li>
+								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Banco*"></h:outputLabel>
 										<h:selectOneMenu id="idBanco" styleClass="field select"
@@ -61,8 +69,7 @@
 											<f:selectItems id="bancoSelectItems" value="#{contaCorrenteBB.bancos}" />
 										</h:selectOneMenu>
 									</div>
-								</li>
-								<li class="normal">
+								
 									<div>
 										<h:outputLabel styleClass="desc" value="Agencia*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="idAgencia" maxlength="4" size="5" required="false"
@@ -72,8 +79,6 @@
 									
 									</div>
 
-								</li>
-								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Numero*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="numero" maxlength="5" size="6" required="false"
@@ -82,10 +87,7 @@
 										</h:inputText>
 									
 									</div>
-										
-								</li>
-								
-																<li class="normal">
+							
 									<div>
 										<h:outputLabel styleClass="desc" value="Digito*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="digitoContaCorrente" maxlength="1" size="2" required="false"
@@ -108,23 +110,11 @@
 										
 								</li>								
 								
-																
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Nome*"></h:outputLabel>
-										<h:inputText styleClass="field text" id="nome" maxlength="20" size="20" required="false"
-											value="#{contaCorrenteBB.nome}">
-											<f:validateLength maximum="20" />
-										</h:inputText>
-									
-									</div>
-									
-								</li>
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Saldo*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="saldo" maxlength="10" size="10" dir="rtl"
-											value="#{contaCorrenteBB.saldo}" required="false" readonly="true"
+											value="#{contaCorrenteBB.saldo}" required="false" 
 											onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 											<f:validateLength maximum="10" />
 											<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>
@@ -134,7 +124,7 @@
 									</div>
 									
 								</li>
-																<li class="normal">
+								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Primeira Mensagem do Boleto "></h:outputLabel>
 										<h:inputText styleClass="field text" id="mensagemBoleto1" maxlength="100" size="30" required="false"
@@ -142,8 +132,7 @@
 											<f:validateLength maximum="100" />
 										</h:inputText>
 									</div>
-								</li>
-								<li class="normal">
+								
 									<div>
 										<h:outputLabel styleClass="desc" value="Segunda Mensagem do Boleto "></h:outputLabel>
 										<h:inputText styleClass="field text" id="mensagemBoleto2" maxlength="100" size="30" required="false"
@@ -160,8 +149,6 @@
 											<f:validateLength maximum="100" />
 										</h:inputText>
 									</div>
-								</li>
-								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Quarta Mensagem do Boleto "></h:outputLabel>
 										<h:inputText styleClass="field text" id="mensagemBoleto4" maxlength="100" size="30" required="false"
@@ -170,13 +157,12 @@
 										</h:inputText>
 									</div>
 								</li>
-								
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Ativa"></h:outputLabel>
 										<h:selectOneRadio  styleClass="field select"  id="situacao"  
 											value="#{contaCorrenteBB.situacao}"  layout="lineDirection" rendered="true">
-										    <f:selectItem itemLabel="Sim" itemValue="S" />
+										    <f:selectItem itemLabel="Sim" itemValue="S"/>
 										    <f:selectItem itemLabel="Não" itemValue="N"/>
 										</h:selectOneRadio>
 										

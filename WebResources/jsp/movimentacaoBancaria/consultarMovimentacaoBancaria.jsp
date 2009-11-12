@@ -118,8 +118,12 @@
 										<f:facet name="header">
 											<h:outputText value="Data" />
 										</f:facet>
-										<h:outputText value="#{movimentacaoBancaria.data}" rendered="#{movimentacaoBancaria.tipo == 'C'}" style="color: blue;"/> 
-										<h:outputText value="#{movimentacaoBancaria.data}" rendered="#{movimentacaoBancaria.tipo == 'D'}" style="color: red;"/> 
+										<h:outputText value="#{movimentacaoBancaria.data}" rendered="#{movimentacaoBancaria.tipo == 'C'}" style="color: blue;">  
+											<f:convertDateTime timeZone="GMT-3"/>
+										</h:outputText>
+										<h:outputText value="#{movimentacaoBancaria.data}" rendered="#{movimentacaoBancaria.tipo == 'D'}" style="color: red;">
+											<f:convertDateTime timeZone="GMT-3"/>
+										</h:outputText>
 									</h:column>
 									<h:column>
 										<f:facet name="header">

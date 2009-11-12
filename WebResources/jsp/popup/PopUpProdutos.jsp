@@ -36,11 +36,11 @@
 					    var strEnquadramento = "<%=request.getParameter("enquadramento")%>";
 					    var flag = new String(strEnquadramento);
 					    //alert(getId("frmPopUpProduto:enquadramento").value);
-					    if (flag.toUpperCase() == "M") {
+//					    if (flag.toUpperCase() == "M") {
 					       getId("frmPopUpProduto:enquadramento").value = flag;
-					    }else{
-					       getId("frmPopUpProduto:enquadramento").value = new String("P,R");
-					    }						
+	//				    }else{
+		//			       getId("frmPopUpProduto:enquadramento").value = new String("P,R");
+			//		    }						
 					    //alert(getId("frmPopUpProduto:enquadramento").value);					    
 			      }
 			
