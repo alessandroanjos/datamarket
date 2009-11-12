@@ -105,7 +105,11 @@ insert into funcionalidade values (411,  409, 'Manter Movimentação'             
 insert into funcionalidade values (412,  400, 'Conta Corrente'                      , 'S', NULL                                                       , 800  , 600 )
 insert into funcionalidade values (413,  412, 'Inserir Conta Corrente'              , 'S', 'contaCorrente/inserirContaCorrente'                       , 800  , 600 )
 insert into funcionalidade values (414,  412, 'Manter Conta Corrente'               , 'S', 'contaCorrente/consultarContaCorrente'                     , 800  , 600 )
-                                                                                                                                                                      
+                                
+insert into funcionalidade values (500, NULL, 'Produção'                            , 'S', NULL                                                       , 0    , 0   );
+insert into funcionalidade values (501,  500, 'Inserir Lote'                        , 'S', 'producao/inserirProducao'                                 , 800  , 600 );
+insert into funcionalidade values (502,  500, 'Manter Lote'                         , 'S', 'producao/consultarProducao'                               , 800  , 600 );
+                                                                                                                                                                                                     
 insert into funcionalidade values (999, NULL, 'Logout'                              , 'S', 'logout'                                                   , 0    , 0   )
 
 insert into perfil_funcionalidade
