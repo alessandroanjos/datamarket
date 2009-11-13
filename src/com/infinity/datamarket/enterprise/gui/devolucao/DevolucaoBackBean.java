@@ -497,7 +497,7 @@ public class DevolucaoBackBean extends BackBean {
 			}else{
 				this.nomeCliente = devolucao.getCliente().getRazaoSocial();
 			}
-			this.setCpfCnpj(formataCpfCnpj(devolucao.getCliente().getCpfCnpj()));
+			this.setCpfCnpj(Util.formataCpfCnpj(devolucao.getCliente().getCpfCnpj()));
 		}
 		if(this.getEventosOperacao() == null){
 			this.setEventosOperacao(new ArrayList<EventoOperacaoItemRegistrado>());

@@ -124,27 +124,6 @@ public class BackBean {
 	public void setInit(HtmlForm init) {
 		this.init = init;
 	}
-	
-	public static String formataCpfCnpj(String cpfCnpf){
-		String result = "";
-		String temp = "";
-		//formata cpf xx.xxx.xxx-xx
-		if(cpfCnpf.length() <= 11){
-			for(int i = cpfCnpf.length(); i < 11;i++){
-				temp = temp + "0";
-			}
-			temp = temp.concat(cpfCnpf);
-			result = temp.substring(0,3) + "." + temp.substring(3, 6) + "." + temp.substring(6, 9) + "-" + temp.substring(9);
-		}else{
-			//forma cnpj xx.xxx.xxx/xxxx-xx
-			for(int i = cpfCnpf.length(); i < 14;i++){
-				temp = temp + "0";
-			}
-			temp = temp.concat(cpfCnpf);
-			result = temp.substring(0,2) + "." + temp.substring(2, 5) + "." + temp.substring(5, 8) + "/" + temp.substring(8, 12) + "-" + temp.substring(12);
-		}		
-		return result;
-	}
 
 	/**
 	 * @return the idInc

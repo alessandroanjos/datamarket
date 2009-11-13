@@ -639,7 +639,7 @@ public class BaixaLancamentoBackBean extends BackBean {
 
 				if(obj.getFormaRecebimento().getId().toString().equals(ConstantesFormaRecebimento.CHEQUE)){
 					String detalheForma = obj.getBanco().getId() + "/" + obj.getAgencia() + "/" + obj.getNumeroConta() + "/" + 
-										  obj.getNumeroCheque() + "/ \n" + formataCpfCnpj(obj.getCpfCnpjCheque()) + "/" + obj.getNumeroDocumento() + "/" + 
+										  obj.getNumeroCheque() + "/ \n" + Util.formataCpfCnpj(obj.getCpfCnpjCheque()) + "/" + obj.getNumeroDocumento() + "/" + 
 							              Util.retornaDataFormatoDDMMYYYY(obj.getDataCheque());
 					obj.setDetalheFormaRecebimento(detalheForma);
 				}

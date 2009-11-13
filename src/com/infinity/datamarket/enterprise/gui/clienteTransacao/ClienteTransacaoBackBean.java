@@ -111,7 +111,7 @@ public class ClienteTransacaoBackBean extends BackBean {
 				while(it.hasNext()){
 					ClienteTransacao cliTmp = (ClienteTransacao)it.next();
 					if(cliTmp != null){
-						cliTmp.setCpfCnpj(super.formataCpfCnpj(cliTmp.getCpfCnpj()));
+						cliTmp.setCpfCnpj(Util.formataCpfCnpj(cliTmp.getCpfCnpj()));
 					}
 				}
 				this.setClientesTransacao(col);

@@ -312,7 +312,7 @@ public class ClienteBackBean extends BackBean {
 				this.setId(cliente.getId().toString());
 				this.setNomeCliente(cliente.getNomeCliente());
 				this.setIdTipoPessoa(cliente.getTipoPessoa());
-				this.setCpfCnpj(formataCpfCnpj(cliente.getCpfCnpj()));
+				this.setCpfCnpj(Util.formataCpfCnpj(cliente.getCpfCnpj()));
 				this.setRazaoSocial(cliente.getRazaoSocial());
 				this.setNomeFantasia(cliente.getNomeFantasia());
 				this.setInscricaoEstadual(cliente.getInscricaoEstadual());
@@ -365,7 +365,7 @@ public class ClienteBackBean extends BackBean {
 						this.setId(cliente.getId().toString());
 						this.setNomeCliente(cliente.getNomeCliente());
 						this.setIdTipoPessoa(cliente.getTipoPessoa());
-						this.setCpfCnpj(formataCpfCnpj(cliente.getCpfCnpj()));
+						this.setCpfCnpj(Util.formataCpfCnpj(cliente.getCpfCnpj()));
 						this.setRazaoSocial(cliente.getRazaoSocial());
 						this.setNomeFantasia(cliente.getNomeFantasia());
 						this.setInscricaoEstadual(cliente.getInscricaoEstadual());
