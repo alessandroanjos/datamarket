@@ -250,8 +250,26 @@ public class Util {
 	}
 	
 	public static void main(String[] args) {
-		Date d1 = new Date();
-		System.out.println(adicionarDia(d1, 3));
+		URL url = Util.class.getClassLoader().getResource("Perifericos.properties");
+		if (url != null) {
+			dirCorrente = url.toString();
+			dirCorrente =
+				dirCorrente.substring("file:\\".length(), dirCorrente.length());
+			try {
+				dirCorrente =
+					dirCorrente.substring(0, dirCorrente.indexOf("WEB-INF"));
+				dirCorrente =
+					dirCorrente.substring(0, dirCorrente.length() - 1);
+				// no caso do sistema operacional for o linux
+				// coloca a para inicial
+				int local = dirCorrente.indexOf(":");
+				if (local == -1) {
+					dirCorrente = "/" + dirCorrente;
+				}
+				System.out.println(dirCorrente);
+			} catch (Exception e) {
+			}
+		}
 	}
 	
 	public static void compactaArquivoZip(String[] arqs, String nomeZip) {
@@ -392,4 +410,36 @@ public class Util {
 	public static String getDirCorrente() {
 		return dirCorrente;
 	}
+	
+	public static String formataCpfCnpj(String cpfCnpf){
+		String result = "";
+		String temp = "";
+		//formata cpf xx.xxx.xxx-xx
+		if(cpfCnpf.length() <= 11){
+			for(int i = cpfCnpf.length(); i < 11;i++){
+				temp = temp + "0";
+			}
+			temp = temp.concat(cpfCnpf);
+			result = temp.substring(0,3) + "." + temp.substring(3, 6) + "." + temp.substring(6, 9) + "-" + temp.substring(9);
+		}else{
+			//forma cnpj xx.xxx.xxx/xxxx-xx
+			for(int i = cpfCnpf.length(); i < 14;i++){
+				temp = temp + "0";
+			}
+			temp = temp.concat(cpfCnpf);
+			result = temp.substring(0,2) + "." + temp.substring(2, 5) + "." + temp.substring(5, 8) + "/" + temp.substring(8, 12) + "-" + temp.substring(12);
+		}		
+		return result;
+	}
+	
+	public static String formataCEP(String cep){
+		String cepRetorno = cep;
+		
+		if(cep.length() == 8){
+			cepRetorno = cep.substring(0, 2) + "." + cep.substring(2, 5) + "-" + cep.substring(5, 8); 
+		}
+		
+		return cepRetorno;
+	}
+
 }

@@ -187,11 +187,11 @@ public class GerenciadorRelatorio {
 			if(transacao.getCPFCNPJ().length() == 11){
 				textoRecibo.append(" " + transacao.getNome().toUpperCase());
 				textoRecibo.append(", CPF Nº ");
-				textoRecibo.append(BackBean.formataCpfCnpj(transacao.getCPFCNPJ()));
+				textoRecibo.append(Util.formataCpfCnpj(transacao.getCPFCNPJ()));
 			}else{
 				textoRecibo.append(" " + transacao.getNome().toUpperCase());
 				textoRecibo.append(", CNPJ Nº ");
-				textoRecibo.append(BackBean.formataCpfCnpj(transacao.getCPFCNPJ()));				
+				textoRecibo.append(Util.formataCpfCnpj(transacao.getCPFCNPJ()));				
 			}
 			
 			textoRecibo.append(", " + rs.getString("TEXTO_PAGAMENTO_CLIENTE_PARTE2"));
@@ -295,13 +295,13 @@ public class GerenciadorRelatorio {
 				if(fornecedor.getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
 					parametros.put("fornecedor", fornecedor.getId().toString() + " - " + fornecedor.getNomeFornecedor());
 					parametros.put("labelCpfCnpj", "CPF:");
-					parametros.put("cpfCnpj", BackBean.formataCpfCnpj(fornecedor.getCpfCnpj().trim().replace(".", "").replace("/", "").replace("-", "")));
+					parametros.put("cpfCnpj", Util.formataCpfCnpj(fornecedor.getCpfCnpj().trim().replace(".", "").replace("/", "").replace("-", "")));
 					parametros.put("pessoaContato", fornecedor.getPessoaContato());
 					parametros.put("foneContato", fornecedor.getFoneContato());
 				}else{
 					parametros.put("fornecedor", fornecedor.getId().toString() + " - " + fornecedor.getRazaoSocial());
 					parametros.put("labelCpfCnpj", "CNPJ:");
-					parametros.put("cpfCnpj", BackBean.formataCpfCnpj(fornecedor.getCpfCnpj()));
+					parametros.put("cpfCnpj", Util.formataCpfCnpj(fornecedor.getCpfCnpj()));
 					parametros.put("pessoaContato", fornecedor.getPessoaContato());
 					parametros.put("foneContato", fornecedor.getFoneContato());
 				}

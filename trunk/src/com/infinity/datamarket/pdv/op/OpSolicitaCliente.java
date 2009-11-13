@@ -6,6 +6,7 @@ import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.Parametro;
+import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
@@ -27,7 +28,7 @@ public class OpSolicitaCliente extends Mic{
 				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){								
 					gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
 					TelaCadastroClientePDV tela = TelaCadastroClientePDV.iniciar(gerenciadorPerifericos.getWindow().getFrame());
-					if (tela.retorno == TelaCadastroClientePDV.OK){
+					if (TelaCadastroClientePDV.retorno == TelaCadastroClientePDV.OK){
 						ClienteTransacao cliente = tela.getClienteTransacao();
 						TransacaoVenda transVenda = (TransacaoVenda) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
 						System.out.println("OpSolicitaCliente.exec: cliente.getCpfCnpj(): "+cliente.getCpfCnpj());
@@ -38,12 +39,12 @@ public class OpSolicitaCliente extends Mic{
 						if (boleto != null) {
 
 							boleto.setNomeCliente(cliente.getNomeCliente());
-							boleto.setEnderecoCliente(cliente.getLogradouro());
+							boleto.setEnderecoCliente(cliente.getLogradouro() + (cliente.getNumero() != null ? ", Nº" + cliente.getNumero(): ", S/N"));
 							boleto.setBairroCliente(cliente.getBairro());
 							boleto.setCidadeCliente(cliente.getCidade());
 							boleto.setUFCliente(cliente.getEstado());
-							boleto.setCpfCnpj(cliente.getCpfCnpj());
-							boleto.setCepCliente(cliente.getCep());
+							boleto.setCpfCnpj(Util.formataCpfCnpj(cliente.getCpfCnpj())); 
+							boleto.setCepCliente(Util.formataCEP(cliente.getCep()));
 
 							gerenciadorPerifericos.getCmos().gravar(CMOS.BOLETO,boleto);
 }

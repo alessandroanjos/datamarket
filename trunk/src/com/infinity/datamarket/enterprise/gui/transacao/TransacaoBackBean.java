@@ -67,6 +67,7 @@ import com.infinity.datamarket.comum.usuario.Vendedor;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConjuntoEventoTransacao;
 import com.infinity.datamarket.comum.util.Constantes;
+import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 import com.infinity.datamarket.pdv.util.ServerConfig;
@@ -1063,7 +1064,7 @@ public class TransacaoBackBean extends BackBean {
 		if(transacao.getCliente() != null){
 			ClienteTransacao cliTrans = transacao.getCliente();
 			if(cliTrans.getCpfCnpj() != null && !cliTrans.getCpfCnpj().equals("")){
-				this.setCpfCnpjClienteCadastro(formataCpfCnpj(cliTrans.getCpfCnpj()));
+				this.setCpfCnpjClienteCadastro(Util.formataCpfCnpj(cliTrans.getCpfCnpj()));
 			}else{
 				this.setCpfCnpjClienteCadastro("");
 			}
@@ -2586,7 +2587,7 @@ public class TransacaoBackBean extends BackBean {
 			}
 			ClienteTransacao cli = getFachada().consultarClienteTransacaoPorID(cpfCnpj);
 			if(cli != null){
-				this.setCpfCnpjClienteCadastro(formataCpfCnpj(cli.getCpfCnpj()));
+				this.setCpfCnpjClienteCadastro(Util.formataCpfCnpj(cli.getCpfCnpj()));
 //				this.setNomeClienteCadastro(cli.getNomeCliente());
 				this.nomeClienteCadastro = cli.getNomeCliente();
 				this.setIdTipoPessoaCadastro(cli.getTipoPessoa());

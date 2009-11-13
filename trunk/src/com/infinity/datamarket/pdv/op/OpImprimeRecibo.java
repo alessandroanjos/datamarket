@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
@@ -35,7 +36,7 @@ public class OpImprimeRecibo extends Mic{
 
 						ByteArrayOutputStream out = new ByteArrayOutputStream();
 						getFachadaPDV().gerarReciboVenda(transVenda, out);
-						String caminho = Util.getDirCorrente() + "/";
+						String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();
 						File dir = new File(caminho);
 						if (!dir.exists()){
 							dir.mkdir();

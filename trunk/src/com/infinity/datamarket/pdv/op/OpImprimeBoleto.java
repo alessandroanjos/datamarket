@@ -59,42 +59,38 @@ public class OpImprimeBoleto extends Mic{
 								if (agencia.length() > 4) {
 									agencia = agencia.substring(0, 4);
 								}
-								while(agencia.length() < 4){
-									agencia = "0" + agencia;
-								}
+								
+								agencia = Util.completaString(agencia, "0", 4, true);
 
 								String carteira = boleto.getCarteira();
 								if (carteira.length() > 2) {
 									carteira = carteira.substring(0, 2);
 								}
-								while(carteira.length() < 2){
-									carteira = "0" + carteira;
-								}
+								
+								carteira = Util.completaString(carteira, "0", 2, true);
 
 								String codigoBanco = boleto.getTipoBanco() + "";
 								if (codigoBanco.length() > 3) {
 									codigoBanco = codigoBanco.substring(0, 3);
 								}
-								while(codigoBanco.length() < 3){
-									codigoBanco = "0" + codigoBanco;
-								}
+								
+								codigoBanco = Util.completaString(codigoBanco, "0", 3, true);
 
 								String digitoContaCorrente = boleto.getDigitoContaCorrente();
-								if (digitoContaCorrente.length() > 1) {
+								if (digitoContaCorrente.length() >= 1) {
 									digitoContaCorrente = digitoContaCorrente.substring(0, 1);
+								}else if (digitoContaCorrente.length() == 0) {
+									digitoContaCorrente = "0";
 								}
-								while(digitoContaCorrente.length() < 1){
-									digitoContaCorrente = "0" + digitoContaCorrente;
-								}
-
+								
 								String contaCorrente = boleto.getNumeroContaCorrente() + digitoContaCorrente; 
+
 								if (contaCorrente.length() > 8) {
 									contaCorrente = contaCorrente.substring(0, 8);
 								}
-								while(contaCorrente.length() < 8){
-									contaCorrente = "0" + contaCorrente;
-								}
 
+								contaCorrente = Util.completaString(contaCorrente, "0", 8, true);
+								
 								String valor = boleto.getValor().toString();
 	
 								String nomeCliente = boleto.getNomeCliente();
@@ -162,31 +158,24 @@ public class OpImprimeBoleto extends Mic{
 								jBoletoBean.setBanco(codigoBanco);
 								jBoletoBean.setMoeda("9");
 						        
-												
-//								Generator generator = new PDFGenerator(jBoletoBean, codigoBanco);
-//								JBoleto jBoleto = new JBoleto(generator, jBoletoBean, codigoBanco);
-//
 								String arquivoBoleto =  idLoja + "_" + componente + "_" +  usuario.getId() + "_" +   System.currentTimeMillis() + "_" + "boleto.pdf"; // o ideal eh colocar loja + pdv + codigoOperador + timestemp;
 
-//								jBoleto.addBoleto();
-								String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor(); // "c:\\pdv\\temp\\";
-//								jBoleto.closeBoleto(caminho + arquivoBoleto);
+								String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor() + arquivoBoleto; // "c:\\pdv\\temp\\";
 
-
-								Runtime.getRuntime().exec("cmd /c" + caminho + arquivoBoleto);
+								Runtime.getRuntime().exec("cmd /c" + caminho);
 						        
 						        BancoBrasil bbb = new BancoBrasil(jBoletoBean);
 						        jBoletoBean.setLinhaDigitavel(bbb.getLinhaDigitavel());
 						        jBoletoBean.setCodigoBarras(bbb.getCodigoBarras());
 						            
-						        jBoletoBean.setCaminho(caminho + arquivoBoleto);
+						        jBoletoBean.setCaminho(caminho);
 						        
 						        GeraPDF pdf = new GeraPDF(jBoletoBean);
 
 						        pdf.addBoleto();
 						        pdf.geraBoleto();		        
 
-						        Runtime.getRuntime().exec("cmd /c"+ caminho + arquivoBoleto);
+						        Runtime.getRuntime().exec("cmd /c"+ caminho);
 							} catch (Exception e) {
 								e.printStackTrace();
 

@@ -245,7 +245,7 @@ public class FabricanteBackBean extends BackBean {
 				this.setId(Fabricante.getId().toString());
 				this.setNomeFabricante(Fabricante.getNomeFabricante());
 				this.setIdTipoPessoa(Fabricante.getTipoPessoa());
-				this.setCpfCnpj(formataCpfCnpj(Fabricante.getCpfCnpj()));
+				this.setCpfCnpj(Util.formataCpfCnpj(Fabricante.getCpfCnpj()));
 				this.setRazaoSocial(Fabricante.getRazaoSocial());
 				this.setNomeFantasia(Fabricante.getNomeFantasia());
 				this.setInscricaoEstadual(Fabricante.getInscricaoEstadual());
@@ -294,7 +294,7 @@ public class FabricanteBackBean extends BackBean {
 						this.setId(Fabricante.getId().toString());
 						this.setNomeFabricante(Fabricante.getNomeFabricante());
 						this.setIdTipoPessoa(Fabricante.getTipoPessoa());
-						this.setCpfCnpj(formataCpfCnpj(Fabricante.getCpfCnpj()));
+						this.setCpfCnpj(Util.formataCpfCnpj(Fabricante.getCpfCnpj()));
 						this.setRazaoSocial(Fabricante.getRazaoSocial());
 						this.setNomeFantasia(Fabricante.getNomeFantasia());
 						this.setInscricaoEstadual(Fabricante.getInscricaoEstadual());

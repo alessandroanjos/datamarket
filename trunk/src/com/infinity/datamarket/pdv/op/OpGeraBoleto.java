@@ -16,11 +16,11 @@ import com.infinity.datamarket.comum.conta.ContaCorrente;
 import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazo;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAPrazo;
-import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAVista;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
+import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
@@ -119,9 +119,8 @@ public class OpGeraBoleto extends Mic{
 			if (codigoBanco.length() > 3) {
 				codigoBanco = codigoBanco.substring(0, 3);
 			}
-			while(codigoBanco.length() < 3){
-				codigoBanco = "0" + codigoBanco;
-			}
+			codigoBanco = Util.completaString(codigoBanco, "0", 3, true);
+			
 			boleto.setTipoBanco(new Integer(codigoBanco));// = "00000000000";
 
 			URL urlCon = new URL("http://" + ServerConfig.HOST_SERVIDOR_ES + ":" + ServerConfig.PORTA_SERVIDOR_ES + "/" +
@@ -144,11 +143,11 @@ public class OpGeraBoleto extends Mic{
 				if (nossoNumero.length() > 8) {
 					nossoNumero = nossoNumero.substring(0,8);
 				}
-				while(nossoNumero.length() < 8) {
-					nossoNumero = "0"+nossoNumero;
-				}
+				
+				nossoNumero = Util.completaString(nossoNumero, "0", 8, true);
+
 				boleto.setNossoNumero(nossoNumero);
-				boleto.setId(null);
+				boleto.setId(null); //TODO porque seta pra null???
 				gerenciadorPerifericos.getCmos().gravar(CMOS.BOLETO,boleto);
 
 			} else if (obj instanceof String) {
