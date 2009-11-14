@@ -1,5 +1,6 @@
 package com.infinity.datamarket.comum.estoque;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -7,6 +8,8 @@ import com.infinity.datamarket.comum.financeiro.CadastroGrupoLancamento;
 import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
 import com.infinity.datamarket.comum.financeiro.IRepositorioLancamento;
 import com.infinity.datamarket.comum.financeiro.Lancamento;
+import com.infinity.datamarket.comum.produto.CadastroProduto;
+import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
@@ -81,6 +84,14 @@ public class CadastroEntradaProduto extends Cadastro{
 				ep.setQuantidade(pep.getQuantidade());
 				getRepositorioEstoqueProduto().inserir(ep);
 			}
+			try{
+				BigDecimal valorUnitario = pep.getPrecoUnitario();
+				Produto produto = pep.getPk().getProduto();
+				produto.setPrecoCompra(valorUnitario);
+				CadastroProduto.getInstancia().alterar(produto);
+			}catch(ObjectNotFoundException e){
+				System.out.println("NÃO FOI ALTERADO O VALOR DO PRODUTO");
+			}
 		}
 		Lancamento lancamento = new Lancamento();
 		lancamento.setId(CadastroControleId.getInstancia().getControle(Lancamento.class).getValor());
@@ -117,6 +128,14 @@ public class CadastroEntradaProduto extends Cadastro{
 				ep.setQuantidade(ep.getQuantidade().subtract(pep.getQuantidade()));
 			}			
 			getRepositorioEstoqueProduto().alterar(ep);
+			try{
+				BigDecimal valorUnitario = pep.getPrecoUnitario();
+				Produto produto = pep.getPk().getProduto();
+				produto.setPrecoCompra(valorUnitario);
+				CadastroProduto.getInstancia().alterar(produto);
+			}catch(ObjectNotFoundException e){
+				System.out.println("NÃO FOI ALTERADO O VALOR DO PRODUTO");
+			}
 		}
 	}
 	
