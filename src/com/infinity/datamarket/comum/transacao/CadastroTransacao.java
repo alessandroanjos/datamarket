@@ -73,6 +73,7 @@ public class CadastroTransacao extends Cadastro{
 		return CadastroTotalizadores.getInstancia();
 	}
 
+	// pdv
 	public void inserir(Transacao trans) throws AppException{		
 		
 		if (trans instanceof TransacaoVenda ) {
@@ -84,12 +85,14 @@ public class CadastroTransacao extends Cadastro{
 					EventoTransacao evt = (EventoTransacao) i.next();
 					if (evt instanceof EventoItemPagamentoBoleto){
 						EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
-						if (ev.getBoleto() != null) {
-							Boleto boleto = ev.getBoleto();
-							if (boleto != null) {
-	
-								getCadastroBoleto().inserir(boleto);
-
+						if (ev.getBoletos() != null) {
+							Set boletos = ev.getBoletos();
+							Iterator it = boletos.iterator();
+							while (it.hasNext() ) {
+								Boleto boleto = (Boleto)it.next();
+								if (boleto != null) {
+									getCadastroBoleto().inserir(boleto);
+								}
 							}
 						}
 					}
@@ -130,12 +133,16 @@ public class CadastroTransacao extends Cadastro{
 					EventoTransacao evt = (EventoTransacao) i.next();
 					if (evt instanceof EventoItemPagamentoBoleto){
 						EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
-						if (ev.getBoleto() != null) {
-							Boleto boleto = ev.getBoleto();
-							if (boleto != null) {
-								boleto.setId(new Long(boleto.getNossoNumero()));	
-								boleto.setStatus(Boleto.ATIVO);
-								getCadastroBoleto().alterar(boleto);
+						if (ev.getBoletos() != null) {
+							Set boletos = ev.getBoletos();
+							Iterator it = boletos.iterator();
+							while (it.hasNext() ) {
+								Boleto boleto = (Boleto)it.next();
+								if (boleto != null) {
+									boleto.setId(new Long(boleto.getNossoNumero()));	
+									boleto.setStatus(Boleto.ATIVO);
+									getCadastroBoleto().alterar(boleto);
+								}
 							}
 						}
 					}
@@ -508,57 +515,67 @@ public class CadastroTransacao extends Cadastro{
 				}else if (eip instanceof EventoItemPagamentoBoleto){
 					EventoItemPagamentoBoleto eipb = (EventoItemPagamentoBoleto) eip;
 					Loja loja = CadastroLoja.getInstancia().consultarPorPK(new Long(eipb.getPk().getLoja()));
-					ContaCorrente contaCorrente = CadastroContaCorrente.getInstancia().consultarPorId(loja.getIdContaCorrente());								
-					Lancamento l = new Lancamento();						
-					l.setLoja(loja);
-					l.setTransacao(trans);
-					l.setDataLancamento(eip.getDataHoraEvento());
-					l.setDescricao(flagVenda?"VENDA":"PAGAMENTO");
-					l.setValor(eip.getValorLiquido());
-					l.setTipoLancamento(Lancamento.CREDITO);
-					Controle controle = CadastroControleId.getInstancia().getControle(Lancamento.class);
-					l.setId(controle.getValor());								
-					l.setDataVencimento(eipb.getDataHoraEvento());
-					l.setSituacao(Lancamento.PENDENTE);	
-					GrupoLancamento grupo = new GrupoLancamento();
-					grupo.setId(GrupoLancamento.GRUPO_VENDA);
-					l.setGrupo(grupo);
-					BaixaLancamentoPK pk = new BaixaLancamentoPK();
-					pk.setIdLancamento(l.getId());
-					pk.setId(new Long(1));
-					BaixaLancamento baixa = new BaixaLancamento();
-					baixa.setPk(pk);
-					baixa.setBoleto(eipb.getBoleto());
-					baixa.setCpfCnpjCheque(eipb.getBoleto().getCpfCnpj());
-					baixa.setDataCheque(eip.getDataHoraEvento());
-					FormaRecebimento forma = new FormaRecebimento();
-					forma.setId(ConstantesFormaRecebimento.BOLETO);
-					baixa.setFormaRecebimento(forma);
-					baixa.setItemLancadoCtaCorrente(Constantes.NAO);
-					baixa.setValor(l.getValor());
-					if (eipb.getBoleto().getCpfCnpj() != null &&eipb.getBoleto().getCpfCnpj().length() > 11){
-						baixa.setTipoPessoaCheque(Cliente.PESSOA_FISICA);
-					}else{
-						baixa.setTipoPessoaCheque(Cliente.PESSOA_JURIDICA);
+					ContaCorrente contaCorrente = CadastroContaCorrente.getInstancia().consultarPorId(loja.getIdContaCorrente());		
+					if (eipb.getBoletos() != null) {
+						Set boletos = eipb.getBoletos();
+						Iterator it = boletos.iterator();
+						while (it.hasNext() ) {
+							Boleto boleto = (Boleto)it.next();
+
+							
+							Lancamento l = new Lancamento();						
+							l.setLoja(loja);
+							l.setTransacao(trans);
+							l.setDataLancamento(eip.getDataHoraEvento());
+							l.setDescricao(flagVenda?"VENDA":"PAGAMENTO");
+							l.setValor(eip.getValorLiquido());
+							l.setTipoLancamento(Lancamento.CREDITO);
+							Controle controle = CadastroControleId.getInstancia().getControle(Lancamento.class);
+							l.setId(controle.getValor());								
+							l.setDataVencimento(eipb.getDataHoraEvento());
+							l.setSituacao(Lancamento.PENDENTE);	
+							GrupoLancamento grupo = new GrupoLancamento();
+							grupo.setId(GrupoLancamento.GRUPO_VENDA);
+							l.setGrupo(grupo);
+							BaixaLancamentoPK pk = new BaixaLancamentoPK();
+							pk.setIdLancamento(l.getId());
+							pk.setId(new Long(1));
+							BaixaLancamento baixa = new BaixaLancamento();
+							baixa.setPk(pk);
+							baixa.setBoleto(boleto);
+							baixa.setCpfCnpjCheque(boleto.getCpfCnpj());
+							baixa.setDataCheque(eip.getDataHoraEvento());
+							FormaRecebimento forma = new FormaRecebimento();
+							forma.setId(ConstantesFormaRecebimento.BOLETO);
+							baixa.setFormaRecebimento(forma);
+							baixa.setItemLancadoCtaCorrente(Constantes.NAO);
+							baixa.setValor(l.getValor());
+							if (boleto.getCpfCnpj() != null &&boleto.getCpfCnpj().length() > 11){
+								baixa.setTipoPessoaCheque(Cliente.PESSOA_FISICA);
+							}else{
+								baixa.setTipoPessoaCheque(Cliente.PESSOA_JURIDICA);
+							}
+							baixa.setSituacao(BaixaLancamento.ATIVO);
+//							if (eipb.getNumeroChequeLido() == null){
+//								baixa.setAgencia(eipc.getAgencia());
+//								baixa.setNumeroConta(eipc.getConta());
+//								Banco b = new Banco();
+//								b.setId(new Long(eipc.getBanco()));
+//								baixa.setBanco(b);
+//								baixa.setNumeroCheque(eipc.getNumeroCheque());
+//							}else{
+								baixa.setNumeroCheque(boleto.getNossoNumero()); 
+//							}
+							baixa.setContaCorrente(contaCorrente);
+							baixa.setValorTotalItem(l.getValor());
+							baixa.setDataBaixa(eip.getDataHoraEvento());
+							Set<BaixaLancamento> baixas = new HashSet<BaixaLancamento>();
+							baixas.add(baixa);
+							l.setItensPagamento(baixas);
+							getRepositorioLancamento().inserir(l);
+						}
 					}
-					baixa.setSituacao(BaixaLancamento.ATIVO);
-//					if (eipb.getNumeroChequeLido() == null){
-//						baixa.setAgencia(eipc.getAgencia());
-//						baixa.setNumeroConta(eipc.getConta());
-//						Banco b = new Banco();
-//						b.setId(new Long(eipc.getBanco()));
-//						baixa.setBanco(b);
-//						baixa.setNumeroCheque(eipc.getNumeroCheque());
-//					}else{
-						baixa.setNumeroCheque(eipb.getBoleto().getNossoNumero()); 
-//					}
-					baixa.setContaCorrente(contaCorrente);
-					baixa.setValorTotalItem(l.getValor());
-					baixa.setDataBaixa(eip.getDataHoraEvento());
-					Set<BaixaLancamento> baixas = new HashSet<BaixaLancamento>();
-					baixas.add(baixa);
-					l.setItensPagamento(baixas);
-					getRepositorioLancamento().inserir(l);
+
 				}
 //					else if (eip instanceof EventoItemPagamentoCartaoProprio){
 //						EventoItemPagamentoCartaoProprio eipc = (EventoItemPagamentoCartaoProprio) eip;

@@ -15,9 +15,17 @@
               <column name="NUM_EVENTO"/>
           </key>
 
-		 <many-to-one name="boleto" class="com.infinity.datamarket.comum.boleto.Boleto" update="true" insert="true">
-          <column name="BOLETO" not-null="true"/>
-       </many-to-one>
-       
+		  <set name="boletos" inverse="true" cascade="save-update, delete-orphan"
+			lazy="true">
+                 <key>
+                     <column name="LOJA"/>
+                     <column name="COMPONENTE"/>
+                     <column name="NUM_TRANSACAO"/>
+                     <column name="DATA_TRANSACAO"/>
+                     <column name="NUM_EVENTO"/>
+                 </key>
+                 <one-to-many class="com.infinity.datamarket.comum.transacao.BoletoEventoItemPagamentoBoleto"/>
+          </set>
+   
       </joined-subclass>
    </hibernate-mapping>

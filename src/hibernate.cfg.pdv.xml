@@ -20,6 +20,8 @@
    
       	<!-- Mapping files -->
       		<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoBoleto.hbm.xml"/>
+      		<mapping resource="com/infinity/datamarket/hbm/BoletoEventoItemTransacaoBoleto.hbm.xml"/>
+      		
  	<mapping resource="com/infinity/datamarket/hbm/Boleto.hbm.xml"/>        
  	<mapping resource="com/infinity/datamarket/hbm/AjusteEstoque.hbm.xml"/>        
 	<mapping resource="com/infinity/datamarket/hbm/MacroOperacao.hbm.xml"/>

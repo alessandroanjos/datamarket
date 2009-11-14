@@ -827,7 +827,7 @@
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo82" operacao="OpSolicitaPlano">
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo83" />
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo86_0" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo143_" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo83" operacao="OpExibeTelaTotal">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo84" />
@@ -836,6 +836,10 @@
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo85" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo85" operacao="OpAlternativaDois">
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo143_" operacao="OpCalculaExibeTelaParcelaPlanos">
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo82" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo86_0" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo86_0" operacao="OpGeraBoleto">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo86" />
@@ -926,7 +930,7 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo80" operacao="OpAlternativaDois">
       </microOperacaoAssociada>
     </macroOperacao>
-    <macroOperacao estadoAtual="ESTADO5" proximoEstado="ESTADO3" tecla="TECLA17" codigoMicroOperacaoAssociada="subFluxo137" descricao="Recebimento Cheque Pre">
+	    <macroOperacao estadoAtual="ESTADO5" proximoEstado="ESTADO3" tecla="TECLA17" codigoMicroOperacaoAssociada="subFluxo137" descricao="Recebimento Cheque Pre">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo137" operacao="OpInicioRecebimentoChequePredatado">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo138" />
       </microOperacaoAssociada>

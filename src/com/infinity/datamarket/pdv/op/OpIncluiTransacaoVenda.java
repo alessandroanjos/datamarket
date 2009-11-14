@@ -4,12 +4,11 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Set;
 
-import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoBoleto;
-import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
 import com.infinity.datamarket.comum.transacao.EventoTransacao;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
@@ -51,20 +50,24 @@ public class OpIncluiTransacaoVenda extends Mic{
 					EventoTransacao evt = (EventoTransacao) i.next();
 					if (evt instanceof EventoItemPagamentoBoleto){
 						EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
-						if (ev.getBoleto() != null) {
-							Boleto boleto = ev.getBoleto();
-							if (boleto != null) {
-	
-								boleto.setNomeCliente(cliente.getNomeCliente());
-								boleto.setEnderecoCliente(cliente.getLogradouro());
-								boleto.setBairroCliente(cliente.getBairro());
-								boleto.setCidadeCliente(cliente.getCidade());
-								boleto.setUFCliente(cliente.getEstado());
-								boleto.setCpfCnpj(cliente.getCpfCnpj());
-								boleto.setCepCliente(cliente.getCep());
-//								Fachada PDV().inserirBoleto(boleto);
+						if (ev.getBoletos() != null) {
+							Set boletos = ev.getBoletos();
+							Iterator it = boletos.iterator();
+							while (it.hasNext() ) {
+								Boleto boleto = (Boleto)it.next();
+								if (boleto != null) {
+									
+									boleto.setNomeCliente(cliente.getNomeCliente());
+									boleto.setEnderecoCliente(cliente.getLogradouro());
+									boleto.setBairroCliente(cliente.getBairro());
+									boleto.setCidadeCliente(cliente.getCidade());
+									boleto.setUFCliente(cliente.getEstado());
+									boleto.setCpfCnpj(cliente.getCpfCnpj());
+									boleto.setCepCliente(cliente.getCep());
+//									Fachada PDV().inserirBoleto(boleto);
+								}
 							}
-						}
+						}	
 					}
 				}
 			}	

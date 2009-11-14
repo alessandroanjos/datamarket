@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.transacao.BoletoEventoItemPagamentoBoleto" table="BOLE_EVEN_ITEM_TRANS_BOLE" dynamic-update="false" dynamic-insert="false" lazy="false">
+
+        <composite-id name="pk" class="com.infinity.datamarket.comum.transacao.BoletoEventoItemPagamentoBoletoPK">
+           <key-property name="loja" column="LOJA" type="integer"/>
+           <key-property name="componente" column="COMPONENTE" type="integer"/>
+           <key-property name="numeroTransacao" column="NUM_TRANSACAO" type="integer"/>
+           <key-property name="dataTransacao" column="DATA_TRANSACAO" type="date" length="8"/>
+           <key-property name="numeroEvento" column="NUM_EVENTO" type="integer"/>
+           <key-many-to-one name="boleto" class="com.infinity.datamarket.comum.boleto.Boleto" column="BOLETO"/>
+         </composite-id>
+         
+    </class>
+
+</hibernate-mapping>
