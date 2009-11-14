@@ -89,7 +89,9 @@ public class CadastroTransacao extends Cadastro{
 							Set boletos = ev.getBoletos();
 							Iterator it = boletos.iterator();
 							while (it.hasNext() ) {
-								Boleto boleto = (Boleto)it.next();
+								BoletoEventoItemPagamentoBoleto boletoEIPB = (BoletoEventoItemPagamentoBoleto)it.next();
+								Boleto boleto = (Boleto) boletoEIPB.getPk().getBoleto();
+
 								if (boleto != null) {
 									getCadastroBoleto().inserir(boleto);
 								}
@@ -137,7 +139,9 @@ public class CadastroTransacao extends Cadastro{
 							Set boletos = ev.getBoletos();
 							Iterator it = boletos.iterator();
 							while (it.hasNext() ) {
-								Boleto boleto = (Boleto)it.next();
+								BoletoEventoItemPagamentoBoleto boletoEIPB = (BoletoEventoItemPagamentoBoleto)it.next();
+								Boleto boleto = (Boleto) boletoEIPB.getPk().getBoleto();
+
 								if (boleto != null) {
 									boleto.setId(new Long(boleto.getNossoNumero()));	
 									boleto.setStatus(Boleto.ATIVO);
@@ -520,9 +524,9 @@ public class CadastroTransacao extends Cadastro{
 						Set boletos = eipb.getBoletos();
 						Iterator it = boletos.iterator();
 						while (it.hasNext() ) {
-							Boleto boleto = (Boleto)it.next();
+							BoletoEventoItemPagamentoBoleto boletoEIPB = (BoletoEventoItemPagamentoBoleto)it.next();
+							Boleto boleto = (Boleto) boletoEIPB.getPk().getBoleto();
 
-							
 							Lancamento l = new Lancamento();						
 							l.setLoja(loja);
 							l.setTransacao(trans);

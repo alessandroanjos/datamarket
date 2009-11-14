@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import com.infinity.datamarket.comum.boleto.Boleto;
+import com.infinity.datamarket.comum.transacao.BoletoEventoItemPagamentoBoleto;
 import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoBoleto;
 import com.infinity.datamarket.comum.transacao.EventoTransacao;
@@ -40,39 +41,41 @@ public class OpIncluiTransacaoVenda extends Mic{
 		}
 		trans.setNumeroCupom(cupom);
 		trans.setValorCupom(total);
-		
-		if (trans.getCliente() != null) {
-			ClienteTransacao cliente = trans.getCliente();
-			Collection col = trans.getEventosTransacao();
-			if (col != null && col.size() > 0){
-				Iterator i = col.iterator();
-				while(i.hasNext()){
-					EventoTransacao evt = (EventoTransacao) i.next();
-					if (evt instanceof EventoItemPagamentoBoleto){
-						EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
-						if (ev.getBoletos() != null) {
-							Set boletos = ev.getBoletos();
-							Iterator it = boletos.iterator();
-							while (it.hasNext() ) {
-								Boleto boleto = (Boleto)it.next();
-								if (boleto != null) {
-									
-									boleto.setNomeCliente(cliente.getNomeCliente());
-									boleto.setEnderecoCliente(cliente.getLogradouro());
-									boleto.setBairroCliente(cliente.getBairro());
-									boleto.setCidadeCliente(cliente.getCidade());
-									boleto.setUFCliente(cliente.getEstado());
-									boleto.setCpfCnpj(cliente.getCpfCnpj());
-									boleto.setCepCliente(cliente.getCep());
-//									Fachada PDV().inserirBoleto(boleto);
-								}
-							}
-						}	
-					}
-				}
-			}	
-		}
 		try{
+				
+			if (trans.getCliente() != null) {
+				ClienteTransacao cliente = trans.getCliente();
+				Collection col = trans.getEventosTransacao();
+				if (col != null && col.size() > 0){
+					Iterator i = col.iterator();
+					while(i.hasNext()){
+						EventoTransacao evt = (EventoTransacao) i.next();
+						if (evt instanceof EventoItemPagamentoBoleto){
+							EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
+							if (ev.getBoletos() != null) {
+								Set boletos = ev.getBoletos();
+								Iterator it = boletos.iterator();
+								while (it.hasNext() ) {
+									BoletoEventoItemPagamentoBoleto boletoEIPB = (BoletoEventoItemPagamentoBoleto)it.next();
+									Boleto boleto = (Boleto) boletoEIPB.getPk().getBoleto();
+	
+									if (boleto != null) {
+										
+										boleto.setNomeCliente(cliente.getNomeCliente());
+										boleto.setEnderecoCliente(cliente.getLogradouro());
+										boleto.setBairroCliente(cliente.getBairro());
+										boleto.setCidadeCliente(cliente.getCidade());
+										boleto.setUFCliente(cliente.getEstado());
+										boleto.setCpfCnpj(cliente.getCpfCnpj());
+										boleto.setCepCliente(cliente.getCep());
+									}
+								}
+							}	
+						}
+					}
+				}	
+			}
+		
 			getFachadaPDV().inserirTransacao(trans);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.CHAVE_ULTIMA_TRANSACAO, trans.getPk());
 		}catch(AppException e){

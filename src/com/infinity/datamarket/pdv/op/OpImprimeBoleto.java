@@ -10,6 +10,7 @@ import br.com.kobi.control.GeraPDF;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.boleto.Boleto;
+import com.infinity.datamarket.comum.transacao.BoletoEventoItemPagamentoBoleto;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoBoleto;
 import com.infinity.datamarket.comum.transacao.EventoTransacao;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
@@ -43,7 +44,9 @@ public class OpImprimeBoleto extends Mic{
 						Set boletos = ev.getBoletos();
 						Iterator it = boletos.iterator();
 						while (it.hasNext() ) {
-							Boleto boleto = (Boleto)it.next();
+							BoletoEventoItemPagamentoBoleto boletoEIPB = (BoletoEventoItemPagamentoBoleto)it.next();
+							Boleto boleto = (Boleto) boletoEIPB.getPk().getBoleto();
+
 
 							try {
 

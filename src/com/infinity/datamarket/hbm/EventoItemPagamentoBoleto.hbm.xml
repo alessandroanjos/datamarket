@@ -16,7 +16,7 @@
           </key>
 
 		  <set name="boletos" inverse="true" cascade="save-update, delete-orphan"
-			lazy="true">
+			lazy="false">
                  <key>
                      <column name="LOJA"/>
                      <column name="COMPONENTE"/>
