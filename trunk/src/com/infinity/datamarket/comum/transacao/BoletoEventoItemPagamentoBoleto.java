@@ -7,13 +7,13 @@ public class BoletoEventoItemPagamentoBoleto extends EventoTransacaoPK{
 
 	private static final long serialVersionUID = -364623423492019716L;
 
-	private BoletoEventoItemPagamentoBoleto pk;
+	private BoletoEventoItemPagamentoBoletoPK pk;
 
-	public BoletoEventoItemPagamentoBoleto getPk() {
+	public BoletoEventoItemPagamentoBoletoPK getPk() {
 		return pk;
 	}
 
-	public void setPk(BoletoEventoItemPagamentoBoleto pk) {
+	public void setPk(BoletoEventoItemPagamentoBoletoPK pk) {
 		this.pk = pk;
 	}
 

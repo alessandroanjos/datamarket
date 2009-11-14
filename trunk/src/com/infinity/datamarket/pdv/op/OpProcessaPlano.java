@@ -6,7 +6,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.SortedSet;
+import java.util.TreeSet;
 
+import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
 import com.infinity.datamarket.comum.pagamento.ConstantesFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.DadosCartaoOff;
@@ -14,6 +16,8 @@ import com.infinity.datamarket.comum.pagamento.DadosCartaoProprio;
 import com.infinity.datamarket.comum.pagamento.DadosCheque;
 import com.infinity.datamarket.comum.pagamento.DadosChequePredatado;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
+import com.infinity.datamarket.comum.transacao.BoletoEventoItemPagamentoBoleto;
+import com.infinity.datamarket.comum.transacao.BoletoEventoItemPagamentoBoletoPK;
 import com.infinity.datamarket.comum.transacao.ConstantesEventoTransacao;
 import com.infinity.datamarket.comum.transacao.ConstantesTransacao;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
@@ -113,7 +117,29 @@ public class OpProcessaPlano extends Mic{
 		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.BOLETO)){
 			SortedSet boletos = (SortedSet) gerenciadorPerifericos.getCmos().ler(CMOS.BOLETO);
 			EventoItemPagamentoBoleto eventoItemPagamentoBoleto = new EventoItemPagamentoBoleto(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo);
-			eventoItemPagamentoBoleto.setBoletos(boletos);
+			SortedSet boletosEIPB = new TreeSet();
+			
+			if (boletos != null) {
+				Iterator it = boletos.iterator();
+				while (it.hasNext()) {
+					Boleto boleto = (Boleto)it.next();
+					
+					BoletoEventoItemPagamentoBoletoPK bkEIPBPK = new  BoletoEventoItemPagamentoBoletoPK();
+					bkEIPBPK.setBoleto(boleto);
+					bkEIPBPK.setComponente(eventoItemPagamentoBoleto.getPk().getComponente());
+					bkEIPBPK.setLoja(eventoItemPagamentoBoleto.getPk().getLoja());
+					bkEIPBPK.setDataTransacao(eventoItemPagamentoBoleto.getPk().getDataTransacao());
+					bkEIPBPK.setNumeroEvento(eventoItemPagamentoBoleto.getPk().getNumeroEvento());
+					bkEIPBPK.setNumeroTransacao(eventoItemPagamentoBoleto.getPk().getNumeroTransacao());
+
+					BoletoEventoItemPagamentoBoleto bEIPB = new  BoletoEventoItemPagamentoBoleto();
+					bEIPB.setPk(bkEIPBPK);
+					
+					boletosEIPB.add(bEIPB);
+				}
+			}
+
+			eventoItemPagamentoBoleto.setBoletos(boletosEIPB);
 			eventos.add(eventoItemPagamentoBoleto);
 			eventoItemPagamento = eventoItemPagamentoBoleto;
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamentoBoleto);
