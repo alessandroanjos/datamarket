@@ -2,6 +2,7 @@ package com.infinity.datamarket.pdv.op;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 
 import br.com.kobi.JBoleto;
 import br.com.kobi.bancos.BancoBrasil;
@@ -38,9 +39,12 @@ public class OpImprimeBoleto extends Mic{
 				EventoTransacao evt = (EventoTransacao) i.next();
 				if (evt instanceof EventoItemPagamentoBoleto){
 					EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
-					if (ev.getBoleto() != null) {
-						Boleto boleto = ev.getBoleto();
-						if (boleto != null) {
+					if (ev.getBoletos() != null) {
+						Set boletos = ev.getBoletos();
+						Iterator it = boletos.iterator();
+						while (it.hasNext() ) {
+							Boleto boleto = (Boleto)it.next();
+
 							try {
 
 								String  dataProcessamento  = Util.retornaDataFormatoDDMMYYYY(boleto.getDataProcessamento());
@@ -182,8 +186,8 @@ public class OpImprimeBoleto extends Mic{
 								return ALTERNATIVA_2;
 								
 							}
-}
-					}
+						}
+					}	
 				}
 			}
 		}	

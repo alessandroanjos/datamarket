@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.SortedSet;
 
-import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
 import com.infinity.datamarket.comum.pagamento.ConstantesFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.DadosCartaoOff;
@@ -111,8 +111,9 @@ public class OpProcessaPlano extends Mic{
 			eventoItemPagamento = eventoItemPagamentoChequePredatado;
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamentoChequePredatado);
 		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.BOLETO)){
-			Boleto boleto = (Boleto) gerenciadorPerifericos.getCmos().ler(CMOS.BOLETO);
-			EventoItemPagamentoBoleto eventoItemPagamentoBoleto = new EventoItemPagamentoBoleto(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo,boleto);
+			SortedSet boletos = (SortedSet) gerenciadorPerifericos.getCmos().ler(CMOS.BOLETO);
+			EventoItemPagamentoBoleto eventoItemPagamentoBoleto = new EventoItemPagamentoBoleto(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo);
+			eventoItemPagamentoBoleto.setBoletos(boletos);
 			eventos.add(eventoItemPagamentoBoleto);
 			eventoItemPagamento = eventoItemPagamentoBoleto;
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamentoBoleto);
