@@ -22,6 +22,7 @@ public class ServerConfig {
 
 	public static final String CONTEXTO_SERVIDOR_ES;
 	public static final String SERVLET_GERADOR_BOLETO;
+	public static final String SERVLET_RECEPTOR_TRANSACAO;
 
 	
 	
@@ -48,5 +49,8 @@ public class ServerConfig {
 
 		CONTEXTO_SERVIDOR_ES= rb.getString("CONTEXTO_SERVIDOR_ES");
 		SERVLET_GERADOR_BOLETO= rb.getString("SERVLET_GERADOR_BOLETO");
+		SERVLET_RECEPTOR_TRANSACAO= rb.getString("SERVLET_RECEPTOR_TRANSACAO");
+		
+		
 }
 }

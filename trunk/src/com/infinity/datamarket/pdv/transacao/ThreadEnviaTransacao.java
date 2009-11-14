@@ -40,7 +40,7 @@ public class ThreadEnviaTransacao extends Thread{
 			try{
 				Collection transacoes = getTransacoesNaoProcessadas();
 				Iterator i = transacoes.iterator();				
-				TransactionServerRemote remote = (TransactionServerRemote) ServiceLocator.getJNDIObject(ServerConfig.TRANSACTION_SERVER_JNDI);
+//				TransactionServerRemote remote = (TransactionServerRemote) ServiceLocator.getJNDIObject(ServerConfig.TRANSACTION_SERVER_JNDI);
 				//if (remote != null){	
 					while(i.hasNext()){
 						Transacao trans = (Transacao) i.next();						
@@ -51,8 +51,15 @@ public class ThreadEnviaTransacao extends Thread{
 						}
 						System.out.println("PROCESSANDO TRANSAÇÃO >> "+trans.getPk());
 						try{
-	//						URL urlCon = new URL("http://" + loja.getNumeroIp() + ":" + loja.getNumeroPortaServlet() + "/EnterpriseServer/GerarBoletoServlet.servlet");
-							URL urlCon = new URL("http://localhost:8080/EnterpriseServer/ReceptorTransacaoServlet.servlet");
+//							URL urlCon = new URL("http://" + loja.getNumeroIp() + ":" + loja.getNumeroPortaServlet() + "/EnterpriseServer/GerarBoletoServlet.servlet");
+							URL urlCon = new URL("http://" +
+									ServerConfig.HOST_SERVIDOR_ES +
+									":" +
+									ServerConfig.PORTA_SERVIDOR_ES +
+									"/" +
+									ServerConfig.CONTEXTO_SERVIDOR_ES +
+									"/" +
+									ServerConfig.SERVLET_RECEPTOR_TRANSACAO);
 							URLConnection huc1 = urlCon.openConnection();
 	
 							huc1.setAllowUserInteraction(true);
