@@ -23,6 +23,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.comum.util.Util;
+import com.infinity.datamarket.pdv.util.ServerConfig;
 
 public class ThreadProcessadorArquivoRetorno extends Thread {
 	
@@ -57,20 +58,27 @@ public class ThreadProcessadorArquivoRetorno extends Thread {
 
 			}catch(ObjectNotFoundException e){}
 				
-			
-			File dir = new File(diretorio);
-			String[] arquivos = dir.list();
-			for (int i = 0; i < arquivos.length; i++) {
-				String arquivo = arquivos[i];
-				if (new File(dir, arquivo).isFile() && (arquivo.endsWith("RET") || arquivo.endsWith("ret"))) {
-					if (!todosProcessados.contains(arquivo)) {
-						todosProcessados.add(arquivo);
-						ArquivoProcessado arquivoProcessado = processarArquivo(diretorio, arquivo);
-						Fachada.getInstancia().inserirArquivoProcessado(arquivoProcessado);
+			while(true){
+				
+				try {
+					Thread.currentThread().sleep(ServerConfig.SLEEP);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				File dir = new File(diretorio);
+				String[] arquivos = dir.list();
+				for (int i = 0; i < arquivos.length; i++) {
+					String arquivo = arquivos[i];
+					if (new File(dir, arquivo).isFile() && (arquivo.endsWith("RET") || arquivo.endsWith("ret"))) {
+						if (!todosProcessados.contains(arquivo)) {
+							todosProcessados.add(arquivo);
+							ArquivoProcessado arquivoProcessado = processarArquivo(diretorio, arquivo);
+							Fachada.getInstancia().inserirArquivoProcessado(arquivoProcessado);
+						}
 					}
 				}
 			}
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
