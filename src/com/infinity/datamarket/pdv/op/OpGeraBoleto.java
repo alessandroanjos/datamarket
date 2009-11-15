@@ -7,10 +7,13 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -18,7 +21,6 @@ import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.conta.ContaCorrente;
 import com.infinity.datamarket.comum.pagamento.DadosChequePredatado;
-import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazo;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAPrazo;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAVista;
@@ -29,16 +31,18 @@ import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 import com.infinity.datamarket.pdv.util.ServerConfig;
 
 public class OpGeraBoleto extends Mic{
 	
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try {
-
-			BigDecimal valorPagamento = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_PAGAMENTO_ATUAL);
+			DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM,new Locale("pt", "BR"));
 
 			int idLoja = Integer.parseInt(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValor());
 			int componente = Integer.parseInt(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValor());
@@ -61,7 +65,8 @@ public class OpGeraBoleto extends Mic{
 				return ALTERNATIVA_2;
 			}
 			
-			SortedSet boletos = new TreeSet();
+//			ArrayList boletos = new ArrayList();
+			Collection boletos = new HashSet();
 			
 			PlanoPagamento plano = (PlanoPagamento) gerenciadorPerifericos.getCmos().ler(CMOS.PLANO_PAGAMENTO_ATUAL);
 			if (plano  instanceof PlanoPagamentoAPrazo) {
@@ -71,50 +76,57 @@ public class OpGeraBoleto extends Mic{
 				Iterator i = parcelas.iterator();
 				for(int cont = 1;i.hasNext();cont++){
 					DadosChequePredatado dado = (DadosChequePredatado) i.next();
-					
+
+					if (dado.getData() == null) {
+						String dataBoleto =null;
+						while(dataBoleto == null || "".equals(dataBoleto)){
+							gerenciadorPerifericos.getDisplay().setMensagem( cont +"/" + parcelas.size()+" Data Boleto");
+							EntradaDisplay entrada7 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_DATA, 0);
+							if (entrada7.getTeclaFinalizadora() == 10){
+								dataBoleto = entrada7.getDado();
+								if (!"".equals(dataBoleto)){
+	
+									Date data = dateFormat.parse(dataBoleto);
+									if (data.compareTo(new Date()) == -1){
+										gerenciadorPerifericos.getDisplay().setMensagem("Data Inválida");
+										gerenciadorPerifericos.esperaVolta();
+										dataBoleto = null;
+										continue;
+									}
+									
+									dado.setData(data);
+								}else{
+									dataBoleto = null;
+									continue;
+								}
+							} else {
+								return ALTERNATIVA_2;
+							}
+						}
+					}
+						
+						
+						
 					Object obj = gerarBoleto(gerenciadorPerifericos, dado.getValor(), idLoja, componente, usu, loja, contaCorrente, dado.getData());
 					if (obj instanceof Boleto) {
 						Boleto boleto = (Boleto) obj;
-						boletos.add(boleto);
+						boletos.add(boleto); 
 					} else if (obj instanceof String) {
 						gerenciadorPerifericos.getDisplay().setMensagem(obj.toString());
 						gerenciadorPerifericos.esperaVolta();
 						return ALTERNATIVA_2;
 					} else if (obj instanceof Exception) {
+						((Exception)obj).printStackTrace();
 						gerenciadorPerifericos.getDisplay().setMensagem(((Exception)obj).getMessage());
 						gerenciadorPerifericos.esperaVolta();
 						return ALTERNATIVA_2;
 					}
 					
 				}	
-				
-//				Collection coll = planoAprazo.getParcelas();
-//				if (coll == null || !coll.isEmpty()) {
-//					gerenciadorPerifericos.getDisplay().setMensagem("Forma sem plano associado");
-//					try{
-//						gerenciadorPerifericos.esperaVolta();
-//						return ALTERNATIVA_2;
-//					}catch(AppException e){
-//
-//					}
-//				}
-//				ParcelaPlanoPagamentoAPrazo parcela = (ParcelaPlanoPagamentoAPrazo) coll.iterator().next();
-//				if (parcela.getQuantidadeDias() != 0) {
-//					dataVencimento = com.infinity.datamarket.comum.util.Util.adicionarDia(dataVencimento, parcela.getQuantidadeDias());
-//				} else if (parcela.getDataProgramada() != null) {
-//					try {
-//						dataVencimento = com.infinity.datamarket.comum.util.Util.formatarStringParaData(parcela.getDataProgramada());	
-//					} catch (Exception e) {
-//						e.printStackTrace();// TODO: handle exception
-//						dataVencimento = com.infinity.datamarket.comum.util.Util.adicionarDia(dataVencimento, 3);
-//					}
-//				} else {
-//					dataVencimento = com.infinity.datamarket.comum.util.Util.adicionarDia(dataVencimento, 3);
-//				}
-//				
 			} else if (plano  instanceof PlanoPagamentoAVista) {
 				
 				Date dataVencimento = com.infinity.datamarket.comum.util.Util.adicionarDia(new Date(), 3);
+				BigDecimal valorPagamento = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_PAGAMENTO_ATUAL);
 
 				Object obj = gerarBoleto(gerenciadorPerifericos, valorPagamento, idLoja, componente, usu, loja, contaCorrente, dataVencimento);
 				
@@ -155,6 +167,15 @@ public class OpGeraBoleto extends Mic{
 			e.printStackTrace();
 			return ALTERNATIVA_2;
 		} catch (ClassNotFoundException e) {
+			gerenciadorPerifericos.getDisplay().setMensagem("Erro na comunicação com servidor");
+			try {
+				gerenciadorPerifericos.esperaVolta();	
+			} catch (Exception ee) {}
+			gerenciadorPerifericos.getDisplay().setMensagem("A receber");
+			
+			e.printStackTrace();
+			return ALTERNATIVA_2;
+		} catch (Exception e) {
 			gerenciadorPerifericos.getDisplay().setMensagem("Erro na comunicação com servidor");
 			try {
 				gerenciadorPerifericos.esperaVolta();	
@@ -235,9 +256,8 @@ public class OpGeraBoleto extends Mic{
 			return boleto;
 //			gerenciadorPerifericos.getCmos().gravar(CMOS.BOLETO,boleto);
 
+		} else {
+			return obj;
 		}
-		
-		
-		return 0;
 	}
 }

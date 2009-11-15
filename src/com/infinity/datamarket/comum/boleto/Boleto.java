@@ -264,4 +264,26 @@ public class Boleto extends Persistente{
 	public void setUsuario(Integer usuario) {
 		this.usuario = usuario;
 	}
+
+	public boolean equals(Object obj) {
+		boolean retono = false;
+		if (obj instanceof Boleto){
+			Boleto t = (Boleto) obj;
+			if (t.getNossoNumero() != null && getNossoNumero() != null) {
+				retono = t.getNossoNumero().equals(getNossoNumero());
+			} else if (t.getNossoNumero() == null && getNossoNumero() == null) {
+				if (t.getId() != null && getId() != null) {
+					retono = t.getId().equals(getId());
+				} else if (t.getId() == null && getId() == null) {
+					retono = true;
+				} else {
+					
+				}
+			} else {
+				
+			}
+		}
+		return retono;
+	}
+
 }

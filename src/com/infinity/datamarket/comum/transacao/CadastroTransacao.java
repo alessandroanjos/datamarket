@@ -86,7 +86,7 @@ public class CadastroTransacao extends Cadastro{
 					if (evt instanceof EventoItemPagamentoBoleto){
 						EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
 						if (ev.getBoletos() != null) {
-							Set boletos = ev.getBoletos();
+							Collection boletos = ev.getBoletos();
 							Iterator it = boletos.iterator();
 							while (it.hasNext() ) {
 								BoletoEventoItemPagamentoBoleto boletoEIPB = (BoletoEventoItemPagamentoBoleto)it.next();
@@ -136,7 +136,7 @@ public class CadastroTransacao extends Cadastro{
 					if (evt instanceof EventoItemPagamentoBoleto){
 						EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
 						if (ev.getBoletos() != null) {
-							Set boletos = ev.getBoletos();
+							Collection boletos = ev.getBoletos();
 							Iterator it = boletos.iterator();
 							while (it.hasNext() ) {
 								BoletoEventoItemPagamentoBoleto boletoEIPB = (BoletoEventoItemPagamentoBoleto)it.next();
@@ -521,7 +521,7 @@ public class CadastroTransacao extends Cadastro{
 					Loja loja = CadastroLoja.getInstancia().consultarPorPK(new Long(eipb.getPk().getLoja()));
 					ContaCorrente contaCorrente = CadastroContaCorrente.getInstancia().consultarPorId(loja.getIdContaCorrente());		
 					if (eipb.getBoletos() != null) {
-						Set boletos = eipb.getBoletos();
+						Collection boletos = eipb.getBoletos();
 						Iterator it = boletos.iterator();
 						while (it.hasNext() ) {
 							BoletoEventoItemPagamentoBoleto boletoEIPB = (BoletoEventoItemPagamentoBoleto)it.next();
