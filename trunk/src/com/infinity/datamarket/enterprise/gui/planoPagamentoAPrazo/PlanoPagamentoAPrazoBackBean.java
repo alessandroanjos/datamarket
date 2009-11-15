@@ -1,8 +1,10 @@
 package com.infinity.datamarket.enterprise.gui.planoPagamentoAPrazo;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
@@ -16,6 +18,8 @@ import javax.faces.model.SelectItem;
 import org.hibernate.HibernateException;
 import org.hibernate.exception.ConstraintViolationException;
 
+import com.infinity.datamarket.comum.pagamento.ConstantesFormaRecebimento;
+import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazo;
 import com.infinity.datamarket.comum.pagamento.ParcelaPlanoPagamentoAPrazoPK;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
@@ -173,17 +177,19 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 		if(this.getParcelas() == null || (this.getParcelas() != null && this.getParcelas().size() == 0)){
 			throw new AppException("É necessário ter pelo menos uma parcela.");
 		}
+		if(this.getIdForma() == null || this.getIdForma().equals("")){
+			throw new AppException("É necessário informar uma Forma de Recebimento Associada.");
+		}
 	}
 	
 	public String inserir(){
 		try {	
 			
 			
-			setIdForma(Constantes.FORMA_CHEQUE_PRE);
+//			setIdForma(Constantes.FORMA_CHEQUE_PRE);
 			validarBackBean();
-			
 			PlanoPagamento planoPre = new PlanoPagamentoAPrazo();
-			
+
 			preenchePlanoPagamento(planoPre, INSERIR);
 			
 			((PlanoPagamentoAPrazo)planoPre).setPercentagemEntrada(this.getPercentagemEntrada());
@@ -233,7 +239,7 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 	
 	public String alterar(){
 		try {
-			setIdForma(Constantes.FORMA_CHEQUE_PRE);
+//			setIdForma(Constantes.FORMA_CHEQUE_PRE);
 			
 			validarBackBean();
 			
@@ -292,7 +298,7 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 
 	public String excluir(){
 		try {
-			setIdForma(Constantes.FORMA_CHEQUE_PRE);
+//			setIdForma(Constantes.FORMA_CHEQUE_PRE);
 			PlanoPagamento planoPre = new PlanoPagamentoAPrazo();
 			
 			preenchePlanoPagamento(planoPre, ALTERAR);
@@ -595,5 +601,25 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 
 	public void setPlanoPagtoAPrazo(PlanoPagamentoAPrazo planoPagtoAPrazo) {
 		this.planoPagtoAPrazo = planoPagtoAPrazo;
+	}
+
+	public List<FormaRecebimento> carregarFormas() {
+		
+		List<FormaRecebimento> formas = new ArrayList<FormaRecebimento>();
+		try {
+
+			FormaRecebimento frBoleto = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.BOLETO);
+			formas.add(frBoleto);
+			FormaRecebimento frChequePre = getFachada().consultarFormaRecebimentoPorId(ConstantesFormaRecebimento.CHEQUE_PRE);
+			formas.add(frChequePre);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+		return formas;
 	}
 }
