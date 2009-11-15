@@ -117,8 +117,9 @@ public class OpProcessaPlano extends Mic{
 		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.BOLETO)){
 			SortedSet boletos = (SortedSet) gerenciadorPerifericos.getCmos().ler(CMOS.BOLETO);
 			EventoItemPagamentoBoleto eventoItemPagamentoBoleto = new EventoItemPagamentoBoleto(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo);
+			eventos.add(eventoItemPagamentoBoleto);
 			SortedSet boletosEIPB = new TreeSet();
-			
+
 			if (boletos != null) {
 				Iterator it = boletos.iterator();
 				while (it.hasNext()) {
@@ -140,7 +141,6 @@ public class OpProcessaPlano extends Mic{
 			}
 
 			eventoItemPagamentoBoleto.setBoletos(boletosEIPB);
-			eventos.add(eventoItemPagamentoBoleto);
 			eventoItemPagamento = eventoItemPagamentoBoleto;
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamentoBoleto);
 			//apaga o boleto
