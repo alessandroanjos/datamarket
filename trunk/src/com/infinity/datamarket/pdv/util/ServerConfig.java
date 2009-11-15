@@ -23,6 +23,8 @@ public class ServerConfig {
 	public static final String CONTEXTO_SERVIDOR_ES;
 	public static final String SERVLET_GERADOR_BOLETO;
 	public static final String SERVLET_RECEPTOR_TRANSACAO;
+	public static final String SERVLET_TRANSMISSOR_LOTE;
+	public static final String SERVLET_VERIFICADOR_NOVO_LOTE;
 
 	
 	
@@ -50,7 +52,8 @@ public class ServerConfig {
 		CONTEXTO_SERVIDOR_ES= rb.getString("CONTEXTO_SERVIDOR_ES");
 		SERVLET_GERADOR_BOLETO= rb.getString("SERVLET_GERADOR_BOLETO");
 		SERVLET_RECEPTOR_TRANSACAO= rb.getString("SERVLET_RECEPTOR_TRANSACAO");
-		
+		SERVLET_TRANSMISSOR_LOTE= rb.getString("SERVLET_TRANSMISSOR_LOTE");
+		SERVLET_VERIFICADOR_NOVO_LOTE= rb.getString("SERVLET_VERIFICADOR_NOVO_LOTE");
 		
 }
 }

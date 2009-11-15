@@ -1,6 +1,10 @@
 package com.infinity.datamarket.pdv.lote;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Collection;
 
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
@@ -41,11 +45,15 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
+
+			
 			try{ 
-				LoteServerRemote remote = (LoteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.LOTE_SERVER_JNDI);
-				if (remote != null){	
-					novoLote = remote.verificaNovoLoteLiberado(numeroLote);
-				}
+				novoLote =  verificarNovoLote(numeroLote);
+//				LoteServerRemote remote = (LoteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.LOTE_SERVER_JNDI);
+//				if (remote != null){	
+//					novoLote = remote.verificaNovoLoteLiberado(numeroLote);
+//				}
 			}catch (Throwable e){
 				System.out.println(e.getMessage());
 				//e.printStackTrace();
@@ -57,12 +65,78 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 		return novoLote;
 	}
 	
+	private boolean verificarNovoLote(int numeroLote) throws Exception {
+		boolean novoLote = false;
+		try{
+			URL urlCon = new URL("http://" +
+					ServerConfig.HOST_SERVIDOR_ES +
+					":" +
+					ServerConfig.PORTA_SERVIDOR_ES +
+					"/" +
+					ServerConfig.CONTEXTO_SERVIDOR_ES +
+					"/" +
+					ServerConfig.SERVLET_VERIFICADOR_NOVO_LOTE + "?numeroLote=" + numeroLote);
+			URLConnection huc1 = urlCon.openConnection();
+
+			huc1.setAllowUserInteraction(true);
+			huc1.setDoOutput(true);
+
+			ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
+			output.writeObject("");
+			ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
+			Object obj = input.readObject();
+			if (obj instanceof Boolean) {
+				novoLote =  ((Boolean)obj).booleanValue();
+			} else if (obj instanceof Exception) {
+				throw (Exception)obj;
+			}
+		} catch (Exception e) {
+			throw  e;
+		}
+		return novoLote;
+	}
+	
+	private Collection getLote(int numeroLote, int numeroLoja) throws Exception {
+		Collection novoLote = null;
+		try{
+			URL urlCon = new URL("http://" +
+					ServerConfig.HOST_SERVIDOR_ES +
+					":" +
+					ServerConfig.PORTA_SERVIDOR_ES +
+					"/" +
+					ServerConfig.CONTEXTO_SERVIDOR_ES +
+					"/" +
+					ServerConfig.SERVLET_VERIFICADOR_NOVO_LOTE + "?numeroLote=" + numeroLote + "&numeroLoja=" + numeroLoja);
+			URLConnection huc1 = urlCon.openConnection();
+
+			huc1.setAllowUserInteraction(true);
+			huc1.setDoOutput(true);
+
+			ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
+			output.writeObject("");
+			ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
+			Object obj = input.readObject();
+			if (obj instanceof Collection) {
+				novoLote =  (Collection)obj;
+			} else if (obj instanceof Exception) {
+				throw (Exception)obj;
+			}
+		} catch (Exception e) {
+			throw  e;
+		}
+		return novoLote;
+	}
+
 	public void atualizaLote(){
 		try{
 			LoteServerRemote remote = (LoteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.LOTE_SERVER_JNDI);
 			if (remote != null){	
-				while(remote.verificaNovoLoteLiberado(numeroLote)){						
-					Collection c = remote.getLote(numeroLote, numeroLoja);
+
+
+				while (verificarNovoLote(numeroLote)) {
+//				while(remote.verificaNovoLoteLiberado(numeroLote)){						
+					Collection c = getLote(numeroLote, numeroLoja);
+//					Collection c = remote.getLote(numeroLote, numeroLoja);
 					System.out.println("ATUALIZANDO O LOTE "+ (numeroLote + 1));
 					AtualizadorLote atualizador = AtualizadorLote.getInstancia();
 					atualizador.atualizarLote(c);					

@@ -44,10 +44,28 @@
 		<servlet-name>ReceptorTransacaoServlet</servlet-name>
 		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ReceptorTransacaoServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>VerificadorNovoLoteServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.VerificadorNovoLoteServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>TransmissorLoteServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.TransmissorLoteServlet</servlet-class>
+	</servlet>
 	
 	<servlet-mapping>
 		<servlet-name>ReceptorTransacaoServlet</servlet-name>
 		<url-pattern>/ReceptorTransacaoServlet.servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>TransmissorLoteServlet</servlet-name>
+		<url-pattern>/TransmissorLoteServlet.servlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>VerificadorNovoLoteServlet</servlet-name>
+		<url-pattern>/VerificadorNovoLoteServlet.servlet</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
