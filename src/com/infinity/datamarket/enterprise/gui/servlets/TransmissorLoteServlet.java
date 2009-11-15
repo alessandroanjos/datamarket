@@ -19,7 +19,7 @@ public class TransmissorLoteServlet extends HttpServlet {
 			String numeroLote = request.getParameter("numeroLote");
 			int numoLote = Integer.parseInt(numeroLote);
 
-			String numeroLoja = request.getParameter("idLoja");
+			String numeroLoja = request.getParameter("numeroLoja");
 			int idLoja = Integer.parseInt(numeroLoja);
 
 			Collection coll = new LoteServer().getLote(numoLote,idLoja);

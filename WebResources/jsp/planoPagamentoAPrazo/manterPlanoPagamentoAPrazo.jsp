@@ -126,6 +126,17 @@
 											
 										</div>
 									</li>
+									<li class="normal">						
+									<div>
+										<h:outputLabel styleClass="desc" value="Forma de Receb. Associada"></h:outputLabel>
+										<h:selectOneMenu id="idForma" styleClass="field select" style="width: 190px;" 
+											value="#{planoPagamentoAPrazoBB.idForma}" > 
+												  <f:selectItems id="formaSelectItems" 
+												  value="#{planoPagamentoAPrazoBB.formas}"  />   
+										</h:selectOneMenu>
+												
+									</div>
+								</li>
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Valor Mínimo*"></h:outputLabel>

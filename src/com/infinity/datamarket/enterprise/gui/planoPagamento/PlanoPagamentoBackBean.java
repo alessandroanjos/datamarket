@@ -325,7 +325,7 @@ public class PlanoPagamentoBackBean extends BackBean {
 		}
 		return situacaoItens;
 	}
-	private List<FormaRecebimento> carregarFormas() {
+	protected List<FormaRecebimento> carregarFormas() {
 		
 		List<FormaRecebimento> formas = null;
 		try {

@@ -84,6 +84,12 @@
 											<f:param name="id" value="#{planosChequePre.id}"/>						
 										</h:commandLink>
 									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Código" /> 
+										</f:facet>
+										<h:outputText value="#{planosChequePre.forma.descricao}" /> 
+									</h:column>
 								</t:dataTable>	
 								<ul>
 									<li class="normal">
