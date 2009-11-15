@@ -106,7 +106,7 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 					"/" +
 					ServerConfig.CONTEXTO_SERVIDOR_ES +
 					"/" +
-					ServerConfig.SERVLET_VERIFICADOR_NOVO_LOTE + "?numeroLote=" + numeroLote + "&numeroLoja=" + numeroLoja);
+					ServerConfig.SERVLET_TRANSMISSOR_LOTE + "?numeroLote=" + numeroLote + "&numeroLoja=" + numeroLoja);
 			URLConnection huc1 = urlCon.openConnection();
 
 			huc1.setAllowUserInteraction(true);
@@ -129,8 +129,8 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 
 	public void atualizaLote(){
 		try{
-			LoteServerRemote remote = (LoteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.LOTE_SERVER_JNDI);
-			if (remote != null){	
+//			LoteServerRemote remote = (LoteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.LOTE_SERVER_JNDI);
+//			if (remote != null){	
 
 
 				while (verificarNovoLote(numeroLote)) {
@@ -146,7 +146,7 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
         			ConcentradorParametro.getInstancia().atualizarParametro(p);
         			System.out.println("FIM DA ATUALIZAÇÃO DO LOTE "+numeroLote);
 				}
-			}
+//			}
 		}catch (Throwable e){
 			System.out.println(e.getMessage());
 			e.printStackTrace();
