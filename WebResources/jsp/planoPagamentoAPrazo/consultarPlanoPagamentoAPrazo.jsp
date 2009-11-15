@@ -86,7 +86,7 @@
 									</h:column>
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="Código" /> 
+											<h:outputText value="Forma" /> 
 										</f:facet>
 										<h:outputText value="#{planosChequePre.forma.descricao}" /> 
 									</h:column>
