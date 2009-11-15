@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Set;
 
 import com.infinity.datamarket.comum.boleto.Boleto;
 import com.infinity.datamarket.comum.transacao.BoletoEventoItemPagamentoBoleto;
@@ -53,7 +52,7 @@ public class OpIncluiTransacaoVenda extends Mic{
 						if (evt instanceof EventoItemPagamentoBoleto){
 							EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
 							if (ev.getBoletos() != null) {
-								Set boletos = ev.getBoletos();
+								Collection boletos = ev.getBoletos();
 								Iterator it = boletos.iterator();
 								while (it.hasNext() ) {
 									BoletoEventoItemPagamentoBoleto boletoEIPB = (BoletoEventoItemPagamentoBoleto)it.next();

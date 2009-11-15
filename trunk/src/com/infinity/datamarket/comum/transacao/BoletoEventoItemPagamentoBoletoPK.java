@@ -22,7 +22,8 @@ public class BoletoEventoItemPagamentoBoletoPK extends EventoTransacaoPK{
 	public boolean equals(Object obj){
 		if (obj instanceof BoletoEventoItemPagamentoBoletoPK){
 			BoletoEventoItemPagamentoBoletoPK t = (BoletoEventoItemPagamentoBoletoPK) obj;
-			return (this.boleto.equals(t.boleto) && super.equals(t));
+			
+			return this.getNumeroEvento() == t.getNumeroEvento() && super.equals(t) && t.getBoleto().equals(getBoleto());
 		}
 		return false;
 

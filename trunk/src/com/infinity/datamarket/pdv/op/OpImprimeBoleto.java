@@ -2,7 +2,6 @@ package com.infinity.datamarket.pdv.op;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Set;
 
 import br.com.kobi.JBoleto;
 import br.com.kobi.bancos.BancoBrasil;
@@ -41,7 +40,7 @@ public class OpImprimeBoleto extends Mic{
 				if (evt instanceof EventoItemPagamentoBoleto){
 					EventoItemPagamentoBoleto ev = (EventoItemPagamentoBoleto) evt;
 					if (ev.getBoletos() != null) {
-						Set boletos = ev.getBoletos();
+						Collection boletos = ev.getBoletos();
 						Iterator it = boletos.iterator();
 						while (it.hasNext() ) {
 							BoletoEventoItemPagamentoBoleto boletoEIPB = (BoletoEventoItemPagamentoBoleto)it.next();

@@ -105,6 +105,7 @@
     <operacao id="OpInicioRecebimentoBoleto" classe="com.infinity.datamarket.pdv.op.OpInicioRecebimentoBoleto"/>
     <operacao id="OpGeraBoleto" classe="com.infinity.datamarket.pdv.op.OpGeraBoleto"/>
     <operacao id="OpImprimeBoleto" classe="com.infinity.datamarket.pdv.op.OpImprimeBoleto"/>
+    <operacao id="OpSeparaFluxoAVistaAPrazo" classe="com.infinity.datamarket.pdv.op.OpSeparaFluxoAVistaAPrazo"/>
     
     
     
@@ -820,14 +821,14 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo123" operacao="OpInicioRecebimentoBoleto">
        	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo81" />
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo79" />
-      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo86_0" />
+      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo143__" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo81" operacao="OpExibeTelaPlanos">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo82" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo82" operacao="OpSolicitaPlano">
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo83" />
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo143_" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo143__" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo83" operacao="OpExibeTelaTotal">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo84" />
@@ -837,6 +838,12 @@
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo85" operacao="OpAlternativaDois">
       </microOperacaoAssociada>
+      
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo143__" operacao="OpSeparaFluxoAVistaAPrazo">
+      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo143_" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo86_0" />
+      </microOperacaoAssociada>
+      
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo143_" operacao="OpCalculaExibeTelaParcelaPlanos">
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo82" />
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo86_0" />

@@ -1,6 +1,7 @@
 package com.infinity.datamarket.comum.transacao;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,13 +18,13 @@ public class EventoItemPagamentoBoleto extends EventoItemPagamento{
 	public EventoItemPagamentoBoleto(){
 		
 	}
-	private Set  boletos;
+	private Collection  boletos;
 
-	public Set getBoletos() {
+	public Collection getBoletos() {
 		return boletos;
 	}
 
-	public void setBoletos(Set boletos) {
+	public void setBoletos(Collection boletos) {
 		this.boletos = boletos;
 	}
 }
