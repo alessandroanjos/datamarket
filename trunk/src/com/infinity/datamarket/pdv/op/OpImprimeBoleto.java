@@ -182,6 +182,9 @@ public class OpImprimeBoleto extends Mic{
 						        pdf.addBoleto();
 						        pdf.geraBoleto();		        
 
+						        if (false) {
+						        	
+						        }
 						        Runtime.getRuntime().exec("cmd /c"+ caminho);
 							} catch (Exception e) {
 								e.printStackTrace();
