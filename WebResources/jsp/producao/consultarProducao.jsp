@@ -116,7 +116,8 @@
 									id="fabricacaoIni">
 								    <f:convertDateTime timeZone="GMT-3"/>	 
 								</h:inputText>	
-							
+							</div>
+							<div>
 								<h:outputLabel styleClass="desc" value=" Final*"></h:outputLabel>
 								<h:inputText readonly="false" styleClass="field text data"
 									maxlength="10" size="10" 
