@@ -12,6 +12,7 @@ import com.infinity.datamarket.comum.transacao.EventoItemPagamentoBoleto;
 import com.infinity.datamarket.comum.transacao.EventoTransacao;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscalException;
@@ -61,12 +62,12 @@ public class OpIncluiTransacaoVenda extends Mic{
 									if (boleto != null) {
 										
 										boleto.setNomeCliente(cliente.getNomeCliente());
-										boleto.setEnderecoCliente(cliente.getLogradouro());
+										boleto.setEnderecoCliente(cliente.getLogradouro() + (cliente.getNumero() != null ? ", Nº" + cliente.getNumero(): ", S/N"));
 										boleto.setBairroCliente(cliente.getBairro());
 										boleto.setCidadeCliente(cliente.getCidade());
 										boleto.setUFCliente(cliente.getEstado());
-										boleto.setCpfCnpj(cliente.getCpfCnpj());
-										boleto.setCepCliente(cliente.getCep());
+										boleto.setCpfCnpj(Util.formataCpfCnpj(cliente.getCpfCnpj()));
+										boleto.setCepCliente(Util.formataCEP(cliente.getCep()));
 									}
 								}
 							}	

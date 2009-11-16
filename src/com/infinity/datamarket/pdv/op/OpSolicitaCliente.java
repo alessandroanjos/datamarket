@@ -35,19 +35,6 @@ public class OpSolicitaCliente extends Mic{
 						transVenda.setCliente(cliente);
 						gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_VENDA_ATUAL,transVenda);
 
-						Boleto boleto = (Boleto)gerenciadorPerifericos.getCmos().ler(CMOS.BOLETO);
-						if (boleto != null) {
-
-							boleto.setNomeCliente(cliente.getNomeCliente());
-							boleto.setEnderecoCliente(cliente.getLogradouro() + (cliente.getNumero() != null ? ", Nº" + cliente.getNumero(): ", S/N"));
-							boleto.setBairroCliente(cliente.getBairro());
-							boleto.setCidadeCliente(cliente.getCidade());
-							boleto.setUFCliente(cliente.getEstado());
-							boleto.setCpfCnpj(Util.formataCpfCnpj(cliente.getCpfCnpj())); 
-							boleto.setCepCliente(Util.formataCEP(cliente.getCep()));
-
-							gerenciadorPerifericos.getCmos().gravar(CMOS.BOLETO,boleto);
-}
 					}
 					
 				}
