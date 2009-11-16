@@ -27,6 +27,11 @@
             <column name="QUANTIDADE" length="20" not-null="false"/>
         </property>
         
+        <property name="valorUnitario" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR_UNITARIO" length="20" not-null="false"/>
+        </property>
+        
+        
         <property name="dataFabricacao" type="java.util.Date" update="false" insert="true">
             <column name="DATA_FABRICACAO" length="10" not-null="true"/>
         </property> 
