@@ -127,6 +127,17 @@ label.textoGrande{
 	font-weight:bold;
 }
 
+label.textoGrande2{
+	line-height:100%;
+	padding:0 0 1px 0;
+	border:none;
+	color:#222;
+	display:block;
+	font-size:120%;
+	font-weight:normal;
+}
+
+
 label.choice{
 	font-size:100%;
 	display:block;

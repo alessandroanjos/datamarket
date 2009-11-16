@@ -127,7 +127,8 @@
 									<f:selectItems id="estoquesSelectItems" value="#{producaoBB.estoques}" />   
 								</h:selectOneMenu>
 							</div>	
-						</li>							
+						</li>	
+											
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
@@ -159,8 +160,47 @@
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>																
 							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Valor de Custo Unitário"></h:outputLabel>
+								<h:inputText styleClass="field text" id="valorUnitario" maxlength="7"
+									size="7" value="#{producaoBB.valorUnitario}" disabled="true"
+									onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));" >
+									<f:validateLength maximum="7" />
+									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
+									<f:validator validatorId="BigDecimalValidator" />									
+								</h:inputText>																
+							</div>
 						</li>	
 					</ul>
+					<fieldset>	
+					<legend>Composição do produto</legend>
+					<div>
+						<t:dataTable id="composicao" value="#{producaoBB.produto.composicao}"
+									var="comp" rowClasses="rowA,rowB" width="90%" renderedIfEmpty="false">
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Produto" /> 
+										</f:facet>
+										<h:outputText value="#{comp.pk.produto.descricaoCompleta}" /> 
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Quantidade" />
+										</f:facet>
+										<h:outputText value="#{comp.quantidade}" /> 																				
+									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Custo" />
+										</f:facet>
+										<h:outputText value="#{comp.pk.produto.precoCompra}" /> 																				
+									</h:column>
+						</t:dataTable>	
+					</div>
+					
+					
+					</fieldset>
+					
 					
 					<ul>
 						<li class="buttons">

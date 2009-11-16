@@ -136,7 +136,12 @@
 									</div>
 
 								</li>
-								<li>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Valor de Custo Unitário"></h:outputLabel>
+										<h:outputLabel styleClass="textoGrande2"
+											value="#{producaoBB.producao.valorUnitario}"></h:outputLabel>										
+									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Quantidade*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="quantidade"
@@ -149,8 +154,32 @@
 											<f:validator validatorId="BigDecimalValidator" />
 										</h:inputText>
 									</div>
+									
 								</li>
 							</ul>
+							
+							<fieldset>	
+							<legend>Composição do produto</legend>
+							<div>
+								<t:dataTable id="composicao" value="#{producaoBB.produto.composicao}"
+											var="comp" rowClasses="rowA,rowB" width="90%" renderedIfEmpty="false">
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Produto" /> 
+												</f:facet>
+												<h:outputText value="#{comp.pk.produto.descricaoCompleta}" /> 
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Quantidade" />
+												</f:facet>
+												<h:outputText value="#{comp.quantidade}" /> 																				
+											</h:column>											
+								</t:dataTable>	
+							</div>
+							
+							
+							</fieldset>
 
 							<ul>
 								<li class="buttons">
