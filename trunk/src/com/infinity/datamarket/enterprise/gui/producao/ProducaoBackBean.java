@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +23,7 @@ import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoquePK;
 import com.infinity.datamarket.comum.producao.Producao;
+import com.infinity.datamarket.comum.produto.Composicao;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
@@ -43,12 +45,30 @@ public class ProducaoBackBean extends BackBean {
 	private Date fabricacao;
 	private String lote;
 	private String loteConsulta;
-	private String descricao;
+	private Produto produto;
 	private String idLoja;
 	private Date fabricacaoIni;
 	private Date fabricacaoFim;
 	private List producoes;
+	private String descricao;
+	private String valorUnitario;
 
+
+	public String getValorUnitario() {
+		return valorUnitario;
+	}
+
+	public void setValorUnitario(String valorUnitario) {
+		this.valorUnitario = valorUnitario;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
 	public List<Producao> getProducoes() {
 		return producoes;
@@ -58,12 +78,12 @@ public class ProducaoBackBean extends BackBean {
 		this.producoes = producoes;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public String getLote() {
@@ -110,11 +130,12 @@ public class ProducaoBackBean extends BackBean {
 		this.quantidade = null;
 		this.idProduto = null;
 		this.fabricacao = null;
-		this.descricao = null;
+		this.produto = null;
 		this.producoes = null;
 		this.fabricacaoFim = null;
 		this.fabricacaoIni = null;
-		
+		this.descricao = null;
+		this.valorUnitario = null;
 	}
 	
 	public String validaProducaoManutencao(){
@@ -171,6 +192,7 @@ public class ProducaoBackBean extends BackBean {
 				producao.setProduto(produto);
 				producao.setQuantidade(new BigDecimal(quantidade));
 				producao.setLote(Integer.parseInt(lote));
+				producao.setValorUnitario(new BigDecimal(valorUnitario));
 				
 				EstoquePK pk = new EstoquePK();
 				pk.setId(new Long(idEstoque));
@@ -298,6 +320,7 @@ public class ProducaoBackBean extends BackBean {
 		try {
 			this.producao = Fachada.getInstancia().consultarProducaoPorId(Long.parseLong(id));
 			this.quantidade = this.producao.getQuantidade().toString();
+			this.produto = this.producao.getProduto();
 		} catch (AppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -408,12 +431,28 @@ public class ProducaoBackBean extends BackBean {
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 							"Produto não existe no cadastro ou não é um Produto Fabricado!", "");
 					getContextoApp().addMessage(null, msg);
+					this.idProduto = null;
+					this.descricao = null;
 				}else{
 					Produto prod = (Produto)c.iterator().next();
 					
 					if(prod != null){
-						this.descricao = prod.getDescricaoCompleta();
-//						this.setDescricao(prod.getDescricaoCompleta());
+						
+						this.produto = prod;
+						this.setDescricao(prod.getDescricaoCompleta());
+						BigDecimal valorUnitario = BigDecimal.ZERO;
+						if (prod.getComposicao()!= null && prod.getComposicao().size() > 0){
+							Iterator i = prod.getComposicao().iterator();
+							while(i.hasNext()){
+								Composicao comp = (Composicao) i.next();
+								valorUnitario = valorUnitario.add((comp.getQuantidade().multiply(comp.getPk().getProduto().getPrecoCompra())));
+							}
+							
+						}
+							
+						this.valorUnitario = valorUnitario.setScale(2).toString();
+					}else{
+						this.valorUnitario = BigDecimal.ZERO.setScale(2).toString();
 					}
 				}
 			} catch (Exception e) {				
