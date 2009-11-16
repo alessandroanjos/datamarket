@@ -25,11 +25,14 @@
     -->
 
    	<property name="connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
-	
-	<property name="connection.url">jdbc:jtds:sqlserver://localhost:1433/PDV</property> 
-	
+
+
+	<property name="connection.url">jdbc:jtds:sqlserver://localhost:1433/ENTERPRISE</property> 
+      
+
   	<property name="connection.username">sa</property>
-  	<property name="connection.password">1234</property>
+
+  	<property name="connection.password">sa</property>
 
   	<property name="show_sql">false</property>
   	<property name="format_sql">true</property>
@@ -37,18 +40,16 @@
   	<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
 			<!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
 
-      	<!-- Mapping files -->
+      	<!-- Mapping files -->     
       	
  	<mapping resource="com/infinity/datamarket/hbm/BoletoEventoItemPagamentoBoleto.hbm.xml"/>        
  	<mapping resource="com/infinity/datamarket/hbm/PagamentoBoleto.hbm.xml"/>        
  	<mapping resource="com/infinity/datamarket/hbm/ArquivoProcessado.hbm.xml"/>        
  	<mapping resource="com/infinity/datamarket/hbm/Boleto.hbm.xml"/>
  	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoBoleto.hbm.xml"/>
-
  	<mapping resource="com/infinity/datamarket/hbm/AjusteEstoque.hbm.xml"/>        
- 	<mapping resource="com/infinity/datamarket/hbm/MacroOperacao.hbm.xml"/>
-	
-    <mapping resource="com/infinity/datamarket/hbm/Funcionalidade.hbm.xml"/>
+ 	<mapping resource="com/infinity/datamarket/hbm/MacroOperacao.hbm.xml"/>	
+    	<mapping resource="com/infinity/datamarket/hbm/Funcionalidade.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Usuario.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Perfil.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Produto.hbm.xml"/>
@@ -65,12 +66,12 @@
 	<mapping resource="com/infinity/datamarket/hbm/TransacaoSangria.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/TransacaoResuprimento.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/TotalizadorNaoFiscal.hbm.xml"/>
-    <mapping resource="com/infinity/datamarket/hbm/TransacaoAbertura.hbm.xml"/>
-    <mapping resource="com/infinity/datamarket/hbm/TransacaoFechamentoZ.hbm.xml"/>
-    <mapping resource="com/infinity/datamarket/hbm/TransacaoFechamentoX.hbm.xml"/>
+	<mapping resource="com/infinity/datamarket/hbm/TransacaoAbertura.hbm.xml"/>
+    	<mapping resource="com/infinity/datamarket/hbm/TransacaoFechamentoZ.hbm.xml"/>
+    	<mapping resource="com/infinity/datamarket/hbm/TransacaoFechamentoX.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/TransacaoCancelamento.hbm.xml"/>
-    <mapping resource="com/infinity/datamarket/hbm/PlanoPagamento.hbm.xml"/>
-    <mapping resource="com/infinity/datamarket/hbm/FormaRecebimento.hbm.xml"/>
+    	<mapping resource="com/infinity/datamarket/hbm/PlanoPagamento.hbm.xml"/>
+    	<mapping resource="com/infinity/datamarket/hbm/FormaRecebimento.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Loja.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Unidade.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/TipoProduto.hbm.xml"/>
@@ -93,8 +94,7 @@
 	<mapping resource="com/infinity/datamarket/hbm/ClientePagamento.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Autorizadora.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoCartaoOff.hbm.xml"/>
-	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoCartaoProprio.hbm.xml"/>
-	
+	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoCartaoProprio.hbm.xml"/>	
 	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoChequePredatado.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/ParcelaEventoItemPagamentoChequePredatado.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/AutorizacaoCartaoProprio.hbm.xml"/>
@@ -118,5 +118,6 @@
 	<mapping resource="com/infinity/datamarket/hbm/ContaCorrente.hbm.xml" />
 	<mapping resource="com/infinity/datamarket/hbm/MovimentacaoBancaria.hbm.xml" />
 	<mapping resource="com/infinity/datamarket/hbm/Composicao.hbm.xml" />
+	<mapping resource="com/infinity/datamarket/hbm/Producao.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
