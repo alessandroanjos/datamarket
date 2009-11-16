@@ -11,10 +11,15 @@ import com.infinity.datamarket.comum.util.Persistente;
 
 public class Producao extends Persistente{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -381923958554940125L;
 	private int lote;
 	private Date dataFabricacao;
 	private Produto produto;
 	private BigDecimal quantidade;
+	private BigDecimal valorUnitario;
 	private Estoque estoque;
 	
 	
@@ -47,6 +52,12 @@ public class Producao extends Persistente{
 	}
 	public void setQuantidade(BigDecimal quantidade) {
 		this.quantidade = quantidade;
+	}
+	public BigDecimal getValorUnitario() {
+		return valorUnitario;
+	}
+	public void setValorUnitario(BigDecimal valorUnitario) {
+		this.valorUnitario = valorUnitario;
 	}
 	
 	
