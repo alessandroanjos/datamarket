@@ -286,12 +286,28 @@ public class PopUpProdutoBackBean extends BackBean{
 			
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(Produto.class);
-			if(this.getEnquadramento() != null && !this.getEnquadramento().equals("")){
-				if(this.getEnquadramento().equals(Produto.MATERIA_PRIMA) || this.getEnquadramento().equals(Produto.FABRICADO)){
-					filter.addProperty("enquadramento", this.getEnquadramento());
-				}else{
-					filter.addPropertyInterval("enquadramento", Produto.MATERIA_PRIMA, IntervalObject.DIFERENTE);
-				}
+//			if(this.getEnquadramento() != null && !this.getEnquadramento().equals("")){
+//				if(this.getEnquadramento().equals(Produto.MATERIA_PRIMA) || this.getEnquadramento().equals(Produto.FABRICADO)){
+//					filter.addProperty("enquadramento", this.getEnquadramento());
+//				}else{
+//					filter.addPropertyInterval("enquadramento", Produto.MATERIA_PRIMA, IntervalObject.DIFERENTE);
+//				}
+//			}
+			int enquadramento = Integer.parseInt(this.getEnquadramento());
+			switch (enquadramento){
+				case 1: //apenas materia-prima
+					filter.addProperty("enquadramento", Produto.MATERIA_PRIMA);
+					break;
+				case 2: //materia-prima ou revenda
+					filter.addPropertyInterval("enquadramento", Produto.FABRICADO, IntervalObject.DIFERENTE);
+					break;
+				case 3: //prod. fabricado
+					filter.addProperty("enquadramento", Produto.FABRICADO);
+					break;
+				case 4: //todos
+					break;
+				default:
+					break;
 			}
 
 			if (getDescricaoCompleta() != null && !"".equals(getDescricaoCompleta())){				

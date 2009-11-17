@@ -36,8 +36,22 @@ public class Produto extends Persistente{
 	private String status;
 	private String enquadramento;
 	private Collection composicao;
+	private BigDecimal quantidadeMinimaProduto;
+	private BigDecimal markup;
 	
 	
+	public BigDecimal getMarkup() {
+		return markup;
+	}
+	public void setMarkup(BigDecimal markup) {
+		this.markup = markup;
+	}
+	public BigDecimal getQuantidadeMinimaProduto() {
+		return quantidadeMinimaProduto;
+	}
+	public void setQuantidadeMinimaProduto(BigDecimal quantidadeMinimaProduto) {
+		this.quantidadeMinimaProduto = quantidadeMinimaProduto;
+	}
 	public Collection getComposicao() {
 		return composicao;
 	}

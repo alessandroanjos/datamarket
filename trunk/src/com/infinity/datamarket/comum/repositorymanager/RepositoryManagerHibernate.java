@@ -402,7 +402,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
                 }
                 if(interval.getComparationType() == IntervalObject.DIFERENTE)
                 {
-                    criteria.add(Expression.neProperty(interval.getPropertyName(), String.valueOf(attributeValue)));                   
+                    criteria.add(Expression.ne(interval.getPropertyName(), String.valueOf(attributeValue)));                   
                 }
             } while(true);
         }

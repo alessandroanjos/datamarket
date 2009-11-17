@@ -66,6 +66,10 @@ public class ProdutoBackBean extends BackBean{
 	private List<Composicao> itensComposicaoModificados = new ArrayList<Composicao>();
 	private BigDecimal quantidadeProdutoComposicaoTotal;
 	private String enquadramentoSelecionado;
+	
+	private BigDecimal quantidadeMinimaProduto;
+	private BigDecimal markup;
+	
 
 	private String idLoja;
 	
@@ -254,6 +258,9 @@ public class ProdutoBackBean extends BackBean{
 			p.setComposicao(null);
 		}
 		
+		p.setQuantidadeMinimaProduto(this.getQuantidadeMinimaProduto());
+		p.setMarkup(this.getMarkup());
+		
 		return p;
 	}
 	
@@ -295,6 +302,9 @@ public class ProdutoBackBean extends BackBean{
 				}
 			}			
 		}		
+		
+		this.setQuantidadeMinimaProduto(p.getQuantidadeMinimaProduto().setScale(3));
+		this.setMarkup(p.getMarkup().setScale(2));
 	}
 	
 	private Collection criaLojas(String[] idLojas){
@@ -375,14 +385,28 @@ public class ProdutoBackBean extends BackBean{
 		}
 		
 		if(this.getEnquadramentoSelecionado() == null || this.getEnquadramentoSelecionado().equals("")){
-			this.setAbaCorrente("tabMenuDiv0");
-			throw new AppException("É necessário selecionar o Enquadramento do Produto.");
+			if(this.getIdEnquadramento() == null || this.getIdEnquadramento().equals("")){
+				this.setAbaCorrente("tabMenuDiv0");
+				throw new AppException("É necessário selecionar o Enquadramento do Produto.");
+			}else{
+				this.setEnquadramentoSelecionado(this.getIdEnquadramento());
+			}
 		}
 		
 		if(this.getEnquadramentoSelecionado().equals(Produto.FABRICADO) && 
 				(this.getItensComposicao() == null || this.getItensComposicao().size() == 0)){
 			this.setAbaCorrente("tabMenuDiv2");
 			throw new AppException("É necessário informar a Composição do Produto Fabricado.");
+		}
+		
+		if(this.getQuantidadeMinimaProduto() == null || (this.getQuantidadeMinimaProduto() != null && this.getQuantidadeMinimaProduto().setScale(3).compareTo(new BigDecimal("0.000")) < 0)){
+			this.setAbaCorrente("tabMenuDiv0");
+			throw new AppException("É necessário informar a Quantidade Mínima.");
+		}
+
+		if(this.getMarkup() == null || (this.getMarkup() != null && this.getMarkup().setScale(2).equals(new BigDecimal("0.00")))){
+			this.setAbaCorrente("tabMenuDiv0");
+			throw new AppException("É necessário informar um valor de Markup.");
 		}
 	}
 
@@ -611,6 +635,9 @@ public class ProdutoBackBean extends BackBean{
 		this.setItensComposicaoModificados(null);
 		
 		this.setAbaCorrente("tabMenuDiv0");
+		
+		this.quantidadeMinimaProduto = BigDecimal.ZERO.setScale(3);
+		this.markup = BigDecimal.ONE.setScale(2);
 	}
 	
 	public String voltarConsulta(){
@@ -1150,6 +1177,26 @@ public class ProdutoBackBean extends BackBean{
 
 	public void setEnquadramentoSelecionado(String enquadramentoSelecionado) {
 		this.enquadramentoSelecionado = enquadramentoSelecionado;
+	}
+
+
+	public BigDecimal getMarkup() {
+		return markup;
+	}
+
+
+	public void setMarkup(BigDecimal markup) {
+		this.markup = markup;
+	}
+
+
+	public BigDecimal getQuantidadeMinimaProduto() {
+		return quantidadeMinimaProduto;
+	}
+
+
+	public void setQuantidadeMinimaProduto(BigDecimal quantidadeMinimaProduto) {
+		this.quantidadeMinimaProduto = quantidadeMinimaProduto;
 	}
 
 }
