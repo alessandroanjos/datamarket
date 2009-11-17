@@ -85,6 +85,14 @@
 	        </key>            
              <one-to-many class="com.infinity.datamarket.comum.produto.Composicao"/>
         </set>
+        
+        <property name="quantidadeMinimaProduto" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="QTD_MINIMA" length="20" not-null="true"/>
+        </property>
+        
+        <property name="markup" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="MARKUP" length="20" not-null="true"/>
+        </property>
     </class>
 
 </hibernate-mapping>
