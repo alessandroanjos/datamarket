@@ -328,6 +328,12 @@
 			<from-outcome>relatorioAnaliticoOperacoesDevolucao</from-outcome>
 			<to-view-id>/jsp/reports/relatorioAnaliticoOperacoesDevolucao.jsp</to-view-id>
 		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>inserirPedido</from-outcome>
+			<to-view-id>/jsp/pedido/inserirPedido.jsp</to-view-id>
+		</navigation-case>
+		
 								
 		<navigation-case>
 			<from-outcome>logout</from-outcome>
@@ -518,6 +524,54 @@
 		</navigation-case>
 	</navigation-rule>
 
+<!-- PEDIDO -->
+	<navigation-rule>
+		<from-view-id>/jsp/pedido/inserirPedido.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{pedidoBB.inserir}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/pedido/inserirPedido.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{pedidoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/pedido/consultarPedido.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{pedidoBB.consultar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/pedido/consultarPedido.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{pedidoBB.consultar}</from-action>
+			<from-outcome>proxima</from-outcome>
+			<to-view-id>/jsp/pedido/manterPedido.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{pedidoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/jsp/pedido/manterPedido.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{pedidoBB.atualizar}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/pedido/manterPedido.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{pedidoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/pedido/consultarPedido.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
 	<!-- Producao -->
 	<navigation-rule>
 		<from-view-id>/jsp/producao/inserirProducao.jsp</from-view-id>
@@ -2322,6 +2376,16 @@
 		    <property-name>quantidadeProdutoComposicaoTotal</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
 		    <value>0.000</value>
+		</managed-property>
+		<managed-property>
+		    <property-name>quantidadeMinimaProduto</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <value>0.000</value>
+		</managed-property>
+		<managed-property>
+		    <property-name>markup</property-name>
+		    <property-class>java.math.BigDecimal</property-class>
+		    <value>0.01</value>
 		</managed-property>
 	</managed-bean>
 
