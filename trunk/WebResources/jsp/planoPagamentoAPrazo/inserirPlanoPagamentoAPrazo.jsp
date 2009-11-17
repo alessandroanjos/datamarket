@@ -29,7 +29,7 @@
 			<t:stylesheet path="/css/default.css"></t:stylesheet>
 			<t:stylesheet path="/css/form.css"></t:stylesheet>
 			<script type="text/javascript">
-				window.onload = function(){ inicializar() };
+				window.onload = function(){ inicializar();trocaParcelasFixaVariada();  exibirMensagemErro();};
 				function inicializar() {
 						$("input.dataProgramada").each(function(i){
 							$(this).click(function() {mostraCampos(this.value)});
@@ -41,10 +41,39 @@
 						if(strAbaCorrente != ""){							
 							selecionaMenuTab(strAbaCorrente);
 						}
-
 				}
 
-		
+			    function trocaParcelasFixaVariada() {
+
+			    	var str = $('[name=frmInserirPlanoPagamentoChequePre:parcelasFixasVariadas]:checked').val();
+			    	var flag = new String(str);
+			    	if (flag.toUpperCase() == "F") {
+						// fixa
+						getId("frmInserirPlanoPagamentoChequePre:parcelasVariadasDatasAutomaticas").disabled = true;
+					
+						getId("frmInserirPlanoPagamentoChequePre:dataProgramada").disabled = false;
+						getId("frmInserirPlanoPagamentoChequePre:percentualParcela").disabled = false;
+						getId("frmInserirPlanoPagamentoChequePre:quantidadeDiasParcela").disabled = false;
+						getId("frmInserirPlanoPagamentoChequePre:botaoInserirParcela").disabled = false;
+					
+					}else {
+					
+						//variada
+						getId("frmInserirPlanoPagamentoChequePre:parcelasVariadasDatasAutomaticas").disabled = false;
+						
+								
+						getId("frmInserirPlanoPagamentoChequePre:dataProgramada").disabled = true;
+						getId("frmInserirPlanoPagamentoChequePre:percentualParcela").disabled = true;
+						getId("frmInserirPlanoPagamentoChequePre:quantidadeDiasParcela").disabled = true;
+						getId("frmInserirPlanoPagamentoChequePre:botaoInserirParcela").disabled = true;
+					
+					
+
+						
+					}
+			    }
+
+
 		        function mostraCampos(str) {
 					var flag = new String(str);
 					if (flag.toUpperCase() == "S") {
@@ -58,7 +87,7 @@
 
 
 		</head>
-		<body onload="exibirMensagemErro();">
+		<body >
 
 			<div id="outer">
 				<div id="topoGeral">
@@ -246,10 +275,22 @@
 											
 										</div>
 									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Parcelas Fixas"></h:outputLabel>
+											<h:selectOneRadio styleClass="field select" id="parcelasFixasVariadas" onclick="javascript:trocaParcelasFixaVariada();"
+												value="#{planoPagamentoAPrazoBB.parcelasFixasVariadas}"
+												layout="lineDirection">
+												<f:selectItems id="parcelasFixasVariadasItens"
+													value="#{planoPagamentoAPrazoBB.parcelasFixasVariadasItens}" />
+											</h:selectOneRadio>
+											
+										</div>
+									</li>
 								</ul>
 								<fieldset>
 									<legend>
-										<b>Parcelas</b>
+										<b>Parcelas Fixas</b>
 									</legend>
 									<ul>
 										<li class="normal">
@@ -332,6 +373,24 @@
 											</h:column>
 										</t:dataTable>
 									</div>
+								</fieldset>
+								
+								<fieldset>
+									<legend>
+										<b>Parcelas Variadas</b>
+									</legend>
+										<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Datas Informada"></h:outputLabel>
+											<h:selectOneRadio styleClass="field select" id="parcelasVariadasDatasAutomaticas" 
+												value="#{planoPagamentoAPrazoBB.parcelasVariadasDatasAutomaticas}"
+												layout="lineDirection">
+												<f:selectItems id="datasInformada"
+													value="#{planoPagamentoAPrazoBB.parcelasVariadasDatasAutomaticasItens}" />
+											</h:selectOneRadio>
+											
+										</div>
+									</li>
 								</fieldset>
 							</div>
 							<ul>

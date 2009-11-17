@@ -14,5 +14,10 @@ public class Constantes {
 	public static final String CONSTANTE_QUANTIDADE = "Q";
 	public static final String TIPO_OPERACAO_DEBITO = "D";
 	public static final String TIPO_OPERACAO_CREDITO = "C";
+	public static final String PARCELAS_FIXAS = "F";
+	public static final String PARCELAS_VARIADAS= "V";
+	public static final String DATAS_INFORMADA_PELO_SISTEMA= "S";
+	public static final String DATAS_INFORMADA_PELO_USUARIO= "U";
+	
 	
 }
