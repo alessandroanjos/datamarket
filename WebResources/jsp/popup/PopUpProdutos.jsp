@@ -33,15 +33,12 @@
 				 window.onload = function(){ inicializar() };
 			
 			      function inicializar() {			
-					    var strEnquadramento = "<%=request.getParameter("enquadramento")%>";
-					    var flag = new String(strEnquadramento);
-					    //alert(getId("frmPopUpProduto:enquadramento").value);
-//					    if (flag.toUpperCase() == "M") {
-					       getId("frmPopUpProduto:enquadramento").value = flag;
-	//				    }else{
-		//			       getId("frmPopUpProduto:enquadramento").value = new String("P,R");
-			//		    }						
-					    //alert(getId("frmPopUpProduto:enquadramento").value);					    
+				     var strEnquadramento = "<%=request.getParameter("enquadramento")%>";
+				     if(strEnquadramento != "null"){
+				        var flag = new String(strEnquadramento);
+                     	alert(flag);
+			            getId("frmPopUpProduto:enquadramento").value = flag;
+				     }
 			      }
 			
 			      function send(idProduto,descricaoCompleta,precoVenda) {
@@ -94,7 +91,7 @@
 					</fieldset>
 					<div class="listagem">
 						<t:dataTable value="#{popupprodutoBB.produtos}" var="produto"
-							rowClasses="rowA,rowB" width="95%">
+							rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
 							<h:column>
 								<f:facet name="header">
 									<h:outputText value="Código Externo" />

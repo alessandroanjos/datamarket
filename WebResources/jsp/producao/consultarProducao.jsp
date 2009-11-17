@@ -45,7 +45,7 @@
 				    var formaux = document.forms[form];
 				 
                     features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-				    winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces?acaoPopUp=init','list',features);
+				    winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces?acaoPopUp=init&enquadramento=3','list',features);
 
 				    // Formulário escondido
                     hform=document.forms[form];                

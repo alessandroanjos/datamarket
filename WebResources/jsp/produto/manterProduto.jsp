@@ -61,7 +61,7 @@
 						       winId.close();
 						    }
 			                features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-			     			winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces?acao=init&enquadramento=M','list',features);
+			     			winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces?acao=init&enquadramento=1','list',features);
 				            // Formulário escondido
 			                hform=document.forms[form];                
 		                }else{
@@ -291,6 +291,26 @@
 													value="#{produtoBB.fabricantes}" />
 											</h:selectOneMenu>
 											
+										</div>
+									</li>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Quant. Mínima"></h:outputLabel>
+											<h:inputText styleClass="field text" id="quantidadeMinimaProduto" maxlength="8" size="9"
+												value="#{produtoBB.quantidadeMinimaProduto}" dir="rtl" required="false" onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));">
+												<f:validateLength maximum="8" />
+												<f:validateDoubleRange  minimum="0.000" maximum="999.999"/>
+												<f:validator validatorId="BigDecimalValidator"/>
+											</h:inputText>
+										</div>
+										<div>										
+											<h:outputLabel styleClass="desc" value="Markup"></h:outputLabel>
+											<h:inputText styleClass="field text" id="markup" maxlength="8" size="9"
+												value="#{produtoBB.markup}" dir="rtl" required="false" onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));">
+												<f:validateLength maximum="8" />
+												<f:validateDoubleRange  minimum="0.01" maximum="999.99"/>
+												<f:validator validatorId="BigDecimalValidator"/>
+											</h:inputText>
 										</div>
 									</li>
 								</ul>

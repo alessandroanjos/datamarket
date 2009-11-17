@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t" %>
 <%@ taglib uri="https://ajax4jsf.dev.java.net/ajax" prefix="a4j" %>
-
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <f:verbatim>		
 <script type="text/javascript">
 
