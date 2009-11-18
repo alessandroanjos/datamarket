@@ -22,6 +22,10 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay
 import com.infinity.datamarket.pdv.gui.telas.Tela;
 
 public class AVDisplay extends JPanel implements Display{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5052916213909041582L;
 	private long id = 123456789;
 	private JLabel usuario;
 	private JLabel loja;
