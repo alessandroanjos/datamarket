@@ -25,15 +25,11 @@
     -->
 
    	<property name="connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
-
-
 	<property name="connection.url">jdbc:jtds:sqlserver://localhost:1433/ENTERPRISE</property> 
-      
-
   	<property name="connection.username">sa</property>
+  	<property name="connection.password">1234</property>
 
-  	<property name="connection.password">sa</property>
-
+	
   	<property name="show_sql">false</property>
   	<property name="format_sql">true</property>
   	<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
@@ -41,15 +37,18 @@
 			<!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
 
       	<!-- Mapping files -->     
-      	
- 	<mapping resource="com/infinity/datamarket/hbm/BoletoEventoItemPagamentoBoleto.hbm.xml"/>        
- 	<mapping resource="com/infinity/datamarket/hbm/PagamentoBoleto.hbm.xml"/>        
+
+	<mapping resource="com/infinity/datamarket/hbm/Composicao.hbm.xml"/>        
+	
+	<mapping resource="com/infinity/datamarket/hbm/BoletoEventoItemPagamentoBoleto.hbm.xml"/>        
+
+	<mapping resource="com/infinity/datamarket/hbm/PagamentoBoleto.hbm.xml"/>        
  	<mapping resource="com/infinity/datamarket/hbm/ArquivoProcessado.hbm.xml"/>        
  	<mapping resource="com/infinity/datamarket/hbm/Boleto.hbm.xml"/>
  	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoBoleto.hbm.xml"/>
  	<mapping resource="com/infinity/datamarket/hbm/AjusteEstoque.hbm.xml"/>        
  	<mapping resource="com/infinity/datamarket/hbm/MacroOperacao.hbm.xml"/>	
-    	<mapping resource="com/infinity/datamarket/hbm/Funcionalidade.hbm.xml"/>
+    <mapping resource="com/infinity/datamarket/hbm/Funcionalidade.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Usuario.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Perfil.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/Produto.hbm.xml"/>
