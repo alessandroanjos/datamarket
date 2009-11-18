@@ -31,6 +31,18 @@
             <column name="VALOR_UNITARIO" length="20" not-null="false"/>
         </property>
         
+        <property name="precoVenda" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="PRECO_VENDA" length="20" not-null="false"/>
+        </property>
+        
+        <property name="precoVendaAnterior" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="PRECO_VENDA_ANTERIOR" length="20" not-null="false"/>
+        </property>
+        
+        <property name="markUp" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="MARKUP" length="20" not-null="false"/>
+        </property>
+        
         
         <property name="dataFabricacao" type="java.util.Date" update="false" insert="true">
             <column name="DATA_FABRICACAO" length="10" not-null="true"/>

@@ -9,6 +9,7 @@ import com.infinity.datamarket.comum.estoque.EstoqueProduto;
 import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.produto.CadastroProduto;
 import com.infinity.datamarket.comum.produto.Composicao;
+import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.AppException;
@@ -42,7 +43,7 @@ public class CadastroProducao extends Cadastro{
 	public Collection consultarTodos() throws AppException{
 		return getRepositorio().consultarTodos();
 	}
-	public void inserir(Producao producao) throws AppException{
+	public void inserir(Producao producao,boolean ajustaProduto) throws AppException{
 		getRepositorio().inserir(producao);
 		EstoqueProdutoPK estoqueProdutoPkDestino = new EstoqueProdutoPK();
 		estoqueProdutoPkDestino.setProduto(producao.getProduto());
@@ -103,6 +104,13 @@ public class CadastroProducao extends Cadastro{
 				}
 			}
 		}
+		if (ajustaProduto){
+			Produto prod = CadastroProduto.getInstancia().consultarPorPK(producao.getProduto().getId());
+			prod.setPrecoPadrao(producao.getPrecoVenda());
+			prod.setPrecoPromocional(producao.getPrecoVenda());
+			CadastroProduto.getInstancia().alterar(prod);			
+		}
+		
 	}
 	
 	public void alterar(Producao producao, BigDecimal quantidade) throws AppException{

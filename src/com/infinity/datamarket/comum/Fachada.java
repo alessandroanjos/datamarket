@@ -7194,11 +7194,11 @@ public class Fachada {
 
 // producao
 	
-	public void inserirProducao(Producao producao) throws AppException{
+	public void inserirProducao(Producao producao, boolean ajustaProduto) throws AppException{
 
 		try{
 			RepositoryManagerHibernateUtil.beginTrasaction();
-			getCadastroProducao().inserir(producao);
+			getCadastroProducao().inserir(producao,ajustaProduto);
 			RepositoryManagerHibernateUtil.commitTransation();
 		}catch(AppException e){
 			try{

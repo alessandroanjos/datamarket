@@ -21,8 +21,23 @@ public class Producao extends Persistente{
 	private BigDecimal quantidade;
 	private BigDecimal valorUnitario;
 	private Estoque estoque;
+	private BigDecimal precoVenda;
+	private BigDecimal precoVendaAnterior;
+	private BigDecimal markUp;
 	
 	
+	public BigDecimal getMarkUp() {
+		return markUp;
+	}
+	public void setMarkUp(BigDecimal markUp) {
+		this.markUp = markUp;
+	}
+	public BigDecimal getPrecoVenda() {
+		return precoVenda;
+	}
+	public void setPrecoVenda(BigDecimal precoVenda) {
+		this.precoVenda = precoVenda;
+	}
 	public Estoque getEstoque() {
 		return estoque;
 	}
@@ -58,6 +73,12 @@ public class Producao extends Persistente{
 	}
 	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
+	}
+	public BigDecimal getPrecoVendaAnterior() {
+		return precoVendaAnterior;
+	}
+	public void setPrecoVendaAnterior(BigDecimal precoVendaAnterior) {
+		this.precoVendaAnterior = precoVendaAnterior;
 	}
 	
 	
