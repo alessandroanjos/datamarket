@@ -845,7 +845,7 @@
       </microOperacaoAssociada>
       
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo143_" operacao="OpCalculaExibeTelaParcelaPlanos">
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo82" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo81" />
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo86_0" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo86_0" operacao="OpGeraBoleto">
