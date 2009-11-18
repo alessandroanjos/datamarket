@@ -82,7 +82,7 @@ public class OpGeraBoleto extends Mic{
 						while(dataBoleto == null || "".equals(dataBoleto)){
 							gerenciadorPerifericos.getDisplay().setMensagem( cont +"/" + parcelas.size()+" Data Boleto");
 							EntradaDisplay entrada7 = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_DATA, 0);
-							if (entrada7.getTeclaFinalizadora() == 10){
+							if (entrada7.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 								dataBoleto = entrada7.getDado();
 								if (!"".equals(dataBoleto)){
 	
