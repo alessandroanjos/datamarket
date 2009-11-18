@@ -613,6 +613,15 @@
 			<to-view-id>/jsp/producao/consultarProducao.jsp</to-view-id>
 		</navigation-case>		
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/jsp/producao/manterProducao.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{producaoBB.voltarConsulta}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/producao/consultarProducao.jsp</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
 	
 	<!-- TIPO DE PRODUTO -->
 	<navigation-rule>
