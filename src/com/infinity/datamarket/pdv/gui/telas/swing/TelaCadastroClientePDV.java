@@ -4,6 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -13,13 +17,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
-import com.infinity.datamarket.cliente.ClienteServerRemote;
 import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.components.LimitedTextField;
 import com.infinity.datamarket.pdv.util.ServerConfig;
-import com.infinity.datamarket.pdv.util.ServiceLocator;
 
 public class TelaCadastroClientePDV extends JDialog {
 
@@ -137,8 +139,41 @@ public class TelaCadastroClientePDV extends JDialog {
 				    			return;
 				    		}
 				    	}
-				    	ClienteServerRemote remote = (ClienteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
-						ClienteTransacao cliente = remote.consultarClienteTransacaoPorID(cpfCnpj);
+				    	ClienteTransacao cliente =  null;
+//				    	try{
+//							URL urlCon = new URL("http://" + loja.getNumeroIp() + ":" + loja.getNumeroPortaServlet() + "/EnterpriseServer/GerarBoletoServlet.servlet");
+							URL urlCon = new URL("http://" +
+									ServerConfig.HOST_SERVIDOR_ES +
+									":" +
+									ServerConfig.PORTA_SERVIDOR_ES +
+									"/" +
+									ServerConfig.CONTEXTO_SERVIDOR_ES +
+									"/" +
+									ServerConfig.CONSULTAR_CLIENTE_TRANSACAO_SERVLET +"?idCliente=" + cpfCnpj);
+							URLConnection huc1 = urlCon.openConnection();
+	
+							huc1.setAllowUserInteraction(true);
+							huc1.setDoOutput(true);
+	
+							ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
+							output.writeObject("OK");
+							ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
+							Object obj = input.readObject();
+							if (obj instanceof ClienteTransacao ) {
+								 cliente = (ClienteTransacao) obj;
+							} else if (obj instanceof Exception) {
+								((Exception) obj).printStackTrace();
+								throw ((Exception) obj);
+								
+							}
+//						} catch (Exception e) {
+//							System.out.println("ERRO NO PROCESSAMENTO DA TRANSAÇÃO");
+//							e.printStackTrace();
+//							break;
+//						}
+						
+//				    	ClienteServerRemote remote = (ClienteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
+//				    	ClienteTransacao cliente =  remote.consultarClienteTransacaoPorID(cpfCnpj);
 						if(cliente != null){
 							if (cliente.getTipoPessoa().equals(ClienteTransacao.PESSOA_JURIDICA)){
 								jTextFieldInscEstadual.setText(cliente.getInscricaoEstadual());

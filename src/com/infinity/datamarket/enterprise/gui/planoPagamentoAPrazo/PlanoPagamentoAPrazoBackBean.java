@@ -51,27 +51,6 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 	SortedSet<ParcelaPlanoPagamentoAPrazo> parcelas = new TreeSet<ParcelaPlanoPagamentoAPrazo>();
 	SortedSet<ParcelaPlanoPagamentoAPrazo> parcelasRemovidas = new TreeSet<ParcelaPlanoPagamentoAPrazo>();
 	PlanoPagamentoAPrazo planoPagtoAPrazo = null;
-	String parcelasFixasVariadas= null;
-	SelectItem[] parcelasFixasVariadasItens;
-	String parcelasVariadasDatasAutomaticas;
-	SelectItem[] parcelasVariadasDatasAutomaticasItens;
-	
-	public String getParcelasVariadasDatasAutomaticas() {
-		return parcelasVariadasDatasAutomaticas;
-	}
-
-	public void setParcelasVariadasDatasAutomaticas(
-			String parcelasVariadasDatasAutomaticas) {
-		this.parcelasVariadasDatasAutomaticas = parcelasVariadasDatasAutomaticas;
-	}
-
-	public String getParcelasFixasVariadas() {
-		return parcelasFixasVariadas;
-	}
-
-	public void setParcelasFixasVariadas(String parcelasFixasVariadas) {
-		this.parcelasFixasVariadas = parcelasFixasVariadas;
-	}
 
 	public SortedSet<ParcelaPlanoPagamentoAPrazo> getParcelasRemovidas() {
 		return parcelasRemovidas;
@@ -154,9 +133,6 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 		this.setDataProgramada(Constantes.NAO);
 		this.setParcelas(null);
 		this.setAbaCorrente("tabDiv0");
-		this.parcelasFixasVariadas = null;
-		this.parcelasVariadasDatasAutomaticas = null;
-		
 	}
 	
 	public void validarBackBean() throws AppException{
@@ -206,71 +182,37 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 		}
 	}
 	
-//	String parcelasVariadasDatasAutomaticas;
-//	SelectItem[] parcelasVariadasDatasAutomaticasItens;
-
-	
-	public SelectItem[] getParcelasVariadasDatasAutomaticasItens() {
-		SelectItem[] parcelasVariadasDatasAutomaticasItens = new SelectItem[]{new SelectItem(Constantes.DATAS_INFORMADA_PELO_SISTEMA,"Datas Infomrada pelo Sistema"),
-                new SelectItem(Constantes.DATAS_INFORMADA_PELO_USUARIO,"Datas Informada pelo Usuário")};
-		if(getParcelasVariadasDatasAutomaticas() == null){
-			setParcelasVariadasDatasAutomaticas(Constantes.DATAS_INFORMADA_PELO_SISTEMA);
-		}
-		return parcelasVariadasDatasAutomaticasItens;
-	}
-	public void setParcelasVariadasDatasAutomaticasItens(SelectItem[] parcelasVariadasDatasAutomaticasItens) {
-		this.parcelasVariadasDatasAutomaticasItens = parcelasVariadasDatasAutomaticasItens;
-	}
-
-	
-	public SelectItem[] getParcelasFixasVariadasItens() {
-		SelectItem[] parcelasFixasVariadasItens = new SelectItem[]{new SelectItem(Constantes.PARCELAS_FIXAS,"Parcelas Fixas"),
-                new SelectItem(Constantes.PARCELAS_VARIADAS,"Parcelas Variadas")};
-		if(getParcelasFixasVariadas() == null){
-			setParcelasFixasVariadas(Constantes.PARCELAS_FIXAS);
-		}
-		return parcelasFixasVariadasItens;
-	}
-	public void setParcelasFixasVariadasItens(SelectItem[] parcelasFixasVariadasItens) {
-		this.parcelasFixasVariadasItens = parcelasFixasVariadasItens;
-	}
-public String inserir(){
+	public String inserir(){
 		try {	
 			
 			
+//			setIdForma(Constantes.FORMA_CHEQUE_PRE);
 			validarBackBean();
-			PlanoPagamentoAPrazo planoPre = new PlanoPagamentoAPrazo();
-			planoPre.setParcelasFixasVariadas(getParcelasFixasVariadas());
-			planoPre.setParcelasVariadasDatasAutomaticas(getParcelasVariadasDatasAutomaticas());
-			
+			PlanoPagamento planoPre = new PlanoPagamentoAPrazo();
+
 			preenchePlanoPagamento(planoPre, INSERIR);
-
+			
 			((PlanoPagamentoAPrazo)planoPre).setPercentagemEntrada(this.getPercentagemEntrada());
-
+		
 			BigDecimal totalPercentagem = BigDecimal.ZERO;
 			totalPercentagem = totalPercentagem.add(this.getPercentagemEntrada());
-
-			if (getParcelasFixasVariadas().equalsIgnoreCase(Constantes.PARCELAS_FIXAS)) {
-		
-				Iterator it = this.getParcelas().iterator();
 				
-				while (it.hasNext()){
-					ParcelaPlanoPagamentoAPrazo parcela = (ParcelaPlanoPagamentoAPrazo)it.next();
-					parcela.getPk().setPlano((PlanoPagamentoAPrazo)planoPre);
-					totalPercentagem = totalPercentagem.add(parcela.getPercentagemParcela());
-				}
-				
-				if(totalPercentagem.compareTo(new BigDecimal("100")) != 0){
-					throw new Exception("O somatório do percentual das parcelas mais o percentual de entrada deve ser igual a 100%.");
-				}
-				
-				((PlanoPagamentoAPrazo)planoPre).setParcelas(this.getParcelas());
-				
-				getFachada().inserirPlanoPagamento(planoPre);
-			} else {
-				((PlanoPagamentoAPrazo)planoPre).setParcelas(null);
+			Iterator it = this.getParcelas().iterator();
+			
+			while (it.hasNext()){
+				ParcelaPlanoPagamentoAPrazo parcela = (ParcelaPlanoPagamentoAPrazo)it.next();
+				parcela.getPk().setPlano((PlanoPagamentoAPrazo)planoPre);
+				totalPercentagem = totalPercentagem.add(parcela.getPercentagemParcela());
 			}
-
+			
+			if(totalPercentagem.compareTo(new BigDecimal("100")) != 0){
+				throw new Exception("O somatório do percentual das parcelas mais o percentual de entrada deve ser igual a 100%.");
+			}
+			
+			((PlanoPagamentoAPrazo)planoPre).setParcelas(this.getParcelas());
+			
+			getFachada().inserirPlanoPagamento(planoPre);
+			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
 			getContextoApp().addMessage(null, msg);
@@ -303,44 +245,37 @@ public String inserir(){
 			
 			BigDecimal totalPercentagem = BigDecimal.ZERO;
 			
-			PlanoPagamentoAPrazo planoPre = new PlanoPagamentoAPrazo();//(PlanoPagamentoAPrazo)getFachada().consultarPlanoPagamentoPorId(new Long(this.getId()));//
-			planoPre.setParcelasFixasVariadas(getParcelasFixasVariadas());
-			planoPre.setParcelasVariadasDatasAutomaticas(getParcelasVariadasDatasAutomaticas());
+			PlanoPagamento planoPre = new PlanoPagamentoAPrazo();//(PlanoPagamentoAPrazo)getFachada().consultarPlanoPagamentoPorId(new Long(this.getId()));//
 
 			preenchePlanoPagamento(planoPre, ALTERAR);
 			
+			((PlanoPagamentoAPrazo)planoPre).setPercentagemEntrada(this.getPercentagemEntrada());
+			
 			totalPercentagem = totalPercentagem.add(this.getPercentagemEntrada());
 			
-			((PlanoPagamentoAPrazo)planoPre).setPercentagemEntrada(this.getPercentagemEntrada());
-		
-			if (getParcelasFixasVariadas().equalsIgnoreCase(Constantes.PARCELAS_FIXAS)) {
-	
-				if(this.getParcelas() == null || (this.getParcelas() != null && this.getParcelas().size() == 0)){
-					throw new Exception("É necessário ter pelo menos uma parcela.");
-				}
-				
-				Iterator it = this.getParcelas().iterator();
-	
-				Set<ParcelaPlanoPagamentoAPrazo> conjParcelas = new TreeSet<ParcelaPlanoPagamentoAPrazo>();
-				
-				while (it.hasNext()){
-					ParcelaPlanoPagamentoAPrazo parcela = (ParcelaPlanoPagamentoAPrazo)it.next();
-					parcela.getPk().setPlano((PlanoPagamentoAPrazo)planoPre);
-					conjParcelas.add(parcela);
-					totalPercentagem = totalPercentagem.add(parcela.getPercentagemParcela());
-				}
-
-				((PlanoPagamentoAPrazo)planoPre).setParcelas(conjParcelas);
-				
-
-				if(totalPercentagem.compareTo(new BigDecimal("100")) != 0){
-					throw new AppException("O somatório do percentual das parcelas mais o percentual de entrada deve ser igual a 100%.");
-				}
-				
-			} else {
-				((PlanoPagamentoAPrazo)planoPre).setParcelas(null);
+			if(this.getParcelas() == null || (this.getParcelas() != null && this.getParcelas().size() == 0)){
+				throw new Exception("É necessário ter pelo menos uma parcela.");
 			}
+			
+			Iterator it = this.getParcelas().iterator();
 
+			Set<ParcelaPlanoPagamentoAPrazo> conjParcelas = new TreeSet<ParcelaPlanoPagamentoAPrazo>();
+			
+			while (it.hasNext()){
+				ParcelaPlanoPagamentoAPrazo parcela = (ParcelaPlanoPagamentoAPrazo)it.next();
+				parcela.getPk().setPlano((PlanoPagamentoAPrazo)planoPre);
+				conjParcelas.add(parcela);
+				totalPercentagem = totalPercentagem.add(parcela.getPercentagemParcela());
+			}
+			
+//			((PlanoPagamentoAPrazo)planoPre).setParcelas(this.getParcelas());
+
+			((PlanoPagamentoAPrazo)planoPre).setParcelas(conjParcelas);
+			
+			if(totalPercentagem.compareTo(new BigDecimal("100")) != 0){
+				throw new AppException("O somatório do percentual das parcelas mais o percentual de entrada deve ser igual a 100%.");
+			}
+			
 			getFachada().alterarPlanoPagamento(planoPre);
 
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -361,22 +296,11 @@ public String inserir(){
 		return "mesma";
 	}
 
-	public void preenchePlanoPagamento(PlanoPagamento plano, String acao) throws AppException{
-
-		if (plano instanceof PlanoPagamentoAPrazo) {
-			((PlanoPagamentoAPrazo)plano).setParcelasFixasVariadas(getParcelasFixasVariadas());
-			((PlanoPagamentoAPrazo)plano).setParcelasVariadasDatasAutomaticas(getParcelasVariadasDatasAutomaticas());
-		}
-		super.preenchePlanoPagamento(plano, acao);
-	}
-	
 	public String excluir(){
 		try {
 //			setIdForma(Constantes.FORMA_CHEQUE_PRE);
-			PlanoPagamentoAPrazo planoPre = new PlanoPagamentoAPrazo();
-			planoPre.setParcelasFixasVariadas(getParcelasFixasVariadas());
-			planoPre.setParcelasVariadasDatasAutomaticas(getParcelasVariadasDatasAutomaticas());
-
+			PlanoPagamento planoPre = new PlanoPagamentoAPrazo();
+			
 			preenchePlanoPagamento(planoPre, ALTERAR);
 			
 			((PlanoPagamentoAPrazo)planoPre).setPercentagemEntrada(this.getPercentagemEntrada());
@@ -435,25 +359,6 @@ public String inserir(){
 				this.setDataFimValidade(planoPagamento.getDataFimValidade());
 		        this.setIdForma(planoPagamento.getForma().getId().toString());
 		        
-		        if (planoPagamento instanceof PlanoPagamentoAPrazo && this instanceof PlanoPagamentoAPrazoBackBean) {
-		        	PlanoPagamentoAPrazoBackBean ppapbb = (PlanoPagamentoAPrazoBackBean) this;
-					if (((PlanoPagamentoAPrazo)planoPagamento).getParcelasFixasVariadas() != null) {
-						ppapbb.setParcelasFixasVariadas(((PlanoPagamentoAPrazo)planoPagamento).getParcelasFixasVariadas());
-					} else {
-						ppapbb.setParcelasFixasVariadas(Constantes.PARCELAS_FIXAS);
-					}
-
-					if (((PlanoPagamentoAPrazo)planoPagamento).getParcelasVariadasDatasAutomaticas() != null) {
-						ppapbb.setParcelasVariadasDatasAutomaticas(((PlanoPagamentoAPrazo)planoPagamento).getParcelasVariadasDatasAutomaticas());
-					} else {
-						ppapbb.setParcelasVariadasDatasAutomaticas(Constantes.DATAS_INFORMADA_PELO_SISTEMA);
-					}
-				} else if (this instanceof PlanoPagamentoAPrazoBackBean) {
-					PlanoPagamentoAPrazoBackBean ppapbb = (PlanoPagamentoAPrazoBackBean) this;
-					ppapbb.setParcelasVariadasDatasAutomaticas(Constantes.DATAS_INFORMADA_PELO_SISTEMA);
-					ppapbb.setParcelasFixasVariadas(Constantes.PARCELAS_FIXAS);
-				}
-		        
 		        this.setPercentagemEntrada(planoPagamento.getPercentagemEntrada());
 		        Iterator it = planoPagamento.getParcelas().iterator();
 				
@@ -491,25 +396,6 @@ public String inserir(){
 						this.setDataInicioValidade(planoPagamento.getDataInicioValidade());
 						this.setDataFimValidade(planoPagamento.getDataFimValidade());
 				        this.setIdForma(planoPagamento.getForma().getId().toString());				        
-				        
-				        if (planoPagamento instanceof PlanoPagamentoAPrazo && this instanceof PlanoPagamentoAPrazoBackBean) {
-				        	PlanoPagamentoAPrazoBackBean ppapbb = (PlanoPagamentoAPrazoBackBean) this;
-							if (((PlanoPagamentoAPrazo)planoPagamento).getParcelasFixasVariadas() != null) {
-								ppapbb.setParcelasFixasVariadas(((PlanoPagamentoAPrazo)planoPagamento).getParcelasFixasVariadas());
-							} else {
-								ppapbb.setParcelasFixasVariadas(Constantes.PARCELAS_FIXAS);
-							}
-
-							if (((PlanoPagamentoAPrazo)planoPagamento).getParcelasVariadasDatasAutomaticas() != null) {
-								ppapbb.setParcelasVariadasDatasAutomaticas(((PlanoPagamentoAPrazo)planoPagamento).getParcelasVariadasDatasAutomaticas());
-							} else {
-								ppapbb.setParcelasVariadasDatasAutomaticas(Constantes.DATAS_INFORMADA_PELO_SISTEMA);
-							}
-						} else if (this instanceof PlanoPagamentoAPrazoBackBean) {
-							PlanoPagamentoAPrazoBackBean ppapbb = (PlanoPagamentoAPrazoBackBean) this;
-							ppapbb.setParcelasVariadasDatasAutomaticas(Constantes.DATAS_INFORMADA_PELO_SISTEMA);
-							ppapbb.setParcelasFixasVariadas(Constantes.PARCELAS_FIXAS);
-						}
 				        
 				        this.setPercentagemEntrada(planoPagamento.getPercentagemEntrada());
 				        Iterator it = planoPagamento.getParcelas().iterator();

@@ -14,7 +14,17 @@
           <property name="percentagemEntrada" type="java.math.BigDecimal" update="true" insert="true">
               <column name="PERCENTAGEM_ENTRADA" length="20" not-null="false"/>
           </property>
+          
+          <property name="parcelasFixasVariadas" type="java.lang.String" update="true" insert="true">
+              <column name="PARCELA_FIXA_VARIADA" length="1" not-null="false"/>
+          </property>
 
+              
+          <property name="datasParcelasVariadasInformadaSistemaOuUsuario" type="java.lang.String" update="true" insert="true">
+              <column name="DATA_INFOR_USU_SIST" length="1" not-null="false"/>
+          </property>
+
+          
           <set name="parcelas" inverse="true" cascade="save-update, delete-orphan" lazy="false" order-by="NUM_ENTRADA">
 	        <key>
 	            <column name="ID_PLANO" />

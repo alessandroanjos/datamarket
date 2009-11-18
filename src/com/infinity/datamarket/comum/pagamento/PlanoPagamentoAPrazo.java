@@ -3,8 +3,6 @@ package com.infinity.datamarket.comum.pagamento;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-import javax.faces.model.SelectItem;
-
 public class PlanoPagamentoAPrazo extends PlanoPagamento{
 
 	private static final long serialVersionUID = 1665020148129076387L;
@@ -13,8 +11,8 @@ public class PlanoPagamentoAPrazo extends PlanoPagamento{
 	
 	private Collection parcelas;
 
-	private  static String parcelasFixasVariadas= null;
-	private  static String parcelasVariadasDatasAutomaticas= null;
+	private  String parcelasFixasVariadas= null;
+	private  String datasParcelasVariadasInformadaSistemaOuUsuario= null;
 	
 	public Collection getParcelas() {
 		return parcelas;
@@ -40,12 +38,12 @@ public class PlanoPagamentoAPrazo extends PlanoPagamento{
 		this.parcelasFixasVariadas = parcelasFixasVariadas2;
 	}
 
-	public String getParcelasVariadasDatasAutomaticas() {
-		return parcelasVariadasDatasAutomaticas;
+	public String getDatasParcelasVariadasInformadaSistemaOuUsuario() {
+		return datasParcelasVariadasInformadaSistemaOuUsuario;
 	}
 
-	public void setParcelasVariadasDatasAutomaticas(
+	public void setDatasParcelasVariadasInformadaSistemaOuUsuario(
 			String parcelasVariadasDatasAutomaticas2) {
-		this.parcelasVariadasDatasAutomaticas = parcelasVariadasDatasAutomaticas2;
+		this.datasParcelasVariadasInformadaSistemaOuUsuario = parcelasVariadasDatasAutomaticas2;
 	}
 }
