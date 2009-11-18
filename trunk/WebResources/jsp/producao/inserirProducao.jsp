@@ -156,22 +156,56 @@
 									size="7" value="#{producaoBB.quantidade}" required="false"
 									onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));" >
 									<f:validateLength maximum="7" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
+									<f:validateDoubleRange minimum="0.000" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>																
 							</div>
+						</li>
+						</ul>
+						<fieldset>	
+						<legend>Precificação</legend>
+						<ul>
+						<li class="normal">
 							<div>
-								<h:outputLabel styleClass="desc" value="Valor de Custo Unitário"></h:outputLabel>
-								<h:inputText styleClass="field text" id="valorUnitario" maxlength="7"
-									size="7" value="#{producaoBB.valorUnitario}" disabled="true"
-									onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));" >
-									<f:validateLength maximum="7" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
+								<h:outputLabel styleClass="desc" value="Preço Venda Atual"></h:outputLabel>
+								<h:inputText styleClass="field text" id="precoVendaAtual" maxlength="7"
+									size="7" value="#{producaoBB.precoVendaAtual}" disabled="true">
 									<f:validator validatorId="BigDecimalValidator" />									
 								</h:inputText>																
 							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Valor de Custo"></h:outputLabel>
+								<h:inputText styleClass="field text" id="valorUnitario" maxlength="7"
+									size="7" value="#{producaoBB.valorUnitario}" disabled="true">
+									<f:validator validatorId="BigDecimalValidator" />									
+								</h:inputText>																
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="MarkUp"></h:outputLabel>
+								<h:inputText styleClass="field text" id="markUp"
+									maxlength="10" size="10" value="#{producaoBB.markUp}"
+									 dir="rtl" disabled="true">
+									<f:validator validatorId="BigDecimalValidator"/>
+								</h:inputText>
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Preço Venda"></h:outputLabel>
+								<h:inputText styleClass="field text" id="precoVenda"
+									maxlength="10" size="10" value="#{producaoBB.precoVenda}"
+									 dir="rtl" disabled="true">
+									<f:validator validatorId="BigDecimalValidator"/>
+								</h:inputText>
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Ajusta Preço"></h:outputLabel>
+								<h:selectOneRadio  styleClass="field radio ehvendedor" id="idAjustarPrecoVenda" 
+									value="#{producaoBB.idAjustarPrecoVenda}" layout="lineDirection"  rendered="true">
+								    <f:selectItems id="ajustarPrecoVenda" value="#{producaoBB.ajustarPrecoVenda}" />
+								</h:selectOneRadio>											
+							</div>
 						</li>	
 					</ul>
+					</fieldset>	
 					<fieldset>	
 					<legend>Composição do produto</legend>
 					<div>

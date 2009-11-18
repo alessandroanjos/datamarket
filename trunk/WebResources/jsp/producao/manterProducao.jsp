@@ -134,14 +134,6 @@
 										<h:outputLabel styleClass="textoGrande2"
 											value="#{producaoBB.producao.produto.descricaoCompleta}"></h:outputLabel>
 									</div>
-
-								</li>
-								<li class="normal">
-									<div>
-										<h:outputLabel styleClass="desc" value="Valor de Custo Unitário"></h:outputLabel>
-										<h:outputLabel styleClass="textoGrande2"
-											value="#{producaoBB.producao.valorUnitario}"></h:outputLabel>										
-									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Quantidade*"></h:outputLabel>
 										<h:inputText styleClass="field text" id="quantidade"
@@ -154,9 +146,38 @@
 											<f:validator validatorId="BigDecimalValidator" />
 										</h:inputText>
 									</div>
-									
+
 								</li>
 							</ul>
+							<fieldset>	
+							<legend>Precificação</legend>
+							<ul>
+								<li class="normal">
+									<div>
+										<h:outputLabel styleClass="desc" value="Preço Venda Anterior"></h:outputLabel>
+										<h:outputLabel styleClass="textoGrande2"
+											value="#{producaoBB.producao.precoVendaAnterior}"></h:outputLabel>										
+									</div>
+									<div>
+										<h:outputLabel styleClass="desc" value="Valor de Custo"></h:outputLabel>
+										<h:outputLabel styleClass="textoGrande2"
+											value="#{producaoBB.producao.valorUnitario}"></h:outputLabel>										
+									</div>
+									<div>
+										<h:outputLabel styleClass="desc" value="MarkUp"></h:outputLabel>
+										<h:outputLabel styleClass="textoGrande2"
+											value="#{producaoBB.producao.markUp}"></h:outputLabel>										
+									</div>
+									<div>
+										<h:outputLabel styleClass="desc" value="Preço Venda"></h:outputLabel>
+										<h:outputLabel styleClass="textoGrande2"
+											value="#{producaoBB.producao.precoVenda}"></h:outputLabel>										
+									</div>
+								</li>
+							</ul>
+							</fieldset>	
+									
+								
 							
 							<fieldset>	
 							<legend>Composição do produto</legend>
@@ -183,6 +204,8 @@
 
 							<ul>
 								<li class="buttons">
+									<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar" 
+										action="#{producaoBB.voltarConsulta}" value="Voltar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoExcluir"
 										action="#{producaoBB.excluir}" value="Excluir"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoAlterar"
