@@ -32,6 +32,7 @@ import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -52,7 +53,43 @@ public class ProducaoBackBean extends BackBean {
 	private List producoes;
 	private String descricao;
 	private String valorUnitario;
+	private String markUp;
+	private String precoVenda;
+	private String precoVendaAtual;
+	private String idAjustarPrecoVenda;
+	private SelectItem[] ajustarPrecoVenda;
+	
+	
+	public SelectItem[] getAjustarPrecoVenda() {
+		SelectItem[] tipos = new SelectItem[2];
+		tipos[0] = new SelectItem(Constantes.SIM,"Sim");
+		tipos[1] = new SelectItem(Constantes.NAO,"Não");		
+		if(this.getIdAjustarPrecoVenda() == null){
+			this.setIdAjustarPrecoVenda(Constantes.NAO);
+		}		
+		return tipos;
+	}
 
+	public void setAjustarPrecoVenda(SelectItem[] ajustarPrecoVenda) {
+		this.ajustarPrecoVenda = ajustarPrecoVenda;
+	}
+
+
+	public String getIdAjustarPrecoVenda() {
+		return idAjustarPrecoVenda;
+	}
+
+	public void setIdAjustarPrecoVenda(String idAjustarPrecoVenda) {
+		this.idAjustarPrecoVenda = idAjustarPrecoVenda;
+	}
+
+	public String getPrecoVenda() {
+		return precoVenda;
+	}
+
+	public void setPrecoVenda(String precoVenda) {
+		this.precoVenda = precoVenda;
+	}
 
 	public String getValorUnitario() {
 		return valorUnitario;
@@ -136,6 +173,10 @@ public class ProducaoBackBean extends BackBean {
 		this.fabricacaoIni = null;
 		this.descricao = null;
 		this.valorUnitario = null;
+		this.setIdAjustarPrecoVenda(Constantes.NAO);
+		this.setPrecoVenda(null);
+		this.setPrecoVendaAtual(null);
+		this.setMarkUp(null);
 	}
 	
 	public String validaProducaoManutencao(){
@@ -193,6 +234,9 @@ public class ProducaoBackBean extends BackBean {
 				producao.setQuantidade(new BigDecimal(quantidade));
 				producao.setLote(Integer.parseInt(lote));
 				producao.setValorUnitario(new BigDecimal(valorUnitario));
+				producao.setPrecoVenda(new BigDecimal(precoVenda));
+				producao.setPrecoVendaAnterior(new BigDecimal(precoVendaAtual));
+				producao.setMarkUp(new BigDecimal(markUp));
 				
 				EstoquePK pk = new EstoquePK();
 				pk.setId(new Long(idEstoque));
@@ -205,7 +249,9 @@ public class ProducaoBackBean extends BackBean {
 				
 				producao.setEstoque(est);
 				
-				Fachada.getInstancia().inserirProducao(producao);
+				boolean ajustaProd = this.getIdAjustarPrecoVenda().equals(Constantes.SIM)?true:false;
+				
+				Fachada.getInstancia().inserirProducao(producao,ajustaProd);
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Operação Realizada com Sucesso!", "");
 				getContextoApp().addMessage(null, msg);
@@ -232,6 +278,16 @@ public class ProducaoBackBean extends BackBean {
 			getContextoApp().addMessage(null, msg);
 		}		
 		return "mesma";
+	}
+	
+	public String voltarConsulta(){
+		Date dataFim = (Date) this.fabricacaoFim.clone();
+		Date dataIni = (Date) this.fabricacaoIni.clone();
+		resetBB();
+		this.fabricacaoFim = dataFim;
+		this.fabricacaoIni = dataIni;
+		consultar();
+		return "voltar";
 	}
 	
 	private void validaPeriodo() throws AppException{
@@ -449,10 +505,20 @@ public class ProducaoBackBean extends BackBean {
 							}
 							
 						}
-							
-						this.valorUnitario = valorUnitario.setScale(2).toString();
+						BigDecimal vendaAtual = prod.getPrecoPadrao();
+						if (prod.getPrecoPromocional() != null && prod.getPrecoPromocional().compareTo(BigDecimal.ZERO) > 0){
+							vendaAtual = prod.getPrecoPromocional();
+						}
+						this.setPrecoVendaAtual(vendaAtual.setScale(2).toString());	
+						this.setValorUnitario(valorUnitario.setScale(2).toString());
+						this.setPrecoVenda(prod.getMarkup().multiply(valorUnitario).divide(new BigDecimal(100)).setScale(2).toString());
+						this.setMarkUp(prod.getMarkup().setScale(2).toString());
 					}else{
-						this.valorUnitario = BigDecimal.ZERO.setScale(2).toString();
+						this.setPrecoVendaAtual(BigDecimal.ZERO.setScale(2).toString());
+						this.setValorUnitario(BigDecimal.ZERO.setScale(2).toString());
+						this.setIdAjustarPrecoVenda(Constantes.NAO);
+						this.setPrecoVenda(BigDecimal.ZERO.setScale(2).toString());
+						this.setMarkUp(BigDecimal.ZERO.setScale(2).toString());
 					}
 				}
 			} catch (Exception e) {				
@@ -591,6 +657,22 @@ public class ProducaoBackBean extends BackBean {
 
 	public void setLoteConsulta(String loteConsulta) {
 		this.loteConsulta = loteConsulta;
+	}
+
+	public String getMarkUp() {
+		return markUp;
+	}
+
+	public void setMarkUp(String markUp) {
+		this.markUp = markUp;
+	}
+
+	public String getPrecoVendaAtual() {
+		return precoVendaAtual;
+	}
+
+	public void setPrecoVendaAtual(String precoVendaAtual) {
+		this.precoVendaAtual = precoVendaAtual;
 	}
 
 	
