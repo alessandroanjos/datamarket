@@ -21,6 +21,7 @@ import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.estoque.IRepositorioEstoqueProduto;
 import com.infinity.datamarket.comum.financeiro.BaixaLancamento;
 import com.infinity.datamarket.comum.financeiro.BaixaLancamentoPK;
+import com.infinity.datamarket.comum.financeiro.CadastroLancamento;
 import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
 import com.infinity.datamarket.comum.financeiro.IRepositorioLancamento;
 import com.infinity.datamarket.comum.financeiro.Lancamento;
@@ -54,6 +55,10 @@ public class CadastroTransacao extends Cadastro{
 
 	private CadastroBoleto getCadastroBoleto(){
 		return CadastroBoleto.getInstancia();
+	}
+	
+	private CadastroLancamento getCadastroLancamento(){
+		return CadastroLancamento.getInstancia();
 	}
 	
 	public IRepositorioTransacao getRepositorio() {
@@ -161,6 +166,42 @@ public class CadastroTransacao extends Cadastro{
 			TransacaoVenda transVenda = (TransacaoVenda) consultarPorPK(pk);
 			transVenda.setSituacao(TransacaoVenda.CANCELADO);
 			atualizar(transVenda);
+		
+			PropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(Lancamento.class);
+			filter.addProperty("transacao.pk.loja", transCanc.getLojaCancelada());
+			filter.addProperty("transacao.pk.componente", transCanc.getComponenteCancelado());
+			filter.addProperty("transacao.pk.numeroTransacao", transCanc.getNumeroTransacaoCancelada());
+			filter.addProperty("transacao.pk.dataTransacao", transCanc.getDataTransacaoCancelada());
+//			Date dataFinal = new Date(trans.getPk().getDataTransacao().getTime());					
+//			dataFinal.setDate(dataFinal.getDate()+1);
+//			filter.addPropertyInterval("transacao.pk.dataTransacao", dataFinal, IntervalObject.MENOR_IGUAL);
+			
+			try {
+				Collection coll = getCadastroLancamento().consultar(filter);
+				if (coll != null ) {
+					Iterator it = coll.iterator();
+					while (it.hasNext()) {
+						Lancamento lancamento = (Lancamento)it.next();
+						lancamento.setSituacao(lancamento.CANCELADO);
+						Collection<BaixaLancamento> baixas = lancamento.getItensPagamento();
+						Iterator itt = baixas.iterator();
+						while (itt.hasNext()) {
+							BaixaLancamento baixa = (BaixaLancamento)itt.next();
+							baixa.setSituacao(BaixaLancamento.CANCELADO);
+							if (baixa.getBoleto() != null) {
+								Boleto boleto = baixa.getBoleto();
+								boleto.setStatus(Boleto.CANCELADO);
+								getCadastroBoleto().alterar(boleto);
+							}
+						}
+						getCadastroLancamento().alterar(lancamento);
+					}
+				}
+				
+			} catch (ObjectNotFoundException e) {
+			}
+
 		}else if (trans instanceof TransacaoPagamentoCartaoProprio){
 			TransacaoPagamentoCartaoProprio transPagamento = (TransacaoPagamentoCartaoProprio) trans;			
 			if (transPagamento.getSituacao().equals(transPagamento.ATIVO)){

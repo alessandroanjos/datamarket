@@ -26,6 +26,15 @@ public class ServerConfig {
 	public static final String SERVLET_TRANSMISSOR_LOTE;
 	public static final String SERVLET_VERIFICADOR_NOVO_LOTE;
 
+	public static final String CONSULTAR_CLIENTE_TRANSACAO_SERVLET;//=ConsultarClienteTransacaoServlet.servlet
+	public static final String SALVAR_INFO_COMPONENTE_SERVLET;//=SalvarInfoComponenteServlet.servlet
+	public static final String CONSULTAR_OPERACA_SERVLET;//=ConsultarOperacaoServlet.servlet
+	public static final String ALTERAR_OPERACA_SERVLET;//=AlterarOperacaoServlet.servlet
+	public static final String AUTORIZAR_TRANSACAO_CARTAO_PROPRIO_SERVLET;//=AutorizarTransacaoCartaoProprioServlet.servlet
+	public static final String CONFIRMAR_TRANSACAO_CARTAO_PROPRIO_SERVLET;//=ConfirmarTransacaoCartaoProprioServlet.servlet
+	public static final String DESFAZER_TRANSACAO_CARTAO_PROPRIO_SERVLET;//=DesfazerTransacaoCartaoProprioServlet.servlet
+	public static final String CONSULTAR_DEBITOS_CARTAO_PROPRIO_SERVLET;//=ConsultarDebitosCartaoProprioServlet.servlet
+
 	
 	
 	static{
@@ -54,6 +63,15 @@ public class ServerConfig {
 		SERVLET_RECEPTOR_TRANSACAO= rb.getString("SERVLET_RECEPTOR_TRANSACAO");
 		SERVLET_TRANSMISSOR_LOTE= rb.getString("SERVLET_TRANSMISSOR_LOTE");
 		SERVLET_VERIFICADOR_NOVO_LOTE= rb.getString("SERVLET_VERIFICADOR_NOVO_LOTE");
-		
-}
+
+		CONSULTAR_CLIENTE_TRANSACAO_SERVLET= rb.getString("CONSULTAR_CLIENTE_TRANSACAO_SERVLET");
+		SALVAR_INFO_COMPONENTE_SERVLET= rb.getString("SALVAR_INFO_COMPONENTE_SERVLET");
+		CONSULTAR_OPERACA_SERVLET= rb.getString("CONSULTAR_OPERACA_SERVLET");
+		ALTERAR_OPERACA_SERVLET= rb.getString("ALTERAR_OPERACA_SERVLET");
+		AUTORIZAR_TRANSACAO_CARTAO_PROPRIO_SERVLET= rb.getString("AUTORIZAR_TRANSACAO_CARTAO_PROPRIO_SERVLET");
+		CONFIRMAR_TRANSACAO_CARTAO_PROPRIO_SERVLET= rb.getString("CONFIRMAR_TRANSACAO_CARTAO_PROPRIO_SERVLET");
+		DESFAZER_TRANSACAO_CARTAO_PROPRIO_SERVLET= rb.getString("DESFAZER_TRANSACAO_CARTAO_PROPRIO_SERVLET");
+		CONSULTAR_DEBITOS_CARTAO_PROPRIO_SERVLET= rb.getString("CONSULTAR_DEBITOS_CARTAO_PROPRIO_SERVLET");
+
+	}
 }

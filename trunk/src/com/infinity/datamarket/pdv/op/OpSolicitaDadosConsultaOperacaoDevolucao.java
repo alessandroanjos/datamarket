@@ -1,5 +1,9 @@
 package com.infinity.datamarket.pdv.op;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -9,7 +13,6 @@ import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
 import com.infinity.datamarket.comum.operacao.OperacaoPK;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.util.ValidationException;
-import com.infinity.datamarket.operacao.OperacaoServerRemote;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
@@ -18,7 +21,6 @@ import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 import com.infinity.datamarket.pdv.util.ServerConfig;
-import com.infinity.datamarket.pdv.util.ServiceLocator;
 
 public class OpSolicitaDadosConsultaOperacaoDevolucao extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -36,32 +38,100 @@ public class OpSolicitaDadosConsultaOperacaoDevolucao extends Mic{
 						OperacaoDevolucao devolucao = null; 
 						try{
 							gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
-							OperacaoServerRemote remote = (OperacaoServerRemote) ServiceLocator.getJNDIObject(ServerConfig.OPERACAO_SERVER_JNDI);
-							if (remote == null){
+//							OperacaoServerRemote remote = (OperacaoServerRemote) ServiceLocator.getJNDIObject(ServerConfig.OPERACAO_SERVER_JNDI);
+//							if (remote == null){
+//								gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+//								gerenciadorPerifericos.esperaVolta();
+//								return ALTERNATIVA_2;
+//							}
+							OperacaoPK pk = new OperacaoPK(Integer.parseInt(operacao),gerenciadorPerifericos.getCodigoLoja());
+							Operacao op = null;
+//							try{
+//								op = remote.consultarOperacaoPorID(pk);								
+////								op = getFachadaPDV().consultarOperacaoPorPK(pk);
+//							}catch(ObjectNotFoundException e){								
+//								gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
+//								gerenciadorPerifericos.esperaVolta();
+//								return ALTERNATIVA_2;
+//							}catch(ValidationException e){								
+//								gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
+//								gerenciadorPerifericos.esperaVolta();
+//								return ALTERNATIVA_2;
+//							}
+							
+							try{
+//								URL urlCon = new URL("http://" + loja.getNumeroIp() + ":" + loja.getNumeroPortaServlet() + "/EnterpriseServer/GerarBoletoServlet.servlet");
+								URL urlCon = new URL("http://" +
+										ServerConfig.HOST_SERVIDOR_ES +
+										":" +
+										ServerConfig.PORTA_SERVIDOR_ES +
+										"/" +
+										ServerConfig.CONTEXTO_SERVIDOR_ES +
+										"/" +
+										ServerConfig.CONSULTAR_OPERACA_SERVLET);
+								URLConnection huc1 = urlCon.openConnection();
+		
+								huc1.setAllowUserInteraction(true);
+								huc1.setDoOutput(true);
+		
+								ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
+								output.writeObject(pk);
+								ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
+								Object obj = input.readObject();
+								if (obj instanceof Operacao ) {
+									op = (Operacao) obj;
+								} else if (obj instanceof ObjectNotFoundException) {
+									gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
+									gerenciadorPerifericos.esperaVolta();
+									return ALTERNATIVA_2;
+								} else  if (obj instanceof ValidationException){
+									gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
+									gerenciadorPerifericos.esperaVolta();
+									return ALTERNATIVA_2;
+								} else  if (obj instanceof Exception){
+									gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+									gerenciadorPerifericos.esperaVolta();
+									return ALTERNATIVA_2;
+								}
+							} catch (Exception e) {
 								gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
 								gerenciadorPerifericos.esperaVolta();
 								return ALTERNATIVA_2;
 							}
-							OperacaoPK pk = new OperacaoPK(Integer.parseInt(operacao),gerenciadorPerifericos.getCodigoLoja());
-							Operacao op = null;
-							try{
-								op = remote.consultarOperacaoPorID(pk);								
-//								op = getFachadaPDV().consultarOperacaoPorPK(pk);
-							}catch(ObjectNotFoundException e){								
-								gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
-								gerenciadorPerifericos.esperaVolta();
-								return ALTERNATIVA_2;
-							}catch(ValidationException e){								
-								gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
-								gerenciadorPerifericos.esperaVolta();
-								return ALTERNATIVA_2;
-							}
+								
 							if (op.getTipo() == ConstantesOperacao.OPERACAO_DEVOLUCAO){
 								devolucao = (OperacaoDevolucao) op;
 								if (devolucao.getStatus() == ConstantesOperacao.ABERTO){
 									gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_PAGAMENTO_ATUAL,devolucao.getValor());
 									gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_DEVOLUCAO,devolucao);
-									remote.alteraStatusOperacao(pk, ConstantesOperacao.EM_PROCESSAMENTO);
+//									remote.alteraStatusOperacao(pk, ConstantesOperacao.EM_PROCESSAMENTO);
+									
+//										URL urlCon = new URL("http://" + loja.getNumeroIp() + ":" + loja.getNumeroPortaServlet() + "/EnterpriseServer/GerarBoletoServlet.servlet");
+										URL urlCon = new URL("http://" +
+												ServerConfig.HOST_SERVIDOR_ES +
+												":" +
+												ServerConfig.PORTA_SERVIDOR_ES +
+												"/" +
+												ServerConfig.CONTEXTO_SERVIDOR_ES +
+												"/" +
+												ServerConfig.ALTERAR_OPERACA_SERVLET +"?status=" + ConstantesOperacao.EM_PROCESSAMENTO);
+										URLConnection huc1 = urlCon.openConnection();
+				
+										huc1.setAllowUserInteraction(true);
+										huc1.setDoOutput(true);
+				
+										ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
+										output.writeObject(pk);
+										ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
+										Object obj = input.readObject();
+										if (obj instanceof String &&  obj.equals("OK")) {
+											
+										} else  if (obj instanceof Exception){
+											gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+											gerenciadorPerifericos.esperaVolta();
+											return ALTERNATIVA_2;
+										}
+										
 									Collection c = (Collection) gerenciadorPerifericos.getCmos().ler(CMOS.PK_OPERACOES);
 									if (c == null){
 										c = new ArrayList();

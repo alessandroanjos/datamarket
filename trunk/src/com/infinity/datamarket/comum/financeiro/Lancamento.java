@@ -1,6 +1,7 @@
 package com.infinity.datamarket.comum.financeiro;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -55,6 +56,12 @@ public class Lancamento extends Persistente{
 
 	public Collection<BaixaLancamento> getItensPagamento() {
 		return itensPagamento;
+	}
+	public void adicionarItensPagamento(BaixaLancamento BaixaLancamento) {
+		if (itensPagamento != null) {
+			itensPagamento = new ArrayList<BaixaLancamento>();
+		}
+		itensPagamento.add(BaixaLancamento);
 	}
 
 	public void setItensPagamento(Collection<BaixaLancamento> itensPagamento) {

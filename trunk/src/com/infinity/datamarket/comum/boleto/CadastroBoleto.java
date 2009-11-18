@@ -14,6 +14,7 @@ import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.CadastroControleId;
 import com.infinity.datamarket.comum.util.Controle;
 import com.infinity.datamarket.comum.util.IRepositorio;
+import com.infinity.datamarket.comum.util.ObjetoClonavel;
 
 public class CadastroBoleto extends Cadastro{
 	
@@ -66,17 +67,28 @@ public class CadastroBoleto extends Cadastro{
 				Collection coll = getCadastroLancamento().consultar(filter);
 				if (coll != null && !coll.isEmpty()) {
 					Lancamento lancamento = (Lancamento)coll.iterator().next();
-					lancamento.setSituacao(Lancamento.FINALIZADO);
-					lancamento.setDataPagamento(new Date());
-					getCadastroLancamento().baixar(lancamento);
-			
-					Iterator<BaixaLancamento> it0 = lancamento.getItensPagamento().iterator();
-					while(it0.hasNext()){
-						BaixaLancamento itemBaixaLanc = it0.next();
-						itemBaixaLanc.setItemLancadoCtaCorrente("S");
-						itemBaixaLanc.setBoleto(bol);
+					if (!lancamento.getSituacao().equals(Lancamento.FINALIZADO)) {
+						lancamento.setSituacao(Lancamento.FINALIZADO);
+						lancamento.setDataPagamento(new Date());
+						getCadastroLancamento().baixar(lancamento);
+				
+						Iterator<BaixaLancamento> it0 = lancamento.getItensPagamento().iterator();
+						while(it0.hasNext()){
+							BaixaLancamento itemBaixaLanc = it0.next();
+							if (itemBaixaLanc.getBoleto() != null && itemBaixaLanc.getBoleto().getId().equals(idBoleto)) {
+								itemBaixaLanc.setItemLancadoCtaCorrente("S");
+							}
+						}
+						getCadastroLancamento().alterar(lancamento);
+					} else {
+						Iterator<BaixaLancamento> it0 = lancamento.getItensPagamento().iterator();
+						if (it0.hasNext()){
+							BaixaLancamento itemBaixaLanc = it0.next();
+							BaixaLancamento itemBaixaLanc2 =  (BaixaLancamento)ObjetoClonavel.clone(itemBaixaLanc);
+							lancamento.adicionarItensPagamento(itemBaixaLanc2);
+						}
+						
 					}
-					getCadastroLancamento().alterar(lancamento);
 				}
 			} catch (AppException e) {
 				// TODO: handle exception

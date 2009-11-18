@@ -52,22 +52,86 @@
 		<servlet-name>TransmissorLoteServlet</servlet-name>
 		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.TransmissorLoteServlet</servlet-class>
 	</servlet>
+
+	<servlet>
+		<servlet-name>ConsultarClienteTransacaoServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ConsultarClienteTransacaoServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SalvarInfoComponenteServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.SalvarInfoComponenteServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ConsultarOperacaoServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ConsultarOperacaoServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AlterarOperacaoServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.AlterarOperacaoServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AutorizarTransacaoCartaoProprioServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.AutorizarTransacaoCartaoProprioServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ConfirmarTransacaoCartaoProprioServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ConfirmarTransacaoCartaoProprioServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>DesfazerTransacaoCartaoProprioServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.DesfazerTransacaoCartaoProprioServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ConsultarDebitosCartaoProprioServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ConsultarDebitosCartaoProprioServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ConsultarClienteTransacaoServlet</servlet-name>
+		<url-pattern>/ConsultarClienteTransacaoServlet.servlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SalvarInfoComponenteServlet</servlet-name>
+		<url-pattern>/SalvarInfoComponenteServlet.servlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultarOperacaoServlet</servlet-name>
+		<url-pattern>/ConsultarOperacaoServlet.servlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AlterarOperacaoServlet</servlet-name>
+		<url-pattern>/AlterarOperacaoServlet.servlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AutorizarTransacaoCartaoProprioServlet</servlet-name>
+		<url-pattern>/AutorizarTransacaoCartaoProprioServlet.servlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConfirmarTransacaoCartaoProprioServlet</servlet-name>
+		<url-pattern>/ConfirmarTransacaoCartaoProprioServlet.servlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DesfazerTransacaoCartaoProprioServlet</servlet-name>
+		<url-pattern>/DesfazerTransacaoCartaoProprioServlet.servlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultarDebitosCartaoProprioServlet</servlet-name>
+		<url-pattern>/ConsultarDebitosCartaoProprioServlet.servlet</url-pattern>
+	</servlet-mapping>
+
 	
 	<servlet-mapping>
 		<servlet-name>ReceptorTransacaoServlet</servlet-name>
 		<url-pattern>/ReceptorTransacaoServlet.servlet</url-pattern>
 	</servlet-mapping>
-	
 	<servlet-mapping>
 		<servlet-name>TransmissorLoteServlet</servlet-name>
 		<url-pattern>/TransmissorLoteServlet.servlet</url-pattern>
 	</servlet-mapping>
-	
 	<servlet-mapping>
 		<servlet-name>VerificadorNovoLoteServlet</servlet-name>
 		<url-pattern>/VerificadorNovoLoteServlet.servlet</url-pattern>
 	</servlet-mapping>
-	
 	<servlet-mapping>
 		<servlet-name>GerarBoletoServlet</servlet-name>
 		<url-pattern>/GerarBoletoServlet.servlet</url-pattern>

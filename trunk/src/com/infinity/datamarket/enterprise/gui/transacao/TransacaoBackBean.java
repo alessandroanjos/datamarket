@@ -1,7 +1,11 @@
 package com.infinity.datamarket.enterprise.gui.transacao;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +33,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.collection.PersistentSet;
 
-import com.infinity.datamarket.autorizador.AutorizadorServerRemote;
 import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.componente.Componente;
@@ -71,7 +74,6 @@ import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 import com.infinity.datamarket.pdv.util.ServerConfig;
-import com.infinity.datamarket.pdv.util.ServiceLocator;
 
 public class TransacaoBackBean extends BackBean {
 	
@@ -1597,13 +1599,43 @@ public class TransacaoBackBean extends BackBean {
 
 	public DadosAutorizacaoCartaoProprio buscaAutorizacaoCartaoProprio(String cpfCnpj, BigDecimal valor){
 		DadosAutorizacaoCartaoProprio dados = null;
-		try {
+//		try {
+//			if((cpfCnpj != null && !cpfCnpj.equals("")) && (valor != null && !valor.equals(new BigDecimal("0.00")))){
+//				AutorizadorServerRemote obj = (AutorizadorServerRemote)ServiceLocator.getJNDIObject(ServerConfig.AUTORIZADOR_SERVER_JNDI);
+//				dados = obj.autorizaTransacaoCartaoProprio(cpfCnpj.replace(".", "").replace("-", "").replace("/", ""), valor);
+//			}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+		try{
 			if((cpfCnpj != null && !cpfCnpj.equals("")) && (valor != null && !valor.equals(new BigDecimal("0.00")))){
-				AutorizadorServerRemote obj = (AutorizadorServerRemote)ServiceLocator.getJNDIObject(ServerConfig.AUTORIZADOR_SERVER_JNDI);
-				dados = obj.autorizaTransacaoCartaoProprio(cpfCnpj.replace(".", "").replace("-", "").replace("/", ""), valor);
+//				
+				URL urlCon = new URL("http://" +
+						ServerConfig.HOST_SERVIDOR_ES +
+						":" +
+						ServerConfig.PORTA_SERVIDOR_ES +
+						"/" +
+						ServerConfig.CONTEXTO_SERVIDOR_ES +
+						"/" +
+						ServerConfig.AUTORIZAR_TRANSACAO_CARTAO_PROPRIO_SERVLET +"?cpfCnpj=" + cpfCnpj.replace(".", "").replace("-", "").replace("/", "") + "&valor=" + valor);
+				URLConnection huc1 = urlCon.openConnection();
+	
+				huc1.setAllowUserInteraction(true);
+				huc1.setDoOutput(true);
+	
+				ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
+				output.writeObject("OK");
+				ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
+				Object obj = input.readObject();
+				if (obj instanceof DadosAutorizacaoCartaoProprio ) {
+					dados = (DadosAutorizacaoCartaoProprio) obj;
+				} else if (obj instanceof Exception) {
+					((Exception)obj).printStackTrace();
+				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return dados;
@@ -1612,11 +1644,34 @@ public class TransacaoBackBean extends BackBean {
 	public void confirmaAutorizacaoCartaoProprio(Hashtable<String, DadosAutorizacaoCartaoProprio> listaAutorizacaoCartaoProprio){
 		try {
 			if(listaAutorizacaoCartaoProprio.size() > 0){
-				AutorizadorServerRemote obj = (AutorizadorServerRemote)ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
+//				AutorizadorServerRemote obj = (AutorizadorServerRemote)ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
 				Enumeration<DadosAutorizacaoCartaoProprio> enumLista = listaAutorizacaoCartaoProprio.elements();
 				while(enumLista.hasMoreElements()){
 					DadosAutorizacaoCartaoProprio dados = (DadosAutorizacaoCartaoProprio) enumLista.nextElement();
-					obj.confirmaTransacaoCartaoProprio(new Long(dados.getAutrizacao()));
+//					obj.confirmaTransacaoCartaoProprio(new Long(dados.getAutrizacao()));
+
+						URL urlCon = new URL("http://" +
+								ServerConfig.HOST_SERVIDOR_ES +
+								":" +
+								ServerConfig.PORTA_SERVIDOR_ES +
+								"/" +
+								ServerConfig.CONTEXTO_SERVIDOR_ES +
+								"/" +
+								ServerConfig.CONFIRMAR_TRANSACAO_CARTAO_PROPRIO_SERVLET +"?id=" + dados.getAutrizacao());
+						URLConnection huc1 = urlCon.openConnection();
+
+						huc1.setAllowUserInteraction(true);
+						huc1.setDoOutput(true);
+
+						ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
+						output.writeObject("OK");
+						ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
+						Object obj = input.readObject();
+						if (obj instanceof String && obj.toString().equals("OK") ) {
+
+						} else if (obj instanceof Exception) {
+							throw (Exception)(obj);
+						}
 				}
 			}
 		} catch (Exception e) {
@@ -1628,11 +1683,34 @@ public class TransacaoBackBean extends BackBean {
 	public void desfazAutorizacaoCartaoProprio(Hashtable<String, DadosAutorizacaoCartaoProprio> listaAutorizacaoCartaoProprio){
 		try {
 			if(listaAutorizacaoCartaoProprio.size() > 0){				
-				AutorizadorServerRemote obj = (AutorizadorServerRemote)ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
+//				AutorizadorServerRemote obj = (AutorizadorServerRemote)ServiceLocator.getJNDIObject(ServerConfig.CLIENTE_SERVER_JNDI);
 				Enumeration<DadosAutorizacaoCartaoProprio> enumLista = listaAutorizacaoCartaoProprio.elements();
 				while(enumLista.hasMoreElements()){
 					DadosAutorizacaoCartaoProprio dados = (DadosAutorizacaoCartaoProprio) enumLista.nextElement();
-					obj.desfazTransacaoCartaoProprio(new Long(dados.getAutrizacao()));
+//					obj.desfazTransacaoCartaoProprio(new Long(dados.getAutrizacao()));
+					
+						URL urlCon = new URL("http://" +
+								ServerConfig.HOST_SERVIDOR_ES +
+								":" +
+								ServerConfig.PORTA_SERVIDOR_ES +
+								"/" +
+								ServerConfig.CONTEXTO_SERVIDOR_ES +
+								"/" +
+								ServerConfig.DESFAZER_TRANSACAO_CARTAO_PROPRIO_SERVLET +"?id=" + dados.getAutrizacao());
+						URLConnection huc1 = urlCon.openConnection();
+
+						huc1.setAllowUserInteraction(true);
+						huc1.setDoOutput(true);
+
+						ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
+						output.writeObject("OK");
+						ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
+						Object obj = input.readObject();
+						if (obj instanceof String && obj.toString().equals("OK") ) {
+
+						} else if (obj instanceof Exception) {
+							throw (Exception)(obj);
+						}
 				}
 			}
 		} catch (Exception e) {
