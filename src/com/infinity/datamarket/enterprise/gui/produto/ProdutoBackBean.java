@@ -288,7 +288,7 @@ public class ProdutoBackBean extends BackBean{
 		this.setIdEnquadramento(p.getEnquadramento());
 		this.setEnquadramentoSelecionado(p.getEnquadramento());
 		
-		if(p.getEnquadramento().equals(Produto.FABRICADO) && p.getComposicao() != null && p.getComposicao().size() > 0){
+		if(p.getEnquadramento() != null &&  p.getEnquadramento().equals(Produto.FABRICADO) && p.getComposicao() != null && p.getComposicao().size() > 0){
 			if(this.getItensComposicao() == null){
 				this.setItensComposicao(new ArrayList<Composicao>());
 			}
@@ -302,9 +302,20 @@ public class ProdutoBackBean extends BackBean{
 				}
 			}			
 		}		
-		
-		this.setQuantidadeMinimaProduto(p.getQuantidadeMinimaProduto().setScale(3));
-		this.setMarkup(p.getMarkup().setScale(2));
+		if (p.getQuantidadeMinimaProduto() != null){
+			this.setQuantidadeMinimaProduto(p.getQuantidadeMinimaProduto().setScale(3));
+				
+		} else {
+			this.setQuantidadeMinimaProduto(new BigDecimal("0"));
+			
+		}
+		if (p.getMarkup() != null) {
+			this.setMarkup(p.getMarkup().setScale(2));
+			
+		} else {
+			this.setMarkup(new BigDecimal("0"));
+			
+		}
 	}
 	
 	private Collection criaLojas(String[] idLojas){
