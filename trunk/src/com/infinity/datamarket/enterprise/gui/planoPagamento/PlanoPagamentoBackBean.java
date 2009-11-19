@@ -20,12 +20,14 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.infinity.datamarket.comum.pagamento.FormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
+import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAPrazo;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAVista;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
+import com.infinity.datamarket.enterprise.gui.planoPagamentoAPrazo.PlanoPagamentoAPrazoBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 /**
@@ -159,6 +161,25 @@ public class PlanoPagamentoBackBean extends BackBean {
 				this.setDataFimValidade(planoPagamento.getDataFimValidade());
 		        this.setIdForma(planoPagamento.getForma().getId().toString());
 		        
+		        if (planoPagamento instanceof PlanoPagamentoAPrazo && this instanceof PlanoPagamentoAPrazoBackBean) {
+		        	PlanoPagamentoAPrazoBackBean ppapbb = (PlanoPagamentoAPrazoBackBean) this;
+					if (((PlanoPagamentoAPrazo)planoPagamento).getParcelasFixasVariadas() != null) {
+						ppapbb.setParcelasFixasVariadas(((PlanoPagamentoAPrazo)planoPagamento).getParcelasFixasVariadas());
+					} else {
+						ppapbb.setParcelasFixasVariadas(Constantes.PARCELAS_FIXAS);
+					}
+
+					if (((PlanoPagamentoAPrazo)planoPagamento).getDatasParcelasVariadasInformadaSistemaOuUsuario() != null) {
+						ppapbb.setParcelasVariadasDatasAutomaticas(((PlanoPagamentoAPrazo)planoPagamento).getDatasParcelasVariadasInformadaSistemaOuUsuario());
+					} else {
+						ppapbb.setParcelasVariadasDatasAutomaticas(Constantes.DATAS_INFORMADA_PELO_SISTEMA);
+					}
+				} else if (this instanceof PlanoPagamentoAPrazoBackBean) {
+					PlanoPagamentoAPrazoBackBean ppapbb = (PlanoPagamentoAPrazoBackBean) this;
+					ppapbb.setParcelasVariadasDatasAutomaticas(Constantes.DATAS_INFORMADA_PELO_SISTEMA);
+					ppapbb.setParcelasFixasVariadas(Constantes.PARCELAS_FIXAS);
+				}
+				
 				return "proxima";
 			}else if (getDescricao() != null && !"".equals(getDescricao())){
 				PropertyFilter filter = new PropertyFilter();
@@ -185,6 +206,26 @@ public class PlanoPagamentoBackBean extends BackBean {
 						this.setDataInicioValidade(planoPagamento.getDataInicioValidade());
 						this.setDataFimValidade(planoPagamento.getDataFimValidade());
 				        this.setIdForma(planoPagamento.getForma().getId().toString());
+				        
+				        if (planoPagamento instanceof PlanoPagamentoAPrazo && this instanceof PlanoPagamentoAPrazoBackBean) {
+				        	PlanoPagamentoAPrazoBackBean ppapbb = (PlanoPagamentoAPrazoBackBean) this;
+							if (((PlanoPagamentoAPrazo)planoPagamento).getParcelasFixasVariadas() != null) {
+								ppapbb.setParcelasFixasVariadas(((PlanoPagamentoAPrazo)planoPagamento).getParcelasFixasVariadas());
+							} else {
+								ppapbb.setParcelasFixasVariadas(Constantes.PARCELAS_FIXAS);
+							}
+
+							if (((PlanoPagamentoAPrazo)planoPagamento).getDatasParcelasVariadasInformadaSistemaOuUsuario() != null) {
+								ppapbb.setParcelasVariadasDatasAutomaticas(((PlanoPagamentoAPrazo)planoPagamento).getDatasParcelasVariadasInformadaSistemaOuUsuario());
+							} else {
+								ppapbb.setParcelasVariadasDatasAutomaticas(Constantes.DATAS_INFORMADA_PELO_SISTEMA);
+							}
+						} else if (this instanceof PlanoPagamentoAPrazoBackBean) {
+							PlanoPagamentoAPrazoBackBean ppapbb = (PlanoPagamentoAPrazoBackBean) this;
+							ppapbb.setParcelasVariadasDatasAutomaticas(Constantes.DATAS_INFORMADA_PELO_SISTEMA);
+							ppapbb.setParcelasFixasVariadas(Constantes.PARCELAS_FIXAS);
+						}
+
 						return "proxima";
 					}else{
 						setExisteRegistros(true);
