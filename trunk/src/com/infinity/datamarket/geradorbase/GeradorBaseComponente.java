@@ -66,12 +66,12 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseAcumuladorNaoFiscal() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection acumuladores = Fachada.getInstancia()
 					.consultarTodosAcumuladoresNaoFiscais();
 			session.clear();
 			geraBaseAcumuladorNaoFiscal(acumuladores);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE ACUMULADORES GERADA OK!!");
 			System.out.println("## REGISTROS => " + acumuladores.size());
 		} catch (Exception e) {
@@ -83,12 +83,12 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseMacroOperacao() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection macros = Fachada.getInstancia()
 					.consultarTodosMacroOperacao();
 			session.clear();
 			geraBaseMacroOperacao(macros);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE MACROS GERADA OK!!");
 			System.out.println("## REGISTROS => " + macros.size());
 		} catch (Exception e) {
@@ -100,12 +100,12 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseAutorizadora() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection autorizadoras = Fachada.getInstancia()
 					.consultarTodasAutorizadoras();
 			session.clear();
 			geraBaseAutorizadora(autorizadoras);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE AUTORIZADORA GERADA OK!!");
 			System.out.println("## REGISTROS => " + autorizadoras.size());
 		} catch (Exception e) {
@@ -117,7 +117,7 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseComponente(Long loja) {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(Componente.class);
 			filter.addProperty("loja.id", loja);
@@ -125,7 +125,7 @@ public abstract class GeradorBaseComponente {
 					.consultarComponentes(filter);
 			session.clear();
 			geraBaseComponente(componentes);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE COMPONENTE GERADA OK!!");
 			System.out.println("## REGISTROS => " + componentes.size());
 		} catch (Exception e) {
@@ -137,12 +137,12 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseFormaRecebimento() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection formas = Fachada.getInstancia()
 					.consultarTodosFormaRecebimento();
 			session.clear();
 			geraBaseFormaRecebimento(formas);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE FORMA GERADA OK!!");
 			System.out.println("## REGISTROS => " + formas.size());
 		} catch (Exception e) {
@@ -154,14 +154,14 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseLoja(Long loja) {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(Loja.class);
 			filter.addProperty("id", loja);
 			Collection lojas = Fachada.getInstancia().consultarLoja(filter);
 			session.clear();
 			geraBaseLoja(lojas);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE LOJA GERADA OK!!");
 			System.out.println("## REGISTROS => " + lojas.size());
 		} catch (Exception e) {
@@ -173,11 +173,11 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBasePlanoPagamento() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection<PlanoPagamento> planos = Fachada.getInstancia().consultarTodosPlanos();
 			session.clear();
 			geraBasePlanos(planos);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE PLANO GERADA OK!!");
 			System.out.println("## REGISTROS => " + planos.size());
 		} catch (Exception e) {
@@ -189,12 +189,12 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseTotalizadoresNaoFiscais() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection totalizadores = Fachada.getInstancia()
 					.consultarTodosTotalizadores();
 			session.clear();
 			geraBaseTotalizadoresNaoFiscais(totalizadores);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE TOTALIZADORES GERADA OK!!");
 			System.out.println("## REGISTROS => " + totalizadores.size());
 		} catch (Exception e) {
@@ -206,7 +206,7 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseUsuario(Long loja) {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection usuarios = Fachada.getInstancia()
 					.consultarTodosUsuario();
 			Iterator i1 = usuarios.iterator();
@@ -228,7 +228,7 @@ public abstract class GeradorBaseComponente {
 			}
 			session.clear();
 			geraBaseUsuarios(usuarios);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE USUARIOS GERADA OK!!");
 			System.out.println("## REGISTROS => " + usuarios.size());
 		} catch (Exception e) {
@@ -240,12 +240,12 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseProduto() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection produtos = Fachada.getInstancia()
 					.consultarTodosProdutos();
 			session.clear();
 			geraBaseProsutos(produtos);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE PRODUTOS GERADA OK!!");
 			System.out.println("## REGISTROS => " + produtos.size());
 		} catch (Exception e) {
@@ -257,12 +257,12 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseImposto() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection impostos = Fachada.getInstancia()
 					.consultarTodosImpostos();
 			session.clear();
 			geraBaseImposto(impostos);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE IMPOSTO GERADA OK!!");
 			System.out.println("## REGISTROS => " + impostos.size());
 		} catch (Exception e) {
@@ -274,12 +274,12 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseFabricante() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection fabricantes = Fachada.getInstancia()
 					.consultarTodosFabricantees();
 			session.clear();
 			geraBaseFabricante(fabricantes);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE FABRICANTES GERADA OK!!");
 			System.out.println("## REGISTROS => " + fabricantes.size());
 		} catch (Exception e) {
@@ -291,12 +291,12 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseTipoProduto() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection tipos = Fachada.getInstancia()
 					.consultarTodosTipoProduto();
 			session.clear();
 			geraBaseTipoProduto(tipos);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE TIPO PRODUTO GERADA OK!!");
 			System.out.println("## REGISTROS => " + tipos.size());
 		} catch (Exception e) {
@@ -308,12 +308,12 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseUnidade() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection unidades = Fachada.getInstancia()
 					.consultarTodasUnidades();
 			session.clear();
 			geraBaseUnidade(unidades);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE UNIDADE GERADA OK!!");
 			System.out.println("## REGISTROS => " + unidades.size());
 		} catch (Exception e) {
@@ -325,12 +325,12 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBaseGrupoProduto() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection grupos = Fachada.getInstancia()
 					.consultarTodosGruposProduto();
 			session.clear();
 			geraBaseGrupoProduto(grupos);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE GRUPO GERADA OK!!");
 			System.out.println("## REGISTROS => " + grupos.size());
 		} catch (Exception e) {
@@ -342,7 +342,7 @@ public abstract class GeradorBaseComponente {
 
 	private void geraBasePerfil() {
 		try {
-			Session session = RepositoryManagerHibernateUtil.currentSession();
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection<Perfil> perfis = Fachada.getInstancia().consultarTodosPerfil();
 			for (Perfil object : perfis) {
 				HashSet c = new HashSet(object.getOperacoes());
@@ -350,7 +350,7 @@ public abstract class GeradorBaseComponente {
 			}
 			session.clear();
 			geraBasePerfil(perfis);
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE PERFIL GERADA OK!!");
 			System.out.println("## REGISTROS => " + perfis.size());
 		} catch (Exception e) {

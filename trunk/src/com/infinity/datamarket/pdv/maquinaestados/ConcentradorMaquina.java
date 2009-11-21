@@ -31,19 +31,19 @@ public class ConcentradorMaquina extends Cadastro implements ControladorMaquinaE
 		Collection col = null;
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			col = getRepositorio().consultaTecla(filtro);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -60,19 +60,19 @@ public class ConcentradorMaquina extends Cadastro implements ControladorMaquinaE
 		Tecla tecla = null;
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			tecla = (Tecla) getRepositorio().consultaTeclaPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -86,19 +86,19 @@ public class ConcentradorMaquina extends Cadastro implements ControladorMaquinaE
 		Collection col = null;
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			col = getRepositorio().consultaMacroOperacao(filtro);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);

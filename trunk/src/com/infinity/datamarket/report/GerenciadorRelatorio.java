@@ -97,7 +97,7 @@ public class GerenciadorRelatorio {
 		Session session = null;
         try
         {
-            session = RepositoryManagerHibernateUtil.currentSession();
+            session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
             return session.connection();
         }
         catch(HibernateException e)

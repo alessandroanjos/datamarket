@@ -49,7 +49,7 @@ public class RepositorioEstoque extends Repositorio implements IRepositorioEstoq
 	}
 	
 	public Collection consultarTodosPorLoja(String idLoja) throws AppException{
-		Session sessao = RepositoryManagerHibernateUtil.currentSession();
+		Session sessao = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append("from Estoque estoque ");

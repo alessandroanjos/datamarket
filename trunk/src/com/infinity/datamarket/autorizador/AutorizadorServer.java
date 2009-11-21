@@ -18,7 +18,7 @@ public class AutorizadorServer implements AutorizadorServerRemote {
 	
 	
 	public DadosAutorizacaoCartaoProprio autorizaTransacaoCartaoProprio(String cpfCnpj, BigDecimal valor) throws AutorizacaoException{
-		RepositoryManagerHibernateUtil.currentSession();
+		RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		PropertyFilter filter = new PropertyFilter();
 		filter.setTheClass(Cliente.class);
 		filter.addProperty("cpfCnpj", cpfCnpj);
@@ -80,14 +80,14 @@ public class AutorizadorServer implements AutorizadorServerRemote {
 		dados.setValor(valor);
 		dados.setData(dataTransacao);
 		dados.setNome(cli.getNomeCliente());
-		RepositoryManagerHibernateUtil.closeSession();
+		RepositoryManagerHibernateUtil.getInstancia().closeSession();
 		return dados;
 	}
 	
 	
 	
 	public void confirmaTransacaoCartaoProprio(Long id) throws AutorizacaoException{
-		RepositoryManagerHibernateUtil.currentSession();
+		RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		AutorizacaoCartaoProprio autorizacao;
 		try {
 			autorizacao = Fachada.getInstancia().consultarAutorizacaoCartaoProprioPorPK(id);
@@ -111,13 +111,13 @@ public class AutorizadorServer implements AutorizadorServerRemote {
 		} catch (AppException e) {
 			throw new AutorizacaoException("Tente Novamente");		
 		}
-		RepositoryManagerHibernateUtil.closeSession();
+		RepositoryManagerHibernateUtil.getInstancia().closeSession();
 		
 	}
 	
 	
 	public void desfazTransacaoCartaoProprio(Long id) throws AutorizacaoException{
-		RepositoryManagerHibernateUtil.currentSession();
+		RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		AutorizacaoCartaoProprio autorizacao;
 		try {
 			autorizacao = Fachada.getInstancia().consultarAutorizacaoCartaoProprioPorPK(id);
@@ -132,11 +132,11 @@ public class AutorizadorServer implements AutorizadorServerRemote {
 		} catch (AppException e) {
 			throw new AutorizacaoException("Tente Novamente");		
 		}
-		RepositoryManagerHibernateUtil.closeSession();
+		RepositoryManagerHibernateUtil.getInstancia().closeSession();
 	}
 	
 	public DadosConsultaCartaoProprio consultaDebito(String cpfCnpj) throws AutorizacaoException{
-		RepositoryManagerHibernateUtil.currentSession();
+		RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		PropertyFilter filter = new PropertyFilter();
 		filter.setTheClass(Cliente.class);
 		filter.addProperty("cpfCnpj", cpfCnpj);
@@ -157,7 +157,7 @@ public class AutorizadorServer implements AutorizadorServerRemote {
 			resposta.setNome(cli.getNomeFantasia().toUpperCase());
 		}
 		resposta.setValorDebito(cli.getValorLimiteCompras().subtract(cli.getValorLimiteDisponivel()));
-		RepositoryManagerHibernateUtil.closeSession();
+		RepositoryManagerHibernateUtil.getInstancia().closeSession();
 		return resposta;
 	}
 	

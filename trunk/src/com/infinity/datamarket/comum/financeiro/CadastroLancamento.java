@@ -97,7 +97,7 @@ public class CadastroLancamento extends Cadastro{
 //		Set<ContaCorrente> hashContas = CadastroMovimentacaoBancaria.getInstancia().getHashContas();
 //		
 //		if(hashContas.size() > 0 ){
-//			RepositoryManagerHibernateUtil.beginTrasaction();
+//			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 //		}
 //		
 //		Iterator<ContaCorrente> it = hashContas.iterator();
@@ -112,7 +112,7 @@ public class CadastroLancamento extends Cadastro{
 //		}
 //		
 //		if(hashContas.size() > 0){
-//			RepositoryManagerHibernateUtil.commitTransation();
+//			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 //		}
 //		CadastroMovimentacaoBancaria.getInstancia().setHashContas(new TreeSet<ContaCorrente>());
 	}

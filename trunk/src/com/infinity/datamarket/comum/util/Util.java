@@ -379,21 +379,35 @@ public class Util {
 
 	// Inicializa os atributos estáticos da classe
 	static {
-		URL url = Util.class.getClassLoader().getResource("Perifericos.properties");
+		String arquivo = "Perifericos.properties";
+		URL url = Util.class.getClassLoader().getResource(arquivo);
 		if (url != null) {
 			dirCorrente = url.toString();
-			dirCorrente =
-				dirCorrente.substring("file:\\".length(), dirCorrente.length());
+			dirCorrente = dirCorrente.substring("file:\\".length(), dirCorrente.length());
 			try {
-				dirCorrente =
-					dirCorrente.substring(0, dirCorrente.indexOf("WEB-INF"));
-				dirCorrente =
-					dirCorrente.substring(0, dirCorrente.length() - 1);
+				dirCorrente = dirCorrente.substring(0, dirCorrente.indexOf("WEB-INF"));
+				dirCorrente = dirCorrente.substring(0, dirCorrente.length() - 1);
 				// no caso do sistema operacional for o linux
 				// coloca a para inicial
 				int local = dirCorrente.indexOf(":");
 				if (local == -1) {
 					dirCorrente = "/" + dirCorrente;
+				}
+			} catch (Exception e) {
+			}
+
+			try {
+				if (dirCorrente.endsWith(arquivo)) {
+					dirCorrente = dirCorrente.substring(0,dirCorrente.length() - arquivo.length());
+				}
+				if (dirCorrente.endsWith("WebResources")) {
+					dirCorrente = dirCorrente.substring(0,dirCorrente.length() - "WebResources".length());
+				}
+				if (dirCorrente.endsWith("\\")) {
+					dirCorrente = dirCorrente.substring(0,dirCorrente.length() - 1);
+				}
+				if (dirCorrente.endsWith("/")) {
+					dirCorrente = dirCorrente.substring(0,dirCorrente.length() - 1);
 				}
 			} catch (Exception e) {
 			}

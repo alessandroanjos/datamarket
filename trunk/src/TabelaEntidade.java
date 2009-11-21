@@ -39,7 +39,7 @@ public class TabelaEntidade {
 	
 				out.write('\n');out.write(("<body>").getBytes());
 				
-				Iterator it = RepositoryManagerHibernateUtil.getConfiguration().getClassMappings();
+				Iterator it = RepositoryManagerHibernateUtil.getInstancia().getConfiguration().getClassMappings();
 				while(it.hasNext()){
 					Object obj = it.next();
 					
@@ -73,7 +73,7 @@ public class TabelaEntidade {
 
 					Map map = Main.main(nomeTabela);
 					
-					PersistentClass pClass = RepositoryManagerHibernateUtil.getConfiguration().getClassMapping(classe.getName());
+					PersistentClass pClass = RepositoryManagerHibernateUtil.getInstancia().getConfiguration().getClassMapping(classe.getName());
 					if (pClass != null) {
 						Property hibProp = pClass.getIdentifierProperty();
 						if (hibProp != null) {

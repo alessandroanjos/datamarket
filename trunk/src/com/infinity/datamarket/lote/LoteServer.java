@@ -20,16 +20,16 @@ import com.infinity.datamarket.comum.util.ConcentradorParametro;
 @Stateless
 public class LoteServer implements LoteServerLocal, LoteServerRemote {
 	public boolean verificaNovoLoteLiberado(int numeroLote){
-		RepositoryManagerHibernateUtil.currentSession();
+		RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		int numeroLoteAtual = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValorInteiro();
 		if (numeroLoteAtual > numeroLote){
 			return true;
 		}
-		RepositoryManagerHibernateUtil.closeSession();
+		RepositoryManagerHibernateUtil.getInstancia().closeSession();
 		return false;
 	}
 	public Collection getLote(int numeroLote, int numLoja) throws AppException{
-		RepositoryManagerHibernateUtil.currentSession();
+		RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		PropertyFilter filter = new PropertyFilter();
 		filter.setTheClass(DadoLote.class);
 		filter.addProperty("lote", numeroLote + 1);
@@ -82,7 +82,7 @@ public class LoteServer implements LoteServerLocal, LoteServerRemote {
 				retorno.add(dado);
 			}
 		}
-		RepositoryManagerHibernateUtil.closeSession();
+		RepositoryManagerHibernateUtil.getInstancia().closeSession();
 		return retorno;
 		
 	}

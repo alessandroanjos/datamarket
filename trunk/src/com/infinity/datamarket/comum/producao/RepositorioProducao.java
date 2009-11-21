@@ -47,7 +47,7 @@ public class RepositorioProducao extends Repositorio implements IRepositorioProd
 	}
 	
 	public Integer consultarMaiorNumeroLote() throws AppException{
-		Session session = RepositoryManagerHibernateUtil.currentSession();
+		Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		SQLQuery query = session.createSQLQuery("select max(lote) from Producao");		
 		Integer l  = (Integer) query.uniqueResult();
 		return l;

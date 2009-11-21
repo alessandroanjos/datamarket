@@ -319,19 +319,19 @@ public class Fachada {
 	public OutputStream gerarRelatorioAnaliticoVendas(int loja, Date data_inicio_movimento,Date data_fim_movimento) throws AppException{		
 		OutputStream out = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoVendas(loja, data_inicio_movimento, data_fim_movimento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -349,19 +349,19 @@ public class Fachada {
 	public OutputStream gerarRelatorioLucroBrutoVenda(int loja, Date data_inicio_movimento, Date data_fim_movimento) throws AppException{
 		OutputStream out = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			out = getGerenciadorRelatorio().gerarRelatorioLucroBrutoVenda(loja, data_inicio_movimento, data_fim_movimento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -380,19 +380,19 @@ public class Fachada {
 		
 		OutputStream out = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			out = getGerenciadorRelatorio().gerarRelatorioComissaoVendedor(loja, data_inicio_movimento, data_fim_movimento, vendedor);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -410,19 +410,19 @@ public class Fachada {
 	public OutputStream gerarRelatorioEstoqueAtual(int loja, int estoque) throws AppException{
 		OutputStream out = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			out = getGerenciadorRelatorio().gerarRelatorioEstoqueAtual(loja, estoque);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -441,19 +441,19 @@ public class Fachada {
 	public OutputStream gerarRelatorioABCVendas(int loja, Date data_inicio_movimento,Date data_fim_movimento, String tipo) throws AppException{		
 		OutputStream out = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			out = getGerenciadorRelatorio().gerarRelatorioABCVendas(loja, data_inicio_movimento, data_fim_movimento, tipo);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -471,19 +471,19 @@ public class Fachada {
 	public OutputStream gerarRelatorioFechamentoCaixaOperador(int loja, Date data_inicio_movimento,Date data_fim_movimento, Integer operador) throws AppException{		
 		OutputStream out = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			out = getGerenciadorRelatorio().gerarRelatorioFechamentoCaixaOperador(loja, data_inicio_movimento, data_fim_movimento, operador);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -501,19 +501,19 @@ public class Fachada {
 	public OutputStream gerarRelatorioFechamentoCaixaGeral(int loja, Date data_inicio_movimento,Date data_fim_movimento) throws AppException{		
 		OutputStream out = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			out = getGerenciadorRelatorio().gerarRelatorioFechamentoCaixaGeral(loja, data_inicio_movimento, data_fim_movimento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -531,19 +531,19 @@ public class Fachada {
 	public OutputStream gerarRelatorioAnaliticoEntradas(Date data_inicio_movimento,Date data_fim_movimento, String[] status, String idLoja, String idEstoque) throws AppException{		
 		OutputStream out = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoEntradas(data_inicio_movimento, data_fim_movimento, status, idLoja, idEstoque);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -561,19 +561,19 @@ public class Fachada {
 	public OutputStream gerarRelatorioAnaliticoMovimentacaoEstoque(Date data_inicio_movimento,Date data_fim_movimento, String idLojaSaida, String idEstoqueSaida, String idLojaEntrada, String idEstoqueEntrada) throws AppException{		
 		OutputStream out = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoMovimentacaoEstoque(data_inicio_movimento, data_fim_movimento, idLojaSaida, idEstoqueSaida, idLojaEntrada, idEstoqueEntrada);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -591,19 +591,19 @@ public class Fachada {
 	public OutputStream gerarRelatorioAnaliticoOperacoesDevolucao(int loja, Date data_inicio_movimento,Date data_fim_movimento) throws AppException{		
 		OutputStream out = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoOperacoesDevolucao(loja,data_inicio_movimento, data_fim_movimento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -630,19 +630,19 @@ public class Fachada {
 	public Usuario loginUsuario(Long id, String senha) throws AppException{
 		Usuario usu = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			usu = getCadastroUsuario().login(id, senha);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -668,19 +668,19 @@ public class Fachada {
 	public Loja consultarLojaPorId(Long id) throws AppException{
 		Loja loja = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			loja = getCadastroLoja().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -698,19 +698,19 @@ public class Fachada {
 	public Usuario consultarUsuarioPorId(Long id) throws AppException{
 		Usuario usu = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			usu = getCadastroUsuario().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -728,19 +728,19 @@ public class Fachada {
 	public Collection consultarUsuariosPorPerfil(Perfil perfil) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroUsuario().consultarUsuariosPorPerfil(perfil);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -758,19 +758,19 @@ public class Fachada {
 	public Usuario consultarUsuarioPorId_IdMacro(Long id,Long idMacro) throws AppException{
 		Usuario usu = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			usu = getCadastroUsuario().consultarPorId_IdMacro(id, idMacro);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -797,37 +797,37 @@ public class Fachada {
 				if (transVenda.getCliente() != null){
 					System.out.println("Fachada.inserirTransacao: transVenda.getCliente().getCpfCnpj(): "+transVenda.getCliente().getCpfCnpj());
 					try{
-						RepositoryManagerHibernateUtil.beginTrasaction();
+						RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 						ClienteTransacao cliente = getCadastroTransacao().consultarClienteTransacaoPorID(transVenda.getCliente().getCpfCnpj());
 						System.out.println("Fachada.inserirTransacao: cliente: "+cliente);
 						if (cliente == null){
 							getCadastroTransacao().inserirCliente(transVenda.getCliente());
 							System.out.println("Fachada.inserirTransacao: inseri o cliente");
 						}else{
-							RepositoryManagerHibernateUtil.currentSession().evict(cliente);
+							RepositoryManagerHibernateUtil.getInstancia().currentSession().evict(cliente);
 							getCadastroTransacao().atualizarCliente(transVenda.getCliente());
 							System.out.println("Fachada.inserirTransacao: alterei o cliente");
 						}
-						RepositoryManagerHibernateUtil.commitTransation();
+						RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 					}catch(Exception e){		
-						RepositoryManagerHibernateUtil.rollbackTransation();						
+						RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();						
 					}					
 				}
 			}
 			System.out.println("Fachada.inserirTransacao: inserindo a transacao com chave: "+trans.getPk().toString());
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroTransacao().inserir(trans);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -848,7 +848,7 @@ public class Fachada {
 				TransacaoVenda transVenda = (TransacaoVenda) trans;
 				if (transVenda.getCliente() != null){
 					try{
-						RepositoryManagerHibernateUtil.beginTrasaction();
+						RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 						System.out.println("Fachada.inserirTransacaoES:: cpfClienteTransacao--> "+transVenda.getCliente().getCpfCnpj());
 						ClienteTransacao cliente = getCadastroTransacao().consultarClienteTransacaoPorID(transVenda.getCliente().getCpfCnpj());
 						System.out.println("Fachada.inserirTransacaoES:: cliente--> "+cliente);
@@ -856,37 +856,37 @@ public class Fachada {
 							getCadastroTransacao().inserirCliente(transVenda.getCliente());
 							System.out.println("Fachada.inserirTransacaoES:: inserir o cliente");
 						}else{
-							RepositoryManagerHibernateUtil.currentSession().evict(cliente);
+							RepositoryManagerHibernateUtil.getInstancia().currentSession().evict(cliente);
 							getCadastroTransacao().atualizarCliente(transVenda.getCliente());
 							System.out.println("Fachada.inserirTransacaoES:: atualizei o cliente");
 						}
-						RepositoryManagerHibernateUtil.commitTransation();
+						RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 					}catch(Exception e){		
 						System.out.println("Fachada.inserirTransacaoES:: excecao--> "+e.getCause());
 						if(e.getCause() instanceof ObjectNotFoundException){
 							getCadastroTransacao().inserirCliente(transVenda.getCliente());
-							RepositoryManagerHibernateUtil.commitTransation();	
+							RepositoryManagerHibernateUtil.getInstancia().commitTransation();	
 						}else{
-							RepositoryManagerHibernateUtil.rollbackTransation();	
+							RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();	
 						}												
 					}					
 				}
 			}
 			System.out.println("Fachada.inserirTransacaoES:: vou inserir a transacao com chave--> "+trans.getPk().toString());
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroTransacao().inserirES(trans);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 			System.out.println("Fachada.inserirTransacaoES:: foi inserida a transacao com chave--> "+trans.getPk().toString());
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -906,29 +906,29 @@ public class Fachada {
 				TransacaoVenda transVenda = (TransacaoVenda) trans;
 				if (transVenda.getCliente() != null){
 					try{
-						RepositoryManagerHibernateUtil.beginTrasaction();
+						RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 						getCadastroTransacao().atualizarCliente(transVenda.getCliente());
-						RepositoryManagerHibernateUtil.commitTransation();
+						RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 					}catch(Exception e){					
-						RepositoryManagerHibernateUtil.beginTrasaction();
+						RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 						getCadastroTransacao().inserirCliente(transVenda.getCliente());
-						RepositoryManagerHibernateUtil.commitTransation();
+						RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 					}
 				}
 			}
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroTransacao().atualizarES(trans, itensRegistradosRemovidos);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -945,19 +945,19 @@ public class Fachada {
 	public Transacao consultarTransacaoPorPK(TransacaoPK pk) throws AppException{
 		Transacao trans = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			trans = getCadastroTransacao().consultarPorPK(pk);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -975,19 +975,19 @@ public class Fachada {
 	public Collection consultarTransacao(IPropertyFilter filter) throws AppException{
 		Collection col = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			col = getCadastroTransacao().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1005,19 +1005,19 @@ public class Fachada {
 	public void atualizaTransacaoProcessada(Transacao trans) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroTransacao().atualizaTransacaoProcessada(trans);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1034,19 +1034,19 @@ public class Fachada {
 
 	public void zerarTotalizador(Long totalizador) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroTotalizadores().zerarTotalizador(totalizador);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1062,19 +1062,19 @@ public class Fachada {
 
 	public void zerarTodosTotalizadores() throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroTotalizadores().zerarTodosTotalizadores();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1091,19 +1091,19 @@ public class Fachada {
 	public Collection consultarTodosTotalizadores() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroTotalizadores().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1121,19 +1121,19 @@ public class Fachada {
 	public TotalizadorNaoFiscal consultarTotalizador(Long totalizador) throws AppException{
 		TotalizadorNaoFiscal tot = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			tot = getCadastroTotalizadores().consultarTotalizador(totalizador);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1150,19 +1150,19 @@ public class Fachada {
 	public Collection consultarFormaRecebimento(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroFormaRecebimento().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1179,19 +1179,19 @@ public class Fachada {
 	public FormaRecebimento consultarFormaRecebimentoPorId(Long id) throws AppException{
 		FormaRecebimento forma = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			forma = getCadastroFormaRecebimento().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1210,19 +1210,19 @@ public class Fachada {
 	public PlanoPagamento consultarPlanoPagamentoPorId(Long id) throws AppException{
 		PlanoPagamento plano = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			plano = getCadastroPlanoPagamento().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1239,19 +1239,19 @@ public class Fachada {
 	public Collection consultarPlanoPagamento(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroPlanoPagamento().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1269,19 +1269,19 @@ public class Fachada {
 	public Collection consultarTodosPlanosChequePre() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroPlanoPagamento().consultarTodosPreDatado();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1301,19 +1301,19 @@ public class Fachada {
 	public Collection consultarTodosPlanos() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroPlanoPagamento().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1332,19 +1332,19 @@ public class Fachada {
 	public void inserirComponente(Componente componente) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroComponente().inserir(componente);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1360,19 +1360,19 @@ public class Fachada {
 	public void alterarComponente(Componente componente) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroComponente().alterar(componente);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1388,19 +1388,19 @@ public class Fachada {
 	public void excluirComponente(Componente componente) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroComponente().excluir(componente);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1416,19 +1416,19 @@ public class Fachada {
 	public Componente consultarComponentePorId(Long id) throws AppException{
 		Componente plano = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			plano = getCadastroComponente().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1445,19 +1445,19 @@ public class Fachada {
 	public Collection consultarComponentes(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroComponente().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1477,19 +1477,19 @@ public class Fachada {
 	public Collection consultarTodosComponentes() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroComponente().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1509,19 +1509,19 @@ public class Fachada {
 	public void inserirAutorizadora(Autorizadora autorizadora) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroAutorizadora().inserir(autorizadora);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1537,19 +1537,19 @@ public class Fachada {
 	public void alterarAutorizadora(Autorizadora autorizadora) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroAutorizadora().alterar(autorizadora);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1565,19 +1565,19 @@ public class Fachada {
 	public void excluirAutorizadora(Autorizadora autorizadora) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroAutorizadora().excluir(autorizadora);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1593,19 +1593,19 @@ public class Fachada {
 	public Autorizadora consultarAutorizadoraPorId(Long id) throws AppException{
 		Autorizadora autorizadora = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			autorizadora = getCadastroAutorizadora().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1622,19 +1622,19 @@ public class Fachada {
 	public Collection consultarAutorizadora(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroAutorizadora().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1652,19 +1652,19 @@ public class Fachada {
 	public Collection consultarTodasAutorizadoras() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroAutorizadora().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1684,19 +1684,19 @@ public class Fachada {
 	public void inserirGrupoLancamento(GrupoLancamento grupo) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroGrupoLancamento().inserir(grupo);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1712,19 +1712,19 @@ public class Fachada {
 	public void alterarGrupoLancamento(GrupoLancamento grupo) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroGrupoLancamento().alterar(grupo);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1740,19 +1740,19 @@ public class Fachada {
 	public void excluirGrupoLancamento(GrupoLancamento GrupoLancamento) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroGrupoLancamento().excluir(GrupoLancamento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1768,19 +1768,19 @@ public class Fachada {
 	public GrupoLancamento consultarGrupoLancamentoPorId(Long id) throws AppException{
 		GrupoLancamento GrupoLancamento = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			GrupoLancamento = getCadastroGrupoLancamento().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1797,19 +1797,19 @@ public class Fachada {
 	public Collection consultarGrupoLancamento(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroGrupoLancamento().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1827,19 +1827,19 @@ public class Fachada {
 	public Collection consultarTodosGrupoLancamentos() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroGrupoLancamento().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1859,19 +1859,19 @@ public class Fachada {
 	public void inserirLancamento(Lancamento lancamento) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroLancamento().inserir(lancamento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1887,19 +1887,19 @@ public class Fachada {
 	public void alterarLancamento(Lancamento lancamento) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroLancamento().alterar(lancamento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1916,19 +1916,19 @@ public class Fachada {
 	public void baixarLancamento(Lancamento lancamento) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroLancamento().baixar(lancamento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1945,19 +1945,19 @@ public class Fachada {
 	public void excluirLancamento(Lancamento Lancamento) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroLancamento().excluir(Lancamento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -1973,19 +1973,19 @@ public class Fachada {
 	public Lancamento consultarLancamentoPorId(Long id) throws AppException{
 		Lancamento Lancamento = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			Lancamento = getCadastroLancamento().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2002,19 +2002,19 @@ public class Fachada {
 	public Collection consultarLancamento(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroLancamento().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2032,19 +2032,19 @@ public class Fachada {
 	public Collection consultarTodasLancamentos() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroLancamento().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2063,19 +2063,19 @@ public class Fachada {
 	
 	public void inserirUnidade(Unidade unidade) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroUnidade().inserir(unidade);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2092,19 +2092,19 @@ public class Fachada {
 	public Collection consultarUnidade(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroUnidade().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2122,19 +2122,19 @@ public class Fachada {
 	public Collection consultarTodasUnidades() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroUnidade().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2152,19 +2152,19 @@ public class Fachada {
 	public Unidade consultarUnidadePorPK(Long id) throws AppException{
 		Unidade u = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			u = getCadastroUnidade().consultarPorPK(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2181,19 +2181,19 @@ public class Fachada {
 	
 	public void alterarUnidade(Unidade unidade) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroUnidade().alterar(unidade);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2209,19 +2209,19 @@ public class Fachada {
 	
 	public void excluirUnidade(Unidade unidade) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroUnidade().excluir(unidade);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2240,19 +2240,19 @@ public class Fachada {
 
 	public void inserirImposto(Imposto imposto) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroImposto().inserir(imposto);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2268,19 +2268,19 @@ public class Fachada {
 
 	public void inserirBoleto(Boleto boleto) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroBoleto().inserir(boleto);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2297,23 +2297,23 @@ public class Fachada {
 	public Boleto consultarBoletoID(Long idboleto) throws AppException{
 		Boleto c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			
 			
 			c=  getCadastroBoleto().consultarID(idboleto);
 
 
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2331,19 +2331,19 @@ public class Fachada {
 	public Collection consultarImposto(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroImposto().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2361,19 +2361,19 @@ public class Fachada {
 	public Collection consultarTodosImpostos() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroImposto().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2391,19 +2391,19 @@ public class Fachada {
 	public Imposto consultarImpostoPorPK(Long id) throws AppException{
 		Imposto i = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			i = getCadastroImposto().consultarPorPK(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2420,19 +2420,19 @@ public class Fachada {
 	
 	public void alterarImposto(Imposto imposto) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroImposto().alterar(imposto);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2448,19 +2448,19 @@ public class Fachada {
 	
 	public void excluirImposto(Imposto imposto) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroImposto().excluir(imposto);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2479,19 +2479,19 @@ public class Fachada {
 	
 	public void inserirTipoProduto(TipoProduto tipo) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroTipoProduto().inserir(tipo);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2508,19 +2508,19 @@ public class Fachada {
 	public Collection consultarTipoProduto(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroTipoProduto().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2538,19 +2538,19 @@ public class Fachada {
 	public Collection consultarTodosTipoProduto() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroTipoProduto().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2568,19 +2568,19 @@ public class Fachada {
 	public TipoProduto consultarTipoProdutoPorPK(Long id) throws AppException{
 		TipoProduto t = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			t = getCadastroTipoProduto().consultarPorPK(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2597,19 +2597,19 @@ public class Fachada {
 	
 	public void alterarTipoProduto(TipoProduto tipo) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroTipoProduto().alterar(tipo);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2625,19 +2625,19 @@ public class Fachada {
 	
 	public void excluirTipoProduto(TipoProduto tipo) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroTipoProduto().excluir(tipo);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2653,19 +2653,19 @@ public class Fachada {
 // 
 	public void excluirFormaRecebimento(FormaRecebimento formaRecebimento) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroFormaRecebimento().excluir(formaRecebimento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2681,19 +2681,19 @@ public class Fachada {
 
 	public void alterarFormaRecebimento(FormaRecebimento formaRecebimento) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroFormaRecebimento().alterar(formaRecebimento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2709,19 +2709,19 @@ public class Fachada {
 	
 	public void inserirFormaRecebimento(FormaRecebimento formaRecebimento) throws AppException{
 	try{
-		RepositoryManagerHibernateUtil.beginTrasaction();
+		RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 		getCadastroFormaRecebimento().inserir(formaRecebimento);
-		RepositoryManagerHibernateUtil.commitTransation();
+		RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 	}catch(AppException e){
 		try{
-			RepositoryManagerHibernateUtil.rollbackTransation();
+			RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 		}catch(Exception ex){
 			throw new SistemaException(ex);
 		}
 		throw e;
 	}catch(Throwable e){
 		try{
-			RepositoryManagerHibernateUtil.rollbackTransation();
+			RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			throw new SistemaException(e);
 		}catch(Exception ex){
 			throw new SistemaException(ex);
@@ -2737,19 +2737,19 @@ public class Fachada {
 // PlanoPagamento	
 	public void excluirPlanoPagamento(PlanoPagamento planoPagamento) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroPlanoPagamento().excluir(planoPagamento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2765,19 +2765,19 @@ public class Fachada {
 
 	public void alterarPlanoPagamento(PlanoPagamento planoPagamento) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroPlanoPagamento().alterar(planoPagamento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2793,19 +2793,19 @@ public class Fachada {
 
 	public void inserirPlanoPagamento(PlanoPagamento planoPagamento) throws AppException{
 	try{
-		RepositoryManagerHibernateUtil.beginTrasaction();
+		RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 		getCadastroPlanoPagamento().inserir(planoPagamento);
-		RepositoryManagerHibernateUtil.commitTransation();
+		RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 	}catch(AppException e){
 		try{
-			RepositoryManagerHibernateUtil.rollbackTransation();
+			RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 		}catch(Exception ex){
 			throw new SistemaException(ex);
 		}
 		throw e;
 	}catch(Throwable e){
 		try{
-			RepositoryManagerHibernateUtil.rollbackTransation();
+			RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			throw new SistemaException(e);
 		}catch(Exception ex){
 			throw new SistemaException(ex);
@@ -2822,19 +2822,19 @@ public class Fachada {
 	
 	public void inserirLoja(Loja loja) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroLoja().inserir(loja);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2851,19 +2851,19 @@ public class Fachada {
 	public Collection consultarLoja(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroLoja().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2881,19 +2881,19 @@ public class Fachada {
 	public Collection consultarTodosFormaRecebimento() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroFormaRecebimento().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2910,19 +2910,19 @@ public class Fachada {
 	public Collection consultarTodosLoja() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroLoja().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2940,19 +2940,19 @@ public class Fachada {
 	public Loja consultarLojaPorPK(Long id) throws AppException{
 		Loja loja = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			loja = getCadastroLoja().consultarPorPK(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2969,19 +2969,19 @@ public class Fachada {
 	
 	public void alterarLoja(Loja loja) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroLoja().alterar(loja);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -2996,19 +2996,19 @@ public class Fachada {
 	}
 	public void excluirLoja(Loja loja) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroLoja().excluir(loja);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3026,19 +3026,19 @@ public class Fachada {
 	
 	public void inserirGrupoProduto(GrupoProduto grupo) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroGrupoProduto().inserir(grupo);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3055,19 +3055,19 @@ public class Fachada {
 	public Collection consultarGrupoProduto(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroGrupoProduto().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3085,19 +3085,19 @@ public class Fachada {
 	public Collection consultarTodosGruposProduto() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroGrupoProduto().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3115,19 +3115,19 @@ public class Fachada {
 	public GrupoProduto consultarGrupoProdutoPorPK(Long id) throws AppException{
 		GrupoProduto g = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			g = getCadastroGrupoProduto().consultarPorPK(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3144,20 +3144,20 @@ public class Fachada {
 	
 	public void alterarGrupoProduto(GrupoProduto grupo) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.currentSession().clear();
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().currentSession().clear();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroGrupoProduto().alterar(grupo);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3173,20 +3173,20 @@ public class Fachada {
 	
 	public void excluirGrupoProduto(GrupoProduto grupo) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.currentSession().clear();
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().currentSession().clear();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroGrupoProduto().excluir(grupo);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3204,19 +3204,19 @@ public class Fachada {
 	
 	public void inserirPerfil(Perfil perfil) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroPerfil().inserir(perfil);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3233,19 +3233,19 @@ public class Fachada {
 	public Collection consultarPerfil(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroPerfil().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3263,19 +3263,19 @@ public class Fachada {
 	public Collection consultarTodosPerfil() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroPerfil().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3293,19 +3293,19 @@ public class Fachada {
 	public Collection consultarPerfisPorPerfilSuperior(Perfil perfil) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroPerfil().consultarPerfisPorPerfilSuperior(perfil);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3323,19 +3323,19 @@ public class Fachada {
 	public Perfil consultarPerfilPorPK(Long id) throws AppException{
 		Perfil perfil = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			perfil = getCadastroPerfil().consultarPorPK(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3352,20 +3352,20 @@ public class Fachada {
 	
 	public void alterarPerfil(Perfil perfil) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.currentSession().clear();
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().currentSession().clear();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroPerfil().alterar(perfil);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3380,20 +3380,20 @@ public class Fachada {
 	}
 	public void excluirPerfil(Perfil perfil) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.currentSession().clear();
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().currentSession().clear();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroPerfil().excluir(perfil);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3411,19 +3411,19 @@ public class Fachada {
 	
 	public void inserirMacroOperacao(MacroOperacao macroOperacao) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroMacroOperacao().inserir(macroOperacao);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3440,19 +3440,19 @@ public class Fachada {
 	public Collection consultarMacroOperacao(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroMacroOperacao().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3470,19 +3470,19 @@ public class Fachada {
 	public Collection consultarTodosMacroOperacao() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroMacroOperacao().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3500,19 +3500,19 @@ public class Fachada {
 	public MacroOperacao consultarMacroOperacaoPorPK(Long id) throws AppException{
 		MacroOperacao macroOperacao = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			macroOperacao = getCadastroMacroOperacao().consultarPorPK(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3529,19 +3529,19 @@ public class Fachada {
 	
 	public void alterarMacroOperacao(MacroOperacao macroOperacao) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroMacroOperacao().alterar(macroOperacao);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3556,19 +3556,19 @@ public class Fachada {
 	}
 	public void excluirMacroOperacao(MacroOperacao macroOperacao) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroMacroOperacao().excluir(macroOperacao);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3586,19 +3586,19 @@ public class Fachada {
 	
 	public void inserirProduto(Produto produto) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroProduto().inserir(produto);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3615,19 +3615,19 @@ public class Fachada {
 	public Collection consultarTodosProdutos() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroProduto().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3645,19 +3645,19 @@ public class Fachada {
 	public Produto consultarProdutoPorPK(Long id) throws AppException{
 		Produto produto = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			 produto = getCadastroProduto().consultarPorPK(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3674,19 +3674,19 @@ public class Fachada {
 	
 	public void alterarProduto(Produto produto, Collection<Composicao> itensComposicaoRemovidos) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroProduto().alterar(produto, itensComposicaoRemovidos);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3701,19 +3701,19 @@ public class Fachada {
 	}
 	public void excluirProduto(Produto produto) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroProduto().excluir(produto);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3730,19 +3730,19 @@ public class Fachada {
 	public Produto consultarProdutoPorCodigoExterno(String codigo) throws AppException{
 		Produto pro = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			pro = getCadastroProduto().consultarPorCodigoExterno(codigo);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3760,19 +3760,19 @@ public class Fachada {
 	public Collection consultarProdutoPorFiltro(IPropertyFilter filter, boolean preciso) throws AppException{
 		Collection ret = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			ret = getCadastroProduto().consultarPorFiltro(filter,preciso);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3790,19 +3790,19 @@ public class Fachada {
 	public Collection consultarProdutosPorFiltro(Produto produto, String idLoja) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroProduto().consultarProdutosPorFiltro(produto, idLoja);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3822,19 +3822,19 @@ public class Fachada {
 	
 	public void inserirUsuario(Usuario usuario) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroUsuario().inserir(usuario);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3851,19 +3851,19 @@ public class Fachada {
 	public Collection consultarUsuario(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroUsuario().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3881,19 +3881,19 @@ public class Fachada {
 	public Collection consultarUsuariosPorFiltro(Usuario usuario, String idLoja, boolean vendedor) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroUsuario().consultarUsuariosPorFiltro(usuario, idLoja, vendedor);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3911,19 +3911,19 @@ public class Fachada {
 	public Collection consultarTodosUsuario() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroUsuario().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3941,19 +3941,19 @@ public class Fachada {
 	public Usuario consultarUsuarioPorPK(Long id) throws AppException{
 		Usuario usuario = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			usuario = getCadastroUsuario().consultarPorPK(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3970,19 +3970,19 @@ public class Fachada {
 	
 	public void alterarUsuario(Usuario usuario) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroUsuario().alterar(usuario);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -3997,19 +3997,19 @@ public class Fachada {
 	}
 	public void excluirUsuario(Usuario usuario) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroUsuario().excluir(usuario);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4027,19 +4027,19 @@ public class Fachada {
 	
 	public void inserirFuncionalidade(Funcionalidade funcionalidade) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroFuncionalidade().inserir(funcionalidade);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4056,19 +4056,19 @@ public class Fachada {
 	public Collection consultarFuncionalidade(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroFuncionalidade().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4086,19 +4086,19 @@ public class Fachada {
 	public Collection consultarTodosFuncionalidade() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroFuncionalidade().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4116,19 +4116,19 @@ public class Fachada {
 	public Collection consultarFuncionalidadesPorFuncionalidadeSuperior(Funcionalidade funcionalidade) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroFuncionalidade().consultarFuncionalidadesPorFuncionalidadeSuperior(funcionalidade);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4146,19 +4146,19 @@ public class Fachada {
 	public Funcionalidade consultarFuncionalidadePorPK(Long id) throws AppException{
 		Funcionalidade funcionalidade = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			funcionalidade = getCadastroFuncionalidade().consultarPorPK(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4175,19 +4175,19 @@ public class Fachada {
 	
 	public void alterarFuncionalidade(Funcionalidade funcionalidade) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroFuncionalidade().alterar(funcionalidade);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4202,19 +4202,19 @@ public class Fachada {
 	}
 	public void excluirFuncionalidade(Funcionalidade funcionalidade) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroFuncionalidade().excluir(funcionalidade);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4230,19 +4230,19 @@ public class Fachada {
 	public InfoComponent consultarInfoCompometPorPK(String id) throws AppException{
 		InfoComponent infoComponent = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			infoComponent = getCadastroInfoComponente().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4259,23 +4259,23 @@ public class Fachada {
 	
 	public void salvarInfoComponent(InfoComponent infoComponent) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroInfoComponente().alterar(infoComponent);	
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		} catch (ObjectExistentException e) {
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroInfoComponente().inserir(infoComponent);	
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4292,19 +4292,19 @@ public class Fachada {
 	public void inserirEstoque(Estoque estoque) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroEstoque().inserir(estoque);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4320,19 +4320,19 @@ public class Fachada {
 	public void alterarEstoque(Estoque estoque) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroEstoque().alterar(estoque);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4348,19 +4348,19 @@ public class Fachada {
 	public void excluirEstoque(Estoque estoque) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroEstoque().excluir(estoque);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4376,19 +4376,19 @@ public class Fachada {
 	public Estoque consultarEstoquePorId(EstoquePK id) throws AppException{
 		Estoque estoque = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			estoque = getCadastroEstoque().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4405,19 +4405,19 @@ public class Fachada {
 	public Collection consultarEstoque(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroEstoque().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4437,19 +4437,19 @@ public class Fachada {
 	public Collection consultarTodosEstoques() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroEstoque().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4467,20 +4467,20 @@ public class Fachada {
 	public Collection consultarTodosEstoquesPorLoja(String idLoja) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			
 			c = getCadastroEstoque().consultarTodosPorLoja(idLoja);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4498,19 +4498,19 @@ public class Fachada {
 	public EstoqueProduto consultarEstoqueProduto(EstoqueProdutoPK id) throws AppException {
 		EstoqueProduto estoque = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			estoque = getCadastroEstoqueProduto().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4531,19 +4531,19 @@ public class Fachada {
 	public void inserirAjusteEstoque(AjusteEstoque ajustEstoque) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroAjusteEstoque().inserir(ajustEstoque);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4560,19 +4560,19 @@ public class Fachada {
 	public AjusteEstoque consultarAjustePorId(Long id) throws AppException{
 		AjusteEstoque ajustEstoque = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			ajustEstoque = getCadastroAjusteEstoque().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4589,19 +4589,19 @@ public class Fachada {
 	public Collection consultarAjusteEstoque(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroAjusteEstoque().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4619,19 +4619,19 @@ public class Fachada {
 	public void inserirFornecedor(Fornecedor fornecedor) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroFornecedor().inserir(fornecedor);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4647,19 +4647,19 @@ public class Fachada {
 	public void alterarFornecedor(Fornecedor fornecedor) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroFornecedor().alterar(fornecedor);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4675,19 +4675,19 @@ public class Fachada {
 	public void excluirFornecedor(Fornecedor fornecedor) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroFornecedor().excluir(fornecedor);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4703,19 +4703,19 @@ public class Fachada {
 	public Fornecedor consultaFornecedorPorId(Long id) throws AppException{
 		Fornecedor fornecedor = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			fornecedor = getCadastroFornecedor().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4732,19 +4732,19 @@ public class Fachada {
 	public Collection consultarFornecedor(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroFornecedor().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4764,19 +4764,19 @@ public class Fachada {
 	public Collection consultarTodosFornecedores() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroFornecedor().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4795,19 +4795,19 @@ public class Fachada {
 	public void inserirFabricante(Fabricante fabricante) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroFabricante().inserir(fabricante);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4823,19 +4823,19 @@ public class Fachada {
 	public void alterarFabricante(Fabricante fabricante) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroFabricante().alterar(fabricante);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4851,19 +4851,19 @@ public class Fachada {
 	public void excluirFabricante(Fabricante fabricante) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroFabricante().excluir(fabricante);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4879,19 +4879,19 @@ public class Fachada {
 	public Fabricante consultaFabricantePorId(Long id) throws AppException{
 		Fabricante fabricante = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			fabricante = getCadastroFabricante().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4908,19 +4908,19 @@ public class Fachada {
 	public Collection consultarFabricante(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroFabricante().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4940,19 +4940,19 @@ public class Fachada {
 	public Collection consultarTodosFabricantees() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroFabricante().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -4970,19 +4970,19 @@ public class Fachada {
 	public Collection consultaProdutosPorSecao(String idLoja) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroProduto().consultaProdutosPorSecao(idLoja);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5002,19 +5002,19 @@ public class Fachada {
 	public void inserirEntradaProduto(EntradaProduto entradaProduto) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroEntradaProduto().inserir(entradaProduto);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5031,19 +5031,19 @@ public class Fachada {
 	public void alterarEntradaProduto(EntradaProduto entradaProduto) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroEntradaProduto().alterar(entradaProduto);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5060,19 +5060,19 @@ public class Fachada {
 	public void excluirEntradaProduto(EntradaProduto entradaProduto) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroEntradaProduto().excluir(entradaProduto);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5088,19 +5088,19 @@ public class Fachada {
 	public Collection consultarTodosEntradaProdutos() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroEntradaProduto().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5117,19 +5117,19 @@ public class Fachada {
 	public EntradaProduto consultarEntradaProdutoPorId(Long id) throws AppException{
 		EntradaProduto entradaProduto = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			entradaProduto = getCadastroEntradaProduto().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5146,19 +5146,19 @@ public class Fachada {
 	public Collection consultarEntradaProduto(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroEntradaProduto().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5178,19 +5178,19 @@ public class Fachada {
 	public Collection consultarTodasEntradaProduto() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroEntradaProduto().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5209,19 +5209,19 @@ public class Fachada {
 	public void inserirMovimentacaoEstoque(MovimentacaoEstoque movimentacaoEstoque) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroMovimentacaoEstoque().inserir(movimentacaoEstoque);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5238,19 +5238,19 @@ public class Fachada {
 	public void alterarMovimentacaoEstoque(MovimentacaoEstoque movimentacaoEstoque) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroMovimentacaoEstoque().alterar(movimentacaoEstoque);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5267,19 +5267,19 @@ public class Fachada {
 	public void cancelarMovimentacaoEstoque(MovimentacaoEstoque movimentacaoEstoque) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroMovimentacaoEstoque().cancelar(movimentacaoEstoque);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5297,19 +5297,19 @@ public class Fachada {
 	public void excluirMovimentacaoEstoque(MovimentacaoEstoque movimentacaoEstoque) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroMovimentacaoEstoque().excluir(movimentacaoEstoque);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5325,19 +5325,19 @@ public class Fachada {
 	public Collection consultarTodosMovimentacaoEstoque() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroMovimentacaoEstoque().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5354,19 +5354,19 @@ public class Fachada {
 	public MovimentacaoEstoque consultarMovimentacaoEstoquePorId(Long id) throws AppException{
 		MovimentacaoEstoque movimentacaoEstoque = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			movimentacaoEstoque = getCadastroMovimentacaoEstoque().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5383,19 +5383,19 @@ public class Fachada {
 	public Collection consultarMovimentoEstoque(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroMovimentacaoEstoque().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5419,19 +5419,19 @@ public class Fachada {
 	
 	public void inserirCliente(Cliente cliente) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroCliente().inserir(cliente);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5448,19 +5448,19 @@ public class Fachada {
 	public Collection consultarCliente(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroCliente().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5478,19 +5478,19 @@ public class Fachada {
 	public Collection consultarTodosClientes() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroCliente().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5508,19 +5508,19 @@ public class Fachada {
 	public Cliente consultarClientePorPK(Long id) throws AppException{
 		Cliente c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroCliente().consultarPorPK(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5537,19 +5537,19 @@ public class Fachada {
 	
 	public void alterarCliente(Cliente cliente) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroCliente().alterar(cliente);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5565,19 +5565,19 @@ public class Fachada {
 	
 	public void excluirCliente(Cliente cliente) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroCliente().excluir(cliente);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5595,19 +5595,19 @@ public class Fachada {
 	
 	public void inserirClientePagamento(ClientePagamento clientePagamento) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroClientePagamento().inserir(clientePagamento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5624,19 +5624,19 @@ public class Fachada {
 	public Collection consultarClientePagamento(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroClientePagamento().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5654,19 +5654,19 @@ public class Fachada {
 	public Collection consultarTodosClientesPagamentos() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroClientePagamento().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5684,19 +5684,19 @@ public class Fachada {
 	public ClientePagamento consultarClientePagamentoPorPK(Long id) throws AppException{
 		ClientePagamento c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroClientePagamento().consultarPorPK(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5713,19 +5713,19 @@ public class Fachada {
 	
 	public void alterarClientePagamento(ClientePagamento clientePagamento) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroClientePagamento().alterar(clientePagamento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5741,19 +5741,19 @@ public class Fachada {
 	
 	public void excluirClientePagamento(ClientePagamento clientePagamento) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroClientePagamento().excluir(clientePagamento);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5770,19 +5770,19 @@ public class Fachada {
 	public Long consultarMaxIdClientePagamento() throws AppException{
 		Long maxId = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			maxId = getCadastroClientePagamento().retornaMaxIDClientePagamento();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5802,19 +5802,19 @@ public class Fachada {
 	public Collection consultarDadosLote(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroDadoLote().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5831,19 +5831,19 @@ public class Fachada {
 	
 	public void inserirAjusteEstque(AjusteEstoque ajuste) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroAjusteEstoque().inserir(ajuste);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5860,19 +5860,19 @@ public class Fachada {
 	
 	public void inserirAutorizacaoCartaoProprio(AutorizacaoCartaoProprio autorizacaoCartaoProprio) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroAutorizacaoCartaoProprio().inserir(autorizacaoCartaoProprio);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5889,19 +5889,19 @@ public class Fachada {
 	public Collection consultarAutorizacaoCartaoProprio(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroAutorizacaoCartaoProprio().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5919,19 +5919,19 @@ public class Fachada {
 	public Collection consultarTodasAutorizacoesCartaoProprio() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroAutorizacaoCartaoProprio().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5949,19 +5949,19 @@ public class Fachada {
 	public AutorizacaoCartaoProprio consultarAutorizacaoCartaoProprioPorPK(Long id) throws AppException{
 		AutorizacaoCartaoProprio c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroAutorizacaoCartaoProprio().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -5978,19 +5978,19 @@ public class Fachada {
 	
 	public void alterarAutorizacaoCartaoProprio(AutorizacaoCartaoProprio autorizacaoCartaoProprio) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroAutorizacaoCartaoProprio().alterar(autorizacaoCartaoProprio);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6006,19 +6006,19 @@ public class Fachada {
 	
 	public void excluirAutorizacaoCartaoProprio(AutorizacaoCartaoProprio autorizacaoCartaoProprio) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroAutorizacaoCartaoProprio().excluir(autorizacaoCartaoProprio);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6035,19 +6035,19 @@ public class Fachada {
 	
 	public void inserirEstoqueProduto(EstoqueProduto ep) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroEstoqueProduto().inserir(ep);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6064,19 +6064,19 @@ public class Fachada {
 	public Collection consultarEstoqueProduto(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroEstoqueProduto().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6094,19 +6094,19 @@ public class Fachada {
 	public Collection consultarTodosEstoqueProduto() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroEstoqueProduto().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6124,19 +6124,19 @@ public class Fachada {
 	public EstoqueProduto consultarEstoqueProdutoPorPK(EstoqueProdutoPK pk) throws AppException{
 		EstoqueProduto c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroEstoqueProduto().consultarPorId(pk);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6154,19 +6154,19 @@ public class Fachada {
 	public Collection consultarAcumuladorNaoFiscal(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroAcumuladorNaoFiscal().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6184,19 +6184,19 @@ public class Fachada {
 	public Collection consultarTodosAcumuladoresNaoFiscais() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroAcumuladorNaoFiscal().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6214,19 +6214,19 @@ public class Fachada {
 	public AcumuladorNaoFiscal consultarAcumuladorNaoFiscalPorPK(Long pk) throws AppException{
 		AcumuladorNaoFiscal c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroAcumuladorNaoFiscal().consultarPorId(pk);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6243,19 +6243,19 @@ public class Fachada {
 	
 	public void alterarEstoqueProduto(EstoqueProduto ep) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroEstoqueProduto().alterar(ep);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6272,19 +6272,19 @@ public class Fachada {
 	public ClienteTransacao consultarClienteTransacaoPorID(String id) throws AppException{
 		ClienteTransacao cli = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			cli = getCadastroTransacao().consultarClienteTransacaoPorID(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6302,19 +6302,19 @@ public class Fachada {
 	public Collection consultarClienteTransacao(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroTransacao().consultarClienteTransacao(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6336,33 +6336,33 @@ public class Fachada {
 				OperacaoDevolucao operacaoDevolucao = (OperacaoDevolucao) operacao;
 				if (operacaoDevolucao.getCliente() != null){
 					try{
-						RepositoryManagerHibernateUtil.beginTrasaction();
+						RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 						ClienteTransacao cliente = getCadastroTransacao().consultarClienteTransacaoPorID(operacaoDevolucao.getCliente().getCpfCnpj());
 						if (cliente == null){
 							getCadastroTransacao().inserirCliente(operacaoDevolucao.getCliente());
 						}else{
-							RepositoryManagerHibernateUtil.currentSession().clear();
+							RepositoryManagerHibernateUtil.getInstancia().currentSession().clear();
 							getCadastroTransacao().atualizarCliente(operacaoDevolucao.getCliente());
 						}
-						RepositoryManagerHibernateUtil.commitTransation();
+						RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 					}catch(Exception e){		
-						RepositoryManagerHibernateUtil.rollbackTransation();						
+						RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();						
 					}
 				}
 			}
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroOperacao().inserirES(operacao);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6383,30 +6383,30 @@ public class Fachada {
 				OperacaoDevolucao operacaoDevolucao = (OperacaoDevolucao) operacao;
 				if (operacaoDevolucao.getCliente() != null){
 					try{
-						RepositoryManagerHibernateUtil.beginTrasaction();
+						RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 						getCadastroTransacao().inserirCliente(operacaoDevolucao.getCliente());
-						RepositoryManagerHibernateUtil.commitTransation();
+						RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 					}catch(Exception e){
-						RepositoryManagerHibernateUtil.rollbackTransation();
-						RepositoryManagerHibernateUtil.beginTrasaction();
+						RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+						RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 						getCadastroTransacao().atualizarCliente(operacaoDevolucao.getCliente());
-						RepositoryManagerHibernateUtil.commitTransation();
+						RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 					}
 				}
 			}
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroOperacao().alterar(operacao);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6423,19 +6423,19 @@ public class Fachada {
 	public Operacao consultarOperacaoPorPK(OperacaoPK pk) throws AppException{
 		Operacao operacao = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			operacao = getCadastroOperacao().consultarPorPK(pk);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6453,19 +6453,19 @@ public class Fachada {
 	public Collection consultarOperacao(IPropertyFilter filter) throws AppException{
 		Collection col = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			col = getCadastroOperacao().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6484,19 +6484,19 @@ public class Fachada {
 	public Integer retornaMaxIdOperacaoPorLoja(OperacaoPK pk) throws AppException{
 		Integer maxId = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			maxId = getCadastroOperacao().retornaMaxIdOperacaoPorLoja(pk);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6515,19 +6515,19 @@ public class Fachada {
 	
 	public void alterarStatusOperacao(OperacaoPK pk, int status) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroOperacao().alterarStatus(pk, status);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6543,19 +6543,19 @@ public class Fachada {
  /// Bancos 
 	public void excluirBanco(Banco banco) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroBanco().excluir(banco);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6571,19 +6571,19 @@ public class Fachada {
 
 	public void alterarBanco(Banco banco) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroBanco().alterar(banco);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6599,19 +6599,19 @@ public class Fachada {
 	
 	public void inserirBanco(Banco banco) throws AppException{
 	try{
-		RepositoryManagerHibernateUtil.beginTrasaction();
+		RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 		getCadastroBanco().inserir(banco);
-		RepositoryManagerHibernateUtil.commitTransation();
+		RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 	}catch(AppException e){
 		try{
-			RepositoryManagerHibernateUtil.rollbackTransation();
+			RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 		}catch(Exception ex){
 			throw new SistemaException(ex);
 		}
 		throw e;
 	}catch(Throwable e){
 		try{
-			RepositoryManagerHibernateUtil.rollbackTransation();
+			RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			throw new SistemaException(e);
 		}catch(Exception ex){
 			throw new SistemaException(ex);
@@ -6627,19 +6627,19 @@ public class Fachada {
 	public Collection consultarTodosBancos() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroBanco().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6656,19 +6656,19 @@ public class Fachada {
 	public Banco consultarBancoPorID(String id) throws AppException{
 		Banco banco = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			banco = getCadastroBanco().consultarPorId(new Long(id));
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6685,19 +6685,19 @@ public class Fachada {
 	public Collection consultarBanco(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroBanco().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6715,19 +6715,19 @@ public class Fachada {
 //	/ Conta Corrente
 	public void excluirContaCorrente(ContaCorrente contaCorrente) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroContaCorrente().excluir(contaCorrente);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6743,19 +6743,19 @@ public class Fachada {
 
 	public void alterarContaCorrente(ContaCorrente contaCorrente) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroContaCorrente().alterar(contaCorrente);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6771,19 +6771,19 @@ public class Fachada {
 	
 	public void inserirContaCorrente(ContaCorrente contaCorrente) throws AppException{
 	try{
-		RepositoryManagerHibernateUtil.beginTrasaction();
+		RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 		getCadastroContaCorrente().inserir(contaCorrente);
-		RepositoryManagerHibernateUtil.commitTransation();
+		RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 	}catch(AppException e){
 		try{
-			RepositoryManagerHibernateUtil.rollbackTransation();
+			RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 		}catch(Exception ex){
 			throw new SistemaException(ex);
 		}
 		throw e;
 	}catch(Throwable e){
 		try{
-			RepositoryManagerHibernateUtil.rollbackTransation();
+			RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			throw new SistemaException(e);
 		}catch(Exception ex){
 			throw new SistemaException(ex);
@@ -6799,19 +6799,19 @@ public class Fachada {
 	public Collection consultarTodosContaCorrente() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroContaCorrente().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6828,19 +6828,19 @@ public class Fachada {
 	public ContaCorrente consultarContaCorrentePorID(String id) throws AppException{
 		ContaCorrente contaCorrente = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			contaCorrente = getCadastroContaCorrente().consultarPorId(new Long(id));
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6857,19 +6857,19 @@ public class Fachada {
 	public Collection consultarContaCorrente(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroContaCorrente().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6888,19 +6888,19 @@ public class Fachada {
 	
 	public void excluirMovimentacaoBancaria(MovimentacaoBancaria movimentacaoBancaria) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroMovimentacaoBancaria().excluir(movimentacaoBancaria);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6916,19 +6916,19 @@ public class Fachada {
 
 	public void alterarMovimentacaoBancaria(MovimentacaoBancaria movimentacaoBancaria) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroMovimentacaoBancaria().alterar(movimentacaoBancaria);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -6944,20 +6944,20 @@ public class Fachada {
 	
 	public void inserirMovimentacaoBancaria(MovimentacaoBancaria movimentacaoBancaria) throws AppException{
 	try{
-		RepositoryManagerHibernateUtil.beginTrasaction();
+		RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 		getCadastroMovimentacaoBancaria().inserir(movimentacaoBancaria);
 		getCadastroMovimentacaoBancaria().atualizarContasCorrentes();
-		RepositoryManagerHibernateUtil.commitTransation();
+		RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 	}catch(AppException e){
 		try{
-			RepositoryManagerHibernateUtil.rollbackTransation();
+			RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 		}catch(Exception ex){
 			throw new SistemaException(ex);
 		}
 		throw e;
 	}catch(Throwable e){
 		try{
-			RepositoryManagerHibernateUtil.rollbackTransation();
+			RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			throw new SistemaException(e);
 		}catch(Exception ex){
 			throw new SistemaException(ex);
@@ -6973,19 +6973,19 @@ public class Fachada {
 	public Collection consultarTodosMovimentacaoBancaria() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroMovimentacaoBancaria().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7002,19 +7002,19 @@ public class Fachada {
 	public MovimentacaoBancaria consultarMovimentacaoBancariaPorID(String id) throws AppException{
 		MovimentacaoBancaria movimentacaoBancaria = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			movimentacaoBancaria = getCadastroMovimentacaoBancaria().consultarPorId(new Long(id));
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7031,19 +7031,19 @@ public class Fachada {
 	public Collection consultarMovimentacaoBancaria(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroMovimentacaoBancaria().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7061,19 +7061,19 @@ public class Fachada {
 	public OutputStream gerarRelatorioAnaliticoLancamentos(int loja, Date dataInicial, Date dataFinal, String tipoLancamento, String idCliente, String idFornecedor, String idGrupoLancamento, int tipoRelatorio) throws AppException{		
 		OutputStream out = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			out = getGerenciadorRelatorio().gerarRelatorioAnaliticoLancamentos(loja, dataInicial, dataFinal, tipoLancamento, idCliente, idFornecedor, idGrupoLancamento, tipoRelatorio);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7095,19 +7095,19 @@ public class Fachada {
 
 	public void alterarArquivoProcessado(ArquivoProcessado ArquivosProcessado) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroArquivoProcessado().alterar(ArquivosProcessado);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7123,19 +7123,19 @@ public class Fachada {
 
 	public void inserirArquivoProcessado(ArquivoProcessado ArquivosProcessado) throws AppException{
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroArquivoProcessado().inserir(ArquivosProcessado);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7153,19 +7153,19 @@ public class Fachada {
 	public Collection consultarArquivoProcessado(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroArquivoProcessado().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7197,19 +7197,19 @@ public class Fachada {
 	public void inserirProducao(Producao producao, boolean ajustaProduto) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroProducao().inserir(producao,ajustaProduto);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7225,19 +7225,19 @@ public class Fachada {
 	public void alterarProducao(Producao producao,BigDecimal quantidade) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroProducao().alterar(producao,quantidade);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7253,19 +7253,19 @@ public class Fachada {
 	public void excluirProducao(Producao producao) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroProducao().excluir(producao);	
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7281,19 +7281,19 @@ public class Fachada {
 	public Producao consultarProducaoPorId(Long id) throws AppException{
 		Producao producao = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			producao = getCadastroProducao().consultarPorId(id);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7310,19 +7310,19 @@ public class Fachada {
 	public Collection consultarProducao(IPropertyFilter filter) throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroProducao().consultar(filter);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7340,19 +7340,19 @@ public class Fachada {
 	public Collection consultarTodasProducoes() throws AppException{
 		Collection c = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			c = getCadastroProducao().consultarTodos();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -7370,19 +7370,19 @@ public class Fachada {
 	public Integer consultarMaiorNumeroLote() throws AppException{
 		Integer l = null;
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			l = getCadastroProducao().consultarMaiorNumeroLote();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);

@@ -93,7 +93,5 @@
 	<mapping resource="com/infinity/datamarket/hbm/Banco.hbm.xml" />
 	<mapping resource="com/infinity/datamarket/hbm/ContaCorrente.hbm.xml" />
 	<mapping resource="com/infinity/datamarket/hbm/MovimentacaoBancaria.hbm.xml" />
-	<mapping resource="com/infinity/datamarket/hbm/Composicao.hbm.xml" />
-	<mapping resource="com/infinity/datamarket/hbm/Producao.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

@@ -20,9 +20,9 @@ public class TransactionServer implements TransactionServerRemote, TransactionSe
 		return Fachada.getInstancia();
 	}
 	public void inserirTransacao(Transacao transacao) throws AppException{
-		RepositoryManagerHibernateUtil.currentSession();
+		RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		getFachada().inserirTransacaoES(transacao);
-		RepositoryManagerHibernateUtil.closeSession();
+		RepositoryManagerHibernateUtil.getInstancia().closeSession();
 		System.out.println("TRANSACAO INSERIDA >> "+transacao.getPk());
 	}
 	
