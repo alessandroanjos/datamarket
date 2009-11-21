@@ -95,7 +95,7 @@ public class RepositorioProduto extends Repositorio implements IRepositorioProdu
 
 	public Collection consultarProdutosPorFiltro(Produto produto, String idLoja) throws AppException{
 		Collection<Produto> col = new ArrayList<Produto>();
-		Session session = RepositoryManagerHibernateUtil.currentSession();
+		Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		StringBuffer sqlSetence = new StringBuffer();
 		sqlSetence.append("SELECT p.* from PRODUTO p, PRODUTO_LOJA pl ");
 		sqlSetence.append("WHERE p.id = pl.id_produto ");

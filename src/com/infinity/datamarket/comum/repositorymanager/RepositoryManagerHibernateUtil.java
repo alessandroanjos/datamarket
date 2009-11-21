@@ -6,6 +6,10 @@
  */
 package com.infinity.datamarket.comum.repositorymanager;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Properties;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,18 +24,54 @@ import org.hibernate.cfg.Configuration;
  */
 public class RepositoryManagerHibernateUtil {
 
+	public static String HIBERNATE = "hibernate.cfg.xml";
+	public static String HIBERNATE_PDV = "hibernate.cfg.pdv.xml";
 
+    public  final SessionFactory sessionFactory;
+    public  final ThreadLocal session = new ThreadLocal();
+    public  final ThreadLocal transation = new ThreadLocal();
+	private  final Configuration configuration;
 
-    public static final SessionFactory sessionFactory;
-    public static final ThreadLocal session = new ThreadLocal();
-    public static final ThreadLocal transation = new ThreadLocal();
-	private static final Configuration configuration;
+	public static String arquivoHibernate;
+	public static Collection<Properties> properties;
+	private static RepositoryManagerHibernateUtil instancia;
+	private RepositoryManagerHibernateUtil () {
+        try {
+        	if (arquivoHibernate == null) {
+        		arquivoHibernate = HIBERNATE;
+        	}
+			configuration = new Configuration().configure("/"+ arquivoHibernate);
+			if (properties != null) {
+				Iterator<Properties> it = properties.iterator();
+				while(it.hasNext()) {
+					Properties prop = it.next();
+					configuration.addProperties(prop);	
+				}
+			}
+			sessionFactory = configuration.buildSessionFactory();
+		} catch (HibernateException ex) {
+			ex.printStackTrace();
+			throw new RuntimeException("Configuration Problem: "
+					+ ex.getMessage(), ex);
+		} catch (Throwable ex) {
+			ex.printStackTrace();
+			throw new RuntimeException("Configuration Problem: "
+					+ ex.getMessage(), ex);
+		}
+	}
 
-	public static Configuration getConfiguration() throws HibernateException {
+	public static RepositoryManagerHibernateUtil getInstancia() {
+		if (instancia == null) {
+			instancia = new RepositoryManagerHibernateUtil();
+		}
+		return instancia;
+	}
+
+	public  Configuration getConfiguration() throws HibernateException {
 		 return configuration;
 	}
 
-    public static Session currentSession() throws HibernateException{
+    public  Session currentSession() throws HibernateException{
     	Session s = (Session)session.get();
         if(s == null || !s.isOpen())
         {
@@ -45,7 +85,7 @@ public class RepositoryManagerHibernateUtil {
         return s;
     }
 
-    public static void beginTrasaction()
+    public  void beginTrasaction()
         throws HibernateException
     {
         try{
@@ -60,7 +100,7 @@ public class RepositoryManagerHibernateUtil {
         }
     }
 
-    public static void commitTransation()
+    public  void commitTransation()
         throws HibernateException
     {
         Transaction t = (Transaction)transation.get();
@@ -80,7 +120,7 @@ public class RepositoryManagerHibernateUtil {
         }
     }
 
-    public static void rollbackTransation()
+    public  void rollbackTransation()
         throws HibernateException
     {
         Exception exception;
@@ -103,7 +143,7 @@ public class RepositoryManagerHibernateUtil {
         }
     }
 
-    public static void closeSession()
+    public  void closeSession()
         throws HibernateException
     {
         try{
@@ -118,7 +158,7 @@ public class RepositoryManagerHibernateUtil {
         }
     }
 
-    public static void closeSession(Session s)
+    public  void closeSession(Session s)
     throws HibernateException
 {
     try{
@@ -131,14 +171,14 @@ public class RepositoryManagerHibernateUtil {
     }
 }
 
-    public static Session newSession()
+    public  Session newSession()
         throws HibernateException
     {
         Session s = sessionFactory.openSession();
         return s;
     }
 
-    public static void closeQuerySession()
+    public  void closeQuerySession()
         throws HibernateException
     {
         Session s = (Session)session.get();
@@ -148,25 +188,4 @@ public class RepositoryManagerHibernateUtil {
             s.close();
         }
     }
-
-    static
-    {
-        try
-        {
-        	configuration = new Configuration().configure();
-            sessionFactory = configuration.buildSessionFactory();
-        }
-        catch(HibernateException ex)
-        {
-        	ex.printStackTrace();
-            throw new RuntimeException("Configuration Problem: " + ex.getMessage(), ex);
-        }
-        catch(Throwable ex)
-        {
-        	ex.printStackTrace();
-            throw new RuntimeException("Configuration Problem: " + ex.getMessage(), ex);
-        }
-    }    
-   
 }
-

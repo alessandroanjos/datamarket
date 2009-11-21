@@ -23,9 +23,9 @@ public class InfoComponentServer implements MessageListener {
 				if (obj.getObject() instanceof InfoComponent){
 					InfoComponent info = (InfoComponent) obj.getObject();
 					info.setDataAtualizacao(new Date());
-					RepositoryManagerHibernateUtil.currentSession();
+					RepositoryManagerHibernateUtil.getInstancia().currentSession();
 					Fachada.getInstancia().salvarInfoComponent(info);
-					RepositoryManagerHibernateUtil.closeSession();
+					RepositoryManagerHibernateUtil.getInstancia().closeSession();
 				}				
 			}
 			

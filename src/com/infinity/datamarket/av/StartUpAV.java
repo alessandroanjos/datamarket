@@ -52,7 +52,7 @@ public class StartUpAV {
 			// TODO: handle exception
 		//}
 		
-		RepositoryManagerHibernateUtil.currentSession();
+		RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		GerenciadorPerifericos ger = GerenciadorPerifericos.getInstancia();
 //		ti.jProgressBar1.setValue(50);
 		Estado est = new Estado();
@@ -69,7 +69,7 @@ public class StartUpAV {
 		ThreadEnviaTransacao t1 = new ThreadEnviaTransacao();
 		t1.start();
 		maquina.iniciar();
-		RepositoryManagerHibernateUtil.closeSession();
+		RepositoryManagerHibernateUtil.getInstancia().closeSession();
 //		ti.jProgressBar1.setValue(100);
 //		ti.setVisible(false);
 	}

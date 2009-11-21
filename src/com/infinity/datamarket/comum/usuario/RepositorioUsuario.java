@@ -62,7 +62,7 @@ public class RepositorioUsuario extends Repositorio implements IRepositorioUsuar
 	
 	public Collection consultarUsuariosPorFiltro(Usuario usuario, String idLoja, boolean vendedor) throws AppException{
 		Collection<Usuario> col = new ArrayList<Usuario>();
-		Session session = RepositoryManagerHibernateUtil.currentSession();
+		Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		StringBuffer sqlSetence = new StringBuffer();
 		if(vendedor){
 			sqlSetence.append("SELECT u.* from USUARIO u, VENDEDOR v, USUARIO_LOJA ul ");

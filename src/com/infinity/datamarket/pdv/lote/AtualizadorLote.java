@@ -32,7 +32,7 @@ public class AtualizadorLote {
 	public void atualizarLote(Collection col) throws AppException{
 
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			Iterator i = col.iterator();
 			while(i.hasNext()){				
 				DadoLote dado = (DadoLote) i.next();
@@ -43,21 +43,21 @@ public class AtualizadorLote {
 				}else if (dado.getOperacao().equals(dado.EXCLUIR)){	
 					getRepositorio().excluir(dado.getDado());
 				}
-				RepositoryManagerHibernateUtil.currentSession().flush();
-				RepositoryManagerHibernateUtil.currentSession().evict(dado.getDado());
-				RepositoryManagerHibernateUtil.currentSession().clear();
+				RepositoryManagerHibernateUtil.getInstancia().currentSession().flush();
+				RepositoryManagerHibernateUtil.getInstancia().currentSession().evict(dado.getDado());
+				RepositoryManagerHibernateUtil.getInstancia().currentSession().clear();
 			}
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 			throw e;
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);

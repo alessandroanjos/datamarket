@@ -60,7 +60,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         {
             String className = _class.getName();
             String hql = "from " + className;
-            session = RepositoryManagerHibernateUtil.currentSession();
+            session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
             Query query = session.createQuery(hql);
             col = query.list();
         }
@@ -91,7 +91,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         try
         {        	
             Session session = null;
-            session = RepositoryManagerHibernateUtil.currentSession();
+            session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
             session.save(_obj);
         }
         catch(HibernateException ex)
@@ -105,7 +105,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
     try
     {
         Session session = null;
-        session = RepositoryManagerHibernateUtil.currentSession();
+        session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
         session.save(_obj);
     }
     catch(HibernateException ex)
@@ -121,7 +121,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         
         try
         {
-            session = RepositoryManagerHibernateUtil.currentSession();
+            session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
             session.update(_obj);
         }
         catch(HibernateException ex)
@@ -142,7 +142,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
 	    try
 	    {
 	        Session session = null;
-	        session = RepositoryManagerHibernateUtil.currentSession();
+	        session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 	        session.merge(_obj);
 	    }
 	    catch(HibernateException ex)
@@ -157,7 +157,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         try
         {
             Session session = null;
-            session = RepositoryManagerHibernateUtil.currentSession();
+            session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
             session.delete(_obj);
         }
         catch(HibernateException ex)
@@ -187,7 +187,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         Session session = null;
         try
         {
-            session = RepositoryManagerHibernateUtil.currentSession();
+            session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
             obj = session.load(_class, (Serializable)_id);
         }
         catch (ObjectNotFoundException e) {
@@ -294,7 +294,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
     	Map attributes = _filter.getProperties();
         Collection nullAttributes = _filter.getPropertiesNull();
         Map intervalAttributes = _filter.getPropertiesInterval();
-    	Session session = RepositoryManagerHibernateUtil.currentSession();
+    	Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
         Criteria criteria = session.createCriteria(_filter.getTheClass());
         if(attributes != null)
         {

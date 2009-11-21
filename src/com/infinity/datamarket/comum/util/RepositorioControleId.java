@@ -20,7 +20,7 @@ public class RepositorioControleId extends Repositorio implements IRepositorioCo
 
 	public Long retornaMaxId(Class classe){
 		Long maxId = null;		
-		Query query = RepositoryManagerHibernateUtil.currentSession().createQuery("select max(id) from " + classe.getSimpleName());
+		Query query = RepositoryManagerHibernateUtil.getInstancia().currentSession().createQuery("select max(id) from " + classe.getSimpleName());
 		Long qretorno = (Long)query.uniqueResult(); 		
 		if (qretorno != null){
 			maxId = qretorno;	

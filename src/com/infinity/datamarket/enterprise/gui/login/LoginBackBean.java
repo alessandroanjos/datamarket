@@ -91,7 +91,7 @@ public class LoginBackBean extends BackBean{
 	}
 
 	public Usuario getUsuario() {
-		usuario = (Usuario) RepositoryManagerHibernateUtil.currentSession().load(usuario.getClass().getName(), usuario.getId());
+		usuario = (Usuario) RepositoryManagerHibernateUtil.getInstancia().currentSession().load(usuario.getClass().getName(), usuario.getId());
 		return usuario;
 	}
 
@@ -245,7 +245,7 @@ public class LoginBackBean extends BackBean{
 	}
 
 	public Usuario getUsuarioLogado() {
-		usuarioLogado = (Usuario) RepositoryManagerHibernateUtil.currentSession().load(usuarioLogado.getClass().getName(), usuarioLogado.getId());
+		usuarioLogado = (Usuario) RepositoryManagerHibernateUtil.getInstancia().currentSession().load(usuarioLogado.getClass().getName(), usuarioLogado.getId());
 		return usuarioLogado;
 	}
 

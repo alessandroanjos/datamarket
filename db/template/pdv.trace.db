@@ -29,3 +29,94 @@ CREATE TABLE PLANO_PAGAMENTO_AVISTA (
 )
 
 ALTER TABLE PLANO_PAGAMENTO_AVISTA  ADD CONSTRAINT PK_PLANO_PAGAMENTO_AVISTA PRIMARY KEY (ID_PLANO) [42000-119]
+11-21 18:12:38 database: error initializing summary for F:\workspace\pdv\db\template\pdv.data.db size:216 stage:1
+java.lang.RuntimeException: Redo failure, block: 80 expected: 127 got: 255
+	at org.h2.message.Message.throwInternalError(Message.java:186)
+	at org.h2.store.DiskFile.initFromSummary(DiskFile.java:307)
+	at org.h2.log.LogFile.redoOrUndo(LogFile.java:316)
+	at org.h2.log.LogFile.redoAllGoEnd(LogFile.java:375)
+	at org.h2.log.LogSystem.recover(LogSystem.java:249)
+	at org.h2.engine.Database.open(Database.java:607)
+	at org.h2.engine.Database.openDatabase(Database.java:222)
+	at org.h2.engine.Database.<init>(Database.java:216)
+	at org.h2.engine.Engine.openSession(Engine.java:58)
+	at org.h2.engine.Engine.openSession(Engine.java:140)
+	at org.h2.engine.Engine.getSession(Engine.java:120)
+	at org.h2.engine.SessionFactoryEmbedded.createSession(SessionFactoryEmbedded.java:17)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:245)
+	at org.h2.engine.SessionRemote.createSession(SessionRemote.java:223)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:110)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
+	at org.h2.Driver.connect(Driver.java:58)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:618)
+	at org.h2.server.web.WebThread.test(WebThread.java:1028)
+	at org.h2.server.web.WebThread.process(WebThread.java:428)
+	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
+	at org.h2.server.web.WebThread.process(WebThread.java:236)
+	at org.h2.server.web.WebThread.run(WebThread.java:193)
+11-21 18:12:59 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*]] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19] [42000-119]
+11-21 18:13:12 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:13:15 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:13:16 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:13:16 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:13:16 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:13:17 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:13:17 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:13:17 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:13:17 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:13:17 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:13:17 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:14:06 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:14:07 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:14:08 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:14:08 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*] ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19 [42000-119]
+11-21 18:14:27 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*]
+
+
+SELECT * FROM IMPOSTO ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19
+
+
+select * from imposto [42000-119]
+11-21 18:14:28 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement SELECT IMPOSTO0_.ID AS ID12_, IMPOSTO0_.DESCRICAO AS DESCRICAO12_, IMPOSTO0_.IMP_IMPRESSORA AS IMP3_12_, IMPOSTO0_.PERCENTUAL AS PERCENTUAL12_ FROM IMPOSTO IMPOSTO0_ 19[*]
+
+
+SELECT * FROM IMPOSTO ; SQL statement:
+select imposto0_.ID as ID12_, imposto0_.DESCRICAO as DESCRICAO12_, imposto0_.IMP_IMPRESSORA as IMP3_12_, imposto0_.PERCENTUAL as PERCENTUAL12_ from IMPOSTO imposto0_ 19
+
+
+select * from imposto [42000-119]

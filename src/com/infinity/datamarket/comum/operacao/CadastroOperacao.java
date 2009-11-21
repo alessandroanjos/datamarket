@@ -113,7 +113,7 @@ public class CadastroOperacao extends Cadastro{
 		Integer retorno = new Integer(0);
 		StringBuffer sb = new StringBuffer();
 		sb.append("select max(operacao.pk.id) from Operacao operacao where loja = " + pk.getLoja());
-		Query query = RepositoryManagerHibernateUtil.currentSession().createQuery(sb.toString());
+		Query query = RepositoryManagerHibernateUtil.getInstancia().currentSession().createQuery(sb.toString());
 		Integer qretorno = (Integer)query.uniqueResult(); 		
 		if (qretorno != null){
 			retorno = qretorno + 1;	

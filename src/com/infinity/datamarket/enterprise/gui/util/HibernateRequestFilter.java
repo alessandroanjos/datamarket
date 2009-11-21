@@ -15,9 +15,9 @@ import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernat
 public class HibernateRequestFilter implements Filter {
 
 	 public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {  
-		 RepositoryManagerHibernateUtil.currentSession();
+		 RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		 chain.doFilter(req, resp);	
-		 RepositoryManagerHibernateUtil.closeSession();
+		 RepositoryManagerHibernateUtil.getInstancia().closeSession();
 	}
 
 	public void destroy() {

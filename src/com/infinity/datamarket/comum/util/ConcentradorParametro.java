@@ -38,18 +38,18 @@ public class ConcentradorParametro extends Cadastro{
 	public Parametro getParametro(String chave) {
 		Parametro retorno = null;
 		try{			
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			retorno = (Parametro) getRepositorio().getParametro(chave);	
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -61,18 +61,18 @@ public class ConcentradorParametro extends Cadastro{
 	public void atualizarParametro(Parametro parametro) {
 		
 		try{
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getRepositorio().atualizarParametro(parametro);
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);
@@ -83,19 +83,19 @@ public class ConcentradorParametro extends Cadastro{
 	public String consultarURLApp() throws AppException{
 		String url = "http://localhost:8080";
 		try{	
-			RepositoryManagerHibernateUtil.beginTrasaction();
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			Parametro p = (Parametro) getRepositorio().getParametro("URL");
 			url = p.getValor();
-			RepositoryManagerHibernateUtil.commitTransation();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 			}catch(Exception ex){
 				throw new SistemaException(ex);
 			}
 		}catch(Throwable e){
 			try{
-				RepositoryManagerHibernateUtil.rollbackTransation();
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
 				throw new SistemaException(e);
 			}catch(Exception ex){
 				throw new SistemaException(ex);

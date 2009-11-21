@@ -36,7 +36,7 @@ public class ThreadEnviaTransacao extends Thread{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			RepositoryManagerHibernateUtil.currentSession();
+			RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			try{
 				Collection transacoes = getTransacoesNaoProcessadas();
 				Iterator i = transacoes.iterator();				
@@ -100,7 +100,7 @@ public class ThreadEnviaTransacao extends Thread{
 				System.out.println(e.getMessage());
 				//e.printStackTrace();
 			}
-			RepositoryManagerHibernateUtil.closeSession();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 				
 		}
 	}
