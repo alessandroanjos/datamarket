@@ -10,6 +10,10 @@ import java.util.Collection;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.lote.LoteServerRemote;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOSArquivo;
+import com.infinity.datamarket.pdv.gui.telas.swing.TelaCargaDados;
+import com.infinity.datamarket.pdv.maquinaestados.Estado;
 import com.infinity.datamarket.pdv.util.ServerConfig;
 import com.infinity.datamarket.pdv.util.ServiceLocator;
 
@@ -46,10 +50,27 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 				e.printStackTrace();
 			}
 			
-
-			
 			try{ 
 				novoLote =  verificarNovoLote(numeroLote);
+				
+				Estado estadoAtual = (Estado)GerenciadorPerifericos.getInstancia().getCmos().ler(CMOSArquivo.ESTADO_ATUAL);
+				
+        		if (estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL)){
+	        		//verifica se tem novo lote liberado
+        			System.out.println("Maquina.ThreadProcessaMacro.run: threadVerificaNovoLote.existeNovoLote(): "+existeNovoLote());
+        			if (existeNovoLote()){
+        				System.out.println("HÁ UM NOVO LOTE LIBERADO");
+        				TelaCargaDados tela = new TelaCargaDados(GerenciadorPerifericos.getInstancia().getWindow().getFrame().getWidth(),GerenciadorPerifericos.getInstancia().getWindow().getFrame().getHeight());
+        				Thread thread = new Thread(tela);
+        				thread.start();
+	        			atualizaLote();
+	        			GerenciadorPerifericos.getInstancia().getWindow().atualizaLote(getNumeroLote());
+	        			tela.stop();	        			
+	        		}else{
+	        			System.out.println("NÃO HÁ NOVO LOTE LIBERADO");
+	        		}
+        		}
+
 //				LoteServerRemote remote = (LoteServerRemote) ServiceLocator.getJNDIObject(ServerConfig.LOTE_SERVER_JNDI);
 //				if (remote != null){	
 //					novoLote = remote.verificaNovoLoteLiberado(numeroLote);

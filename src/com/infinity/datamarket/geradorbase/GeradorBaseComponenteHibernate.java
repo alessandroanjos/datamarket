@@ -145,6 +145,11 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 		geradorBaseGenerico(col);
 		
 	}
+
+	protected void geraBaseLojas(Collection col)
+	throws Exception{
+		geradorBaseGenerico(col);
+	}
 	
 	public void geraBaseAcumuladorNaoFiscal(Collection objetos) throws Exception{
 		geradorBaseGenerico(objetos);

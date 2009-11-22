@@ -93,6 +93,35 @@ public class RepositorioProduto extends Repositorio implements IRepositorioProdu
 		excluirDadoLote(produto);
 	}
 
+	public Collection consultarTodosLoja(long idLoja) throws AppException{
+		Collection<Produto> col = new ArrayList<Produto>();
+		Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
+		StringBuffer sqlSetence = new StringBuffer();
+		sqlSetence.append("SELECT p.id from PRODUTO p, PRODUTO_LOJA pl ");
+		sqlSetence.append("WHERE p.id = pl.id_produto ");
+		sqlSetence.append("AND pl.id_loja = " + idLoja);		
+		SQLQuery query = session.createSQLQuery(sqlSetence.toString());
+		List result = query.list();
+
+		if(result != null && result.size() > 0){
+			Iterator it = result.iterator();
+			while(it.hasNext()){
+				Object obj = (Object)it.next();
+				if(obj != null){
+					Produto produto = (Produto)session.get(Produto.class, new Long(obj .toString()));
+					if (null != produto.getComposicao() && produto.getComposicao().size() > 1) {
+						produto.getComposicao().isEmpty();
+					}
+					produto.getLojas();
+					col.add(produto);
+				}
+			}
+		}
+		return col;
+		
+	}
+
+	
 	public Collection consultarProdutosPorFiltro(Produto produto, String idLoja) throws AppException{
 		Collection<Produto> col = new ArrayList<Produto>();
 		Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();

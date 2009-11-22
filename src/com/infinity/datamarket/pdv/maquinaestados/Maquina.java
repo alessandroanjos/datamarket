@@ -194,22 +194,23 @@ public class Maquina implements Serializable{
 //                System.out.println("Maquina.ThreadProcessaMacro.run: 19");
         		t2.start();
 //        		System.out.println("Maquina.ThreadProcessaMacro.run: 20");
-        		System.out.println("Maquina.ThreadProcessaMacro.run: estadoAtual: "+estadoAtual.getId());
-        		if (estadoAtual.getId().equals(Estado.DISPONIVEL)){
-	        		//verifica se tem novo lote liberado
-        			System.out.println("Maquina.ThreadProcessaMacro.run: threadVerificaNovoLote.existeNovoLote(): "+threadVerificaNovoLote.existeNovoLote());
-        			if (threadVerificaNovoLote.existeNovoLote()){
-        				System.out.println("HÁ UM NOVO LOTE LIBERADO");
-        				TelaCargaDados tela = new TelaCargaDados(gerenciadorPerifericos.getWindow().getFrame().getWidth(),gerenciadorPerifericos.getWindow().getFrame().getHeight());
-        				Thread thread = new Thread(tela);
-        				thread.start();
-	        			threadVerificaNovoLote.atualizaLote();
-	        			gerenciadorPerifericos.getWindow().atualizaLote(threadVerificaNovoLote.getNumeroLote());
-	        			tela.stop();	        			
-	        		}else{
-	        			System.out.println("NÃO HÁ NOVO LOTE LIBERADO");
-	        		}
-        		}
+
+//        		System.out.println("Maquina.ThreadProcessaMacro.run: estadoAtual: "+estadoAtual.getId());
+//        		if (estadoAtual.getId().equals(Estado.DISPONIVEL)){
+//	        		//verifica se tem novo lote liberado
+//        			System.out.println("Maquina.ThreadProcessaMacro.run: threadVerificaNovoLote.existeNovoLote(): "+threadVerificaNovoLote.existeNovoLote());
+//        			if (threadVerificaNovoLote.existeNovoLote()){
+//        				System.out.println("HÁ UM NOVO LOTE LIBERADO");
+//        				TelaCargaDados tela = new TelaCargaDados(gerenciadorPerifericos.getWindow().getFrame().getWidth(),gerenciadorPerifericos.getWindow().getFrame().getHeight());
+//        				Thread thread = new Thread(tela);
+//        				thread.start();
+//	        			threadVerificaNovoLote.atualizaLote();
+//	        			gerenciadorPerifericos.getWindow().atualizaLote(threadVerificaNovoLote.getNumeroLote());
+//	        			tela.stop();	        			
+//	        		}else{
+//	        			System.out.println("NÃO HÁ NOVO LOTE LIBERADO");
+//	        		}
+//        		}
                 new ThreadProcessaMacro(estadoAtual);
             }catch(Exception ex){            	
             	ex.printStackTrace();

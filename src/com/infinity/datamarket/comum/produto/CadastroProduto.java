@@ -3,6 +3,7 @@ package com.infinity.datamarket.comum.produto;
 import java.util.Collection;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Cadastro;
 import com.infinity.datamarket.comum.util.IRepositorio;
@@ -39,8 +40,13 @@ public class CadastroProduto extends Cadastro{
 	public Collection consultar(IPropertyFilter filter) throws AppException{
 		return getRepositorio().consultar(filter);
 	}
+	
 	public Collection consultarTodos() throws AppException{
 		return getRepositorio().consultarTodos();
+	}
+	
+	public Collection consultarTodosLoja(long idLoja) throws AppException{
+		return getRepositorio().consultarTodosLoja(idLoja);
 	}
 	public void inserir(Produto produto) throws AppException{
 		getRepositorio().inserir(produto);

@@ -1,5 +1,6 @@
 package com.infinity.datamarket.geradorbase;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -11,6 +12,7 @@ import com.infinity.datamarket.comum.banco.Banco;
 import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.conta.ContaCorrente;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
+import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
@@ -37,10 +39,11 @@ public abstract class GeradorBaseComponente {
 			e.printStackTrace();
 			return;
 		}
+		geraBaseLojas();
 		geraBaseAcumuladorNaoFiscal();
 		geraBaseTotalizadoresNaoFiscais();
 		geraBaseAutorizadora();
-		geraBaseLoja(codigoLoja);
+//		geraBaseLoja(codigoLoja);
 		geraBaseComponente(codigoLoja);
 		geraBaseFormaRecebimento();
 		geraBaseMacroOperacao();
@@ -51,7 +54,7 @@ public abstract class GeradorBaseComponente {
 		geraBaseTipoProduto();
 		geraBaseGrupoProduto();
 		geraBaseUnidade();
-		geraBaseProduto();
+		geraBaseProduto(codigoLoja);
 		geraBasePlanoPagamento();
 		geraBaseBanco();
 		geraBaseContaCorrente(codigoLoja);
@@ -64,6 +67,24 @@ public abstract class GeradorBaseComponente {
 
 	}
 
+	
+	
+	private void geraBaseLojas() {
+		try {
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
+			Collection acumuladores = Fachada.getInstancia().consultarTodosLoja();
+			session.clear();
+			geraBaseAcumuladorNaoFiscal(acumuladores);
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
+			System.out.println("## BASE DE ACUMULADORES GERADA OK!!");
+			System.out.println("## REGISTROS => " + acumuladores.size());
+		} catch (Exception e) {
+			System.out.println("## BASE DE ACUMULADORES GERADA COM ERRO!!");
+			System.out.println("## ERRO => " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
 	private void geraBaseAcumuladorNaoFiscal() {
 		try {
 			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
@@ -277,12 +298,28 @@ public abstract class GeradorBaseComponente {
 		}
 	}
 
-	private void geraBaseProduto() {
+	private void geraBaseProduto(long idLoja) {
 		try {
 			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
-			Collection produtos = Fachada.getInstancia()
-					.consultarTodosProdutos();
+			Collection produtos = Fachada.getInstancia().consultarTodosProdutos(idLoja);
 			session.clear();
+			if (produtos != null) {
+				Iterator it = produtos.iterator();
+				while(it.hasNext()) {
+					Produto produto = (Produto) it.next();
+					if(!produto.getComposicao().isEmpty()) {
+						System.out.println("ois");
+					}
+						 
+					Loja loja = new Loja();
+					loja.setId(idLoja);
+					Collection coll = new HashSet();
+					coll.add(loja);
+					
+					produto.setLojas(coll);
+				
+				}
+			}
 			geraBaseProsutos(produtos);
 			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE PRODUTOS GERADA OK!!");
@@ -420,6 +457,9 @@ public abstract class GeradorBaseComponente {
 			e.printStackTrace();
 		}
 	}
+
+	protected abstract void geraBaseLojas(Collection col)
+			throws Exception;
 
 	protected abstract void geraBaseAcumuladorNaoFiscal(Collection col)
 			throws Exception;
