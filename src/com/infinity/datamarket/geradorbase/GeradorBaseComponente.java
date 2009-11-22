@@ -4,13 +4,14 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.banco.Banco;
 import com.infinity.datamarket.comum.componente.Componente;
+import com.infinity.datamarket.comum.conta.ContaCorrente;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
-import com.infinity.datamarket.comum.pagamento.PlanoPagamentoAPrazo;
+import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.usuario.Loja;
@@ -34,6 +35,7 @@ public abstract class GeradorBaseComponente {
 		} catch (Exception e) {
 			System.out.println("## ERRO NA INICIALIZAÇÃO DA GERAÇÃO DA BASE!!");
 			System.out.println("## ERRO => " + e.getMessage());
+			e.printStackTrace();
 			return;
 		}
 		geraBaseAcumuladorNaoFiscal();
@@ -52,7 +54,9 @@ public abstract class GeradorBaseComponente {
 		geraBaseUnidade();
 		geraBaseProduto();
 		geraBasePlanoPagamento();
-
+		geraBaseBanco();
+		geraBaseContaCorrente(codigoLoja);
+		
 		System.out.println();
 		System.out
 				.println("######################################################################");
@@ -67,8 +71,7 @@ public abstract class GeradorBaseComponente {
 	private void geraBaseAcumuladorNaoFiscal() {
 		try {
 			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
-			Collection acumuladores = Fachada.getInstancia()
-					.consultarTodosAcumuladoresNaoFiscais();
+			Collection acumuladores = Fachada.getInstancia().consultarTodosAcumuladoresNaoFiscais();
 			session.clear();
 			geraBaseAcumuladorNaoFiscal(acumuladores);
 			RepositoryManagerHibernateUtil.getInstancia().closeSession();
@@ -182,6 +185,46 @@ public abstract class GeradorBaseComponente {
 			System.out.println("## REGISTROS => " + planos.size());
 		} catch (Exception e) {
 			System.out.println("## BASE DE PLANO GERADA COM ERRO!!");
+			System.out.println("## ERRO => " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	private void geraBaseBanco() {
+		try {
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
+			Collection<Banco> bancos = Fachada.getInstancia().consultarTodosBancos();
+			session.clear();
+			geraBaseBancos(bancos);
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
+			System.out.println("## BASE DE BANCOS GERADA OK!!");
+			System.out.println("## REGISTROS => " + bancos.size());
+		} catch (Exception e) {
+			System.out.println("## BASE DE BANCOS GERADA COM ERRO!!");
+			System.out.println("## ERRO => " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+
+	private void geraBaseContaCorrente(long iLoja) {
+		try {
+			
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
+			
+			IPropertyFilter filter = new PropertyFilter();
+	    	filter.setTheClass(ContaCorrente.class);
+	    	
+	    	filter.addProperty("loja.id", new Long(iLoja));
+	    	
+	    	Collection<ContaCorrente> cc = Fachada.getInstancia().consultarContaCorrente(filter);
+			session.clear();
+			geraBaseContaCorrente(cc);
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
+			System.out.println("## BASE DE Conta corrente GERADA OK!!");
+			System.out.println("## REGISTROS => " + cc.size());
+		} catch (Exception e) {
+			System.out.println("## BASE DE Conta corrente GERADA COM ERRO!!");
 			System.out.println("## ERRO => " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -400,6 +443,10 @@ public abstract class GeradorBaseComponente {
 			throws Exception;
 
 	protected abstract void inicio(Long loja) throws Exception;
+
+	protected abstract void geraBaseBancos(Collection col) throws Exception;
+
+	protected abstract void geraBaseContaCorrente(Collection col) throws Exception;
 
 	public static void main(String[] a) {
 		GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator

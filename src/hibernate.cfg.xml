@@ -25,7 +25,7 @@
     -->
 
    	<property name="connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
-	<property name="connection.url">jdbc:jtds:sqlserver://localhost:1433/PDV</property> 
+	<property name="connection.url">jdbc:jtds:sqlserver://localhost:1433/ENTERPRISE</property> 
   	<property name="connection.username">sa</property>
   	<property name="connection.password">1234</property>
 

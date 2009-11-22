@@ -41,7 +41,7 @@
         </property>
         
         <property name="enquadramento" type="java.lang.String" update="true" insert="true">
-            <column name="ENQUADRAMENTO" length="1" not-null="true"/>
+            <column name="ENQUADRAMENTO" length="1" />
         </property>
 
         <property name="precoPadrao" type="java.math.BigDecimal" update="true" insert="true">
@@ -87,11 +87,11 @@
         </set>
         
         <property name="quantidadeMinimaProduto" type="java.math.BigDecimal" update="true" insert="true">
-            <column name="QTD_MINIMA" length="20" not-null="true"/>
+            <column name="QTD_MINIMA" length="20" />
         </property>
         
         <property name="markup" type="java.math.BigDecimal" update="true" insert="true">
-            <column name="MARKUP" length="20" not-null="true"/>
+            <column name="MARKUP" length="20" />
         </property>
     </class>
 

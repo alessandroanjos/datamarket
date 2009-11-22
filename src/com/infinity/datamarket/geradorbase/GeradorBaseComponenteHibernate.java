@@ -3,7 +3,7 @@ package com.infinity.datamarket.geradorbase;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.util.Collection;
 import java.util.Iterator;
@@ -14,6 +14,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
+import com.infinity.datamarket.comum.util.Util;
+import com.infinity.datamarket.pdv.maquinaestados.LeitorMaquinaEstadoXML;
 
 public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 	
@@ -57,41 +59,44 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 			}			
 		}
 	}
-
 	
 	public void inicio(Long loja) throws Exception {
-		
-		File f = new File("\\pdv\\db\\"+loja);
+
+		String diretorioDestino = Util.getDirCorrente() + "\\banco\\"+loja;
+		String diretorioOrigem = Util.getDirCorrente() + "\\db\\template";
+		File f = new File(diretorioDestino);
 		if (!f.exists()){
 			f.mkdirs();
 		}else{
 			File[] arquivos = f.listFiles();
 			for (int i = 0; i < arquivos.length; i++) {
-				arquivos[i].delete();
+				if (arquivos[i].isFile()) {
+					arquivos[i].delete();
+				}
 			}
 		}
 
-		File fBanco = new File("\\pdv\\db\\template");
+		File fBanco = new File(diretorioOrigem);
 		File[] arquivos = fBanco.listFiles();
 		for (int i = 0; i < arquivos.length; i++) {
-			FileChannel oriChannel = new FileInputStream(arquivos[i]).getChannel();
-			FileChannel destChannel = new FileOutputStream(new File(f.getPath()+File.separator+arquivos[i].getName())).getChannel();
-			destChannel.transferFrom(oriChannel, 0, oriChannel.size());
-			oriChannel.close();
-			destChannel.close();
+			if (arquivos[i].isFile()) {
+				FileChannel oriChannel = new FileInputStream(arquivos[i]).getChannel();
+				FileChannel destChannel = new FileOutputStream(new File(f.getPath()+File.separator+arquivos[i].getName())).getChannel();
+				destChannel.transferFrom(oriChannel, 0, oriChannel.size());
+				oriChannel.close();
+				destChannel.close();
+			}
 		}
-		
+
 		Configuration cfg = new Configuration();
-//		.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect")		
-//		.setProperty("hibernate.connection.driver_class","org.h2.Driver")
-//		.setProperty("hibernate.connection.url","jdbc:h2:\\pdv\\db\\"+loja+"\\pdv")
-//		.setProperty("hibernate.connection.username","sa")
-//		.setProperty("hibernate.connection.password","sa")
-//		.setProperty("hibernate.connection.pool_size","1");
-		File fileCfg = new File("C:\\workspace\\datamarket\\src\\hibernate.cfg.pdv.xml");
-		 
-		sessionFactory = cfg.configure(fileCfg).
-			setProperty("hibernate.connection.url","jdbc:h2:\\pdv\\db\\"+loja+"\\pdv").buildSessionFactory();
+		
+		URL url = LeitorMaquinaEstadoXML.class.getClassLoader().getResource(RepositoryManagerHibernateUtil.HIBERNATE_PDV);
+		String arq = url.toString();
+		arq = arq.substring("file:\\".length(), arq.length());
+		File file = new File(arq);
+
+		sessionFactory = cfg.configure(file).
+			setProperty("hibernate.connection.url","jdbc:h2:" + diretorioDestino + "\\pdv").buildSessionFactory();
 		
 	}
 
@@ -164,7 +169,13 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 		geradorBaseGenerico(objetos);
 	}
 
-	
-	
 
+	protected void geraBaseBancos(Collection objetos) throws Exception{
+		geradorBaseGenerico(objetos);
+	}
+
+
+	protected void geraBaseContaCorrente(Collection objetos) throws Exception{
+		geradorBaseGenerico(objetos);
+	}
 }

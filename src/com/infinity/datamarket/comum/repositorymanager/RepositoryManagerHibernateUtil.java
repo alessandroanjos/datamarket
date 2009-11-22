@@ -6,7 +6,6 @@
  */
 package com.infinity.datamarket.comum.repositorymanager;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Properties;
 
@@ -33,7 +32,7 @@ public class RepositoryManagerHibernateUtil {
 	private  final Configuration configuration;
 
 	public static String arquivoHibernate;
-	public static Collection<Properties> properties;
+	public static Properties properties;
 	private static RepositoryManagerHibernateUtil instancia;
 	private RepositoryManagerHibernateUtil () {
         try {
@@ -42,10 +41,11 @@ public class RepositoryManagerHibernateUtil {
         	}
 			configuration = new Configuration().configure("/"+ arquivoHibernate);
 			if (properties != null) {
-				Iterator<Properties> it = properties.iterator();
+				Iterator it = properties.keySet().iterator();
 				while(it.hasNext()) {
-					Properties prop = it.next();
-					configuration.addProperties(prop);	
+					String key = it.next().toString();
+					String valor = properties.getProperty(key);
+					configuration.setProperty(key,valor);	
 				}
 			}
 			sessionFactory = configuration.buildSessionFactory();
