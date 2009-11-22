@@ -135,6 +135,12 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 		
 	}
 
+
+	protected void geraBaseParametros(Collection col)throws Exception {
+		geradorBaseGenerico(col);
+		
+	}
+	
 	protected void geraBaseUnidade(Collection col) throws Exception {
 		geradorBaseGenerico(col);
 		

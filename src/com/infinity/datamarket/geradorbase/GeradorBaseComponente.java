@@ -17,18 +17,17 @@ import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernat
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Perfil;
 import com.infinity.datamarket.comum.usuario.Usuario;
+import com.infinity.datamarket.comum.util.ConcentradorParametro;
+import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 
 public abstract class GeradorBaseComponente {
 
 	public void geraBase(Long codigoLoja) {
-		System.out
-				.println("######################################################################");
-		System.out
-				.println("## INICIO DA GERA플O DA BASE DE COMPONENTE PARA LOJA "
+		System.out.println("######################################################################");
+		System.out.println("## INICIO DA GERA플O DA BASE DE COMPONENTE PARA LOJA "
 						+ codigoLoja + " ##");
-		System.out
-				.println("######################################################################");
+		System.out.println("######################################################################");
 		System.out.println();
 		try {
 			inicio(codigoLoja);
@@ -56,15 +55,12 @@ public abstract class GeradorBaseComponente {
 		geraBasePlanoPagamento();
 		geraBaseBanco();
 		geraBaseContaCorrente(codigoLoja);
+		geraBaseParametros(codigoLoja);
 		
 		System.out.println();
-		System.out
-				.println("######################################################################");
-		System.out
-				.println("##   FIM DA GERA플O DA BASE DE COMPONENTE PARA LOJA "
-						+ codigoLoja + "  ##");
-		System.out
-				.println("######################################################################");
+		System.out.println("######################################################################");
+		System.out.println("##   FIM DA GERA플O DA BASE DE COMPONENTE PARA LOJA " + codigoLoja + "  ##");
+		System.out.println("######################################################################");
 
 	}
 
@@ -403,6 +399,28 @@ public abstract class GeradorBaseComponente {
 		}
 	}
 
+
+	private void geraBaseParametros(long idLoja) {
+		try {
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
+			Collection<Parametro> Parametros = Fachada.getInstancia().consultarTodosParametro();
+			session.clear();
+			for (Parametro parametro : Parametros) {
+				if(parametro.getChave().equalsIgnoreCase(ConcentradorParametro.LOJA)){
+					parametro.setValor(idLoja + "");	
+				}
+			}
+			geraBaseParametros(Parametros);
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
+			System.out.println("## BASE DE Parametros GERADA OK!!");
+			System.out.println("## REGISTROS => " + Parametros.size());
+		} catch (Exception e) {
+			System.out.println("## BASE DE Parametros GERADA COM ERRO!!");
+			System.out.println("## ERRO => " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
 	protected abstract void geraBaseAcumuladorNaoFiscal(Collection col)
 			throws Exception;
 
@@ -445,6 +463,8 @@ public abstract class GeradorBaseComponente {
 	protected abstract void inicio(Long loja) throws Exception;
 
 	protected abstract void geraBaseBancos(Collection col) throws Exception;
+
+	protected abstract void geraBaseParametros(Collection col) throws Exception;
 
 	protected abstract void geraBaseContaCorrente(Collection col) throws Exception;
 

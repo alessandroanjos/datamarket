@@ -664,7 +664,38 @@ public class Fachada {
 	public Parametro consultarParametro(String chave) throws AppException{
 		return getConcentradorParametro().getParametro(chave);		
 	}
+
 	
+	public Collection<Parametro> consultarTodosParametro() throws AppException{
+		Collection<Parametro> coll = null;
+		try{
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+			coll = getConcentradorParametro().consultarTodosParametro();
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return coll;
+	}
+
 	public Loja consultarLojaPorId(Long id) throws AppException{
 		Loja loja = null;
 		try{

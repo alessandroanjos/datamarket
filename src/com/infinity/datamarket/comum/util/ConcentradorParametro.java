@@ -1,5 +1,7 @@
 package com.infinity.datamarket.comum.util;
 
+import java.util.Collection;
+
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 
 
@@ -57,7 +59,11 @@ public class ConcentradorParametro extends Cadastro{
 		}		
 		return retorno;
 	}
-	
+
+	public Collection<Parametro> consultarTodosParametro() throws AppException  {
+			return getRepositorio().consultarTodosParametro();	
+	}
+
 	public void atualizarParametro(Parametro parametro) {
 		
 		try{

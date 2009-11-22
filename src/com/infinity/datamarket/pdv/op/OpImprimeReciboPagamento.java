@@ -11,6 +11,7 @@ import com.infinity.datamarket.comum.transacao.TransacaoPagamentoCartaoProprio;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.Parametro;
+import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
@@ -39,7 +40,8 @@ public class OpImprimeReciboPagamento extends Mic{
 						TransacaoPagamentoCartaoProprio transPagamentoCartaoProprio = (TransacaoPagamentoCartaoProprio) transPagamento; 
 						try {
 							OutputStream out = getFachadaPDV().gerarReciboPagamentoCliente(transPagamentoCartaoProprio);							
-							String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();//"c:\\pdv\\temp\\";
+//							String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();//"c:\\pdv\\temp\\";
+							String caminho = Util.getDirCorrente();
 							File dir = new File(caminho);
 							if (!dir.exists()){
 								dir.mkdir();
