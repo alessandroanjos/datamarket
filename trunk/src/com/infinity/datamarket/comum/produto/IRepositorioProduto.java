@@ -13,6 +13,7 @@ public interface IRepositorioProduto extends IRepositorio{
 	public Collection consultarPorFiltro(IPropertyFilter filter, boolean preciso) throws AppException;
 	public Collection consultar(IPropertyFilter filter) throws AppException;
 	public Collection consultarTodos() throws AppException;
+	public Collection consultarTodosLoja(long idLoja) throws AppException;
 	public void inserir(Produto produto) throws AppException;
 	
 	public void alterar(Produto produto) throws AppException;

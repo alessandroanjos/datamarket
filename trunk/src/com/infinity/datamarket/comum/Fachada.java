@@ -3672,7 +3672,37 @@ public class Fachada {
 		}
 		return c;
 	}
-	
+
+	public Collection consultarTodosProdutos(long idCodigoLoja) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+			c = getCadastroProduto().consultarTodosLoja(idCodigoLoja);
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+
 	public Produto consultarProdutoPorPK(Long id) throws AppException{
 		Produto produto = null;
 		try{

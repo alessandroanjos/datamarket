@@ -625,6 +625,209 @@ PRIMARY KEY
 	ID 
 )
 ) [42001-119]
-11-22 10:51:53 jdbc[2]: SQLException
+11-22 16:51:50 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Schema DBO not found; SQL statement:
+CREATE TABLE dbo.PRODUTO_LOJA(
+	ID_PRODUTO bigint NOT NULL,
+	ID_LOJA bigintNOT NULL,
+  PRIMARY KEY   
+(
+	ID_PRODUTO ,
+	ID_LOJA 
+)
+) [90079-119]
+	at org.h2.message.Message.getSQLException(Message.java:106)
+	at org.h2.message.Message.getSQLException(Message.java:117)
+	at org.h2.message.Message.getSQLException(Message.java:76)
+	at org.h2.command.Parser.getSchema(Parser.java:595)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:4624)
+	at org.h2.command.Parser.parseCreate(Parser.java:3457)
+	at org.h2.command.Parser.parsePrepared(Parser.java:324)
+	at org.h2.command.Parser.parse(Parser.java:291)
+	at org.h2.command.Parser.parse(Parser.java:263)
+	at org.h2.command.Parser.prepareCommand(Parser.java:235)
+	at org.h2.engine.Session.prepareLocal(Session.java:415)
+	at org.h2.engine.Session.prepareCommand(Session.java:376)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1049)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:149)
+	at org.h2.server.web.WebThread.getResult(WebThread.java:1691)
+	at org.h2.server.web.WebThread.query(WebThread.java:1274)
+	at org.h2.server.web.WebThread.process(WebThread.java:430)
+	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
+	at org.h2.server.web.WebThread.process(WebThread.java:236)
+	at org.h2.server.web.WebThread.run(WebThread.java:193)
+11-22 16:52:02 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Schema DBO not found; SQL statement:
+CREATE TABLE dbo.PRODUTO_LOJA(
+	ID_PRODUTO bigint NOT NULL,
+	ID_LOJA bigint NOT NULL,
+  PRIMARY KEY   
+(
+	ID_PRODUTO ,
+	ID_LOJA 
+)
+) [90079-119]
+	at org.h2.message.Message.getSQLException(Message.java:106)
+	at org.h2.message.Message.getSQLException(Message.java:117)
+	at org.h2.message.Message.getSQLException(Message.java:76)
+	at org.h2.command.Parser.getSchema(Parser.java:595)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:4624)
+	at org.h2.command.Parser.parseCreate(Parser.java:3457)
+	at org.h2.command.Parser.parsePrepared(Parser.java:324)
+	at org.h2.command.Parser.parse(Parser.java:291)
+	at org.h2.command.Parser.parse(Parser.java:263)
+	at org.h2.command.Parser.prepareCommand(Parser.java:235)
+	at org.h2.engine.Session.prepareLocal(Session.java:415)
+	at org.h2.engine.Session.prepareCommand(Session.java:376)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1049)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:149)
+	at org.h2.server.web.WebThread.getResult(WebThread.java:1691)
+	at org.h2.server.web.WebThread.query(WebThread.java:1274)
+	at org.h2.server.web.WebThread.process(WebThread.java:430)
+	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
+	at org.h2.server.web.WebThread.process(WebThread.java:236)
+	at org.h2.server.web.WebThread.run(WebThread.java:193)
+11-22 16:52:13 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Schema DBO not found; SQL statement:
+CREATE TABLE dbo.PRODUTO_LOJA(
+	ID_PRODUTO bigint NOT NULL,
+	ID_LOJA bigint NOT NULL,
+  PRIMARY KEY   
+(
+	ID_PRODUTO ,
+	ID_LOJA 
+)
+) [90079-119]
+	at org.h2.message.Message.getSQLException(Message.java:106)
+	at org.h2.message.Message.getSQLException(Message.java:117)
+	at org.h2.message.Message.getSQLException(Message.java:76)
+	at org.h2.command.Parser.getSchema(Parser.java:595)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:4624)
+	at org.h2.command.Parser.parseCreate(Parser.java:3457)
+	at org.h2.command.Parser.parsePrepared(Parser.java:324)
+	at org.h2.command.Parser.parse(Parser.java:291)
+	at org.h2.command.Parser.parse(Parser.java:263)
+	at org.h2.command.Parser.prepareCommand(Parser.java:235)
+	at org.h2.engine.Session.prepareLocal(Session.java:415)
+	at org.h2.engine.Session.prepareCommand(Session.java:376)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1049)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:149)
+	at org.h2.server.web.WebThread.getResult(WebThread.java:1691)
+	at org.h2.server.web.WebThread.query(WebThread.java:1274)
+	at org.h2.server.web.WebThread.process(WebThread.java:430)
+	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
+	at org.h2.server.web.WebThread.process(WebThread.java:236)
+	at org.h2.server.web.WebThread.run(WebThread.java:193)
+11-22 16:53:11 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Schema DBO not found; SQL statement:
+CREATE TABLE dbo.PRODUTO_LOJA(
+	ID_PRODUTO bigint NOT NULL,
+	ID_LOJA bigint NOT NULL,
+  PRIMARY KEY   
+(
+	ID_PRODUTO ,
+	ID_LOJA 
+)
+) [90079-119]
+	at org.h2.message.Message.getSQLException(Message.java:106)
+	at org.h2.message.Message.getSQLException(Message.java:117)
+	at org.h2.message.Message.getSQLException(Message.java:76)
+	at org.h2.command.Parser.getSchema(Parser.java:595)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:4624)
+	at org.h2.command.Parser.parseCreate(Parser.java:3457)
+	at org.h2.command.Parser.parsePrepared(Parser.java:324)
+	at org.h2.command.Parser.parse(Parser.java:291)
+	at org.h2.command.Parser.parse(Parser.java:263)
+	at org.h2.command.Parser.prepareCommand(Parser.java:235)
+	at org.h2.engine.Session.prepareLocal(Session.java:415)
+	at org.h2.engine.Session.prepareCommand(Session.java:376)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1049)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:149)
+	at org.h2.server.web.WebThread.getResult(WebThread.java:1691)
+	at org.h2.server.web.WebThread.query(WebThread.java:1274)
+	at org.h2.server.web.WebThread.process(WebThread.java:430)
+	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
+	at org.h2.server.web.WebThread.process(WebThread.java:236)
+	at org.h2.server.web.WebThread.run(WebThread.java:193)
+11-22 18:12:05 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Schema DBO not found; SQL statement:
+CREATE TABLE dbo.PRODUTO_COMPOSICAO(
+	ID_PRODUTO_COMPOSICAO bigint NOT NULL,
+	ID_PRODUTO bigint NOT NULL,
+	QUANTIDADE decimal NULL,
+	ID bigint NULL,
+PRIMARY KEY  
+(
+	ID_PRODUTO_COMPOSICAO ,
+	ID_PRODUTO 
+)
+) [90079-119]
+	at org.h2.message.Message.getSQLException(Message.java:106)
+	at org.h2.message.Message.getSQLException(Message.java:117)
+	at org.h2.message.Message.getSQLException(Message.java:76)
+	at org.h2.command.Parser.getSchema(Parser.java:595)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:4624)
+	at org.h2.command.Parser.parseCreate(Parser.java:3457)
+	at org.h2.command.Parser.parsePrepared(Parser.java:324)
+	at org.h2.command.Parser.parse(Parser.java:291)
+	at org.h2.command.Parser.parse(Parser.java:263)
+	at org.h2.command.Parser.prepareCommand(Parser.java:235)
+	at org.h2.engine.Session.prepareLocal(Session.java:415)
+	at org.h2.engine.Session.prepareCommand(Session.java:376)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1049)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:149)
+	at org.h2.server.web.WebThread.getResult(WebThread.java:1691)
+	at org.h2.server.web.WebThread.query(WebThread.java:1274)
+	at org.h2.server.web.WebThread.process(WebThread.java:430)
+	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
+	at org.h2.server.web.WebThread.process(WebThread.java:236)
+	at org.h2.server.web.WebThread.run(WebThread.java:193)
+11-22 18:12:29 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Schema DBO not found; SQL statement:
+CREATE TABLE dbo.PRODUTO_COMPOSICAO(
+	ID_PRODUTO_COMPOSICAO bigint NOT NULL,
+	ID_PRODUTO bigint NOT NULL,
+	QUANTIDADE decimal NULL,
+	ID bigint NULL,
+PRIMARY KEY  
+(
+	ID_PRODUTO_COMPOSICAO ,
+	ID_PRODUTO 
+)
+) [90079-119]
+	at org.h2.message.Message.getSQLException(Message.java:106)
+	at org.h2.message.Message.getSQLException(Message.java:117)
+	at org.h2.message.Message.getSQLException(Message.java:76)
+	at org.h2.command.Parser.getSchema(Parser.java:595)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:4624)
+	at org.h2.command.Parser.parseCreate(Parser.java:3457)
+	at org.h2.command.Parser.parsePrepared(Parser.java:324)
+	at org.h2.command.Parser.parse(Parser.java:291)
+	at org.h2.command.Parser.parse(Parser.java:263)
+	at org.h2.command.Parser.prepareCommand(Parser.java:235)
+	at org.h2.engine.Session.prepareLocal(Session.java:415)
+	at org.h2.engine.Session.prepareCommand(Session.java:376)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1049)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:149)
+	at org.h2.server.web.WebThread.getResult(WebThread.java:1691)
+	at org.h2.server.web.WebThread.query(WebThread.java:1274)
+	at org.h2.server.web.WebThread.process(WebThread.java:430)
+	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
+	at org.h2.server.web.WebThread.process(WebThread.java:236)
+	at org.h2.server.web.WebThread.run(WebThread.java:193)
+11-22 18:13:32 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table PRODUTO_COMPOSICAO already exists; SQL statement:
+CREATE TABLE  PRODUTO_COMPOSICAO(
+	ID_PRODUTO_COMPOSICAO bigint NOT NULL,
+	ID_PRODUTO bigint NOT NULL,
+	QUANTIDADE decimal NULL,
+	ID bigint NULL,
+PRIMARY KEY  
+(
+	ID_PRODUTO_COMPOSICAO ,
+	ID_PRODUTO 
+)
+) [42101-119]
+11-22 18:47:38 jdbc[2]: SQLException
 org.h2.jdbc.JdbcSQLException: Table SYSTEM_SEQUENCES not found; SQL statement:
 select sequence_name from system_sequences [42102-119]

@@ -1,9 +1,11 @@
 package com.infinity.datamarket.pdv.lote;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import com.infinity.datamarket.comum.lote.DadoLote;
+import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.IRepositorio;
