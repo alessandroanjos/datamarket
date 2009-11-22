@@ -166,15 +166,14 @@ public class OpImprimeBoleto extends Mic{
 						        
 								String arquivoBoleto =  idLoja + "_" + componente + "_" +  usuario.getId() + "_" +   System.currentTimeMillis() + "_" + "boleto.pdf"; // o ideal eh colocar loja + pdv + codigoOperador + timestemp;
 
-								String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor() + arquivoBoleto; // "c:\\pdv\\temp\\";
+//								String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor() + arquivoBoleto; // "c:\\pdv\\temp\\";
+								String caminho = Util.getDirCorrente();
 
-								Runtime.getRuntime().exec("cmd /c" + caminho);
-						        
 						        BancoBrasil bbb = new BancoBrasil(jBoletoBean);
 						        jBoletoBean.setLinhaDigitavel(bbb.getLinhaDigitavel());
 						        jBoletoBean.setCodigoBarras(bbb.getCodigoBarras());
 						            
-						        jBoletoBean.setCaminho(caminho);
+						        jBoletoBean.setCaminho(caminho  + "/" + arquivoBoleto);
 						        
 						        GeraPDF pdf = new GeraPDF(jBoletoBean);
 
@@ -184,7 +183,7 @@ public class OpImprimeBoleto extends Mic{
 						        if (false) {
 						        	
 						        }
-						        Runtime.getRuntime().exec("cmd /c"+ caminho);
+								Runtime.getRuntime().exec("cmd /c" + caminho + "/" + arquivoBoleto);
 							} catch (Exception e) {
 								e.printStackTrace();
 

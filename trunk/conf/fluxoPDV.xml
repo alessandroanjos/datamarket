@@ -850,6 +850,7 @@
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo86_0" operacao="OpGeraBoleto">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo86" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo83" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo86" operacao="OpProcessaPlano">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo87" />

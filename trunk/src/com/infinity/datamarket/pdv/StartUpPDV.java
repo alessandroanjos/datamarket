@@ -46,8 +46,8 @@ public class StartUpPDV {
 	    propreties.put("hibernate.connection.url", "jdbc:h2:" + diretorioH2);
 	    Collection<Properties> properties = new ArrayList<Properties>();
 
-//		RepositoryManagerHibernateUtil.arquivoHibernate = RepositoryManagerHibernateUtil.HIBERNATE_PDV;
-//		RepositoryManagerHibernateUtil.properties = propreties;
+		RepositoryManagerHibernateUtil.arquivoHibernate = RepositoryManagerHibernateUtil.HIBERNATE_PDV;
+		RepositoryManagerHibernateUtil.properties = propreties;
 		RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		GerenciadorPerifericos ger = GerenciadorPerifericos.getInstancia();
 //		ti.jProgressBar1.setValue(50);

@@ -36,7 +36,8 @@ public class OpImprimeRecibo extends Mic{
 
 						ByteArrayOutputStream out = new ByteArrayOutputStream();
 						getFachadaPDV().gerarReciboVenda(transVenda, out);
-						String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();
+//						String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();
+						String caminho = Util.getDirCorrente();
 						File dir = new File(caminho);
 						if (!dir.exists()){
 							dir.mkdir();
