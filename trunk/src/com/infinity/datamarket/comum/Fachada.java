@@ -1503,7 +1503,7 @@ public class Fachada {
 		return c;
 	}
 	
-    
+
 	
 	public Collection consultarTodosComponentes() throws AppException{
 		Collection c = null;
@@ -1534,9 +1534,37 @@ public class Fachada {
 		}
 		return c;
 	}
-
-	// autorizadora
 	
+	public Collection consultarTodosComponentes(long idLoja) throws AppException{
+		Collection c = null;
+		try{
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+			c = getCadastroComponente().consultarTodos(idLoja);
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return c;
+	}
+
 	public void inserirAutorizadora(Autorizadora autorizadora) throws AppException{
 
 		try{

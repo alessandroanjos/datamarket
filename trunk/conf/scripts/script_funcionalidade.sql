@@ -82,6 +82,7 @@ insert into funcionalidade (id, id_func_superior, descricao, situacao, url, larg
 insert into funcionalidade (id, id_func_superior, descricao, situacao, url, largura, altura) values(73, 71, 'Manter Devolução', 'S', 'devolucao/consultarDevolucao', 800, 600)
 insert into funcionalidade (id, id_func_superior, descricao, situacao, url, largura, altura) values(79, 78, 'Inserir Fabricante', 'S', 'fabricante/inserirFabricante', 800, 600)
 insert into funcionalidade (id, id_func_superior, descricao, situacao, url, largura, altura) values(80, 78, 'Manter Fabricante', 'S', 'fabricante/consultarFabricante', 800, 600)
+insert into funcionalidade (id, id_func_superior, descricao, situacao, url, largura, altura) values(81, 39, 'Liberar Nova Base', 'S', 'cargabase/liberaCargaBase', 800, 300)
 insert into funcionalidade (id, descricao, situacao, url, largura, altura) values(999, 'Logout', 'S', 'logout', 0, 0)
 
 insert into perfil_funcionalidade

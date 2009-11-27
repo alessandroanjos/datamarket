@@ -409,6 +409,20 @@ public class Util {
 				if (dirCorrente.endsWith("/")) {
 					dirCorrente = dirCorrente.substring(0,dirCorrente.length() - 1);
 				}
+				
+				
+				int tem = dirCorrente.indexOf("%20");
+				while (tem != -1) {
+					dirCorrente = dirCorrente.substring(0,tem) + " " + dirCorrente.substring(tem + 3,dirCorrente.length()); 
+					
+					tem = dirCorrente.indexOf("%20");
+				}
+				tem = dirCorrente.indexOf("/./");
+				while (tem != -1) {
+					dirCorrente = dirCorrente.substring(0,tem) + "/" + dirCorrente.substring(tem + 3,dirCorrente.length()); 
+					
+					tem = dirCorrente.indexOf("/./");
+				}
 			} catch (Exception e) {
 			}
 		} else {

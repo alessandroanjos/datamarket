@@ -185,6 +185,11 @@
 		</navigation-case>	
 		
 		<navigation-case>
+			<from-outcome>liberaCargaBase</from-outcome>
+			<to-view-id>/jsp/cargabase/liberaCargaBase.jsp</to-view-id>
+		</navigation-case>	
+		
+		<navigation-case>
 			<from-outcome>inserirCliente</from-outcome>
 			<to-view-id>/jsp/cliente/inserirCliente.jsp</to-view-id>
 		</navigation-case>
@@ -422,6 +427,25 @@
 			<from-action>#{loteBB.liberarLote}</from-action>
 			<from-outcome>mesma</from-outcome>
 			<to-view-id>/jsp/lote/liberaDados.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{tipoProdutoBB.voltarMenu}</from-action>
+			<from-outcome>voltar</from-outcome>
+			<to-view-id>/jsp/menu.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- CARGA BASE -->
+	<navigation-rule>
+		<from-view-id>/jsp/cargabase/liberaCargaBase.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{cargaBaseBB.liberarCargaBase}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/cargabase/liberaCargaBase.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{cargaBaseBB.consultarComponentes}</from-action>
+			<from-outcome>mesma</from-outcome>
+			<to-view-id>/jsp/cargabase/liberaCargaBase.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{tipoProdutoBB.voltarMenu}</from-action>
@@ -2698,6 +2722,24 @@
 		</managed-property>
 		<managed-property>
 		    <property-name>qtdRegistros</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+	</managed-bean>
+
+<!-- CARGA BASE BACK BEAN -->
+	
+	<managed-bean>
+		<managed-bean-name>cargaBaseBB</managed-bean-name>
+		<managed-bean-class>com.infinity.datamarket.enterprise.gui.cargabase.CargaBaseBackBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+		    <property-name>idComponente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>idLoja</property-name>
 		    <property-class>java.lang.String</property-class>
 		    <null-value/>
 		</managed-property>
