@@ -94,5 +94,9 @@ public class OperacaoPedido extends Operacao{
 	public void setUsuarioVendedor(Vendedor usuarioVendedor) {
 		this.usuarioVendedor = usuarioVendedor;
 	}
+	
+	public String toString(){
+		return this.getPk().getId()+"";
+	}
 
 }

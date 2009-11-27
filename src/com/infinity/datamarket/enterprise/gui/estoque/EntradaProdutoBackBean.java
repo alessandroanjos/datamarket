@@ -1215,6 +1215,14 @@ public class EntradaProdutoBackBean extends BackBean {
 		}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
 			try {
 				Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
+				if (prod.getEnquadramento().equals(prod.FABRICADO)){
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Não é possível dar entrada em um produto fabricado!", "");
+					getContextoApp().addMessage(null, msg);
+					this.descricao = null;
+					this.idProduto = null;
+					return;
+				}
 				if(prod != null){
 					this.descricao = prod.getDescricaoCompleta();
 //					this.setPrecoVenda(prod.getPrecoPadrao());

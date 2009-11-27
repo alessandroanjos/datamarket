@@ -51,8 +51,8 @@ public class OpConfirmaOperacao extends Mic{
 								ServerConfig.PORTA_SERVIDOR_ES +
 								"/" +
 								ServerConfig.CONTEXTO_SERVIDOR_ES +
-								"/" +
-								ServerConfig.ALTERAR_OPERACA_SERVLET +"status=" + ConstantesOperacao.FECHADO);
+								"/");
+//								ServerConfig.ALTERAR_OPERACA_SERVLET +"status=" + ConstantesOperacao.FECHADO);
 						URLConnection huc1 = urlCon.openConnection();
 
 						huc1.setAllowUserInteraction(true);
@@ -94,13 +94,13 @@ public class OpConfirmaOperacao extends Mic{
 								
 		}catch(Exception e){
 			e.printStackTrace();
-			gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+			gerenciadorPerifericos.getDisplay().setMensagem("Erro Fatal de Comunicação");
 			try {
 				gerenciadorPerifericos.esperaVolta();
 			} catch (AppException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			}			
 			return ALTERNATIVA_2;
 		}
 		return ALTERNATIVA_1;
