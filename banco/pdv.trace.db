@@ -856,3 +856,6 @@ java.lang.RuntimeException: Redo failure, block: 2560 expected: 1 got: 255
 11-22 18:50:51 jdbc[2]: SQLException
 org.h2.jdbc.JdbcSQLException: Table SYSTEM_SEQUENCES not found; SQL statement:
 select sequence_name from system_sequences [42102-119]
+11-26 20:30:38 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table SYSTEM_SEQUENCES not found; SQL statement:
+select sequence_name from system_sequences [42102-119]

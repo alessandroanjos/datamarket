@@ -1,6 +1,5 @@
 package com.infinity.datamarket.geradorbase;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -25,41 +24,49 @@ import com.infinity.datamarket.comum.util.ServiceLocator;
 
 public abstract class GeradorBaseComponente {
 
-	public void geraBase(Long codigoLoja) {
+	public void geraBase(Long codigoLoja) throws Exception{
 		System.out.println("######################################################################");
-		System.out.println("## INICIO DA GERA플O DA BASE DE COMPONENTE PARA LOJA "
-						+ codigoLoja + " ##");
+		System.out.println("## INICIO DA GERA플O DA BASE DE COMPONENTE PARA LOJA " + codigoLoja + " ##");
 		System.out.println("######################################################################");
 		System.out.println();
-		try {
-			inicio(codigoLoja);
-		} catch (Exception e) {
-			System.out.println("## ERRO NA INICIALIZA플O DA GERA플O DA BASE!!");
-			System.out.println("## ERRO => " + e.getMessage());
-			e.printStackTrace();
-			return;
+
+		Collection coll = getComponentes(codigoLoja);
+		if (coll != null) {
+			Iterator it = coll.iterator();
+			while(it.hasNext()) {
+				Componente componene = (Componente)it.next();
+//				try {
+					inicio(codigoLoja, componene.getId());
+				
+					geraBaseLojas();
+					geraBaseAcumuladorNaoFiscal();
+					geraBaseTotalizadoresNaoFiscais();
+					geraBaseAutorizadora();
+			//		geraBaseLoja(codigoLoja);
+					geraBaseComponente(codigoLoja);
+					geraBaseFormaRecebimento();
+					geraBaseMacroOperacao();
+					geraBasePerfil();
+					geraBaseUsuario(codigoLoja);
+					geraBaseImposto();
+					geraBaseFabricante();
+					geraBaseTipoProduto();
+					geraBaseGrupoProduto();
+					geraBaseUnidade();
+					geraBaseProduto(codigoLoja);
+					geraBasePlanoPagamento();
+					geraBaseBanco();
+					geraBaseContaCorrente(codigoLoja);
+					geraBaseParametros(codigoLoja);
+//				} catch (Exception e) {
+//					System.out.println("## ERRO NA INICIALIZA플O DA GERA플O DA BASE!!");
+//					System.out.println("## ERRO => " + e.getMessage());
+//					e.printStackTrace();
+//					return;
+//				}
+			}
 		}
-		geraBaseLojas();
-		geraBaseAcumuladorNaoFiscal();
-		geraBaseTotalizadoresNaoFiscais();
-		geraBaseAutorizadora();
-//		geraBaseLoja(codigoLoja);
-		geraBaseComponente(codigoLoja);
-		geraBaseFormaRecebimento();
-		geraBaseMacroOperacao();
-		geraBasePerfil();
-		geraBaseUsuario(codigoLoja);
-		geraBaseImposto();
-		geraBaseFabricante();
-		geraBaseTipoProduto();
-		geraBaseGrupoProduto();
-		geraBaseUnidade();
-		geraBaseProduto(codigoLoja);
-		geraBasePlanoPagamento();
-		geraBaseBanco();
-		geraBaseContaCorrente(codigoLoja);
-		geraBaseParametros(codigoLoja);
-		
+
 		System.out.println();
 		System.out.println("######################################################################");
 		System.out.println("##   FIM DA GERA플O DA BASE DE COMPONENTE PARA LOJA " + codigoLoja + "  ##");
@@ -67,7 +74,18 @@ public abstract class GeradorBaseComponente {
 
 	}
 
-	
+	private Collection getComponentes(Long idLoja) {
+		Collection componentes = null;
+		try {
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
+			componentes = Fachada.getInstancia().consultarTodosComponentes(idLoja);
+			session.clear();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return componentes;
+	}
 	
 	private void geraBaseLojas() {
 		try {
@@ -500,7 +518,7 @@ public abstract class GeradorBaseComponente {
 	protected abstract void geraBaseMacroOperacao(Collection col)
 			throws Exception;
 
-	protected abstract void inicio(Long loja) throws Exception;
+	protected abstract void inicio(Long loja, Long idComponente) throws Exception;
 
 	protected abstract void geraBaseBancos(Collection col) throws Exception;
 
@@ -509,11 +527,16 @@ public abstract class GeradorBaseComponente {
 	protected abstract void geraBaseContaCorrente(Collection col) throws Exception;
 
 	public static void main(String[] a) {
-		GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator
-				.getInstancia()
-				.getObjectToIntancia(
-						"com.infinity.datamarket.geradorbase.GeradorBaseComponenteHibernate");
-		gerador.geraBase(new Long(1));
+		try {
+			GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator
+					.getInstancia()
+					.getObjectToIntancia(
+							"com.infinity.datamarket.geradorbase.GeradorBaseComponenteHibernate");
+			gerador.geraBase(new Long(1));
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 }

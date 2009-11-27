@@ -3,7 +3,6 @@ package com.infinity.datamarket.geradorbase;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.util.Collection;
 import java.util.Iterator;
@@ -15,7 +14,6 @@ import org.hibernate.cfg.Configuration;
 
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.Util;
-import com.infinity.datamarket.pdv.maquinaestados.LeitorMaquinaEstadoXML;
 
 public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 	
@@ -60,10 +58,10 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 		}
 	}
 	
-	public void inicio(Long loja) throws Exception {
+	public void inicio(Long loja, Long idComponente) throws Exception {
 
-		String diretorioDestino = Util.getDirCorrente() + "\\banco\\"+loja;
-		String diretorioOrigem = Util.getDirCorrente() + "\\db\\template";
+		String diretorioDestino = Util.getDirCorrente() + "/banco/"+loja + "/" + idComponente;
+		String diretorioOrigem = Util.getDirCorrente() + "/bd/template";
 		File f = new File(diretorioDestino);
 		if (!f.exists()){
 			f.mkdirs();
@@ -90,13 +88,11 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 
 		Configuration cfg = new Configuration();
 		
-		URL url = LeitorMaquinaEstadoXML.class.getClassLoader().getResource(RepositoryManagerHibernateUtil.HIBERNATE_PDV);
-		String arq = url.toString();
-		arq = arq.substring("file:\\".length(), arq.length());
+		String arq = Util.getDirCorrente() + "/WEB-INF/classes/" + RepositoryManagerHibernateUtil.HIBERNATE_PDV;
 		File file = new File(arq);
 
 		sessionFactory = cfg.configure(file).
-			setProperty("hibernate.connection.url","jdbc:h2:" + diretorioDestino + "\\pdv").buildSessionFactory();
+			setProperty("hibernate.connection.url","jdbc:h2:" + diretorioDestino + "/pdv").buildSessionFactory();
 		
 	}
 
