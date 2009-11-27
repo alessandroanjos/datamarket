@@ -66,6 +66,10 @@
 		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ConsultarOperacaoServlet</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>ConsultarOperacoesServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ConsultarOperacoesServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>AlterarOperacaoServlet</servlet-name>
 		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.AlterarOperacaoServlet</servlet-class>
 	</servlet>
@@ -97,6 +101,10 @@
 	<servlet-mapping>
 		<servlet-name>ConsultarOperacaoServlet</servlet-name>
 		<url-pattern>/ConsultarOperacaoServlet.servlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultarOperacoesServlet</servlet-name>
+		<url-pattern>/ConsultarOperacoesServlet.servlet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AlterarOperacaoServlet</servlet-name>
