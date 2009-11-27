@@ -32,7 +32,11 @@ public class OpIncluiVendeItemOperacaoPedido extends Mic{
 		TransacaoVenda transVenda = (TransacaoVenda) gerenciadorPerifericos
 				.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
 
+		transVenda.setCliente(pedido.getCliente());
+		
 		Collection eventosOperacao = pedido.getEventosOperacao();
+		
+		gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
 		
 		Iterator i = eventosOperacao.iterator();
 		

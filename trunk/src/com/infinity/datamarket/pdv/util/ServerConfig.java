@@ -29,6 +29,7 @@ public class ServerConfig {
 	public static final String CONSULTAR_CLIENTE_TRANSACAO_SERVLET;//=ConsultarClienteTransacaoServlet.servlet
 	public static final String SALVAR_INFO_COMPONENTE_SERVLET;//=SalvarInfoComponenteServlet.servlet
 	public static final String CONSULTAR_OPERACA_SERVLET;//=ConsultarOperacaoServlet.servlet
+	public static final String CONSULTAR_OPERACOES_SERVLET;//=ConsultarOperacoesServlet.servlet
 	public static final String ALTERAR_OPERACA_SERVLET;//=AlterarOperacaoServlet.servlet
 	public static final String AUTORIZAR_TRANSACAO_CARTAO_PROPRIO_SERVLET;//=AutorizarTransacaoCartaoProprioServlet.servlet
 	public static final String CONFIRMAR_TRANSACAO_CARTAO_PROPRIO_SERVLET;//=ConfirmarTransacaoCartaoProprioServlet.servlet
@@ -72,6 +73,7 @@ public class ServerConfig {
 		CONFIRMAR_TRANSACAO_CARTAO_PROPRIO_SERVLET= rb.getString("CONFIRMAR_TRANSACAO_CARTAO_PROPRIO_SERVLET");
 		DESFAZER_TRANSACAO_CARTAO_PROPRIO_SERVLET= rb.getString("DESFAZER_TRANSACAO_CARTAO_PROPRIO_SERVLET");
 		CONSULTAR_DEBITOS_CARTAO_PROPRIO_SERVLET= rb.getString("CONSULTAR_DEBITOS_CARTAO_PROPRIO_SERVLET");
+		CONSULTAR_OPERACOES_SERVLET=rb.getString("CONSULTAR_OPERACOES_SERVLET");
 
 	}
 }
