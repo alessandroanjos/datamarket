@@ -46,12 +46,12 @@
 								<li class="normal">
 									<div>
 									<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
-											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{cargaBaseBB.idLoja}" > 
+											<h:selectOneMenu id="idLoja" style="width: 200px;" value="#{cargaBaseBB.idLoja}" onchange="submit();"  valueChangeListener="#{cargaBaseBB.consultarComponentes}"> 
 												<f:selectItems id="lojasSelectItems" value="#{cargaBaseBB.lojas}" />   
 											</h:selectOneMenu>
 										</div>
 								</li>
-								<!-- 
+
 								<li class="normal">
 									<div>
 											<h:outputLabel styleClass="desc" value="Componente"></h:outputLabel>
@@ -61,7 +61,7 @@
 										
 									</div>
 								</li>
-								 -->								
+							
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{cargaBaseBB.liberarCargaBase}" value="Liberar CargaBase"></h:commandButton>
 								</li>
