@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.componente.Componente;
@@ -123,6 +124,18 @@ public class CargaBaseBackBean extends BackBean{
 	
 	public String liberarCargaBase(){
 		try {
+			
+			if (this.getIdLoja() == null || "".equals(this.getIdLoja())) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe a Loja !", "");
+				getContextoApp().addMessage(null, msg);
+				return "mesma";
+			}
+			
+			if (this.getIdComponente()  == null || "".equals(this.getIdComponente())) {
+				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe o Componente !", "");
+				getContextoApp().addMessage(null, msg);
+				return "mesma";
+			}
 			GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator.getInstancia().getObjectToIntancia(
 							"com.infinity.datamarket.geradorbase.GeradorBaseComponenteHibernate");
 			gerador.geraBase(new Long(getIdLoja()));
@@ -139,7 +152,7 @@ public class CargaBaseBackBean extends BackBean{
 		return "mesma";
 	}
 
-	public String consultarComponentes(){
+	public String consultarComponentes(ValueChangeEvent event){
 //		try {
 //			Parametro param = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE);
 //			setNumeroLote(param.getValor());
