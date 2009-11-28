@@ -89,7 +89,30 @@
 		<servlet-name>ConsultarDebitosCartaoProprioServlet</servlet-name>
 		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ConsultarDebitosCartaoProprioServlet</servlet-class>
 	</servlet>
-
+	<servlet>
+		<servlet-name>ConsultarCargaBaseServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ConsultarCargaBaseServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>VerificadorNovaCargaBaseServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.VerificadorNovaCargaBaseServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ApagarNovaCargaBaseServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ApagarNovaCargaBaseServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ApagarNovaCargaBaseServlet</servlet-name>
+		<url-pattern>/ApagarNovaCargaBaseServlet.servlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>VerificadorNovaCargaBaseServlet</servlet-name>
+		<url-pattern>/VerificadorNovaCargaBaseServlet.servlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConsultarCargaBaseServlet</servlet-name>
+		<url-pattern>/ConsultarCargaBaseServlet.servlet</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ConsultarClienteTransacaoServlet</servlet-name>
 		<url-pattern>/ConsultarClienteTransacaoServlet.servlet</url-pattern>
