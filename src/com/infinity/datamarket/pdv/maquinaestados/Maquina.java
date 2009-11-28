@@ -12,6 +12,7 @@ import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.infocomponent.InfoComponent;
 import com.infinity.datamarket.infocomponent.InfoComponentPK;
+import com.infinity.datamarket.pdv.cargabase.ThreadVerificaCargaBase;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOSArquivo;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
@@ -33,6 +34,7 @@ public class Maquina implements Serializable{
     private GerenciadorPerifericos gerenciadorPerifericos;
     private ControladorMaquinaEstado controladorMaquinaEstado;
     private ThreadVerificaNovoLote threadVerificaNovoLote; 
+    private ThreadVerificaCargaBase threadVerificaCargaBase;
     private Tela telaInicial;
     private static Maquina instancia;
     private String mensagemInicial;
@@ -75,11 +77,15 @@ public class Maquina implements Serializable{
         gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL,estadoAtual);
 
         System.out.println("Maquina Iniciada");
+        int componente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValorInteiro();
         int lote = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValorInteiro();
         int loja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();
         gerenciadorPerifericos.getWindow().atualizaLote(lote);
         threadVerificaNovoLote = new ThreadVerificaNovoLote(lote,loja);
         threadVerificaNovoLote.start();
+        
+        threadVerificaCargaBase = new ThreadVerificaCargaBase(new Long(componente),new Long(loja));
+        threadVerificaCargaBase.start();
         new ThreadProcessaMacro(estadoAtual);
     }
     private ControladorMaquinaEstado getConcentradorMaquina(){

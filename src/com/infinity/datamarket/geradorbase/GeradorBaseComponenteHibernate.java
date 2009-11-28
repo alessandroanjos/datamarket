@@ -60,18 +60,19 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 	
 	public void inicio(Long loja, Long idComponente) throws Exception {
 
-		String diretorioDestino = Util.getDirCorrente() + "/banco/"+loja + "/" + idComponente;
-		String diretorioOrigem = Util.getDirCorrente() + "/bd/template";
+		String diretorioDestino = Util.getDirDestinoCargaBaseLojaComponente(loja, idComponente);
+		String diretorioOrigem = Util.getDirTemplateCargaBase();
 		File f = new File(diretorioDestino);
 		if (!f.exists()){
 			f.mkdirs();
 		}else{
-			File[] arquivos = f.listFiles();
-			for (int i = 0; i < arquivos.length; i++) {
-				if (arquivos[i].isFile()) {
-					arquivos[i].delete();
-				}
-			}
+			Util.apagarArquivos(f);
+//			File[] arquivos = f.listFiles();
+//			for (int i = 0; i < arquivos.length; i++) {
+//				if (arquivos[i].isFile()) {
+//					arquivos[i].delete();
+//				}
+//			}
 		}
 
 		File fBanco = new File(diretorioOrigem);

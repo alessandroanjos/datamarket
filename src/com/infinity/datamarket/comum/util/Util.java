@@ -1,6 +1,7 @@
 package com.infinity.datamarket.comum.util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -250,26 +251,21 @@ public class Util {
 	}
 	
 	public static void main(String[] args) {
-		URL url = Util.class.getClassLoader().getResource("Perifericos.properties");
-		if (url != null) {
-			dirCorrente = url.toString();
-			dirCorrente =
-				dirCorrente.substring("file:\\".length(), dirCorrente.length());
-			try {
-				dirCorrente =
-					dirCorrente.substring(0, dirCorrente.indexOf("WEB-INF"));
-				dirCorrente =
-					dirCorrente.substring(0, dirCorrente.length() - 1);
-				// no caso do sistema operacional for o linux
-				// coloca a para inicial
-				int local = dirCorrente.indexOf(":");
-				if (local == -1) {
-					dirCorrente = "/" + dirCorrente;
-				}
-				System.out.println(dirCorrente);
-			} catch (Exception e) {
-			}
-		}
+		try 
+		{ 
+		    //create a ZipOutputStream to zip the data to 
+		    ZipOutputStream zos = new  ZipOutputStream(new FileOutputStream("c:\\curDir.zip")); 
+		    //assuming that there is a directory named inFolder (If there 
+		    //isn't create one) in the same directory as the one the code   runs from, 
+		    //call the zipDir method 
+		    zipDir("C:\\Arquivos de programas\\jboss-4.0.5.GA\\server\\default\\deploy\\EnterpriseServer.war\\banco\\1\\1", zos); 
+		    //close the stream 
+		    zos.close(); 
+		} 
+		catch(Exception e) 
+		{ 
+		    //handle exception 
+		} 
 	}
 	
 	public static void compactaArquivoZip(String[] arqs, String nomeZip) {
@@ -439,6 +435,151 @@ public class Util {
 		return dirCorrente;
 	}
 	
+	/**
+	 * Retorna os bytes de um arquivo
+	 * 
+	 * @param arquivo
+	 * @return
+	 * @throws Exception
+	 */
+	public static byte[] getByteArquivo(String arquivo)   throws Exception {
+	    FileInputStream input = new FileInputStream(arquivo);
+	    
+		byte[] dados = new byte[input.available()];
+		input.read(dados);
+		return (dados);
+		
+	}
+	
+	/**
+	 * retorna os bytes de um arquivo zipado que tem dentro deles todos os arquivos do diretorio passado
+	 * 
+	 * @param dirOrigem
+	 * @return
+	 * @throws Exception
+	 */
+	public static byte[] zipDir(String dirOrigem)  throws Exception {
+		String destino = getDirTemp() + "/" + new Date().getTime() + ".zip";
+
+		ZipOutputStream zos = new  ZipOutputStream(new FileOutputStream(destino)); 
+	    zipDir(dirOrigem, zos);
+		zos.close();
+
+
+	    byte[] b = getByteArquivo(destino);
+
+	    try {
+			new File(destino).delete();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	    return b;
+	}	
+
+	/**
+	 * zipa uma pasta e salva no arquivo passado
+	 * 
+	 * @param dirOrigem
+	 * @param dirDestino
+	 * @throws Exception
+	 */
+	public static void zipDir(String dirOrigem, String dirDestino)  throws Exception {
+		ZipOutputStream zos = new  ZipOutputStream(new FileOutputStream(dirDestino)); 
+	    zipDir(dirOrigem, zos);
+		zos.close();
+
+	}	
+	public static void zipDir(String dir2zip, ZipOutputStream zos) throws Exception {
+			// create a new File object based on the directory we have to zip
+			// File
+			File zipDir = new File(dir2zip);
+			// get a listing of the directory content
+			String[] dirList = zipDir.list();
+			byte[] readBuffer = new byte[2156];
+			int bytesIn = 0;
+			// loop through dirList, and zip the files
+			for (int i = 0; i < dirList.length; i++) {
+				File f = new File(zipDir, dirList[i]);
+				if (f.isDirectory()) {
+					// if the File object is a directory, call this
+					// function again to add its content recursively
+					String filePath = f.getPath();
+					zipDir(filePath, zos);
+					// loop again
+					continue;
+				}
+				// if we reached here, the File object f was not a directory
+				// create a FileInputStream on top of f
+				FileInputStream fis = new FileInputStream(f);
+				// create a new zip entry
+				ZipEntry anEntry = new ZipEntry(f.getName());
+				// place the zip entry in the ZipOutputStream object
+				zos.putNextEntry(anEntry);
+				// now write the content of the file to the ZipOutputStream
+				while ((bytesIn = fis.read(readBuffer)) != -1) {
+					zos.write(readBuffer, 0, bytesIn);
+				}
+				// close the Stream
+				fis.close();
+			}
+	}
+
+	public static void apagarArquivos(String dir) {
+		apagarArquivos(new File(dir));
+	}
+	
+
+	public static void apagarArquivos(File dir) {
+		File[] arquivos = dir.listFiles();
+		for (int i = 0; i < arquivos.length; i++) {
+			if (arquivos[i].isFile()) {
+				arquivos[i].delete();
+			}
+		}
+	}
+	
+	public static String getDirDestinoCargaBaseLojaComponente(Long loja, Long idComponente) {
+		String dirTemp = Util.getDirCorrente() + "/banco/"+loja + "/" + idComponente;
+		try {
+			if(!new File(dirTemp).exists()) 
+				new File(dirTemp).mkdirs();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return dirTemp;
+	}
+	public static String getDirDestinoCargaBaseLoja(Long loja ) {
+		String dirTemp = Util.getDirCorrente() + "/banco/"+loja  ;
+		try {
+			if(!new File(dirTemp).exists()) 
+				new File(dirTemp).mkdirs();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return dirTemp;
+	}
+	public static String getDirTemp() {
+		String dirTemp = Util.getDirCorrente() + "/temp";
+		try {
+			if(!new File(dirTemp).exists()) 
+				new File(dirTemp).mkdirs();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return dirTemp;
+	}
+	
+	public static String getDirTemplateCargaBase() {
+		String dirTemp = Util.getDirCorrente() + "/bd/template";
+		try {
+			if(!new File(dirTemp).exists()) 
+				new File(dirTemp).mkdirs();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return dirTemp;
+	}
+
 	public static String formataCpfCnpj(String cpfCnpf){
 		String result = "";
 		String temp = "";
