@@ -25,6 +25,9 @@ public class ServerConfig {
 	public static final String SERVLET_RECEPTOR_TRANSACAO;
 	public static final String SERVLET_TRANSMISSOR_LOTE;
 	public static final String SERVLET_VERIFICADOR_NOVO_LOTE;
+	public static final String SERVLET_CONSULTAR_NOVO_CARGA_BASE;
+	public static final String SERVLET_VERIFICADOR_NOVA_CARGA_BASE;
+	public static final String SERVLET_APAGAR_NOVA_CARGA_BASE;
 
 	public static final String CONSULTAR_CLIENTE_TRANSACAO_SERVLET;//=ConsultarClienteTransacaoServlet.servlet
 	public static final String SALVAR_INFO_COMPONENTE_SERVLET;//=SalvarInfoComponenteServlet.servlet
@@ -35,8 +38,6 @@ public class ServerConfig {
 	public static final String CONFIRMAR_TRANSACAO_CARTAO_PROPRIO_SERVLET;//=ConfirmarTransacaoCartaoProprioServlet.servlet
 	public static final String DESFAZER_TRANSACAO_CARTAO_PROPRIO_SERVLET;//=DesfazerTransacaoCartaoProprioServlet.servlet
 	public static final String CONSULTAR_DEBITOS_CARTAO_PROPRIO_SERVLET;//=ConsultarDebitosCartaoProprioServlet.servlet
-
-	
 	
 	static{
 		ResourceBundle rb = ResourceBundle.getBundle("ServerConfig");
@@ -73,7 +74,10 @@ public class ServerConfig {
 		CONFIRMAR_TRANSACAO_CARTAO_PROPRIO_SERVLET= rb.getString("CONFIRMAR_TRANSACAO_CARTAO_PROPRIO_SERVLET");
 		DESFAZER_TRANSACAO_CARTAO_PROPRIO_SERVLET= rb.getString("DESFAZER_TRANSACAO_CARTAO_PROPRIO_SERVLET");
 		CONSULTAR_DEBITOS_CARTAO_PROPRIO_SERVLET= rb.getString("CONSULTAR_DEBITOS_CARTAO_PROPRIO_SERVLET");
+		SERVLET_CONSULTAR_NOVO_CARGA_BASE= rb.getString("SERVLET_CONSULTAR_NOVO_CARGA_BASE");
+		SERVLET_VERIFICADOR_NOVA_CARGA_BASE= rb.getString("SERVLET_VERIFICADOR_NOVA_CARGA_BASE");
+		
+		SERVLET_APAGAR_NOVA_CARGA_BASE= rb.getString("SERVLET_APAGAR_NOVA_CARGA_BASE");
 		CONSULTAR_OPERACOES_SERVLET=rb.getString("CONSULTAR_OPERACOES_SERVLET");
-
 	}
 }
