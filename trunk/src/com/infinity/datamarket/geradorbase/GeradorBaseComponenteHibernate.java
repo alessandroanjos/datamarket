@@ -58,6 +58,11 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 		}
 	}
 	
+	public void finaliza()  throws Exception{
+		sessionFactory.close();
+	}
+
+	
 	public void inicio(Long loja, Long idComponente) throws Exception {
 
 		String diretorioDestino = Util.getDirDestinoCargaBaseLojaComponente(loja, idComponente);

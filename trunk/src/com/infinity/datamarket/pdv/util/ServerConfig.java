@@ -28,6 +28,8 @@ public class ServerConfig {
 	public static final String SERVLET_CONSULTAR_NOVO_CARGA_BASE;
 	public static final String SERVLET_VERIFICADOR_NOVA_CARGA_BASE;
 	public static final String SERVLET_APAGAR_NOVA_CARGA_BASE;
+	public static final String SERVLET_GERA_NOVA_CARGA_BASE;
+	
 
 	public static final String CONSULTAR_CLIENTE_TRANSACAO_SERVLET;//=ConsultarClienteTransacaoServlet.servlet
 	public static final String SALVAR_INFO_COMPONENTE_SERVLET;//=SalvarInfoComponenteServlet.servlet
@@ -79,5 +81,6 @@ public class ServerConfig {
 		
 		SERVLET_APAGAR_NOVA_CARGA_BASE= rb.getString("SERVLET_APAGAR_NOVA_CARGA_BASE");
 		CONSULTAR_OPERACOES_SERVLET=rb.getString("CONSULTAR_OPERACOES_SERVLET");
+		SERVLET_GERA_NOVA_CARGA_BASE=rb.getString("SERVLET_GERA_NOVA_CARGA_BASE");
 	}
 }
