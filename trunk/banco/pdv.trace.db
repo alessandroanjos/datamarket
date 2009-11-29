@@ -883,3 +883,12 @@ select sequence_name from system_sequences [42102-119]
 11-28 19:42:40 jdbc[2]: SQLException
 org.h2.jdbc.JdbcSQLException: Table SYSTEM_SEQUENCES not found; SQL statement:
 select sequence_name from system_sequences [42102-119]
+11-29 10:20:28 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table SYSTEM_SEQUENCES not found; SQL statement:
+select sequence_name from system_sequences [42102-119]
+11-29 10:32:16 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table SYSTEM_SEQUENCES not found; SQL statement:
+select sequence_name from system_sequences [42102-119]
+11-29 10:34:00 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table SYSTEM_SEQUENCES not found; SQL statement:
+select sequence_name from system_sequences [42102-119]

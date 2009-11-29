@@ -26,6 +26,7 @@ public class OpSolicitaCargaBase extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
         int componente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValorInteiro();
         int loja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();
+		gerenciadorPerifericos.getDisplay().setMensagem("ATUALIZANDO BASE ....");
 
 		try {
 			synchronized (SINCRONIZADOR) {
@@ -40,9 +41,7 @@ public class OpSolicitaCargaBase extends Mic{
 					trocaBasePDV(diretorioTemp);
 					
 				} else {
-					TelaMenssagem tela = (TelaMenssagem) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_MENSAGEM);
-					tela.setMenssagem("SEM CARGA DE BASE");
-					gerenciadorPerifericos.atualizaTela(tela);
+					gerenciadorPerifericos.getDisplay().setMensagem("SEM CARGA DE BASE  [VOLTA]");
 					try {
 						gerenciadorPerifericos.esperaVolta();	
 					} catch (Exception ee) {
@@ -52,18 +51,14 @@ public class OpSolicitaCargaBase extends Mic{
 			}
 			
 		} catch (IOException e) {
-			TelaMenssagem tela = (TelaMenssagem) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_MENSAGEM);
-			tela.setMenssagem("SEM COMUNICACAO COM SERVIDOR");
-			gerenciadorPerifericos.atualizaTela(tela);
+			gerenciadorPerifericos.getDisplay().setMensagem ("SEM COMUN. COM LOJA [VOLTA]");
 			try {
 				gerenciadorPerifericos.esperaVolta();	
 			} catch (Exception ee) {
 			}
 			
 		} catch (Exception e) {
-			TelaMenssagem tela = (TelaMenssagem) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_MENSAGEM);
-			tela.setMenssagem(e.getMessage());
-			gerenciadorPerifericos.atualizaTela(tela);
+			gerenciadorPerifericos.getDisplay().setMensagem (e.getMessage());
 			try {
 				gerenciadorPerifericos.esperaVolta();	
 			} catch (Exception ee) {
