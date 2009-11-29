@@ -58,8 +58,13 @@ public class GeraNovaCargaBaseServlet extends HttpServlet {
 					} else {
 						response.setHeader("Content-Disposition","attachment; filename=cargaBase_Loja_" + idLoja + "_.zip;"); 				
 					}
+					
+					byte[] dados = Util.zipDir(diretorioCargaBase);
+					
+					Util.apagarArquivos(diretorioCargaBase);
+					
 					ObjectOutputStream ouptu = new ObjectOutputStream(response.getOutputStream());
-					ouptu.writeObject(Util.zipDir(diretorioCargaBase));
+					ouptu.writeObject(dados);
 					ouptu.close();
 				} else {
 					ObjectOutputStream ouptu = new ObjectOutputStream(response.getOutputStream());
