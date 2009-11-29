@@ -7,9 +7,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Collection;
 import java.util.Date;
 
+import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
+import com.infinity.datamarket.comum.transacao.Transacao;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
@@ -29,7 +33,24 @@ public class OpSolicitaCargaBase extends Mic{
         int loja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();
 		gerenciadorPerifericos.getDisplay().setMensagem("ATUALIZANDO BASE ....");
 
+		
+		
 		try {
+			
+			PropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(Transacao.class);
+			filter.addProperty("status", Transacao.NAO_PROCESSADO);
+			
+			Collection transacoes = Fachada.getInstancia().consultarTransacao(filter);
+			if (transacoes != null && transacoes.size() > 0) {
+				gerenciadorPerifericos.getDisplay().setMensagem("EXISTE TRANSACAO NAO PROCESSADA");
+				System.out.println("EXISTE TRANSACAO NAO PROCESSADA");
+				try {
+					gerenciadorPerifericos.esperaVolta();
+				} catch (Exception ee) {
+				}
+			}
+			
 			synchronized (SINCRONIZADOR) {
 				byte[] zipFile = verificarNovoCargaBase(new Long(loja), new Long(componente));
 				

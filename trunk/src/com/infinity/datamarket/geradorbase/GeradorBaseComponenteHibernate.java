@@ -81,7 +81,7 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 //			}
 		}
 
-		Util.copiarArquivos(diretorioOrigem, diretorioOrigem); 
+		Util.copiarArquivos(diretorioOrigem, diretorioDestino); 
 
 		Configuration cfg = new Configuration();
 		

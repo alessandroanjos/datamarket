@@ -631,11 +631,19 @@ public class Util {
 		File[] arquivos = fBanco.listFiles();
 		for (int i = 0; i < arquivos.length; i++) {
 			if (arquivos[i].isFile()) {
-				FileChannel oriChannel = new FileInputStream(arquivos[i]).getChannel();
-				FileChannel destChannel = new FileOutputStream(new File(f.getPath()+File.separator+arquivos[i].getName())).getChannel();
-				destChannel.transferFrom(oriChannel, 0, oriChannel.size());
-				oriChannel.close();
-				destChannel.close();
+				
+				InputStream in = new FileInputStream(arquivos[i]);
+				OutputStream out= new FileOutputStream(new File(f.getPath()+File.separator+arquivos[i].getName()));
+				
+				copyInputStream(in, out);
+				in.close(); 
+				out.close();
+				
+//				FileChannel oriChannel = new FileInputStream(arquivos[i]).getChannel();
+//				FileChannel destChannel = new FileOutputStream(new File(f.getPath()+File.separator+arquivos[i].getName())).getChannel();
+//				destChannel.transferFrom(oriChannel, 0, oriChannel.size());
+//				oriChannel.close();
+//				destChannel.close();
 			}
 		}
 
@@ -651,11 +659,19 @@ public class Util {
 		File[] arquivos = fBanco.listFiles();
 		for (int i = 0; i < arquivos.length; i++) {
 			if (arquivos[i].isFile()) {
-				FileChannel oriChannel = new FileInputStream(arquivos[i]).getChannel();
-				FileChannel destChannel = new FileOutputStream(new File(f.getPath()+File.separator+arquivos[i].getName())).getChannel();
-				destChannel.transferFrom(oriChannel, 0, oriChannel.size());
-				oriChannel.close();
-				destChannel.close();
+
+				InputStream in = new FileInputStream(arquivos[i]);
+				OutputStream out= new FileOutputStream(new File(f.getPath()+File.separator+arquivos[i].getName()));
+				
+				copyInputStream(in, out);
+				in.close(); 
+				out.close();
+				
+//				FileChannel oriChannel = new FileInputStream(arquivos[i]).getChannel();
+//				FileChannel destChannel = new FileOutputStream(new File(f.getPath()+File.separator+arquivos[i].getName())).getChannel();
+//				destChannel.transferFrom(oriChannel, 0, oriChannel.size());
+//				oriChannel.close();
+//				destChannel.close();
 			}
 		}
 

@@ -6,8 +6,12 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Collection;
 import java.util.Date;
 
+import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.transacao.Transacao;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOSArquivo;
@@ -29,7 +33,7 @@ public class ThreadVerificaCargaBase extends Thread implements Serializable{
 	private static final long serialVersionUID = -849614647967981958L;
 	private Long numeroComponente;
 	private Long numeroLoja;
-	private boolean novoLote;
+	private boolean novoCargaBase;
 	
 	public Long getNumeroComponente() {
 		return numeroComponente;
@@ -50,9 +54,22 @@ public class ThreadVerificaCargaBase extends Thread implements Serializable{
 			}
 			
 			try{ 
+				
+				PropertyFilter filter = new PropertyFilter();
+				filter.setTheClass(Transacao.class);
+				filter.addProperty("status", Transacao.NAO_PROCESSADO);
+				
+				Collection transacoes = Fachada.getInstancia().consultarTransacao(filter);
+				if (transacoes != null && transacoes.size() > 0) {
+					System.out.println("Maquina.ThreadVerificaCargaBase.run: EXISTE TRANSACAO NAO PROCESSADA - NAO FOI VERIFICADO A NOVA CARGA BASE");
+					continue;
+					
+				}
+				
 				synchronized (OpSolicitaCargaBase.SINCRONIZADOR) {
-					novoLote =  verificarNovaCargaBase(numeroLoja, numeroComponente);
-					if (novoLote) {
+					
+					novoCargaBase =  verificarNovaCargaBase(numeroLoja, numeroComponente);
+					if (novoCargaBase) {
 						Estado estadoAtual = (Estado)GerenciadorPerifericos.getInstancia().getCmos().ler(CMOSArquivo.ESTADO_ATUAL);
 	
 		        		if (estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL)){
@@ -88,7 +105,7 @@ public class ThreadVerificaCargaBase extends Thread implements Serializable{
 		}
 	}
 	public boolean existeNovoLote() {
-		return novoLote;
+		return novoCargaBase;
 	}
 	
 
