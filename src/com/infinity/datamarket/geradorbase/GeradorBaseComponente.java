@@ -24,13 +24,17 @@ import com.infinity.datamarket.comum.util.ServiceLocator;
 
 public abstract class GeradorBaseComponente {
 
-	public void geraBase(Long codigoLoja) throws Exception{
+	public void geraBase(Long codigoLoja, Long codiogComponente) throws Exception{
 		System.out.println("######################################################################");
 		System.out.println("## INICIO DA GERAÇÃO DA BASE DE COMPONENTE PARA LOJA " + codigoLoja + " ##");
 		System.out.println("######################################################################");
 		System.out.println();
-
-		Collection coll = getComponentes(codigoLoja);
+		Collection coll = null;
+		if (codiogComponente == null || codiogComponente.longValue() != 0) {
+			coll = getComponentesPorID(codigoLoja,codiogComponente); 			
+		} else {
+			coll = getComponentes(codigoLoja);	
+		}
 		if (coll != null) {
 			Iterator it = coll.iterator();
 			while(it.hasNext()) {
@@ -58,6 +62,7 @@ public abstract class GeradorBaseComponente {
 					geraBaseBanco();
 					geraBaseContaCorrente(codigoLoja);
 					geraBaseParametros(codigoLoja);
+					finaliza();
 //				} catch (Exception e) {
 //					System.out.println("## ERRO NA INICIALIZAÇÃO DA GERAÇÃO DA BASE!!");
 //					System.out.println("## ERRO => " + e.getMessage());
@@ -74,6 +79,8 @@ public abstract class GeradorBaseComponente {
 
 	}
 
+	public abstract void finaliza()  throws Exception;
+	
 	private Collection getComponentes(Long idLoja) {
 		Collection componentes = null;
 		try {
@@ -85,6 +92,24 @@ public abstract class GeradorBaseComponente {
 			e.printStackTrace();
 		}
 		return componentes;
+	}
+	private Collection getComponentesPorID(Long codigoLoja, Long codiogComponente) {
+		Collection coll = null;
+		try {
+			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
+			
+			PropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(Componente.class);
+			filter.addProperty("id", codiogComponente);	
+			filter.addProperty("loja.id", new Long(codigoLoja));	
+				
+			coll = Fachada.getInstancia().consultarComponentes(filter);
+			session.clear();
+			RepositoryManagerHibernateUtil.getInstancia().closeSession();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return coll;
 	}
 	
 	private void geraBaseLojas() {
@@ -532,7 +557,7 @@ public abstract class GeradorBaseComponente {
 					.getInstancia()
 					.getObjectToIntancia(
 							"com.infinity.datamarket.geradorbase.GeradorBaseComponenteHibernate");
-			gerador.geraBase(new Long(1));
+			gerador.geraBase(new Long(1),new Long(1));
 
 		} catch (Exception e) {
 			// TODO: handle exception

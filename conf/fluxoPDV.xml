@@ -108,6 +108,7 @@
     <operacao id="OpSeparaFluxoAVistaAPrazo" classe="com.infinity.datamarket.pdv.op.OpSeparaFluxoAVistaAPrazo"/>
     <operacao id="OpConsultaTelaPedido" classe="com.infinity.datamarket.pdv.op.OpConsultaTelaPedido"/>  
     <operacao id="OpIncluiVendeItemOperacaoPedido" classe="com.infinity.datamarket.pdv.op.OpIncluiVendeItemOperacaoPedido"/>  
+    <operacao id="OpSolicitaCargaBase" classe="com.infinity.datamarket.pdv.op.OpSolicitaCargaBase"/>  
   </listaMicroperacao>
   <listaEstado>
     <estado codigo="ESTADO1" descricao="Fechado" inputType="0" inputSize="0"/>
@@ -144,9 +145,23 @@
     <tecla codigo="TECLA23" descricao="F7" codigoASCI="118" />
     <tecla codigo="TECLA24" descricao="G" codigoASCI="71" />
     <tecla codigo="TECLA25" descricao="H" codigoASCI="72" />
+     <tecla codigo="TECLA26" descricao="A" codigoASCI="65" />
     
   </listaTecla>
   <listaMacroOperacao>
+   <macroOperacao estadoAtual="ESTADO3" proximoEstado="ESTADO3" tecla="TECLA26" codigoMicroOperacaoAssociada="subFluxo1" descricao="Solicita Carga Base">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpSolicitaCargaBase">
+      <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpExibeTelaDisponivel">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpExibeDisplayDisponivel">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo4" />
+      </microOperacaoAssociada>
+       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo4" operacao="OpExibeOperadorDisplay">
+      </microOperacaoAssociada>
+    </macroOperacao>
     <macroOperacao estadoAtual="ESTADO1" proximoEstado="ESTADO2" tecla="TECLA1" codigoMicroOperacaoAssociada="subFluxo3" descricao="Abertura de Caixa">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAutorizacao">
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo4" />

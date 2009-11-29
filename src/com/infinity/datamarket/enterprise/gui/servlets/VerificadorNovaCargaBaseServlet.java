@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.infinity.datamarket.comum.util.Util;
 
+
+/**
+ * verifica se existte uma caraga de base
+ * 
+ * @author procenge
+ */
 public class VerificadorNovaCargaBaseServlet extends HttpServlet {
 
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

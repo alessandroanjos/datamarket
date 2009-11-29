@@ -101,6 +101,14 @@
 		<servlet-name>ApagarNovaCargaBaseServlet</servlet-name>
 		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ApagarNovaCargaBaseServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>GeraNovaCargaBaseServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.GeraNovaCargaBaseServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GeraNovaCargaBaseServlet</servlet-name>
+		<url-pattern>/GeraNovaCargaBaseServlet.servlet</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ApagarNovaCargaBaseServlet</servlet-name>
 		<url-pattern>/ApagarNovaCargaBaseServlet.servlet</url-pattern>

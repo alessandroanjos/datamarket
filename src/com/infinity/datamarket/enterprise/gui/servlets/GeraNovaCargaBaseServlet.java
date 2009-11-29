@@ -9,14 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
+import com.infinity.datamarket.geradorbase.GeradorBaseComponente;
 
 /**
- * Retorna a carga de base de uma componente
+ * Gera e retorna a carga de base de uma componente
  * 
  * @author procenge
  */
-public class ConsultarCargaBaseServlet extends HttpServlet {
+public class GeraNovaCargaBaseServlet extends HttpServlet {
 
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -43,6 +45,9 @@ public class ConsultarCargaBaseServlet extends HttpServlet {
 				} 
 			}
 			
+			GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator .getInstancia() .getObjectToIntancia( "com.infinity.datamarket.geradorbase.GeradorBaseComponenteHibernate");
+			gerador.geraBase(codigoLoja, codigoComponente);
+
 			File f = new File(diretorioCargaBase);
 			if (f.exists()) {
 				File[] arquivos = f.listFiles();

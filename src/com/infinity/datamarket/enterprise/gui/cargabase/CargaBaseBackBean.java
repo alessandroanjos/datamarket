@@ -91,12 +91,16 @@ public class CargaBaseBackBean extends BackBean{
 		SelectItem[] arrayFormas = null;
 		try {
 			Collection Componentes = carregarComponentes();
-			arrayFormas = new SelectItem[Componentes.size()];
+			arrayFormas = new SelectItem[Componentes.size() + 1];
 			int i = 0;
+			SelectItem item = new SelectItem("0", "");
+			arrayFormas[i++] = item;
+			
+			
 			Iterator it = Componentes.iterator();
 			while(it.hasNext()) {
 				Componente Componente = (Componente)it.next();
-				SelectItem item = new SelectItem(Componente.getId().toString(), Componente.getDescricao());
+				item = new SelectItem(Componente.getId().toString(), Componente.getDescricao());
 				arrayFormas[i++] = item;
 			}
 			if(this.getIdComponente() == null || this.getIdComponente().equals("") || this.getIdComponente().equals("0") && arrayFormas.length > 0){
@@ -131,14 +135,14 @@ public class CargaBaseBackBean extends BackBean{
 				return "mesma";
 			}
 			
-			if (this.getIdComponente()  == null || "".equals(this.getIdComponente())) {
-				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe o Componente !", "");
-				getContextoApp().addMessage(null, msg);
-				return "mesma";
-			}
+//			if (this.getIdComponente()  == null || "".equals(this.getIdComponente())) {
+//				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe o Componente !", "");
+//				getContextoApp().addMessage(null, msg);
+//				return "mesma";
+//			}
 			GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator.getInstancia().getObjectToIntancia(
 							"com.infinity.datamarket.geradorbase.GeradorBaseComponenteHibernate");
-			gerador.geraBase(new Long(getIdLoja()));
+			gerador.geraBase(new Long(getIdLoja()),new Long(getIdComponente()));
 
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Novo Banco Gerado com Sucesso", "");
 			getContextoApp().addMessage(null, msg);

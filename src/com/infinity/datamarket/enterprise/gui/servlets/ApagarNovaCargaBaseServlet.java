@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.infinity.datamarket.comum.util.Util;
 
+/**
+ * Apaga a nova cargabase quando for consumida
+ * 
+ * @author procenge
+ */
 public class ApagarNovaCargaBaseServlet extends HttpServlet {
 
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
