@@ -40,11 +40,10 @@ public class StartUpPDV {
 
 		ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("fluxoPDV.xml");
 
-		String diretorioH2 = Util.getDirCorrente() + "\\banco\\pdv";
+		String diretorioH2 = Util.getBasePDV();
 
 		Properties propreties = new Properties();
 	    propreties.put("hibernate.connection.url", "jdbc:h2:" + diretorioH2);
-	    Collection<Properties> properties = new ArrayList<Properties>();
 
 		RepositoryManagerHibernateUtil.arquivoHibernate = RepositoryManagerHibernateUtil.HIBERNATE_PDV;
 		RepositoryManagerHibernateUtil.properties = propreties;

@@ -9,6 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
 
+import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
@@ -33,7 +34,7 @@ public class OpSolicitaCargaBase extends Mic{
 				byte[] zipFile = verificarNovoCargaBase(new Long(loja), new Long(componente));
 				
 				if (zipFile != null) {
-					String diretorioTemp = Util.getDirTemp() + "/CargaBase_" + new Date().getTime() + ".zip";
+					String diretorioTemp = Util.getDirTemp() + "/CargaBase_" + Util.getDirDataHora() + ".zip";
 					FileOutputStream output = new FileOutputStream (diretorioTemp);
 					output.write(zipFile);
 					output.close();
@@ -108,9 +109,12 @@ public class OpSolicitaCargaBase extends Mic{
 	 * Implementar a troca de base
 	 * 
 	 * @param bancoZip
+	 * @throws IOException 
 	 */
-	public static void trocaBasePDV(String bancoZip) {
-		
+	public static void trocaBasePDV(String bancoZip) throws IOException {
+		RepositoryManagerHibernateUtil.getInstancia().trocarBase(bancoZip);
 	}
 	
 }
+
+

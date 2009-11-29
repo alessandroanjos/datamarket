@@ -66,7 +66,7 @@ public class ThreadVerificaCargaBase extends Thread implements Serializable{
 		        				thread.start();
 			        			byte[] zipFile = verificarNovoCargaBase(numeroLoja, numeroComponente);
 			        			
-			        			String diretorioTemp = Util.getDirTemp() + "/CargaBase_" + new Date().getTime() + ".zip";
+			        			String diretorioTemp = Util.getDirTemp() + "/CargaBase_" + Util.getDirDataHora() + ".zip";
 			    				FileOutputStream output = new FileOutputStream (diretorioTemp);
 			        			output.write(zipFile);
 			        			output.close();

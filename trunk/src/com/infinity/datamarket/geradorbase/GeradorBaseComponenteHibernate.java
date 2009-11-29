@@ -3,6 +3,7 @@ package com.infinity.datamarket.geradorbase;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Collection;
 import java.util.Iterator;
@@ -80,17 +81,7 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 //			}
 		}
 
-		File fBanco = new File(diretorioOrigem);
-		File[] arquivos = fBanco.listFiles();
-		for (int i = 0; i < arquivos.length; i++) {
-			if (arquivos[i].isFile()) {
-				FileChannel oriChannel = new FileInputStream(arquivos[i]).getChannel();
-				FileChannel destChannel = new FileOutputStream(new File(f.getPath()+File.separator+arquivos[i].getName())).getChannel();
-				destChannel.transferFrom(oriChannel, 0, oriChannel.size());
-				oriChannel.close();
-				destChannel.close();
-			}
-		}
+		Util.copiarArquivos(diretorioOrigem, diretorioOrigem); 
 
 		Configuration cfg = new Configuration();
 		
