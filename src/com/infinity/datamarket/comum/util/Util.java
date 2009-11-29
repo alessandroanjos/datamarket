@@ -1,18 +1,26 @@
 package com.infinity.datamarket.comum.util;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.net.URL;
+import java.nio.channels.FileChannel;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import javax.faces.model.SelectItem;
@@ -459,7 +467,7 @@ public class Util {
 	 * @throws Exception
 	 */
 	public static byte[] zipDir(String dirOrigem)  throws Exception {
-		String destino = getDirTemp() + "/" + new Date().getTime() + ".zip";
+		String destino = getDirTemp() + "/" + getDirDataHora() + ".zip";
 
 		ZipOutputStream zos = new  ZipOutputStream(new FileOutputStream(destino)); 
 	    zipDir(dirOrigem, zos);
@@ -524,6 +532,66 @@ public class Util {
 			}
 	}
 
+	public static void unZipDir(String arquivoZipado, String diretorio) throws IOException {
+		Enumeration entries;
+	    ZipFile zipFile;
+
+	    try {
+	      zipFile = new ZipFile(arquivoZipado);
+
+	      entries = zipFile.entries();
+
+	      while(entries.hasMoreElements()) {
+	        ZipEntry entry = (ZipEntry)entries.nextElement();
+
+	        if(entry.isDirectory()) {
+	          // Assume directories are stored parents first then children.
+	          System.err.println("Extracting directory: " + entry.getName());
+	          // This is not robust, just for demonstration purposes.
+	          (new File(entry.getName())).mkdir();
+	          continue;
+	        }
+
+	        System.err.println("Extracting file: " + entry.getName());
+	        copyInputStream(zipFile.getInputStream(entry),
+	           new BufferedOutputStream(new FileOutputStream(new File(diretorio,entry.getName()))));
+	      }
+
+	      zipFile.close();
+	    } catch (IOException ioe) {
+	      System.err.println("Unhandled exception:");
+	      ioe.printStackTrace();
+	      return;
+	    }
+	  }
+	/**
+	 * 
+	 * @param arquivoZipado
+	 * @param diretorio
+	 * @deprecated
+	 * @throws IOException
+	 */
+	public static void unZipDir2(String arquivoZipado, String diretorio) throws IOException {
+		 BufferedOutputStream dest = null;
+		FileInputStream fis = new FileInputStream(arquivoZipado);
+		ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
+		ZipEntry entry;
+		while ((entry = zis.getNextEntry()) != null) {
+			System.out.println("Extracting: " + entry);
+			int count;
+			byte data[] = new byte[2048];
+			// write the files to the disk
+			FileOutputStream fos = new FileOutputStream(new File(diretorio,entry.getName()));
+			dest = new BufferedOutputStream(fos, 2048);
+			while ((count = zis.read(data, 0, 2048)) != -1) {
+				dest.write(data, 0, count);
+			}
+			dest.flush();
+			dest.close();
+		}
+		zis.close();
+	}
+
 	public static void apagarArquivos(String dir) {
 		apagarArquivos(new File(dir));
 	}
@@ -538,8 +606,100 @@ public class Util {
 		}
 	}
 	
+	public static final void copyInputStream(InputStream in, OutputStream out)
+	  throws IOException
+	  {
+	    byte[] buffer = new byte[1024];
+	    int len;
+
+	    while((len = in.read(buffer)) >= 0)
+	      out.write(buffer, 0, len);
+
+	    in.close();
+	    out.close();
+	  }
+
+
+	public static void copiarArquivos(String diretorioOrigem, String diretorioDestino) throws IOException {
+		File f = new File(diretorioDestino);
+		try {
+			f.mkdirs();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		File fBanco = new File(diretorioOrigem);
+		File[] arquivos = fBanco.listFiles();
+		for (int i = 0; i < arquivos.length; i++) {
+			if (arquivos[i].isFile()) {
+				FileChannel oriChannel = new FileInputStream(arquivos[i]).getChannel();
+				FileChannel destChannel = new FileOutputStream(new File(f.getPath()+File.separator+arquivos[i].getName())).getChannel();
+				destChannel.transferFrom(oriChannel, 0, oriChannel.size());
+				oriChannel.close();
+				destChannel.close();
+			}
+		}
+
+	}
+	public static void copiarTudo(String diretorioOrigem, String diretorioDestino) throws IOException {
+		File f = new File(diretorioDestino);
+		try {
+			f.mkdirs();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		File fBanco = new File(diretorioOrigem);
+		File[] arquivos = fBanco.listFiles();
+		for (int i = 0; i < arquivos.length; i++) {
+			if (arquivos[i].isFile()) {
+				FileChannel oriChannel = new FileInputStream(arquivos[i]).getChannel();
+				FileChannel destChannel = new FileOutputStream(new File(f.getPath()+File.separator+arquivos[i].getName())).getChannel();
+				destChannel.transferFrom(oriChannel, 0, oriChannel.size());
+				oriChannel.close();
+				destChannel.close();
+			}
+		}
+
+	}
+
 	public static String getDirDestinoCargaBaseLojaComponente(Long loja, Long idComponente) {
 		String dirTemp = Util.getDirCorrente() + "/banco/"+loja + "/" + idComponente;
+		try {
+			if(!new File(dirTemp).exists()) 
+				new File(dirTemp).mkdirs();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return dirTemp; 
+	}
+	
+	public static String getDirDataHora() {
+		Date date = new Date();
+		
+		return date.getTime() + "";
+	}
+	
+	public static String getDirBakpBasePDV() {
+		String dirTemp = Util.getDirCorrente() + "\\bkpCargaBase";
+		try {
+			if(!new File(dirTemp).exists()) 
+				new File(dirTemp).mkdirs();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return dirTemp;
+	}
+	public static String getDirBasePDV() {
+		String dirTemp = Util.getDirCorrente() + "\\banco";
+		try {
+			if(!new File(dirTemp).exists()) 
+				new File(dirTemp).mkdirs();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return dirTemp;
+	}
+	public static String getBasePDV() {
+		String dirTemp = Util.getDirCorrente() + "\\banco\\pdv";
 		try {
 			if(!new File(dirTemp).exists()) 
 				new File(dirTemp).mkdirs();

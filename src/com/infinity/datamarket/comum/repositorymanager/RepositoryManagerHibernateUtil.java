@@ -6,6 +6,7 @@
  */
 package com.infinity.datamarket.comum.repositorymanager;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Properties;
 
@@ -15,6 +16,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import com.infinity.datamarket.comum.util.Util;
+
 /**
  * @author wagner.medeiros
  *
@@ -22,6 +25,8 @@ import org.hibernate.cfg.Configuration;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class RepositoryManagerHibernateUtil {
+
+	public static String SINCRONIZADOR = "SINCRONIZADOR";
 
 	public static String HIBERNATE = "hibernate.cfg.xml";
 	public static String HIBERNATE_PDV = "hibernate.cfg.pdv.xml";
@@ -62,9 +67,28 @@ public class RepositoryManagerHibernateUtil {
 
 	public static RepositoryManagerHibernateUtil getInstancia() {
 		if (instancia == null) {
-			instancia = new RepositoryManagerHibernateUtil();
+			synchronized (SINCRONIZADOR) {
+				instancia = new RepositoryManagerHibernateUtil();
+			}
 		}
 		return instancia;
+	}
+
+	public void trocarBase(String arquivoZipado) throws IOException {
+		String diretorioH2 = Util.getDirBasePDV();
+		synchronized (SINCRONIZADOR) {
+			
+	    
+
+				sessionFactory.close();
+				Util.copiarTudo(diretorioH2, Util.getDirBakpBasePDV() + "/" + Util.getDirDataHora());
+				Util.apagarArquivos(diretorioH2);
+				Util.unZipDir(arquivoZipado, diretorioH2);
+
+
+		}
+		
+		getInstancia();
 	}
 
 	public  Configuration getConfiguration() throws HibernateException {
