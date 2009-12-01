@@ -828,3 +828,43 @@ PRIMARY KEY
 	ID_PRODUTO 
 )
 ) [42101-119]
+12-01 04:03:31 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Duplicate column name CPFCNPJ; SQL statement:
+alter table evento_item_pag_cartao_proprio add column CPFCNPJ varchar(50) [42121-119]
+	at org.h2.message.Message.getSQLException(Message.java:106)
+	at org.h2.message.Message.getSQLException(Message.java:117)
+	at org.h2.message.Message.getSQLException(Message.java:76)
+	at org.h2.table.Table.setColumns(Table.java:335)
+	at org.h2.table.TableData.<init>(TableData.java:82)
+	at org.h2.schema.Schema.createTable(Schema.java:492)
+	at org.h2.command.ddl.AlterTableAlterColumn.copyData(AlterTableAlterColumn.java:256)
+	at org.h2.command.ddl.AlterTableAlterColumn.update(AlterTableAlterColumn.java:162)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:72)
+	at org.h2.command.Command.executeUpdate(Command.java:208)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:162)
+	at org.h2.server.web.WebThread.getResult(WebThread.java:1691)
+	at org.h2.server.web.WebThread.query(WebThread.java:1274)
+	at org.h2.server.web.WebThread.process(WebThread.java:430)
+	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
+	at org.h2.server.web.WebThread.process(WebThread.java:236)
+	at org.h2.server.web.WebThread.run(WebThread.java:193)
+12-01 04:03:42 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Duplicate column name ENQUADRAMENTO; SQL statement:
+ALTER TABLE PRODUTO ADD COLUMN ENQUADRAMENTO VARCHAR(1) NOT NULL [42121-119]
+	at org.h2.message.Message.getSQLException(Message.java:106)
+	at org.h2.message.Message.getSQLException(Message.java:117)
+	at org.h2.message.Message.getSQLException(Message.java:76)
+	at org.h2.table.Table.setColumns(Table.java:335)
+	at org.h2.table.TableData.<init>(TableData.java:82)
+	at org.h2.schema.Schema.createTable(Schema.java:492)
+	at org.h2.command.ddl.AlterTableAlterColumn.copyData(AlterTableAlterColumn.java:256)
+	at org.h2.command.ddl.AlterTableAlterColumn.update(AlterTableAlterColumn.java:162)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:72)
+	at org.h2.command.Command.executeUpdate(Command.java:208)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:162)
+	at org.h2.server.web.WebThread.getResult(WebThread.java:1691)
+	at org.h2.server.web.WebThread.query(WebThread.java:1274)
+	at org.h2.server.web.WebThread.process(WebThread.java:430)
+	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
+	at org.h2.server.web.WebThread.process(WebThread.java:236)
+	at org.h2.server.web.WebThread.run(WebThread.java:193)
