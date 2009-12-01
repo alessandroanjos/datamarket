@@ -108,6 +108,7 @@
     <operacao id="OpSeparaFluxoAVistaAPrazo" classe="com.infinity.datamarket.pdv.op.OpSeparaFluxoAVistaAPrazo"/>
     <operacao id="OpConsultaTelaPedido" classe="com.infinity.datamarket.pdv.op.OpConsultaTelaPedido"/>  
     <operacao id="OpIncluiVendeItemOperacaoPedido" classe="com.infinity.datamarket.pdv.op.OpIncluiVendeItemOperacaoPedido"/>  
+    <operacao id="OpSolicitaDadosConsultaOperacaoPedido" classe="com.infinity.datamarket.pdv.op.OpSolicitaDadosConsultaOperacaoPedido"/>  
     <operacao id="OpSolicitaCargaBase" classe="com.infinity.datamarket.pdv.op.OpSolicitaCargaBase"/>  
   </listaMicroperacao>
   <listaEstado>
@@ -145,7 +146,8 @@
     <tecla codigo="TECLA23" descricao="F7" codigoASCI="118" />
     <tecla codigo="TECLA24" descricao="G" codigoASCI="71" />
     <tecla codigo="TECLA25" descricao="H" codigoASCI="72" />
-     <tecla codigo="TECLA26" descricao="A" codigoASCI="65" />
+    <tecla codigo="TECLA26" descricao="J" codigoASCI="74" />
+    <tecla codigo="TECLA26" descricao="A" codigoASCI="65" />
     
   </listaTecla>
   <listaMacroOperacao>
@@ -2115,7 +2117,33 @@
       </microOperacaoAssociada>         
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo310" operacao="OpConsultaTelaPedido">      	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo317" />
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo315" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo314" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo317" operacao="OpCriaTransacaoVenda">      	
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo311" />
+      </microOperacaoAssociada>               
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo311" operacao="OpIncluiVendeItemOperacaoPedido">      	      
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo312" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo314" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo312" operacao="OpExibeDisplayVenda">      	      
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo313" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo313" operacao="OpExibeTelaVenda">      	      
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo314" operacao="OpExibeDisplayDisponivel">      	            	
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo315" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo315" operacao="OpAlternativaDois">      	            	
+      </microOperacaoAssociada>
+    </macroOperacao>
+    <macroOperacao estadoAtual="ESTADO3" proximoEstado="ESTADO4" tecla="TECLA26" codigoMicroOperacaoAssociada="subFluxo316" descricao="Número do Pedido">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo316" operacao="OpInicioVenda">      	
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo310" />
+      </microOperacaoAssociada>         
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo310" operacao="OpSolicitaDadosConsultaOperacaoPedido">      	
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo317" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo314" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo317" operacao="OpCriaTransacaoVenda">      	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo311" />
