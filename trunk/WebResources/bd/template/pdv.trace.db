@@ -868,3 +868,119 @@ ALTER TABLE PRODUTO ADD COLUMN ENQUADRAMENTO VARCHAR(1) NOT NULL [42121-119]
 	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
 	at org.h2.server.web.WebThread.process(WebThread.java:236)
 	at org.h2.server.web.WebThread.run(WebThread.java:193)
+12-01 04:16:02 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement ALTER TABLE OPERACAO_PEDIDO ADD
+	ENDERECO_ENTREGA VARCHAR(1) NULL,[*]
+	LOGRADOURO VARCHAR(200) NULL,
+	NUMERO VARCHAR(20) NULL,
+	COMPLEMENTO VARCHAR(50) NULL,
+	BAIRRO VARCHAR(50) NULL,
+	CIDADE VARCHAR(50) NULL,
+	ESTADO VARCHAR(2) NULL,
+	CEP VARCHAR(10) NULL,
+	PONTO_REFERENCIA VARCHAR(200) NULL ; SQL statement:
+ALTER TABLE OPERACAO_PEDIDO ADD
+	ENDERECO_ENTREGA varchar(1) NULL,
+	LOGRADOURO varchar(200) NULL,
+	NUMERO varchar(20) NULL,
+	COMPLEMENTO varchar(50) NULL,
+	BAIRRO varchar(50) NULL,
+	CIDADE varchar(50) NULL,
+	ESTADO varchar(2) NULL,
+	CEP varchar(10) NULL,
+	PONTO_REFERENCIA varchar(200) NULL [42000-119]
+12-01 04:16:58 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement ALTER TABLE OPERACAO_PEDIDO ADD
+	ENDERECO_ENTREGA VARCHAR(1),[*]
+	LOGRADOURO VARCHAR(200),
+	NUMERO VARCHAR(20),
+	COMPLEMENTO VARCHAR(50),
+	BAIRRO VARCHAR(50),
+	CIDADE VARCHAR(50),
+	ESTADO VARCHAR(2),
+	CEP VARCHAR(10),
+	PONTO_REFERENCIA VARCHAR(200) ; SQL statement:
+ALTER TABLE OPERACAO_PEDIDO ADD
+	ENDERECO_ENTREGA varchar(1),
+	LOGRADOURO varchar(200),
+	NUMERO varchar(20),
+	COMPLEMENTO varchar(50),
+	BAIRRO varchar(50),
+	CIDADE varchar(50),
+	ESTADO varchar(2),
+	CEP varchar(10),
+	PONTO_REFERENCIA varchar(200) [42000-119]
+12-01 04:17:20 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement ALTER TABLE OPERACAO_PEDIDO ADD COLUMN
+	ENDERECO_ENTREGA VARCHAR(1),[*]
+	LOGRADOURO VARCHAR(200),
+	NUMERO VARCHAR(20),
+	COMPLEMENTO VARCHAR(50),
+	BAIRRO VARCHAR(50),
+	CIDADE VARCHAR(50),
+	ESTADO VARCHAR(2),
+	CEP VARCHAR(10),
+	PONTO_REFERENCIA VARCHAR(200) ; SQL statement:
+ALTER TABLE OPERACAO_PEDIDO ADD column
+	ENDERECO_ENTREGA varchar(1),
+	LOGRADOURO varchar(200),
+	NUMERO varchar(20),
+	COMPLEMENTO varchar(50),
+	BAIRRO varchar(50),
+	CIDADE varchar(50),
+	ESTADO varchar(2),
+	CEP varchar(10),
+	PONTO_REFERENCIA varchar(200) [42000-119]
+12-01 04:17:25 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Unknown data type: ENDERECO_ENTREGA; SQL statement:
+ALTER TABLE OPERACAO_PEDIDO ADD columns
+	ENDERECO_ENTREGA varchar(1),
+	LOGRADOURO varchar(200),
+	NUMERO varchar(20),
+	COMPLEMENTO varchar(50),
+	BAIRRO varchar(50),
+	CIDADE varchar(50),
+	ESTADO varchar(2),
+	CEP varchar(10),
+	PONTO_REFERENCIA varchar(200) [50004-119]
+	at org.h2.message.Message.getSQLException(Message.java:106)
+	at org.h2.message.Message.getSQLException(Message.java:117)
+	at org.h2.message.Message.getSQLException(Message.java:76)
+	at org.h2.command.Parser.parseColumn(Parser.java:3336)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3204)
+	at org.h2.command.Parser.parseAlterTableAddColumn(Parser.java:4436)
+	at org.h2.command.Parser.parseAlterTable(Parser.java:4312)
+	at org.h2.command.Parser.parseAlter(Parser.java:3854)
+	at org.h2.command.Parser.parsePrepared(Parser.java:308)
+	at org.h2.command.Parser.parse(Parser.java:291)
+	at org.h2.command.Parser.parse(Parser.java:263)
+	at org.h2.command.Parser.prepareCommand(Parser.java:235)
+	at org.h2.engine.Session.prepareLocal(Session.java:415)
+	at org.h2.engine.Session.prepareCommand(Session.java:376)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1049)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:149)
+	at org.h2.server.web.WebThread.getResult(WebThread.java:1691)
+	at org.h2.server.web.WebThread.query(WebThread.java:1274)
+	at org.h2.server.web.WebThread.process(WebThread.java:430)
+	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
+	at org.h2.server.web.WebThread.process(WebThread.java:236)
+	at org.h2.server.web.WebThread.run(WebThread.java:193)
+12-01 04:18:39 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement ALTER TABLE OPERACAO_PEDIDO ADD ENDERECO_ENTREGA VARCHAR(1)
+ALTER[*] TABLE OPERACAO_PEDIDO ADD LOGRADOURO VARCHAR(200)
+ALTER TABLE OPERACAO_PEDIDO ADD NUMERO VARCHAR(20)
+ALTER TABLE OPERACAO_PEDIDO ADD COMPLEMENTO VARCHAR(50)
+ALTER TABLE OPERACAO_PEDIDO ADD BAIRRO VARCHAR(50)
+ALTER TABLE OPERACAO_PEDIDO ADD CIDADE VARCHAR(50)
+ALTER TABLE OPERACAO_PEDIDO ADD ESTADO VARCHAR(2)
+ALTER TABLE OPERACAO_PEDIDO ADD CEP VARCHAR(10)
+ALTER TABLE OPERACAO_PEDIDO ADD PONTO_REFERENCIA VARCHAR(200) ; SQL statement:
+ALTER TABLE OPERACAO_PEDIDO ADD ENDERECO_ENTREGA varchar(1)
+ALTER TABLE OPERACAO_PEDIDO ADD LOGRADOURO varchar(200)
+ALTER TABLE OPERACAO_PEDIDO ADD NUMERO varchar(20)
+ALTER TABLE OPERACAO_PEDIDO ADD COMPLEMENTO varchar(50)
+ALTER TABLE OPERACAO_PEDIDO ADD BAIRRO varchar(50)
+ALTER TABLE OPERACAO_PEDIDO ADD CIDADE varchar(50)
+ALTER TABLE OPERACAO_PEDIDO ADD ESTADO varchar(2)
+ALTER TABLE OPERACAO_PEDIDO ADD CEP varchar(10)
+ALTER TABLE OPERACAO_PEDIDO ADD PONTO_REFERENCIA varchar(200) [42000-119]
