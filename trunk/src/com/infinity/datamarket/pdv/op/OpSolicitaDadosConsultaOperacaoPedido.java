@@ -1,5 +1,10 @@
 package com.infinity.datamarket.pdv.op;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+
 import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
 import com.infinity.datamarket.comum.operacao.Operacao;
 import com.infinity.datamarket.comum.operacao.OperacaoPK;
@@ -13,6 +18,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
+import com.infinity.datamarket.pdv.util.ServerConfig;
 
 public class OpSolicitaDadosConsultaOperacaoPedido extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -27,11 +33,45 @@ public class OpSolicitaDadosConsultaOperacaoPedido extends Mic{
 				if (entrada3.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 					operacao = entrada3.getDado();
 					if (!"".equals(operacao)){	
-						OperacaoPedido pedido = null; 
+						OperacaoPedido pedido = null;
+						Operacao op = null;
 						try{
 							gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
-							//Pegar Pedido no Servidor
-							Operacao op = null;
+							URL urlCon = new URL("http://" +
+									ServerConfig.HOST_SERVIDOR_ES +
+									":" +
+									ServerConfig.PORTA_SERVIDOR_ES +
+									"/" +
+									ServerConfig.CONTEXTO_SERVIDOR_ES +
+									"/" +
+									ServerConfig.CONSULTAR_OPERACA_SERVLET);
+							URLConnection huc1 = urlCon.openConnection();
+	
+							huc1.setAllowUserInteraction(true);
+							huc1.setDoOutput(true);
+	
+							ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
+							OperacaoPK pk = new OperacaoPK(Integer.parseInt(operacao),gerenciadorPerifericos.getCodigoLoja());
+							output.writeObject(pk);
+							ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
+							Object obj = input.readObject();
+							if (obj instanceof Operacao ) {								
+								op = (Operacao) obj;
+							} else if (obj instanceof ObjectNotFoundException) {
+								gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
+								gerenciadorPerifericos.esperaVolta();
+								return ALTERNATIVA_2;
+							} else  if (obj instanceof ValidationException){
+								gerenciadorPerifericos.getDisplay().setMensagem("Operação Inválida");
+								gerenciadorPerifericos.esperaVolta();
+								return ALTERNATIVA_2;
+							} else  if (obj instanceof Exception){
+								gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+								gerenciadorPerifericos.esperaVolta();
+								return ALTERNATIVA_2;
+							}
+	
+							
 							if (op.getTipo() == ConstantesOperacao.OPERACAO_PEDIDO){
 								pedido = (OperacaoPedido) op;
 								if (pedido.getStatus() == ConstantesOperacao.ABERTO){

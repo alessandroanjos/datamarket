@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.transacao.Transacao;
-import com.infinity.datamarket.transaction.TransactionServer;
 
 public class ReceptorTransacaoServlet extends HttpServlet {
 
@@ -25,7 +25,7 @@ public class ReceptorTransacaoServlet extends HttpServlet {
 			Transacao transacao = (Transacao) object;
 			input.close();
 			
-			new TransactionServer().inserirTransacao(transacao);
+			Fachada.getInstancia().inserirTransacaoES(transacao);
 
 			ObjectOutputStream ouptu = new ObjectOutputStream(response.getOutputStream());
 			ouptu.writeObject("OK");

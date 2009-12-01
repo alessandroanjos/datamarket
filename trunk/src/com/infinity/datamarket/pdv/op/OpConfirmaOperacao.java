@@ -11,17 +11,13 @@ import java.util.Iterator;
 import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
 import com.infinity.datamarket.comum.operacao.Operacao;
 import com.infinity.datamarket.comum.operacao.OperacaoPedido;
-import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
-import com.infinity.datamarket.comum.util.ValidationException;
-import com.infinity.datamarket.operacao.OperacaoServerRemote;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.util.ServerConfig;
-import com.infinity.datamarket.pdv.util.ServiceLocator;
 
 public class OpConfirmaOperacao extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -43,16 +39,15 @@ public class OpConfirmaOperacao extends Mic{
 				Iterator i = c.iterator();
 				while(i.hasNext()){
 					Operacao op = (Operacao) i.next();
-					try{
-//						URL urlCon = new URL("http://" + loja.getNumeroIp() + ":" + loja.getNumeroPortaServlet() + "/EnterpriseServer/GerarBoletoServlet.servlet");
+					try{						
 						URL urlCon = new URL("http://" +
 								ServerConfig.HOST_SERVIDOR_ES +
 								":" +
 								ServerConfig.PORTA_SERVIDOR_ES +
 								"/" +
 								ServerConfig.CONTEXTO_SERVIDOR_ES +
-								"/");
-//								ServerConfig.ALTERAR_OPERACA_SERVLET +"status=" + ConstantesOperacao.FECHADO);
+								"/" +
+								ServerConfig.ALTERAR_OPERACA_SERVLET +"?status=" + ConstantesOperacao.FECHADO);
 						URLConnection huc1 = urlCon.openConnection();
 
 						huc1.setAllowUserInteraction(true);

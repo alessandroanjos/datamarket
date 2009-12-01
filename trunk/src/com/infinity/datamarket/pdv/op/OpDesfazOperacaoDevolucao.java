@@ -10,16 +10,11 @@ import java.util.Iterator;
 import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
 import com.infinity.datamarket.comum.operacao.Operacao;
 import com.infinity.datamarket.comum.util.AppException;
-import com.infinity.datamarket.operacao.OperacaoServerRemote;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
-import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 import com.infinity.datamarket.pdv.util.ServerConfig;
-import com.infinity.datamarket.pdv.util.ServiceLocator;
 
 public class OpDesfazOperacaoDevolucao extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -52,7 +47,7 @@ public class OpDesfazOperacaoDevolucao extends Mic{
 									"/" +
 									ServerConfig.CONTEXTO_SERVIDOR_ES +
 									"/" +
-									ServerConfig.ALTERAR_OPERACA_SERVLET +"status=" + ConstantesOperacao.ABERTO);
+									ServerConfig.ALTERAR_OPERACA_SERVLET +"?status=" + ConstantesOperacao.ABERTO);
 							URLConnection huc1 = urlCon.openConnection();
 
 							huc1.setAllowUserInteraction(true);
