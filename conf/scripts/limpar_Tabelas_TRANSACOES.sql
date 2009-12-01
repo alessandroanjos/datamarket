@@ -1,18 +1,25 @@
-delete from transacao_abertura               WHERE DATA_TRANSACAO = '2009-11-13'
-delete from transacao_entrada_operador       WHERE DATA_TRANSACAO = '2009-11-13'
-delete from evento_item_pagamento_cheque     WHERE DATA_TRANSACAO = '2009-11-13'
-delete from parc_eve_item_pag_cheque_pre     WHERE DATA_TRANSACAO = '2009-11-13'
-delete from evento_item_pagamento_boleto     WHERE DATA_TRANSACAO = '2009-11-13'
-delete from evento_item_pag_cheque_pre       WHERE DATA_TRANSACAO = '2009-11-13'
-delete from evento_item_pag_cartao_proprio   WHERE DATA_TRANSACAO = '2009-11-13'
-delete from evento_item_pag_cartao_off       WHERE DATA_TRANSACAO = '2009-11-13'
-delete from evento_item_pagamento_troca      WHERE DATA_TRANSACAO = '2009-11-13'
-delete from evento_item_pagamento            WHERE DATA_TRANSACAO = '2009-11-13'
-delete from produto_item_registrado          WHERE DATA_TRANSACAO = '2009-11-13'
-delete from evento_item_registrado           WHERE DATA_TRANSACAO = '2009-11-13'
-delete from evento_transacao                 WHERE DATA_TRANSACAO = '2009-11-13'
-delete from transacao_venda                  WHERE DATA_TRANSACAO = '2009-11-13'
-delete from transacao_cancelamento           WHERE DATA_TRANSACAO = '2009-11-13'
-delete from transacao_pagto_cartao_proprio   WHERE DATA_TRANSACAO = '2009-11-13'
-delete from transacao_pagamento              WHERE DATA_TRANSACAO = '2009-11-13'
-delete from transacao                        WHERE DATA_TRANSACAO = '2009-11-13'
+delete from transacao_abertura;
+delete from transacao_entrada_operador   ;    
+delete from evento_item_pagamento_cheque;     
+delete from parc_eve_item_pag_cheque_pre  ;   
+delete from bole_even_item_trans_bole        ;
+delete from evento_item_pagamento_boleto  ;   
+delete from evento_item_pag_cheque_pre      ; 
+delete from evento_item_pag_cartao_proprio   ;
+delete from evento_item_pag_cartao_off       ;
+delete from evento_item_pagamento_troca    ;  
+delete from evento_item_pagamento            ;
+delete from produto_item_registrado          ;
+delete from produto_operac_item_registrado;   
+delete from evento_operacao_item_registrado;  
+delete from evento_item_registrado           ;
+delete from evento_transacao                 ;
+delete from evento_operacao                  ;
+delete from operacao_devolucao;
+delete from operacao_pedido   ;
+delete from operacao	             ;        
+delete from transacao_venda      ;                                             
+delete from transacao_cancelamento;           
+delete from transacao_pagto_cartao_proprio;   
+delete from transacao_pagamento       ;       
+delete from transacao                        ;
