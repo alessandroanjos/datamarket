@@ -26,9 +26,9 @@ public class SalvarInfoComponenteServlet extends HttpServlet {
 			InfoComponent info = (InfoComponent) object;
 			input.close();
 			
-			RepositoryManagerHibernateUtil.getInstancia().currentSession();
+			
 			Fachada.getInstancia().salvarInfoComponent(info);
-			RepositoryManagerHibernateUtil.getInstancia().closeSession();
+
 			
 			ObjectOutputStream ouptu = new ObjectOutputStream(response.getOutputStream());
 			ouptu.writeObject("OK");

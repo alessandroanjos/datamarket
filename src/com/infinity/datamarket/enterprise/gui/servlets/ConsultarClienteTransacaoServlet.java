@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.infinity.datamarket.cliente.ClienteServer;
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 
 public class ConsultarClienteTransacaoServlet extends HttpServlet {
@@ -18,7 +18,7 @@ public class ConsultarClienteTransacaoServlet extends HttpServlet {
 		try {
 			String idCliente = request.getParameter("idCliente");
 			
-			ClienteTransacao cli = new ClienteServer().consultarClienteTransacaoPorID(idCliente);
+			ClienteTransacao cli = Fachada.getInstancia().consultarClienteTransacaoPorID(idCliente);
 
 			ObjectOutputStream ouptu = new ObjectOutputStream(response.getOutputStream());
 			ouptu.writeObject(cli);

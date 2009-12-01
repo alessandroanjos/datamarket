@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.operacao.OperacaoPK;
-import com.infinity.datamarket.operacao.OperacaoServer;
 
 public class AlterarOperacaoServlet extends HttpServlet {
 
@@ -19,9 +19,7 @@ public class AlterarOperacaoServlet extends HttpServlet {
 		
 		try {
 			
-			String status = request.getParameter("status");
 			
-			int statusInt = Integer.parseInt(status);
 			
 			InputStream obj = request.getInputStream();
 			ObjectInputStream input = new ObjectInputStream(obj);
@@ -29,7 +27,11 @@ public class AlterarOperacaoServlet extends HttpServlet {
 			OperacaoPK info = (OperacaoPK) object;
 			input.close();
 			
-			new OperacaoServer().alteraStatusOperacao(info,statusInt);
+			String status = request.getParameter("status");
+			
+			int statusInt = Integer.parseInt(status);
+						
+			Fachada.getInstancia().alterarStatusOperacao(info, statusInt);
 			
 			ObjectOutputStream ouptu = new ObjectOutputStream(response.getOutputStream());
 			ouptu.writeObject("OK");
