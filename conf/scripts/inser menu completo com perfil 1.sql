@@ -77,6 +77,7 @@ insert into funcionalidade values (216,  214, 'Manter Devolução'                
 insert into funcionalidade values (217,  200, 'Pedido'                              , 'S', NULL                                                       , 0     , 0   )
 insert into funcionalidade values (218,  217, 'Inserir Pedido'                      , 'S', 'pedido/inserirPedido'                                     , 1024  , 768 )
 insert into funcionalidade values (219,  217, 'Manter Pedido'                       , 'S', 'pedido/consultarPedido'                                   , 1024  , 768 )
+insert into funcionalidade values(220, 200,   'Liberar Nova Base',                    'S', 'cargabase/liberaCargaBase'                                , 800, 300)
 
 insert into funcionalidade values (768, NULL, 'Relatórios'                          , 'S', NULL                                                       , 1024  , 768 )
 insert into funcionalidade values (301,  768, 'Analítico de Entradas'               , 'S', 'reports/relatorioAnaliticoEntrada'                        , 1024  , 768 )
@@ -109,9 +110,9 @@ insert into funcionalidade values (412,  400, 'Conta Corrente'                  
 insert into funcionalidade values (413,  412, 'Inserir Conta Corrente'              , 'S', 'contaCorrente/inserirContaCorrente'                       , 1024  , 768 )
 insert into funcionalidade values (414,  412, 'Manter Conta Corrente'               , 'S', 'contaCorrente/consultarContaCorrente'                     , 1024  , 768 )
                                 
-insert into funcionalidade values (768, NULL, 'Produção'                            , 'S', NULL                                                       , 0     , 0   )
-insert into funcionalidade values (501,  768, 'Inserir Lote'                        , 'S', 'producao/inserirProducao'                                 , 1024  , 768 )
-insert into funcionalidade values (502,  768, 'Manter Lote'                         , 'S', 'producao/consultarProducao'                               , 1024  , 768 )
+insert into funcionalidade values (500, NULL, 'Produção'                            , 'S', NULL                                                       , 0     , 0   )
+insert into funcionalidade values (501,  500, 'Inserir Lote'                        , 'S', 'producao/inserirProducao'                                 , 1024  , 768 )
+insert into funcionalidade values (502,  500, 'Manter Lote'                         , 'S', 'producao/consultarProducao'                               , 1024  , 768 )
                                                                                                                                                                                                      
 insert into funcionalidade values (999, NULL, 'Logout'                              , 'S', 'logout'                                                   , 0     , 0   )
 

@@ -27,6 +27,10 @@
             <column name="NUMERO_IP" length="15" not-null="true"/>
         </property>
 
+        <property name="tipoComponente" type="int" update="true" insert="true">
+            <column name="TIPO_COMPONENTE" length="1" not-null="true"/>
+        </property>
+
 		<property name="versao" type="java.lang.String" update="true" insert="true">
             <column name="VERSAO" length="50" not-null="false"/>
         </property>

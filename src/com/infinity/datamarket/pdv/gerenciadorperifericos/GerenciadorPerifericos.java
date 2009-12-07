@@ -52,6 +52,9 @@ public class GerenciadorPerifericos implements Serializable{
     private static final String DISPLAY_VIRTUAL = "DISPLAY";
     private static final String IMPRESSOSRA_FISCAL = "IMPRESSOSRA_FISCAL";
 
+    public static String PERIFERICOS = "Perifericos";
+
+
     private GerenciadorPerifericos(){
         carregaPerifericos();
         carregaConstantes();
@@ -75,7 +78,7 @@ public class GerenciadorPerifericos implements Serializable{
     }
 
     private void carregaPerifericos(){
-        ResourceBundle rb = ResourceBundle.getBundle("Perifericos");
+        ResourceBundle rb = ResourceBundle.getBundle(PERIFERICOS);
         String strWindow = rb.getString(WINDOW);
         window = carregaWindow(strWindow);
         String strArquivoCmos = rb.getString(ARQUIVO_CMOS);

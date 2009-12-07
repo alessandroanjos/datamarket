@@ -91,6 +91,13 @@ public class RepositoryManagerHibernateUtil {
 		getInstancia();
 	}
 
+	@Override
+	protected void finalize() throws Throwable {
+		sessionFactory.close();
+
+		super.finalize();
+	}
+
 	public  Configuration getConfiguration() throws HibernateException {
 		 return configuration;
 	}

@@ -19,6 +19,7 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -33,10 +34,20 @@ public class ComponenteBackBean extends BackBean {
 	String ip;
 	String versao="";
 	String porta;
+	int tipoComponente = 0;
+	SelectItem[] tipoComponenteItens;
+
 	Loja loja;
 	Collection componentes;
 
-	
+	public SelectItem[] getTipoComponenteItens() {
+		SelectItem[] tipoComponenteItens = new SelectItem[]{new SelectItem(Componente.TIPO_COMPONENTE_PDV,"PDV"), new SelectItem(Componente.TIPO_COMPONENTE_AV,"AV")};
+		if (this.tipoComponente == 0) {
+			this.tipoComponente = Componente.TIPO_COMPONENTE_PDV;
+		}
+		return tipoComponenteItens;
+	}
+
 	public String voltarConsulta(){
 //		resetBB();
 		consultar();
@@ -105,6 +116,7 @@ public class ComponenteBackBean extends BackBean {
 			componente.setId(new Long(this.id));
 			componente.setDescricao(this.descricao);
 		    componente.setIp(this.ip);
+		    componente.setTipoComponente(this.tipoComponente);
 		    componente.setPorta(this.porta);
 		    componente.setVersao("");
 			Loja loja = new Loja();
@@ -154,6 +166,7 @@ public class ComponenteBackBean extends BackBean {
 				this.setDescricao(componente.getDescricao());
 				this.setIp(componente.getIp());
 				this.setVersao(componente.getVersao());
+				this.setTipoComponente(componente.getTipoComponente());
 				this.setPorta(componente.getPorta());
 				this.setIdLoja(componente.getLoja().getId().toString());
 				return "proxima";
@@ -174,7 +187,9 @@ public class ComponenteBackBean extends BackBean {
 				if(this.getIdLoja() != null && !this.getIdLoja().equals("0")){
 					filter.addProperty("loja.id", new Long(this.getIdLoja()));	
 				}
-				
+				if(this.getTipoComponente() != 0 ){
+					filter.addProperty("tipoComponente ", this.getTipoComponente());	
+				}
 				Collection col = getFachada().consultarComponentes(filter);
 				if (col == null || col.size() == 0){
 					setExisteRegistros(false);
@@ -190,6 +205,7 @@ public class ComponenteBackBean extends BackBean {
 						this.setId(componente.getId().toString());
 						this.setDescricao(componente.getDescricao());
 						this.setIp(componente.getIp());
+						this.setTipoComponente(componente.getTipoComponente());
 						this.setVersao(componente.getVersao());
 						this.setPorta(componente.getPorta());
 						this.setIdLoja(componente.getLoja().getId().toString());
@@ -236,6 +252,7 @@ public class ComponenteBackBean extends BackBean {
 		    componente.setIp(this.ip);
 		    componente.setPorta(this.porta);
 		    componente.setVersao(this.versao);
+		    componente.setTipoComponente(this.tipoComponente);
 			Loja loja = new Loja();
 			loja.setId(new Long(this.idLoja));	
 			componente.setLoja(loja);
@@ -270,6 +287,7 @@ public class ComponenteBackBean extends BackBean {
 		    componente.setIp(this.ip);
 		    componente.setPorta(this.porta);
 		    componente.setVersao(this.versao);
+		    componente.setTipoComponente(this.tipoComponente);
 			Loja loja = new Loja();
 			loja.setId(new Long(this.idLoja));			
 			componente.setLoja(loja);
@@ -296,6 +314,7 @@ public class ComponenteBackBean extends BackBean {
 		this.setVersao("");
 		this.setPorta(null);
 		this.setIdLoja(null);
+	    this.setTipoComponente(0);
 	}
 	
     private Set<Loja> carregarLojas() {
@@ -391,5 +410,13 @@ public class ComponenteBackBean extends BackBean {
 				setComponentes(null);
 			}
 		}
+	}
+
+	public int getTipoComponente() {
+		return tipoComponente;
+	}
+
+	public void setTipoComponente(int tipoComponente) {
+		this.tipoComponente = tipoComponente;
 	}
 }

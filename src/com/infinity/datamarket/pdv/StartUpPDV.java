@@ -20,24 +20,6 @@ import com.infinity.datamarket.pdv.transacao.ThreadEnviaTransacao;
 
 public class StartUpPDV {
 	public static void main(String[] a) throws Exception{
-//		TelaInicial ti = new TelaInicial();
-//
-//		Toolkit toolkit = Toolkit.getDefaultToolkit();
-//		Dimension screenSize = toolkit.getScreenSize();
-//
-////		Calcula a posição do frame a partir da resolucao usada
-//		int x = (screenSize.width - ti.getWidth()) / 2;
-//		int y = (screenSize.height - ti.getHeight()) / 2;
-//
-////		Define a posicao (centralizada)
-//		ti.setLocation(x, y);
-//
-//
-//		ti.setVisible(true);
-//		ti.jProgressBar1.setValue(25);
-
-		//ControladorMaquinaEstado contr = ConcentradorMaquina.getInstancia();
-
 		ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("fluxoPDV.xml");
 
 		String diretorioH2 = Util.getBasePDV();

@@ -4,15 +4,18 @@ import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class Componente extends Persistente {
-	/**
-	 * 
-	 */
+
+	public static int TIPO_COMPONENTE_PDV = 1;
+	public static int TIPO_COMPONENTE_AV = 2;
+
 	private static final long serialVersionUID = 2242612813274772028L;
 	String descricao;
 	Loja loja;
 	String ip;
 	String versao;
 	String porta;
+	int tipoComponente = TIPO_COMPONENTE_PDV;
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -42,6 +45,12 @@ public class Componente extends Persistente {
 	}
 	public void setVersao(String versao) {
 		this.versao = versao;
+	}
+	public int getTipoComponente() {
+		return tipoComponente;
+	}
+	public void setTipoComponente(int tipoComponente) {
+		this.tipoComponente = tipoComponente;
 	}
 
 }
