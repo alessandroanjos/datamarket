@@ -97,6 +97,21 @@
 									</div>
 									
 								</li>
+								
+								<li class="normal">
+											<div>
+												<h:outputLabel styleClass="desc" value="Tipo Componente *"></h:outputLabel>
+												<h:selectOneRadio  styleClass="field select tipocomponente"
+													id="tipoComponente"
+													value="#{componenteBB.tipoComponente}"
+													layout="lineDirection" >
+													<f:selectItems  id="radioDataProgramada"
+														value="#{componenteBB.tipoComponenteItens}" />
+												</h:selectOneRadio>
+												
+											</div>
+											
+								</li>
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" action="#{componenteBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>
 									<h:commandButton styleClass="btTxt" id="botaoInserir" action="#{componenteBB.inserir}" value="Inserir"></h:commandButton>

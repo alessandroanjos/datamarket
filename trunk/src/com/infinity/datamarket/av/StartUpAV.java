@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Properties;
 import java.util.Vector;
 
 import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
@@ -24,37 +25,21 @@ import com.infinity.datamarket.pdv.transacao.ThreadEnviaTransacao;
 public class StartUpAV {
 	public static void main(String[] a) throws Exception{
 		
-		backupTraces();
-		
-//		TelaInicial ti = new TelaInicial();
-//
-//		Toolkit toolkit = Toolkit.getDefaultToolkit();
-//		Dimension screenSize = toolkit.getScreenSize();
-//
-////		Calcula a posição do frame a partir da resolucao usada
-//		int x = (screenSize.width - ti.getWidth()) / 2;
-//		int y = (screenSize.height - ti.getHeight()) / 2;
-//
-////		Define a posicao (centralizada)
-//		ti.setLocation(x, y);
-//
-//
-//		ti.setVisible(true);
-//		ti.jProgressBar1.setValue(25);
-		
-		//ControladorMaquinaEstado contr = ConcentradorMaquina.getInstancia();
-		
 		ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("fluxoAv.xml");
-		//		try {
-		//
-		//new File("c:\\cmos.dat").delete();
-		//} catch (Exception e) {
-			// TODO: handle exception
-		//}
-		
+
+		String diretorioH2 = Util.getBasePDV();
+
+		Properties propreties = new Properties();
+	    propreties.put("hibernate.connection.url", "jdbc:h2:" + diretorioH2);
+
+		RepositoryManagerHibernateUtil.arquivoHibernate = RepositoryManagerHibernateUtil.HIBERNATE_PDV;
+		RepositoryManagerHibernateUtil.properties = propreties;
 		RepositoryManagerHibernateUtil.getInstancia().currentSession();
+		
+		GerenciadorPerifericos.PERIFERICOS = "PerifericosAV";
+
 		GerenciadorPerifericos ger = GerenciadorPerifericos.getInstancia();
-//		ti.jProgressBar1.setValue(50);
+
 		Estado est = new Estado();
 		est.setDescricao("Av Fechado [ENTER]");
 		est.setId(new Long(1));
@@ -63,15 +48,12 @@ public class StartUpAV {
 		ger.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL,est);
 		
     	TelaAVInicial t = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
-        //t.setMenssagem("AV Fechado [ENTER]");
 		Maquina maquina = Maquina.getInstancia(est, new Date(), ger, contr, t, OpAvEncerraIniciaAv.MENSAGEM_INICIAL);
-//		ti.jProgressBar1.setValue(75);
+
 		ThreadEnviaTransacao t1 = new ThreadEnviaTransacao();
 		t1.start();
 		maquina.iniciar();
 		RepositoryManagerHibernateUtil.getInstancia().closeSession();
-//		ti.jProgressBar1.setValue(100);
-//		ti.setVisible(false);
 	}
 	
 	public static void backupTraces(){

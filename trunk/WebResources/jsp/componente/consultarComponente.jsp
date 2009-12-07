@@ -92,6 +92,13 @@
 										</f:facet>
 										<h:outputText value="#{componente.loja.nome}" /> 
 									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Tipo Componente" />
+										</f:facet>
+										<h:outputText rendered="#{componente.tipoComponente == 1}" value="PDV" /> 
+										<h:outputText rendered="#{componente.tipoComponente == 2}" value="AV" /> 
+									</h:column>
 								</t:dataTable>
 								<ul>
 									<li class="normal">
