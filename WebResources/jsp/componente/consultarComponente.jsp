@@ -91,7 +91,7 @@
 											<h:outputText value="Loja" />
 										</f:facet>
 										<h:outputText value="#{componente.loja.nome}" /> 
-									</h:column>
+										</h:column>
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Tipo Componente" />

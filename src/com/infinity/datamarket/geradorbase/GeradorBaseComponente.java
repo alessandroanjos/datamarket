@@ -1,5 +1,6 @@
 package com.infinity.datamarket.geradorbase;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -38,16 +39,16 @@ public abstract class GeradorBaseComponente {
 		if (coll != null) {
 			Iterator it = coll.iterator();
 			while(it.hasNext()) {
-				Componente componene = (Componente)it.next();
+				Componente componente = (Componente)it.next();
 //				try {
-					inicio(codigoLoja, componene.getId());
-				
+					inicio(codigoLoja, componente );
+
 					geraBaseLojas();
 					geraBaseAcumuladorNaoFiscal();
 					geraBaseTotalizadoresNaoFiscais();
 					geraBaseAutorizadora();
 			//		geraBaseLoja(codigoLoja);
-					geraBaseComponente(codigoLoja);
+					geraBaseComponente(componente);
 					geraBaseFormaRecebimento();
 					geraBaseMacroOperacao();
 					geraBasePerfil();
@@ -178,15 +179,17 @@ public abstract class GeradorBaseComponente {
 		}
 	}
 
-	private void geraBaseComponente(Long loja) {
+	private void geraBaseComponente(Componente componente) {
 		try {
-			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
-			PropertyFilter filter = new PropertyFilter();
-			filter.setTheClass(Componente.class);
-			filter.addProperty("loja.id", loja);
-			Collection componentes = Fachada.getInstancia()
-					.consultarComponentes(filter);
-			session.clear();
+//			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
+//			PropertyFilter filter = new PropertyFilter();
+//			filter.setTheClass(Componente.class);
+//			filter.addProperty("loja.id", loja);
+			Collection componentes = new ArrayList();
+//			Fachada.getInstancia()
+//					.consultarComponentes(filter);
+//			session.clear();
+			componentes.add(componente);
 			geraBaseComponente(componentes);
 			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE COMPONENTE GERADA OK!!");
@@ -543,7 +546,7 @@ public abstract class GeradorBaseComponente {
 	protected abstract void geraBaseMacroOperacao(Collection col)
 			throws Exception;
 
-	protected abstract void inicio(Long loja, Long idComponente) throws Exception;
+	protected abstract void inicio(Long loja, Componente componente) throws Exception;
 
 	protected abstract void geraBaseBancos(Collection col) throws Exception;
 

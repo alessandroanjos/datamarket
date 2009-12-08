@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Properties;
 
+import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
@@ -22,7 +23,7 @@ public class StartUpPDV {
 	public static void main(String[] a) throws Exception{
 		ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("fluxoPDV.xml");
 
-		String diretorioH2 = Util.getBasePDV();
+		String diretorioH2 = Util.getBasePDV(Componente.TIPO_COMPONENTE_PDV);
 
 		Properties propreties = new Properties();
 	    propreties.put("hibernate.connection.url", "jdbc:h2:" + diretorioH2);

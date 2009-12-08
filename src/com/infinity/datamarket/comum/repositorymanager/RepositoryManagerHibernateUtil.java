@@ -77,14 +77,11 @@ public class RepositoryManagerHibernateUtil {
 	public void trocarBase(String arquivoZipado) throws IOException {
 		String diretorioH2 = Util.getDirBasePDV();
 		synchronized (SINCRONIZADOR) {
-			
-	    
 
 				sessionFactory.close();
 				Util.copiarTudo(diretorioH2, Util.getDirBakpBasePDV() + "/" + Util.getDirDataHora());
 				Util.apagarArquivos(diretorioH2);
 				Util.unZipDir(arquivoZipado, diretorioH2);
-
 
 		}
 		

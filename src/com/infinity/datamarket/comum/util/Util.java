@@ -25,6 +25,8 @@ import java.util.zip.ZipOutputStream;
 
 import javax.faces.model.SelectItem;
 
+import com.infinity.datamarket.comum.componente.Componente;
+
 public class Util {
 	
 	public static final String STRING_VAZIA = "";
@@ -618,8 +620,41 @@ public class Util {
 	    in.close();
 	    out.close();
 	  }
+	
+	public static void alterarNomeBanco(String diretorioOrigem, String nomeOrigem, String nomeDestino) throws IOException {
 
+		File fBanco = new File(diretorioOrigem);
+		File[] arquivos = fBanco.listFiles();
+		for (int i = 0; i < arquivos.length; i++) {
+			if (arquivos[i].isFile()) {
+				String nomeArquivo = arquivos[i].getName();
+				int posicao = nomeArquivo.indexOf(nomeOrigem);
+			    if (posicao != -1) {
+			    	String nomeFinal = nomeArquivo.replaceFirst(nomeOrigem, nomeDestino);
+			    	
+					
+//					 File (or directory) with old name
+				    File file = new File(diretorioOrigem, nomeArquivo);
+				    
+				    // File (or directory) with new name
+				    File file2 = new File(diretorioOrigem, nomeFinal);
+				    
+				    // Rename file (or directory)
+				    boolean success = file.renameTo(file2);
+				    if (!success) {
+				        // File was not successfully renamed
+				    }
 
+					if (arquivos[i].isFile() && arquivos[i].exists() ) {
+						arquivos[i].delete();
+					}
+
+				}
+			}
+		}
+
+	}
+	
 	public static void copiarArquivos(String diretorioOrigem, String diretorioDestino) throws IOException {
 		File f = new File(diretorioDestino);
 		try {
@@ -633,7 +668,7 @@ public class Util {
 			if (arquivos[i].isFile()) {
 				
 				InputStream in = new FileInputStream(arquivos[i]);
-				OutputStream out= new FileOutputStream(new File(f.getPath()+File.separator+arquivos[i].getName()));
+				OutputStream out= new FileOutputStream(new File(f.getPath(), arquivos[i].getName()));
 				
 				copyInputStream(in, out);
 				in.close(); 
@@ -714,13 +749,10 @@ public class Util {
 		}
 		return dirTemp;
 	}
-	public static String getBasePDV() {
+	public static String getBasePDV(int tipoComponente) {
 		String dirTemp = Util.getDirCorrente() + "\\banco\\pdv";
-		try {
-			if(!new File(dirTemp).exists()) 
-				new File(dirTemp).mkdirs();
-		} catch (Exception e) {
-			// TODO: handle exception
+		if (tipoComponente == Componente.TIPO_COMPONENTE_AV) {
+			dirTemp = Util.getDirCorrente() + "\\banco\\av";	
 		}
 		return dirTemp;
 	}

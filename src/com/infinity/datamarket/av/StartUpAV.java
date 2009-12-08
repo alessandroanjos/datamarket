@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
 import com.infinity.datamarket.av.op.OpAvEncerraIniciaAv;
+import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
@@ -27,7 +28,7 @@ public class StartUpAV {
 		
 		ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("fluxoAv.xml");
 
-		String diretorioH2 = Util.getBasePDV();
+		String diretorioH2 = Util.getBasePDV(Componente.TIPO_COMPONENTE_AV);
 
 		Properties propreties = new Properties();
 	    propreties.put("hibernate.connection.url", "jdbc:h2:" + diretorioH2);
