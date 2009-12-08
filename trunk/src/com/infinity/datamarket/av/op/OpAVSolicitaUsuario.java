@@ -28,6 +28,9 @@ public class OpAVSolicitaUsuario extends Mic{
 			if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 				idUsu = entrada.getDado();
 			}else{
+
+				gerenciadorPerifericos.getDisplay().setMensagem(OpAvEncerraIniciaAv.MENSAGEM_INICIAL );
+
 				return ALTERNATIVA_2;
 			}
 			Usuario usu = null;

@@ -74,19 +74,13 @@
     <macroOperacao estadoAtual="Fechado" proximoEstado="Aberto" tecla="ENTER" codigoMicroOperacaoAssociada="subFluxo1" descricao="Abertura de AV">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVIniciaAV">
  	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
- 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAVSolicitaUsuario">
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAvEncerraIniciaAv">
       </microOperacaoAssociada>
     </macroOperacao>
 
     <macroOperacao estadoAtual="Aberto" proximoEstado="Fechado" tecla="ESC" codigoMicroOperacaoAssociada="subFluxo1" descricao="Volta Fechado">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvEncerraIniciaAv">
- 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAvSaidaUm">
       </microOperacaoAssociada>
     </macroOperacao>
 

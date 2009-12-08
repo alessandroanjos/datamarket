@@ -26,16 +26,14 @@ public class OpAvEncerraIniciaAv extends OpAVIniciaAV{
 			entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
 
 			if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
-				gerenciadorPerifericos.getDisplay().setMensagem("Digite Operacao [1-P;2-D]");
-				
-				return ALTERNATIVA_2;
-			}else{
-
 				super.exec(gerenciadorPerifericos,param);
 				gerenciadorPerifericos.getDisplay().setMensagem(MENSAGEM_INICIAL );
 
-
 				return ALTERNATIVA_1;
+			}else{
+				gerenciadorPerifericos.getDisplay().setMensagem("Digite Operacao [1-P;2-D]");
+				
+				return ALTERNATIVA_2;
 			}
 
 
