@@ -46,7 +46,7 @@
 							<li class="normal">
 								<div>
 									<h:outputLabel styleClass="desc" value="Código Externo"></h:outputLabel>
-									<h:inputText styleClass="field text ativo" id="codigoExterno"
+									<h:inputText styleClass="field text" id="codigoExterno"
 										maxlength="15" value="#{movimentacaoEstoqueBB.codigoExterno}" size="17"
 										required="false">
 										<f:validateLength maximum="15" />
@@ -56,7 +56,7 @@
 								</div>
 								<div>
 									<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-									<h:inputText styleClass="field text ativo" id="idProdutoEstoque"
+									<h:inputText styleClass="field text" id="idProdutoEstoque"
 										maxlength="4" value="#{movimentacaoEstoqueBB.idProdutoEstoque}" size="4"
 										required="false">
 										<f:validateLength maximum="4" />

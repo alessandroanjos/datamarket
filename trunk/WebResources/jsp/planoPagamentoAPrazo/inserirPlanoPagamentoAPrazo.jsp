@@ -133,7 +133,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id"
+											<h:inputText styleClass="field text" id="id"
 												maxlength="2" 
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);"
@@ -320,7 +320,7 @@
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="Qtd. de Dias*"></h:outputLabel>
-												<h:inputText styleClass="field text ativo"
+												<h:inputText styleClass="field text"
 													id="quantidadeDiasParcela" dir="rtl" maxlength="3"
 													value="#{planoPagamentoAPrazoBB.quantidadeDias}"
 													size="3" rendered="true"
@@ -379,6 +379,7 @@
 									<legend>
 										<b>Parcelas Variadas</b>
 									</legend>
+									<ul>
 										<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Datas Informada"></h:outputLabel>
@@ -391,6 +392,7 @@
 											
 										</div>
 									</li>
+									</ul>
 								</fieldset>
 							</div>
 							<ul>

@@ -59,12 +59,12 @@
 					}
 				}
 			    
-			    function send(cpfCnpj,nomeCliente, nomeFantasia, tipoPessoa) {
-				    window.opener.setAtributoClientes(cpfCnpj,nomeCliente, nomeFantasia, tipoPessoa);
+			    function send(cpfCnpj,nomeCliente, nomeFantasia, tipoPessoa, endereco) {
+				    window.opener.setAtributoClientes(cpfCnpj,nomeCliente, nomeFantasia, tipoPessoa, endereco);
 			    }	
 			</script>
 		</head>
-<body onload="exibirMensagemErro();">
+		<body onload="exibirMensagemErro();">
 		<h:form id="frmPopUpCliente">
 			<div id="content">
 
@@ -124,7 +124,7 @@
 									</h:column>		
 									<h:column>
 										<h:commandButton type="button" image="/images/tree/drop-yes.gif"
-											onclick="send('#{clienteTransacao.cpfCnpj}','#{clienteTransacao.nomeCliente}','#{clienteTransacao.razaoSocial}','#{clienteTransacao.tipoPessoa}')"
+											onclick="send('#{clienteTransacao.cpfCnpj}','#{clienteTransacao.nomeCliente}','#{clienteTransacao.razaoSocial}','#{clienteTransacao.tipoPessoa}','#{clienteTransacao.enderecoConcatenado}')"
 											alt="Selecionar Cliente" title="Selecionar Cliente"></h:commandButton>
 									</h:column>						
 								</t:dataTable>

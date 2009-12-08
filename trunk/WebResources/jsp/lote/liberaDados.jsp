@@ -46,7 +46,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Número da Liberação de Dados Atual"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="numeroLote" maxlength="8" onkeypress="return SoNumero(event);"
+										<h:inputText styleClass="field text" id="numeroLote" maxlength="8" onkeypress="return SoNumero(event);"
 											value="#{loteBB.numeroLote}" size="8">
 											<f:validateLength maximum="8" />
 											<f:validator validatorId="LongValidator" />

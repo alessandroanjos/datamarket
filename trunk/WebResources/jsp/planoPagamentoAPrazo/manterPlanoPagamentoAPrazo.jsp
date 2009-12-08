@@ -130,14 +130,14 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id"
+											<h:inputText styleClass="field text" id="id"
 												maxlength="2" 
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);"
 												value="#{planoPagamentoAPrazoBB.id}" size="3"
 												required="false">
 												<f:validateLength maximum="2" />
-												<f:validator validatorId="LongValidator" />
+												
 											</h:inputText>
 											
 										</div>
@@ -146,7 +146,6 @@
 											<h:inputText styleClass="field text" id="descricao"
 												maxlength="50" size="50" required="false"
 												value="#{planoPagamentoAPrazoBB.descricao}">
-												<f:validateLength maximum="50" />
 											</h:inputText>
 											
 										</div>
@@ -172,7 +171,6 @@
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="10" />
 												<f:validateDoubleRange minimum="0.01" maximum="9999999.99" />
-												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
 											
 										</div>
@@ -185,7 +183,7 @@
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="10" />
 												<f:validateDoubleRange minimum="0.01" maximum="9999999.99" />
-												<f:validator validatorId="BigDecimalValidator" />
+
 											</h:inputText>
 											
 										</div>
@@ -200,7 +198,7 @@
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
-												<f:validator validatorId="BigDecimalValidator" />
+
 											</h:inputText>
 											
 										</div>
@@ -213,7 +211,6 @@
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 												<f:validateLength maximum="5" />
 												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
-												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
 											
 										</div>
@@ -263,11 +260,8 @@
 											<h:inputText styleClass="field text" id="percentualEntrada"
 												maxlength="5" size="5"
 												value="#{planoPagamentoAPrazoBB.percentagemEntrada}"
-												dir="rtl" required="false"
+												dir="rtl" 
 												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
-												<f:validateLength maximum="5" />
-												<f:validateDoubleRange minimum="0.00" maximum="100.00" />
-												<f:validator validatorId="BigDecimalValidator" />
 											</h:inputText>
 											
 										</div>
@@ -307,24 +301,22 @@
 												<h:inputText styleClass="field text" id="percentualParcela"
 													maxlength="6" size="6"
 													value="#{planoPagamentoAPrazoBB.percentagemParcela}"
-													dir="rtl" required="false" 
+													dir="rtl"  
 													onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
-													<f:validateLength maximum="6" />
-													<f:validateDoubleRange minimum="0.00" maximum="100.00" />
-													<f:validator validatorId="BigDecimalValidator" />
+
+
 												</h:inputText>
 												
 											</div>
 											<div>
 												<h:outputLabel styleClass="desc" value="Qtd. de Dias*"></h:outputLabel>
-												<h:inputText styleClass="field text ativo"
+												<h:inputText styleClass="field text"
 													id="quantidadeDiasParcela" dir="rtl" maxlength="3"
 													value="#{planoPagamentoAPrazoBB.quantidadeDias}"
-													size="3" rendered="true"
+													size="3" 
 													onfocus="this.select();" onclick="this.select();"
 													onkeypress="return SoNumero(event);">
-													<f:validateLength maximum="3" />
-													<f:validator validatorId="LongValidator" />
+
 												</h:inputText>
 												
 											</div>
@@ -376,6 +368,7 @@
 									<legend>
 										<b>Parcelas Variadas</b>
 									</legend>
+										<ul>
 										<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Datas Informada"></h:outputLabel>
@@ -388,6 +381,7 @@
 											
 										</div>
 									</li>
+									</ul>
 								</fieldset>
 							</div>
 							<ul>

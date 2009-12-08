@@ -41,7 +41,7 @@
       </script>
 
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="exibirMensagemErro();inicializar();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
@@ -73,7 +73,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição Compacta*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="descricaoCompacta" maxlength="50"
+										<h:inputText styleClass="field text" id="descricaoCompacta" maxlength="50"
 											value="#{unidadeBB.descricaoCompacta}" size="50" >
 											<f:validateLength maximum="50" />
 										</h:inputText>

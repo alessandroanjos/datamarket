@@ -73,7 +73,7 @@
 			}
 			</script>
 		</head>
-		<body onload="exibirMensagemErro();">
+		<body onload="exibirMensagemErro();inicializar();">
 			<div id="outer">
 				<div id="topoGeral">
 					<div id="tituloPaginaGeral">
@@ -102,7 +102,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" onkeypress="return SoNumero(event);"
+											<h:inputText styleClass="field text" id="id" onkeypress="return SoNumero(event);"
 												maxlength="4" value="#{clienteBB.id}" size="4" disabled="true"
 												>
 												<f:validateLength maximum="4" />
@@ -192,7 +192,7 @@
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Limite de Compra"></h:outputLabel>
-											<h:inputText styleClass="field monetario" dir="rtl" id="valorLimiteCompras" maxlength="10" size="10" 
+											<h:inputText styleClass="field text" dir="rtl" id="valorLimiteCompras" maxlength="10" size="10" 
 												value="#{clienteBB.valorLimiteCompras}" required="false" onfocus="this.select();" onclick="this.select();" onkeypress="return(formataMoeda(this,'','.',2,event));">
 												<f:validateLength maximum="10" />	
 												<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>										

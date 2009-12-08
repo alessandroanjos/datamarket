@@ -41,7 +41,7 @@
       </script>
 
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="exibirMensagemErro();inicializar();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
@@ -62,7 +62,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="2"
+										<h:inputText styleClass="field text" id="id" maxlength="2"
 											value="#{unidadeBB.id}" size="2" disabled="true">
 											<f:validateLength maximum="2" />
 										</h:inputText>
@@ -81,7 +81,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Descrição Compacta*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="descricaoCompacta" maxlength="20"
+										<h:inputText styleClass="field text" id="descricaoCompacta" maxlength="20"
 											value="#{unidadeBB.descricaoCompacta}" size="20" >
 											<f:validateLength maximum="20" />
 										</h:inputText>

@@ -72,7 +72,7 @@
 		
       </script>
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="exibirMensagemErro();inicializar();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
@@ -103,7 +103,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id"
+										<h:inputText styleClass="field text" id="id"
 											maxlength="4" value="#{fornecedorBB.id}" size="4" readonly="true"
 											>
 											<f:validateLength maximum="4" />

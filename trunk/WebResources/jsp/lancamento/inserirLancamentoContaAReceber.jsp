@@ -107,7 +107,7 @@
 									</div>
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor*"></h:outputLabel>
-										<h:inputText styleClass="field monetario" id="valor" maxlength="10"
+										<h:inputText styleClass="field text" id="valor" maxlength="10"
 											size="11" value="#{lancamentoBB.valor}" dir="rtl"									
 											onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
 											required="false">

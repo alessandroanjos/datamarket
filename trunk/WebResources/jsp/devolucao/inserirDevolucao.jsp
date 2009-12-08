@@ -121,7 +121,7 @@
            // O item selecionado é copiado para um campo de texto
            // no formulário principal.
            //
-            function setAtributoClientes(cpfCnpj,nomeCliente, razaoSocial, tipoPessoa) {
+            function setAtributoClientes(cpfCnpj,nomeCliente, razaoSocial, tipoPessoa, endereco) {
                 var form = document.forms[formIdClientes];                             
                  
                 form[formIdClientes+":cpfCnpj"].value = cpfCnpj; 
@@ -138,7 +138,7 @@
             }
 		</script>
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="exibirMensagemErro();inicializar();">
 		<div id="outer">
 			<div id="topoGeral">
 				<div id="tituloPaginaGeral">

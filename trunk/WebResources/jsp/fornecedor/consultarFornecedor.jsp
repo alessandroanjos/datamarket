@@ -27,7 +27,7 @@
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="exibirMensagemErro();inicializar();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
@@ -47,7 +47,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="4" 
+											<h:inputText styleClass="field text" id="id" maxlength="4" 
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);"
 												value="#{fornecedorBB.id}" size="4" required="false">

@@ -88,7 +88,7 @@
             // O item selecionado é copiado para um campo de texto
             // no formulário principal.
             //
-             function setAtributoClientes(cpfCnpj,nomeCliente, razaoSocial, tipoPessoa) {
+             function setAtributoClientes(cpfCnpj,nomeCliente, razaoSocial, tipoPessoa, endereco) {
                  var form = document.forms[formId];                             
                   
                  form[formId+":cpfCnpjClienteCadastro"].value = cpfCnpj; 
@@ -105,7 +105,7 @@
              }
 		</script>
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="exibirMensagemErro();inicializar();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
@@ -135,7 +135,7 @@
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Número Transação"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="nsuTransacao" maxlength="6" onkeypress="return SoNumero(event);"
+											<h:inputText styleClass="field text" id="nsuTransacao" maxlength="6" onkeypress="return SoNumero(event);"
 												value="#{transacaoBB.nsuTransacao}" size="10" required="false">
 												<f:validateLength maximum="6" />
 												<f:validator validatorId="LongValidator"/>

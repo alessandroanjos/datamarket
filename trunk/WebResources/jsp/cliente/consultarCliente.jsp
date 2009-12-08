@@ -62,7 +62,7 @@
 		
 		</script>
 		</head>
-		<body onload="exibirMensagemErro();">
+		<body onload="exibirMensagemErro();inicializar();">
 			<div id="outer">
 				<div id="topoGeral">
 					<div id="tituloPaginaGeral">
@@ -80,7 +80,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="4" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
+											<h:inputText styleClass="field text" id="id" maxlength="4" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
 												value="#{clienteBB.id}" size="4" required="false">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>
@@ -97,7 +97,7 @@
 									<br />
 										<div>
 											<h:outputLabel styleClass="desc" value="CPF/CNPJ"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="cpfCnpj" maxlength="18"
+											<h:inputText styleClass="field text" id="cpfCnpj" maxlength="18"
 												value="#{clienteBB.cpfCnpj}" size="18" required="false"
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);">

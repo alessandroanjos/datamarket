@@ -19,24 +19,27 @@
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3"/>
 		<meta http-equiv="description" content="This is my page"/>
 		
-		<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
+		
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
-		<t:stylesheet path="/css/form.css"></t:stylesheet>
-
+		<t:stylesheet path="/css/form.css"></t:stylesheet>	
+		
 		<script type="text/javascript">
+			window.onload = function(){ inicializar() };
+			function inicializar() {
+								
+				$("input.tipopessoa").each(function(i){
+					$(this).click(function() {mostraCampos(this.value)});
+				});
+				if ($('[name=frmInserirFabricante:tipoPessoa]:checked').val() != "undefined") {
+					mostraCampos($('[name=frmInserirFabricante:tipoPessoa]:checked').val());
+				}
+												
+			}
 
-      window.onload = function(){ inicializar() };
-
-      function inicializar() {
-      	$("input.tipopessoa").each(function(i){
-      		$(this).click(function() {mostraCampos(this.value)});
-      	});
-		if ($('[name=frmInserirFabricante:tipoPessoa]:checked').val() != "undefined") {
-			mostraCampos($('[name=frmInserirFabricante:tipoPessoa]:checked').val());
-		}
-      }
+      
 
       function mostraCampos(str) {
         var flag = new String(str);
@@ -70,7 +73,7 @@
       }		
       </script>
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="exibirMensagemErro();inicializar();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">

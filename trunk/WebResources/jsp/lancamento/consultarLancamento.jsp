@@ -160,7 +160,9 @@
 										<f:facet name="header">
 											<h:outputText value="Data Vencimento" />
 										</f:facet>
-										<h:outputText value="#{lancamento.dataVencimento}" /> 
+										<h:outputText value="#{lancamento.dataVencimento}" > 
+											<f:convertDateTime timeZone="GMT-3"/>
+										</h:outputText>
 									</h:column>															
 									<h:column>
 										<f:facet name="header">

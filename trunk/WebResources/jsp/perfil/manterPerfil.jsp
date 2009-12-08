@@ -54,7 +54,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" 
+											<h:inputText styleClass="field text" id="id" 
 												onfocus="this.select();" onclick="this.select();"
 												onkeypress="return SoNumero(event);"
 												maxlength="4" value="#{perfilBB.id}" size="4"
