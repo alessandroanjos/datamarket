@@ -48,7 +48,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="3" onkeypress="return SoNumero(event);"
+										<h:inputText styleClass="field text" id="id" maxlength="3" onkeypress="return SoNumero(event);"
 											value="#{formaRecebimentoBB.id}" size="3"  disabled="true">
 											<f:validateLength maximum="3" />
 										</h:inputText>

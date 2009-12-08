@@ -97,7 +97,7 @@
 								</div>
 							<div>
 									<h:outputLabel styleClass="desc" value="Valor Pagamento"></h:outputLabel>
-									<h:inputText styleClass="field monetario" dir="rtl" id="valorPagamento" maxlength="10" size="10" 
+									<h:inputText styleClass="field text" dir="rtl" id="valorPagamento" maxlength="10" size="10" 
 										value="#{clientePagamentoBB.valorPagamento}" required="false" onfocus="this.select();" onclick="this.select();" onkeypress="return(formataMoeda(this,'','.',2,event));">
 										<f:validateLength maximum="10" />	
 										<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>										

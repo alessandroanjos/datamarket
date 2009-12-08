@@ -43,7 +43,7 @@
       </script>
 
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="exibirMensagemErro();inicializar();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
@@ -63,7 +63,7 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-											<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+											<h:inputText styleClass="field text" id="id" maxlength="4"
 												value="#{tipoProdutoBB.id}" size="4" required="false">
 												<f:validateLength maximum="4" />
 												<f:validator validatorId="LongValidator"/>

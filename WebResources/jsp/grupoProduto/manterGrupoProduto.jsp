@@ -60,7 +60,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="4"
+										<h:inputText styleClass="field text" id="id" maxlength="4"
 											value="#{grupoProdutoBB.id}" disabled="true" size="4" >
 											<f:validateLength maximum="4" />
 										</h:inputText>

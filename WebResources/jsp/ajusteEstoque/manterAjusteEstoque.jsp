@@ -23,9 +23,63 @@
 		<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
 		<t:stylesheet path="/css/default.css"></t:stylesheet>
 		<t:stylesheet path="/css/form.css"></t:stylesheet>		
+<script language="javascript">
 
+            var formId; // referência ao formulário principal
+
+            var winId;  // referência à janela popup
+            
+            window.onload = function(){ inicializar() };
+		
+		      function inicializar() {
+		
+		      			strQuantidadeAntes = getId("frmInserirAjusteEstoque:quantidadeAntes").value;
+						if(strQuantidadeAntes != ""){							
+							getId("frmInserirAjusteEstoque:quantidadeDepois").focus();
+						}
+		
+		      }
+
+            // Esta função faz a chamada da janela popup.
+
+            //
+
+            function showPopUp(action, form, target) {
+            	if(getId("frmInserirAjusteEstoque:idProduto").value == ""){        		
+	                formId=form;
+	      			if (winId != null) {
+	      				winId.close();
+	      			}
+	                features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
+	      			winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces?acao=init&enquadramento=4','list',features);
+	      			// Formulário escondido
+	                hform=document.forms[form];   
+                 }else{
+					document.forms["frmInserirAjusteEstoque"].action = "/EnterpriseServer/jsp/ajusteEstoque/inserirAjusteEstoque.faces?acao=pesquisarProdutos&codigoProduto="+getId("frmInserirAjusteEstoque:idProduto").value;
+					document.forms["frmInserirAjusteEstoque"].submit();
+                }             
+            }
+
+            // Esta função é chamada pela janela popup 
+
+            // quando um usuário clica em um item na listagem.
+
+            // O item selecionado é copiado para um campo de texto
+
+            // no formulário principal.
+
+             function setAtributo(idProduto,descricao) {
+                             var form = document.forms[formId]; 
+                             form[formId+":idProduto"].value=idProduto; 
+                             form[formId+":descricao"].value=descricao; 
+                             winId.close();
+                             form.action = "/EnterpriseServer/jsp/ajusteEstoque/inserirAjusteEstoque.faces?acao=buscaQtdAntes&idEstoque"+form[formId+":idEstoque"].value;
+                             form.submit();
+                             form[formId+":quantidadeDepois"].focus();
+            }
+      </script>
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="exibirMensagemErro();inicializar();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">

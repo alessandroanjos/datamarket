@@ -45,7 +45,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Código*"></h:outputLabel>
-										<h:inputText styleClass="field text ativo" id="id" maxlength="4" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
+										<h:inputText styleClass="field text" id="id" maxlength="4" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
 											value="#{componenteBB.id}" size="4"  disabled="true" >
 											<f:validateLength maximum="4" />
 										</h:inputText>

@@ -97,7 +97,7 @@
 						<li class="normal">	
 							<div>
 								<h:outputLabel styleClass="desc" value="Lote*"></h:outputLabel>
-								<h:inputText readonly="false" styleClass="field text ativo"
+								<h:inputText readonly="false" styleClass="field text"
 									maxlength="9" size="10" 
 									value="#{producaoBB.lote}" disabled="true" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
 									maxlength="9" 
@@ -132,7 +132,7 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="idProduto" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
+								<h:inputText styleClass="field text" id="idProduto" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
 									maxlength="9" value="#{producaoBB.idProduto}" size="9" required="false">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
@@ -144,7 +144,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="descricao" 
+								<h:inputText styleClass="field text" id="descricao" 
 									maxlength="50" size="50" value="#{producaoBB.descricao}">
 									<f:validateLength maximum="50" />
 								</h:inputText>

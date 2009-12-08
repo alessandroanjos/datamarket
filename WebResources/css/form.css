@@ -265,7 +265,7 @@ input.btTxt{
 /* ----- DIRECAO DO TEXTO ----- */
 
 .rtl .info h2, .rtl .info p, .rtl label.desc, .rtl label.choice, 
-.rtl div label, .rtl span label, .rtl input.text, 
+.rtl div label, .rtl span label, .rtl input.text, .rtl input.checkbox,
 .rtl textarea.textarea, .rtl select.select, .rtl p.instruct, 
 .rtl .section h3, .rtl .section p, .rtl input.btTxt{
 	direction:rtl;

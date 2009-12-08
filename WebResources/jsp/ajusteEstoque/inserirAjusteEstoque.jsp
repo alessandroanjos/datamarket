@@ -54,7 +54,7 @@
 	      				winId.close();
 	      			}
 	                features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-	      			winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces?acao=init&enquadramento=2','list',features);
+	      			winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces?acao=init&enquadramento=4','list',features);
 	      			// Formulário escondido
 	                hform=document.forms[form];   
                  }else{
@@ -81,7 +81,7 @@
                              form[formId+":quantidadeDepois"].focus();
             }
       </script>
-	<body onload="exibirMensagemErro();">
+	<body onload="exibirMensagemErro();inicializar();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
@@ -120,7 +120,7 @@
 							<br />
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="idProduto" 
+								<h:inputText styleClass="field text" id="idProduto" 
 									onfocus="this.select();" onclick="this.select();"
 									onkeypress="return SoNumero(event);" 								
 									maxlength="9" value="#{ajusteEstoqueBB.idProduto}" size="12">
@@ -131,7 +131,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="descricao" 
+								<h:inputText styleClass="field text" id="descricao" 
 									maxlength="50" size="50" readonly="true" value="#{ajusteEstoqueBB.descricao}" size="50">
 									<f:validateLength maximum="50" />
  							    </h:inputText>

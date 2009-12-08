@@ -70,7 +70,7 @@
       }		
       </script>
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="exibirMensagemErro();inicializar();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">

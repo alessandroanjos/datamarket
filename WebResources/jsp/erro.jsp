@@ -14,7 +14,12 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
+			<script type="text/javascript" src="/EnterpriseServer/js/jquery.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/global.js"></script>
+			<script type="text/javascript" src="/EnterpriseServer/js/funcoes.js"></script>
+			
+			<t:stylesheet path="/css/default.css"></t:stylesheet>
+			<t:stylesheet path="/css/form.css"></t:stylesheet>	
 	-->
 
 </head>

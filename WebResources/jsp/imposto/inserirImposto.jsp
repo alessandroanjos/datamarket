@@ -79,7 +79,7 @@
 								<li class="normal">
 									<div>
 										<h:outputLabel styleClass="desc" value="Percentual*"></h:outputLabel>
-										<h:inputText styleClass="field monetario" id="percentual" maxlength="5"
+										<h:inputText styleClass="field text" id="percentual" maxlength="5"
 											size="5" value="#{impostoBB.percentual}"  
 											onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 											<f:validateLength maximum="5" />
