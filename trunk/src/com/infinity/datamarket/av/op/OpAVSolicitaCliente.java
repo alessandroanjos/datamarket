@@ -24,7 +24,7 @@ public class OpAVSolicitaCliente extends Mic{
 		while (true) {
 				try{
 				gerenciadorPerifericos.getDisplay().setMensagem("CPF/CNPJ Cliente");
-				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 14);
+				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER},Display.MASCARA_NUMERICA, 14);
 				String cpfCnpj = null;
 				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 					cpfCnpj = entrada.getDado();
@@ -46,9 +46,9 @@ public class OpAVSolicitaCliente extends Mic{
 							return ALTERNATIVA_1;
 						}
 					} catch (Exception e) {}
-				} else if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_VOLTA){
-					return ALTERNATIVA_2;
-				}
+				} //else if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_VOLTA){
+					//return ALTERNATIVA_2;
+				//}
 
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(Cliente.class);

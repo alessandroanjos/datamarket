@@ -77,7 +77,6 @@
  	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAVSolicitaUsuario">
- 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAvEncerraIniciaAv">
       </microOperacaoAssociada>
@@ -91,13 +90,12 @@
       </microOperacaoAssociada>
     </macroOperacao>
 
-    <macroOperacao estadoAtual="Aberto" proximoEstado="Pedido" tecla="P" codigoMicroOperacaoAssociada="subFluxo1" descricao="P">
+    <macroOperacao estadoAtual="Aberto" proximoEstado="Pedido" tecla="P" codigoMicroOperacaoAssociada="subFluxo1" descricao="Pedido">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVIniciaPedido">
  	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
  	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAVSolicitaCliente">
- 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVEncerraPedido">
       </microOperacaoAssociada>
@@ -106,8 +104,11 @@
     <macroOperacao estadoAtual="Pedido" proximoEstado="Aberto" tecla="ESC" codigoMicroOperacaoAssociada="subFluxo1" descricao="Volta Fechado">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVEncerraPedido">
  	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+ 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="continua" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAvSaidaUm">
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="continua" operacao="OpAvSaidaDois">
       </microOperacaoAssociada>
     </macroOperacao>
 
