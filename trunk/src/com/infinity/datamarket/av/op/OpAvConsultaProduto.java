@@ -16,6 +16,16 @@ import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 public class OpAvConsultaProduto extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
+
+		TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+		tela.setCampoQuantidade("");
+		tela.setCampoCodigoProduto("");
+		tela.setCampoDescricaoProduto("");
+		tela.setCampoDesconto("");
+		tela.setCampoValor("");
+		gerenciadorPerifericos.atualizaTela(tela);
+
+		
 		if (param == null || param.getParam() == null ) {
 			return ALTERNATIVA_2;
 		}
@@ -59,7 +69,6 @@ public class OpAvConsultaProduto extends Mic{
 
 		gerenciadorPerifericos.getCmos().gravar(CMOS.PRODUTO_ATUAL, prod);
 
-		TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 		tela.setCampoCodigoProduto(codigo);
 		tela.setCampoDescricaoProduto(prod.getDescricaoCompleta());
 		tela.setCampoDescricaoProduto(prod.getDescricaoCompleta());

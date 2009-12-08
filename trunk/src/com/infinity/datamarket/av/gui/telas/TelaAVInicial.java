@@ -20,6 +20,7 @@ public class TelaAVInicial extends Tela{
     // Variables declaration - do not modify                     
     private javax.swing.JLabel labelLoja;
     private javax.swing.JLabel labelTotal;
+    private javax.swing.JLabel labelTotalDesconto;
     private javax.swing.JLabel labelValor;
     private javax.swing.JLabel labelUsuario;
     private javax.swing.JLabel labelComponente;
@@ -41,7 +42,8 @@ public class TelaAVInicial extends Tela{
     private javax.swing.JTextField campoQuantidade;
     private javax.swing.JTextField campoValor;
     private javax.swing.JTextField campoTotal;
-    
+    private javax.swing.JTextField campoTotalDesconto;
+
     public TelaAVInicial() {
         initComponents();
     }
@@ -71,8 +73,10 @@ public class TelaAVInicial extends Tela{
          labelValor = new javax.swing.JLabel();
          campoValor = new javax.swing.JTextField();
          labelTotal = new javax.swing.JLabel();
+         labelTotalDesconto = new javax.swing.JLabel();
          campoTotal = new javax.swing.JTextField();
-
+         campoTotalDesconto = new javax.swing.JTextField();
+         
          getPainel().add(labelLoja);
          labelLoja.setText("Loja");
          labelLoja.setFont(new java.awt.Font("Courier New", 1, 24));
@@ -189,7 +193,18 @@ public class TelaAVInicial extends Tela{
          jScrollPane1.setViewportView(jTable1);
          jScrollPane1.setBounds(0, 180, 800, 240);
 
-         //total
+         //Total Desconto
+         getPainel().add(labelTotalDesconto);
+         labelTotalDesconto.setText("Desconto");
+         labelTotalDesconto.setFont(new java.awt.Font("Courier New", 1, 24));
+         labelTotalDesconto.setForeground(new java.awt.Color(255, 255, 255));
+         labelTotalDesconto.setBounds(503, 460, 160, 20);
+
+         getPainel().add(campoTotalDesconto);
+         campoTotalDesconto.setFont(new java.awt.Font("Courier New", 1, 24));
+         campoTotalDesconto.setBounds(625, 460, 160, 25);
+
+         //total Desconto
          getPainel().add(labelTotal);
          labelTotal.setText("Total");
          labelTotal.setFont(new java.awt.Font("Courier New", 1, 24));
@@ -199,7 +214,7 @@ public class TelaAVInicial extends Tela{
          getPainel().add(campoTotal);
          campoTotal.setFont(new java.awt.Font("Courier New", 1, 24));
          campoTotal.setBounds(625, 430, 160, 25);
-
+         
          
          
          getPainel().setBackground(new java.awt.Color(0, 0, 100));
@@ -208,6 +223,7 @@ public class TelaAVInicial extends Tela{
          campoDesconto.setFocusable(false);
          campoValor.setFocusable(false);
          campoTotal.setFocusable(false);
+         campoTotalDesconto.setFocusable(false);
          campoLoja.setFocusable(false);
          campoUsuario.setFocusable(false);
          campoOperacao.setFocusable(false);

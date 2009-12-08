@@ -1,6 +1,10 @@
 package com.infinity.datamarket.av.op;
 
+import java.math.BigDecimal;
+
 import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
+import com.infinity.datamarket.comum.produto.Produto;
+import com.infinity.datamarket.comum.produto.TipoProduto;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ObjetoInexistenteException;
 import com.infinity.datamarket.comum.util.ServiceLocator;
@@ -17,27 +21,56 @@ public class OpAvConsultaQuantidadeProduto extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
 		try{
-			gerenciadorPerifericos.getDisplay().setMensagem("Digite a Quantidade");
-	
-			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 4);
-			String quantidade = null;
-			if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
-				quantidade = entrada.getDado();
-			}else{
-				return ALTERNATIVA_2;
-			}
-	
-			if ("".equals(entrada.getDado()) || Integer.parseInt(quantidade) == 0) {
-				quantidade = "1";
-			}
-	
+
 			TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+			tela.setCampoQuantidade("");
+			tela.setCampoDesconto("");
+			gerenciadorPerifericos.atualizaTela(tela);
+
+			Produto produto = (Produto)gerenciadorPerifericos.getCmos().ler(CMOS.PRODUTO_ATUAL);
+
+			BigDecimal quantidade = BigDecimal.ZERO;
+			
+			if (produto.getTipo().getId().equals(TipoProduto.UNIDADE_VARIAVEL)) {
+				try {
+					gerenciadorPerifericos.getDisplay().setMensagem(produto.getUnidade().getDescricaoDisplay());
+					EntradaDisplay entrada = gerenciadorPerifericos.lerDados( new int[] { Tecla.CODIGO_ENTER, Tecla.CODIGO_VOLTA }, Display.MASCARA_QUANTIDADE, 8);
+					if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER) {
+						quantidade = new BigDecimal(entrada.getDado());
+					} else {
+						return ALTERNATIVA_2;
+					}
+					if (quantidade.doubleValue() <= 0) {
+						gerenciadorPerifericos.getDisplay().setMensagem("Quantidade Inválida");
+						gerenciadorPerifericos.esperaVolta();
+						return ALTERNATIVA_2;
+					}
+				} catch (AppException e) {
+					return ALTERNATIVA_2;
+				}
+			} else {
+				gerenciadorPerifericos.getDisplay().setMensagem("Digite a Quantidade");
+				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 4);
+				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
+					quantidade = new BigDecimal(entrada.getDado());
+				}else{
+					return ALTERNATIVA_2;
+				}
+				if ("".equals(entrada.getDado())) {
+					quantidade = new BigDecimal("1");
+				}
+				if (quantidade.doubleValue() <= 0) {
+					gerenciadorPerifericos.getDisplay().setMensagem("Quantidade Inválida");
+					gerenciadorPerifericos.esperaVolta();
+					return ALTERNATIVA_2;
+				}
+			}
+
 			tela.setCampoQuantidade("" + quantidade);
 			gerenciadorPerifericos.atualizaTela(tela);
-	
-	
-			gerenciadorPerifericos.getCmos().gravar(CMOS.QUANTIDADE_ITEM, Integer.parseInt(quantidade));
-	
+
+			gerenciadorPerifericos.getCmos().gravar(CMOS.QUANTIDADE_ITEM, quantidade);
+
 		}catch (ObjetoInexistenteException e) {
 			gerenciadorPerifericos.getDisplay().setMensagem("Produto não Encontrado");
 			try {
