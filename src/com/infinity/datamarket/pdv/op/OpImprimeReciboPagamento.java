@@ -40,8 +40,8 @@ public class OpImprimeReciboPagamento extends Mic{
 						TransacaoPagamentoCartaoProprio transPagamentoCartaoProprio = (TransacaoPagamentoCartaoProprio) transPagamento; 
 						try {
 							OutputStream out = getFachadaPDV().gerarReciboPagamentoCliente(transPagamentoCartaoProprio);							
-//							String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();//"c:\\pdv\\temp\\";
-							String caminho = Util.getDirCorrente();
+							String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();//"c:\\pdv\\temp\\";
+//							String caminho = Util.getDirCorrente();
 							File dir = new File(caminho);
 							if (!dir.exists()){
 								dir.mkdir();

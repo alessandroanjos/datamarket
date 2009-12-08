@@ -360,6 +360,4 @@ public class ClienteTransacaoBackBean extends BackBean {
 	public void setTipoPessoa(String tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
-	
-	
 }

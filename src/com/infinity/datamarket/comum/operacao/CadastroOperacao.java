@@ -89,6 +89,10 @@ public class CadastroOperacao extends Cadastro{
 		getRepositorio().alterar(operacao);
 	}
 
+	public void alterar(Operacao operacao, Collection<EventoOperacaoItemRegistrado> itensPedidoRemovidos)throws AppException{
+		getRepositorio().alterar(operacao);
+	}
+	
 	public Operacao consultarPorPK(OperacaoPK pk) throws AppException{
 		Operacao operacao = (Operacao) getRepositorio().consultarPorPK(pk);
 		return operacao;
@@ -117,9 +121,13 @@ public class CadastroOperacao extends Cadastro{
 		Integer qretorno = (Integer)query.uniqueResult(); 		
 		if (qretorno != null){
 			retorno = qretorno + 1;	
-		}	
-		retorno++;
+		}else{
+			retorno++;	
+		}		
 		return retorno;
 	}
 	
+	public void excluir(Operacao operacao)throws AppException{
+		getRepositorio().excluir(operacao);
+	}
 }

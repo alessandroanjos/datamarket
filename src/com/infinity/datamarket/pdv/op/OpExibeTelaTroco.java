@@ -33,7 +33,7 @@ public class OpExibeTelaTroco extends Mic{
 				EventoTransacao ev = (EventoTransacao) i.next();
 				if (ev instanceof EventoItemRegistrado){
 					EventoItemRegistrado eir = (EventoItemRegistrado) ev;
-					BigDecimal precoUnitario = eir.getPreco().divide(eir.getQuantidade(), BigDecimal.ROUND_UNNECESSARY);
+					BigDecimal precoUnitario = eir.getPreco().divide(eir.getQuantidade(), BigDecimal.ROUND_DOWN);
 					if (eir.getSituacao().equals(EventoItemRegistrado.ATIVO)){
 						valTotal = valTotal.add(eir.getPreco());
 					}

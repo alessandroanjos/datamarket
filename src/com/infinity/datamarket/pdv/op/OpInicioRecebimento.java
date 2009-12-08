@@ -41,7 +41,7 @@ public abstract class OpInicioRecebimento extends Mic{
 				return ALTERNATIVA_3;
 			}
 			Date dataAtual = new Date();
-			if (dataAtual.compareTo(forma.getDataInicioValidade()) < 0 || dataAtual.compareTo(forma.getDataFimValidade()) > 0){
+			if (dataAtual.compareTo(forma.getDataInicioValidade()) < 0 || (forma.getDataFimValidade() == null || (forma.getDataFimValidade() != null && dataAtual.compareTo(forma.getDataFimValidade()) > 0))){
 				gerenciadorPerifericos.getDisplay().setMensagem("Forma fora da validade");
 				try{
 					gerenciadorPerifericos.esperaVolta();

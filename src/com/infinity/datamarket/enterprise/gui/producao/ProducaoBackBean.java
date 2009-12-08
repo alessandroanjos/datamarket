@@ -104,7 +104,7 @@ public class ProducaoBackBean extends BackBean {
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+//		this.descricao = descricao;
 	}
 
 	public List<Producao> getProducoes() {
@@ -272,7 +272,7 @@ public class ProducaoBackBean extends BackBean {
 					e.getMessage(), "");
 			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Erro de Sistema!", "");
 			getContextoApp().addMessage(null, msg);
@@ -495,7 +495,7 @@ public class ProducaoBackBean extends BackBean {
 					if(prod != null){
 						
 						this.produto = prod;
-						this.setDescricao(prod.getDescricaoCompleta());
+						this.descricao = prod.getDescricaoCompleta();
 						BigDecimal valorUnitario = BigDecimal.ZERO;
 						if (prod.getComposicao()!= null && prod.getComposicao().size() > 0){
 							Iterator i = prod.getComposicao().iterator();
@@ -510,8 +510,8 @@ public class ProducaoBackBean extends BackBean {
 							vendaAtual = prod.getPrecoPromocional();
 						}
 						this.setPrecoVendaAtual(vendaAtual.setScale(2).toString());	
-						this.setValorUnitario(valorUnitario.setScale(2).toString());
-						this.setPrecoVenda(prod.getMarkup().multiply(valorUnitario).divide(new BigDecimal(100)).setScale(2).toString());
+						this.setValorUnitario(valorUnitario.setScale(2, BigDecimal.ROUND_DOWN).toString());
+						this.setPrecoVenda(prod.getMarkup().multiply(valorUnitario).divide(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_DOWN).toString());
 						this.setMarkUp(prod.getMarkup().setScale(2).toString());
 					}else{
 						this.setPrecoVendaAtual(BigDecimal.ZERO.setScale(2).toString());

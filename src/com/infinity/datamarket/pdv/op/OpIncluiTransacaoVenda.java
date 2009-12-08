@@ -62,7 +62,7 @@ public class OpIncluiTransacaoVenda extends Mic{
 									if (boleto != null) {
 										
 										boleto.setNomeCliente(cliente.getNomeCliente());
-										boleto.setEnderecoCliente(cliente.getLogradouro() + (cliente.getNumero() != null ? ", Nº" + cliente.getNumero(): ", S/N"));
+										boleto.setEnderecoCliente(cliente.getLogradouro() + (cliente.getNumero() != null ? ", Nº " + cliente.getNumero(): ", S/N"));
 										boleto.setBairroCliente(cliente.getBairro());
 										boleto.setCidadeCliente(cliente.getCidade());
 										boleto.setUFCliente(cliente.getEstado());

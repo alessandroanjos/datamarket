@@ -16,6 +16,19 @@ public class EventoOperacaoItemRegistrado extends EventoOperacao{
 	private BigDecimal desconto;
 	private BigDecimal lucro;
 	
+	private String acao;
+	public static final String ITEM_NAO_ALTERADO = "N";
+	public static final String ITEM_INSERIDO = "I";
+	public static final String ITEM_EXCLUIDO = "E";
+	
+	public String getAcao() {
+		return acao;
+	}
+
+	public void setAcao(String acao) {
+		this.acao = acao;
+	}
+
 	public EventoOperacaoItemRegistrado(EventoOperacaoPK pk, int tipoEvento, Date dataHoraEvento,BigDecimal preco, BigDecimal quantidade, BigDecimal desconto, BigDecimal lucro, ProdutoOperacaoItemRegistrado produtoOperacaoItemRegistrado){
 		super(pk,tipoEvento,dataHoraEvento);
 		this.preco = preco;

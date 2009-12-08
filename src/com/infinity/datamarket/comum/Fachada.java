@@ -50,6 +50,7 @@ import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.lote.CadastroDadoLote;
 import com.infinity.datamarket.comum.macrooperacao.CadastroMacroOperacao;
 import com.infinity.datamarket.comum.operacao.CadastroOperacao;
+import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
 import com.infinity.datamarket.comum.operacao.Operacao;
 import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
 import com.infinity.datamarket.comum.operacao.OperacaoPK;
@@ -6508,7 +6509,95 @@ public class Fachada {
 			}
 		}
 	}
+
+	public void alterarOperacao(Operacao operacao, Collection<EventoOperacaoItemRegistrado> itensPedidoRemovidos) throws AppException{
+
+		try{
+			if (operacao instanceof OperacaoDevolucao){
+				OperacaoDevolucao operacaoDevolucao = (OperacaoDevolucao) operacao;
+				if (operacaoDevolucao.getCliente() != null){
+					try{
+						RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+						getCadastroTransacao().inserirCliente(operacaoDevolucao.getCliente());
+						RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+					}catch(Exception e){
+						RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+						RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+						getCadastroTransacao().atualizarCliente(operacaoDevolucao.getCliente());
+						RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+					}
+				}
+			}
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+			getCadastroOperacao().alterar(operacao);
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
 	
+	public void excluirOperacao(Operacao operacao) throws AppException{
+
+		try{
+//			if (operacao instanceof OperacaoDevolucao){
+//				OperacaoDevolucao operacaoDevolucao = (OperacaoDevolucao) operacao;
+//				if (operacaoDevolucao.getCliente() != null){
+//					try{
+//						RepositoryManagerHibernateUtil.beginTrasaction();
+//						getCadastroTransacao().inserirCliente(operacaoDevolucao.getCliente());
+//						RepositoryManagerHibernateUtil.commitTransation();
+//					}catch(Exception e){
+//						RepositoryManagerHibernateUtil.rollbackTransation();
+//						RepositoryManagerHibernateUtil.beginTrasaction();
+//						getCadastroTransacao().atualizarCliente(operacaoDevolucao.getCliente());
+//						RepositoryManagerHibernateUtil.commitTransation();
+//					}
+//				}
+//			}
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+			getCadastroOperacao().excluir(operacao);
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
 	public Operacao consultarOperacaoPorPK(OperacaoPK pk) throws AppException{
 		Operacao operacao = null;
 		try{

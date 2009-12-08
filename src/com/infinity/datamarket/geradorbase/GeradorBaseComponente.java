@@ -120,10 +120,10 @@ public abstract class GeradorBaseComponente {
 			session.clear();
 			geraBaseAcumuladorNaoFiscal(acumuladores);
 			RepositoryManagerHibernateUtil.getInstancia().closeSession();
-			System.out.println("## BASE DE ACUMULADORES GERADA OK!!");
+			System.out.println("## BASE DE LOJAS GERADA OK!!");
 			System.out.println("## REGISTROS => " + acumuladores.size());
 		} catch (Exception e) {
-			System.out.println("## BASE DE ACUMULADORES GERADA COM ERRO!!");
+			System.out.println("## BASE DE LOJAS GERADA COM ERRO!!");
 			System.out.println("## ERRO => " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -366,7 +366,7 @@ public abstract class GeradorBaseComponente {
 				
 				}
 			}
-			geraBaseProsutos(produtos);
+			geraBaseProdutos(produtos);
 			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE PRODUTOS GERADA OK!!");
 			System.out.println("## REGISTROS => " + produtos.size());
@@ -465,7 +465,10 @@ public abstract class GeradorBaseComponente {
 	private void geraBasePerfil() {
 		try {
 			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
-			Collection<Perfil> perfis = Fachada.getInstancia().consultarTodosPerfil();
+			IPropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(Perfil.class);
+			filter.addOrderByProperty("perfilSuperior", PropertyFilter.ASC);
+			Collection<Perfil> perfis = Fachada.getInstancia().consultarPerfil(filter);
 			for (Perfil object : perfis) {
 				HashSet c = new HashSet(object.getOperacoes());
 				object.setOperacoes(c);
@@ -527,7 +530,7 @@ public abstract class GeradorBaseComponente {
 	protected abstract void geraBaseTotalizadoresNaoFiscais(Collection col)
 			throws Exception;
 
-	protected abstract void geraBaseProsutos(Collection col) throws Exception;
+	protected abstract void geraBaseProdutos(Collection col) throws Exception;
 
 	protected abstract void geraBaseImposto(Collection col) throws Exception;
 

@@ -32,6 +32,23 @@ public class ClienteTransacao implements Serializable {
 	private String pessoaContato;
 	private String referenciaBancaria;
 	private Date dataCadastro;
+	
+	private String enderecoConcatenado;
+	
+	public String getEnderecoConcatenado() {
+		StringBuffer endTmp = new StringBuffer();
+		endTmp.append(this.getLogradouro() + "|");
+		endTmp.append(this.getNumero() + "|");
+		endTmp.append(this.getComplemento() + "|");
+		endTmp.append(this.getBairro() + "|");
+		endTmp.append(this.getCidade() + "|");
+		endTmp.append(this.getEstado() + "|");
+		endTmp.append(this.getCep());
+		return endTmp.toString();
+	}
+	public void setEnderecoConcatenado(String enderecoConcatenado) {
+		this.enderecoConcatenado = enderecoConcatenado;
+	}
 	public String getBairro() {
 		return bairro;
 	}

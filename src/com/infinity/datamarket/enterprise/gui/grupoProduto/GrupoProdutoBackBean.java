@@ -143,6 +143,9 @@ public class GrupoProdutoBackBean extends BackBean{
 				if (c != null && c.size() > 0){
 					setExisteRegistros(true);
 				}else{
+					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
+							"Nenhum Registro Encontrado", "");
+					getContextoApp().addMessage(null, msg);
 					setExisteRegistros(false);
 				}
 				setGruposProduto(c);

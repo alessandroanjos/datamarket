@@ -22,6 +22,7 @@ public class RepositorioAtualizadorLote extends Repositorio implements IReposito
 	
 	public void alterar(Serializable obj) throws AppException{
 		merge(obj);
+//		insertOrUpdate(obj);
 	}
 	
 	public void excluir(Serializable obj) throws AppException{

@@ -55,8 +55,8 @@ public class OpIncluiVendeItemOperacaoPedido extends Mic{
 			EventoItemRegistrado eir = eventoOperacaoItemRergistradoToEventoItemRegistrado(eoir, transVenda);
 			
 			try{
-				BigDecimal precoUnitario = eir.getPreco().divide(eir.getQuantidade(), BigDecimal.ROUND_UNNECESSARY);
-				BigDecimal descontoUnitario = eir.getDesconto().divide(eir.getQuantidade(), BigDecimal.ROUND_UNNECESSARY);
+				BigDecimal precoUnitario = eir.getPreco().divide(eir.getQuantidade(), BigDecimal.ROUND_DOWN);
+				BigDecimal descontoUnitario = eir.getDesconto().divide(eir.getQuantidade(), BigDecimal.ROUND_DOWN);
 				gerenciadorPerifericos.getImpressoraFiscal().vendeItem(eir.getProdutoItemRegistrado().getCodigoExterno(),
 																	   eir.getProdutoItemRegistrado().getDescricaoCompleta(),
 																	   eir.getProdutoItemRegistrado().getPercentual().setScale(2).toString(),

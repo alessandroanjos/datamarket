@@ -6,6 +6,8 @@ import java.util.Vector;
 
 import javax.ejb.Stateless;
 
+import org.hibernate.Hibernate;
+
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.lote.DadoLote;
 import com.infinity.datamarket.comum.produto.Produto;
@@ -29,7 +31,6 @@ public class LoteServer implements LoteServerLocal, LoteServerRemote {
 		return false;
 	}
 	public Collection getLote(int numeroLote, int numLoja) throws AppException{
-		RepositoryManagerHibernateUtil.getInstancia().currentSession();
 		PropertyFilter filter = new PropertyFilter();
 		filter.setTheClass(DadoLote.class);
 		filter.addProperty("lote", numeroLote + 1);
@@ -43,6 +44,11 @@ public class LoteServer implements LoteServerLocal, LoteServerRemote {
 			System.out.println(obj);
 			if (obj instanceof Produto){
 				Produto prod = (Produto) obj;
+				RepositoryManagerHibernateUtil.getInstancia().currentSession().refresh(prod);
+
+				Hibernate.initialize(prod.getLojas());				
+//				Hibernate.initialize(prod.getComposicao());
+				prod.setComposicao(null);
 				Collection lojas = prod.getLojas();
 				boolean contem = false;
 				if (lojas != null){
@@ -82,7 +88,7 @@ public class LoteServer implements LoteServerLocal, LoteServerRemote {
 				retorno.add(dado);
 			}
 		}
-		RepositoryManagerHibernateUtil.getInstancia().closeSession();
+//		RepositoryManagerHibernateUtil.getInstancia().closeSession();
 		return retorno;
 		
 	}

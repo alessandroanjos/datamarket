@@ -32,7 +32,7 @@ public class OpExibeTelaPlanos extends Mic{
 		while(i.hasNext()){
 			PlanoPagamento plano = (PlanoPagamento) i.next();
 			if (plano.getStatus().equals(Constantes.STATUS_ATIVO)){
-				if (dataAtual.compareTo(plano.getDataInicioValidade()) >= 0 && dataAtual.compareTo(plano.getDataFimValidade()) <= 0){
+				if (dataAtual.compareTo(plano.getDataInicioValidade()) >= 0 && (plano.getDataFimValidade() == null || (plano.getDataFimValidade() != null && dataAtual.compareTo(plano.getDataFimValidade()) <= 0))){
 					tela.addPlano(plano.getId().intValue(), plano.getDescricao());
 				}
 			}

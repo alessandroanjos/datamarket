@@ -60,11 +60,11 @@ public class OpProcessaPlano extends Mic{
 		BigDecimal valorDesconto = null;
 
 		if (plano.getPercAcrescimo() != null && plano.getPercAcrescimo().compareTo(new BigDecimal(0)) == 0 ){
-			BigDecimal fator = plano.getPercAcrescimo().divide(new BigDecimal(100), BigDecimal.ROUND_UNNECESSARY);
+			BigDecimal fator = plano.getPercAcrescimo().divide(new BigDecimal(100), BigDecimal.ROUND_DOWN);
 			valorAcrescimo = valorPagamento.multiply(fator);
 		}
 		if (plano.getPercDesconto() != null && plano.getPercDesconto().compareTo(new BigDecimal(0)) == 0 ){
-			BigDecimal fator = plano.getPercAcrescimo().divide(new BigDecimal(100), BigDecimal.ROUND_UNNECESSARY);
+			BigDecimal fator = plano.getPercAcrescimo().divide(new BigDecimal(100), BigDecimal.ROUND_DOWN);
 			valorDesconto = valorPagamento.multiply(fator);
 		}
 

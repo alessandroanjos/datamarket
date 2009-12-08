@@ -478,9 +478,9 @@ public class CadastroTransacao extends Cadastro{
 								baixa.setItemLancadoCtaCorrente(Constantes.NAO);
 								baixa.setValor(l.getValor());
 								if (parcela.getCPFCNPJ().length() > 11){
-									baixa.setTipoPessoaCheque(Cliente.PESSOA_FISICA);
-								}else{
 									baixa.setTipoPessoaCheque(Cliente.PESSOA_JURIDICA);
+								}else{
+									baixa.setTipoPessoaCheque(Cliente.PESSOA_FISICA);
 								}		
 								if (parcela.getNumeroChequeLido() == null){
 									baixa.setAgencia(parcela.getAgencia());
@@ -572,12 +572,14 @@ public class CadastroTransacao extends Cadastro{
 							l.setLoja(loja);
 							l.setTransacao(trans);
 							l.setDataLancamento(eip.getDataHoraEvento());
+//							l.setDataLancamento(boleto.getDataProcessamento());
 							l.setDescricao(flagVenda?"VENDA":"PAGAMENTO");
 							l.setValor(eip.getValorLiquido());
 							l.setTipoLancamento(Lancamento.CREDITO);
 							Controle controle = CadastroControleId.getInstancia().getControle(Lancamento.class);
 							l.setId(controle.getValor());								
-							l.setDataVencimento(eipb.getDataHoraEvento());
+//							l.setDataVencimento(eipb.getDataHoraEvento());
+							l.setDataVencimento(boleto.getDataVencimento());
 							l.setSituacao(Lancamento.PENDENTE);	
 							GrupoLancamento grupo = new GrupoLancamento();
 							grupo.setId(GrupoLancamento.GRUPO_VENDA);
@@ -613,7 +615,8 @@ public class CadastroTransacao extends Cadastro{
 //							}
 							baixa.setContaCorrente(contaCorrente);
 							baixa.setValorTotalItem(l.getValor());
-							baixa.setDataBaixa(eip.getDataHoraEvento());
+//							baixa.setDataBaixa(eip.getDataHoraEvento());
+							baixa.setDataBaixa(boleto.getDataVencimento());
 							Set<BaixaLancamento> baixas = new HashSet<BaixaLancamento>();
 							baixas.add(baixa);
 							l.setItensPagamento(baixas);
