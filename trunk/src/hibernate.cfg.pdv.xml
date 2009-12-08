@@ -19,8 +19,6 @@
       	<!-- Mapping files -->
       	<mapping resource="com/infinity/datamarket/hbm/PagamentoBoleto.hbm.xml"/>        
  	<mapping resource="com/infinity/datamarket/hbm/ArquivoProcessado.hbm.xml"/>        
- 	<mapping resource="com/infinity/datamarket/hbm/Boleto.hbm.xml"/>
- 	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoBoleto.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/EventoItemPagamentoBoleto.hbm.xml"/>
 	<mapping resource="com/infinity/datamarket/hbm/BoletoEventoItemPagamentoBoleto.hbm.xml"/>
  	<mapping resource="com/infinity/datamarket/hbm/Boleto.hbm.xml"/>        
