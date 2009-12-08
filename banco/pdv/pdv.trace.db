@@ -37,3 +37,12 @@ select sequence_name from system_sequences [42102-119]
 12-07 22:24:48 jdbc[2]: SQLException
 org.h2.jdbc.JdbcSQLException: Table PARAMETROS not found; SQL statement:
 select parametro0_.CHAVE as CHAVE21_0_, parametro0_.VALOR as VALOR21_0_ from PARAMETROS parametro0_ where parametro0_.CHAVE=? [42102-119]
+12-07 22:46:12 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table SYSTEM_SEQUENCES not found; SQL statement:
+select sequence_name from system_sequences [42102-119]
+12-07 22:47:16 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table SYSTEM_SEQUENCES not found; SQL statement:
+select sequence_name from system_sequences [42102-119]
+12-07 22:47:48 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table PARAMETROS not found; SQL statement:
+select parametro0_.CHAVE as CHAVE21_0_, parametro0_.VALOR as VALOR21_0_ from PARAMETROS parametro0_ where parametro0_.CHAVE=? [42102-119]
