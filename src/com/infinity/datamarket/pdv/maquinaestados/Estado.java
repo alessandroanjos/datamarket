@@ -16,7 +16,8 @@ public class Estado extends Persistente{
 	private int inputSize;
 	private Collection finalizadoras;
 
-	public static final Long DISPONIVEL = new Long(3);
+	public static final Long DISPONIVEL_PDV = new Long(3);
+	public static final Long DISPONIVEL_AV = new Long(1);
 	
 //	private static final String DELIM = ",";
 

@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.transacao.Transacao;
 import com.infinity.datamarket.comum.util.Util;
@@ -42,10 +43,12 @@ public class ThreadVerificaCargaBase extends Thread implements Serializable{
 		this.numeroComponente = numeroComponente;
 	}
 	public void run(){
-		System.out.println("---------------------------------------------------" );
-		System.out.println("-- INICIANDO SERVICO DE VERIFICAÇÃO DE NOVO LOTE --" );
-		System.out.println("---------------------------------------------------" );
+		System.out.println("-------------------------------------------------------------" );
+		System.out.println("-- INICIANDO SERVICO DE VERIFICAÇÃO DE NOVA CARGA DE BASE ---" );
+		System.out.println("-------------------------------------------------------------" );
 		
+        Componente componente = (Componente)GerenciadorPerifericos.getInstancia().getCmos().ler(CMOSArquivo.COMPONENTE);
+        
 		while(true){
 			try {
 				Thread.currentThread().sleep(ServerConfig.SLEEP);
@@ -72,7 +75,8 @@ public class ThreadVerificaCargaBase extends Thread implements Serializable{
 					if (novoCargaBase) {
 						Estado estadoAtual = (Estado)GerenciadorPerifericos.getInstancia().getCmos().ler(CMOSArquivo.ESTADO_ATUAL);
 	
-		        		if (estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL)){
+		        		if (componente.getTipoComponente() == Componente.TIPO_COMPONENTE_PDV &&(estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL_PDV)) || 
+		        			componente.getTipoComponente() == Componente.TIPO_COMPONENTE_AV &&(estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL_AV))){
 	
 		//	        		//verifica se tem novo lote liberado
 		        			System.out.println("Maquina.ThreadVerificaCargaBase.run: ThreadVerificaCargaBase.existeNovaCargaBase(): "+existeNovoLote());

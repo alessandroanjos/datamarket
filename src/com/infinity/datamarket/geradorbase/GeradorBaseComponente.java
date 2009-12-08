@@ -62,7 +62,7 @@ public abstract class GeradorBaseComponente {
 					geraBasePlanoPagamento();
 					geraBaseBanco();
 					geraBaseContaCorrente(codigoLoja);
-					geraBaseParametros(codigoLoja);
+					geraBaseParametros(codigoLoja, componente.getId());
 					finaliza();
 //				} catch (Exception e) {
 //					System.out.println("## ERRO NA INICIALIZAÇÃO DA GERAÇÃO DA BASE!!");
@@ -486,7 +486,7 @@ public abstract class GeradorBaseComponente {
 	}
 
 
-	private void geraBaseParametros(long idLoja) {
+	private void geraBaseParametros(long idLoja, long idComponente) {
 		try {
 			Session session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
 			Collection<Parametro> Parametros = Fachada.getInstancia().consultarTodosParametro();
@@ -495,7 +495,11 @@ public abstract class GeradorBaseComponente {
 				if(parametro.getChave().equalsIgnoreCase(ConcentradorParametro.LOJA)){
 					parametro.setValor(idLoja + "");	
 				}
+				if(parametro.getChave().equalsIgnoreCase(ConcentradorParametro.COMPONENTE)){
+					parametro.setValor(idComponente + "");	
+				}
 			}
+
 			geraBaseParametros(Parametros);
 			RepositoryManagerHibernateUtil.getInstancia().closeSession();
 			System.out.println("## BASE DE Parametros GERADA OK!!");

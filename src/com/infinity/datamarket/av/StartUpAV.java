@@ -27,6 +27,8 @@ public class StartUpAV {
 	public static void main(String[] a) throws Exception{
 		
 		ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("fluxoAv.xml");
+		
+		GerenciadorPerifericos.PERIFERICOS = "PerifericosAV";
 
 		String diretorioH2 = Util.getBasePDV(Componente.TIPO_COMPONENTE_AV);
 
@@ -36,8 +38,6 @@ public class StartUpAV {
 		RepositoryManagerHibernateUtil.arquivoHibernate = RepositoryManagerHibernateUtil.HIBERNATE_PDV;
 		RepositoryManagerHibernateUtil.properties = propreties;
 		RepositoryManagerHibernateUtil.getInstancia().currentSession();
-		
-		GerenciadorPerifericos.PERIFERICOS = "PerifericosAV";
 
 		GerenciadorPerifericos ger = GerenciadorPerifericos.getInstancia();
 
