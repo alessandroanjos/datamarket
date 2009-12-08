@@ -15,11 +15,11 @@ import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConjuntoEventoTransacao;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 
 public class OpIncluiProdutoItem extends Mic {
 

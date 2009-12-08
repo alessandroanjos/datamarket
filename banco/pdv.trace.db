@@ -1,0 +1,9 @@
+12-08 14:44:15 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table PARAMETROS not found; SQL statement:
+select parametro0_.CHAVE as CHAVE23_0_, parametro0_.VALOR as VALOR23_0_ from PARAMETROS parametro0_ where parametro0_.CHAVE=? [42102-119]
+12-08 14:45:21 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table IMPOSTO not found; SQL statement:
+select imposto0_.ID as ID14_, imposto0_.DESCRICAO as DESCRICAO14_, imposto0_.IMP_IMPRESSORA as IMP3_14_, imposto0_.PERCENTUAL as PERCENTUAL14_ from IMPOSTO imposto0_ [42102-119]
+12-08 16:08:00 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table IMPOSTO not found; SQL statement:
+select imposto0_.ID as ID14_, imposto0_.DESCRICAO as DESCRICAO14_, imposto0_.IMP_IMPRESSORA as IMP3_14_, imposto0_.PERCENTUAL as PERCENTUAL14_ from IMPOSTO imposto0_ [42102-119]
