@@ -2,6 +2,22 @@
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.4"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<context-param>
+		<param-name>locale-language</param-name>
+		<param-value>pt</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>locale-country</param-name>
+		<param-value>BR</param-value>
+	</context-param>
+	
+	<error-page>
+            <error-code>500</error-code>
+            <location>/jsp/erro.jsf</location>
+    </error-page>
+	
 	<context-param>
 		<param-name>javax.faces.CONFIG_FILES</param-name>
 		<param-value>/WEB-INF/faces-config.xml</param-value>
@@ -157,7 +173,6 @@
 		<servlet-name>ConsultarDebitosCartaoProprioServlet</servlet-name>
 		<url-pattern>/ConsultarDebitosCartaoProprioServlet.servlet</url-pattern>
 	</servlet-mapping>
-
 	
 	<servlet-mapping>
 		<servlet-name>ReceptorTransacaoServlet</servlet-name>
@@ -175,6 +190,7 @@
 		<servlet-name>GerarBoletoServlet</servlet-name>
 		<url-pattern>/GerarBoletoServlet.servlet</url-pattern>
 	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.faces</url-pattern>
