@@ -5,9 +5,13 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
+import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
+import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Usuario;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.infocomponent.InfoComponent;
@@ -23,6 +27,7 @@ import com.infinity.datamarket.pdv.gui.telas.TelaMenssagem;
 import com.infinity.datamarket.pdv.gui.telas.swing.TelaCargaDados;
 import com.infinity.datamarket.pdv.infocomponent.ThreadEnviaInfoComponent;
 import com.infinity.datamarket.pdv.lote.ThreadVerificaNovoLote;
+import com.infinity.datamarket.pdv.op.OpSolicitaCargaBase;
 
 public class Maquina implements Serializable{
     /**
@@ -54,7 +59,7 @@ public class Maquina implements Serializable{
         this.telaInicial = t; 
         this.mensagemInicial = mensagemInicial;
     }
-    public void iniciar(){
+    public void iniciar() throws AppException{
         Tela tela = (Tela) gerenciadorPerifericos.getCmos().ler(CMOSArquivo.TELA_ATUAL);
         System.out.println("Maquina.iniciar: tela: "+tela);
         if (tela == null){
@@ -77,14 +82,22 @@ public class Maquina implements Serializable{
         gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL,estadoAtual);
 
         System.out.println("Maquina Iniciada");
-        int componente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValorInteiro();
+        
+        int idComponente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValorInteiro();
         int lote = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValorInteiro();
-        int loja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();
+        int idLoja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();
+
+        Loja loja = Fachada.getInstancia().consultarLojaPorId(new Long(idLoja));
+        gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.LOJA,loja);
+
+        Componente componente = Fachada.getInstancia().consultarComponentePorId(new Long(idComponente));
+        gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.COMPONENTE,componente);
+
         gerenciadorPerifericos.getWindow().atualizaLote(lote);
-        threadVerificaNovoLote = new ThreadVerificaNovoLote(lote,loja);
+        threadVerificaNovoLote = new ThreadVerificaNovoLote(lote,idLoja);
         threadVerificaNovoLote.start();
         
-        threadVerificaCargaBase = new ThreadVerificaCargaBase(new Long(componente),new Long(loja));
+        threadVerificaCargaBase = new ThreadVerificaCargaBase(new Long(idComponente),new Long(idLoja));
         threadVerificaCargaBase.start();
         new ThreadProcessaMacro(estadoAtual);
     }
@@ -153,71 +166,73 @@ public class Maquina implements Serializable{
 //                    entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
                     entrada = gerenciadorPerifericos.lerDados(null,Display.MASCARA_NUMERICA, 0);                    
                 }
-//                System.out.println("Maquina.ThreadProcessaMacro.run: 1");
-                PropertyFilter filtro = new PropertyFilter();
-//                System.out.println("Maquina.ThreadProcessaMacro.run: 2");
-                filtro.setTheClass(MacroOperacao.class);
-//                System.out.println("Maquina.ThreadProcessaMacro.run: 3");
-                filtro.addProperty("tecla.codigoASCI", new Integer(entrada.getTeclaFinalizadora()));
-//                System.out.println("Maquina.ThreadProcessaMacro.run: 4");
-                filtro.addProperty("estadoAtual.id", this.estAtual.getId());
-//                System.out.println("Maquina.ThreadProcessaMacro.run: 5");
-                MacroOperacao macroOperacao = getConcentradorMaquina().consultaMacroOperacao(filtro);
-//                System.out.println("Maquina.ThreadProcessaMacro.run: 6");
-                System.out.println("Maquina.ThreadProcessaMacro.run: macroOperacao: "+macroOperacao);
-                if (macroOperacao != null){
-                    gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.MACRO_ATUAL, macroOperacao);
-//                    System.out.println("Maquina.ThreadProcessaMacro.run: 7");
-                    MicroOperacaoAssociada mic = macroOperacao.getMicroOperacaoInicial();
-//                    System.out.println("Maquina.ThreadProcessaMacro.run: 8");
-                    int alternativa = processaMicroOperacao(mic,param);
-//                    System.out.println("Maquina.ThreadProcessaMacro.run: 9");
-                    System.out.println("Maquina.ThreadProcessaMacro.run: alternativa: "+alternativa);
-                    if (alternativa == Mic.ALTERNATIVA_1){
-                        estAtual = macroOperacao.getProximoEstado();
-                        estadoAtual = this.estAtual;
-                        gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL, estAtual);
+                synchronized (OpSolicitaCargaBase.SINCRONIZADOR) {
+//                  System.out.println("Maquina.ThreadProcessaMacro.run: 1");
+                    PropertyFilter filtro = new PropertyFilter();
+//                    System.out.println("Maquina.ThreadProcessaMacro.run: 2");
+                    filtro.setTheClass(MacroOperacao.class);
+//                    System.out.println("Maquina.ThreadProcessaMacro.run: 3");
+                    filtro.addProperty("tecla.codigoASCI", new Integer(entrada.getTeclaFinalizadora()));
+//                    System.out.println("Maquina.ThreadProcessaMacro.run: 4");
+                    filtro.addProperty("estadoAtual.id", this.estAtual.getId());
+//                    System.out.println("Maquina.ThreadProcessaMacro.run: 5");
+                    MacroOperacao macroOperacao = getConcentradorMaquina().consultaMacroOperacao(filtro);
+//                    System.out.println("Maquina.ThreadProcessaMacro.run: 6");
+                    System.out.println("Maquina.ThreadProcessaMacro.run: macroOperacao: "+macroOperacao);
+                    if (macroOperacao != null){
+                        gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.MACRO_ATUAL, macroOperacao);
+//                        System.out.println("Maquina.ThreadProcessaMacro.run: 7");
+                        MicroOperacaoAssociada mic = macroOperacao.getMicroOperacaoInicial();
+//                        System.out.println("Maquina.ThreadProcessaMacro.run: 8");
+                        int alternativa = processaMicroOperacao(mic,param);
+//                        System.out.println("Maquina.ThreadProcessaMacro.run: 9");
+                        System.out.println("Maquina.ThreadProcessaMacro.run: alternativa: "+alternativa);
+                        if (alternativa == Mic.ALTERNATIVA_1){
+                            estAtual = macroOperacao.getProximoEstado();
+                            estadoAtual = this.estAtual;
+                            gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL, estAtual);
+                        }
                     }
-                }
-//                System.out.println("Maquina.ThreadProcessaMacro.run: 10");
-                InfoComponentPK pk = new InfoComponentPK();
-//                System.out.println("Maquina.ThreadProcessaMacro.run: 11");
-    			pk.setComponente(gerenciadorPerifericos.getCodigoComponente()+"");
-//    			System.out.println("Maquina.ThreadProcessaMacro.run: 12");
-    			pk.setLoja(gerenciadorPerifericos.getCodigoLoja()+"");
-//    			System.out.println("Maquina.ThreadProcessaMacro.run: 13");
-    			InfoComponent info = new InfoComponent();
-//    			System.out.println("Maquina.ThreadProcessaMacro.run: 14");
-    			info.setPk(pk);
-//    			System.out.println("Maquina.ThreadProcessaMacro.run: 15");
-    			info.setLote(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValor());
-//    			System.out.println("Maquina.ThreadProcessaMacro.run: 16");
-    			info.setVersao(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.VERSAO).getValor());
-//    			System.out.println("Maquina.ThreadProcessaMacro.run: 17");
-    			info.setEstado(estadoAtual.getDescricao());
-//    			System.out.println("Maquina.ThreadProcessaMacro.run: 18");
-                ThreadEnviaInfoComponent t2 = new ThreadEnviaInfoComponent(info);
-//                System.out.println("Maquina.ThreadProcessaMacro.run: 19");
-        		t2.start();
-//        		System.out.println("Maquina.ThreadProcessaMacro.run: 20");
+//                    System.out.println("Maquina.ThreadProcessaMacro.run: 10");
+                    InfoComponentPK pk = new InfoComponentPK();
+//                    System.out.println("Maquina.ThreadProcessaMacro.run: 11");
+        			pk.setComponente(gerenciadorPerifericos.getCodigoComponente()+"");
+//        			System.out.println("Maquina.ThreadProcessaMacro.run: 12");
+        			pk.setLoja(gerenciadorPerifericos.getCodigoLoja()+"");
+//        			System.out.println("Maquina.ThreadProcessaMacro.run: 13");
+        			InfoComponent info = new InfoComponent();
+//        			System.out.println("Maquina.ThreadProcessaMacro.run: 14");
+        			info.setPk(pk);
+//        			System.out.println("Maquina.ThreadProcessaMacro.run: 15");
+        			info.setLote(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValor());
+//        			System.out.println("Maquina.ThreadProcessaMacro.run: 16");
+        			info.setVersao(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.VERSAO).getValor());
+//        			System.out.println("Maquina.ThreadProcessaMacro.run: 17");
+        			info.setEstado(estadoAtual.getDescricao());
+//        			System.out.println("Maquina.ThreadProcessaMacro.run: 18");
+                    ThreadEnviaInfoComponent t2 = new ThreadEnviaInfoComponent(info);
+//                    System.out.println("Maquina.ThreadProcessaMacro.run: 19");
+            		t2.start();
+//            		System.out.println("Maquina.ThreadProcessaMacro.run: 20");
 
-//        		System.out.println("Maquina.ThreadProcessaMacro.run: estadoAtual: "+estadoAtual.getId());
-//        		if (estadoAtual.getId().equals(Estado.DISPONIVEL)){
-//	        		//verifica se tem novo lote liberado
-//        			System.out.println("Maquina.ThreadProcessaMacro.run: threadVerificaNovoLote.existeNovoLote(): "+threadVerificaNovoLote.existeNovoLote());
-//        			if (threadVerificaNovoLote.existeNovoLote()){
-//        				System.out.println("HÁ UM NOVO LOTE LIBERADO");
-//        				TelaCargaDados tela = new TelaCargaDados(gerenciadorPerifericos.getWindow().getFrame().getWidth(),gerenciadorPerifericos.getWindow().getFrame().getHeight());
-//        				Thread thread = new Thread(tela);
-//        				thread.start();
-//	        			threadVerificaNovoLote.atualizaLote();
-//	        			gerenciadorPerifericos.getWindow().atualizaLote(threadVerificaNovoLote.getNumeroLote());
-//	        			tela.stop();	        			
-//	        		}else{
-//	        			System.out.println("NÃO HÁ NOVO LOTE LIBERADO");
-//	        		}
-//        		}
-                new ThreadProcessaMacro(estadoAtual);
+//            		System.out.println("Maquina.ThreadProcessaMacro.run: estadoAtual: "+estadoAtual.getId());
+//            		if (estadoAtual.getId().equals(Estado.DISPONIVEL)){
+//    	        		//verifica se tem novo lote liberado
+//            			System.out.println("Maquina.ThreadProcessaMacro.run: threadVerificaNovoLote.existeNovoLote(): "+threadVerificaNovoLote.existeNovoLote());
+//            			if (threadVerificaNovoLote.existeNovoLote()){
+//            				System.out.println("HÁ UM NOVO LOTE LIBERADO");
+//            				TelaCargaDados tela = new TelaCargaDados(gerenciadorPerifericos.getWindow().getFrame().getWidth(),gerenciadorPerifericos.getWindow().getFrame().getHeight());
+//            				Thread thread = new Thread(tela);
+//            				thread.start();
+//    	        			threadVerificaNovoLote.atualizaLote();
+//    	        			gerenciadorPerifericos.getWindow().atualizaLote(threadVerificaNovoLote.getNumeroLote());
+//    	        			tela.stop();	        			
+//    	        		}else{
+//    	        			System.out.println("NÃO HÁ NOVO LOTE LIBERADO");
+//    	        		}
+//            		}
+                    new ThreadProcessaMacro(estadoAtual);
+                }
             }catch(Exception ex){            	
             	ex.printStackTrace();
             }finally{

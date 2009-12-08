@@ -134,6 +134,11 @@ public class OpSolicitaCargaBase extends Mic{
 	 */
 	public static void trocaBasePDV(String bancoZip) throws IOException {
 		RepositoryManagerHibernateUtil.getInstancia().trocarBase(bancoZip);
+		
+        int lote = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValorInteiro();
+
+        GerenciadorPerifericos.getInstancia().getWindow().atualizaLote(lote);
+
 	}
 	
 }

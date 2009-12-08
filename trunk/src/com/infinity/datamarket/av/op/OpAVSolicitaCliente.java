@@ -23,7 +23,7 @@ public class OpAVSolicitaCliente extends Mic{
 
 		while (true) {
 				try{
-				gerenciadorPerifericos.getDisplay().setMensagem("CPF/CNPJ Cliente - 41850351449");
+				gerenciadorPerifericos.getDisplay().setMensagem("CPF/CNPJ Cliente");
 				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 14);
 				String cpfCnpj = null;
 				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){

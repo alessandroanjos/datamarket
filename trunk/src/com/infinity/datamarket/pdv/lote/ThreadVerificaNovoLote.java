@@ -53,7 +53,7 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 				
 				Estado estadoAtual = (Estado)GerenciadorPerifericos.getInstancia().getCmos().ler(CMOSArquivo.ESTADO_ATUAL);
 				
-        		if (estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL)){
+        		if (estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL_PDV)){
 	        		//verifica se tem novo lote liberado
         			System.out.println("Maquina.ThreadProcessaMacro.run: threadVerificaNovoLote.existeNovoLote(): "+existeNovoLote());
         			if (existeNovoLote()){

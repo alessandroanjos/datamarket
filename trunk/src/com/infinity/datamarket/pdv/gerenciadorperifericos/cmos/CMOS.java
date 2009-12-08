@@ -2,6 +2,8 @@ package com.infinity.datamarket.pdv.gerenciadorperifericos.cmos;
 
 public interface CMOS {
 	
+	public static final String COMPONENTE = "COMPONENTE";
+	public static final String LOJA = "LOJA";
 	public static final String CLIENTE_AV = "CLIENTE_AV";
 	public static final String TELA_ATUAL = "TELA_ATUAL";
 	public static final String ESTADO_ATUAL = "ESTADO_ATUAL";
