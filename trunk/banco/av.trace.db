@@ -1052,3 +1052,6 @@ org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement ALTER TABLE COMPONEN
 	TIPO_COMPONENTE BIGINT NOT NULL 		) ; expected identifier; SQL statement:
 ALTER TABLE COMPONENTE ADD (
 	TIPO_COMPONENTE BIGINT not NULL 		) [42001-119]
+12-07 22:15:43 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table SYSTEM_SEQUENCES not found; SQL statement:
+select sequence_name from information_schema.system_sequences [42102-119]

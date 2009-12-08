@@ -13,6 +13,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.Util;
 
@@ -64,32 +65,32 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 	}
 
 	
-	public void inicio(Long loja, Long idComponente) throws Exception {
+	public void inicio(Long loja, Componente componente) throws Exception {
 
-		String diretorioDestino = Util.getDirDestinoCargaBaseLojaComponente(loja, idComponente);
-		String diretorioOrigem = Util.getDirTemplateCargaBase();
+		String diretorioDestino = Util.getDirDestinoCargaBaseLojaComponente(loja, componente.getId());
+		String diretorioOrigemTemplante = Util.getDirTemplateCargaBase();
 		File f = new File(diretorioDestino);
 		if (!f.exists()){
 			f.mkdirs();
 		}else{
 			Util.apagarArquivos(f);
-//			File[] arquivos = f.listFiles();
-//			for (int i = 0; i < arquivos.length; i++) {
-//				if (arquivos[i].isFile()) {
-//					arquivos[i].delete();
-//				}
-//			}
 		}
 
-		Util.copiarArquivos(diretorioOrigem, diretorioDestino); 
+		Util.copiarArquivos(diretorioOrigemTemplante, diretorioDestino); 
 
+		Util.alterarNomeBanco(diretorioDestino, "pdv", "av");
+
+		String nomeBanco = "pdv";
+		if (componente.getTipoComponente() == Componente.TIPO_COMPONENTE_AV) {
+			nomeBanco = "av";
+		}
 		Configuration cfg = new Configuration();
 		
 		String arq = Util.getDirCorrente() + "/WEB-INF/classes/" + RepositoryManagerHibernateUtil.HIBERNATE_PDV;
 		File file = new File(arq);
 
 		sessionFactory = cfg.configure(file).
-			setProperty("hibernate.connection.url","jdbc:h2:" + diretorioDestino + "/pdv").buildSessionFactory();
+			setProperty("hibernate.connection.url","jdbc:h2:" + diretorioDestino + "/" + nomeBanco).buildSessionFactory();
 		
 	}
 
