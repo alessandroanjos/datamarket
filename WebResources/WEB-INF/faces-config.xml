@@ -4366,22 +4366,7 @@
 		    <property-name>dataPedido</property-name>
 		    <property-class>java.util.Date</property-class>
 		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>idTipoPessoa</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>cpfCnpjCliente</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
-		<managed-property>
-		    <property-name>nomeCliente</property-name>
-		    <property-class>java.lang.String</property-class>
-		    <null-value/>
-		</managed-property>
+		</managed-property>		
 		<managed-property>
 		    <property-name>codigoProduto</property-name>
 		    <property-class>java.lang.String</property-class>
@@ -4395,37 +4380,37 @@
 		<managed-property>
 		    <property-name>precoVenda</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>quantidade</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.000</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>descontoItem</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>descontoPedido</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>valorItem</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>valorTotalPedido</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.00</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>quantidadeTotal</property-name>
 		    <property-class>java.math.BigDecimal</property-class>
-		    <null-value/>
+		    <value>0.000</value>
 		</managed-property>
 		<managed-property>
 		    <property-name>idSituacao</property-name>
@@ -4462,6 +4447,138 @@
 		    <property-class>javax.faces.model.SelectItem</property-class>
 		    <null-value/>
 		</managed-property>		
+		<managed-property>
+		    <property-name>idTipoPessoa</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cpfCnpjCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>nomeCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>razaoSocialCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>inscricaoEstadualCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>inscricaoMunicipalCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		
+		<managed-property>
+		    <property-name>numeroCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>complementoCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>bairroCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cidadeCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>estadoCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cepCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>foneCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>emailCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>celularCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>pessoaContatoCliente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>logradouroClienteEntrega</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>numeroClienteEntrega</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>complementoClienteEntrega</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>bairroClienteEntrega</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cidadeClienteEntrega</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>estadoClienteEntrega</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>cepClienteEntrega</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>pontoReferenciaEnderecoEntrega</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		<managed-property>
+		    <property-name>usaEnderecoParaEntrega</property-name>
+		    <property-class>boolean</property-class>
+		    <value>false</value>
+		</managed-property>
+		<managed-property>
+		    <property-name>abaCorrente</property-name>
+		    <property-class>java.lang.String</property-class>
+		    <null-value/>
+		</managed-property>
+		
 	</managed-bean>
 	
 	<!-- RELATORIO -->
