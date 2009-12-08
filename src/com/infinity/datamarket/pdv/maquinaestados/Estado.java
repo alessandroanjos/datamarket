@@ -16,6 +16,8 @@ public class Estado extends Persistente{
 	private int inputSize;
 	private Collection finalizadoras;
 
+	public static final Long FECHADO_PDV = new Long(1);
+	public static final Long FECHADO_PARCIAL_PDV = new Long(2);
 	public static final Long DISPONIVEL_PDV = new Long(3);
 	public static final Long DISPONIVEL_AV = new Long(1);
 	

@@ -75,9 +75,10 @@ public class ThreadVerificaCargaBase extends Thread implements Serializable{
 					if (novoCargaBase) {
 						Estado estadoAtual = (Estado)GerenciadorPerifericos.getInstancia().getCmos().ler(CMOSArquivo.ESTADO_ATUAL);
 	
-		        		if (componente.getTipoComponente() == Componente.TIPO_COMPONENTE_PDV &&(estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL_PDV)) || 
+		        		if (componente.getTipoComponente() == Componente.TIPO_COMPONENTE_PDV &&(estadoAtual != null && (estadoAtual.getId().equals(Estado.DISPONIVEL_PDV) || estadoAtual.getId().equals(Estado.FECHADO_PDV)  || estadoAtual.getId().equals(Estado.FECHADO_PARCIAL_PDV ))) || 
 		        			componente.getTipoComponente() == Componente.TIPO_COMPONENTE_AV &&(estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL_AV))){
-	
+
+
 		//	        		//verifica se tem novo lote liberado
 		        			System.out.println("Maquina.ThreadVerificaCargaBase.run: ThreadVerificaCargaBase.existeNovaCargaBase(): "+existeNovoLote());
 		        			if (existeNovoLote()){
