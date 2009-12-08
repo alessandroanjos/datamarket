@@ -28,13 +28,15 @@ public class RepositorioFornecedor extends Repositorio implements IRepositorioFo
 	}
 	public void inserir(Fornecedor fornecedor) throws AppException{
 		insert(fornecedor);
-		
+		inserirDadoLote(fornecedor);		
 	}
 	public void alterar(Fornecedor fornecedor) throws AppException{
 		update(fornecedor);
+		alterarDadoLote(fornecedor);
 	}
 	public void excluir(Fornecedor fornecedor) throws AppException{
 		remove(fornecedor);
+		excluirDadoLote(fornecedor);
 	}
 
 }

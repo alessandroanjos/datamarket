@@ -9,7 +9,6 @@ import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.Parametro;
-import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
@@ -36,8 +35,8 @@ public class OpImprimeRecibo extends Mic{
 
 						ByteArrayOutputStream out = new ByteArrayOutputStream();
 						getFachadaPDV().gerarReciboVenda(transVenda, out);
-//						String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();
-						String caminho = Util.getDirCorrente();
+						String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();
+//						String caminho = Util.getDirCorrente();
 						File dir = new File(caminho);
 						if (!dir.exists()){
 							dir.mkdir();

@@ -62,6 +62,51 @@
 			<column name="DATA_TRANSACAO" not-null="false" />
 		</many-to-one>
 		
+		<property name="usaEnderecoEntrega" type="java.lang.String"
+			update="true" insert="true">
+			<column name="ENDERECO_ENTREGA" length="1"
+				not-null="true" />
+		</property>
+		<property name="logradouro" type="java.lang.String"
+			update="true" insert="true">
+			<column name="LOGRADOURO" length="200"
+				not-null="false" />
+		</property>
+		<property name="numero" type="java.lang.String"
+			update="true" insert="true">
+			<column name="NUMERO" length="50"
+				not-null="false" />
+		</property>
+		<property name="complemento" type="java.lang.String"
+			update="true" insert="true">
+			<column name="COMPLEMENTO" length="50"
+				not-null="false" />
+		</property>
+		<property name="bairro" type="java.lang.String"
+			update="true" insert="true">
+			<column name="BAIRRO" length="50"
+				not-null="false" />
+		</property>
+		<property name="cidade" type="java.lang.String"
+			update="true" insert="true">
+			<column name="CIDADE" length="50"
+				not-null="false" />
+		</property>
+		<property name="estado" type="java.lang.String"
+			update="true" insert="true">
+			<column name="ESTADO" length="2"
+				not-null="false" />
+		</property>
+		<property name="cep" type="java.lang.String"
+			update="true" insert="true">
+			<column name="CEP" length="10"
+				not-null="false" />
+		</property>
+		<property name="pontoReferencia" type="java.lang.String"
+			update="true" insert="true">
+			<column name="PONTO_REFERENCIA" length="200"
+				not-null="false" />
+		</property>
 
 	</joined-subclass>
 </hibernate-mapping>

@@ -25,8 +25,8 @@ public class OpImprimeMovimentoDia extends Mic{
 			try {
 				Date dataMovimento = (Date) gerenciadorPerifericos.getCmos().ler(CMOS.DATA_MOVIMENTO);
 				ByteArrayOutputStream out = (ByteArrayOutputStream) getFachadaPDV().gerarRelatorioAnaliticoVendas(gerenciadorPerifericos.getCodigoLoja(), dataMovimento, dataMovimento);
-//				String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();//"c:\\pdv\\temp\\";
-				String caminho = Util.getDirCorrente();
+				String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();//"c:\\pdv\\temp\\";
+//				String caminho = Util.getDirCorrente();
 				File dir = new File(caminho);
 				if (!dir.exists()){
 					dir.mkdir();

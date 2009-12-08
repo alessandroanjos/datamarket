@@ -354,8 +354,6 @@ public class FornecedorBackBean extends BackBean {
 			
 			Fornecedor fornecedor = preencheFornecedor(INSERIR);
 			
-			if (getId()==null) fornecedor.setId(getIdInc(Fornecedor.class));
-			
 			getFachada().inserirFornecedor(fornecedor);
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -417,8 +415,6 @@ public class FornecedorBackBean extends BackBean {
 		try {
 			Fornecedor fornecedor = preencheFornecedor(EXCLUIR);
 			
-			fornecedor.setId(new Long(this.getId()));
-			
 			getFachada().excluirFornecedor(fornecedor);
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
@@ -441,7 +437,11 @@ public class FornecedorBackBean extends BackBean {
 		
 		Fornecedor fornecedor = new Fornecedor();
 		
-		
+		if (acao.equals(BackBean.INSERIR)) {
+			if (getId()==null) fornecedor.setId(getIdInc(Fornecedor.class));
+		} else {
+			fornecedor.setId(new Long(this.getId()));
+		}
 		fornecedor.setNomeFornecedor(this.getNomeFornecedor());
 		fornecedor.setTipoPessoa(this.getIdTipoPessoa());
 		cpfCnpj = this.getCpfCnpj().trim().replace(".", "").replace("-", "").replace("/", "");
@@ -462,20 +462,16 @@ public class FornecedorBackBean extends BackBean {
 		fornecedor.setFoneCelular(this.getFoneCelular());
 		fornecedor.setPessoaContato(this.getPessoaContato());
 		fornecedor.setFoneContato(this.getFoneContato());
-		if(acao.equals(INSERIR)){
-			fornecedor.setDataCadastro(this.getDataSistema());
-		}else if(acao.equals(ALTERAR)){
-			fornecedor.setId(new Long(this.getId()));
-			if(this.getIdTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
-				fornecedor.setRazaoSocial(null);
-				fornecedor.setNomeFantasia(null);
-				fornecedor.setInscricaoEstadual(null);
-				fornecedor.setInscricaoMunicipal(null);
+		fornecedor.setDataCadastro(this.getDataSistema());
+		if(this.getIdTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
+			fornecedor.setRazaoSocial(null);
+			fornecedor.setNomeFantasia(null);
+			fornecedor.setInscricaoEstadual(null);
+			fornecedor.setInscricaoMunicipal(null);
 
-			}else if(this.getIdTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
-				fornecedor.setNomeFornecedor(null);
-			}
-		}	
+		}else if(this.getIdTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
+			fornecedor.setNomeFornecedor(null);
+		}
 		return fornecedor;
 	}
 

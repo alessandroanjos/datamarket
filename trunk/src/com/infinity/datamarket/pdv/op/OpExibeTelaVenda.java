@@ -32,8 +32,8 @@ public class OpExibeTelaVenda extends Mic{
 				EventoTransacao ev = (EventoTransacao) i.next();
 				if (ev instanceof EventoItemRegistrado){
 					EventoItemRegistrado eir = (EventoItemRegistrado) ev;
-					BigDecimal precoUnitario = eir.getPreco().divide(eir.getQuantidade(), BigDecimal.ROUND_UNNECESSARY);
-					BigDecimal descontoUnitario = eir.getDesconto().divide(eir.getQuantidade(), BigDecimal.ROUND_UNNECESSARY);
+					BigDecimal precoUnitario = eir.getPreco().divide(eir.getQuantidade(), BigDecimal.ROUND_DOWN);
+					BigDecimal descontoUnitario = eir.getDesconto().divide(eir.getQuantidade(), BigDecimal.ROUND_DOWN);
 					tela.setDescricao(eir.getProdutoItemRegistrado().getDescricaoCompleta());
 					tela.setQuantidade(eir.getQuantidade());
 					tela.setValorUnitario(precoUnitario.add(descontoUnitario));

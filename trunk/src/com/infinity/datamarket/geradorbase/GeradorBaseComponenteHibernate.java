@@ -69,6 +69,11 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 
 		String diretorioDestino = Util.getDirDestinoCargaBaseLojaComponente(loja, componente.getId());
 		String diretorioOrigemTemplante = Util.getDirTemplateCargaBase();
+		
+		diretorioOrigem = diretorioOrigem.replace('/', '\\');
+		diretorioDestino = diretorioDestino.replace('/','\\');
+		
+		
 		File f = new File(diretorioDestino);
 		if (!f.exists()){
 			f.mkdirs();
@@ -86,7 +91,8 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 		}
 		Configuration cfg = new Configuration();
 		
-		String arq = Util.getDirCorrente() + "/WEB-INF/classes/" + RepositoryManagerHibernateUtil.HIBERNATE_PDV;
+		String arq = Util.getDirCorrente() + "/WebResources/WEB-INF/classes/" + RepositoryManagerHibernateUtil.HIBERNATE_PDV;
+		arq = arq.replace('/', '\\');
 		File file = new File(arq);
 
 		sessionFactory = cfg.configure(file).
@@ -94,7 +100,7 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 		
 	}
 
-	protected void geraBaseProsutos(Collection col) throws Exception {
+	protected void geraBaseProdutos(Collection col) throws Exception {
 		geradorBaseGenerico(col);
 		
 	}

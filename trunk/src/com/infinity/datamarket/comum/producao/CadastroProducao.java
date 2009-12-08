@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.hibernate.Hibernate;
+
 import com.infinity.datamarket.comum.estoque.CadastroEstoqueProduto;
 import com.infinity.datamarket.comum.estoque.EstoqueProduto;
 import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
@@ -106,6 +108,8 @@ public class CadastroProducao extends Cadastro{
 		}
 		if (ajustaProduto){
 			Produto prod = CadastroProduto.getInstancia().consultarPorPK(producao.getProduto().getId());
+			Hibernate.initialize(prod.getLojas());
+			Hibernate.initialize(prod.getComposicao());
 			prod.setPrecoPadrao(producao.getPrecoVenda());
 			prod.setPrecoPromocional(producao.getPrecoVenda());
 			CadastroProduto.getInstancia().alterar(prod);			

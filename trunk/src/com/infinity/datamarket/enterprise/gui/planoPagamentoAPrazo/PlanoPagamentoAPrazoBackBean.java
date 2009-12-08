@@ -198,9 +198,14 @@ public class PlanoPagamentoAPrazoBackBean extends PlanoPagamentoBackBean {
 			throw new AppException("É necessário selecionar uma Situação.");
 		}
 
-		if(this.getParcelas() == null || (this.getParcelas() != null && this.getParcelas().size() == 0)){
-			throw new AppException("É necessário ter pelo menos uma parcela.");
+		if (getParcelasFixasVariadas().equalsIgnoreCase(Constantes.PARCELAS_FIXAS)) {
+		
+			if(this.getParcelas() == null || (this.getParcelas() != null && this.getParcelas().size() == 0 && this.getPercentagemEntrada().compareTo(new BigDecimal("100")) < 0)){
+				throw new AppException("É necessário ter pelo menos uma parcela.");
+			}
+			
 		}
+		
 		if(this.getIdForma() == null || this.getIdForma().equals("")){
 			throw new AppException("É necessário informar uma Forma de Recebimento Associada.");
 		}
@@ -266,10 +271,10 @@ public String inserir(){
 				
 				((PlanoPagamentoAPrazo)planoPre).setParcelas(this.getParcelas());
 				
-				getFachada().inserirPlanoPagamento(planoPre);
 			} else {
 				((PlanoPagamentoAPrazo)planoPre).setParcelas(null);
 			}
+			getFachada().inserirPlanoPagamento(planoPre);
 
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -315,7 +320,7 @@ public String inserir(){
 		
 			if (getParcelasFixasVariadas().equalsIgnoreCase(Constantes.PARCELAS_FIXAS)) {
 	
-				if(this.getParcelas() == null || (this.getParcelas() != null && this.getParcelas().size() == 0)){
+				if(this.getParcelas() == null || (this.getParcelas() != null && this.getParcelas().size() == 0 && totalPercentagem.compareTo(new BigDecimal("100")) < 0)){
 					throw new Exception("É necessário ter pelo menos uma parcela.");
 				}
 				

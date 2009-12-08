@@ -818,5 +818,38 @@ public class Util {
 		
 		return cepRetorno;
 	}
+	
+	public static SelectItem[] getUFs(){
+		SelectItem[] ufs = new SelectItem[27];
+		int cont = 0;
+		ufs[cont++] = new SelectItem("AC", "Acre");
+		ufs[cont++] = new SelectItem("AL", "Alagoas");
+		ufs[cont++] = new SelectItem("AM", "Amazonas");
+		ufs[cont++] = new SelectItem("AP", "Amapá");
+		ufs[cont++] = new SelectItem("BA", "Bahia");
+		ufs[cont++] = new SelectItem("CE", "Ceará");
+		ufs[cont++] = new SelectItem("DF", "Distrito Federal");
+		ufs[cont++] = new SelectItem("ES", "Espírito Santo");
+		ufs[cont++] = new SelectItem("GO", "Goiás");
+		ufs[cont++] = new SelectItem("MA", "Maranhão");
+		ufs[cont++] = new SelectItem("MS", "Mato Grosso do Sul");
+		ufs[cont++] = new SelectItem("MT", "Mato Grosso");
+		ufs[cont++] = new SelectItem("MG", "Minas Gerais");
+		ufs[cont++] = new SelectItem("PA", "Para");
+		ufs[cont++] = new SelectItem("PB", "Paraíba");
+		ufs[cont++] = new SelectItem("PR", "Paraná");
+		ufs[cont++] = new SelectItem("PE", "Pernambuco");
+		ufs[cont++] = new SelectItem("PI", "Piauí");
+		ufs[cont++] = new SelectItem("RJ", "Rio de Janeiro");
+		ufs[cont++] = new SelectItem("RN", "Rio Grande do Norte");
+		ufs[cont++] = new SelectItem("RS", "Rio Grande do Sul");
+		ufs[cont++] = new SelectItem("RO", "Rondônia");
+		ufs[cont++] = new SelectItem("RR", "Roraima");
+		ufs[cont++] = new SelectItem("SP", "São Paulo");
+		ufs[cont++] = new SelectItem("SC", "Santa Catarina");
+		ufs[cont++] = new SelectItem("SE", "Sergipe");
+		ufs[cont++] = new SelectItem("TO", "Tocantins");
+		return ufs;
+	}
 
 }

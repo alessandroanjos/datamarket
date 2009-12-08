@@ -19,8 +19,8 @@ public class OpVendeItem extends Mic{
 		EventoItemRegistrado itemRegistrado = (EventoItemRegistrado) gerenciadorPerifericos.getCmos().ler(CMOS.ITEM_REGISTRADO);
 		Produto produto = (Produto) gerenciadorPerifericos.getCmos().ler(CMOS.PRODUTO_ATUAL);
 		try{
-			BigDecimal precoUnitario = itemRegistrado.getPreco().divide(itemRegistrado.getQuantidade(), BigDecimal.ROUND_UNNECESSARY);
-			BigDecimal descontoUnitario = itemRegistrado.getDesconto().divide(itemRegistrado.getQuantidade(), BigDecimal.ROUND_UNNECESSARY);
+			BigDecimal precoUnitario = itemRegistrado.getPreco().divide(itemRegistrado.getQuantidade(), BigDecimal.ROUND_DOWN);
+			BigDecimal descontoUnitario = itemRegistrado.getDesconto().divide(itemRegistrado.getQuantidade(), BigDecimal.ROUND_DOWN);
 			gerenciadorPerifericos.getImpressoraFiscal().vendeItem(produto.getCodigoExterno(),
 																   produto.getDescricaoCompleta(),
 																   produto.getImposto().getPercentual().setScale(2).toString(),

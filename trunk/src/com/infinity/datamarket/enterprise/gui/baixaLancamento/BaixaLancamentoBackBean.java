@@ -673,7 +673,7 @@ public class BaixaLancamentoBackBean extends BackBean {
 
 	public String voltarConsulta(){
 		resetBB();
-		consultar();
+//		consultar();
 		return "voltar";
 	}
 	

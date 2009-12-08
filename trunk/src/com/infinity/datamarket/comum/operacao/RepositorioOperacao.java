@@ -1,6 +1,7 @@
 package com.infinity.datamarket.comum.operacao;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
@@ -17,8 +18,18 @@ public class RepositorioOperacao extends Repositorio implements IRepositorioOper
 		return instancia;
 	}
 
-
 	public void alterar(Operacao operacao)throws AppException{
+		update(operacao);
+	}
+	
+	public void alterar(Operacao operacao, Collection<EventoOperacaoItemRegistrado> itensPedidoRemovidos)throws AppException{
+		if(itensPedidoRemovidos != null){
+			Iterator<EventoOperacaoItemRegistrado> it = itensPedidoRemovidos.iterator();
+			while(it.hasNext()){
+				EventoOperacaoPK evOperacaoPK = it.next().getPk();
+				removeById(EventoOperacaoItemRegistrado.class, evOperacaoPK);
+			}
+		}
 		update(operacao);
 	}
 	
@@ -35,5 +46,7 @@ public class RepositorioOperacao extends Repositorio implements IRepositorioOper
 		return filter(filter, false);
 	}
 
-	
+	public void excluir(Operacao operacao)throws AppException{
+		remove(operacao);
+	}
 }

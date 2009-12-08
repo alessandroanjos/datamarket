@@ -2502,7 +2502,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setBairroCadastro(String bairroCadastro) {
-		this.bairroCadastro = bairroCadastro;
+//		this.bairroCadastro = bairroCadastro;
 	}
 
 	public String getCepCadastro() {
@@ -2510,7 +2510,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setCepCadastro(String cepCadastro) {
-		this.cepCadastro = cepCadastro;
+//		this.cepCadastro = cepCadastro;
 	}
 
 	public String getCidadeCadastro() {
@@ -2518,7 +2518,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setCidadeCadastro(String cidadeCadastro) {
-		this.cidadeCadastro = cidadeCadastro;
+//		this.cidadeCadastro = cidadeCadastro;
 	}
 
 	public String getComplementoCadastro() {
@@ -2526,7 +2526,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setComplementoCadastro(String complementoCadastro) {
-		this.complementoCadastro = complementoCadastro;
+//		this.complementoCadastro = complementoCadastro;
 	}
 
 	public String getCpfCnpjClienteCadastro() {
@@ -2534,7 +2534,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setCpfCnpjClienteCadastro(String cpfCnpjClienteCadastro) {
-		this.cpfCnpjClienteCadastro = cpfCnpjClienteCadastro;
+//		this.cpfCnpjClienteCadastro = cpfCnpjClienteCadastro;
 	}
 
 	public String getEmailCadastro() {
@@ -2542,7 +2542,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setEmailCadastro(String emailCadastro) {
-		this.emailCadastro = emailCadastro;
+//		this.emailCadastro = emailCadastro;
 	}
 
 	public String getEstadoCadastro() {
@@ -2550,7 +2550,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setEstadoCadastro(String estadoCadastro) {
-		this.estadoCadastro = estadoCadastro;
+//		this.estadoCadastro = estadoCadastro;
 	}
 
 	public String getFoneCelularCadastro() {
@@ -2558,7 +2558,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setFoneCelularCadastro(String foneCelularCadastro) {
-		this.foneCelularCadastro = foneCelularCadastro;
+//		this.foneCelularCadastro = foneCelularCadastro;
 	}
 
 	public String getFoneContatoCadastro() {
@@ -2566,7 +2566,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setFoneContatoCadastro(String foneContatoCadastro) {
-		this.foneContatoCadastro = foneContatoCadastro;
+//		this.foneContatoCadastro = foneContatoCadastro;
 	}
 
 	public String getFoneResidencialCadastro() {
@@ -2574,7 +2574,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setFoneResidencialCadastro(String foneResidencialCadastro) {
-		this.foneResidencialCadastro = foneResidencialCadastro;
+//		this.foneResidencialCadastro = foneResidencialCadastro;
 	}
 
 	public String getIdTipoPessoaCadastro() {
@@ -2582,7 +2582,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setIdTipoPessoaCadastro(String idTipoPessoaCadastro) {
-		this.idTipoPessoaCadastro = idTipoPessoaCadastro;
+//		this.idTipoPessoaCadastro = idTipoPessoaCadastro;
 	}
 
 	public String getInscricaoEstadualCadastro() {
@@ -2590,7 +2590,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setInscricaoEstadualCadastro(String inscricaoEstadualCadastro) {
-		this.inscricaoEstadualCadastro = inscricaoEstadualCadastro;
+//		this.inscricaoEstadualCadastro = inscricaoEstadualCadastro;
 	}
 
 	public String getInscricaoMunicipalCadastro() {
@@ -2598,7 +2598,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setInscricaoMunicipalCadastro(String inscricaoMunicipalCadastro) {
-		this.inscricaoMunicipalCadastro = inscricaoMunicipalCadastro;
+//		this.inscricaoMunicipalCadastro = inscricaoMunicipalCadastro;
 	}
 
 	public String getLogradouroCadastro() {
@@ -2606,7 +2606,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setLogradouroCadastro(String logradouroCadastro) {
-		this.logradouroCadastro = logradouroCadastro;
+//		this.logradouroCadastro = logradouroCadastro;
 	}
 
 	public String getNomeClienteCadastro() {
@@ -2622,7 +2622,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setNumeroCadastro(String numeroCadastro) {
-		this.numeroCadastro = numeroCadastro;
+//		this.numeroCadastro = numeroCadastro;
 	}
 
 	public String getPessoaContatoCadastro() {
@@ -2630,7 +2630,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setPessoaContatoCadastro(String pessoaContatoCadastro) {
-		this.pessoaContatoCadastro = pessoaContatoCadastro;
+//		this.pessoaContatoCadastro = pessoaContatoCadastro;
 	}
 
 	public String getRazaoSocialCadastro() {
@@ -2638,7 +2638,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setRazaoSocialCadastro(String razaoSocialCadastro) {
-		this.razaoSocialCadastro = razaoSocialCadastro;
+//		this.razaoSocialCadastro = razaoSocialCadastro;
 	}
 
 	public String getReferenciaComercialCadastro() {
@@ -2646,7 +2646,7 @@ public class TransacaoBackBean extends BackBean {
 	}
 
 	public void setReferenciaComercialCadastro(String referenciaComercialCadastro) {
-		this.referenciaComercialCadastro = referenciaComercialCadastro;
+//		this.referenciaComercialCadastro = referenciaComercialCadastro;
 	}
 	
 	public String buscaClientePorCpfCnpj() throws Exception{
@@ -2668,22 +2668,22 @@ public class TransacaoBackBean extends BackBean {
 				this.setCpfCnpjClienteCadastro(Util.formataCpfCnpj(cli.getCpfCnpj()));
 //				this.setNomeClienteCadastro(cli.getNomeCliente());
 				this.nomeClienteCadastro = cli.getNomeCliente();
-				this.setIdTipoPessoaCadastro(cli.getTipoPessoa());
-				this.setRazaoSocialCadastro(cli.getRazaoSocial());
-				this.setInscricaoEstadualCadastro(cli.getInscricaoEstadual());
-				this.setInscricaoMunicipalCadastro(cli.getInscricaoMunicipal());
-				this.setLogradouroCadastro(cli.getLogradouro());
-				this.setNumeroCadastro(cli.getNumero());
-				this.setComplementoCadastro(cli.getComplemento());
-				this.setBairroCadastro(cli.getBairro());
-				this.setCidadeCadastro(cli.getCidade());
-				this.setEstadoCadastro(cli.getEstado());
-				this.setCepCadastro(cli.getCep());
-				this.setFoneResidencialCadastro(cli.getFone());
-				this.setFoneCelularCadastro(cli.getCelular());
-				this.setPessoaContatoCadastro(cli.getPessoaContato());
-				this.setReferenciaComercialCadastro(cli.getReferenciaBancaria());
-				this.setEmailCadastro(cli.getEmail());
+				this.idTipoPessoaCadastro = cli.getTipoPessoa();
+				this.razaoSocialCadastro = cli.getRazaoSocial();
+				this.inscricaoEstadualCadastro = cli.getInscricaoEstadual();
+				this.inscricaoMunicipalCadastro = cli.getInscricaoMunicipal();
+				this.logradouroCadastro = cli.getLogradouro();
+				this.numeroCadastro = cli.getNumero();
+				this.complementoCadastro = cli.getComplemento();
+				this.bairroCadastro = cli.getBairro();
+				this.cidadeCadastro = cli.getCidade();
+				this.estadoCadastro = cli.getEstado();
+				this.cepCadastro = cli.getCep();
+				this.foneResidencialCadastro = cli.getFone();
+				this.foneCelularCadastro = cli.getCelular();
+				this.pessoaContatoCadastro = cli.getPessoaContato();
+				this.referenciaComercialCadastro = cli.getReferenciaBancaria();
+				this.emailCadastro = cli.getEmail();
 				this.setAbaCorrente("tabMenuDiv3");
 				this.setAbaCadastroClienteCorrente("tabMenuDivInterno0");
 			}
@@ -2807,7 +2807,6 @@ public class TransacaoBackBean extends BackBean {
 		Map params = context.getExternalContext().getRequestParameterMap();            
 		String param = (String)  params.get(ACAO);
 
-		System.out.println((String)  params.get("acaoLocal"));
 		if (param != null){
 			resetBB();
 			if(VALOR_ACAO.equals(param)){

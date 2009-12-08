@@ -352,11 +352,9 @@ public class FabricanteBackBean extends BackBean {
 			
 			validarCampos(this.getIdTipoPessoa());
 			
-			Fabricante Fabricante = preencheFabricante(INSERIR);
+			Fabricante fabricante = preencheFabricante(INSERIR);
 			
-			if (getId()==null) Fabricante.setId(getIdInc(Fabricante.class));
-			
-			getFachada().inserirFabricante(Fabricante);
+			getFachada().inserirFabricante(fabricante);
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -388,9 +386,9 @@ public class FabricanteBackBean extends BackBean {
 		try {	
 			validarCampos(this.getIdTipoPessoa());
 			
-			Fabricante Fabricante = preencheFabricante(ALTERAR);			
+			Fabricante fabricante = preencheFabricante(ALTERAR);			
 								
-			getFachada().alterarFabricante(Fabricante);
+			getFachada().alterarFabricante(fabricante);
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -415,11 +413,9 @@ public class FabricanteBackBean extends BackBean {
 	
 	public String excluir(){
 		try {
-			Fabricante Fabricante = preencheFabricante(EXCLUIR);
-			
-			Fabricante.setId(new Long(this.getId()));
-			
-			getFachada().excluirFabricante(Fabricante);
+			Fabricante fabricante = preencheFabricante(EXCLUIR);
+					
+			getFachada().excluirFabricante(fabricante);
 			
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Operação Realizada com Sucesso!", "");
@@ -439,44 +435,45 @@ public class FabricanteBackBean extends BackBean {
 	
 	public Fabricante preencheFabricante(String acao){
 		
-		Fabricante Fabricante = new Fabricante();
+		Fabricante fabricante = new Fabricante();
 		
+		if (acao.equals(BackBean.INSERIR)) {
+			if (getId()==null) fabricante.setId(getIdInc(Fabricante.class));
+		} else {
+			fabricante.setId(new Long(this.getId()));
+		}
 		
-		Fabricante.setNomeFabricante(this.getNomeFabricante());
-		Fabricante.setTipoPessoa(this.getIdTipoPessoa());
+		fabricante.setNomeFabricante(this.getNomeFabricante());
+		fabricante.setTipoPessoa(this.getIdTipoPessoa());
 		cpfCnpj = this.getCpfCnpj().trim().replace(".", "").replace("-", "").replace("/", "");
-		Fabricante.setCpfCnpj(this.getCpfCnpj());
-		Fabricante.setRazaoSocial(this.getRazaoSocial());
-		Fabricante.setNomeFantasia(this.getNomeFantasia());
-		Fabricante.setInscricaoEstadual(this.getInscricaoEstadual());
-		Fabricante.setInscricaoMunicipal(this.getInscricaoMunicipal());
-		Fabricante.setLogradouro(this.getLogradouro());
-		Fabricante.setNumero(this.getNumero());
-		Fabricante.setComplemento(this.getComplemento());
-		Fabricante.setBairro(this.getBairro());
-		Fabricante.setCidade(this.getCidade());
-		Fabricante.setEstado(this.getEstado());
-		Fabricante.setCep(this.getCep());
-		Fabricante.setFoneResidencial(this.getFoneResidencial());
-		Fabricante.setFoneComercial(this.getFoneComercial());
-		Fabricante.setFoneCelular(this.getFoneCelular());
-		Fabricante.setPessoaContato(this.getPessoaContato());
-		Fabricante.setFoneContato(this.getFoneContato());
-		if(acao.equals(INSERIR)){
-			Fabricante.setDataCadastro(this.getDataSistema());
-		}else if(acao.equals(ALTERAR)){
-			Fabricante.setId(new Long(this.getId()));
-			if(this.getIdTipoPessoa().equals(Fabricante.PESSOA_FISICA)){
-				Fabricante.setRazaoSocial(null);
-				Fabricante.setNomeFantasia(null);
-				Fabricante.setInscricaoEstadual(null);
-				Fabricante.setInscricaoMunicipal(null);
+		fabricante.setCpfCnpj(this.getCpfCnpj());
+		fabricante.setRazaoSocial(this.getRazaoSocial());
+		fabricante.setNomeFantasia(this.getNomeFantasia());
+		fabricante.setInscricaoEstadual(this.getInscricaoEstadual());
+		fabricante.setInscricaoMunicipal(this.getInscricaoMunicipal());
+		fabricante.setLogradouro(this.getLogradouro());
+		fabricante.setNumero(this.getNumero());
+		fabricante.setComplemento(this.getComplemento());
+		fabricante.setBairro(this.getBairro());
+		fabricante.setCidade(this.getCidade());
+		fabricante.setEstado(this.getEstado());
+		fabricante.setCep(this.getCep());
+		fabricante.setFoneResidencial(this.getFoneResidencial());
+		fabricante.setFoneComercial(this.getFoneComercial());
+		fabricante.setFoneCelular(this.getFoneCelular());
+		fabricante.setPessoaContato(this.getPessoaContato());
+		fabricante.setFoneContato(this.getFoneContato());
+		fabricante.setDataCadastro(this.getDataSistema());
+		if(this.getIdTipoPessoa().equals(Fabricante.PESSOA_FISICA)){
+			fabricante.setRazaoSocial(null);
+			fabricante.setNomeFantasia(null);
+			fabricante.setInscricaoEstadual(null);
+			fabricante.setInscricaoMunicipal(null);
 
-			}else if(this.getIdTipoPessoa().equals(Fabricante.PESSOA_FISICA)){
-				Fabricante.setNomeFabricante(null);
-			}
-		}	
-		return Fabricante;
+		}else if(this.getIdTipoPessoa().equals(Fabricante.PESSOA_FISICA)){
+			fabricante.setNomeFabricante(null);
+		}
+		return fabricante;
 	}
 
 	/**

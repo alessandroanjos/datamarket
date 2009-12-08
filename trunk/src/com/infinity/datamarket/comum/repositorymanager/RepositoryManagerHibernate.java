@@ -106,7 +106,7 @@ public class RepositoryManagerHibernate implements IRepositoryManager
     {
         Session session = null;
         session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
-        session.save(_obj);
+        session.saveOrUpdate(_obj);
     }
     catch(HibernateException ex)
     {
@@ -126,11 +126,11 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         }
         catch(HibernateException ex)
         {
-        	try {
-        		session.merge(_obj);	
-			} catch (HibernateException ex1) {
+//        	try {
+//        		session.merge(_obj);	
+//			} catch (HibernateException ex1) {
 				throw new RepositoryControlerException(ex);
-			}
+//			}
         	
             
         }

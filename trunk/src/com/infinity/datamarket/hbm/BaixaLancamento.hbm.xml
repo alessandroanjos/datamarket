@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
   
 <!DOCTYPE hibernate-mapping   
         PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
@@ -59,7 +59,7 @@
         </property>
         
         <property name="numeroCheque" type="java.lang.String" update="true" insert="true">
-            <column name="NUMERO_CHEQUE" length="10" not-null="false"/>
+            <column name="NUMERO_CHEQUE" length="50" not-null="false"/>
         </property>
         
         <property name="tipoPessoaCheque" type="java.lang.String" update="true" insert="true">

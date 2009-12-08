@@ -5,7 +5,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Properties;
 
+import com.infinity.datamarket.comum.Fachada;
+
 import com.infinity.datamarket.comum.componente.Componente;
+
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
@@ -22,6 +25,7 @@ import com.infinity.datamarket.pdv.transacao.ThreadEnviaTransacao;
 public class StartUpPDV {
 	public static void main(String[] a) throws Exception{
 		ControladorMaquinaEstado contr = LeitorMaquinaEstadoXML.lerArquivoXM("fluxoPDV.xml");
+
 
 		String diretorioH2 = Util.getBasePDV(Componente.TIPO_COMPONENTE_PDV);
 
