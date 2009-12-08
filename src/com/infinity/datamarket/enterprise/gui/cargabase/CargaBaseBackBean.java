@@ -147,7 +147,7 @@ public class CargaBaseBackBean extends BackBean{
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Novo Banco Gerado com Sucesso", "");
 			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de Sistema", "");
 			getContextoApp().addMessage(null, msg);
 			setIdLoja("");

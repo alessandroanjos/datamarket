@@ -1,10 +1,6 @@
 package com.infinity.datamarket.geradorbase;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -70,7 +66,7 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 		String diretorioDestino = Util.getDirDestinoCargaBaseLojaComponente(loja, componente.getId());
 		String diretorioOrigemTemplante = Util.getDirTemplateCargaBase();
 		
-		diretorioOrigem = diretorioOrigem.replace('/', '\\');
+		diretorioOrigemTemplante = diretorioOrigemTemplante.replace('/', '\\');
 		diretorioDestino = diretorioDestino.replace('/','\\');
 		
 		
@@ -83,15 +79,17 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 
 		Util.copiarArquivos(diretorioOrigemTemplante, diretorioDestino); 
 
-		Util.alterarNomeBanco(diretorioDestino, "pdv", "av");
 
 		String nomeBanco = "pdv";
 		if (componente.getTipoComponente() == Componente.TIPO_COMPONENTE_AV) {
+			Util.alterarNomeBanco(diretorioDestino, "pdv", "av");
 			nomeBanco = "av";
 		}
 		Configuration cfg = new Configuration();
 		
-		String arq = Util.getDirCorrente() + "/WebResources/WEB-INF/classes/" + RepositoryManagerHibernateUtil.HIBERNATE_PDV;
+		// por favor nao colocar o diretorio WebResources/WEB-INF/classes/" + RepositoryManagerHibernateUtil.HIBERNATE_PDV;
+		// quando executado por fora do sistema ele precisa dessa pasta, mas quando roda pelo sistema E.S. essa pasta nao existe ai quebra o E.S.
+		String arq = Util.getDirCorrente() + "/WEB-INF/classes/" + RepositoryManagerHibernateUtil.HIBERNATE_PDV;
 		arq = arq.replace('/', '\\');
 		File file = new File(arq);
 
