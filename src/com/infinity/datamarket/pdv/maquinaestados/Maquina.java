@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 
+import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
+import com.infinity.datamarket.av.op.OpAVIniciaAV;
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
@@ -23,8 +25,6 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.gui.telas.Tela;
-import com.infinity.datamarket.pdv.gui.telas.TelaMenssagem;
-import com.infinity.datamarket.pdv.gui.telas.swing.TelaCargaDados;
 import com.infinity.datamarket.pdv.infocomponent.ThreadEnviaInfoComponent;
 import com.infinity.datamarket.pdv.lote.ThreadVerificaNovoLote;
 import com.infinity.datamarket.pdv.op.OpSolicitaCargaBase;
@@ -93,6 +93,15 @@ public class Maquina implements Serializable{
         Componente componente = Fachada.getInstancia().consultarComponentePorId(new Long(idComponente));
         gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.COMPONENTE,componente);
 
+		if (componente.getTipoComponente() == Componente.TIPO_COMPONENTE_AV) {
+	        if (tela == null) {
+	    		tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+	        }
+	        if (tela instanceof  TelaAVInicial) {
+	        	OpAVIniciaAV.iniciaAv(this.gerenciadorPerifericos);
+	        }
+		}
+		
         gerenciadorPerifericos.getWindow().atualizaLote(lote);
         threadVerificaNovoLote = new ThreadVerificaNovoLote(lote,idLoja);
         threadVerificaNovoLote.start();
