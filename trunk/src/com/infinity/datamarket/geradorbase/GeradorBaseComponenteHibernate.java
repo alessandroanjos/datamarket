@@ -89,6 +89,8 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 		
 		// por favor nao colocar o diretorio WebResources/WEB-INF/classes/" + RepositoryManagerHibernateUtil.HIBERNATE_PDV;
 		// quando executado por fora do sistema ele precisa dessa pasta, mas quando roda pelo sistema E.S. essa pasta nao existe ai quebra o E.S.
+		// se nao achou no menu a opcao vc pode tentar a tecla A no estdo de disponivel ou 
+		// http://127.0.0.1:8080/EnterpriseServer/jsp/cargabase/liberaCargaBase.faces?acao=init
 		String arq = Util.getDirCorrente() + "/WEB-INF/classes/" + RepositoryManagerHibernateUtil.HIBERNATE_PDV;
 		arq = arq.replace('/', '\\');
 		File file = new File(arq);

@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Collection;
 
+import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
@@ -41,6 +42,8 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 		System.out.println("-- INICIANDO SERVICO DE VERIFICAÇÃO DE NOVO LOTE --" );
 		System.out.println("---------------------------------------------------" );
 		
+        Componente componente = (Componente)GerenciadorPerifericos.getInstancia().getCmos().ler(CMOSArquivo.COMPONENTE);
+
 		while(true){
 			try {
 				Thread.currentThread().sleep(ServerConfig.SLEEP);
@@ -52,8 +55,11 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 				novoLote =  verificarNovoLote(numeroLote);
 				
 				Estado estadoAtual = (Estado)GerenciadorPerifericos.getInstancia().getCmos().ler(CMOSArquivo.ESTADO_ATUAL);
+
+				if (componente.getTipoComponente() == Componente.TIPO_COMPONENTE_PDV &&(estadoAtual != null && (estadoAtual.getId().equals(Estado.DISPONIVEL_PDV) || estadoAtual.getId().equals(Estado.FECHADO_PDV)  || estadoAtual.getId().equals(Estado.FECHADO_PARCIAL_PDV ))) || 
+	        			componente.getTipoComponente() == Componente.TIPO_COMPONENTE_AV &&(estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL_AV))){
 				
-        		if (estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL_PDV)){
+//        		if (estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL_PDV)){
 	        		//verifica se tem novo lote liberado
         			System.out.println("Maquina.ThreadProcessaMacro.run: threadVerificaNovoLote.existeNovoLote(): "+existeNovoLote());
         			if (existeNovoLote()){
