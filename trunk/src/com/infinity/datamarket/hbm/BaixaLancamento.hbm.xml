@@ -55,7 +55,7 @@
         </property>
         
         <property name="numeroConta" type="java.lang.String" update="true" insert="true">
-            <column name="NUMERO_CONTA" length="10" not-null="false"/>
+            <column name="NUMERO_CONTA" length="50" not-null="false"/>
         </property>
         
         <property name="numeroCheque" type="java.lang.String" update="true" insert="true">
