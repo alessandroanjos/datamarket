@@ -25,7 +25,7 @@
           </property>
 
           
-          <set name="parcelas" inverse="true" cascade="save-update, delete-orphan" lazy="false" order-by="NUM_ENTRADA">
+          <set name="parcelas" inverse="true" cascade="all, delete-orphan" lazy="false" order-by="NUM_ENTRADA">
 	        <key>
 	            <column name="ID_PLANO" />
 	        </key>

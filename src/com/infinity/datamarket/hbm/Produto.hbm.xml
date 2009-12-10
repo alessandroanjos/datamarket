@@ -79,7 +79,7 @@
              <many-to-many column="ID_LOJA" class="com.infinity.datamarket.comum.usuario.Loja"/>
         </set>
         
-        <set name="composicao" inverse="true" cascade="save-update, delete-orphan" lazy="true"> 
+        <set name="composicao" inverse="true" cascade="save-update" lazy="true"> 
 	        <key>
 	        	<column name="ID_PRODUTO" />
 	        </key>            
