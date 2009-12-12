@@ -29,7 +29,7 @@ public class AutorizadorServer implements AutorizadorServerRemote {
 			throw new AutorizacaoException("Tente Novamente");
 		}
 		if (clientes == null || clientes.size() == 0){
-			throw new AutorizacaoException("Cliente inválido");
+			throw new AutorizacaoException("Cliente Inexistente");
 		}
 		Cliente cli = (Cliente) clientes.iterator().next();
 		

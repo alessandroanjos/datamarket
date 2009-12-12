@@ -536,7 +536,7 @@ public class FabricanteBackBean extends BackBean {
 	}
 	
 	public SelectItem[] getListaUf() {
-		return Util.getListaSelectItemUf();
+		return Util.getUFs();
 	}
 	public String getTipoPessoa() {
 		return tipoPessoa;
