@@ -37,13 +37,13 @@ public class ClienteTransacao implements Serializable {
 	
 	public String getEnderecoConcatenado() {
 		StringBuffer endTmp = new StringBuffer();
-		endTmp.append(this.getLogradouro() + "|");
-		endTmp.append(this.getNumero() + "|");
-		endTmp.append(this.getComplemento() + "|");
-		endTmp.append(this.getBairro() + "|");
-		endTmp.append(this.getCidade() + "|");
-		endTmp.append(this.getEstado() + "|");
-		endTmp.append(this.getCep());
+		endTmp.append(this.getLogradouro().trim() + "|");
+		endTmp.append(this.getNumero().trim() + "|");
+		endTmp.append(this.getComplemento().trim() + "|");
+		endTmp.append(this.getBairro().trim() + "|");
+		endTmp.append(this.getCidade().trim() + "|");
+		endTmp.append(this.getEstado().trim() + "|");
+		endTmp.append(this.getCep().trim());
 		return endTmp.toString();
 	}
 	public void setEnderecoConcatenado(String enderecoConcatenado) {

@@ -70,9 +70,16 @@ public class OpSolicitaDadosCartaoProprio extends Mic{
 									if (obj instanceof DadosAutorizacaoCartaoProprio ) {
 										dadosAutorizacao = (DadosAutorizacaoCartaoProprio) obj;
 									} else if (obj instanceof Exception) {
-										gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
-										gerenciadorPerifericos.esperaVolta();
-										return ALTERNATIVA_2;
+										if(obj instanceof AutorizacaoException){
+											gerenciadorPerifericos.getDisplay().setMensagem(((AutorizacaoException)obj).getMessage());
+											gerenciadorPerifericos.esperaVolta();
+											return ALTERNATIVA_2;
+										}else{
+											gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+											gerenciadorPerifericos.esperaVolta();
+											return ALTERNATIVA_2;
+										}
+										
 									}
 								} catch (Exception e) {
 									gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");

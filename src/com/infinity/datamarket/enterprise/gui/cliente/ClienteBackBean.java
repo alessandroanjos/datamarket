@@ -609,7 +609,7 @@ public class ClienteBackBean extends BackBean {
 	}
 	
 	public SelectItem[] getListaUf() {
-		return Util.getListaSelectItemUf();
+		return Util.getUFs();
 	}
 
 	public void setListaTipoPessoa(SelectItem[] listaTipoPessoa) {

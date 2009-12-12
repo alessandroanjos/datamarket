@@ -537,16 +537,16 @@ public class PedidoBackBean extends BackBean {
 					}
 					
 					this.clienteTransacao = clienteTransacao;
-					this.logradouroCliente = clienteTransacao.getLogradouro();
-					this.numeroCliente = clienteTransacao.getNumero();
-					this.complementoCliente = clienteTransacao.getComplemento();
-					this.bairroCliente = clienteTransacao.getBairro();
-					this.cidadeCliente = clienteTransacao.getCidade();
-					this.estadoCliente = clienteTransacao.getEstado();
-					this.cepCliente = clienteTransacao.getCep();
-					this.foneCliente = clienteTransacao.getFone();
-					this.celularCliente = clienteTransacao.getCelular();
-					this.pessoaContatoCliente = clienteTransacao.getPessoaContato();
+					this.logradouroCliente = clienteTransacao.getLogradouro().trim();
+					this.numeroCliente = clienteTransacao.getNumero().trim();
+					this.complementoCliente = clienteTransacao.getComplemento().trim();
+					this.bairroCliente = clienteTransacao.getBairro().trim();
+					this.cidadeCliente = clienteTransacao.getCidade().trim();
+					this.estadoCliente = clienteTransacao.getEstado().trim();
+					this.cepCliente = clienteTransacao.getCep().trim();
+					this.foneCliente = clienteTransacao.getFone().trim();
+					this.celularCliente = clienteTransacao.getCelular().trim();
+					this.pessoaContatoCliente = clienteTransacao.getPessoaContato().trim();
 					this.usaEnderecoParaEntrega = false;
 					
 					this.limpaCamposEnderecoEntrega();
