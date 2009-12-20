@@ -12,8 +12,8 @@ public class ConstantesOperacao {
 
 	//quando eh criado no av e nao foi enviado ao E.S.
 	public static final int PARA_ENVIAR = 5;
-
 	//Quando foi criando no av e foi enviado ao E. S.
 	public static final int ENVIADO = 6;
-
+	//Quando foi criando no av e foi enviado ao E. S.
+	public static final int EM_SEPARACAO = 7;	
 }
