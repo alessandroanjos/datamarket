@@ -130,4 +130,9 @@ public class CadastroOperacao extends Cadastro{
 	public void excluir(Operacao operacao)throws AppException{
 		getRepositorio().excluir(operacao);
 	}
+	
+	public void atualizaOperacaoEnviada(Operacao oper) throws AppException{
+		oper.setStatus(ConstantesOperacao.ENVIADO);
+		alterar(oper);
+	}
 }

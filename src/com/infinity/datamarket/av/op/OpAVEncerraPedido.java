@@ -42,6 +42,8 @@ public class OpAVEncerraPedido extends Mic{
 		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TOTAL_DESCONTO_PEDIDO,null);
 		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TOTAL_DESCONTO_PEDIDO,null);
 
+		gerenciadorPerifericos.getCmos().gravar(CMOS.COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO,null);
+		
 		
 		gerenciadorPerifericos.getDisplay().setMensagem(OpAVIniciaPedido.MENSAGEM_INICIAL);
 

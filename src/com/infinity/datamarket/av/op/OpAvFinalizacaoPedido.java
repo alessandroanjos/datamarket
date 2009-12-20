@@ -77,7 +77,7 @@ public class OpAvFinalizacaoPedido extends Mic{
 	
 		pedido.setData(new Date());
 
-		pedido.setStatus(new Integer(ConstantesOperacao.ABERTO));	
+		pedido.setStatus(new Integer(ConstantesOperacao.PARA_ENVIAR));
 
 		pedido.setCliente(cli);
 

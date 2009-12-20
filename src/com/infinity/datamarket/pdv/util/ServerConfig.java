@@ -40,6 +40,8 @@ public class ServerConfig {
 	public static final String CONFIRMAR_TRANSACAO_CARTAO_PROPRIO_SERVLET;//=ConfirmarTransacaoCartaoProprioServlet.servlet
 	public static final String DESFAZER_TRANSACAO_CARTAO_PROPRIO_SERVLET;//=DesfazerTransacaoCartaoProprioServlet.servlet
 	public static final String CONSULTAR_DEBITOS_CARTAO_PROPRIO_SERVLET;//=ConsultarDebitosCartaoProprioServlet.servlet
+	public static final String RECEPTOR_OPERACAO_SERVLET;//=ConsultarDebitosCartaoProprioServlet.servlet
+	
 	
 	static{
 		ResourceBundle rb = ResourceBundle.getBundle("ServerConfig");
@@ -82,5 +84,8 @@ public class ServerConfig {
 		SERVLET_APAGAR_NOVA_CARGA_BASE= rb.getString("SERVLET_APAGAR_NOVA_CARGA_BASE");
 		CONSULTAR_OPERACOES_SERVLET=rb.getString("CONSULTAR_OPERACOES_SERVLET");
 		SERVLET_GERA_NOVA_CARGA_BASE=rb.getString("SERVLET_GERA_NOVA_CARGA_BASE");
+		RECEPTOR_OPERACAO_SERVLET=rb.getString("RECEPTOR_OPERACAO_SERVLET");
+		
+		
 	}
 }

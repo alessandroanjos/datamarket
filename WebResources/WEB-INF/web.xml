@@ -121,6 +121,14 @@
 		<servlet-name>GeraNovaCargaBaseServlet</servlet-name>
 		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.GeraNovaCargaBaseServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ReceptorOperacaoServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.ReceptorOperacaoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReceptorOperacaoServlet</servlet-name>
+		<url-pattern>/ReceptorOperacaoServlet.servlet</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>GeraNovaCargaBaseServlet</servlet-name>
 		<url-pattern>/GeraNovaCargaBaseServlet.servlet</url-pattern>

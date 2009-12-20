@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.infinity.datamarket.comum.Fachada;
-import com.infinity.datamarket.comum.transacao.Transacao;
+import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
+import com.infinity.datamarket.comum.operacao.Operacao;
 
-public class ReceptorTransacaoServlet extends HttpServlet {
+public class ReceptorOperacaoServlet extends HttpServlet {
 
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -22,16 +23,19 @@ public class ReceptorTransacaoServlet extends HttpServlet {
 			InputStream obj = request.getInputStream();
 			ObjectInputStream input = new ObjectInputStream(obj);
 			Object object = input.readObject();
-			Transacao transacao = (Transacao) object;
+			Operacao operacao = (Operacao) object;
 			input.close();
 			
-			Fachada.getInstancia().inserirTransacaoES(transacao);
+			operacao.setStatus(ConstantesOperacao.ABERTO);
+			Fachada.getInstancia().inserirOperacaoES(operacao);
 
 			ObjectOutputStream ouptu = new ObjectOutputStream(response.getOutputStream());
 			ouptu.writeObject("OK");
 			ouptu.close();
 
+
 		} catch (Exception e) {
+			e.printStackTrace();
 			ObjectOutputStream out = new ObjectOutputStream(response.getOutputStream());
 			out.writeObject(e);// 
 			out.close();
