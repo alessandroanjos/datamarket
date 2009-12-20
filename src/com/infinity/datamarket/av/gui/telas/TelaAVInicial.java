@@ -288,7 +288,7 @@ public class TelaAVInicial extends Tela{
         
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {},
-            new String [] {"Produto", "Valor", "Quantidade", "Desconto", "Total"}
+            new String [] {"Produto", "Valor", "Quantidade", "Desconto no Item", "Total"}
         ){
         
         public boolean isCellEditable(int rowIndex, int columnIndex)
@@ -308,5 +308,14 @@ public class TelaAVInicial extends Tela{
 
         
 	}
-	
+
+
+	public javax.swing.JTextField getCampoTotalDesconto() {
+		return campoTotalDesconto;
+	}
+
+
+	public void setCampoTotalDesconto(String campoTotalDesconto) {
+		this.campoTotalDesconto.setText(campoTotalDesconto);
+	}
 }

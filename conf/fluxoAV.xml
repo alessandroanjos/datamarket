@@ -19,8 +19,14 @@
     <operacao id="OpAvSolicitaValor" classe="com.infinity.datamarket.av.op.OpAvSolicitaValor"/>
     <operacao id="OpAvSaidaSistema" classe="com.infinity.datamarket.av.op.OpAvSaidaSistema"/>
     <operacao id="OpAvExibeDisplayDescricaoEstado" classe="com.infinity.datamarket.av.op.OpAvExibeDisplayDescricaoEstado"/>
-    
-    
+    <operacao id="OpAvConfirmaExcluirItem" classe="com.infinity.datamarket.av.op.OpAvConfirmaExcluirItem"/>
+    <operacao id="OpAvSolicitaProdutoParaExclusao" classe="com.infinity.datamarket.av.op.OpAvSolicitaProdutoParaExclusao"/>
+    <operacao id="OpAvDesenhaTabelaPedido" classe="com.infinity.datamarket.av.op.OpAvDesenhaTabelaPedido"/>
+    <operacao id="OpAvConfirmaFinalizacaoPedido" classe="com.infinity.datamarket.av.op.OpAvConfirmaFinalizacaoPedido"/>
+    <operacao id="OpAvFinalizacaoPedido" classe="com.infinity.datamarket.av.op.OpAvFinalizacaoPedido"/>
+    <operacao id="OpAVConfirmaEncerraPedido" classe="com.infinity.datamarket.av.op.OpAVConfirmaEncerraPedido"/>
+    <operacao id="OpAvImprimeReciboPedido" classe="com.infinity.datamarket.av.op.OpAvImprimeReciboPedido"/>
+
   </listaMicroperacao>
   <listaEstado>
     <estado codigo="Fechado" descricao="Av Fechado [ENTER]" inputType="0" inputSize="0"/>
@@ -33,9 +39,11 @@
     <tecla codigo="ENTER" descricao="ENTER" codigoASCI="10" />
     <tecla codigo="P" descricao="P" codigoASCI="80" />
     <tecla codigo="D" descricao="D" codigoASCI="68" />
+    <tecla codigo="E" descricao="E" codigoASCI="69" />
+    <tecla codigo="F" descricao="F" codigoASCI="70" />
     <tecla codigo="TECLA4" descricao="ESPACO" codigoASCI="32" />
     <tecla codigo="ESC" descricao="ESC" codigoASCI="27" />
-        <tecla codigo="S" descricao="S" codigoASCI="83" />
+    <tecla codigo="S" descricao="S" codigoASCI="83" />
   </listaTecla>
   <listaMacroOperacao>
 	<macroOperacao estadoAtual="Fechado" proximoEstado="Fechado" tecla="S" codigoMicroOperacaoAssociada="subFluxo1" descricao="Saida Sistema Fechado">
@@ -95,17 +103,21 @@
       </microOperacaoAssociada>
     </macroOperacao>
 
-    <macroOperacao estadoAtual="Pedido" proximoEstado="Aberto" tecla="ESC" codigoMicroOperacaoAssociada="subFluxo1" descricao="Volta Fechado">
+    <macroOperacao estadoAtual="Pedido" proximoEstado="Aberto" tecla="ESC" codigoMicroOperacaoAssociada="subFluxo0" descricao="Volta Fechado">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo0" operacao="OpAVConfirmaEncerraPedido">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo1" />
+ 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="continua" />
+      </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVEncerraPedido">
  	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
- 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="continua" />
+ 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="saida" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAvSaidaUm">
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="continua" operacao="OpAvSaidaDois">
       </microOperacaoAssociada>
     </macroOperacao>
-
+    
     <macroOperacao estadoAtual="Pedido" proximoEstado="Pedido" tecla="ENTER" codigoMicroOperacaoAssociada="subFluxo1" descricao="Venda Item">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvConsultaProduto">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo11" />
@@ -118,6 +130,7 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAvConsultaQuantidadeProduto">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo11" />
+      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="saidaDois" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAvSolicitaDescontoValorProduto">
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
@@ -125,7 +138,49 @@
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo4" operacao="OpAvAdicionaItemPedido">
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo5" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo5" operacao="OpAvDesenhaTabelaPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVEncerraIcluirItem">
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="saidaDois" operacao="OpAvSaidaDois">
+      </microOperacaoAssociada>
+    </macroOperacao>
+
+    <macroOperacao estadoAtual="Pedido" proximoEstado="Pedido" tecla="E" codigoMicroOperacaoAssociada="subFluxo1" descricao="Excluir Venda Item">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvConfirmaExcluirItem">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAvSolicitaProdutoParaExclusao">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAvDesenhaTabelaPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVEncerraIcluirItem">
+      </microOperacaoAssociada>
+    </macroOperacao>
+
+    <macroOperacao estadoAtual="Pedido" proximoEstado="Aberto" tecla="F" codigoMicroOperacaoAssociada="subFluxo1" descricao="Finaliza Pedido">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvConfirmaFinalizacaoPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAvFinalizacaoPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAvImprimeReciboPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo4" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo4" operacao="OpAVEncerraPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVEncerraIcluirItem">
       </microOperacaoAssociada>

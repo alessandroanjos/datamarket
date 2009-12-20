@@ -38,7 +38,23 @@ public class OpAvConsultaQuantidadeProduto extends Mic{
 					if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER) {
 						quantidade = new BigDecimal(entrada.getDado());
 					} else {
-						return ALTERNATIVA_2;
+						if (produto.getPrecoPadrao().compareTo(BigDecimal.ZERO) == 0) {
+
+							return ALTERNATIVA_2;
+
+						} else {
+							gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+							
+							tela.setCampoQuantidade("");
+							tela.setCampoCodigoProduto("");
+							tela.setCampoDescricaoProduto("");
+							tela.setCampoDesconto("");
+							tela.setCampoValor("");
+							gerenciadorPerifericos.atualizaTela(tela);
+
+							return ALTERNATIVA_3;
+						}
+						
 					}
 					if (quantidade.doubleValue() <= 0) {
 						gerenciadorPerifericos.getDisplay().setMensagem("Quantidade Inválida");
