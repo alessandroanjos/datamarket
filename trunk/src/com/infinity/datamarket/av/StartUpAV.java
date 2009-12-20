@@ -20,6 +20,7 @@ import com.infinity.datamarket.pdv.maquinaestados.ControladorMaquinaEstado;
 import com.infinity.datamarket.pdv.maquinaestados.Estado;
 import com.infinity.datamarket.pdv.maquinaestados.LeitorMaquinaEstadoXML;
 import com.infinity.datamarket.pdv.maquinaestados.Maquina;
+import com.infinity.datamarket.pdv.transacao.ThreadEnviaOperacao;
 import com.infinity.datamarket.pdv.transacao.ThreadEnviaTransacao;
 
 
@@ -53,6 +54,10 @@ public class StartUpAV {
 
 		ThreadEnviaTransacao t1 = new ThreadEnviaTransacao();
 		t1.start();
+		
+		ThreadEnviaOperacao t2 = new ThreadEnviaOperacao();
+		t2.start();
+			
 		maquina.iniciar();
 		RepositoryManagerHibernateUtil.getInstancia().closeSession();
 	}
