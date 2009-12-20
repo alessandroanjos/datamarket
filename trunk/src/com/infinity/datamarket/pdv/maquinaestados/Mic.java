@@ -1,6 +1,9 @@
 package com.infinity.datamarket.pdv.maquinaestados;
 
+import org.apache.log4j.Logger;
+
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.enterprise.gui.pedido.PedidoBackBean;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 
 public abstract class Mic {
@@ -22,4 +25,10 @@ public abstract class Mic {
 	public Fachada getFachadaPDV(){
 		return Fachada.getInstancia();
 	}
+	
+
+	public Logger getLogger(Class classe) {
+		return Logger.getLogger(classe);
+	}
+
 }

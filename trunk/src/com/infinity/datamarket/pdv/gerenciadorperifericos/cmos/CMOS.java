@@ -30,6 +30,8 @@ public interface CMOS {
 	public static final String VALOR_PAGAMENTO_ATUAL = "VALOR_PAGAMENTO_ATUAL";
 	public static final String VALOR_ITEM_PEDIDO = "VALOR_ITEM_PEDIDO";
 	public static final String VALOR_TOTAL_PEDIDO = "VALOR_TOTAL_PEDIDO";
+	public static final String VALOR_TOTAL_DESCONTO_PEDIDO = "VALOR_TOTAL_DESCONTO_PEDIDO";
+	public static final String COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO = "COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO";
 	public static final String VALOR_TROCO_ATUAL = "VALOR_TROCO_ATUAL";
 	public static final String CHAVE_ULTIMA_TRANSACAO = "CHAVE_ULTIMA_TRANSACAO";
 	public static final String DADOS_CHEQUE = "DADOS_CHEQUE";
