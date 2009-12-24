@@ -8,7 +8,7 @@
 <f:verbatim>
 <div id="footer">
 	<p>
-		Todos os direitos reservados &copy; 2008
+		Todos os direitos reservados &copy; 2009
 	</p>
 </div>
 </f:verbatim>	

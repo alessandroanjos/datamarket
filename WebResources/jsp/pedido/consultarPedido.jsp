@@ -225,7 +225,7 @@
 										<f:facet name="header">
 											<h:outputText value="Vendedor" />
 										</f:facet>
-										<h:outputText value="#{pedido.usuarioVendedor.nome}" /> 
+										<h:outputText value="#{pedido.codigoUsuarioVendedor} - #{pedido.codigoUsuarioVendedor}" /> 
 									</h:column>
 									<h:column>
 										<f:facet name="header">
