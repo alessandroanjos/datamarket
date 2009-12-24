@@ -42,13 +42,36 @@ public class ClienteTransacao implements Serializable {
 		}else{
 			endTmp.append(" |");
 		}
-		
-		endTmp.append(this.getNumero().trim() + "|");
-		endTmp.append(this.getComplemento().trim() + "|");
-		endTmp.append(this.getBairro().trim() + "|");
-		endTmp.append(this.getCidade().trim() + "|");
-		endTmp.append(this.getEstado().trim() + "|");
-		endTmp.append(this.getCep().trim());
+		if(this.getNumero() != null){
+			endTmp.append(this.getNumero().trim() + "|");	
+		}else{
+			endTmp.append(" |");
+		}
+		if(this.getComplemento() != null){
+			endTmp.append(this.getComplemento().trim() + "|");	
+		}else{
+			endTmp.append(" |");
+		}
+		if(this.getBairro() != null){
+			endTmp.append(this.getBairro().trim() + "|");	
+		}else{
+			endTmp.append(" |");
+		}
+		if(this.getCidade() != null){
+			endTmp.append(this.getCidade().trim() + "|");	
+		}else{
+			endTmp.append(" |");
+		}
+		if(this.getEstado() != null){
+			endTmp.append(this.getEstado().trim() + "|");	
+		}else{
+			endTmp.append(" |");
+		}
+		if(this.getCep() != null){
+			endTmp.append(this.getCep().trim());	
+		}else{
+			endTmp.append(" |");
+		}		
 		return endTmp.toString();
 	}
 	public void setEnderecoConcatenado(String enderecoConcatenado) {
