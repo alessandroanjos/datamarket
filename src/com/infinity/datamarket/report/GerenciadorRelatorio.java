@@ -45,8 +45,11 @@ import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.estoque.ProdutoMovimentacaoEstoque;
 import com.infinity.datamarket.comum.financeiro.Lancamento;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
+import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
+import com.infinity.datamarket.comum.operacao.EventoOperacao;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
 import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
+import com.infinity.datamarket.comum.operacao.OperacaoPedido;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
 import com.infinity.datamarket.comum.transacao.EventoItemRegistrado;
@@ -54,13 +57,13 @@ import com.infinity.datamarket.comum.transacao.EventoTransacao;
 import com.infinity.datamarket.comum.transacao.TransacaoPagamentoCartaoProprio;
 import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.usuario.CadastroLoja;
+import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.comum.util.JExtenso;
 import com.infinity.datamarket.comum.util.Queries;
 import com.infinity.datamarket.comum.util.StringUtil;
 import com.infinity.datamarket.comum.util.Util;
-import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
 
 /**
@@ -695,6 +698,81 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			
             JasperRunManager.runReportToPdfStream(input, out, parametros, new RelatorioDataSource (resposta));
 		}catch(Exception e){
+			throw new RelatorioException(e);
+		}
+	}
+
+
+	public void gerarReciboOperacaoPedido(OperacaoPedido pedido, OutputStream out) throws AppException{
+		
+		try{
+			Map parametros = new HashMap();
+			parametros.put("CAMINHO", "\\resources\\");	
+			parametros.put("empresa",EMPRESA);
+			parametros.put("loja", Util.completaString(String.valueOf(pedido.getPk().getLoja()), "0", 4, true));			
+			parametros.put("id", String.valueOf(pedido.getPk().getId()));
+			parametros.put("cliente", Util.formataCpfCnpj(pedido.getCliente().getCpfCnpj()) + " - " + pedido.getCliente().getNomeCliente());
+			Usuario usuario = Fachada.getInstancia().consultarUsuarioPorId(new Long(pedido.getCodigoUsuarioVendedor()));
+			parametros.put("vendedor", pedido.getCodigoUsuarioVendedor() + " - " + usuario.getNome());
+			parametros.put("valor", pedido.getValor());
+			parametros.put("desconto", pedido.getDesconto());
+			parametros.put("data", pedido.getData());
+			String descricaoStatus = "Novo";
+			switch (pedido.getStatus()) {
+			case ConstantesOperacao.ABERTO:
+				descricaoStatus = "Novo";
+				break;
+			case ConstantesOperacao.CANCELADO:
+				descricaoStatus = "Cancelado";
+				break;
+			case ConstantesOperacao.EM_PROCESSAMENTO:
+				descricaoStatus = "Em Processamento";
+				break;
+			case ConstantesOperacao.FECHADO:
+				descricaoStatus = "Finalizado";
+				break;		
+			}
+
+			parametros.put("status", descricaoStatus);			
+	
+			
+			ArrayList colItensRegistrados =  new ArrayList();
+			ArrayList colPagamentos = new ArrayList();
+
+			Collection coll = pedido.getEventosOperacao();
+			Iterator i = coll.iterator();
+
+			BigDecimal quantidade = BigDecimal.ZERO;
+			
+			while(i.hasNext()){
+				EventoOperacao ev = (EventoOperacao) i.next();
+				if (ev instanceof EventoOperacaoItemRegistrado){
+					EventoOperacaoItemRegistrado evir = (EventoOperacaoItemRegistrado) ev;
+//					if (evir.getSituacao().equals(EventoOperacaoItemRegistrado.ATIVO)){
+						quantidade = quantidade.add(evir.getQuantidade());
+						colItensRegistrados.add(ev);
+//					}					
+//				}else if (ev instanceof EventoItemPagamento){
+//					colPagamentos.add(ev);
+				}
+			}
+			
+			parametros.put("quantidade", quantidade);
+
+			List resposta = new ArrayList();
+			resposta.add(new Uniao(colPagamentos,colItensRegistrados));
+	
+			InputStream input = GerenciadorRelatorio.class.getResourceAsStream("/resources/ReciboOperacaoPedido.jasper");
+			
+			Iterator it = parametros.entrySet().iterator();
+	
+			while(it.hasNext()){
+				System.out.println(it.next().toString());
+			}
+			
+	        JasperRunManager.runReportToPdfStream(input, out, parametros, new RelatorioDataSource (resposta));
+		}catch(Exception e){
+			e.printStackTrace();
 			throw new RelatorioException(e);
 		}
 	}

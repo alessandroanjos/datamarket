@@ -11,12 +11,10 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.FacesEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.ServletOutputStream;
@@ -25,12 +23,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.hibernate.collection.PersistentSet;
 
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.cliente.Cliente;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
 import com.infinity.datamarket.comum.operacao.ConstantesEventoOperacao;
 import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoPK;
+import com.infinity.datamarket.comum.operacao.Operacao;
 import com.infinity.datamarket.comum.operacao.OperacaoPK;
 import com.infinity.datamarket.comum.operacao.OperacaoPedido;
 import com.infinity.datamarket.comum.operacao.ProdutoOperacaoItemRegistrado;
@@ -444,7 +444,7 @@ public class PedidoBackBean extends BackBean {
 				FacesContext context = FacesContext.getCurrentInstance();
 				HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();			
 				ServletOutputStream servletOutputStream = response.getOutputStream();
-//				getFachada().gerarReciboOperacaoPedido(this.getOperacaoPedido(),servletOutputStream);			
+				getFachada().gerarReciboOperacaoPedido(this.getOperacaoPedido(),servletOutputStream);			
 				response.setContentType("application/pdf");
 				response.setHeader("Content-disposition", "attachment;filename=ReciboOperacaoPedido" + System.currentTimeMillis() + ".pdf");
 				context.responseComplete();
@@ -457,6 +457,9 @@ public class PedidoBackBean extends BackBean {
 				getContextoApp().addMessage(null, msg);
 			}
 		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Erro de Sistema!", "");
+				getContextoApp().addMessage(null, msg);
 			e.printStackTrace();
 		}
 	}
@@ -550,6 +553,8 @@ public class PedidoBackBean extends BackBean {
 					this.usaEnderecoParaEntrega = false;
 					
 					this.limpaCamposEnderecoEntrega();
+				}else{
+					this.nomeCliente = "";
 				}
 				this.setAbaCorrente("tabMenuDiv1");
 			} catch (ObjectNotFoundException e){
@@ -578,6 +583,9 @@ public class PedidoBackBean extends BackBean {
 		
 		this.setIdTipoPessoa(Cliente.PESSOA_FISICA);
 		this.setClienteTransacao(null);
+		this.setCpfCnpjCliente(null);
+		this.setNomeCliente(null);
+		
 		this.usaEnderecoParaEntrega = false;
 		
 		getLojas();
@@ -1315,6 +1323,7 @@ public class PedidoBackBean extends BackBean {
 	}
 	
 	public void preencheBackBean(OperacaoPedido opPedido){
+		resetBB();
 		this.setIdLoja(String.valueOf(opPedido.getPk().getLoja()));
 		this.setIdPedido(Util.completaString(String.valueOf(opPedido.getPk().getId()),"0",6,true));
 		this.dataPedido = opPedido.getData();
@@ -1380,6 +1389,8 @@ public class PedidoBackBean extends BackBean {
 			this.cepClienteEntrega = "";
 			this.pontoReferenciaEnderecoEntrega = "";
 		}
+		
+		this.setOperacaoPedido(opPedido);
 	}
 	
 	public String consultar(){
@@ -1475,6 +1486,14 @@ public class PedidoBackBean extends BackBean {
 						return "proxima";
 					}else{
 						setExisteRegistros(true);
+						Iterator it = col.iterator();
+						while(it.hasNext()){
+							Operacao op = (Operacao)it.next();
+							if(op instanceof OperacaoPedido){
+								((OperacaoPedido)op).setUsuarioVendedor((Vendedor)getFachada().consultarUsuarioPorId(new Long(((OperacaoPedido)op).getCodigoUsuarioVendedor())));
+							}
+							
+						}
 						setPedidos(col);
 					}
 				}

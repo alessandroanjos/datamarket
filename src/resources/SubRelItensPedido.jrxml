@@ -2,7 +2,7 @@
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
-		 name="SubRelItens"
+		 name="SubRelItensPedido"
 		 columnCount="1"
 		 printOrder="Vertical"
 		 orientation="Portrait"
@@ -25,7 +25,7 @@
 
 
 	<field name="pk" class="java.lang.Object"/>
-	<field name="produtoItemRegistrado" class="java.lang.Object"/>
+	<field name="produtoOperacaoItemRegistrado" class="java.lang.Object"/>
 	<field name="quantidade" class="java.math.BigDecimal"/>
 	<field name="preco" class="java.math.BigDecimal"/>
 
@@ -35,7 +35,7 @@
 					<reportElement
 						x="0"
 						y="0"
-						width="531"
+						width="539"
 						height="0"
 						key="line-1"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -44,7 +44,7 @@
 					<reportElement
 						x="0"
 						y="0"
-						width="534"
+						width="539"
 						height="0"
 						key="line-2"/>
 					<graphicElement stretchType="NoStretch"/>
@@ -130,31 +130,22 @@
 					<reportElement
 						x="363"
 						y="0"
-						width="28"
+						width="31"
 						height="15"
 						key="staticText-6"/>
 					<box></box>
 					<textElement>
 						<font fontName="Courier New" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
 					</textElement>
-				<text><![CDATA[QTD]]></text>
+				<text><![CDATA[Qtd.]]></text>
 				</staticText>
 				<line direction="TopDown">
 					<reportElement
 						x="0"
 						y="14"
-						width="531"
+						width="539"
 						height="0"
 						key="line-3"/>
-					<graphicElement stretchType="NoStretch"/>
-				</line>
-				<line direction="TopDown">
-					<reportElement
-						x="0"
-						y="14"
-						width="534"
-						height="0"
-						key="line-4"/>
 					<graphicElement stretchType="NoStretch"/>
 				</line>
 			</band>
@@ -172,7 +163,7 @@
 					<textElement textAlignment="Center">
 						<font fontName="Courier New"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[((com.infinity.datamarket.comum.transacao.EventoTransacaoPK)$F{pk}).getNumeroEvento() + ""]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[((com.infinity.datamarket.comum.operacao.EventoOperacaoPK)$F{pk}).getNumeroEvento() + ""]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -185,7 +176,7 @@
 					<textElement textAlignment="Left">
 						<font fontName="Courier New"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[((com.infinity.datamarket.comum.transacao.ProdutoItemRegistrado)$F{produtoItemRegistrado}).getCodigoExterno()]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[((com.infinity.datamarket.comum.operacao.ProdutoOperacaoItemRegistrado)$F{produtoOperacaoItemRegistrado}).getCodigoExterno()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -198,7 +189,7 @@
 					<textElement textAlignment="Left">
 						<font fontName="Courier New"/>
 					</textElement>
-				<textFieldExpression   class="java.lang.String"><![CDATA[((com.infinity.datamarket.comum.transacao.ProdutoItemRegistrado)$F{produtoItemRegistrado}).getDescricaoCompleta()]]></textFieldExpression>
+				<textFieldExpression   class="java.lang.String"><![CDATA[((com.infinity.datamarket.comum.operacao.ProdutoOperacaoItemRegistrado)$F{produtoOperacaoItemRegistrado}).getDescricaoCompleta()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.000" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -224,7 +215,7 @@
 					<textElement textAlignment="Right">
 						<font fontName="Courier New"/>
 					</textElement>
-				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[((com.infinity.datamarket.comum.transacao.ProdutoItemRegistrado)$F{produtoItemRegistrado}).getPrecoPraticado()]]></textFieldExpression>
+				<textFieldExpression   class="java.math.BigDecimal"><![CDATA[((com.infinity.datamarket.comum.operacao.ProdutoOperacaoItemRegistrado)$F{produtoOperacaoItemRegistrado}).getPrecoPraticado()]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
