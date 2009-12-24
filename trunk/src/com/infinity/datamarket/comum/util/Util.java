@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.net.URL;
-import java.nio.channels.FileChannel;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -81,7 +80,6 @@ public class Util {
 	public static boolean validacpf(String strCpf){ // formato XXX.XXX.XXX-XX   
         if (! strCpf.substring(0,1).equals("")){   
             try{   
-                boolean validado=true;   
                 int     d1, d2;   
                 int     digito1, digito2, resto;   
                 int     digitoCPF;   
@@ -145,7 +143,7 @@ public class Util {
                 str_cnpj=str_cnpj.replace('/',' ');   
                 str_cnpj=str_cnpj.replace('-',' ');   
                 str_cnpj=str_cnpj.replaceAll(" ","");   
-                int soma = 0, aux, dig;   
+                int soma = 0, dig;   
                 String cnpj_calc = str_cnpj.substring(0,12);   
                    
                 if ( str_cnpj.length() != 14 )   

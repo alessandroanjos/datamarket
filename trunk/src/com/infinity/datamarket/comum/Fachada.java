@@ -54,6 +54,7 @@ import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
 import com.infinity.datamarket.comum.operacao.Operacao;
 import com.infinity.datamarket.comum.operacao.OperacaoDevolucao;
 import com.infinity.datamarket.comum.operacao.OperacaoPK;
+import com.infinity.datamarket.comum.operacao.OperacaoPedido;
 import com.infinity.datamarket.comum.pagamento.Autorizadora;
 import com.infinity.datamarket.comum.pagamento.CadastroFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.CadastroPlanoPagamento;
@@ -290,6 +291,13 @@ public class Fachada {
 		}
 	}
 
+	public void gerarReciboOperacaoPedido(OperacaoPedido pedido, OutputStream out) throws AppException{
+		try{
+			getGerenciadorRelatorio().gerarReciboOperacaoPedido(pedido, out);
+		}catch(AppException e){
+			throw new SistemaException(e);
+		}
+	}
 	
 	public OutputStream gerarReciboPagamentoCliente(TransacaoPagamentoCartaoProprio transacao) throws AppException{
 		try{
