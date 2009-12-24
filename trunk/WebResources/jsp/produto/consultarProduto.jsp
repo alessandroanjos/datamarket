@@ -127,7 +127,7 @@
 							</fieldset>
 							<div class="listagem">
 								<t:dataTable value="#{produtoBB.produtos}"
-									var="produto" rowClasses="rowA,rowB" width="95%" renderedIfEmpty="false">
+									var="produto" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false" sortable="true">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Cód." /> 
