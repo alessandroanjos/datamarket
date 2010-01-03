@@ -711,15 +711,30 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			parametros.put("empresa",EMPRESA);
 			parametros.put("loja", Util.completaString(String.valueOf(pedido.getPk().getLoja()), "0", 4, true));			
 			parametros.put("id", String.valueOf(pedido.getPk().getId()));
-			parametros.put("cliente", Util.formataCpfCnpj(pedido.getCliente().getCpfCnpj()) + " - " + pedido.getCliente().getNomeCliente());
-			Usuario usuario = Fachada.getInstancia().consultarUsuarioPorId(new Long(pedido.getCodigoUsuarioVendedor()));
-			parametros.put("vendedor", pedido.getCodigoUsuarioVendedor() + " - " + usuario.getNome());
+			if (pedido.getCliente() != null && pedido.getCliente().getCpfCnpj() != null && pedido.getCliente().getNomeCliente() != null) {
+				parametros.put("cliente", Util.formataCpfCnpj(pedido.getCliente().getCpfCnpj()) + " - " + pedido.getCliente().getNomeCliente());
+			} else {
+				parametros.put("cliente", "Sem Cliente");
+			}
+			if (pedido.getCodigoUsuarioVendedor() != null) {
+				Usuario usuario = Fachada.getInstancia().consultarUsuarioPorId(new Long(pedido.getCodigoUsuarioVendedor()));
+				parametros.put("vendedor", pedido.getCodigoUsuarioVendedor() + " - " + usuario.getNome());
+			} else {
+				parametros.put("vendedor", "");
+			}
 			parametros.put("valor", pedido.getValor());
 			parametros.put("desconto", pedido.getDesconto());
 			parametros.put("data", pedido.getData());
 			String descricaoStatus = "Novo";
 			switch (pedido.getStatus()) {
-			case ConstantesOperacao.ABERTO:
+			
+			case ConstantesOperacao.ABERTO :
+				descricaoStatus = "Novo";
+				break;
+			case ConstantesOperacao.PARA_ENVIAR  :
+				descricaoStatus = "Novo";
+				break;
+			case ConstantesOperacao.ENVIADO :
 				descricaoStatus = "Novo";
 				break;
 			case ConstantesOperacao.CANCELADO:
