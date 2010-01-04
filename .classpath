@@ -77,55 +77,55 @@
 	<classpathentry kind="lib" path="WebResources/WEB-INF/lib/xerces-2.6.2.jar"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/lib/yui4jsf-0.6.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/activation.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/antlr-2.7.6.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/avalon-framework.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/commons-httpclient.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/commons-logging.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/concurrent.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/ejb3-persistence.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/getopt.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/hibernate-annotations.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jacorb.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/javassist.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/javax.servlet.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jbossall-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-annotations-ejb3.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-aop-jdk50-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-aspect-jdk50-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-common-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jbosscx-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-deployment.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-ejb3-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-ejb3x.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jbossha-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-iiop-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-j2ee.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-jaxrpc.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jbossjmx-ant.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-jsr77-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jbossmq-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-remoting.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-saaj.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-serialization.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-srp-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jbosssx-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-system-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-transaction-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jbossws-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jboss-xml-binding.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jmx-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jmx-invoker-adaptor-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/jnp-client.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/juddisaaj.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/log4j.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/logkit.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/mail.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/scout.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/trove.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/wsdl4j.jar"/>
-	<classpathentry kind="lib" path="C:/Arquivos de programas/jboss-4.0.5.GA/client/xmlsec.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/activation.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/avalon-framework.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/commons-httpclient.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/commons-logging.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/concurrent.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/ejb3-persistence.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/getopt.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jacorb.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/javassist.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jbossall-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-annotations-ejb3.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-aop-jdk50-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-aspect-jdk50-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-common-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jbosscx-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-deployment.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-ejb3-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-ejb3x.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jbossha-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-iiop-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-j2ee.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-jaxrpc.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jbossjmx-ant.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-jsr77-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jbossmq-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-remoting.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-saaj.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-serialization.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-srp-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jbosssx-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-system-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-transaction-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jbossws-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jboss-xml-binding.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jmx-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jmx-invoker-adaptor-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jnp-client.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/juddisaaj.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/log4j.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/logkit.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/mail.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/scout.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/trove.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/wsdl4j.jar"/>
+	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/xmlsec.jar"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/lib/h2-1.1.119.jar"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/lib/mysql-connector-java-3.1.10-bin.jar"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/lib/jboleto.jar"/>
