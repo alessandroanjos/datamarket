@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="make" name="av">
+
+	<property name="pdv" value="av" />
+	<property name="bat" value="startupAV.bat" />
+
+	<property name="destino" value="c:\${pdv}" />
+	<property name="src" value="src" />
+	<property name="conf" value="conf" />
+	<property name="lib" value="lib" />
+	<property name="logo" value="logo.png" />
+	
+	<property name="classeStartUp" value="com.infinity.datamarket.pdv.StartUpAV" />
+	
+	<target depends="renomearDestino,clean,criarDestino,recursosConf,recursosSRC,copyLib,gerarJar,deleteClasse,copyBat,copyBanco,copyLogo" name="make" />
+
+	<target name="renomearDestino" >
+		<mkdir dir="${destino}" />
+		<tstamp>
+		    <format property="HOJE" pattern="yyyyMMdd_hhmmss" locale="pt,BR"/>
+		  </tstamp>
+		<move file="${destino}" todir="${destino}_${HOJE}" />  
+	</target>
+	
+	<target name="deleteClasse">
+		<delete dir="${destino}\classes" />
+	</target>
+
+	<target name="clean" if="${destino}">
+		<delete dir="${destino}" />
+	</target>
+
+	<target name="criarDestino">
+		<mkdir dir="${destino}" />
+		<mkdir dir="${destino}/lib" />
+		<mkdir dir="${destino}/banco" />
+		<mkdir dir="${destino}/classes" />
+	</target>
+
+	<target name="recursosSRC">
+		<copy todir="${destino}">
+			<fileset dir="${src}">
+				<include name="**/*.au" />
+				<include name="**/*.midi" />
+				<include name="**/*.gif" />
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+				<include name="**/*.aiff" />
+				<include name="**/*.jpe" />
+				<include name="**/*.jpeg" />
+				<include name="**/*.rmf" />
+				<include name="**/*.wav" />
+				<include name="**/*.mid" />
+				<include name="**/*.png" />
+				<include name="**/*.jpg" />
+				<include name="**/*.swf" />
+				<include name="**/*.jasper" />
+				<exclude name="**/*.hbm.xml" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="recursosConf">
+		<copy todir="${destino}">
+			<fileset dir="${conf}">
+				<include name="**/*.au" />
+				<include name="**/*.midi" />
+				<include name="**/*.gif" />
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+				<include name="**/*.aiff" />
+				<include name="**/*.jpe" />
+				<include name="**/*.jpeg" />
+				<include name="**/*.rmf" />
+				<include name="**/*.wav" />
+				<include name="**/*.mid" />
+				<include name="**/*.png" />
+				<include name="**/*.jpg" />
+				<include name="**/*.swf" />
+				<include name="**/*.jasper" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="copyLibJboss">
+		<copy todir="${destino}/libJboss">
+			<fileset dir="WebResources/WEB-INF/libJboss">
+			</fileset>
+		</copy>
+	</target>
+
+	<target depends="copyLibJboss" name="copyLib">
+		<copy todir="${destino}/lib">
+			<fileset dir="WebResources/WEB-INF/lib">
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="copyBat">
+		<copy file="./${bat}" tofile="${destino}/${bat}" >
+			<filterchain>
+	           <replacetokens>
+                <token key="destino" value="${destino}"/>
+                <token key="pdv" value="${pdv}"/>
+	            </replacetokens>
+	        </filterchain>
+		</copy>
+	</target>
+
+	<target name="compile">
+        <mkdir dir=""/>
+		<javac srcdir="${src}" destdir="${destino}/classes" classpathref="classpath"/>
+	</target>
+
+		<target depends="compile" name="gerarJar">
+	        <jar destfile="${destino}/${pdv}.jar" basedir="WebResources/WEB-INF/classes">
+	            <manifest>
+	                <attribute name="Main-Class" value="${classeStartUp}"/>
+	            </manifest>
+	        </jar>
+	    </target>
+
+	<target name="copyBanco">
+		<copy todir="${destino}/banco">
+			<fileset dir="banco">
+				<include name="${pdv}*.db" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="copyLogo">
+		<copy file="./img/${logo}" tofile="${destino}/${logo}" >
+		</copy>
+	</target>
+	
+	
+	<path id="classpath">
+        <fileset dir="${destino}/lib" includes="**/*.jar"/>
+        <fileset dir="${destino}/libJboss" includes="**/*.jar"/>
+	    </path>
+	
+	<target name="init">
+	</target>
+</project>
