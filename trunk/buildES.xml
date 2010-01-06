@@ -1,44 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project basedir="." default="make" name="pdv" >
+<project basedir="." default="make" name="av">
 
-	<property name="pdv" value="pdv" />
-	<property name="bat" value="startupPDV.bat" />
+	<property name="dirDeploy" value="C:\jboss-4.0.1sp1\server\default\deploy" />
+	<property name="contexto" value="EnterpriseServer2.war" />
 
-	<property name="destino" value="e:\${pdv}" />
 	<property name="src" value="src" />
 	<property name="conf" value="conf" />
 	<property name="lib" value="lib" />
-	<property name="logo" value="logo.png" />
 	
-	<property name="classeStartUp" value="com.infinity.datamarket.pdv.StartUpPDV" />
-	
-	<target depends="renomearDestino,clean,criarDestino,recursosConf,recursosSRC,copyLib,gerarJar,deleteClasse,copyBat,copyBanco,copyLogo" name="make" />
+	<target depends="renomearDestino,clean,criarDestino,copyAmbienteWeb,recursosConf,recursosSRC,copyLib,compilar" name="make" />
 
 	<target name="renomearDestino" >
-		<mkdir dir="${destino}" />
+		<mkdir dir="${dirDeploy}/${contexto}" />
 		<tstamp>
 		    <format property="HOJE" pattern="yyyyMMdd_hhmmss" locale="pt,BR"/>
 		  </tstamp>
-		<move file="${destino}" todir="${destino}_${HOJE}" />  
+		<move file="${dirDeploy}" todir=".\ES_${HOJE}" />  
 	</target>
 	
-	<target name="deleteClasse">
-		<delete dir="${destino}\classes" />
-	</target>
-
 	<target name="clean" >
-		<delete dir="${destino}" />
+		<delete dir="${dirDeploy}/${contexto}" />
 	</target>
 
 	<target name="criarDestino">
-		<mkdir dir="${destino}" />
-		<mkdir dir="${destino}/lib" />
-		<mkdir dir="${destino}/banco" />
-		<mkdir dir="${destino}/classes" />
+		<mkdir dir="${dirDeploy}/${contexto}" />
+		<mkdir dir="${dirDeploy}/${contexto}/bd" />
+		<mkdir dir="${dirDeploy}/${contexto}/bd/template" />
+		<mkdir dir="${dirDeploy}/${contexto}/WEB-INF" />
+		<mkdir dir="${dirDeploy}/${contexto}/WEB-INF/lib" />
+		<mkdir dir="${dirDeploy}/${contexto}/WEB-INF/classes" />
+		<mkdir dir="${dirDeploy}/${contexto}/WEB-INF/lib" />
 	</target>
 
+			
 	<target name="recursosSRC">
-		<copy todir="${destino}">
+			<copy todir="${dirDeploy}/${contexto}/WEB-INF/classes">
 			<fileset dir="${src}">
 				<include name="**/*.au" />
 				<include name="**/*.midi" />
@@ -61,7 +57,7 @@
 	</target>
 
 	<target name="recursosConf">
-		<copy todir="${destino}">
+		<copy todir="${dirDeploy}/${contexto}/WEB-INF/classes">
 			<fileset dir="${conf}">
 				<include name="**/*.au" />
 				<include name="**/*.midi" />
@@ -83,60 +79,35 @@
 	</target>
 
 	<target name="copyLibJboss">
-		<copy todir="${destino}/libJboss">
+		<copy todir="${dirDeploy}/${contexto}/WEB-INF/lib">
 			<fileset dir="WebResources/WEB-INF/libJboss">
 			</fileset>
 		</copy>
 	</target>
 
 	<target depends="copyLibJboss" name="copyLib">
-		<copy todir="${destino}/lib">
+		<copy todir="${dirDeploy}/${contexto}/WEB-INF/lib">
 			<fileset dir="WebResources/WEB-INF/lib">
 			</fileset>
 		</copy>
 	</target>
 
-	<target name="copyBat">
-		<copy file="./${bat}" tofile="${destino}/${bat}" >
-			<filterchain>
-	           <replacetokens>
-                <token key="destino" value="${destino}"/>
-                <token key="pdv" value="${pdv}"/>
-	            </replacetokens>
-	        </filterchain>
-		</copy>
-	</target>
-
-	<target name="compile">
+	<target name="compilar">
         <mkdir dir=""/>
-		<javac srcdir="${src}" destdir="${destino}/classes" classpathref="classpath"/>
+		<javac srcdir="${src}" destdir="${dirDeploy}/${contexto}/WEB-INF/classes" classpathref="classpath"/>
 	</target>
 
-		<target depends="compile" name="gerarJar">
-	        <jar destfile="${destino}/${pdv}.jar" basedir="WebResources/WEB-INF/classes">
-	            <manifest>
-	                <attribute name="Main-Class" value="${classeStartUp}"/>
-	            </manifest>
-	        </jar>
-	    </target>
-
-	<target name="copyBanco">
-		<copy todir="${destino}/banco">
-			<fileset dir="banco">
-				<include name="${pdv}*.db" />
+	<target name="copyAmbienteWeb">
+		<copy todir="${dirDeploy}/${contexto}">
+			<fileset dir="WebResources">
+				<exclude name="WebResources/WEB-INF/classes**/*.*" />
 			</fileset>
-		</copy>
-	</target>
-
-	<target name="copyLogo">
-		<copy file="./img/${logo}" tofile="${destino}/${logo}" >
 		</copy>
 	</target>
 	
 	
 	<path id="classpath">
-        <fileset dir="${destino}/lib" includes="**/*.jar"/>
-        <fileset dir="${destino}/libJboss" includes="**/*.jar"/>
+        <fileset dir="${dirDeploy}/${contexto}/WEB-INF/lib" includes="**/*.jar"/>
 	    </path>
 	
 	<target name="init">

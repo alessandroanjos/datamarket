@@ -26,7 +26,7 @@
 		<delete dir="${destino}\classes" />
 	</target>
 
-	<target name="clean" if="${destino}">
+	<target name="clean" >
 		<delete dir="${destino}" />
 	</target>
 
