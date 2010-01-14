@@ -18,7 +18,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 
-public class OpAVIncluirPedido extends Mic {
+public class OpAVIncluirPedidoEmSeparacao extends Mic {
 //
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){		
 
@@ -36,42 +36,6 @@ public class OpAVIncluirPedido extends Mic {
 			}
 
 			gerenciadorPerifericos.getCmos().gravar(CMOS.COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO,collEvent);
-
-//			try{
-//				URL urlCon = new URL("http://" +
-//						ServerConfig.HOST_SERVIDOR_ES +
-//						":" +
-//						ServerConfig.PORTA_SERVIDOR_ES +
-//						"/" +
-//						ServerConfig.CONTEXTO_SERVIDOR_ES +
-//						"/" +
-//						ServerConfig.ATUALIZA_OPERACAO_EM_SEPARACAO + "?idLoja=" + pedido.getPk().getLoja() + "&idPedido="+pedido.getPk().getId());
-//				URLConnection huc1 = urlCon.openConnection();
-//		
-//				huc1.setAllowUserInteraction(true);						
-//				
-//				ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
-//				Object obj = input.readObject();
-//				if (obj instanceof String && "OK".equalsIgnoreCase(((String)obj))) {
-//
-//				} else  if (obj instanceof Exception){
-//					((Exception)obj).printStackTrace();
-//					
-//					gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
-//					gerenciadorPerifericos.esperaVolta();
-//					return ALTERNATIVA_2;		
-//				}
-//			}catch(Exception e){
-//				e.printStackTrace();
-//				gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
-//				try {
-//					gerenciadorPerifericos.esperaVolta();
-//				} catch (AppException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				return ALTERNATIVA_2;
-//			}
 			
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(Operacao.class);

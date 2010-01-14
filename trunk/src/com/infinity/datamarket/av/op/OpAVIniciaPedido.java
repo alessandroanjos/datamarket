@@ -19,19 +19,20 @@ public class OpAVIniciaPedido extends Mic{
 
 
 	public static String OP_DESC_PEDIDO = "Pedido";
-	public static String OP_DESC_DEVOLUCAO = "Devolucao";
+	public static String OP_DESC_DEVOLUCAO = "Devolução";
 
-	public static int OP_CODIGO_PEDIDO = 1;
-	public static int OP_CODIGO_DEVOLUCAO = 2;
+	public static String OP_DESC_SEPARACAO = "Separação";
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
 
-				TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
-				tela.setCampoOperacao(OP_DESC_PEDIDO);
-				gerenciadorPerifericos.atualizaTela(tela);
+			gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_ATUAL, CMOS.OPERACAO_PEDIDO);
 
-				return ALTERNATIVA_1;
+			TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
+			tela.setCampoOperacao(OP_DESC_PEDIDO);
+			gerenciadorPerifericos.atualizaTela(tela);
+
+			return ALTERNATIVA_1;
 
 		}catch(Exception e){
 			gerenciadorPerifericos.getDisplay().setMensagem("Erro");

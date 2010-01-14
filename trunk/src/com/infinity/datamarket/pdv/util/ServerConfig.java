@@ -41,7 +41,7 @@ public class ServerConfig {
 	public static final String DESFAZER_TRANSACAO_CARTAO_PROPRIO_SERVLET;//=DesfazerTransacaoCartaoProprioServlet.servlet
 	public static final String CONSULTAR_DEBITOS_CARTAO_PROPRIO_SERVLET;//=ConsultarDebitosCartaoProprioServlet.servlet
 	public static final String RECEPTOR_OPERACAO_SERVLET;//=ConsultarDebitosCartaoProprioServlet.servlet
-	public static final String ATUALIZA_OPERACAO_EM_SEPARACAO;//=ConsultarDebitosCartaoProprioServlet.servlet
+	public static final String CANCELAR_OPERACAO_EM_SEPARACAO;//=ConsultarDebitosCartaoProprioServlet.servlet
 	
 	
 	static{
@@ -87,6 +87,6 @@ public class ServerConfig {
 		SERVLET_GERA_NOVA_CARGA_BASE=rb.getString("SERVLET_GERA_NOVA_CARGA_BASE");
 		RECEPTOR_OPERACAO_SERVLET=rb.getString("RECEPTOR_OPERACAO_SERVLET");
 
-		ATUALIZA_OPERACAO_EM_SEPARACAO=rb.getString("ATUALIZA_OPERACAO_EM_SEPARACAO");
+		CANCELAR_OPERACAO_EM_SEPARACAO=rb.getString("CANCELAR_OPERACAO_EM_SEPARACAO");
 	}
 }

@@ -47,8 +47,11 @@ public interface CMOS {
 	public static final String ACRESCIMO = "ACRESCIMO";
 	public static final String TRANSACAO_PAGAMENTO_ATUAL = "TRANSACAO_PAGAMENTO_ATUAL";
 	public static final String DATA_MOVIMENTO = "DATA_MOVIMENTO";
+	
+	public static final String OPERACAO_ATUAL = "OPERACAO_ATUAL";
 	public static final String OPERACAO_DEVOLUCAO = "OPERACAO_DEVOLUCAO";
 	public static final String OPERACAO_PEDIDO = "OPERACAO_PEDIDO";
+	public static final String OPERACAO_SEPARACAO = "OPERACAO_SEPARACAO";
 	public static final String PK_OPERACOES = "PK_OPERACOES";
 	public static final String BOLETO = "BOLETO";
 	
