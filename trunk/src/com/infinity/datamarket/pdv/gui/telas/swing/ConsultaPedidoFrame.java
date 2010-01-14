@@ -143,7 +143,16 @@ public class ConsultaPedidoFrame extends javax.swing.JDialog{
 
     		DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
     		String data = f.format(pedido.getData());
-    		dtm.insertRow(n,new Object[]{data,pedido,pedido.getCliente().getNomeCliente(),pedido.getValor().setScale(2).toString()});
+    		String nomeCliente = "Sem Cliente";
+    		if (pedido !=null && pedido.getCliente()  !=null && pedido.getCliente().getNomeCliente() != null ){
+    			nomeCliente = pedido.getCliente().getNomeCliente();
+    		}
+    		
+    		String valor = "0.0";
+    		if (pedido != null && pedido.getValor() != null) {
+    			valor = pedido.getValor().setScale(2).toString();
+    		}
+    		dtm.insertRow(n,new Object[]{data,pedido,nomeCliente ,valor});
     	}
     }
 

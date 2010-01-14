@@ -1101,6 +1101,37 @@ public class Fachada {
 	}
 
 
+
+	public void atualizaOperacao(Operacao oper) throws AppException{
+
+		try{
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+			getCadastroOperacao().atualiza(oper);
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+	}
+
+
 	public void zerarTotalizador(Long totalizador) throws AppException{
 		try{
 			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();

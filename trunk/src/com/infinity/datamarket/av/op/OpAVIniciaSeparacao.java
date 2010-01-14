@@ -12,20 +12,21 @@ import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 
-public class OpAVIniciaPedido extends Mic{
+public class OpAVIniciaSeparacao extends OpAVEncerraPedido {
 
 	public static String  MENSAGEM_INICIAL  = "Digite Operacao [P;D;E]";
 
-
-
 	public static String OP_DESC_PEDIDO = "Pedido";
-	public static String OP_DESC_DEVOLUCAO = "Devolucao";
+	public static String OP_DESC_SEPARACAO = "Separação";
+	public static String OP_DESC_DEVOLUCAO = "Devolução";
 
 	public static int OP_CODIGO_PEDIDO = 1;
 	public static int OP_CODIGO_DEVOLUCAO = 2;
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
+
+			super.exec(gerenciadorPerifericos, param);
 
 				TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 				tela.setCampoOperacao(OP_DESC_PEDIDO);
