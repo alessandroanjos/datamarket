@@ -133,42 +133,11 @@ public class OpConsultaTelaPedido extends Mic{
 	    	c.play();
 	    	if (c.getRetornoTela() == c.BUTTON_OK){
 	    		OperacaoPedido pedido = c.getValor();
-	    		try{						
-					URL urlCon = new URL("http://" +
-							ServerConfig.HOST_SERVIDOR_ES +
-							":" +
-							ServerConfig.PORTA_SERVIDOR_ES +
-							"/" +
-							ServerConfig.CONTEXTO_SERVIDOR_ES +
-							"/" +
-							ServerConfig.ALTERAR_OPERACA_SERVLET +"?status=" + ConstantesOperacao.EM_PROCESSAMENTO);
-					URLConnection huc1 = urlCon.openConnection();
-
-					huc1.setAllowUserInteraction(true);
-					huc1.setDoOutput(true);
-
-					ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
-					output.writeObject(pedido.getPk());
-					ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
-					Object obj = input.readObject();
-					if (obj instanceof String && obj.equals("OK")) {
-
-					} else  if (obj instanceof Exception){
-						gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
-						gerenciadorPerifericos.esperaVolta();
-						return ALTERNATIVA_2;
-					}
-				} catch (Exception e) {
-					gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
-					try {
-						gerenciadorPerifericos.esperaVolta();
-					} catch (AppException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					return ALTERNATIVA_2;
-				}
-
+	    		int retorno = alteraOperacaoServlet(gerenciadorPerifericos, pedido);
+	    		if (ALTERNATIVA_2 == retorno) {
+	    			return retorno;
+	    		}
+	    		
 	    		gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_PEDIDO, pedido);
 	    		return ALTERNATIVA_1;
 	    	}else{
@@ -186,5 +155,55 @@ public class OpConsultaTelaPedido extends Mic{
 			return ALTERNATIVA_2;
 		}
 		
+	}
+
+	private int alteraOperacaoServlet(GerenciadorPerifericos gerenciadorPerifericos, OperacaoPedido pedido) {
+		try{						
+			URL urlCon = new URL("http://" +
+					ServerConfig.HOST_SERVIDOR_ES +
+					":" +
+					ServerConfig.PORTA_SERVIDOR_ES +
+					"/" +
+					ServerConfig.CONTEXTO_SERVIDOR_ES +
+					"/" +
+					ServerConfig.ALTERAR_OPERACA_SERVLET +"?status=" + getEstadoOperacaoAtualizada());
+			URLConnection huc1 = urlCon.openConnection();
+
+			huc1.setAllowUserInteraction(true);
+			huc1.setDoOutput(true);
+
+			ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
+			output.writeObject(pedido.getPk());
+			ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
+			Object obj = input.readObject();
+			if (obj instanceof String && obj.equals("OK")) {
+				return ALTERNATIVA_1;
+				
+			} else  if (obj instanceof AppException){
+				((Exception)obj).printStackTrace();
+				gerenciadorPerifericos.getDisplay().setMensagem(((Exception)obj).getMessage());
+				gerenciadorPerifericos.esperaVolta();
+				return ALTERNATIVA_2;
+			} else  if (obj instanceof Exception){
+				((Exception)obj).printStackTrace();
+				gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+				gerenciadorPerifericos.esperaVolta();
+				return ALTERNATIVA_2;
+			}
+		} catch (Exception e) {
+			gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+			try {
+				gerenciadorPerifericos.esperaVolta();
+			} catch (AppException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			return ALTERNATIVA_2;
+		}
+		return ALTERNATIVA_1;
+	}
+	
+	public int getEstadoOperacaoAtualizada() {
+		return ConstantesOperacao.EM_PROCESSAMENTO;
 	}
 }

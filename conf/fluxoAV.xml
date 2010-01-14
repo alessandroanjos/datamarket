@@ -26,12 +26,19 @@
     <operacao id="OpAvFinalizacaoPedido" classe="com.infinity.datamarket.av.op.OpAvFinalizacaoPedido"/>
     <operacao id="OpAVConfirmaEncerraPedido" classe="com.infinity.datamarket.av.op.OpAVConfirmaEncerraPedido"/>
     <operacao id="OpAvImprimeReciboPedido" classe="com.infinity.datamarket.av.op.OpAvImprimeReciboPedido"/>
-
+    <operacao id="OpAVIniciaSeparacao" classe="com.infinity.datamarket.av.op.OpAVIniciaSeparacao"/>
+    <operacao id="OpAVConsultaTelaPedido" classe="com.infinity.datamarket.av.op.OpAVConsultaTelaPedido"/>
+    <operacao id="OpAVEncerraSeparacao" classe="com.infinity.datamarket.av.op.OpAVEncerraSeparacao"/>
+    <operacao id="OpAVIncluirPedido" classe="com.infinity.datamarket.av.op.OpAVIncluirPedido"/>
+    
+    
   </listaMicroperacao>
+
   <listaEstado>
     <estado codigo="Fechado" descricao="Av Fechado [ENTER]" inputType="0" inputSize="0"/>
     <estado codigo="Aberto" descricao="Digite Operacao [1-P;2-D]" inputType="0" inputSize="0"/>
     <estado codigo="Pedido" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
+    <estado codigo="Separacao" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
     <estado codigo="Devolucao" descricao="Devolucao" inputType="3" inputSize="1"/>
   </listaEstado>
 
@@ -89,6 +96,29 @@
 
     <macroOperacao estadoAtual="Aberto" proximoEstado="Fechado" tecla="ESC" codigoMicroOperacaoAssociada="subFluxo1" descricao="Volta Fechado">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvEncerraIniciaAv">
+      </microOperacaoAssociada>
+    </macroOperacao>
+
+    <macroOperacao estadoAtual="Aberto" proximoEstado="Separacao" tecla="E" codigoMicroOperacaoAssociada="subFluxo1" descricao="Separacao">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVIniciaSeparacao">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo310" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo310" operacao="OpAVConsultaTelaPedido">      
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAVIncluirPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAvDesenhaTabelaPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="saidaDois" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saidaDois" />
+      </microOperacaoAssociada>
+
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVEncerraSeparacao">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="saidaDois" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="saidaDois" operacao="OpAvSaidaDois">
       </microOperacaoAssociada>
     </macroOperacao>
 

@@ -31,7 +31,7 @@ public class OpAvEncerraIniciaAv extends OpAVIniciaAV{
 
 				return ALTERNATIVA_1;
 			}else{
-				gerenciadorPerifericos.getDisplay().setMensagem("Digite Operacao [1-P;2-D]");
+				gerenciadorPerifericos.getDisplay().setMensagem("Digite Operacao [P;D;E]");
 				
 				return ALTERNATIVA_2;
 			}

@@ -7,6 +7,9 @@ public class Constantes {
 	public static final String STATUS_CANCELADO = "C";
 	public static final String SIM = "S";
 	public static final String NAO = "N";
+	public static final String NAO_PROCESSADO = "N";
+	public static final String PROCESSADO = "P";
+	
 	public static final String FORMA_CHEQUE_PRE = "3";
 	public static final int TRES_DECIMAL = 3;
 	public static final int DOIS_DECIMAL = 3;

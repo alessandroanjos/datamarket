@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="make" name="av">
 
-	<property name="dirDeploy" value="C:\jboss-4.0.1sp1\server\default\deploy" />
-	<property name="contexto" value="EnterpriseServer2.war" />
+	<property name="dirDeploy" value="E:\Arquivos de programas\Apache Software Foundation\Tomcat 5.0\webapps" />
+	<property name="contexto" value="es" />
 
 	<property name="src" value="src" />
 	<property name="conf" value="conf" />
@@ -15,7 +15,7 @@
 		<tstamp>
 		    <format property="HOJE" pattern="yyyyMMdd_hhmmss" locale="pt,BR"/>
 		  </tstamp>
-		<move file="${dirDeploy}" todir=".\ES_${HOJE}" />  
+		<move file="${dirDeploy}/${contexto}" todir=".\ES_${HOJE}" />  
 	</target>
 	
 	<target name="clean" >
