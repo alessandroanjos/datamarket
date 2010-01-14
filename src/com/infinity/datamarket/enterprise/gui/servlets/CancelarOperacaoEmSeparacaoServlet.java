@@ -1,8 +1,6 @@
 package com.infinity.datamarket.enterprise.gui.servlets;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Collection;
 
@@ -17,7 +15,7 @@ import com.infinity.datamarket.comum.operacao.Operacao;
 import com.infinity.datamarket.comum.operacao.OperacaoPedido;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 
-public class AtualizaOperacaoEmSeparacaoServlet extends HttpServlet {
+public class CancelarOperacaoEmSeparacaoServlet extends HttpServlet {
 
 	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -25,8 +23,6 @@ public class AtualizaOperacaoEmSeparacaoServlet extends HttpServlet {
 
 			String loja = request.getParameter("idLoja");
 			String idPedido = request.getParameter("idPedido");
-
-
     		
 			PropertyFilter filter = new PropertyFilter();
 			filter.setTheClass(Operacao.class);
@@ -37,7 +33,7 @@ public class AtualizaOperacaoEmSeparacaoServlet extends HttpServlet {
 
 			if (coll != null && coll.size() != 0) {
 				OperacaoPedido pedidoJaCadastrado = (OperacaoPedido) coll.iterator().next();
-				pedidoJaCadastrado.setStatus(ConstantesOperacao.EM_PROCESSAMENTO);
+				pedidoJaCadastrado.setStatus(ConstantesOperacao.ABERTO);
 				Fachada.getInstancia().atualizaOperacao(pedidoJaCadastrado);	
 			}
 

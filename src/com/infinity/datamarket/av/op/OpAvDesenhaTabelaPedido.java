@@ -22,7 +22,13 @@ public class OpAvDesenhaTabelaPedido extends Mic{
 
 		try{
 			TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
-			tela.zerarTabela();
+
+			String operacao = (String)gerenciadorPerifericos.getCmos().ler(CMOS.OPERACAO_ATUAL);
+			if (CMOS.OPERACAO_SEPARACAO.equals(operacao)) {
+				tela.zerarTabelaSeparacao();
+			} else {
+				tela.zerarTabela();
+			}
 
 			List<EventoOperacaoItemRegistrado> coll = (List<EventoOperacaoItemRegistrado>)gerenciadorPerifericos.getCmos().ler(CMOS.COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO);
 			if (coll == null || coll.size() ==0) {
@@ -51,8 +57,11 @@ public class OpAvDesenhaTabelaPedido extends Mic{
 				String descricaoValorTotalItem = "R$ " + evento.getPreco();
 				String quantidade = "R$ " + evento.getQuantidade();
 
-
-				tela.adicionarRegistroTabela(descricaoProduto, descricaoValorItem, quantidade + "", descricaoDescontoItem, descricaoValorTotalItem);
+				if (CMOS.OPERACAO_SEPARACAO.equals(operacao)) {
+					tela.adicionarRegistroTabelaSeparacao(descricaoProduto, descricaoValorItem, quantidade + "", descricaoDescontoItem, descricaoValorTotalItem, "            " + "0");
+				} else {
+					tela.adicionarRegistroTabela(descricaoProduto, descricaoValorItem, quantidade + "", descricaoDescontoItem, descricaoValorTotalItem);
+				}
 
 				valTotalPedido = valTotalPedido.add(evento.getPreco());
 				descontoTotalPedido = descontoTotalPedido.add(evento.getDesconto());

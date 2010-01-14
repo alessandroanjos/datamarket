@@ -19,13 +19,22 @@ public class OpAVEncerraPedido extends Mic{
 		tela.setCampoValor("");
 		tela.setCampoQuantidade("");
 		tela.setCampoDesconto("");
-		tela.zerarTabela();
+		
+		String operacao = (String)gerenciadorPerifericos.getCmos().ler(CMOS.OPERACAO_ATUAL);
+		if (CMOS.OPERACAO_SEPARACAO.equals(operacao)) {
+			tela.zerarTabelaSeparacao();
+		} else {
+			tela.zerarTabela();
+		}
+		
 		tela.setCampoTotal("");
 		tela.setCampoTotalDesconto("");
 
 		tela.setCampoOperacao("");
 		tela.setCampoCliente("");
 		gerenciadorPerifericos.atualizaTela(tela);
+
+		gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_ATUAL, null);
 
 		gerenciadorPerifericos.getCmos().gravar(CMOS.PRODUTO_ATUAL,null);
 		gerenciadorPerifericos.getCmos().gravar(CMOS.QUANTIDADE_ITEM,null);

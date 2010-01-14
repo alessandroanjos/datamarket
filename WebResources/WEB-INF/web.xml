@@ -127,12 +127,12 @@
 	</servlet>
 
 	<servlet>
-		<servlet-name>AtualizaOperacaoEmSeparacaoServlet</servlet-name>
-		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.AtualizaOperacaoEmSeparacaoServlet</servlet-class>
+		<servlet-name>CancelarOperacaoEmSeparacaoServlet</servlet-name>
+		<servlet-class>com.infinity.datamarket.enterprise.gui.servlets.CancelarOperacaoEmSeparacaoServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>AtualizaOperacaoEmSeparacaoServlet</servlet-name>
-		<url-pattern>/AtualizaOperacaoEmSeparacaoServlet.servlet</url-pattern>
+		<servlet-name>CancelarOperacaoEmSeparacaoServlet</servlet-name>
+		<url-pattern>/CancelarOperacaoEmSeparacaoServlet.servlet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ReceptorOperacaoServlet</servlet-name>

@@ -298,12 +298,37 @@ public class TelaAVInicial extends Tela{
         });
 
 	}
+
+	public void zerarTabelaSeparacao(){
+        
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {"Produto", "Valor", "Quantidade", "Desconto no Item", "Total", "Separação"}
+        ){
+        
+        public boolean isCellEditable(int rowIndex, int columnIndex)
+        {
+            return false;
+        }
+        });
+
+	}
 	
 	public void adicionarRegistroTabela(String produto, String valor, String quantidade, String descont, String total){
 
 		javax.swing.table.DefaultTableModel table = (javax.swing.table.DefaultTableModel)jTable1.getModel();
 		
 	     Object[] linha = {produto, valor, quantidade, descont, total};    
+	     table.insertRow(0, linha);   
+
+        
+	}
+
+	public void adicionarRegistroTabelaSeparacao(String produto, String valor, String quantidade, String descont, String total, String totalSeparacao){
+
+		javax.swing.table.DefaultTableModel table = (javax.swing.table.DefaultTableModel)jTable1.getModel();
+		
+	     Object[] linha = {produto, valor, quantidade, descont, total,totalSeparacao};    
 	     table.insertRow(0, linha);   
 
         
