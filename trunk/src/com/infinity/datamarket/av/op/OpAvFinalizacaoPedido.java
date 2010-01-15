@@ -36,7 +36,7 @@ public class OpAvFinalizacaoPedido extends Mic{
 			Usuario usu = (Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.USUARIO_ATUAL);
 			String codigoVendedor = usu.getId() + "";
 			BigDecimal valorTotal = (BigDecimal)gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_TOTAL_PEDIDO);
-			BigDecimal balorTotalDesconto = (BigDecimal)gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_TOTAL_DESCONTO_PEDIDO);
+			BigDecimal valorTotalDesconto = (BigDecimal)gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_TOTAL_DESCONTO_PEDIDO);
 
 			ClienteTransacao cli = null;
 			if (cliente != null && cliente.getCpfCnpj() != null ) {
@@ -52,7 +52,7 @@ public class OpAvFinalizacaoPedido extends Mic{
 				
 			getLogger(this.getClass()).info("inserir - INICIO");
 			getLogger(this.getClass()).info("inserir:: vou preencher o objeto pedido");
-			OperacaoPedido op = preencheOperacaoPedido(collItensPedido,cli,idLoja,idPedido,codigoVendedor,valorTotal,balorTotalDesconto);
+			OperacaoPedido op = preencheOperacaoPedido(collItensPedido,cli,idLoja,idPedido,codigoVendedor,valorTotal,valorTotalDesconto);
 			getLogger(this.getClass()).info("inserir:: preenchi o objeto pedido");
 			getLogger(this.getClass()).info("inserir:: vou inserir o pedido");
 			getFachadaPDV().inserirOperacaoES(op);
@@ -68,7 +68,7 @@ public class OpAvFinalizacaoPedido extends Mic{
 		}
 	}
 
-	public OperacaoPedido preencheOperacaoPedido(Collection collItensPedido, ClienteTransacao cli , long idLoja, long idPedido, String codigoVendedor, BigDecimal valorTotal, BigDecimal balorTotalDesconto) throws AppException{
+	public OperacaoPedido preencheOperacaoPedido(Collection collItensPedido, ClienteTransacao cli , long idLoja, long idPedido, String codigoVendedor, BigDecimal valorTotal, BigDecimal valorTotalDesconto) throws AppException{
 		OperacaoPedido pedido = new OperacaoPedido();
 		OperacaoPK pk = new OperacaoPK();
 		pk.setLoja((int)idLoja);
@@ -89,7 +89,7 @@ public class OpAvFinalizacaoPedido extends Mic{
 		
 		pedido.setValor(valorTotal);
 		
-		pedido.setDesconto(balorTotalDesconto);
+		pedido.setDesconto(valorTotalDesconto);
 		
 		ConjuntoEventoOperacao ceo = new ConjuntoEventoOperacao();
 		

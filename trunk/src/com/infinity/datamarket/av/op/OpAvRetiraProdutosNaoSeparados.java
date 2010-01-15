@@ -40,6 +40,11 @@ public class OpAvRetiraProdutosNaoSeparados extends Mic{
 					if (!quantidadeSeparada.equals(evento.getQuantidade())) {
 						evento.setQuantidade(quantidadeSeparada);
 						recalcularValorPedido = true;
+					
+						BigDecimal valTotalItem = evento.getProdutoOperacaoItemRegistrado().getPrecoPraticado().subtract(evento.getDesconto()).multiply(quantidadeSeparada);
+						valTotalItem = valTotalItem.setScale(2, BigDecimal.ROUND_DOWN);
+		
+						evento.setPreco(valTotalItem);
 					}
 				}
 			}
