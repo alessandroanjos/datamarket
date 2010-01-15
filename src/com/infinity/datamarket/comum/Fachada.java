@@ -6726,6 +6726,36 @@ public class Fachada {
 		return col;
 	}
 
+	public boolean existeOperacao(int idLoja, int idOperacao ) throws AppException{
+		boolean col = false;
+		try{
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+			col = getCadastroOperacao().existeOperacao(idLoja, idOperacao);
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+			throw e;
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}finally{
+			try{
+				
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+		return col;
+	}
+
 	
 	public Integer retornaMaxIdOperacaoPorLoja(OperacaoPK pk) throws AppException{
 		Integer maxId = null;

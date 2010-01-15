@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Collection;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.infinity.datamarket.comum.Fachada;
-import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
 import com.infinity.datamarket.comum.operacao.Operacao;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
+import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 
 public class ReceptorOperacaoServlet extends HttpServlet {
 
@@ -25,8 +27,31 @@ public class ReceptorOperacaoServlet extends HttpServlet {
 			Object object = input.readObject();
 			Operacao operacao = (Operacao) object;
 			input.close();
+
+			// quando ele é criando no AV ele adiciona 
+			// quando ele é separado ele atualiza
+//			if (Fachada.getInstancia().existeOperacao(operacao.getPk().getLoja(), operacao.getPk().getId())) {
 			
-			operacao.setStatus(ConstantesOperacao.ABERTO);
+			PropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(Operacao.class);
+			filter.addProperty("pk.id", operacao.getPk().getId());
+			filter.addProperty("pk.loja", operacao.getPk().getLoja());
+			
+			Collection coll = Fachada.getInstancia().consultarOperacao(filter);
+			
+			if (coll != null && coll.size() != 0) {
+				Operacao opvelho = (Operacao) coll.iterator().next(); 
+				
+				RepositoryManagerHibernateUtil.getInstancia().currentSession().evict(opvelho);
+
+				Fachada.getInstancia().excluirOperacao(opvelho);	
+			
+//
+//				Fachada.getInstancia().atualizaOperacao(operacao);
+//			} else {
+//				Fachada.getInstancia().inserirOperacaoES(operacao);
+			}
+
 			Fachada.getInstancia().inserirOperacaoES(operacao);
 
 			ObjectOutputStream ouptu = new ObjectOutputStream(response.getOutputStream());

@@ -64,7 +64,10 @@ public class ThreadEnviaOperacao extends Thread{
 	
 							huc1.setAllowUserInteraction(true);
 							huc1.setDoOutput(true);
-	
+
+							if (opera.getStatus() == ConstantesOperacao.PARA_ENVIAR) {
+								opera.setStatus(ConstantesOperacao.ABERTO);
+							}
 							ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
 							output.writeObject(opera);
 							ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
@@ -95,7 +98,16 @@ public class ThreadEnviaOperacao extends Thread{
 		PropertyFilter filter = new PropertyFilter();
 		filter.setTheClass(Operacao.class);
 		filter.addProperty("status", ConstantesOperacao.PARA_ENVIAR);
-		return Fachada.getInstancia().consultarOperacao(filter);
+		Collection collParaEnviar = Fachada.getInstancia().consultarOperacao(filter);
+
+		filter = new PropertyFilter();
+		filter.setTheClass(Operacao.class);
+		filter.addProperty("status", ConstantesOperacao.SEPARADO);
+		Collection collSeparado = Fachada.getInstancia().consultarOperacao(filter);
+
+		collParaEnviar.addAll(collSeparado);
+		
+		return collParaEnviar;
 	}
 
 	public static void main(String[] a){
