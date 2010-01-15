@@ -130,7 +130,7 @@ public class Maquina implements Serializable{
     }
 
     private int processaMicroOperacao(MicroOperacaoAssociada mic, ParametroMacroOperacao param){
-        System.out.println("Maquina::Cod "+mic.getId()+" ::MicroOperacao ["+mic.getMicroOperacao().getClasse()+"]");
+        System.out.println("Maquina::Cod "+mic.getId()+" ::MicroOperacao ["+mic.getMicroOperacao().getClasse()+"] ## " );
     	Mic microOperacao = ServiceLocator.getInstancia().getMic(mic.getMicroOperacao().getClasse());
         int alternativa = 0;
         try{        	
@@ -187,7 +187,14 @@ public class Maquina implements Serializable{
 //                    System.out.println("Maquina.ThreadProcessaMacro.run: 5");
                     MacroOperacao macroOperacao = getConcentradorMaquina().consultaMacroOperacao(filtro);
 //                    System.out.println("Maquina.ThreadProcessaMacro.run: 6");
-                    System.out.println("Maquina.ThreadProcessaMacro.run: macroOperacao: "+macroOperacao);
+                    if (macroOperacao != null) {
+                    	System.out.println("Maquina.ThreadProcessaMacro.run: macroOperacao: "+macroOperacao.getId() + " ## " + macroOperacao.getDescricao()  );
+                    
+                    } else {
+                    	System.out.println("Maquina.ThreadProcessaMacro.run: macroOperacao: null" );
+                        
+                    }
+                    
                     if (macroOperacao != null){
                         gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.MACRO_ATUAL, macroOperacao);
 //                        System.out.println("Maquina.ThreadProcessaMacro.run: 7");

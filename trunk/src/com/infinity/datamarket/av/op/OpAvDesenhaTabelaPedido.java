@@ -6,16 +6,14 @@ import java.util.List;
 
 import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
+import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistradoSeparacao;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
-import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 
 public class OpAvDesenhaTabelaPedido extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -49,16 +47,26 @@ public class OpAvDesenhaTabelaPedido extends Mic{
 			Iterator<EventoOperacaoItemRegistrado> it = coll.iterator();
 			while(it.hasNext()) {
 
-				EventoOperacaoItemRegistrado evento = it.next();
+				Object objeto = it.next();
+				BigDecimal quantidadeSeparacao = BigDecimal.ZERO;
+				EventoOperacaoItemRegistrado evento = null;
+				if (objeto instanceof EventoOperacaoItemRegistradoSeparacao) {
+					EventoOperacaoItemRegistradoSeparacao eventoSeparacao = (EventoOperacaoItemRegistradoSeparacao) objeto;
+					evento = eventoSeparacao.getEventoOperacaoItemRegistrado();
+					quantidadeSeparacao = eventoSeparacao.getQuantidadeSeparada();
+				} else if (objeto instanceof EventoOperacaoItemRegistrado) {
+					evento = (EventoOperacaoItemRegistrado) objeto;
+				}
 
 				String descricaoProduto = evento.getProdutoOperacaoItemRegistrado().getDescricaoCompleta(); 
 				String descricaoValorItem = "R$ " + evento.getProdutoOperacaoItemRegistrado().getPrecoPraticado();
 				String descricaoDescontoItem = "R$ " + evento.getDesconto();
 				String descricaoValorTotalItem = "R$ " + evento.getPreco();
-				String quantidade = "R$ " + evento.getQuantidade();
+				String quantidade = "" + evento.getQuantidade();
 
 				if (CMOS.OPERACAO_SEPARACAO.equals(operacao)) {
-					tela.adicionarRegistroTabelaSeparacao(descricaoProduto, descricaoValorItem, quantidade + "", descricaoDescontoItem, descricaoValorTotalItem, "            " + "0");
+					
+					tela.adicionarRegistroTabelaSeparacao(descricaoProduto, descricaoValorItem, quantidade + "", descricaoDescontoItem, descricaoValorTotalItem, "            " + quantidadeSeparacao);
 				} else {
 					tela.adicionarRegistroTabela(descricaoProduto, descricaoValorItem, quantidade + "", descricaoDescontoItem, descricaoValorTotalItem);
 				}

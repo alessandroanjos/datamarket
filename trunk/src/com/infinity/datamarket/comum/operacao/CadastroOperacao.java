@@ -98,6 +98,21 @@ public class CadastroOperacao extends Cadastro{
 		return operacao;
 	}
 		
+	public boolean existeOperacao(int idLoja, int idOperacao) throws AppException{
+
+		StringBuffer sb = new StringBuffer();
+
+		sb.append("select max(operacao.pk.id) from Operacao operacao where operacao.pk.loja = " + idLoja + " and operacao.pk.id = " + idOperacao);
+		Query query = RepositoryManagerHibernateUtil.getInstancia().currentSession().createQuery(sb.toString());
+		Integer qretorno = (Integer)query.uniqueResult(); 		
+		if (qretorno == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	
 	public Collection consultar(IPropertyFilter filter) throws AppException{
 		return getRepositorio().consultar(filter);
 	}

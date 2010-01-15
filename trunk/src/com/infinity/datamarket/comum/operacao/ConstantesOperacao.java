@@ -16,4 +16,6 @@ public class ConstantesOperacao {
 	public static final int ENVIADO = 6;
 	//Quando foi criando no av e foi enviado ao E. S.
 	public static final int EM_SEPARACAO = 7;	
+
+	public static final int SEPARADO = 8;	
 }
