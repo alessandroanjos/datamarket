@@ -30,7 +30,6 @@ public class OpAVSalvarPedidoSeparado extends Mic {
 
 		try{
 			
-
 			ConjuntoEventoOperacao listaEvento = new ConjuntoEventoOperacao();
 
 			Collection collItensPedidoSeparados = (List<EventoOperacaoItemRegistrado>)gerenciadorPerifericos.getCmos().ler(CMOS.COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO);
@@ -45,11 +44,11 @@ public class OpAVSalvarPedidoSeparado extends Mic {
 						evento = (EventoOperacaoItemRegistrado)obj;
 					}
 
+					listaEvento.add(evento);
+
 					evento.getProdutoOperacaoItemRegistrado().getPk().setNumeroEvento(evento.getPk().getNumeroEvento());
 					evento.getProdutoOperacaoItemRegistrado().getPk().setLoja(evento.getPk().getLoja());
 					evento.getProdutoOperacaoItemRegistrado().getPk().setId(evento.getPk().getId());
-
-					listaEvento.add(evento);
 				}
 			}
 			
