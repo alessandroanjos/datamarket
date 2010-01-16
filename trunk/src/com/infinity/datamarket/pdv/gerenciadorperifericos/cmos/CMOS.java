@@ -13,6 +13,7 @@ public interface CMOS {
 	public static final String SUB_TOTAL = "SUB_TOTAL";
 	public static final String TOTAL = "TOTAL";
 	public static final String QUANTIDADE_ITEM = "QUANTIDADE_ITEM";
+	public static final String QUANTIDADE_ITEM_NECESSARIO_PARA_SEPARACAO = "QUANTIDADE_ITEM_NECESSARIO_PARA_SEPARACAO";
 	public static final String OPERADOR_ATUAL = "OPERADOR_ATUAL";
 	public static final String AUTORIZADOR_ATUAL = "AUTORIZADOR_ATUAL";
 	public static final String FUNDO_TROCO = "FUNDO_TROCO";

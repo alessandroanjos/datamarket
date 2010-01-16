@@ -51,13 +51,6 @@ public class OpAVIncluirPedidoEmSeparacao extends Mic {
 
 				BigDecimal quantidadeInicial = BigDecimal.ZERO;
 				
-				/// para remover
-				if ( primeiro == true && evento.getPk().getNumeroEvento() != 1) {
-					 primeiro = false;
-					 quantidadeInicial = evento.getQuantidade().divide(new BigDecimal(2));
-				}
-				/// para remover
-				
 				EventoOperacaoItemRegistradoSeparacao eventoItemRegistradoSeparacao = new EventoOperacaoItemRegistradoSeparacao(evento, quantidadeInicial);
 				
 				collEvent.add(eventoItemRegistradoSeparacao);

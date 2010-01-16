@@ -37,6 +37,10 @@
     <operacao id="OpAvRetiraProdutosNaoSeparados" classe="com.infinity.datamarket.av.op.OpAvRetiraProdutosNaoSeparados"/>
     <operacao id="OpAvRecalcularPedidoSeparados" classe="com.infinity.datamarket.av.op.OpAvRecalcularPedidoSeparados"/>
     <operacao id="OpAVSalvarPedidoSeparado" classe="com.infinity.datamarket.av.op.OpAVSalvarPedidoSeparado"/>
+    <operacao id="OpAvConsultaQuantidadeProdutoSeparacao" classe="com.infinity.datamarket.av.op.OpAvConsultaQuantidadeProdutoSeparacao"/>
+    <operacao id="OpAvConcluirSeparacaoProduto" classe="com.infinity.datamarket.av.op.OpAvConcluirSeparacaoProduto"/>
+  
+  
   </listaMicroperacao>
 
   <listaEstado>
@@ -145,7 +149,6 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVEncerraSeparacao">
       </microOperacaoAssociada>
     </macroOperacao>
-
     <macroOperacao estadoAtual="Aberto" proximoEstado="Separacao" tecla="E" codigoMicroOperacaoAssociada="subFluxo1" descricao="Separacao">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVIniciaSeparacao">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo310" />
@@ -265,6 +268,24 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVEncerraIcluirItem">
       </microOperacaoAssociada>
     </macroOperacao>
-     
+
+    <macroOperacao estadoAtual="Separacao" proximoEstado="Separacao" tecla="ENTER" codigoMicroOperacaoAssociada="subFluxo1" descricao="Adicionar Item Separacao">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvConsultaProduto">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saidaDois" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAvValidarProdutoSeparacao">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAvConsultaQuantidadeProdutoSeparacao">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo4" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo4" operacao="OpAvConcluirSeparacaoProduto">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo5" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo4" operacao="OpAvDesenhaTabelaPedido">
+      </microOperacaoAssociada>
+    </macroOperacao>
+
   </listaMacroOperacao>
 </maquinaEstado>
