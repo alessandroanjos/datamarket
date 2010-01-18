@@ -1,6 +1,7 @@
 package com.infinity.datamarket.av.op;
 
 import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
@@ -12,6 +13,7 @@ public class OpAVEncerraPedido extends Mic{
 	
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
+		gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
 
 		TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 		tela.setCampoCodigoProduto("");

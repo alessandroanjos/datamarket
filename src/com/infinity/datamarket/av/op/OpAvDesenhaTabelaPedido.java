@@ -58,6 +58,7 @@ public class OpAvDesenhaTabelaPedido extends Mic{
 					evento = (EventoOperacaoItemRegistrado) objeto;
 				}
 
+				String codigoExterno = evento.getProdutoOperacaoItemRegistrado().getCodigoExterno(); 
 				String descricaoProduto = evento.getProdutoOperacaoItemRegistrado().getDescricaoCompleta(); 
 				String descricaoValorItem = "R$ " + evento.getProdutoOperacaoItemRegistrado().getPrecoPraticado();
 				String descricaoDescontoItem = "R$ " + evento.getDesconto();
@@ -66,9 +67,9 @@ public class OpAvDesenhaTabelaPedido extends Mic{
 
 				if (CMOS.OPERACAO_SEPARACAO.equals(operacao)) {
 					
-					tela.adicionarRegistroTabelaSeparacao(descricaoProduto, descricaoValorItem, quantidade + "", descricaoDescontoItem, descricaoValorTotalItem, "            " + quantidadeSeparacao);
+					tela.adicionarRegistroTabelaSeparacao(codigoExterno,descricaoProduto, descricaoValorItem, quantidade + "", descricaoDescontoItem, descricaoValorTotalItem, "            " + quantidadeSeparacao);
 				} else {
-					tela.adicionarRegistroTabela(descricaoProduto, descricaoValorItem, quantidade + "", descricaoDescontoItem, descricaoValorTotalItem);
+					tela.adicionarRegistroTabela(codigoExterno,descricaoProduto, descricaoValorItem, quantidade + "", descricaoDescontoItem, descricaoValorTotalItem);
 				}
 
 				valTotalPedido = valTotalPedido.add(evento.getPreco());

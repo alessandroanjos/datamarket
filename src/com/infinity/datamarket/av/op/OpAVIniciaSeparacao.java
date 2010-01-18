@@ -28,6 +28,8 @@ public class OpAVIniciaSeparacao extends OpAVEncerraPedido {
 
 			super.exec(gerenciadorPerifericos, param);
 
+			gerenciadorPerifericos.getDisplay().setMensagem(OpAVIniciaPedido.MENSAGEM_INICIAL);
+
 			gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_ATUAL, CMOS.OPERACAO_SEPARACAO);
 
 			TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);

@@ -288,7 +288,7 @@ public class TelaAVInicial extends Tela{
         
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {},
-            new String [] {"Produto", "Valor", "Quantidade", "Desconto no Item", "Total"}
+            new String [] {"Código","Produto", "Valor", "Quantidade", "Desconto no Item", "Total"}
         ){
         
         public boolean isCellEditable(int rowIndex, int columnIndex)
@@ -303,7 +303,7 @@ public class TelaAVInicial extends Tela{
         
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {},
-            new String [] {"Produto", "Valor", "Quantidade", "Desconto no Item", "Total", "Separação"}
+            new String [] {"Código","Produto", "Valor", "Quantidade", "Desconto no Item", "Total", "Separação"}
         ){
         
         public boolean isCellEditable(int rowIndex, int columnIndex)
@@ -314,21 +314,21 @@ public class TelaAVInicial extends Tela{
 
 	}
 	
-	public void adicionarRegistroTabela(String produto, String valor, String quantidade, String descont, String total){
+	public void adicionarRegistroTabela(String codigoExterno, String produto, String valor, String quantidade, String descont, String total){
 
 		javax.swing.table.DefaultTableModel table = (javax.swing.table.DefaultTableModel)jTable1.getModel();
 		
-	     Object[] linha = {produto, valor, quantidade, descont, total};    
+	     Object[] linha = {codigoExterno,produto, valor, quantidade, descont, total};    
 	     table.insertRow(0, linha);   
 
         
 	}
 
-	public void adicionarRegistroTabelaSeparacao(String produto, String valor, String quantidade, String descont, String total, String totalSeparacao){
+	public void adicionarRegistroTabelaSeparacao(String codigoExterno, String produto, String valor, String quantidade, String descont, String total, String totalSeparacao){
 
 		javax.swing.table.DefaultTableModel table = (javax.swing.table.DefaultTableModel)jTable1.getModel();
 		
-	     Object[] linha = {produto, valor, quantidade, descont, total,totalSeparacao};    
+	     Object[] linha = {codigoExterno,produto, valor, quantidade, descont, total,totalSeparacao};    
 	     table.insertRow(0, linha);   
 
         
