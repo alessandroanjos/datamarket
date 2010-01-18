@@ -5,21 +5,19 @@ import java.math.BigDecimal;
 import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.produto.TipoProduto;
-import com.infinity.datamarket.comum.util.AppException;
-import com.infinity.datamarket.comum.util.ObjetoInexistenteException;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
-import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 
 public class OpAvConsultaQuantidadeProdutoSeparacao extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
+
+		// se solicitar a quantidade tem que validar se nao utrapassou da necessidade
+		// gerenciadorPerifericos.getCmos().ler(CMOS.QUANTIDADE_ITEM_NECESSARIO_PARA_SEPARACAO)
 
 		TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 		tela.setCampoQuantidade("");

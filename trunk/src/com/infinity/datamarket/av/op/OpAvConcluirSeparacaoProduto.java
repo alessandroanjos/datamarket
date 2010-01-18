@@ -41,6 +41,7 @@ public class OpAvConcluirSeparacaoProduto extends Mic{
 
 		}
 
+		gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
 		// adicionar a quantidade ao evento 
 		return ALTERNATIVA_1;
 	}
