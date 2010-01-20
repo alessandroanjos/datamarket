@@ -2,8 +2,11 @@ package com.infinity.datamarket.pdv.op;
 
 import java.math.BigDecimal;
 
+import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.produto.Produto;
 import com.infinity.datamarket.comum.usuario.Usuario;
+import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
@@ -79,10 +82,11 @@ public class OpSolicitaDesconto extends Mic{
 					return ALTERNATIVA_2;
 				}
 				
-				
 				//calcula o valor de desconto maximo para o perfil do usuario
-				
-				
+
+				BigDecimal descontoItem = precoOriginal.subtract(preco);
+				descontoItem = descontoItem.setScale(2,BigDecimal.ROUND_DOWN);
+				gerenciadorPerifericos.getCmos().gravar(CMOS.DESCONTO, descontoItem);
 				
 				BigDecimal perc = usu.getPerfil().getPercentualDesconto();
 				BigDecimal precoDesc = precoOriginal.multiply(perc);
@@ -97,9 +101,12 @@ public class OpSolicitaDesconto extends Mic{
 					return ALTERNATIVA_2;
 				}
 			
-				
-	
-				prod.setPrecoPromocional(preco);
+		        int idComponente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValorInteiro();
+		        Componente componente = Fachada.getInstancia().consultarComponentePorId(new Long(idComponente));
+
+				if (componente.getTipoComponente() == Componente.TIPO_COMPONENTE_PDV) {
+					prod.setPrecoPromocional(preco);
+				}
 				gerenciadorPerifericos.getCmos().gravar(CMOS.PRODUTO_ATUAL, prod);
 				
 			}else{

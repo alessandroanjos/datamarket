@@ -28,7 +28,7 @@ public class OpAvFinalizacaoPedido extends Mic{
 
 		try {
 			
-			Cliente cliente = (Cliente) gerenciadorPerifericos.getCmos().ler(CMOS.CLIENTE_AV);
+			ClienteTransacao cli = (ClienteTransacao) gerenciadorPerifericos.getCmos().ler(CMOS.CLIENTE_AV);
 
 			Collection collItensPedido = (List<EventoOperacaoItemRegistrado>)gerenciadorPerifericos.getCmos().ler(CMOS.COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO);
 	        int idLoja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();
@@ -38,10 +38,10 @@ public class OpAvFinalizacaoPedido extends Mic{
 			BigDecimal valorTotal = (BigDecimal)gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_TOTAL_PEDIDO);
 			BigDecimal valorTotalDesconto = (BigDecimal)gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_TOTAL_DESCONTO_PEDIDO);
 
-			ClienteTransacao cli = null;
-			if (cliente != null && cliente.getCpfCnpj() != null ) {
-				cli = getFachadaPDV().consultarClienteTransacaoPorID(cliente.getCpfCnpj().replace(".", "").replace("/", "").replace("-", ""));
-			}
+//			ClienteTransacao cli = null;
+//			if (cliente != null && cliente.getCpfCnpj() != null ) {
+//				cli = getFachadaPDV().consultarClienteTransacaoPorID(cliente.getCpfCnpj().replace(".", "").replace("/", "").replace("-", ""));
+//			}
 			Iterator<EventoOperacaoItemRegistrado> it = collItensPedido.iterator();
 			while(it.hasNext()) {
 				EventoOperacaoItemRegistrado evento = it.next();
