@@ -68,7 +68,11 @@ public class OpAvConsultaQuantidadeProduto extends Mic{
 				gerenciadorPerifericos.getDisplay().setMensagem("Digite a Quantidade");
 				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 4);
 				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
-					quantidade = new BigDecimal(entrada.getDado());
+					try {
+						quantidade = new BigDecimal(entrada.getDado());	
+					} catch (Exception e) {
+						return ALTERNATIVA_2;
+					}
 				}else{
 					return ALTERNATIVA_2;
 				}

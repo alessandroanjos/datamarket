@@ -6507,6 +6507,23 @@ public class Fachada {
 						RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();						
 					}
 				}
+			} else if (operacao instanceof OperacaoPedido){
+				OperacaoPedido operacaoPedido = (OperacaoPedido) operacao;
+				if (operacaoPedido.getCliente() != null){
+					try{
+						RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+						ClienteTransacao cliente = getCadastroTransacao().consultarClienteTransacaoPorID(operacaoPedido.getCliente().getCpfCnpj());
+						if (cliente == null){
+							getCadastroTransacao().inserirCliente(operacaoPedido.getCliente());
+						}else{
+							RepositoryManagerHibernateUtil.getInstancia().currentSession().clear();
+							getCadastroTransacao().atualizarCliente(operacaoPedido.getCliente());
+						}
+						RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+					}catch(Exception e){		
+						RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();						
+					}
+				}
 			}
 			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getCadastroOperacao().inserirES(operacao);

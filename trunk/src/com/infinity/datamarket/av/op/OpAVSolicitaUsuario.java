@@ -34,35 +34,35 @@ public class OpAVSolicitaUsuario extends Mic{
 				return ALTERNATIVA_2;
 			}
 			Usuario usu = null;
-			try{
-				MacroOperacao mo =(MacroOperacao) gerenciadorPerifericos.getCmos().ler(CMOS.MACRO_ATUAL);
-				usu = getFachadaPDV().consultarUsuarioPorId_IdMacro(new Long(idUsu), mo.getId());
-			}catch(ObjectNotFoundException ex){
-				gerenciadorPerifericos.getDisplay().setMensagem("Usuário Inválido");
-				try{
-					gerenciadorPerifericos.esperaVolta();
-					return ALTERNATIVA_2;
-				}catch(AppException e){
-
-				}
-			}catch(AutorizacaoRecusadaException ex){
-				gerenciadorPerifericos.getDisplay().setMensagem("Autorização Recusada");
-				try{
-					gerenciadorPerifericos.esperaVolta();
-					return ALTERNATIVA_2;
-				}catch(AppException e){
-
-				}
-			}
-			if (usu == null){
-				gerenciadorPerifericos.getDisplay().setMensagem("Usuário Inválido");
-				try{
-					gerenciadorPerifericos.esperaVolta();
-					return ALTERNATIVA_2;
-				}catch(AppException ex){
-
-				}
-			}
+//			try{
+//				MacroOperacao mo =(MacroOperacao) gerenciadorPerifericos.getCmos().ler(CMOS.MACRO_ATUAL);
+//				usu = getFachadaPDV().consultarUsuarioPorId_IdMacro(new Long(idUsu), mo.getId());
+//			}catch(ObjectNotFoundException ex){
+//				gerenciadorPerifericos.getDisplay().setMensagem("Usuário Inválido");
+//				try{
+//					gerenciadorPerifericos.esperaVolta();
+//					return ALTERNATIVA_2;
+//				}catch(AppException e){
+//
+//				}
+//			}catch(AutorizacaoRecusadaException ex){
+//				gerenciadorPerifericos.getDisplay().setMensagem("Autorização Recusada");
+//				try{
+//					gerenciadorPerifericos.esperaVolta();
+//					return ALTERNATIVA_2;
+//				}catch(AppException e){
+//
+//				}
+//			}
+//			if (usu == null){
+//				gerenciadorPerifericos.getDisplay().setMensagem("Usuário Inválido");
+//				try{
+//					gerenciadorPerifericos.esperaVolta();
+//					return ALTERNATIVA_2;
+//				}catch(AppException ex){
+//
+//				}
+//			}
 
 			gerenciadorPerifericos.getDisplay().setMensagem("Senha Usuário");
 			entrada = gerenciadorPerifericos.lerDados(new int[]{10,27},Display.MASCARA_PASSWORD, 6);
@@ -86,7 +86,8 @@ public class OpAVSolicitaUsuario extends Mic{
 			TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 			tela.setCampoUsuario(usu.getNome());
 			gerenciadorPerifericos.atualizaTela(tela);
-			
+
+			gerenciadorPerifericos.getCmos().gravar(CMOS.AUTORIZADOR_ATUAL, usu);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.USUARIO_ATUAL, usu);
 			gerenciadorPerifericos.getDisplay().setUsuario(usu.getNome());
 		}catch (ObjectNotFoundException e){

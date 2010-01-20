@@ -9,6 +9,7 @@ public class OpAVEncerraSeparacao extends OpAVEncerraPedido {
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
+		super.exec(gerenciadorPerifericos, param);
 //		gerenciadorPerifericos.getDisplay().setMensagem("Separacao Concluida [Enter]");
 //		try {
 //			gerenciadorPerifericos.esperaEntra();
