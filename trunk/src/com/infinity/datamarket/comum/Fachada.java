@@ -673,7 +673,10 @@ public class Fachada {
 	public Parametro consultarParametro(String chave) throws AppException{
 		return getConcentradorParametro().getParametro(chave);		
 	}
-
+	
+	public void atualizarParametro(Parametro parametro) throws AppException{
+		 getConcentradorParametro().atualizarParametro(parametro);		
+	}
 	
 	public Collection<Parametro> consultarTodosParametro() throws AppException{
 		Collection<Parametro> coll = null;
@@ -7689,5 +7692,4 @@ public class Fachada {
 		}
 		return l;
 	}
-
 }

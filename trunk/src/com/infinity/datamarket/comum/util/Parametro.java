@@ -9,6 +9,16 @@ public class Parametro implements Serializable{
 	private static final long serialVersionUID = -8560952991356845725L;
 	private String chave;
 	private String valor;
+	
+	public Parametro () {
+		
+	}
+	
+	public Parametro (String chave, String valor) {
+		this.chave = chave;
+		this.valor = valor;
+	}
+
 	public String getChave() {
 		return chave;
 	}

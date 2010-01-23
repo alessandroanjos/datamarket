@@ -17,6 +17,7 @@ import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.ListaEventos;
 import com.infinity.datamarket.comum.util.SistemaException;
+import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.acumulador.AcumuladorNaoFiscal;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOSArquivo;
@@ -81,7 +82,9 @@ public class GerenciadorPerifericos implements Serializable{
         ResourceBundle rb = ResourceBundle.getBundle(PERIFERICOS);
         String strWindow = rb.getString(WINDOW);
         window = carregaWindow(strWindow);
-        String strArquivoCmos = rb.getString(ARQUIVO_CMOS);
+        String strArquivoCmos = Util.getDirCorrente() + "/cmos.dat";
+        System.out.println("TOSCK  " + strArquivoCmos);
+//        String strArquivoCmos = rb.getString(ARQUIVO_CMOS);
         String strCmos = rb.getString(CMOS_CLASSE);
         cmos = (CMOS) getInstanciaClasse(strCmos);
         cmos.setArquivo(strArquivoCmos);

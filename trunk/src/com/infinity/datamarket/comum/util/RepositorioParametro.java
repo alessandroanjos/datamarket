@@ -33,4 +33,8 @@ public class RepositorioParametro extends Repositorio implements IRepositorioPar
 		
 	}
 
+	
+	public void inserirParametro(Parametro parametro) throws AppException{
+		insert(parametro);
+	}
 }

@@ -1,15 +1,12 @@
 package com.infinity.datamarket.pdv;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Properties;
 
 import com.infinity.datamarket.comum.Fachada;
-
 import com.infinity.datamarket.comum.componente.Componente;
-
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
+import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
@@ -35,6 +32,9 @@ public class StartUpPDV {
 		RepositoryManagerHibernateUtil.arquivoHibernate = RepositoryManagerHibernateUtil.HIBERNATE_PDV;
 		RepositoryManagerHibernateUtil.properties = propreties;
 		RepositoryManagerHibernateUtil.getInstancia().currentSession();
+
+		Fachada.getInstancia().atualizarParametro(new Parametro("DIR_PADRAO_RECIBOS", Util.getDirCorrente()));
+
 		GerenciadorPerifericos ger = GerenciadorPerifericos.getInstancia();
 //		ti.jProgressBar1.setValue(50);
 		Estado est = new Estado();
