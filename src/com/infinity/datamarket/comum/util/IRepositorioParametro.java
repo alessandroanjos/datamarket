@@ -6,4 +6,6 @@ public interface IRepositorioParametro extends IRepositorio{
 	public Parametro getParametro(String chave) throws AppException;
 	public Collection<Parametro> consultarTodosParametro() throws AppException;
 	public void atualizarParametro(Parametro parametro) throws AppException;
+	public void inserirParametro(Parametro parametro) throws AppException;
+
 }

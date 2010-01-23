@@ -65,10 +65,38 @@ public class ConcentradorParametro extends Cadastro{
 	}
 
 	public void atualizarParametro(Parametro parametro) {
-		
+
+		Parametro p = getParametro(parametro.getChave());
+		if (p == null ) {
+			inserirParametro(parametro);
+		}
+
 		try{
 			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
 			getRepositorio().atualizarParametro(parametro);
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}	
+	}
+	
+
+	public void inserirParametro(Parametro parametro) {
+		
+		try{
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+			getRepositorio().inserirParametro(parametro);
 			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{

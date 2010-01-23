@@ -6,6 +6,7 @@ import java.io.Serializable;
 import javax.swing.JPanel;
 
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
+import com.infinity.datamarket.comum.util.Util;
 
 public class Tela implements Serializable{
 	/**
@@ -28,14 +29,15 @@ public class Tela implements Serializable{
 
 	static{
 
-		LOGO_CLIENTE = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOGO_CLIENTE).getValor();
+		LOGO_CLIENTE = Util.getDirCorrente() + "/logo.png";
+		//ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOGO_CLIENTE).getValor();
 
 	}
 	public static final String LOGO_CLIENTE;
 	
 	static{
 
-		LOGO_INFINITY = "c:\\pdv\\logo_infinity.jpg";
+		LOGO_INFINITY = Util.getDirCorrente() + "/logo_infinity.jpg";
 
 	}
 	public static final String LOGO_INFINITY;
