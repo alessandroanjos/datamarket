@@ -148,7 +148,6 @@
     <tecla codigo="TECLA25" descricao="H" codigoASCI="72" />
     <tecla codigo="TECLA26" descricao="J" codigoASCI="74" />
     <tecla codigo="TECLA26" descricao="A" codigoASCI="65" />
-    
   </listaTecla>
   <listaMacroOperacao>
    <macroOperacao tipoComponente="1" estadoAtual="ESTADO3" proximoEstado="ESTADO3" tecla="TECLA26" codigoMicroOperacaoAssociada="subFluxo1" id="39" descricao="Solicita Carga Base">
