@@ -31,7 +31,7 @@ public class OpEntradaAutorizador extends Mic{
 			Usuario usu = null;
 			try{
 				MacroOperacao mo =(MacroOperacao) gerenciadorPerifericos.getCmos().ler(CMOS.MACRO_ATUAL);
-				usu = getFachadaPDV().consultarUsuarioPorId_IdMacro(new Long(idUsu), mo.getId());
+				usu = getFachadaPDV().consultarUsuarioPorId_IdMacro(new Long(idUsu), mo.getId(), com.infinity.datamarket.pdv.maquinaestados.MacroOperacao.TIPO_COMPONENTE_PDV);
 			}catch(ObjectNotFoundException ex){
 				gerenciadorPerifericos.getDisplay().setMensagem("Autorizador Inválido");
 				try{
