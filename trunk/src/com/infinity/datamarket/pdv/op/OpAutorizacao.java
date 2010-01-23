@@ -22,13 +22,11 @@ public class OpAutorizacao extends Mic{
 			Usuario usuario =(Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.OPERADOR_ATUAL);
 			try{
 				MacroOperacao mo =(MacroOperacao) gerenciadorPerifericos.getCmos().ler(CMOS.MACRO_ATUAL);
-				getFachadaPDV().consultarUsuarioPorId_IdMacro(usuario.getId(), mo.getId());
+				getFachadaPDV().consultarUsuarioPorId_IdMacro(usuario.getId(), mo.getId(), com.infinity.datamarket.pdv.maquinaestados.MacroOperacao.TIPO_COMPONENTE_PDV);
 				return ALTERNATIVA_1;
 			}catch(Exception ex){
 				
 			}
-			
-			
 			
 			gerenciadorPerifericos.getDisplay().setMensagem("ID Usuário");
 			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
@@ -42,7 +40,7 @@ public class OpAutorizacao extends Mic{
 			Usuario usu = null;
 			try{
 				MacroOperacao mo =(MacroOperacao) gerenciadorPerifericos.getCmos().ler(CMOS.MACRO_ATUAL);
-				usu = getFachadaPDV().consultarUsuarioPorId_IdMacro(new Long(idUsu), mo.getId());
+				usu = getFachadaPDV().consultarUsuarioPorId_IdMacro(new Long(idUsu), mo.getId(), com.infinity.datamarket.pdv.maquinaestados.MacroOperacao.TIPO_COMPONENTE_PDV);
 			}catch(ObjectNotFoundException ex){
 				gerenciadorPerifericos.getDisplay().setMensagem("Usuário Inválido");
 				try{

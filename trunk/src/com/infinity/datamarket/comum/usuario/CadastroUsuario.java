@@ -56,20 +56,20 @@ public class CadastroUsuario extends Cadastro{
 		getRepositorio().excluir(usuario);
 	}
 
-	public Usuario consultarPorId_IdMacro(Long id,Long idMacro) throws AppException{
+	public Usuario consultarPorId_IdMacro(Long id,Long idMacro, int tipoComponente) throws AppException{
 		Usuario usu = (Usuario) getRepositorio().consultarPorId(id);
-		if (verificaAutorizacao(usu, idMacro)){
+		if (verificaAutorizacao(usu, idMacro, tipoComponente)){
 			return usu;
 		}else{
 			throw new AutorizacaoRecusadaException("Autorizacao Recusada");
 		}
 	}
 
-	private boolean verificaAutorizacao(Usuario usu, Long idMacro){
+	private boolean verificaAutorizacao(Usuario usu, Long idMacro, int tipoComponente){
 		Iterator i = usu.getPerfil().getOperacoes().iterator();
 		while(i.hasNext()){
 			MacroOperacao mo = (MacroOperacao) i.next();
-			if (idMacro.equals(mo.getId())){
+			if (idMacro.equals(mo.getId()) && tipoComponente == mo.getTipoComponente()){
 				return true;
 			}
 		}

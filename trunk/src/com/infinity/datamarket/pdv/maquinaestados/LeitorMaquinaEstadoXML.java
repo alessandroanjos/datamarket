@@ -178,6 +178,8 @@ public class LeitorMaquinaEstadoXML {
 			if (!CONST_listaMacroOperacao.equals(nomeListaMacroOperacao)) {
 				throw new Exception("Erro ao dar o parse no xml de fluxos");
 			}
+			Map idMacro = new HashMap();
+			
 			NodeList todasMacroOperacoes = listaMacroOperacao.getChildNodes();
 			for (int i = 0; i < todasMacroOperacoes.getLength(); i++) {
 				if (todasMacroOperacoes.item(i) instanceof DeferredElementImpl) {
@@ -193,16 +195,17 @@ public class LeitorMaquinaEstadoXML {
 					String codigoTecla = atributosMacroOperacao.getNamedItem("tecla").getNodeValue();
 					String codigoFluxo = atributosMacroOperacao.getNamedItem("codigoMicroOperacaoAssociada").getNodeValue();
 					String descricao = atributosMacroOperacao.getNamedItem("descricao").getNodeValue();
+					if(atributosMacroOperacao.getNamedItem("id") == null) {
+						throw new Exception("Não Existe id do macro " + descricao);
+					}
+					String id = atributosMacroOperacao.getNamedItem("id").getNodeValue();
+					String tipoComponente = atributosMacroOperacao.getNamedItem("tipoComponente").getNodeValue();
 
-					//System.out.print(codigoEstadoAtual);
-					//System.out.print(" ");
-					//System.out.print(codigoProximoEstado);
-					//System.out.print(" ");
-					//System.out.print(codigoTecla);
-					//System.out.print(" ");
-					//System.out.print(codigoFluxo);
-					//System.out.print(" ");
-					//System.out.println(descricao);
+					if (idMacro.containsKey(new Integer(id))) {
+						String desc = (String)idMacro.get(new Integer(id));
+						throw new Exception("Os macros " + desc + " e o " + descricao + " estão utilizando o mesmo id " + id );
+					}
+					idMacro.put(new Integer(id), descricao);
 
 					if (mapEstado.get(codigoEstadoAtual) == null) {
 						throw new Exception("Não Existe o estado " + codigoEstadoAtual);
@@ -213,9 +216,6 @@ public class LeitorMaquinaEstadoXML {
 					if (mapTecla.get(codigoTecla) == null) {
 						throw new Exception("Não Existe a tecla " + codigoTecla);
 					}
-//					if (mapMicOperacao.get(codigoMicroOperacaoInicial) == null) {
-					//						throw new Exception("Não Existe a operacao " + codigoMicroOperacaoInicial);
-					//}
 					Tecla tecla = (Tecla)mapTecla.get(codigoTecla);
 					Estado estadoAtual = (Estado)mapEstado.get(codigoEstadoAtual);
 					estadoAtual.getFinalizadoras().add(tecla);
@@ -228,7 +228,8 @@ public class LeitorMaquinaEstadoXML {
 					MacroOperacao obj = new MacroOperacao();
 					obj.setDescricao(descricao);
 					obj.setEstadoAtual(estadoAtual);
-					obj.setId(new Long(mapMacroOperacao.size() + 1));
+					obj.setId(new Long(id));
+					obj.setTipoComponente(Integer.parseInt(tipoComponente));
 					obj.setMicroOperacaoInicial(operacaoAssociada);
 					obj.setProximoEstado(proximoEstado);
 					obj.setTecla(tecla);

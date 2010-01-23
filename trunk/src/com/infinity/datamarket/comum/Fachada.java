@@ -798,11 +798,11 @@ public class Fachada {
 		return c;
 	}
 
-	public Usuario consultarUsuarioPorId_IdMacro(Long id,Long idMacro) throws AppException{
+	public Usuario consultarUsuarioPorId_IdMacro(Long id,Long idMacro, int tipoComponente) throws AppException{
 		Usuario usu = null;
 		try{
 			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
-			usu = getCadastroUsuario().consultarPorId_IdMacro(id, idMacro);
+			usu = getCadastroUsuario().consultarPorId_IdMacro(id, idMacro, tipoComponente);
 			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
 		}catch(AppException e){
 			try{

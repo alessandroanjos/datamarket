@@ -2,21 +2,30 @@ package com.infinity.datamarket.pdv.maquinaestados;
 
 import java.util.Set;
 
+import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class MacroOperacao extends Persistente{
-	
-	/**
-	 * 
-	 */
+
+
+	public static int TIPO_COMPONENTE_PDV = Componente.TIPO_COMPONENTE_PDV;
+	public static int TIPO_COMPONENTE_AV = Componente.TIPO_COMPONENTE_AV;
+
 	private static final long serialVersionUID = 3360926495862268571L;
 	private String descricao;
+	int tipoComponente = TIPO_COMPONENTE_PDV;
+
 	private Tecla tecla;
 	private Estado estadoAtual;
 	private Estado proximoEstado;
 	private MicroOperacaoAssociada microOperacaoInicial;
-	
 
+	public int getTipoComponente() {
+		return tipoComponente;
+	}
+	public void setTipoComponente(int tipoComponente) {
+		this.tipoComponente = tipoComponente;
+	}
 	/**
 	 * @return the descricao
 	 */

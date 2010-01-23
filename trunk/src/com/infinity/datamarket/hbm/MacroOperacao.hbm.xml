@@ -18,11 +18,14 @@
             <generator class="assigned">
             </generator>
         </id>
-        
+
+
         <property name="descricao" type="java.lang.String" update="true" insert="true">
             <column name="DESCRICAO" length="50" not-null="true"/>
         </property>
 
+        <property name="tipoComponente" type="int" update="true" insert="true">
+            <column name="TIPO_COMPONENTE" length="1" not-null="true"/>
+        </property>
     </class>
-
 </hibernate-mapping>
