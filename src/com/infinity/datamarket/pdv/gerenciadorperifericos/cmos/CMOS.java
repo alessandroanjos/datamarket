@@ -7,6 +7,7 @@ public interface CMOS {
 	public static final String CLIENTE_AV = "CLIENTE_AV";
 	public static final String TELA_ATUAL = "TELA_ATUAL";
 	public static final String ESTADO_ATUAL = "ESTADO_ATUAL";
+	public static final String OPCOES_TECLA_MACRO = "OPCOES_TECLA_MACRO";
 	public static final String MACRO_ATUAL = "MACRO_ATUAL";
 	public static final String USUARIO_ATUAL = "USUARIO_ATUAL";
 	public static final String PRODUTO_ATUAL = "PRODUTO_ATUAL";

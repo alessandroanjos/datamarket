@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -103,6 +104,9 @@ public class LeitorMaquinaEstadoXML {
 			if (!CONST_listaEstado.equals(nomeListaEstado)) {
 				throw new Exception("Erro ao dar o parse no xml de fluxos");
 			}
+
+			Map estadoTeclaMenu = new HashMap();
+			
 			NodeList todasEstados = listaEstado.getChildNodes();
 			for (int i = 0; i < todasEstados.getLength(); i++) {
 				if (todasEstados.item(i) instanceof DeferredElementImpl) {
@@ -113,17 +117,21 @@ public class LeitorMaquinaEstadoXML {
 					}
 
 					NamedNodeMap atributosEstados = estado.getAttributes();
+					String codigoTeclaMenu = null;
+						
+
+					try {
+						codigoTeclaMenu = atributosEstados.getNamedItem("teclaMenu").getNodeValue();	
+					} catch (Exception e) { }
+
 					String codigo = atributosEstados.getNamedItem("codigo").getNodeValue();
 					String descricao = atributosEstados.getNamedItem("descricao").getNodeValue();
 					String inputType = atributosEstados.getNamedItem("inputType").getNodeValue();
 					String inputSize = atributosEstados.getNamedItem("inputSize").getNodeValue();
-					//System.out.print(codigo);
-					//System.out.print(" ");
-					//System.out.print(descricao);
-					//System.out.print(" ");
-					//System.out.print(inputType);
-					//System.out.print(" ");
-					//System.out.println(inputSize);
+
+					if (codigoTeclaMenu != null) {
+						estadoTeclaMenu.put(new Long(mapEstado.size() + 1),codigoTeclaMenu);
+					}
 
 					Estado obj = new Estado();
 					obj.setId(new Long(mapEstado.size() + 1));
@@ -157,13 +165,8 @@ public class LeitorMaquinaEstadoXML {
 					String descricao = atributosTeclas.getNamedItem("descricao").getNodeValue();
 					String codigoASCI = atributosTeclas.getNamedItem("codigoASCI").getNodeValue();
 
-					//System.out.print(codigo);
-					//System.out.print(" ");
-					//System.out.print(descricao);
-					//System.out.print(" ");
-					//System.out.println(codigoASCI);
-					
 					Tecla obj = new Tecla();
+					obj.setDescricao(descricao);
 					obj.setId(new Long(mapTecla.size() + 1));
 					obj.setCodigoASCI(Integer.parseInt(codigoASCI));
 
@@ -173,6 +176,24 @@ public class LeitorMaquinaEstadoXML {
 					mapTecla.put(codigo, obj);
 				}
 			}
+	
+			// adicionado a tecla de menu ao estado
+			Iterator it = mapEstado.values().iterator();
+			while(it.hasNext()){
+				Estado estado = (Estado)it.next();
+				if (estadoTeclaMenu.containsKey(estado.getId())) {
+					String codigoTeclado = (String)estadoTeclaMenu.get(estado.getId());
+					if (codigoTeclado != null) {
+						Tecla t = (Tecla)mapTecla.get(codigoTeclado);
+						if (t != null) {
+							estado.setTeclaMenu(t);
+						} else {
+							throw new Exception("Não existe a tecla " + codigoTeclado + " para o menu do estado " + estado.getDescricao());
+						}
+					}
+				}
+			}
+			
 			Node listaMacroOperacao = nodeList.item(7);
 			String nomeListaMacroOperacao = listaMacroOperacao.getNodeName();
 			if (!CONST_listaMacroOperacao.equals(nomeListaMacroOperacao)) {

@@ -15,7 +15,8 @@ public class Estado extends Persistente{
 	private int inputType;
 	private int inputSize;
 	private Collection finalizadoras;
-
+	private Tecla teclaMenu;
+	
 	public static final Long FECHADO_PDV = new Long(1);
 	public static final Long FECHADO_PARCIAL_PDV = new Long(2);
 	public static final Long DISPONIVEL_PDV = new Long(3);
@@ -69,13 +70,27 @@ public class Estado extends Persistente{
 	}
 
 	public int[] getFinalizadorasArray(){
+		
+		
 		Collection c = getFinalizadoras();
 		int[] retorno = new int[c.size()];
+		if (getTeclaMenu() != null) {
+			retorno = new int[c.size() +1];
+			retorno[c.size()] = getTeclaMenu().getCodigoASCI();
+		}
 		Iterator itera = c.iterator();
 		for(int i = 0; itera.hasNext(); i++){
 			retorno[i] = ((Tecla) itera.next()).getCodigoASCI();
 		}
 		return retorno;
+	}
+
+	public Tecla getTeclaMenu() {
+		return teclaMenu;
+	}
+
+	public void setTeclaMenu(Tecla teclaMenu) {
+		this.teclaMenu = teclaMenu;
 	}
 
 

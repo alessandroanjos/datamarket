@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Map;
 
 import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
 import com.infinity.datamarket.av.op.OpAVIniciaAV;
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.componente.Componente;
+import com.infinity.datamarket.comum.operacao.OperacaoPedido;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.usuario.Loja;
@@ -20,11 +22,13 @@ import com.infinity.datamarket.infocomponent.InfoComponent;
 import com.infinity.datamarket.infocomponent.InfoComponentPK;
 import com.infinity.datamarket.pdv.cargabase.ThreadVerificaCargaBase;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOSArquivo;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.gui.telas.Tela;
+import com.infinity.datamarket.pdv.gui.telas.swing.ExibeMenuFrame;
 import com.infinity.datamarket.pdv.infocomponent.ThreadEnviaInfoComponent;
 import com.infinity.datamarket.pdv.lote.ThreadVerificaNovoLote;
 import com.infinity.datamarket.pdv.op.OpSolicitaCargaBase;
@@ -172,64 +176,65 @@ public class Maquina implements Serializable{
                     	param = new ParametroMacroOperacao(e.getParam());
                     }
                 }else{
-//                    entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
                     entrada = gerenciadorPerifericos.lerDados(null,Display.MASCARA_NUMERICA, 0);                    
                 }
                 synchronized (OpSolicitaCargaBase.SINCRONIZADOR) {
-//                  System.out.println("Maquina.ThreadProcessaMacro.run: 1");
                     PropertyFilter filtro = new PropertyFilter();
-//                    System.out.println("Maquina.ThreadProcessaMacro.run: 2");
                     filtro.setTheClass(MacroOperacao.class);
-//                    System.out.println("Maquina.ThreadProcessaMacro.run: 3");
                     filtro.addProperty("tecla.codigoASCI", new Integer(entrada.getTeclaFinalizadora()));
-//                    System.out.println("Maquina.ThreadProcessaMacro.run: 4");
                     filtro.addProperty("estadoAtual.id", this.estAtual.getId());
-//                    System.out.println("Maquina.ThreadProcessaMacro.run: 5");
                     MacroOperacao macroOperacao = getConcentradorMaquina().consultaMacroOperacao(filtro);
-//                    System.out.println("Maquina.ThreadProcessaMacro.run: 6");
                     if (macroOperacao != null) {
                     	System.out.println("Maquina.ThreadProcessaMacro.run: macroOperacao: "+macroOperacao.getId() + " ## " + macroOperacao.getDescricao()  );
                     
                     } else {
                     	System.out.println("Maquina.ThreadProcessaMacro.run: macroOperacao: null" );
-                        
+                    }
+                    
+                    if (macroOperacao == null) {
+	                    if (this.estAtual != null && this.estAtual.getTeclaMenu() != null && this.estAtual.getTeclaMenu().getCodigoASCI() == entrada.getTeclaFinalizadora()) {
+	
+	                        Map<Tecla, MacroOperacao> teclaMacro = getConcentradorMaquina().getDescTeclasDescMacro(this.estAtual.getId());
+	
+	        				if (teclaMacro != null) {
+	        			        ExibeMenuFrame c = new ExibeMenuFrame(gerenciadorPerifericos.getWindow().getFrame(),teclaMacro);
+	        			
+	        			    	c.setSize(800, 530);
+	        			    	c.play();
+	        			    	
+	        			    	if (c.getRetornoTela() == c.BUTTON_OK){
+	        			    		macroOperacao= c.getValor();
+	        			    	}
+	        				}
+	                    }
                     }
                     
                     if (macroOperacao != null){
                         gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.MACRO_ATUAL, macroOperacao);
-//                        System.out.println("Maquina.ThreadProcessaMacro.run: 7");
                         MicroOperacaoAssociada mic = macroOperacao.getMicroOperacaoInicial();
-//                        System.out.println("Maquina.ThreadProcessaMacro.run: 8");
                         int alternativa = processaMicroOperacao(mic,param);
-//                        System.out.println("Maquina.ThreadProcessaMacro.run: 9");
                         System.out.println("Maquina.ThreadProcessaMacro.run: alternativa: "+alternativa);
                         if (alternativa == Mic.ALTERNATIVA_1){
                             estAtual = macroOperacao.getProximoEstado();
                             estadoAtual = this.estAtual;
                             gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL, estAtual);
+                            Map<Tecla, MacroOperacao> teclaMacro = getConcentradorMaquina().getDescTeclasDescMacro(estadoAtual.getId());
+
+                            System.out.println("##### OPCOES DE TECLA " + teclaMacro);
+                            gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.OPCOES_TECLA_MACRO, teclaMacro);
                         }
-                    }
-//                    System.out.println("Maquina.ThreadProcessaMacro.run: 10");
+                    } 
+                    
                     InfoComponentPK pk = new InfoComponentPK();
-//                    System.out.println("Maquina.ThreadProcessaMacro.run: 11");
         			pk.setComponente(gerenciadorPerifericos.getCodigoComponente()+"");
-//        			System.out.println("Maquina.ThreadProcessaMacro.run: 12");
         			pk.setLoja(gerenciadorPerifericos.getCodigoLoja()+"");
-//        			System.out.println("Maquina.ThreadProcessaMacro.run: 13");
         			InfoComponent info = new InfoComponent();
-//        			System.out.println("Maquina.ThreadProcessaMacro.run: 14");
         			info.setPk(pk);
-//        			System.out.println("Maquina.ThreadProcessaMacro.run: 15");
         			info.setLote(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValor());
-//        			System.out.println("Maquina.ThreadProcessaMacro.run: 16");
         			info.setVersao(ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.VERSAO).getValor());
-//        			System.out.println("Maquina.ThreadProcessaMacro.run: 17");
         			info.setEstado(estadoAtual.getDescricao());
-//        			System.out.println("Maquina.ThreadProcessaMacro.run: 18");
                     ThreadEnviaInfoComponent t2 = new ThreadEnviaInfoComponent(info);
-//                    System.out.println("Maquina.ThreadProcessaMacro.run: 19");
             		t2.start();
-//            		System.out.println("Maquina.ThreadProcessaMacro.run: 20");
 
 //            		System.out.println("Maquina.ThreadProcessaMacro.run: estadoAtual: "+estadoAtual.getId());
 //            		if (estadoAtual.getId().equals(Estado.DISPONIVEL)){

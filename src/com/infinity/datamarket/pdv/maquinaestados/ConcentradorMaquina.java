@@ -2,6 +2,7 @@ package com.infinity.datamarket.pdv.maquinaestados;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Map;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
@@ -56,6 +57,15 @@ public class ConcentradorMaquina extends Cadastro implements ControladorMaquinaE
 		}
 	}
 */
+	
+	public Map<Tecla, MacroOperacao> getDescTeclasDescMacro(Long idEstadoAtual) throws AppException{
+		return null;
+	}
+
+	public Estado getEstado(Long id) throws AppException{
+		return null;
+	}
+
 	public Tecla consultaTeclaPorId(Long id) throws AppException{
 		Tecla tecla = null;
 

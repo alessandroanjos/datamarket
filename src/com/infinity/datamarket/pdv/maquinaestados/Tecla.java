@@ -12,6 +12,7 @@ public class Tecla extends Persistente{
 	public static final int CODIGO_VOLTA = 27;
 
 	private int codigoASCI;
+	private String descricao;
 
 	public int getCodigoASCI() {
 		return codigoASCI;
@@ -21,6 +22,14 @@ public class Tecla extends Persistente{
 		this.codigoASCI = codigoASCI;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	public boolean equals(Object o){
 		if (o instanceof Tecla){
 			Tecla tecla = (Tecla) o;
@@ -28,5 +37,9 @@ public class Tecla extends Persistente{
 		}else{
 			return false;
 		}
+	}
+	
+	public String toString() {
+		return descricao;
 	}
 }

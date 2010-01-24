@@ -43,15 +43,18 @@
     <operacao id="OpAVConcluirSeparacao" classe="com.infinity.datamarket.av.op.OpAVConcluirSeparacao"/>
     <operacao id="OpAvSolicitaDesconto" classe="com.infinity.datamarket.av.op.OpAvSolicitaDesconto"/>
     <operacao id="OpAvSolicitaConsultaProdutoDesconto" classe="com.infinity.datamarket.av.op.OpAvSolicitaConsultaProdutoDesconto"/>
-    
+    <operacao id="OpAvAutorizacao" classe="com.infinity.datamarket.av.op.OpAvAutorizacao"/>
+    <operacao id="OpAvExibeMenu" classe="com.infinity.datamarket.av.op.OpAvExibeMenu"/>
+
   </listaMicroperacao>
 
   <listaEstado>
-    <estado codigo="Fechado" descricao="Av Fechado [ENTER]" inputType="0" inputSize="0"/>
-    <estado codigo="Aberto" descricao="Digite Operacao [1-P;2-D]" inputType="0" inputSize="0"/>
-    <estado codigo="Pedido" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
-    <estado codigo="Separacao" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
-    <estado codigo="Devolucao" descricao="Devolucao" inputType="3" inputSize="1"/>
+    <estado teclaMenu="K" codigo="Fechado" descricao="Av Fechado [ENTER]" inputType="0" inputSize="0"/>
+    <estado teclaMenu="K" codigo="Aberto" descricao="Digite Operacao [1-P;2-D]" inputType="0" inputSize="0"/>
+    <estado teclaMenu="K" codigo="Pedido" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
+    <estado teclaMenu="K" codigo="Separacao" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
+    <estado teclaMenu="K" codigo="Devolucao" descricao="Devolucao" inputType="3" inputSize="1"/>
+    <estado teclaMenu="K" codigo="ESTADO7" descricao="A Receber" inputType="1" inputSize="10"/>
   </listaEstado>
 
   <listaTecla>
@@ -63,8 +66,11 @@
     <tecla codigo="TECLA4" descricao="ESPACO" codigoASCI="32" />
     <tecla codigo="ESC" descricao="ESC" codigoASCI="27" />
     <tecla codigo="S" descricao="S" codigoASCI="83" />
+    <tecla codigo="K" descricao="K" codigoASCI="75" />
   </listaTecla>
   <listaMacroOperacao>
+
+
 	<macroOperacao tipoComponente="2" estadoAtual="Fechado" proximoEstado="Fechado" tecla="S" codigoMicroOperacaoAssociada="subFluxo1" id="101" descricao="Saida Sistema Fechado">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvSaidaSistema">
  	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
@@ -134,8 +140,11 @@
       </microOperacaoAssociada>
     </macroOperacao>
 
-
-    <macroOperacao tipoComponente="2" estadoAtual="Aberto" proximoEstado="Pedido" tecla="P" codigoMicroOperacaoAssociada="subFluxo1" id="109" descricao="Pedido">
+    <macroOperacao tipoComponente="2" estadoAtual="Aberto" proximoEstado="Pedido" tecla="P" codigoMicroOperacaoAssociada="subFluxo0" id="109" descricao="Pedido">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo0" operacao="OpAvAutorizacao">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo1" />
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVIniciaPedido">
  	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
  	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
@@ -143,6 +152,9 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAVSolicitaCliente">
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVEncerraPedido">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="saidaDois" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="saidaDois" operacao="OpAvSaidaDois">
       </microOperacaoAssociada>
     </macroOperacao>
 
@@ -161,7 +173,12 @@
       </microOperacaoAssociada>
     </macroOperacao>
     
-    <macroOperacao tipoComponente="2" estadoAtual="Pedido" proximoEstado="Pedido" tecla="D" codigoMicroOperacaoAssociada="subFluxo1" id="111" descricao="Desconto Item">
+    <macroOperacao tipoComponente="2" estadoAtual="Pedido" proximoEstado="Pedido" tecla="D" codigoMicroOperacaoAssociada="subFluxo0" id="111" descricao="Desconto Item">
+          <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo0" operacao="OpAvAutorizacao">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo1" />
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+    
  	<microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvSolicitaConsultaProdutoDesconto">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo11" />
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
@@ -278,7 +295,11 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVEncerraSeparacao">
       </microOperacaoAssociada>
     </macroOperacao>
-    <macroOperacao tipoComponente="2" estadoAtual="Aberto" proximoEstado="Separacao" tecla="E" codigoMicroOperacaoAssociada="subFluxo1" id="116" descricao="Separacao">
+    <macroOperacao tipoComponente="2" estadoAtual="Aberto" proximoEstado="Separacao" tecla="E" codigoMicroOperacaoAssociada="subFluxo0" id="116" descricao="Separacao">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo0" operacao="OpAvAutorizacao">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo1" />
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVIniciaSeparacao">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo310" />
       </microOperacaoAssociada>

@@ -3,7 +3,9 @@ package com.infinity.datamarket.pdv.maquinaestados;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import com.infinity.datamarket.comum.repositorymanager.IPropertyFilter;
 import com.infinity.datamarket.comum.util.AppException;
@@ -36,6 +38,33 @@ public class MaquinaEstado implements ControladorMaquinaEstado, Serializable {
 		}
 
 		return null;
+	}
+	
+	public Map<Tecla, MacroOperacao> getDescTeclasDescMacro(Long idEstadoAtual) throws AppException{
+
+		Map<Tecla, MacroOperacao> descTeclasDescMacro = new HashMap<Tecla, MacroOperacao>();
+		
+		Iterator  it = macroOperacoes.iterator();
+		while(it.hasNext()){
+			MacroOperacao macro = (MacroOperacao)it.next();
+			if (macro.getEstadoAtual().getId().equals(idEstadoAtual)) {
+				descTeclasDescMacro.put(macro.getTecla(), macro);
+			}
+		}
+		
+		return descTeclasDescMacro;
+	}
+
+	public Estado getEstado(Long id) throws AppException{
+		Estado retorno = null;
+		Iterator it = estados.iterator();
+		while(it.hasNext()){
+			Estado estado = (Estado)it.next();
+			if (estado.getId().equals(id)) {
+				retorno = estado;
+			}
+		}
+		return retorno;
 	}
 	
 	public Tecla consultaTeclaPorId(Long id) throws AppException{

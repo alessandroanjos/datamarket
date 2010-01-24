@@ -112,13 +112,13 @@
     <operacao id="OpSolicitaCargaBase" classe="com.infinity.datamarket.pdv.op.OpSolicitaCargaBase"/>  
   </listaMicroperacao>
   <listaEstado>
-    <estado codigo="ESTADO1" descricao="Fechado" inputType="0" inputSize="0"/>
-    <estado codigo="ESTADO2" descricao="Fechado Parcial" inputType="0" inputSize="0"/>
-    <estado codigo="ESTADO3" descricao="Caixa Livre" inputType="0" inputSize="0"/>
-    <estado codigo="ESTADO4" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
-    <estado codigo="ESTADO5" descricao="A Receber" inputType="1" inputSize="10"/>
-    <estado codigo="ESTADO6" descricao="Pausa" inputType="0" inputSize="0"/>
-    <estado codigo="ESTADO7" descricao="A Receber" inputType="1" inputSize="10"/>
+    <estado teclaMenu="K" codigo="ESTADO1" descricao="Fechado" inputType="0" inputSize="0"/>
+    <estado teclaMenu="K" codigo="ESTADO2" descricao="Fechado Parcial" inputType="0" inputSize="0"/>
+    <estado teclaMenu="K" codigo="ESTADO3" descricao="Caixa Livre" inputType="0" inputSize="0"/>
+    <estado teclaMenu="K" codigo="ESTADO4" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
+    <estado teclaMenu="K" codigo="ESTADO5" descricao="A Receber" inputType="1" inputSize="10"/>
+    <estado teclaMenu="K" codigo="ESTADO6" descricao="Pausa" inputType="0" inputSize="0"/>
+    <estado teclaMenu="K" codigo="ESTADO7" descricao="A Receber" inputType="1" inputSize="10"/>
   </listaEstado>
   <listaTecla>
     <tecla codigo="TECLA1" descricao="ENTER" codigoASCI="10" />
@@ -147,6 +147,7 @@
     <tecla codigo="TECLA24" descricao="G" codigoASCI="71" />
     <tecla codigo="TECLA25" descricao="H" codigoASCI="72" />
     <tecla codigo="TECLA26" descricao="J" codigoASCI="74" />
+    <tecla codigo="K" descricao="K" codigoASCI="75" />
     <tecla codigo="TECLA26" descricao="A" codigoASCI="65" />
   </listaTecla>
   <listaMacroOperacao>

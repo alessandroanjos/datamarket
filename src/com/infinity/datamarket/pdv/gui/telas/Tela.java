@@ -5,13 +5,10 @@ import java.io.Serializable;
 
 import javax.swing.JPanel;
 
-import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.Util;
 
-public class Tela implements Serializable{
-	/**
-	 * 
-	 */
+public abstract class Tela implements Serializable{
+
 	private static final long serialVersionUID = -1868225148299818388L;
 	private JPanel painel;
 
