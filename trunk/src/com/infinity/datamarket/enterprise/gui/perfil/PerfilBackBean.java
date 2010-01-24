@@ -21,6 +21,7 @@ import org.apache.myfaces.custom.tree2.TreeNode;
 import org.apache.myfaces.custom.tree2.TreeNodeBase;
 import org.apache.myfaces.custom.tree2.TreeNodeChecked;
 
+import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.funcionalidade.Funcionalidade;
 import com.infinity.datamarket.comum.repositorymanager.ObjectExistentException;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
@@ -643,7 +644,14 @@ public class PerfilBackBean extends BackBean {
 			arrayOperacoesAssociadas = new SelectItem[operacoes.size()];
 			int i = 0;
 			for(MacroOperacao operacoesAssociadasTmp : operacoes){
-				SelectItem item = new SelectItem(operacoesAssociadasTmp.getId().toString(), operacoesAssociadasTmp.getDescricao());
+				String descricao = operacoesAssociadasTmp.getDescricao();
+				if(operacoesAssociadasTmp.getTipoComponente() == Componente.TIPO_COMPONENTE_AV) {
+					descricao = descricao + " - AV ";
+				}
+				if(operacoesAssociadasTmp.getTipoComponente() == Componente.TIPO_COMPONENTE_PDV) {
+					descricao = descricao + " - PDV ";
+				}
+				SelectItem item = new SelectItem(operacoesAssociadasTmp.getId().toString(), descricao);
 				arrayOperacoesAssociadas[i++] = item;
 			}
 		} catch (Exception e) {

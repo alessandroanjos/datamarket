@@ -51,6 +51,37 @@ public class RepositoryManagerHibernate implements IRepositoryManager
 //        return instance;
 //    }
 
+    public Collection findAllOrdenacao(Class _class,String[] ordenacao)
+        throws AppException
+    {
+        Session session = null;
+        List col;
+        try
+        {
+            String ord = "";
+            for (int i = 0; i < ordenacao.length; i++) {
+            	if (ord.equals("")) {
+                	ord = ordenacao[i];
+            	} else {
+                	ord = ord + "," + ordenacao[i];
+            	}
+			} 
+
+            String className = _class.getName();
+            String hql = "from " + className + " order by " + ord;
+            
+            session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
+            Query query = session.createQuery(hql);
+            col = query.list();
+        }
+        catch(HibernateException e)
+        {
+            throw new RepositoryControlerException(e);
+        }
+        return col;
+    }
+
+
     public Collection findAll(Class _class)
         throws AppException
     {

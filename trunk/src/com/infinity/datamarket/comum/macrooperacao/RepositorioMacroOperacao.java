@@ -36,7 +36,8 @@ public class RepositorioMacroOperacao extends Repositorio implements IRepositori
 	}
 	
 	public Collection consultarTodos() throws AppException{
-		return findAll(CLASSE);
+		String[] orde = {"tipo_Componente","id"};
+		return findAllOrdenacao(CLASSE, orde);
 	}
 	
 	public void alterar(MacroOperacao macroOperacao) throws AppException{
