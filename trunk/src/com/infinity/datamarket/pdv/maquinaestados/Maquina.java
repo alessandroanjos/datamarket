@@ -10,7 +10,6 @@ import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
 import com.infinity.datamarket.av.op.OpAVIniciaAV;
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.componente.Componente;
-import com.infinity.datamarket.comum.operacao.OperacaoPedido;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.usuario.Loja;
@@ -195,9 +194,29 @@ public class Maquina implements Serializable{
 	                    if (this.estAtual != null && this.estAtual.getTeclaMenu() != null && this.estAtual.getTeclaMenu().getCodigoASCI() == entrada.getTeclaFinalizadora()) {
 	
 	                        Map<Tecla, MacroOperacao> teclaMacro = getConcentradorMaquina().getDescTeclasDescMacro(this.estAtual.getId());
-	
 	        				if (teclaMacro != null) {
-	        			        ExibeMenuFrame c = new ExibeMenuFrame(gerenciadorPerifericos.getWindow().getFrame(),teclaMacro);
+
+	        			        int idComponente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValorInteiro();
+	        			        Componente componente = Fachada.getInstancia().consultarComponentePorId(new Long(idComponente));
+
+	        					// se tem usuario logado
+	        					// veja quais as macros que ele tem permissao
+	        					Usuario usuario =(Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.OPERADOR_ATUAL);
+	        					if (usuario != null) {
+		        					Iterator it = teclaMacro.keySet().iterator();
+		        					while(it.hasNext()) {
+		        						Tecla tecla = (Tecla)it.next();
+		        						MacroOperacao mo = teclaMacro.get(tecla);
+		        						
+		        						try {
+			        						Fachada.getInstancia().consultarUsuarioPorId_IdMacro(usuario.getId(), mo.getId(), componente.getTipoComponente());
+										} catch (Exception e) {
+											it.remove();
+										}
+		        					}
+	        					}
+	        					
+	        					ExibeMenuFrame c = new ExibeMenuFrame(gerenciadorPerifericos.getWindow().getFrame(),teclaMacro);
 	        			
 	        			    	c.setSize(800, 530);
 	        			    	c.play();
@@ -205,6 +224,8 @@ public class Maquina implements Serializable{
 	        			    	if (c.getRetornoTela() == c.BUTTON_OK){
 	        			    		macroOperacao= c.getValor();
 	        			    	}
+	        			    	
+	        			    	
 	        				}
 	                    }
                     }
@@ -218,10 +239,7 @@ public class Maquina implements Serializable{
                             estAtual = macroOperacao.getProximoEstado();
                             estadoAtual = this.estAtual;
                             gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL, estAtual);
-                            Map<Tecla, MacroOperacao> teclaMacro = getConcentradorMaquina().getDescTeclasDescMacro(estadoAtual.getId());
 
-                            System.out.println("##### OPCOES DE TECLA " + teclaMacro);
-                            gerenciadorPerifericos.getCmos().gravar(CMOSArquivo.OPCOES_TECLA_MACRO, teclaMacro);
                         }
                     } 
                     
