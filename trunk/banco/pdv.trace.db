@@ -1052,7 +1052,31 @@ org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement ALTER TABLE COMPONEN
 	TIPO_COMPONENTE BIGINT NOT NULL 		) ; expected identifier; SQL statement:
 ALTER TABLE COMPONENTE ADD (
 	TIPO_COMPONENTE BIGINT not NULL 		) [42001-119]
-01-23 12:28:15 jdbc[2]: SQLException
+01-23 21:37:04 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Duplicate column name TIPO_COMPONENTE; SQL statement:
+ALTER TABLE MACRO_OPERACAO ADD 
+	TIPO_COMPONENTE int not NULL default 1 [42121-119]
+	at org.h2.message.Message.getSQLException(Message.java:106)
+	at org.h2.message.Message.getSQLException(Message.java:117)
+	at org.h2.message.Message.getSQLException(Message.java:76)
+	at org.h2.table.Table.setColumns(Table.java:335)
+	at org.h2.table.TableData.<init>(TableData.java:82)
+	at org.h2.schema.Schema.createTable(Schema.java:492)
+	at org.h2.command.ddl.AlterTableAlterColumn.copyData(AlterTableAlterColumn.java:256)
+	at org.h2.command.ddl.AlterTableAlterColumn.update(AlterTableAlterColumn.java:162)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:72)
+	at org.h2.command.Command.executeUpdate(Command.java:208)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:162)
+	at org.h2.server.web.WebThread.getResult(WebThread.java:1691)
+	at org.h2.server.web.WebThread.query(WebThread.java:1274)
+	at org.h2.server.web.WebThread.process(WebThread.java:430)
+	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
+	at org.h2.server.web.WebThread.process(WebThread.java:236)
+	at org.h2.server.web.WebThread.run(WebThread.java:193)
+01-23 21:38:58 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table MACRO_OPERACAO2 not found; SQL statement:
+drop TABLE MACRO_OPERACAO2 [42102-119]
+01-23 23:06:36 jdbc[2]: SQLException
 org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-119]
 	at org.h2.message.Message.getSQLException(Message.java:106)
 	at org.h2.message.Message.getSQLException(Message.java:117)
@@ -1070,22 +1094,35 @@ org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic c
 	at com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil.beginTrasaction(RepositoryManagerHibernateUtil.java:123)
 	at com.infinity.datamarket.comum.Fachada.consultarTransacao(Fachada.java:1021)
 	at com.infinity.datamarket.pdv.cargabase.ThreadVerificaCargaBase.run(ThreadVerificaCargaBase.java:65)
-01-23 12:28:15 jdbc[2]: Connection not closed
-java.lang.Exception: Stack Trace
-	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
-	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
-	at org.h2.Driver.connect(Driver.java:58)
-	at java.sql.DriverManager.getConnection(DriverManager.java:525)
-	at java.sql.DriverManager.getConnection(DriverManager.java:140)
-	at org.hibernate.connection.DriverManagerConnectionProvider.getConnection(DriverManagerConnectionProvider.java:110)
-	at org.hibernate.cfg.SettingsFactory.buildSettings(SettingsFactory.java:84)
-	at org.hibernate.cfg.Configuration.buildSettings(Configuration.java:2009)
-	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1292)
-	at com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil.<init>(RepositoryManagerHibernateUtil.java:56)
-	at com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil.getInstancia(RepositoryManagerHibernateUtil.java:71)
-	at com.infinity.datamarket.pdv.StartUpPDV.main(StartUpPDV.java:34)
-01-23 20:06:33 database: error initializing summary for F:\workspace\datamarket\banco\pdv.data.db size:1276 stage:1
-java.lang.RuntimeException: Redo failure, block: 4352 expected: 0 got: 1
+01-23 23:06:36 jdbc[3]: SQLException
+org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-119]
+	at org.h2.message.Message.getSQLException(Message.java:106)
+	at org.h2.message.Message.getSQLException(Message.java:117)
+	at org.h2.message.Message.getSQLException(Message.java:76)
+	at org.h2.message.Message.getSQLException(Message.java:152)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1328)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1303)
+	at org.h2.jdbc.JdbcConnection.getAutoCommit(JdbcConnection.java:376)
+	at org.hibernate.connection.DriverManagerConnectionProvider.getConnection(DriverManagerConnectionProvider.java:104)
+	at org.hibernate.jdbc.ConnectionManager.openConnection(ConnectionManager.java:423)
+	at org.hibernate.jdbc.ConnectionManager.getConnection(ConnectionManager.java:144)
+	at org.hibernate.jdbc.AbstractBatcher.prepareQueryStatement(AbstractBatcher.java:139)
+	at org.hibernate.loader.Loader.prepareQueryStatement(Loader.java:1547)
+	at org.hibernate.loader.Loader.doQuery(Loader.java:673)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:236)
+	at org.hibernate.loader.Loader.doList(Loader.java:2220)
+	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2104)
+	at org.hibernate.loader.Loader.list(Loader.java:2099)
+	at org.hibernate.loader.criteria.CriteriaLoader.list(CriteriaLoader.java:94)
+	at org.hibernate.impl.SessionImpl.list(SessionImpl.java:1569)
+	at org.hibernate.impl.CriteriaImpl.list(CriteriaImpl.java:283)
+	at com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernate.filter(RepositoryManagerHibernate.java:255)
+	at com.infinity.datamarket.comum.transacao.RepositorioTransacao.consultar(RepositorioTransacao.java:51)
+	at com.infinity.datamarket.comum.transacao.CadastroTransacao.consultar(CadastroTransacao.java:419)
+	at com.infinity.datamarket.comum.Fachada.consultarTransacao(Fachada.java:1022)
+	at com.infinity.datamarket.pdv.cargabase.ThreadVerificaCargaBase.run(ThreadVerificaCargaBase.java:65)
+01-24 01:52:26 database: error initializing summary for F:\workspace\datamarket\banco\pdv.data.db size:1260 stage:1
+java.lang.RuntimeException: Redo failure, block: 3904 expected: 0 got: 1
 	at org.h2.message.Message.throwInternalError(Message.java:186)
 	at org.h2.store.DiskFile.initFromSummary(DiskFile.java:307)
 	at org.h2.log.LogFile.redoOrUndo(LogFile.java:316)
@@ -1111,4 +1148,4 @@ java.lang.RuntimeException: Redo failure, block: 4352 expected: 0 got: 1
 	at org.hibernate.cfg.Configuration.buildSessionFactory(Configuration.java:1292)
 	at com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil.<init>(RepositoryManagerHibernateUtil.java:56)
 	at com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil.getInstancia(RepositoryManagerHibernateUtil.java:71)
-	at com.infinity.datamarket.pdv.StartUpPDV.main(StartUpPDV.java:34)
+	at com.infinity.datamarket.pdv.StartUpPDV.main(StartUpPDV.java:35)

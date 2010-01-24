@@ -62,4 +62,8 @@ public class MacroOperacao extends Persistente{
 	public void setTecla(Tecla tecla) {
 		this.tecla = tecla;
 	}
+	
+	public String toString() {
+		return descricao;
+	}
 }

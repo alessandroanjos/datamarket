@@ -87,6 +87,8 @@ public class OpAVSolicitaUsuario extends Mic{
 			tela.setCampoUsuario(usu.getNome());
 			gerenciadorPerifericos.atualizaTela(tela);
 
+
+			gerenciadorPerifericos.getCmos().gravar(CMOS.OPERADOR_ATUAL, usu);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.AUTORIZADOR_ATUAL, usu);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.USUARIO_ATUAL, usu);
 			gerenciadorPerifericos.getDisplay().setUsuario(usu.getNome());

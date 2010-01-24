@@ -10,6 +10,7 @@ import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOSArquivo;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.gui.telas.TelaMenssagem;
 import com.infinity.datamarket.pdv.maquinaestados.ControladorMaquinaEstado;
@@ -37,11 +38,10 @@ public class StartUpPDV {
 
 		GerenciadorPerifericos ger = GerenciadorPerifericos.getInstancia();
 //		ti.jProgressBar1.setValue(50);
-		Estado est = new Estado();
-		est.setDescricao("FECHADO");
-		est.setId(new Long(1));
-		est.setInputSize(0);
-		est.setInputType(0);
+
+		Estado est = contr.getEstado(new Long(1));
+		ger.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL,est);
+
 		TelaMenssagem t = (TelaMenssagem) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_MENSAGEM);
     	t.setMenssagem("Caixa Fechado");
 		Maquina maquina = Maquina.getInstancia(est, new Date(), ger, contr, t, "Caixa Fechadoo");

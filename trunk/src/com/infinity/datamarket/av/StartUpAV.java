@@ -42,11 +42,7 @@ public class StartUpAV {
 
 		GerenciadorPerifericos ger = GerenciadorPerifericos.getInstancia();
 
-		Estado est = new Estado();
-		est.setDescricao("Av Fechado [ENTER]");
-		est.setId(new Long(1));
-		est.setInputSize(0);
-		est.setInputType(0);
+		Estado est = contr.getEstado(new Long(1));
 		ger.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL,est);
 		
     	TelaAVInicial t = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);

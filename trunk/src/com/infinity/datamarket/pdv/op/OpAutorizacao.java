@@ -1,11 +1,16 @@
 package com.infinity.datamarket.pdv.op;
 
+import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
+import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.AutorizacaoRecusadaException;
+import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
+import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOSArquivo;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.maquinaestados.MacroOperacao;
@@ -16,17 +21,17 @@ import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 public class OpAutorizacao extends Mic{
 
 
-
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
+	        int idComponente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValorInteiro();
+	        Componente componente = Fachada.getInstancia().consultarComponentePorId(new Long(idComponente));
+				
 			Usuario usuario =(Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.OPERADOR_ATUAL);
 			try{
 				MacroOperacao mo =(MacroOperacao) gerenciadorPerifericos.getCmos().ler(CMOS.MACRO_ATUAL);
-				getFachadaPDV().consultarUsuarioPorId_IdMacro(usuario.getId(), mo.getId(), com.infinity.datamarket.pdv.maquinaestados.MacroOperacao.TIPO_COMPONENTE_PDV);
+				getFachadaPDV().consultarUsuarioPorId_IdMacro(usuario.getId(), mo.getId(), componente.getTipoComponente());
 				return ALTERNATIVA_1;
-			}catch(Exception ex){
-				
-			}
+			}catch(Exception ex){ }
 			
 			gerenciadorPerifericos.getDisplay().setMensagem("ID Usuário");
 			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
@@ -40,7 +45,7 @@ public class OpAutorizacao extends Mic{
 			Usuario usu = null;
 			try{
 				MacroOperacao mo =(MacroOperacao) gerenciadorPerifericos.getCmos().ler(CMOS.MACRO_ATUAL);
-				usu = getFachadaPDV().consultarUsuarioPorId_IdMacro(new Long(idUsu), mo.getId(), com.infinity.datamarket.pdv.maquinaestados.MacroOperacao.TIPO_COMPONENTE_PDV);
+				usu = getFachadaPDV().consultarUsuarioPorId_IdMacro(new Long(idUsu), mo.getId(), componente.getTipoComponente());
 			}catch(ObjectNotFoundException ex){
 				gerenciadorPerifericos.getDisplay().setMensagem("Usuário Inválido");
 				try{
