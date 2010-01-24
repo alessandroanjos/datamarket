@@ -1052,3 +1052,27 @@ org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement ALTER TABLE COMPONEN
 	TIPO_COMPONENTE BIGINT NOT NULL 		) ; expected identifier; SQL statement:
 ALTER TABLE COMPONENTE ADD (
 	TIPO_COMPONENTE BIGINT not NULL 		) [42001-119]
+01-23 21:37:04 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Duplicate column name TIPO_COMPONENTE; SQL statement:
+ALTER TABLE MACRO_OPERACAO ADD 
+	TIPO_COMPONENTE int not NULL default 1 [42121-119]
+	at org.h2.message.Message.getSQLException(Message.java:106)
+	at org.h2.message.Message.getSQLException(Message.java:117)
+	at org.h2.message.Message.getSQLException(Message.java:76)
+	at org.h2.table.Table.setColumns(Table.java:335)
+	at org.h2.table.TableData.<init>(TableData.java:82)
+	at org.h2.schema.Schema.createTable(Schema.java:492)
+	at org.h2.command.ddl.AlterTableAlterColumn.copyData(AlterTableAlterColumn.java:256)
+	at org.h2.command.ddl.AlterTableAlterColumn.update(AlterTableAlterColumn.java:162)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:72)
+	at org.h2.command.Command.executeUpdate(Command.java:208)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:162)
+	at org.h2.server.web.WebThread.getResult(WebThread.java:1691)
+	at org.h2.server.web.WebThread.query(WebThread.java:1274)
+	at org.h2.server.web.WebThread.process(WebThread.java:430)
+	at org.h2.server.web.WebThread.processRequest(WebThread.java:183)
+	at org.h2.server.web.WebThread.process(WebThread.java:236)
+	at org.h2.server.web.WebThread.run(WebThread.java:193)
+01-23 21:38:58 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Table MACRO_OPERACAO2 not found; SQL statement:
+drop TABLE MACRO_OPERACAO2 [42102-119]
