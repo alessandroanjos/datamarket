@@ -49,13 +49,12 @@ public class OpAVIniciaAV extends Mic{
 //		String componente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).toString();
 //		int idLoja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();
 
-        Loja loja = (Loja)gerenciadorPerifericos.getCmos().ler(CMOSArquivo.LOJA);
+        //Loja loja = (Loja)gerenciadorPerifericos.getCmos().ler(CMOSArquivo.LOJA);
         Componente componente = (Componente)gerenciadorPerifericos.getCmos().ler(CMOSArquivo.COMPONENTE);
 
-        tela.setCampoComponente(componente.getDescricao());
+        gerenciadorPerifericos.getDisplay().setComponente(componente.getId()+"");
+        gerenciadorPerifericos.getDisplay().setLoja(componente.getLoja().getId()+"");
 		tela.setCampoDesconto("");
-		tela.setCampoLoja("" + loja.getNome());
-		tela.setCampoUsuario("");
 		tela.setCampoCliente("");
 		tela.setCampoOperacao("");
 		tela.setCampoCodigoProduto("");
