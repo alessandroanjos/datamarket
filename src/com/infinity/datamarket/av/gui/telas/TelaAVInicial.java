@@ -339,6 +339,29 @@ public class TelaAVInicial extends Tela{
 		t.adicionarRegistroTabela("001","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","9.999.999,99","9.999.999,999","9.999.999,99","9.999.999,99");
 	}
 	
+	public void zerarTabelaSeparacao(){
+        
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {"Código","Produto", "Valor", "Quantidade", "Desconto no Item", "Total", "Separação"}
+        ){
+        
+        public boolean isCellEditable(int rowIndex, int columnIndex)
+        {
+            return false;
+        }
+        });
+
+	}
+
+
+	public void adicionarRegistroTabelaSeparacao(String codigoExterno, String produto, String valor, String quantidade, String descont, String total, String totalSeparacao){
+
+		javax.swing.table.DefaultTableModel table = (javax.swing.table.DefaultTableModel)jTable1.getModel();
+		
+	     Object[] linha = {codigoExterno,produto, valor, quantidade, descont, total,totalSeparacao};    
+	     table.insertRow(0, linha);   
+	}
 	
 	private JPanel painelCentral;
 	private JPanel painelTop;
