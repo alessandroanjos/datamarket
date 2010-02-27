@@ -24,10 +24,8 @@ import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public abstract class OpAVIncluirPedido extends Mic {
-//
 	
 	public abstract int getStatus();
-	
 	
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){		
 

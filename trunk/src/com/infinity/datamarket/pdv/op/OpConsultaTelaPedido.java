@@ -39,7 +39,6 @@ public class OpConsultaTelaPedido extends Mic{
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){		
 
-		
 		gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
 		
 		Collection pedidos = null;
