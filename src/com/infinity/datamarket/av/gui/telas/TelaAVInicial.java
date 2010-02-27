@@ -113,7 +113,7 @@ public class TelaAVInicial extends Tela{
          painelCentral.add(campoOperacao);
          campoOperacao.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 150), 2));
          campoOperacao.setFont(new java.awt.Font("Courier New", 1, 24));
-         campoOperacao.setBounds(360, 25, 200, 25);         
+         campoOperacao.setBounds(360, 25, 300, 25);         
          campoOperacao.setFocusable(false);
 
          painelCentral.add(labelCliente);
