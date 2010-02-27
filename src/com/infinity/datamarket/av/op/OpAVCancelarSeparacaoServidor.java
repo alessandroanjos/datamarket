@@ -21,6 +21,9 @@ public class OpAVCancelarSeparacaoServidor extends Mic {
 			
 			OperacaoPedido pedido = (OperacaoPedido)gerenciadorPerifericos.getCmos().ler(CMOS.OPERACAO_PEDIDO);
 
+			if (pedido == null || pedido.getPk() == null || pedido.getPk().getLoja() == 0 || pedido.getPk().getId() == 0) {
+				return ALTERNATIVA_1;
+			}
 			try{
 			URL urlCon = new URL("http://" +
 					ServerConfig.HOST_SERVIDOR_ES +

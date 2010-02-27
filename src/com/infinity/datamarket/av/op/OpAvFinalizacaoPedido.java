@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.infinity.datamarket.comum.cliente.Cliente;
+import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
+import com.infinity.datamarket.comum.operacao.Operacao;
 import com.infinity.datamarket.comum.operacao.OperacaoPK;
 import com.infinity.datamarket.comum.operacao.OperacaoPedido;
 import com.infinity.datamarket.comum.operacao.ProdutoOperacaoItemRegistrado;
+import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.transacao.ClienteTransacao;
 import com.infinity.datamarket.comum.usuario.Usuario;
 import com.infinity.datamarket.comum.util.AppException;
@@ -27,21 +29,25 @@ public class OpAvFinalizacaoPedido extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
 		try {
+
+			OperacaoPedido op = (OperacaoPedido)gerenciadorPerifericos.getCmos().ler(CMOS.OPERACAO_PEDIDO);
+
 			
 			ClienteTransacao cli = (ClienteTransacao) gerenciadorPerifericos.getCmos().ler(CMOS.CLIENTE_AV);
 
 			Collection collItensPedido = (List<EventoOperacaoItemRegistrado>)gerenciadorPerifericos.getCmos().ler(CMOS.COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO);
 	        int idLoja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();
-			long idPedido = carregarProximoIdPedido(idLoja);
+	        long idPedido = 0;
+			if (op != null) {
+				idPedido = op.getPk().getId();
+			} else {
+				idPedido = carregarProximoIdPedido(idLoja);
+			}
 			Usuario usu = (Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.USUARIO_ATUAL);
 			String codigoVendedor = usu.getId() + "";
 			BigDecimal valorTotal = (BigDecimal)gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_TOTAL_PEDIDO);
 			BigDecimal valorTotalDesconto = (BigDecimal)gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_TOTAL_DESCONTO_PEDIDO);
 
-//			ClienteTransacao cli = null;
-//			if (cliente != null && cliente.getCpfCnpj() != null ) {
-//				cli = getFachadaPDV().consultarClienteTransacaoPorID(cliente.getCpfCnpj().replace(".", "").replace("/", "").replace("-", ""));
-//			}
 			Iterator<EventoOperacaoItemRegistrado> it = collItensPedido.iterator();
 			while(it.hasNext()) {
 				EventoOperacaoItemRegistrado evento = it.next();
@@ -52,10 +58,25 @@ public class OpAvFinalizacaoPedido extends Mic{
 				
 			getLogger(this.getClass()).info("inserir - INICIO");
 			getLogger(this.getClass()).info("inserir:: vou preencher o objeto pedido");
-			OperacaoPedido op = preencheOperacaoPedido(collItensPedido,cli,idLoja,idPedido,codigoVendedor,valorTotal,valorTotalDesconto);
+			op = preencheOperacaoPedido(collItensPedido,cli,idLoja,idPedido,codigoVendedor,valorTotal,valorTotalDesconto);
 			getLogger(this.getClass()).info("inserir:: preenchi o objeto pedido");
 			getLogger(this.getClass()).info("inserir:: vou inserir o pedido");
+			
+			
+			PropertyFilter filter = new PropertyFilter();
+			filter.setTheClass(Operacao.class);
+			filter.addProperty("pk.id", op.getPk().getId());
+			filter.addProperty("pk.loja", op.getPk().getLoja());
+			
+			Collection coll = Fachada.getInstancia().consultarOperacao(filter);
+			
+			if (coll != null && coll.size() != 0) {
+				OperacaoPedido pedidoJaCadastrado = (OperacaoPedido) coll.iterator().next(); 
+				getFachadaPDV().excluirOperacao(pedidoJaCadastrado);	
+			}
+
 			getFachadaPDV().inserirOperacaoES(op);
+
 			getLogger(this.getClass()).info("inserir:: inseri o pedido");
 
 			gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_PEDIDO, op);

@@ -542,7 +542,7 @@ insert into macro_operacao (id,descricao,tipo_componente) values (125,'Desconto 
       </microOperacaoAssociada>
     </macroOperacao>
 
-    <macroOperacao tipoComponente="2" estadoAtual="Alteracao_Pedido" proximoEstado="Alteracao_Pedido" tecla="F" codigoMicroOperacaoAssociada="subFluxo1" id="123" descricao="Finaliza Pedido">
+    <macroOperacao tipoComponente="2" estadoAtual="Alteracao_Pedido" proximoEstado="Aberto" tecla="F" codigoMicroOperacaoAssociada="subFluxo1" id="123" descricao="Finaliza Alteracao Pedido">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvConfirmaFinalizacaoPedido">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
       </microOperacaoAssociada>
