@@ -14,6 +14,7 @@ import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAvSolicitaValor extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -31,23 +32,23 @@ public class OpAvSolicitaValor extends Mic{
 				try {
 
 					while (true) {	
-						gerenciadorPerifericos.getDisplay().setMensagem("Digite o Preço");
+						gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Digite o Preço"));
 						EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_MONETARIA, 6);
 						if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 							if (!"".equals(entrada.getDado())) {
 								precoUnitario = new BigDecimal(entrada.getDado());
 								if (precoUnitario.doubleValue() == 0 ) {
-									gerenciadorPerifericos.getDisplay().setMensagem("Preço Invalido [Volta]");
+									gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Preço Invalido [Volta]"));
 									gerenciadorPerifericos.esperaVolta();
 								} else {
 									break;
 								}
 							} else {
-								gerenciadorPerifericos.getDisplay().setMensagem("Valor Invalido [Volta]");
+								gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Valor Invalido [Volta]"));
 								gerenciadorPerifericos.esperaVolta();
 							}
 						} else {
-							gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+							gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
 							
 							tela.setCampoQuantidade("");
 							tela.setCampoCodigoProduto("");
@@ -106,13 +107,13 @@ public class OpAvSolicitaValor extends Mic{
 //
 //			} else {
 //			while (true) {	
-//				gerenciadorPerifericos.getDisplay().setMensagem("Digite o Valor");
+//				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Digite o Valor");
 //				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_MONETARIA, 6);
 //				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 //					if (!"".equals(entrada.getDado())) {
 //						BigDecimal valorItem = new BigDecimal(entrada.getDado());
 //						if (valorItem.doubleValue() == 0 ) {
-//							gerenciadorPerifericos.getDisplay().setMensagem("Valor Invalido [Volta]");
+//							gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Valor Invalido [Volta]");
 //							gerenciadorPerifericos.esperaVolta();
 //						} else {
 //							gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM_PEDIDO, valorItem);
@@ -124,7 +125,7 @@ public class OpAvSolicitaValor extends Mic{
 //							return ALTERNATIVA_1;
 //						}
 //					} else {
-//						gerenciadorPerifericos.getDisplay().setMensagem("Valor Invalido [Volta]");
+//						gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Valor Invalido [Volta]");
 //						gerenciadorPerifericos.esperaVolta();
 //					}
 //				} else {
@@ -134,7 +135,7 @@ public class OpAvSolicitaValor extends Mic{
 //				
 //			}
 //		}catch (ObjetoInexistenteException e) {
-//			gerenciadorPerifericos.getDisplay().setMensagem("Produto não Encontrado");
+//			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Produto não Encontrado");
 //			try {
 //				gerenciadorPerifericos.esperaVolta();
 //			} catch (AppException e1) {

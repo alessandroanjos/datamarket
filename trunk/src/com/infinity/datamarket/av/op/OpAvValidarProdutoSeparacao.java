@@ -12,6 +12,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAvValidarProdutoSeparacao extends Mic{
 
@@ -48,27 +49,27 @@ public class OpAvValidarProdutoSeparacao extends Mic{
 		}
 		
 		if (!tem) {
-			gerenciadorPerifericos.getDisplay().setMensagem("Pedido sem Produto");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Pedido sem Produto"));
 			try {
 				gerenciadorPerifericos.esperaVolta();
 			} catch (AppException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
 			return ALTERNATIVA_2;
 			
 		}
 		
 		if(quantidadeRestante.doubleValue() <= BigDecimal.ZERO.doubleValue()) {
-			gerenciadorPerifericos.getDisplay().setMensagem("Produto ja Separado");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Produto ja Separado"));
 			try {
 				gerenciadorPerifericos.esperaVolta();
 			} catch (AppException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
 			
 			return ALTERNATIVA_2;
 		}

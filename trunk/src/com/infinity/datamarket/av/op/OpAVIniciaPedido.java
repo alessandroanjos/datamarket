@@ -11,17 +11,10 @@ import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAVIniciaPedido extends Mic{
 
-	public static String  MENSAGEM_INICIAL  = "Digite Operacao [P;D;E]";
-
-
-
-	public static String OP_DESC_PEDIDO = "Pedido";
-	public static String OP_DESC_DEVOLUCAO = "Devolução";
-
-	public static String OP_DESC_SEPARACAO = "Separação";
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
@@ -29,13 +22,13 @@ public class OpAVIniciaPedido extends Mic{
 			gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_ATUAL, CMOS.OPERACAO_PEDIDO);
 
 			TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
-			tela.setCampoOperacao(OP_DESC_PEDIDO);
+			tela.setCampoOperacao("Pedido");
 			gerenciadorPerifericos.atualizaTela(tela);
 
 			return ALTERNATIVA_1;
 
 		}catch(Exception e){
-			gerenciadorPerifericos.getDisplay().setMensagem("Erro");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Erro"));
 			try{
 				gerenciadorPerifericos.esperaVolta();
 			}catch(AppException ex){

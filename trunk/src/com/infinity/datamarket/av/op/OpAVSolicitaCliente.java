@@ -22,6 +22,7 @@ import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 import com.infinity.datamarket.pdv.op.OpSolicitaCliente;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAVSolicitaCliente extends OpSolicitaCliente {
 	
@@ -30,11 +31,11 @@ public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOpe
 		Parametro parametro = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.SOLICITA_CLIENTE);
 		if (parametro != null && parametro != null && Boolean.valueOf(parametro.getValor()).booleanValue()){
 			try{
-				gerenciadorPerifericos.getDisplay().setMensagem("Cadastrar Cliente?");
+				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Cadastrar Cliente?"));
 				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
 				String idUsu = null;
 				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){								
-					gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
+					gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Aguarde..."));
 					TelaCadastroClientePDV tela = TelaCadastroClientePDV.iniciar(gerenciadorPerifericos.getWindow().getFrame());
 					if (TelaCadastroClientePDV.retorno == TelaCadastroClientePDV.OK){
 						ClienteTransacao cliente = tela.getClienteTransacao();
@@ -45,7 +46,7 @@ public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOpe
 						telaAV.setCampoCliente(cliente.getNomeCliente());
 						gerenciadorPerifericos.atualizaTela(telaAV);
 						
-						gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+						gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
 						//
 						return ALTERNATIVA_1;
 					} else {
@@ -53,7 +54,7 @@ public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOpe
 						telaAV.setCampoCliente("Sem Cliente");
 						gerenciadorPerifericos.atualizaTela(telaAV);
 						 
-						gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+						gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
 						return ALTERNATIVA_1;
 					}
 					
@@ -62,7 +63,7 @@ public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOpe
 					telaAV.setCampoCliente("Sem Cliente");
 					gerenciadorPerifericos.atualizaTela(telaAV);
 					
-					gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+					gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
 					return ALTERNATIVA_1;
 				}
 				
@@ -78,7 +79,7 @@ public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOpe
 //
 //		while (true) {
 //				try{
-//				gerenciadorPerifericos.getDisplay().setMensagem("CPF/CNPJ Cliente");
+//				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "CPF/CNPJ Cliente");
 //				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER},Display.MASCARA_NUMERICA, 14);
 //				String cpfCnpj = null;
 //				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
@@ -88,7 +89,7 @@ public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOpe
 //						tela.setCampoCliente("Sem Cliente");
 //						gerenciadorPerifericos.atualizaTela(tela);
 //						
-//						gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+//						gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto");
 //						return ALTERNATIVA_1;
 //					}
 //					
@@ -97,7 +98,7 @@ public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOpe
 //							TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
 //							tela.setCampoCliente("Sem Cliente");
 //							gerenciadorPerifericos.atualizaTela(tela);
-//							gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+//							gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto");
 //							return ALTERNATIVA_1;
 //						}
 //					} catch (Exception e) {}
@@ -113,12 +114,12 @@ public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOpe
 //					clientes = Fachada.getInstancia().consultarCliente(filter);
 //				} catch (AppException e) {
 //					
-//					gerenciadorPerifericos.getDisplay().setMensagem("Cliente Invalido [VOLAT]");
+//					gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Cliente Invalido [VOLAT]");
 //					gerenciadorPerifericos.esperaVolta();
 //					continue;
 //				}
 //				if (clientes == null || clientes.size() == 0){
-//					gerenciadorPerifericos.getDisplay().setMensagem("Cliente Invalido [VOLAT]");
+//					gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Cliente Invalido [VOLAT]");
 //					gerenciadorPerifericos.esperaVolta();
 //					continue;
 //				}
@@ -130,13 +131,13 @@ public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOpe
 //
 //				gerenciadorPerifericos.getCmos().gravar(CMOS.CLIENTE_AV, cli);
 //
-//				gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+//				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto");
 //
 //				return ALTERNATIVA_1;
 //
 //			}catch(Exception e){
 //				
-//				gerenciadorPerifericos.getDisplay().setMensagem("Cliente Invalido [VOLAT]");
+//				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Cliente Invalido [VOLAT]");
 //				try {
 //					gerenciadorPerifericos.esperaVolta();	
 //				} catch (Exception ee) {

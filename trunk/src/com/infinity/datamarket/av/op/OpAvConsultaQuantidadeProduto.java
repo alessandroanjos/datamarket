@@ -16,6 +16,7 @@ import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAvConsultaQuantidadeProduto extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -33,7 +34,7 @@ public class OpAvConsultaQuantidadeProduto extends Mic{
 			
 			if (produto.getTipo().getId().equals(TipoProduto.UNIDADE_VARIAVEL)) {
 				try {
-					gerenciadorPerifericos.getDisplay().setMensagem(produto.getUnidade().getDescricaoDisplay());
+					gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, produto.getUnidade().getDescricaoDisplay()));
 					EntradaDisplay entrada = gerenciadorPerifericos.lerDados( new int[] { Tecla.CODIGO_ENTER, Tecla.CODIGO_VOLTA }, Display.MASCARA_QUANTIDADE, 8);
 					if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER) {
 						quantidade = new BigDecimal(entrada.getDado());
@@ -43,7 +44,7 @@ public class OpAvConsultaQuantidadeProduto extends Mic{
 							return ALTERNATIVA_2;
 
 						} else {
-							gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+							gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
 							
 							tela.setCampoQuantidade("");
 							tela.setCampoCodigoProduto("");
@@ -57,7 +58,7 @@ public class OpAvConsultaQuantidadeProduto extends Mic{
 						
 					}
 					if (quantidade.doubleValue() <= 0) {
-						gerenciadorPerifericos.getDisplay().setMensagem("Quantidade Inválida");
+						gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Quantidade Inválida"));
 						gerenciadorPerifericos.esperaVolta();
 						return ALTERNATIVA_2;
 					}
@@ -65,7 +66,7 @@ public class OpAvConsultaQuantidadeProduto extends Mic{
 					return ALTERNATIVA_2;
 				}
 			} else {
-				gerenciadorPerifericos.getDisplay().setMensagem("Digite a Quantidade");
+				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Digite a Quantidade"));
 				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 4);
 				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 					try {
@@ -80,7 +81,7 @@ public class OpAvConsultaQuantidadeProduto extends Mic{
 					quantidade = new BigDecimal("1");
 				}
 				if (quantidade.doubleValue() <= 0) {
-					gerenciadorPerifericos.getDisplay().setMensagem("Quantidade Inválida");
+					gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Quantidade Inválida"));
 					gerenciadorPerifericos.esperaVolta();
 					return ALTERNATIVA_2;
 				}
@@ -92,7 +93,7 @@ public class OpAvConsultaQuantidadeProduto extends Mic{
 			gerenciadorPerifericos.getCmos().gravar(CMOS.QUANTIDADE_ITEM, quantidade);
 
 		}catch (ObjetoInexistenteException e) {
-			gerenciadorPerifericos.getDisplay().setMensagem("Produto não Encontrado");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Produto não Encontrado"));
 			try {
 				gerenciadorPerifericos.esperaVolta();
 			} catch (AppException e1) {

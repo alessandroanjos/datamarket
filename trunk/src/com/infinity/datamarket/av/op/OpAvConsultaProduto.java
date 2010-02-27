@@ -12,6 +12,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAvConsultaProduto extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -53,7 +54,7 @@ public class OpAvConsultaProduto extends Mic{
 				gerenciadorPerifericos.getCmos().gravar(CMOS.QUANTIDADE_ITEM, quantidade);
 			}
 		}catch (ObjetoInexistenteException e) {
-			gerenciadorPerifericos.getDisplay().setMensagem("Produto não Encontrado");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Produto não Encontrado"));
 			try {
 				gerenciadorPerifericos.esperaVolta();
 			} catch (AppException e1) {
@@ -72,8 +73,8 @@ public class OpAvConsultaProduto extends Mic{
 		tela.setCampoDescricaoProduto(prod.getDescricaoCompleta());
 		gerenciadorPerifericos.atualizaTela(tela);
 		
-		gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
-		gerenciadorPerifericos.getDisplay().setMensagem("Digite a Quantidade");
+		gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
+		gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Digite a Quantidade"));
 		
 		return ALTERNATIVA_1;
 	}

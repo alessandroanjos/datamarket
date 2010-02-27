@@ -14,6 +14,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAvDesenhaTabelaPedido extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -30,7 +31,7 @@ public class OpAvDesenhaTabelaPedido extends Mic{
 
 			List<EventoOperacaoItemRegistrado> coll = (List<EventoOperacaoItemRegistrado>)gerenciadorPerifericos.getCmos().ler(CMOS.COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO);
 			if (coll == null || coll.size() ==0) {
-				gerenciadorPerifericos.getDisplay().setMensagem("Sem Item para excluir");
+				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Sem Item para excluir"));
 				gerenciadorPerifericos.esperaVolta();
 
 				tela.setCampoTotal("R$ 0.0");

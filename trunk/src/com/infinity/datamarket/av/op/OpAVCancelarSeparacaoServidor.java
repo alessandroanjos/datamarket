@@ -10,6 +10,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 import com.infinity.datamarket.pdv.util.ServerConfig;
 
 
@@ -40,13 +41,13 @@ public class OpAVCancelarSeparacaoServidor extends Mic {
 			} else  if (obj instanceof Exception){
 				((Exception)obj).printStackTrace();
 				
-				gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Erro de Comunicação"));
 				gerenciadorPerifericos.esperaVolta();
 				return ALTERNATIVA_2;		
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Erro de Comunicação"));
 			try {
 				gerenciadorPerifericos.esperaVolta();
 			} catch (AppException e1) {
@@ -59,7 +60,7 @@ public class OpAVCancelarSeparacaoServidor extends Mic {
 			return ALTERNATIVA_1;
 			
 		}catch(Exception e){
-			gerenciadorPerifericos.getDisplay().setMensagem("Erro");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Erro"));
 			try{
 				gerenciadorPerifericos.esperaVolta();
 			}catch(AppException ex){

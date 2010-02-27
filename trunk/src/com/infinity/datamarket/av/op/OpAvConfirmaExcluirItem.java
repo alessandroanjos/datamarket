@@ -11,6 +11,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAvConfirmaExcluirItem extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -19,12 +20,12 @@ public class OpAvConfirmaExcluirItem extends Mic{
 
 			List<EventoOperacaoItemRegistrado> coll = (List<EventoOperacaoItemRegistrado>)gerenciadorPerifericos.getCmos().ler(CMOS.COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO);
 			if (coll == null || coll.size() ==0) {
-				gerenciadorPerifericos.getDisplay().setMensagem("Sem Item para excluir");
+				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Sem Item para excluir"));
 				gerenciadorPerifericos.esperaVolta();
 				return ALTERNATIVA_2;
 			}
 
-//			gerenciadorPerifericos.getDisplay().setMensagem("Excluir Item? [ENTER][ESC]");
+//			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Excluir Item? [ENTER][ESC]");
 //			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
 //			if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 			

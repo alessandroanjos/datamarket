@@ -12,18 +12,19 @@ import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAVExibeDisplaySeparacao extends OpAVEncerraPedido {
 
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
 
-			gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
 
 			return ALTERNATIVA_1;
 
 		}catch(Exception e){
-			gerenciadorPerifericos.getDisplay().setMensagem("Erro");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Erro"));
 			try{
 				gerenciadorPerifericos.esperaVolta();
 			}catch(AppException ex){

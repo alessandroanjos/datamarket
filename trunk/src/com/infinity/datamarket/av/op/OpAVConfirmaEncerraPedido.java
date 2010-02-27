@@ -11,13 +11,14 @@ import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAVConfirmaEncerraPedido extends Mic{
 	
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
 		try {
-			gerenciadorPerifericos.getDisplay().setMensagem("Canc. Pedido? [ENTRA] [ESC]");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Canc. Pedido? [ENTRA] [ESC]"));
 			EntradaDisplay entrada;
 
 			entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
@@ -27,7 +28,7 @@ public class OpAVConfirmaEncerraPedido extends Mic{
 				return ALTERNATIVA_2;
 			}else{
 
-				gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
 				return ALTERNATIVA_1;
 			}
 		} catch (AppException e) {

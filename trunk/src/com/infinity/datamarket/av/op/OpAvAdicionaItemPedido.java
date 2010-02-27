@@ -23,6 +23,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOSArquivo;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAvAdicionaItemPedido extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -35,7 +36,7 @@ public class OpAvAdicionaItemPedido extends Mic{
 
 	        Componente componente = (Componente)gerenciadorPerifericos.getCmos().ler(CMOSArquivo.COMPONENTE);
 
-	        gerenciadorPerifericos.getDisplay().setMensagem(" ");
+	        gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "EMBRANCO"));
 			Produto produto = (Produto)gerenciadorPerifericos.getCmos().ler(CMOS.PRODUTO_ATUAL);
 			BigDecimal quantidade = (BigDecimal)gerenciadorPerifericos.getCmos().ler(CMOS.QUANTIDADE_ITEM);
 			BigDecimal descontoItem = (BigDecimal)gerenciadorPerifericos.getCmos().ler(CMOS.DESCONTO);
@@ -54,7 +55,7 @@ public class OpAvAdicionaItemPedido extends Mic{
 			}
 			if (valorTotalItem == null && valorTotalItem.doubleValue() <= 0 ) {
 
-				gerenciadorPerifericos.getDisplay().setMensagem("Valor Total Invalido");
+				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Valor Total Invalido"));
 				gerenciadorPerifericos.esperaVolta();
 
 				return ALTERNATIVA_2;
