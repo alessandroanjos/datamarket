@@ -119,7 +119,8 @@ public class CadastroOperacao extends Cadastro{
 	
 	public void alterarStatus(OperacaoPK pk, int status) throws AppException{		
 		if (status == ConstantesOperacao.ABERTO || status == ConstantesOperacao.CANCELADO||
-				status == ConstantesOperacao.FECHADO || status == ConstantesOperacao.EM_PROCESSAMENTO || status == ConstantesOperacao.EM_SEPARACAO){
+				status == ConstantesOperacao.FECHADO || status == ConstantesOperacao.EM_PROCESSAMENTO || status == ConstantesOperacao.EM_SEPARACAO
+				 || status == ConstantesOperacao.EM_ALTERACAO){
 			Operacao operacao = (Operacao) getRepositorio().consultarPorPK(pk);
 			operacao.setStatus(status);
 			getRepositorio().alterar(operacao);

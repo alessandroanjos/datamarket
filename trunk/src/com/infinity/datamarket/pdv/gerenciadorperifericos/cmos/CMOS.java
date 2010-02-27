@@ -55,6 +55,7 @@ public interface CMOS {
 	public static final String OPERACAO_PEDIDO = "OPERACAO_PEDIDO";
 	public static final String OPERACAO_SEPARACAO = "OPERACAO_SEPARACAO";
 	public static final String OPERACAO_CANCELAMENTO_PEDIDO = "OPERACAO_CANCELAMENTO_PEDIDO";
+	public static final String OPERACAO_ALTERACAO_PEDIDO = "OPERACAO_ALTERACAO_PEDIDO";
 	public static final String PK_OPERACOES = "PK_OPERACOES";
 	public static final String BOLETO = "BOLETO";
 	

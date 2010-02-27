@@ -18,4 +18,6 @@ public class ConstantesOperacao {
 	public static final int EM_SEPARACAO = 7;	
 
 	public static final int SEPARADO = 8;	
+
+	public static final int EM_ALTERACAO = 9;	
 }
