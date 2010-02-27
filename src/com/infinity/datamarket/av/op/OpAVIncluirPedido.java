@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.infinity.datamarket.av.gui.telas.TelaAVInicial;
 import com.infinity.datamarket.comum.Fachada;
+import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistrado;
 import com.infinity.datamarket.comum.operacao.EventoOperacaoItemRegistradoSeparacao;
 import com.infinity.datamarket.comum.operacao.Operacao;
@@ -52,11 +53,16 @@ public abstract class OpAVIncluirPedido extends Mic {
 				
 				EventoOperacaoItemRegistrado evento = (EventoOperacaoItemRegistrado)obj;
 
-				BigDecimal quantidadeInicial = BigDecimal.ZERO;
-				
-				EventoOperacaoItemRegistradoSeparacao eventoItemRegistradoSeparacao = new EventoOperacaoItemRegistradoSeparacao(evento, quantidadeInicial);
-				
-				collEvent.add(eventoItemRegistradoSeparacao);
+				if (getStatus() == ConstantesOperacao.EM_SEPARACAO) {
+					BigDecimal quantidadeInicial = BigDecimal.ZERO;
+					
+					EventoOperacaoItemRegistradoSeparacao eventoItemRegistradoSeparacao = new EventoOperacaoItemRegistradoSeparacao(evento, quantidadeInicial);
+					
+					collEvent.add(eventoItemRegistradoSeparacao);
+					
+				} else {
+					collEvent.add(evento);
+				}
 			}
 
 			gerenciadorPerifericos.getCmos().gravar(CMOS.COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO,collEvent);
