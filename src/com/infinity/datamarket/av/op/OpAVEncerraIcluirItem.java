@@ -7,6 +7,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAVEncerraIcluirItem extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -27,7 +28,7 @@ public class OpAVEncerraIcluirItem extends Mic{
 		gerenciadorPerifericos.getCmos().gravar(CMOS.DESCONTO,null);
 		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_ITEM_PEDIDO,null);
 
-		gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+		gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
 		
 		return ALTERNATIVA_1;
 	}

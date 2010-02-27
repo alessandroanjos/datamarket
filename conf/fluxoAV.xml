@@ -45,6 +45,11 @@
     <operacao id="OpAvSolicitaConsultaProdutoDesconto" classe="com.infinity.datamarket.av.op.OpAvSolicitaConsultaProdutoDesconto"/>
     <operacao id="OpAvAutorizacao" classe="com.infinity.datamarket.av.op.OpAvAutorizacao"/>
     <operacao id="OpAvExibeMenu" classe="com.infinity.datamarket.av.op.OpAvExibeMenu"/>
+    <operacao id="OpAVIniciaCancelamentoPedido" classe="com.infinity.datamarket.av.op.OpAVIniciaCancelamentoPedido"/>
+    <operacao id="OpAVConfirmaCancelamentoPedido" classe="com.infinity.datamarket.av.op.OpAVConfirmaCancelamentoPedido"/>
+    <operacao id="OpAVEncerraCancelamentoPedido" classe="com.infinity.datamarket.av.op.OpAVEncerraCancelamentoPedido"/>
+    <operacao id="OpAVConsultaTelaPedidoParaCancelamento" classe="com.infinity.datamarket.av.op.OpAVConsultaTelaPedidoParaCancelamento"/>
+    
 
   </listaMicroperacao>
 
@@ -55,11 +60,13 @@
     <estado teclaMenu="K" codigo="Separacao" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
     <estado teclaMenu="K" codigo="Devolucao" descricao="Devolucao" inputType="3" inputSize="1"/>
     <estado teclaMenu="K" codigo="ESTADO7" descricao="A Receber" inputType="1" inputSize="10"/>
+    <estado teclaMenu="K" codigo="Cancela_Pedido" descricao="Cancela Pedido" inputType="1" inputSize="10"/>
   </listaEstado>
 
   <listaTecla>
     <tecla codigo="ENTER" descricao="ENTER" codigoASCI="10" />
     <tecla codigo="P" descricao="P" codigoASCI="80" />
+    <tecla codigo="C" descricao="C" codigoASCI="67" />
     <tecla codigo="D" descricao="D" codigoASCI="68" />
     <tecla codigo="E" descricao="E" codigoASCI="69" />
     <tecla codigo="F" descricao="F" codigoASCI="70" />
@@ -341,6 +348,40 @@
       </microOperacaoAssociada>
     </macroOperacao>
 
-  </listaMacroOperacao>
+
+    <macroOperacao tipoComponente="2" estadoAtual="Aberto" proximoEstado="Cancela_Pedido" tecla="C" codigoMicroOperacaoAssociada="subFluxo0" id="118" descricao="Cancela Pedido">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo0" operacao="OpAvAutorizacao">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo1" />
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVIniciaCancelamentoPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo310" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo310" operacao="OpAVConsultaTelaPedidoParaCancelamento">
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAVIncluirPedidoEmSeparacao">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
+      </microOperacaoAssociada>
+
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAvDesenhaTabelaPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo4" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saidaDois" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo4" operacao="OpAVConfirmaCancelamentoPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVEncerraCancelamentoPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="saidaDois" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="saidaDois" operacao="OpAvSaidaDois">
+      </microOperacaoAssociada>
+
+    </macroOperacao>
+
+	
+	  </listaMacroOperacao>
 
 </maquinaEstado>

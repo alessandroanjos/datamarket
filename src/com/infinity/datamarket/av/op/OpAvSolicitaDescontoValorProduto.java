@@ -29,9 +29,9 @@ public class OpAvSolicitaDescontoValorProduto extends Mic{
 //			
 //			while (true) {	
 //				if (descontoInicial.doubleValue() > 0) {
-//					gerenciadorPerifericos.getDisplay().setMensagem("Preço Desconto Item R$ " + descontoInicial.doubleValue());	
+//					gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Preço Desconto Item R$ " + descontoInicial.doubleValue());	
 //				} else {
-//					gerenciadorPerifericos.getDisplay().setMensagem("Preço Desconto Item ");
+//					gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Preço Desconto Item ");
 //				}
 //				EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_MONETARIA, 6);
 //				if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
@@ -41,7 +41,7 @@ public class OpAvSolicitaDescontoValorProduto extends Mic{
 //					} else {
 //						desconto = new BigDecimal(entrada.getDado());
 //						if (desconto.doubleValue() < 0 ) {
-//							gerenciadorPerifericos.getDisplay().setMensagem("Desconto Invalido [Volta]");
+//							gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Desconto Invalido [Volta]");
 //							gerenciadorPerifericos.esperaVolta();
 //						} else {
 //							break;
@@ -55,7 +55,7 @@ public class OpAvSolicitaDescontoValorProduto extends Mic{
 			gerenciadorPerifericos.getCmos().gravar(CMOS.DESCONTO, desconto);
 //	
 //		}catch (ObjetoInexistenteException e) {
-//			gerenciadorPerifericos.getDisplay().setMensagem("Produto não Encontrado");
+//			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Produto não Encontrado");
 //			try {
 //				gerenciadorPerifericos.esperaVolta();
 //			} catch (AppException e1) {

@@ -19,6 +19,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAVSalvarPedidoSeparado extends Mic {
 
@@ -75,7 +76,7 @@ public class OpAVSalvarPedidoSeparado extends Mic {
 		}catch(Exception e){
 
 			e.printStackTrace();
-			gerenciadorPerifericos.getDisplay().setMensagem("Erro");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Erro"));
 			try {
 				gerenciadorPerifericos.esperaVolta();
 			} catch (AppException e1) {

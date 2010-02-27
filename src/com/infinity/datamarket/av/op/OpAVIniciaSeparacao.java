@@ -12,15 +12,11 @@ import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.maquinaestados.Tecla;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAVIniciaSeparacao extends OpAVEncerraPedido {
 
-	public static String  MENSAGEM_INICIAL  = OpAVIniciaPedido.MENSAGEM_INICIAL;
 
-	public static String OP_DESC_PEDIDO = OpAVIniciaPedido.OP_DESC_PEDIDO;
-	public static String OP_DESC_SEPARACAO = OpAVIniciaPedido.OP_DESC_SEPARACAO;
-	public static String OP_DESC_DEVOLUCAO = OpAVIniciaPedido.OP_DESC_DEVOLUCAO;
-	
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 		try{
 
@@ -28,18 +24,18 @@ public class OpAVIniciaSeparacao extends OpAVEncerraPedido {
 
 			super.exec(gerenciadorPerifericos, param);
 
-			gerenciadorPerifericos.getDisplay().setMensagem(OpAVIniciaPedido.MENSAGEM_INICIAL);
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Digite Operacao [P;D;E]"));
 
 			gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_ATUAL, CMOS.OPERACAO_SEPARACAO);
 
 			TelaAVInicial tela = (TelaAVInicial) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_AV_INICIAL);
-			tela.setCampoOperacao(OP_DESC_SEPARACAO);
+			tela.setCampoOperacao("Separação");
 			gerenciadorPerifericos.atualizaTela(tela);
 
 			return ALTERNATIVA_1;
 
 		}catch(Exception e){
-			gerenciadorPerifericos.getDisplay().setMensagem("Erro");
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Erro"));
 			try{
 				gerenciadorPerifericos.esperaVolta();
 			}catch(AppException ex){

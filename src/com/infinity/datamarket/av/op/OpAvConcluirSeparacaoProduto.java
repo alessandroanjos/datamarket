@@ -11,6 +11,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.pdv.util.MensagensAV;
 
 public class OpAvConcluirSeparacaoProduto extends Mic{
 	
@@ -41,7 +42,7 @@ public class OpAvConcluirSeparacaoProduto extends Mic{
 
 		}
 
-		gerenciadorPerifericos.getDisplay().setMensagem("Codigo do Produto");
+		gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
 		// adicionar a quantidade ao evento 
 		return ALTERNATIVA_1;
 	}
