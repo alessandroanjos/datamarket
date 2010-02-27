@@ -17,6 +17,11 @@ insert into macro_operacao (id,descricao,tipo_componente) values (116,'Separacao
 insert into macro_operacao (id,descricao,tipo_componente) values (117,'Separa Item',2);
 insert into macro_operacao (id,descricao,tipo_componente) values (118,'Cancela Pedido',2);
 insert into macro_operacao (id,descricao,tipo_componente) values (119,'Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (120,'Saida Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (121,'Excluir Item Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (122,'Adicionar Item Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (123,'Finalizar Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (124,'Cancelar Altera Pedido',2);
 
 insert into macro_operacao (id,descricao,tipo_componente) values (39,'Solicita Carga Base',1);
 insert into macro_operacao (id,descricao,tipo_componente) values (40,'Resgate de Pedido',1);

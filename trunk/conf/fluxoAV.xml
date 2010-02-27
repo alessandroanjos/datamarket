@@ -55,6 +55,7 @@
     <operacao id="OpAVEncerraAlteracaoPedido" classe="com.infinity.datamarket.av.op.OpAVEncerraAlteracaoPedido"/>
     <operacao id="OpAVIncluirPedidoAlteracao" classe="com.infinity.datamarket.av.op.OpAVIncluirPedidoAlteracao"/>
     <operacao id="OpAVIncluirPedidoCancelamento" classe="com.infinity.datamarket.av.op.OpAVIncluirPedidoCancelamento"/>
+    <operacao id="OpAVConfirmaEncerraAlteracaoPedido" classe="com.infinity.datamarket.av.op.OpAVConfirmaEncerraAlteracaoPedido"/>
 
 
 
@@ -408,7 +409,6 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAVIncluirPedidoAlteracao">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
       </microOperacaoAssociada>
-
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAvDesenhaTabelaPedido">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo4" />
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saidaDois" />
@@ -430,7 +430,27 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAvExibeDisplayDescricaoEstado">
       </microOperacaoAssociada>
     </macroOperacao>
-	
+
+    <macroOperacao tipoComponente="2" estadoAtual="Alteracao_Pedido" proximoEstado="Aberto" tecla="ESC" codigoMicroOperacaoAssociada="subFluxo1" id="124" descricao="Volta Alteracao Pedido">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAVConfirmaEncerraAlteracaoPedido">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAVCancelarSeparacaoServidor">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAVEncerraSeparacao">
+      </microOperacaoAssociada>
+    </macroOperacao>
+
+
+<!-- 
+
+insert into macro_operacao (id,descricao,tipo_componente) values (120,'Saida Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (121,'Excluir Item Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (122,'Adicionar Item Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (123,'Finalizar Altera Pedido',2);
+
+ -->	
   </listaMacroOperacao>
 
 </maquinaEstado>
