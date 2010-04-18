@@ -1,6 +1,7 @@
 SET CLASSPATH=@destino@\
-SET CLASSPATH=%CLASSPATH%;@destino@\@pdv@.jar
+
 SET CLASSPATH=%CLASSPATH%;@destino@\classes
+SET CLASSPATH=%CLASSPATH%;@destino@\@pdv@.jar
 
 SET CLASSPATH=%CLASSPATH%;@destino@\lib\ajax4jsf-1.1.0.jar
 SET CLASSPATH=%CLASSPATH%;@destino@\lib\ant-1.6.5.jar
