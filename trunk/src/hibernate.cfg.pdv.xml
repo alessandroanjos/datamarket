@@ -94,5 +94,6 @@
 	<mapping resource="com/infinity/datamarket/hbm/MovimentacaoBancaria.hbm.xml" />
 	<mapping resource="com/infinity/datamarket/hbm/Composicao.hbm.xml" />
 	<mapping resource="com/infinity/datamarket/hbm/Producao.hbm.xml" />
+		<mapping resource="com/infinity/datamarket/hbm/Lote.hbm.xml" />
     </session-factory>
 </hibernate-configuration>
