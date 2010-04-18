@@ -85,7 +85,9 @@ public class EntradaProdutoBackBean extends BackBean {
 	private BigDecimal ipiProduto	     = BigDecimal.ZERO.setScale(2);
 	private BigDecimal total		     = BigDecimal.ZERO.setScale(2);
 	private BigDecimal totalDescontoItem = BigDecimal.ZERO.setScale(2);
+	private Date dataVencimentoProduto;
 	private List<Estoque> estoques = null; 
+	private String status;
 	
 	private BigDecimal quantidadeTotal = BigDecimal.ZERO.setScale(3);
     
@@ -124,6 +126,8 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setIcmsProduto(BigDecimal.ZERO);
 		this.setIpiProduto(BigDecimal.ZERO);
 		this.setPrecoUnitario(BigDecimal.ZERO);
+		this.setDataVencimentoProduto(null);
+		this.setStatus(null);
 	}
 	public String excluirProdutoEntrada() {
 		int i = 0;
@@ -162,6 +166,9 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
 	public void inserirProdutoEntrada() { 
 		try {
+			
+			
+			
 			if (arrayProduto==null){
 				arrayProduto = new HashSet<ProdutoEntradaProduto>();
 				inicializaValoreNota();
@@ -181,8 +188,12 @@ public class EntradaProdutoBackBean extends BackBean {
 			
 			ProdutoEntradaProduto produtoEntrada = new ProdutoEntradaProduto();
 			ProdutoEntradaProdutoPK produtoEntradaPK = new ProdutoEntradaProdutoPK();
-			
-			Produto produto = Fachada.getInstancia().consultarProdutoPorPK(new Long(this.idProduto));
+			Produto produto = null;
+			try{
+				produto = Fachada.getInstancia().consultarProdutoPorPK(new Long(this.idProduto));
+			}catch(ObjectNotFoundException e){
+				throw new AppException("Produto inexistente no cadastro!");
+			}
 			
 			if(produto == null){
 				throw new AppException("Produto inexistente no cadastro!");
@@ -201,6 +212,7 @@ public class EntradaProdutoBackBean extends BackBean {
 //				}				
 //			}
 			
+			produtoEntrada.setVencimento(dataVencimentoProduto);
 			
 			if (this.ipiProduto == null) this.ipiProduto = BigDecimal.ZERO.setScale(2);
 			if (this.icmsProduto == null) this.icmsProduto = BigDecimal.ZERO.setScale(2);
@@ -291,12 +303,15 @@ public class EntradaProdutoBackBean extends BackBean {
 			msg = 	"A Quantidade do Produto deve ser informada!";
 		} else if (this.precoUnitario == null || "".equals(this.precoUnitario)){// || this.precoUnitario.equals(BigDecimal.ZERO)) {
 			msg = 	"O Preço Unitário do Produto deve ser informado!";
+		}else if (this.dataVencimentoProduto != null && this.dataVencimentoProduto.compareTo(new Date())<=0){
+			msg = "Produto com data de vencimento inválida";		
 		} else if (this.descontoProduto != null && !"".equals(this.descontoProduto)) {
 			BigDecimal tmpTotalProduto = this.precoUnitario.multiply(this.quantidade);
 			if (this.descontoProduto.compareTo(tmpTotalProduto) > 0) {
 				msg = "Desconto do produto deve ser menor que o Valor Total do produto!";	
 			}
 		}
+		
 		return msg;	  
 	}	
 	public String inserir() {
@@ -553,6 +568,7 @@ public class EntradaProdutoBackBean extends BackBean {
 				this.setQuantidadeTotal(entradaProduto.getQuantidadeTotal().setScale(3));
 				this.setFornecedor(entradaProduto.getFornecedor());
 				this.setEstoque(entradaProduto.getEstoque());
+				this.setStatus(entradaProduto.getStatus());
 				
 				if(entradaProduto.getFornecedor() != null){
 					if(entradaProduto.getFornecedor().getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
@@ -654,6 +670,7 @@ public class EntradaProdutoBackBean extends BackBean {
 				this.setQuantidadeTotal(entradaProduto.getQuantidadeTotal().setScale(3));
 				this.setFornecedor(entradaProduto.getFornecedor());
 				this.setEstoque(entradaProduto.getEstoque());
+				this.setStatus(entradaProduto.getStatus());
 				if(entradaProduto.getFornecedor() != null){
 					if(entradaProduto.getFornecedor().getTipoPessoa().equals(Fornecedor.PESSOA_FISICA)){
 						this.setNomeFornecedor(entradaProduto.getFornecedor().getNomeFornecedor());
@@ -835,6 +852,7 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setQuantidadeTotal(BigDecimal.ZERO.setScale(3));
 		resetProdutoBB();
 		inicializaValoreNota();
+		this.setStatus(null);
 		return "mesma";
 	}
     
@@ -1332,5 +1350,17 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
 	public void setDataVencimento(Date dataVencimento) {
 		this.dataVencimento = dataVencimento;
+	}
+	public Date getDataVencimentoProduto() {
+		return dataVencimentoProduto;
+	}
+	public void setDataVencimentoProduto(Date dataVencimentoProduto) {
+		this.dataVencimentoProduto = dataVencimentoProduto;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

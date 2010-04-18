@@ -51,7 +51,8 @@ public class CadastroAjusteEstoque extends Cadastro{
 			//consulta de estoque produto
 			try {
 				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pk);
-				ep.setQuantidade(ajuste.getQuantidadeDepois());
+				ep.subtrairQuantidade(ajuste.getQuantidadeAntes(), null);
+				ep.adicionarQuantidade(ajuste.getQuantidadeDepois(),null);				
 				getRepositorioEstoqueProduto().alterar(ep);
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -60,7 +61,7 @@ public class CadastroAjusteEstoque extends Cadastro{
 				pkEp.setEstoque(pk.getEstoque());
 				pkEp.setProduto(pk.getProduto());
 				ep.setPk(pkEp);
-				ep.setQuantidade(ajuste.getQuantidadeDepois());
+				ep.adicionarQuantidade(ajuste.getQuantidadeDepois(),null);
 				getRepositorioEstoqueProduto().inserir(ep);
 			}
 	}

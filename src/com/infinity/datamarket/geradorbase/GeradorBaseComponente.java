@@ -565,7 +565,7 @@ public abstract class GeradorBaseComponente {
 		try {
 			GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator
 					.getInstancia()
-					.getObjectToIntancia(
+					.getObjectToInstancia(
 							"com.infinity.datamarket.geradorbase.GeradorBaseComponenteHibernate");
 			gerador.geraBase(new Long(1),new Long(1));
 

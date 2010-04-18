@@ -1,6 +1,7 @@
 package com.infinity.datamarket.comum.estoque;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.infinity.datamarket.comum.produto.Produto;
 
@@ -14,6 +15,11 @@ public class EstoqueProdutoPK implements Serializable{
 	private Estoque estoque;
 	
 	private Produto produto;
+
+	
+	public EstoqueProdutoPK(){
+		
+	}
 
 	public Estoque getEstoque() {
 		return estoque;

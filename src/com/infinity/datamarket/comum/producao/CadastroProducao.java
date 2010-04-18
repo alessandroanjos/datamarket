@@ -54,7 +54,7 @@ public class CadastroProducao extends Cadastro{
 		CadastroEstoqueProduto cadEstoqueProduto = CadastroEstoqueProduto.getInstancia();
 		try{
 			EstoqueProduto estProdDestino = cadEstoqueProduto.consultarPorId(estoqueProdutoPkDestino);
-			estProdDestino.setQuantidade(estProdDestino.getQuantidade().add(producao.getQuantidade()));
+			estProdDestino.adicionarQuantidade(producao.getQuantidade(),producao.getVencimento());
 			cadEstoqueProduto.alterar(estProdDestino);
 			
 			EstoqueProduto estProdOrigem = null;
@@ -68,12 +68,12 @@ public class CadastroProducao extends Cadastro{
 						estoqueProdutoPkOrigem.setProduto(comp.getPk().getProduto());
 						estoqueProdutoPkOrigem.setEstoque(producao.getEstoque());
 						estProdOrigem = cadEstoqueProduto.consultarPorId(estoqueProdutoPkOrigem);
-						estProdOrigem.setQuantidade(estProdOrigem.getQuantidade().subtract(producao.getQuantidade().multiply(comp.getQuantidade())));
+						estProdOrigem.subtrairQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()),null);
 						cadEstoqueProduto.alterar(estProdOrigem);
 					} catch (ObjectNotFoundException e) {
 						estProdOrigem = new EstoqueProduto();
 						estProdOrigem.setPk(estoqueProdutoPkOrigem);
-						estProdOrigem.setQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()).negate());
+						estProdOrigem.subtrairQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()),null);
 						cadEstoqueProduto.inserir(estProdOrigem);
 					}
 				}
@@ -81,7 +81,7 @@ public class CadastroProducao extends Cadastro{
 		} catch (ObjectNotFoundException e) {			
 			EstoqueProduto ep = new EstoqueProduto();
 			ep.setPk(estoqueProdutoPkDestino);
-			ep.setQuantidade(producao.getQuantidade());
+			ep.adicionarQuantidade(producao.getQuantidade(),producao.getVencimento());
 			cadEstoqueProduto.inserir(ep);
 			
 			EstoqueProduto estProdOrigem = null;
@@ -95,12 +95,12 @@ public class CadastroProducao extends Cadastro{
 						estoqueProdutoPkOrigem.setProduto(comp.getPk().getProduto());
 						estoqueProdutoPkOrigem.setEstoque(producao.getEstoque());
 						estProdOrigem = cadEstoqueProduto.consultarPorId(estoqueProdutoPkOrigem);
-						estProdOrigem.setQuantidade(estProdOrigem.getQuantidade().subtract(producao.getQuantidade().multiply(comp.getQuantidade())));
+						estProdOrigem.subtrairQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()),null);
 						cadEstoqueProduto.alterar(estProdOrigem);
 					} catch (ObjectNotFoundException e1) {
 						estProdOrigem = new EstoqueProduto();
 						estProdOrigem.setPk(estoqueProdutoPkOrigem);
-						estProdOrigem.setQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()).negate());
+						estProdOrigem.subtrairQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()),null);
 						cadEstoqueProduto.inserir(estProdOrigem);
 					}
 				}
@@ -130,9 +130,8 @@ public class CadastroProducao extends Cadastro{
 		
 		
 		try{
-			EstoqueProduto estProd = CadastroEstoqueProduto.getInstancia().consultarPorId(pk);
-			BigDecimal qtd = estProd.getQuantidade().add(quantidadeCalculada);			
-			estProd.setQuantidade(qtd);
+			EstoqueProduto estProd = CadastroEstoqueProduto.getInstancia().consultarPorId(pk);					
+			estProd.adicionarQuantidade(quantidadeCalculada, producao.getVencimento());
 			CadastroEstoqueProduto.getInstancia().alterar(estProd);
 			
 			Collection c = producao.getProduto().getComposicao();
@@ -148,14 +147,18 @@ public class CadastroProducao extends Cadastro{
 						estoqueProdutoPkOrigem.setEstoque(producao.getEstoque());
 						try {																					
 							estProdOrigem = CadastroEstoqueProduto.getInstancia().consultarPorId(estoqueProdutoPkOrigem);
-							BigDecimal qtdRemove = estProdOrigem.getQuantidade().add(quantidadeAnterior.multiply(comp.getQuantidade()));
-							BigDecimal qtdAdd = qtdRemove.subtract(producao.getQuantidade().multiply(comp.getQuantidade()));
-							estProdOrigem.setQuantidade(qtdAdd);							
+							
+							estProdOrigem.adicionarQuantidade(quantidadeAnterior.multiply(comp.getQuantidade()), producao.getVencimento());
+							//BigDecimal qtdRemove = estProdOrigem.getQuantidade().add(quantidadeAnterior.multiply(comp.getQuantidade()));
+							
+							estProdOrigem.subtrairQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()),null);
+							//BigDecimal qtdAdd = qtdRemove.subtract(producao.getQuantidade().multiply(comp.getQuantidade()));
+																					
 							CadastroEstoqueProduto.getInstancia().alterar(estProdOrigem);
 						} catch (ObjectNotFoundException e1) {
 							estProdOrigem = new EstoqueProduto();
 							estProdOrigem.setPk(estoqueProdutoPkOrigem);
-							estProdOrigem.setQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()).negate());
+							estProdOrigem.subtrairQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()),null);
 							CadastroEstoqueProduto.getInstancia().inserir(estProdOrigem);
 						}
 					}
@@ -178,8 +181,7 @@ public class CadastroProducao extends Cadastro{
 		
 		try{
 			EstoqueProduto estProd = CadastroEstoqueProduto.getInstancia().consultarPorId(pk);
-			BigDecimal qtd = estProd.getQuantidade().subtract(producao.getQuantidade());			
-			estProd.setQuantidade(qtd);
+			estProd.subtrairQuantidade(producao.getQuantidade(),null);						
 			CadastroEstoqueProduto.getInstancia().alterar(estProd);
 			Collection c = producao.getProduto().getComposicao();
 			if (c != null && c.size() > 0){
@@ -193,12 +195,12 @@ public class CadastroProducao extends Cadastro{
 					if(comp != null){						
 						try {
 							estProdOrigem = CadastroEstoqueProduto.getInstancia().consultarPorId(estoqueProdutoPkOrigem);
-							estProdOrigem.setQuantidade(estProdOrigem.getQuantidade().add(producao.getQuantidade().multiply(comp.getQuantidade())));
+							estProdOrigem.adicionarQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()),producao.getVencimento());
 							CadastroEstoqueProduto.getInstancia().alterar(estProdOrigem);
 						} catch (ObjectNotFoundException e1) {
 							estProdOrigem = new EstoqueProduto();
 							estProdOrigem.setPk(estoqueProdutoPkOrigem);
-							estProdOrigem.setQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()).negate());
+							estProdOrigem.subtrairQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()),null);
 							CadastroEstoqueProduto.getInstancia().inserir(estProdOrigem);
 						}
 					}

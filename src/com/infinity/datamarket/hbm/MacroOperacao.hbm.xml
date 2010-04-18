@@ -18,8 +18,7 @@
             <generator class="assigned">
             </generator>
         </id>
-
-
+        
         <property name="descricao" type="java.lang.String" update="true" insert="true">
             <column name="DESCRICAO" length="50" not-null="true"/>
         </property>

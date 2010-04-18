@@ -249,12 +249,12 @@ public class CadastroTransacao extends Cadastro{
 								pk.setProduto(p);
 								try{
 									EstoqueProduto estoqueProduto = CadastroEstoqueProduto.getInstancia().consultarPorId(pk);
-									estoqueProduto.setQuantidade(estoqueProduto.getQuantidade().subtract(evir.getQuantidade()));
+									estoqueProduto.subtrairQuantidade(evir.getQuantidade(),null);
 									getRepositorioEstoqueProduto().alterar(estoqueProduto);
 								}catch(ObjectNotFoundException ex){
 									EstoqueProduto estoqueProduto = new EstoqueProduto();
 									estoqueProduto.setPk(pk);
-									estoqueProduto.setQuantidade(evir.getQuantidade().negate());
+									estoqueProduto.adicionarQuantidade(evir.getQuantidade().negate(),null);
 									getRepositorioEstoqueProduto().inserir(estoqueProduto);
 								}catch(Exception ex){
 									System.out.println("Estoque da loja "+evir.getPk().getLoja()+" não foi atualizado");
@@ -299,12 +299,12 @@ public class CadastroTransacao extends Cadastro{
 						try{
 							EstoqueProduto estoqueProduto = CadastroEstoqueProduto.getInstancia().consultarPorId(pk);
 							quantidade = estoqueProduto.getQuantidade().add(evir.getQuantidade());
-							estoqueProduto.setQuantidade(quantidade);
+							estoqueProduto.adicionarQuantidade(quantidade,null);
 							getRepositorioEstoqueProduto().alterar(estoqueProduto);
 						}catch(ObjectNotFoundException ex){
 							EstoqueProduto estoqueProduto = new EstoqueProduto();
 							estoqueProduto.setPk(pk);
-							estoqueProduto.setQuantidade(evir.getQuantidade());
+							estoqueProduto.adicionarQuantidade(evir.getQuantidade(),null);
 							getRepositorioEstoqueProduto().inserir(estoqueProduto);
 						}catch(Exception ex){
 							System.out.println("Estoque da loja "+evir.getPk().getLoja()+" não foi atualizado");
@@ -339,12 +339,12 @@ public class CadastroTransacao extends Cadastro{
 										}else if(evir.getAcao().equals(EventoItemRegistrado.ITEM_EXCLUIDO)){
 											quantidade = estoqueProduto.getQuantidade().add(evir.getQuantidade());
 										}
-										estoqueProduto.setQuantidade(quantidade);
+										estoqueProduto.adicionarQuantidade(quantidade,null);
 										getRepositorioEstoqueProduto().alterar(estoqueProduto);
 									}catch(ObjectNotFoundException ex){
 										EstoqueProduto estoqueProduto = new EstoqueProduto();
 										estoqueProduto.setPk(pk);
-										estoqueProduto.setQuantidade(evir.getQuantidade().negate());
+										estoqueProduto.adicionarQuantidade(evir.getQuantidade().negate(),null);
 										getRepositorioEstoqueProduto().inserir(estoqueProduto);
 									}catch(Exception ex){
 										System.out.println("Estoque da loja "+evir.getPk().getLoja()+" não foi atualizado");
@@ -378,12 +378,12 @@ public class CadastroTransacao extends Cadastro{
 								try{
 									EstoqueProduto estoqueProduto = CadastroEstoqueProduto.getInstancia().consultarPorId(pk);
 									quantidade = estoqueProduto.getQuantidade().add(evir.getQuantidade());
-									estoqueProduto.setQuantidade(quantidade);
+									estoqueProduto.adicionarQuantidade(quantidade,null);
 									getRepositorioEstoqueProduto().alterar(estoqueProduto);
 								}catch(ObjectNotFoundException ex){
 									EstoqueProduto estoqueProduto = new EstoqueProduto();
 									estoqueProduto.setPk(pk);
-									estoqueProduto.setQuantidade(evir.getQuantidade());
+									estoqueProduto.adicionarQuantidade(evir.getQuantidade(),null);
 									getRepositorioEstoqueProduto().inserir(estoqueProduto);
 								}catch(Exception ex){
 									System.out.println("Estoque da loja "+evir.getPk().getLoja()+" não foi atualizado");

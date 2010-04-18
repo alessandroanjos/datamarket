@@ -140,7 +140,7 @@ public class CargaBaseBackBean extends BackBean{
 //				getContextoApp().addMessage(null, msg);
 //				return "mesma";
 //			}
-			GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator.getInstancia().getObjectToIntancia(
+			GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator.getInstancia().getObjectToInstancia(
 							"com.infinity.datamarket.geradorbase.GeradorBaseComponenteHibernate");
 			gerador.geraBase(new Long(getIdLoja()),new Long(getIdComponente()));
 

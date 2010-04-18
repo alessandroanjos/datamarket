@@ -16,10 +16,17 @@
             </key-many-to-one>
          </composite-id>
 
-	
-        <property name="quantidade" type="java.math.BigDecimal" update="true" insert="true">
-            <column name="QUANTIDADE" length="20" not-null="false"/>
-        </property>
+
+		 <set name="lotes" inverse="false" cascade="save-update, delete-orphan"
+			lazy="true">
+			<key>
+				<column name="ID_PRODUTO" />
+				<column name="ID_ESTOQUE" />
+				<column name="ID_LOJA" />
+			</key>
+			<one-to-many
+				class="com.infinity.datamarket.comum.estoque.Lote" />
+		</set>	       
 	
     </class>
 

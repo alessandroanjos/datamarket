@@ -45,7 +45,7 @@ public class OpSolicitaDesconto extends Mic{
 					preco = prod.getPrecoPadrao();
 				}
 				
-				BigDecimal precoOriginal = new BigDecimal(preco.doubleValue());
+				BigDecimal precoOriginal = preco;
 	
 				String percentual = null;
 				if (retornoTipo.equals("1")){
@@ -84,8 +84,9 @@ public class OpSolicitaDesconto extends Mic{
 				
 				//calcula o valor de desconto maximo para o perfil do usuario
 
-				BigDecimal descontoItem = precoOriginal.subtract(preco);
-				descontoItem = descontoItem.setScale(2,BigDecimal.ROUND_DOWN);
+//				BigDecimal qtdProduto = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.QUANTIDADE_ITEM); 
+				BigDecimal descontoItem = precoOriginal.subtract(preco);//.multiply(qtdProduto).setScale(2,BigDecimal.ROUND_DOWN);
+//				descontoItem = descontoItem.setScale(2,BigDecimal.ROUND_DOWN);
 				gerenciadorPerifericos.getCmos().gravar(CMOS.DESCONTO, descontoItem);
 				
 				BigDecimal perc = usu.getPerfil().getPercentualDesconto();

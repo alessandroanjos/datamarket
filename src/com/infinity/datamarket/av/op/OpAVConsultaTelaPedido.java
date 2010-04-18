@@ -11,4 +11,8 @@ public class OpAVConsultaTelaPedido extends OpConsultaTelaPedido {
 		return ConstantesOperacao.EM_SEPARACAO;
 	}
 	
+	public int getEstadoOperacaoConsulta() {
+		return ConstantesOperacao.ABERTO;
+	}
+
 }

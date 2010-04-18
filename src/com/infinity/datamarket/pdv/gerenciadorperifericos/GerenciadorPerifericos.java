@@ -48,10 +48,9 @@ public class GerenciadorPerifericos implements Serializable{
     private int componente;
   
     private static final String WINDOW = "WINDOW";
-    private static final String ARQUIVO_CMOS = "ARQUIVO_CMOS";
     private static final String CMOS_CLASSE = "CMOS";
     private static final String DISPLAY_VIRTUAL = "DISPLAY";
-    private static final String IMPRESSOSRA_FISCAL = "IMPRESSOSRA_FISCAL";
+    private static final String IMPRESSORA_FISCAL = "IMPRESSORA_FISCAL";
 
     public static String PERIFERICOS = "Perifericos";
 
@@ -90,7 +89,7 @@ public class GerenciadorPerifericos implements Serializable{
         cmos.setArquivo(strArquivoCmos);
         String strDisplay = rb.getString(DISPLAY_VIRTUAL);
         display = (Display) getInstanciaClasse(strDisplay);
-        String strImpFiscal = rb.getString(IMPRESSOSRA_FISCAL);
+        String strImpFiscal = rb.getString(IMPRESSORA_FISCAL);
         try{
         	impressoraFiscal = (ImpressoraFiscal) getInstanciaClasse(strImpFiscal);
         	System.out.println("Sincronizando Aliquotas");

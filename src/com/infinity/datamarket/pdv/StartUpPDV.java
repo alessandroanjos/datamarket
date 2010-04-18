@@ -40,8 +40,7 @@ public class StartUpPDV {
 //		ti.jProgressBar1.setValue(50);
 
 		Estado est = contr.getEstado(new Long(1));
-		ger.getCmos().gravar(CMOSArquivo.ESTADO_ATUAL,est);
-
+		
 		TelaMenssagem t = (TelaMenssagem) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_MENSAGEM);
     	t.setMenssagem("Caixa Fechado");
 		Maquina maquina = Maquina.getInstancia(est, new Date(), ger, contr, t, "Caixa Fechadoo");

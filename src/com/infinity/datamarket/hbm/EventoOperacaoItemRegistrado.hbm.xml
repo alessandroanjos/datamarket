@@ -32,7 +32,9 @@
           
           <one-to-one name="produtoOperacaoItemRegistrado" class="com.infinity.datamarket.comum.operacao.ProdutoOperacaoItemRegistrado" cascade="all" lazy="false"/>
 
-
+		  <property name="vencimento" type="java.util.Date" update="true" insert="true">
+              <column name="VENCIMENTO" not-null="false"/>
+          </property>
 
       </joined-subclass>
    </hibernate-mapping>

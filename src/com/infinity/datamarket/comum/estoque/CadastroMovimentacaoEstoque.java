@@ -69,13 +69,13 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 			//adiciona saldo produto para o novo estoque
 			try {
 				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pkEp);
-				ep.setQuantidade(ep.getQuantidade().add(pme.getQuantidade()));
+				ep.adicionarQuantidade(pme.getQuantidade(),pme.getVencimento());
 				getRepositorioEstoqueProduto().alterar(ep);
 			} catch (ObjectNotFoundException e) {
 				// TODO: handle exception
 				EstoqueProduto ep = new EstoqueProduto();
 				ep.setPk(pkEp);
-				ep.setQuantidade(pme.getQuantidade());
+				ep.adicionarQuantidade(pme.getQuantidade(),pme.getVencimento());
 				getRepositorioEstoqueProduto().inserir(ep);
 			}
 			
@@ -84,8 +84,8 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 			pkEp.setProduto(pme.getProduto());
 			//retira saldo produto para o novo estoque
 			try {
-				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pkEp);
-				ep.setQuantidade(ep.getQuantidade().subtract(pme.getQuantidade()));
+				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pkEp);				
+				ep.subtrairQuantidade(pme.getQuantidade(),pme.getVencimento());
 				getRepositorioEstoqueProduto().alterar(ep);
 			} catch (ObjectNotFoundException e) {
 				// TODO: handle exception
@@ -120,7 +120,7 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 			//adiciona saldo produto para o novo estoque
 			try {
 				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pkEp);
-				ep.setQuantidade(ep.getQuantidade().subtract(pme.getQuantidade()));
+				ep.subtrairQuantidade(pme.getQuantidade(),null);				
 				getRepositorioEstoqueProduto().alterar(ep);
 			} catch (ObjectNotFoundException e) {
 				e.printStackTrace();
@@ -132,7 +132,7 @@ public class CadastroMovimentacaoEstoque extends Cadastro{
 			//retira saldo produto para o novo estoque
 			try {
 				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pkEp);
-				ep.setQuantidade(ep.getQuantidade().add(pme.getQuantidade()));
+				ep.adicionarQuantidade(pme.getQuantidade(),null);
 				getRepositorioEstoqueProduto().alterar(ep);
 			} catch (ObjectNotFoundException e) {
 				e.printStackTrace();

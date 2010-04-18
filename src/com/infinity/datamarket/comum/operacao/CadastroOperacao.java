@@ -65,12 +65,12 @@ public class CadastroOperacao extends Cadastro{
 							pk.setProduto(p);
 							try{
 								EstoqueProduto estoqueProduto = CadastroEstoqueProduto.getInstancia().consultarPorId(pk);
-								estoqueProduto.setQuantidade(estoqueProduto.getQuantidade().add(evir.getQuantidade()));
+								estoqueProduto.adicionarQuantidade(evir.getQuantidade(),evir.getVencimento());
 								getRepositorioEstoqueProduto().alterar(estoqueProduto);
 							}catch(ObjectNotFoundException ex){
 								EstoqueProduto estoqueProduto = new EstoqueProduto();
 								estoqueProduto.setPk(pk);
-								estoqueProduto.setQuantidade(evir.getQuantidade().negate());
+								estoqueProduto.adicionarQuantidade(evir.getQuantidade(),evir.getVencimento());
 								getRepositorioEstoqueProduto().inserir(estoqueProduto);
 							}catch(Exception ex){
 								System.out.println("Estoque da loja "+evir.getPk().getLoja()+" não foi atualizado");

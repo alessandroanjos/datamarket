@@ -39,6 +39,7 @@ public class AjusteEstoqueBackBean extends BackBean {
     private String id;
 	private Produto produto;
 	private BigDecimal quantidadeAntes;
+	private EstoqueProduto estoque;
 	private BigDecimal quantidadeDepois;
 	private Date data;
 	private Long codigoUsuario=1L;
@@ -185,10 +186,15 @@ public class AjusteEstoqueBackBean extends BackBean {
 		if (produto != null) {
 			id.setProduto(produto);
 			this.setDescricao(produto.getDescricaoCompleta());
-			EstoqueProduto estoqueProduto = Fachada.getInstancia().consultarEstoqueProduto(id);
-			if (estoqueProduto.getQuantidade()!=null) {
-				this.setQuantidadeAntes(estoqueProduto.getQuantidade());
-			}	else {
+			try{
+				EstoqueProduto estoqueProduto = Fachada.getInstancia().consultarEstoqueProduto(id);
+				if (estoqueProduto.getQuantidade()!=null) {
+					this.setQuantidadeAntes(estoqueProduto.getQuantidade());
+				}	else {
+					this.setQuantidadeAntes(BigDecimal.ZERO);
+				}
+				this.estoque = estoqueProduto;
+			}catch(ObjectNotFoundException e){
 				this.setQuantidadeAntes(BigDecimal.ZERO);
 			}
 		}	
@@ -718,5 +724,13 @@ public class AjusteEstoqueBackBean extends BackBean {
 		}
 
 		return arrayLojas;
+	}
+
+	public EstoqueProduto getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(EstoqueProduto estoque) {
+		this.estoque = estoque;
 	}
 }

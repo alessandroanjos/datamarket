@@ -58,6 +58,7 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 	private String codigoExterno;
 	private String descricao;
 	private String quantidade;
+	private Date vencimento;
 	private String descricaoCompletaEstoque;
 	
 	// Atributos para montar consulta de produtos no popUp 
@@ -184,6 +185,9 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 		ProdutoMovimentacaoEstoque produtoMovimentacaoEstoque = new ProdutoMovimentacaoEstoque();
 		produtoMovimentacaoEstoque.setProduto(produto);
 		produtoMovimentacaoEstoque.setQuantidade(qtdMovimento);
+		if (this.vencimento != null){
+			produtoMovimentacaoEstoque.setVencimento(this.vencimento);
+		}
 		
 		ProdutoMovimentacaoEstoquePK produtoMovimentacaoEstoquePK = new ProdutoMovimentacaoEstoquePK();
 //		produtoMovimentacaoEstoquePK.setNumeroEntrada(i);
@@ -1299,6 +1303,14 @@ public class MovimentacaoEstoqueBackBean extends BackBean {
 
 	public void setIdLojaSaida(String idLojaSaida) {
 		this.idLojaSaida = idLojaSaida;
+	}
+
+	public Date getVencimento() {
+		return vencimento;
+	}
+
+	public void setVencimento(Date vencimento) {
+		this.vencimento = vencimento;
 	}
 
 }

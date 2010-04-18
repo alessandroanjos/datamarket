@@ -44,7 +44,7 @@ public class ServiceLocator {
 		}
 	}
 	
-	public synchronized Object getObjectToIntancia(String strClass){
+	public synchronized Object getObjectToInstancia(String strClass){
 		if (pool.containsKey(strClass)){
 			return pool.get(strClass);
 		}else{
@@ -75,11 +75,15 @@ public class ServiceLocator {
 	
 	public IRepositorio getRepositoprio(String repositorio){
 		String strRepositorio = rs.getString(repositorio);
-		return (IRepositorio) getObjectToIntancia(strRepositorio);
+		return (IRepositorio) getObjectToInstancia(strRepositorio);
 	}
 
 	public Tela getTela(String tela){
 		String strTela = rs.getString(tela);
 		return (Tela) getObject(strTela);
+	}
+	
+	public Object getResource(){
+		return rs;
 	}
 }

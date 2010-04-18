@@ -3,6 +3,7 @@ package com.infinity.datamarket.comum.util;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -72,9 +73,40 @@ public class Util {
 		DateFormat f = new SimpleDateFormat("dd/MM/yyyy");
 		return f.parse(dataParametro);
 	}
-		
-	public static String retornaDataFormatoDDMMYYYY(Date dataParametro){
+	
+	public static Date formatarStringDDMMYYYYParaDataPadrao(String dataParametro) throws ParseException {
+		DateFormat f = new SimpleDateFormat("ddMMyyyy");
+		return f.parse(dataParametro);
+	}
+	
+	public static String retornaDataFormatoPadrao(Date dataParametro){
 		return new SimpleDateFormat("dd/MM/yyyy").format(dataParametro);
+	}
+	
+	public static String retornaDataFormatoDDMMYYYY(Date dataParametro){ 
+		return new SimpleDateFormat("ddMMyyyy").format(dataParametro);
+	}
+	
+	public static String retornaHoraFormatoHHMMSS(Date dataParametro){
+		String horaCompleta = "";
+		horaCompleta = completaString(String.valueOf(dataParametro.getHours()),"0",2,true).concat(completaString(String.valueOf(dataParametro.getMinutes()),"0",2,true)).concat(completaString(String.valueOf(dataParametro.getSeconds()),"0",2,true));
+		return horaCompleta;
+	}
+
+	public static String retornaTimestampFormatoDDMMHHMMSS(Date dataParametro){
+		String timestamp = "";
+		timestamp = retornaDataFormatoDDMMYYYY(dataParametro).substring(0, 4).concat(retornaHoraFormatoHHMMSS(dataParametro));
+		return timestamp;
+	}
+	
+	public static Date retornaDataTimestampFormatoDDMMHHMMSS(String dataParametro){
+		Date dataTmp = new Date();
+		int dia = Integer.parseInt(dataParametro.substring(0, 2));
+		int mes = Integer.parseInt(dataParametro.substring(2, 4));
+		int hora = Integer.parseInt(dataParametro.substring(4, 6));
+		int min = Integer.parseInt(dataParametro.substring(6, 8));
+		int seg = Integer.parseInt(dataParametro.substring(8));
+		return new Date(dataTmp.getYear(), dia, mes, hora, min, seg);
 	}
 	
 	public static boolean validacpf(String strCpf){ // formato XXX.XXX.XXX-XX   
@@ -218,21 +250,37 @@ public class Util {
 	}
 	
 	public static void main(String[] args) {
-		try 
-		{ 
-		    //create a ZipOutputStream to zip the data to 
-		    ZipOutputStream zos = new  ZipOutputStream(new FileOutputStream("c:\\curDir.zip")); 
-		    //assuming that there is a directory named inFolder (If there 
-		    //isn't create one) in the same directory as the one the code   runs from, 
-		    //call the zipDir method 
-		    zipDir("C:\\Arquivos de programas\\jboss-4.0.5.GA\\server\\default\\deploy\\EnterpriseServer.war\\banco\\1\\1", zos); 
-		    //close the stream 
-		    zos.close(); 
-		} 
-		catch(Exception e) 
-		{ 
-		    //handle exception 
-		} 
+		
+		try {
+			System.out.println(formatarStringDDMMYYYYParaDataPadrao("13012010"));
+			System.out.println(retornaHoraFormatoHHMMSS(new Date(System.currentTimeMillis())));
+			System.out.println(retornaTimestampFormatoDDMMHHMMSS(new Date(System.currentTimeMillis())));
+			String t = "1901223344";
+			System.out.println(t.substring(0,2));
+			System.out.println(t.substring(2,4));
+			System.out.println(t.substring(4,6));
+			System.out.println(t.substring(6,8));
+			System.out.println(t.substring(8));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		try 
+//		{ 
+//		    //create a ZipOutputStream to zip the data to 
+//		    ZipOutputStream zos = new  ZipOutputStream(new FileOutputStream("c:\\curDir.zip")); 
+//		    //assuming that there is a directory named inFolder (If there 
+//		    //isn't create one) in the same directory as the one the code   runs from, 
+//		    //call the zipDir method 
+//		    zipDir("C:\\Arquivos de programas\\jboss-4.0.5.GA\\server\\default\\deploy\\EnterpriseServer.war\\banco\\1\\1", zos); 
+//		    //close the stream 
+//		    zos.close(); 
+//		} 
+//		catch(Exception e) 
+//		{ 
+//		    //handle exception 
+//		} 
 	}
 	
 	public static void compactaArquivoZip(String[] arqs, String nomeZip) {
@@ -565,6 +613,27 @@ public class Util {
 		}
 	}
 	
+	public static void apagarArquivos(File dir, FileFilter filtro) {
+		File[] arquivos = dir.listFiles(filtro);
+		for (int i = 0; i < arquivos.length; i++) {
+			if (arquivos[i].isFile()) {
+				arquivos[i].delete();
+			}
+		}
+	}
+	
+	public static final boolean deleteArquivo(String arquivoComCaminhoCompleto) {
+		File file = new File(arquivoComCaminhoCompleto);
+		if (file.exists()) {
+			boolean res = file.delete();
+			return res;
+		} else {
+			return true;
+		}
+	}
+
+	
+
 	public static final void copyInputStream(InputStream in, OutputStream out)
 	  throws IOException
 	  {
@@ -808,5 +877,4 @@ public class Util {
 		ufs[cont++] = new SelectItem("TO", "Tocantins");
 		return ufs;
 	}
-
 }
