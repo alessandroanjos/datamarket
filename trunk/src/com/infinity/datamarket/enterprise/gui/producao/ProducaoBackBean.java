@@ -476,7 +476,7 @@ public class ProducaoBackBean extends BackBean {
 			if(VALOR_ACAO.equals(param)){
 				resetBB();
 			}
-		}else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
+		}else if((params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos"))){
 			try {
  				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(Produto.class);

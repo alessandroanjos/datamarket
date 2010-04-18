@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.hibernate.Hibernate;
+
 import com.infinity.datamarket.comum.financeiro.CadastroGrupoLancamento;
 import com.infinity.datamarket.comum.financeiro.GrupoLancamento;
 import com.infinity.datamarket.comum.financeiro.IRepositorioLancamento;
@@ -70,23 +72,24 @@ public class CadastroEntradaProduto extends Cadastro{
 			pk.setProduto(pep.getPk().getProduto());
 			pep.getPk().setId(entradaProduto.getId());
 			//consulta de estoque produto
+			EstoqueProduto ep = null;
 			try {
-				EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pk);
-				ep.setQuantidade(ep.getQuantidade().add(pep.getQuantidade()));
+				ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pk);
+				ep.adicionarQuantidade(pep.getQuantidade(),pep.getVencimento());
 				getRepositorioEstoqueProduto().alterar(ep);
 			} catch (ObjectNotFoundException e) {
 				// TODO: handle exception
-				EstoqueProduto ep = new EstoqueProduto();
+				ep = new EstoqueProduto();
 				EstoqueProdutoPK pkEp = new EstoqueProdutoPK();
 				pkEp.setEstoque(pk.getEstoque());
 				pkEp.setProduto(pk.getProduto());
 				ep.setPk(pkEp);
-				ep.setQuantidade(pep.getQuantidade());
+				ep.adicionarQuantidade(pep.getQuantidade(),pep.getVencimento());
 				getRepositorioEstoqueProduto().inserir(ep);
 			}
-			try{
+			try{				
 				BigDecimal valorUnitario = pep.getPrecoUnitario();
-				Produto produto = pep.getPk().getProduto();
+				Produto produto =  CadastroProduto.getInstancia().consultarPorPK(ep.getPk().getProduto().getId()); //pep.getPk().getProduto();
 				produto.setPrecoCompra(valorUnitario);
 				CadastroProduto.getInstancia().alterar(produto);
 			}catch(ObjectNotFoundException e){
@@ -123,14 +126,14 @@ public class CadastroEntradaProduto extends Cadastro{
 			//consulta de estoque produto
 			EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pk);
 			if(entradaProduto.getStatus().equals(Constantes.STATUS_ATIVO)){
-				ep.setQuantidade(ep.getQuantidade().add(pep.getQuantidade()));	
+				ep.adicionarQuantidade(pep.getQuantidade(),pep.getVencimento());	
 			}else if(entradaProduto.getStatus().equals(Constantes.STATUS_CANCELADO)){
-				ep.setQuantidade(ep.getQuantidade().subtract(pep.getQuantidade()));
+				ep.subtrairQuantidade(pep.getQuantidade(),pep.getVencimento());
 			}			
 			getRepositorioEstoqueProduto().alterar(ep);
 			try{
 				BigDecimal valorUnitario = pep.getPrecoUnitario();
-				Produto produto = pep.getPk().getProduto();
+				Produto produto = ep.getPk().getProduto();
 				produto.setPrecoCompra(valorUnitario);
 				CadastroProduto.getInstancia().alterar(produto);
 			}catch(ObjectNotFoundException e){
@@ -151,7 +154,7 @@ public class CadastroEntradaProduto extends Cadastro{
 			
 			//consulta de estoque produto
 			EstoqueProduto ep = (EstoqueProduto) getRepositorioEstoqueProduto().consultarPorId(pk);
-			ep.setQuantidade(ep.getQuantidade().subtract(pep.getQuantidade()));
+			ep.subtrairQuantidade(pep.getQuantidade(),pep.getVencimento());
 			getRepositorioEstoqueProduto().alterar(ep);
 		}
 	}	

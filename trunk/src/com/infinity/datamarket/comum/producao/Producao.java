@@ -24,8 +24,15 @@ public class Producao extends Persistente{
 	private BigDecimal precoVenda;
 	private BigDecimal precoVendaAnterior;
 	private BigDecimal markUp;
+	private Date vencimento;
 	
 	
+	public Date getVencimento() {
+		return vencimento;
+	}
+	public void setVencimento(Date vencimento) {
+		this.vencimento = vencimento;
+	}
 	public BigDecimal getMarkUp() {
 		return markUp;
 	}

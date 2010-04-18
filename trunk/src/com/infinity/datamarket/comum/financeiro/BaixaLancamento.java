@@ -172,7 +172,7 @@ public class BaixaLancamento implements Serializable{
 		sb.append("\nnumeroConta: "+numeroConta);
 		sb.append("\nnumeroCheque: "+numeroCheque);
 		sb.append("\nnumeroDocumento: "+numeroDocumento);
-		sb.append("\ndataCheque: "+Util.retornaDataFormatoDDMMYYYY(dataCheque));
+		sb.append("\ndataCheque: "+Util.retornaDataFormatoPadrao(dataCheque));
 		sb.append("\ntipoPessoaCheque: "+tipoPessoaCheque);
 		sb.append("\ncpfCnpjCheque: "+cpfCnpjCheque);
 		sb.append("\nsituacao: "+situacao);

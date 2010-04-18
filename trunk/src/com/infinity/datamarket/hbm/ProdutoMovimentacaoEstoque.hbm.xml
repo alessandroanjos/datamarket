@@ -18,6 +18,9 @@
 		<many-to-one name="produto" class="com.infinity.datamarket.comum.produto.Produto" update="true" insert="true">
           <column name="ID_PRODUTO" not-null="true"/>
         </many-to-one>
+        <property name="vencimento" type="java.util.Date" update="true" insert="true">
+          <column name="VENCIMENTO" not-null="false"/>
+         </property>
 	
     </class>
 

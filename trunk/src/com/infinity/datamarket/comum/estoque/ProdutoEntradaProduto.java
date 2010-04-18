@@ -2,6 +2,7 @@ package com.infinity.datamarket.comum.estoque;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class ProdutoEntradaProduto implements Serializable{
 
@@ -18,8 +19,15 @@ public class ProdutoEntradaProduto implements Serializable{
 	private BigDecimal icms;
 	private BigDecimal ipi;
 	private BigDecimal total;
+	private Date vencimento;
 	
 	
+	public Date getVencimento() {
+		return vencimento;
+	}
+	public void setVencimento(Date vencimento) {
+		this.vencimento = vencimento;
+	}
 	public BigDecimal getDesconto() {
 		return desconto;
 	}

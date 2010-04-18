@@ -15,6 +15,7 @@ public class EventoOperacaoItemRegistrado extends EventoOperacao{
 	private BigDecimal quantidade;
 	private BigDecimal desconto;
 	private BigDecimal lucro;
+	private Date vencimento;
 	
 	private String acao;
 	public static final String ITEM_NAO_ALTERADO = "N";
@@ -75,6 +76,14 @@ public class EventoOperacaoItemRegistrado extends EventoOperacao{
 	public void setProdutoOperacaoItemRegistrado(
 			ProdutoOperacaoItemRegistrado produtoOperacaoItemRegistrado) {
 		this.produtoOperacaoItemRegistrado = produtoOperacaoItemRegistrado;
+	}
+
+	public Date getVencimento() {
+		return vencimento;
+	}
+
+	public void setVencimento(Date vencimento) {
+		this.vencimento = vencimento;
 	}
 
 }

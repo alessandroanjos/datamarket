@@ -6,18 +6,21 @@
 
 package com.infinity.datamarket.av.gui.telas;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
+import java.text.Format;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import org.jboss.ws.soap.attachment.ByteArrayContentHandler;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 import com.infinity.datamarket.pdv.gui.telas.Tela;
-import com.infinity.datamarket.pdv.gui.telas.swing.TelaInicial;
 
 /**
  *
@@ -138,7 +141,7 @@ public class TelaAVInicial extends Tela{
          campoCodigoProduto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 150), 2));
          campoCodigoProduto.setFont(new java.awt.Font("Courier New", 1, 24));
          campoCodigoProduto.setBounds(10, 125, 200, 25);
-         campoCodigoProduto.setText("9999999999999");
+         campoCodigoProduto.setText("");
          campoCodigoProduto.setFocusable(false);
 
          painelCentral.add(campoDescricaoProduto);
@@ -160,6 +163,7 @@ public class TelaAVInicial extends Tela{
          campoValor.setFont(new java.awt.Font("Courier New", 1, 24));
          campoValor.setBounds(10, 175, 150, 25);
          campoValor.setFocusable(false);
+         campoValor.setHorizontalAlignment(JTextField.RIGHT);
 
          painelCentral.add(labelQuantidade);
          labelQuantidade.setText("Quantidade");
@@ -171,6 +175,7 @@ public class TelaAVInicial extends Tela{
          campoQuantidade.setFont(new java.awt.Font("Courier New", 1, 24));
          campoQuantidade.setBounds(175, 175, 150, 25);
          campoQuantidade.setFocusable(false);
+         campoQuantidade.setHorizontalAlignment(JTextField.RIGHT);
 
          painelCentral.add(labelDesconto);
          labelDesconto.setText("Desconto");
@@ -182,6 +187,7 @@ public class TelaAVInicial extends Tela{
          campoDesconto.setFont(new java.awt.Font("Courier New", 1, 24));
          campoDesconto.setBounds(340, 175, 150, 25);
          campoDesconto.setFocusable(false);
+         campoDesconto.setHorizontalAlignment(JTextField.RIGHT);
 
          // grid
          painelCentral.add(jScrollPane1);
@@ -190,28 +196,49 @@ public class TelaAVInicial extends Tela{
          jScrollPane1.setFont(new java.awt.Font("Courier New", 1, 14));
          jTable1.setFont(new java.awt.Font("Courier New", 1, 14));
          this.zerarTabela();
+         
+//         jTable1.setModel(new javax.swing.table.DefaultTableModel(
+//               new Object [][] {},
+//               new String [] {"Seq","Produto", "Valor", "Quantidade", "Desconto Item", "Total"}
+//           ){
+//           
+//           public boolean isCellEditable(int rowIndex, int columnIndex)
+//           {
+//               return false;
+//           }
+//           });
+         
          jTable1.setGridColor(new java.awt.Color(255, 255, 255));
          jTable1.setPreferredSize(new java.awt.Dimension(790, 190));
          jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
+
+         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.getDefault());
+         FormatRenderer r = new FormatRenderer(formatter);
+         r.setHorizontalAlignment(SwingConstants.RIGHT);
          
-         jTable1.getColumnModel().getColumn(0).setPreferredWidth(30);
+//         FormatRenderer r1 = new FormatRenderer(formatter);
+//         r.setHorizontalAlignment(SwingConstants.RIGHT);
+         
+         jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
          jTable1.getColumnModel().getColumn(0).setResizable(false);
          
-         jTable1.getColumnModel().getColumn(1).setPreferredWidth(350);
+         jTable1.getColumnModel().getColumn(1).setPreferredWidth(280);
          jTable1.getColumnModel().getColumn(1).setResizable(false);
 
          jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
          jTable1.getColumnModel().getColumn(2).setResizable(false);
+         jTable1.getColumnModel().getColumn(2).setCellRenderer(r);
 
          jTable1.getColumnModel().getColumn(3).setPreferredWidth(108);
          jTable1.getColumnModel().getColumn(3).setResizable(false);
 
          jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
          jTable1.getColumnModel().getColumn(4).setResizable(false);
+         jTable1.getColumnModel().getColumn(4).setCellRenderer(r);
 
          jTable1.getColumnModel().getColumn(5).setPreferredWidth(100);
          jTable1.getColumnModel().getColumn(5).setResizable(false);
-
+         jTable1.getColumnModel().getColumn(5).setCellRenderer(r);
          
          jTable1.getTableHeader().setReorderingAllowed(false);
          jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -229,7 +256,8 @@ public class TelaAVInicial extends Tela{
          painelCentral.add(campoTotalDesconto);
          campoTotalDesconto.setFont(new java.awt.Font("Courier New", 1, 24));
          campoTotalDesconto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 150), 2));         
-         campoTotalDesconto.setBounds(625, 460, 160, 25);
+         campoTotalDesconto.setBounds(625, 430, 160, 25);
+         campoTotalDesconto.setHorizontalAlignment(JTextField.RIGHT);
 
          //total Desconto
          painelCentral.add(labelTotal);
@@ -240,7 +268,8 @@ public class TelaAVInicial extends Tela{
          painelCentral.add(campoTotal);
          campoTotal.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 150), 2));
          campoTotal.setFont(new java.awt.Font("Courier New", 1, 24));         
-         campoTotal.setBounds(625, 430, 160, 25);                                  
+         campoTotal.setBounds(625, 460, 160, 25);
+         campoTotal.setHorizontalAlignment(JTextField.RIGHT);
          
          
          campoDesconto.setFocusable(false);
@@ -298,7 +327,27 @@ public class TelaAVInicial extends Tela{
         
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {},
-            new String [] {"Seq","Produto", "Valor", "Quantidade", "Desconto Item", "Total"}
+            new String [] {"Cod","Produto", "Valor", "Quantidade", "Desconto Item", "Total"}
+        ){
+        
+        public boolean isCellEditable(int rowIndex, int columnIndex)
+        {
+            return false;
+        }
+        });
+                
+		
+//		for (int i = 0; i < jTable1.getModel().getRowCount(); i++) {
+//			((DefaultTableModel)jTable1.getModel()).removeRow(i);			
+//		} 
+
+	}
+	
+	public void zerarTabelaSeparacao(){
+        
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {},
+            new String [] {"Código","Produto", "Valor", "Quantidade", "Desconto no Item", "Total", "Separação"}
         ){
         
         public boolean isCellEditable(int rowIndex, int columnIndex)
@@ -314,6 +363,16 @@ public class TelaAVInicial extends Tela{
 		javax.swing.table.DefaultTableModel table = (javax.swing.table.DefaultTableModel)jTable1.getModel();
 		
 	     Object[] linha = {seq,produto, valor, quantidade, descont, total};    
+	     table.insertRow(0, linha);   
+
+        
+	}
+	
+	public void adicionarRegistroTabelaSeparacao(String codigoExterno, String produto, String valor, String quantidade, String descont, String total, String totalSeparacao){
+
+		javax.swing.table.DefaultTableModel table = (javax.swing.table.DefaultTableModel)jTable1.getModel();
+		
+	     Object[] linha = {codigoExterno,produto, valor, quantidade, descont, total,totalSeparacao};    
 	     table.insertRow(0, linha);   
 
         
@@ -339,36 +398,23 @@ public class TelaAVInicial extends Tela{
 		t.adicionarRegistroTabela("001","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","9.999.999,99","9.999.999,999","9.999.999,99","9.999.999,99");
 	}
 	
-	public void zerarTabelaSeparacao(){
-        
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {},
-            new String [] {"Código","Produto", "Valor", "Quantidade", "Desconto no Item", "Total", "Separação"}
-        ){
-        
-        public boolean isCellEditable(int rowIndex, int columnIndex)
-        {
-            return false;
-        }
-        });
-
-	}
-
-
-	public void adicionarRegistroTabelaSeparacao(String codigoExterno, String produto, String valor, String quantidade, String descont, String total, String totalSeparacao){
-
-		javax.swing.table.DefaultTableModel table = (javax.swing.table.DefaultTableModel)jTable1.getModel();
-		
-	     Object[] linha = {codigoExterno,produto, valor, quantidade, descont, total,totalSeparacao};    
-	     table.insertRow(0, linha);   
-	}
-	
 	private JPanel painelCentral;
 	private JPanel painelTop;
 	private JLabel imgLogo;
-   
 
-
+	class FormatRenderer extends DefaultTableCellRenderer {
+	    private Format formatter;
+	 
+	    public FormatRenderer(Format formatter) {
+	        if (formatter==null)
+	            throw new NullPointerException();
+	        this.formatter = formatter;
+	    }
+	 
+	    protected void setValue(Object obj) {
+	        setText(obj==null? "" : formatter.format(obj));
+	    }
+	}
    
 	
 }

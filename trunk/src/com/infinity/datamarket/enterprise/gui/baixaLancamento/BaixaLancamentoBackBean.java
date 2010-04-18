@@ -640,7 +640,7 @@ public class BaixaLancamentoBackBean extends BackBean {
 				if(obj.getFormaRecebimento().getId().toString().equals(ConstantesFormaRecebimento.CHEQUE)){
 					String detalheForma = obj.getBanco().getId() + "/" + obj.getAgencia() + "/" + obj.getNumeroConta() + "/" + 
 										  obj.getNumeroCheque() + "/ \n" + Util.formataCpfCnpj(obj.getCpfCnpjCheque()) + "/" + obj.getNumeroDocumento() + "/" + 
-							              Util.retornaDataFormatoDDMMYYYY(obj.getDataCheque());
+							              Util.retornaDataFormatoPadrao(obj.getDataCheque());
 					obj.setDetalheFormaRecebimento(detalheForma);
 				}
 				
@@ -819,11 +819,11 @@ public class BaixaLancamentoBackBean extends BackBean {
 				logger.info("inserirItemBaixaLancamento - tipoPessoa --> "+this.getIdTipoPessoa());
 				logger.info("inserirItemBaixaLancamento - cpfCnpj --> "+this.getCpfCnpj());
 				logger.info("inserirItemBaixaLancamento - numeroDocumentoCheque --> "+this.getNumeroDocumentoItemBaixa());
-				logger.info("inserirItemBaixaLancamento - dataCheque --> "+Util.retornaDataFormatoDDMMYYYY(this.getDataCheque()));				
+				logger.info("inserirItemBaixaLancamento - dataCheque --> "+Util.retornaDataFormatoPadrao(this.getDataCheque()));				
 				
 				String detalheForma = this.getIdBanco() + "/" + this.getAgencia() + "/" + this.getNumeroConta() + "/" + 
 				                      this.getNumeroCheque() + "/ \n" + this.getCpfCnpj() + "/" + this.getNumeroDocumentoItemBaixa() + "/" + 
-				                      Util.retornaDataFormatoDDMMYYYY(this.getDataCheque());
+				                      Util.retornaDataFormatoPadrao(this.getDataCheque());
 				itemBaixaLanc.setDetalheFormaRecebimento(detalheForma);
 				logger.info("inserirItemBaixaLancamento - detalheForma --> "+detalheForma);
 				detalheForma = null;
@@ -836,7 +836,7 @@ public class BaixaLancamentoBackBean extends BackBean {
 			logger.info("inserirItemBaixaLancamento - situacaoItem --> "+itemBaixaLanc.getSituacao());
 			
 			itemBaixaLanc.setDataBaixa(getDataSistema());
-			logger.info("inserirItemBaixaLancamento - dataCheque --> "+Util.retornaDataFormatoDDMMYYYY(itemBaixaLanc.getDataBaixa()));
+			logger.info("inserirItemBaixaLancamento - dataCheque --> "+Util.retornaDataFormatoPadrao(itemBaixaLanc.getDataBaixa()));
 			
 			logger.info("inserirItemBaixaLancamento - validando Item");
 			validarItemBaixaLancamento(itemBaixaLanc);
@@ -933,7 +933,7 @@ public class BaixaLancamentoBackBean extends BackBean {
 			logger.info("baixarLancamento - tipo do Lancamento para baixa --> "+lancamento.getTipoLancamento());
 			logger.info("baixarLancamento - nova situacao do lancamento --> "+lancamento.getSituacao() + " - " + retornaDescricaoSituacao(lancamento.getSituacao()));
 			lancamento.setDataPagamento(getDataSistema());
-			logger.info("baixarLancamento - data do Pagamento --> "+Util.retornaDataFormatoDDMMYYYY(getDataSistema()));
+			logger.info("baixarLancamento - data do Pagamento --> "+Util.retornaDataFormatoPadrao(getDataSistema()));
 
 			getFachada().baixarLancamento(lancamento);
 			logger.info("baixarLancamento - lancamento dado baixa com sucesso!");
@@ -997,7 +997,7 @@ public class BaixaLancamentoBackBean extends BackBean {
 			logger.info("cancelarBaixaLancamento - nova situacao do lancamento --> "+lancamento.getSituacao() + " - " + retornaDescricaoSituacao(lancamento.getSituacao()));
 
 			lancamento.setDataPagamento(getDataSistema());
-			logger.info("baixarLancamento - data do Pagamento --> "+Util.retornaDataFormatoDDMMYYYY(getDataSistema()));
+			logger.info("baixarLancamento - data do Pagamento --> "+Util.retornaDataFormatoPadrao(getDataSistema()));
 			
 			getFachada().baixarLancamento(lancamento);
 			logger.info("cancelarBaixaLancamento - lancamento cancelado com sucesso!");

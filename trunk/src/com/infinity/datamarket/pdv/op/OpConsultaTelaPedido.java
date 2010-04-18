@@ -54,7 +54,12 @@ public class OpConsultaTelaPedido extends Mic{
 					ServerConfig.CONSULTAR_OPERACOES_SERVLET);
 			URLConnection huc1 = urlCon.openConnection();
 	
-			huc1.setAllowUserInteraction(true);						
+			huc1.setAllowUserInteraction(true);	
+			
+			huc1.setDoOutput(true);
+
+			ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
+			output.writeObject(getEstadoOperacaoConsulta());
 			
 			ObjectInputStream input = new ObjectInputStream(huc1.getInputStream());
 			Object obj = input.readObject();
@@ -168,5 +173,15 @@ public class OpConsultaTelaPedido extends Mic{
 	 */
 	public int getEstadoOperacaoAtualizada() {
 		return ConstantesOperacao.EM_PROCESSAMENTO;
+	}
+	
+	/**
+	 * Qual o estado do pedido ficara no E.S apois a coonsulta
+	 * Caso não queira separa retorna -1
+	 * 
+	 * @return
+	 */
+	public int getEstadoOperacaoConsulta() {
+		return ConstantesOperacao.SEPARADO;
 	}
 }

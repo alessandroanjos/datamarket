@@ -45,7 +45,7 @@ public class GeraNovaCargaBaseServlet extends HttpServlet {
 				} 
 			}
 			
-			GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator .getInstancia() .getObjectToIntancia( "com.infinity.datamarket.geradorbase.GeradorBaseComponenteHibernate");
+			GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator .getInstancia() .getObjectToInstancia( "com.infinity.datamarket.geradorbase.GeradorBaseComponenteHibernate");
 			gerador.geraBase(codigoLoja, codigoComponente);
 
 			File f = new File(diretorioCargaBase);

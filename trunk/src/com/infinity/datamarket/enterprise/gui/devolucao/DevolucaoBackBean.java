@@ -55,6 +55,7 @@ public class DevolucaoBackBean extends BackBean {
 	private String idOperacaoDevolucao;
 	
 	private Date dataDevolucao;
+	
 
 	private String idTipoPessoa = new String(Fornecedor.PESSOA_FISICA);
 	private SelectItem[] listaTipoPessoa;
@@ -67,6 +68,7 @@ public class DevolucaoBackBean extends BackBean {
 	private BigDecimal precoVenda;
 	private BigDecimal quantidade;
 	private BigDecimal valorItem;
+	private Date vencimento;
 	private List<EventoOperacaoItemRegistrado> eventosOperacao = new ArrayList<EventoOperacaoItemRegistrado>();
 	
 	private BigDecimal valorTotalDevolucao;
@@ -341,6 +343,7 @@ public class DevolucaoBackBean extends BackBean {
 		this.setEventosOperacao(null);
 		sequencialProdutoOperacaoEventoRegistrado = 0;
 		this.setExisteRegistros(false);
+		this.setVencimento(null);
 	}
 	
 	public String consultar(){
@@ -575,6 +578,7 @@ public class DevolucaoBackBean extends BackBean {
 			produtoOperacaoItemRegistrado.setTipoProduto(produto.getTipo().getId());
 			produtoOperacaoItemRegistrado.setUnidade(produto.getUnidade().getAbreviacao());
 			
+			
 			valorTotalItem = this.getPrecoVenda().multiply(this.getQuantidade()).setScale(2, BigDecimal.ROUND_DOWN);
 			
 			EventoOperacaoItemRegistrado eventoOperacaoItemRegistrado = 
@@ -587,6 +591,10 @@ public class DevolucaoBackBean extends BackBean {
 											 null,
 											 produtoOperacaoItemRegistrado);
 			
+			
+			if (this.vencimento != null){
+				eventoOperacaoItemRegistrado.setVencimento(this.vencimento);
+			}
 			
 			if(this.getEventosOperacao() == null){
 				this.setEventosOperacao(new ArrayList<EventoOperacaoItemRegistrado>());
@@ -678,7 +686,7 @@ public class DevolucaoBackBean extends BackBean {
 			getFachada().inserirOperacaoES(devolucao);
 			
 			this.setOperacaoDevolucao(devolucao);
-			this.setIdOperacaoDevolucao(String.valueOf(devolucao.getPk().getId()));
+			this.setIdOperacaoDevolucao(devolucao.getPk().getId()+"");
 			resetBB();
 		} catch (ObjectExistentException e) {
 			
@@ -875,5 +883,13 @@ public class DevolucaoBackBean extends BackBean {
 			break;		
 		}
 		return descricaoStatus;
+	}
+
+	public Date getVencimento() {
+		return vencimento;
+	}
+
+	public void setVencimento(Date vencimento) {
+		this.vencimento = vencimento;
 	}
 }

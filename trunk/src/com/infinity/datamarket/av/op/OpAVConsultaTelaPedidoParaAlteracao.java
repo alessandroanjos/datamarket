@@ -6,8 +6,17 @@ import com.infinity.datamarket.pdv.op.OpConsultaTelaPedido;
 
 public class OpAVConsultaTelaPedidoParaAlteracao extends OpConsultaTelaPedido {
 
+	
+
+
 	public int getEstadoOperacaoAtualizada() {
 		return ConstantesOperacao.EM_ALTERACAO;
 	}
+	
+	public int getEstadoOperacaoConsulta() {
+		return ConstantesOperacao.ABERTO;
+	}
+	
+
 	
 }

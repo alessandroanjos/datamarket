@@ -62,7 +62,7 @@ public class OpAvDesenhaTabelaPedido extends Mic{
 				String codigoExterno = evento.getProdutoOperacaoItemRegistrado().getCodigoExterno(); 
 				String descricaoProduto = evento.getProdutoOperacaoItemRegistrado().getDescricaoCompleta(); 
 				String descricaoValorItem = "R$ " + evento.getProdutoOperacaoItemRegistrado().getPrecoPraticado();
-				String descricaoDescontoItem = "R$ " + evento.getDesconto();
+				String descricaoDescontoItem = "R$ " + evento.getDesconto().multiply(evento.getQuantidade()).setScale(2);
 				String descricaoValorTotalItem = "R$ " + evento.getPreco();
 				String quantidade = "" + evento.getQuantidade();
 
@@ -74,11 +74,11 @@ public class OpAvDesenhaTabelaPedido extends Mic{
 				}
 
 				valTotalPedido = valTotalPedido.add(evento.getPreco());
-				descontoTotalPedido = descontoTotalPedido.add(evento.getDesconto());
+				descontoTotalPedido = descontoTotalPedido.add( evento.getDesconto().multiply(evento.getQuantidade()).setScale(2));
 			}
 
-			tela.setCampoTotal("R$ " + valTotalPedido);
-			tela.setCampoTotalDesconto("R$ " + descontoTotalPedido);
+			tela.setCampoTotal("R$ " + valTotalPedido.setScale(2).toString().replace('.',','));
+			tela.setCampoTotalDesconto("R$ " + descontoTotalPedido.setScale(2).toString().replace('.',','));
 			gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TOTAL_PEDIDO, valTotalPedido);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TOTAL_DESCONTO_PEDIDO, descontoTotalPedido);
 
