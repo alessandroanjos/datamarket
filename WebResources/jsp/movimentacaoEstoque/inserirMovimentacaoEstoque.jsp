@@ -124,8 +124,12 @@
 										  value="#{movimentacaoEstoqueBB.estoquesEntrada}" />   
 								</h:selectOneMenu> 
 							</div>
-							<br />
-							<br />
+						</li>
+					</ul>
+					<fieldset>	
+					<legend>Produtos</legend>
+					<ul>						
+						<li class="normal">	
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
 								<h:inputText styleClass="field text" id="idProduto"
@@ -153,11 +157,19 @@
 									<f:validateLength maximum="7" />
 									<f:validateDoubleRange minimum="0.00" maximum="9999.999" />
 									<f:validator validatorId="BigDecimalValidator" />
-								</h:inputText>								
+								</h:inputText>
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Vencimento"></h:outputLabel>
+								<h:inputText styleClass="field text" id="vencimento" maxlength="10" size="10"
+									value="#{movimentacaoEstoqueBB.vencimento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
+									<f:convertDateTime timeZone="GMT-3"/>
+								</h:inputText>
+								
 								<h:commandButton image="/images/adicionar.png" alt="Inserir Produto" id="botaoInserirProduto"
 									action="#{movimentacaoEstoqueBB.inserirProduto}">
 								</h:commandButton>
-							</div>
+							</div>							
 						</li>	
 					</ul>
 					<div class="listagem">
@@ -193,6 +205,7 @@
 							</h:column>
 						</t:dataTable>
 					</div>
+					</fieldset>
 					<ul>
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" action="#{movimentacaoEstoqueBB.resetBB}" id="botaoLimpar" value="Limpar"></h:commandButton>

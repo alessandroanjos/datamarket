@@ -96,25 +96,42 @@
 								<h:outputText value="#{movimentacaoEstoqueBB.id}" />
 							</div>
 							<div>
-								<h:outputLabel styleClass="desc" value="Data Emissão"></h:outputLabel>
+								<h:outputLabel styleClass="desc" value="Data Movimentação"></h:outputLabel>
 								<h:outputText value="#{movimentacaoEstoqueBB.dataMovimentacao}" />							
 							</div>
+							
+							<div>
+								<h:outputLabel styleClass="desc" value="Loja Entrada"></h:outputLabel>
+								<h:outputText value="#{movimentacaoEstoqueBB.estoqueEntrada.pk.loja.nome}" />			
+							</div>	
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque Entrada"></h:outputLabel>
 								<h:outputText value="#{movimentacaoEstoqueBB.estoqueEntrada.descricao}" />			
 							</div>
+							
+							
+							<div>
+								<h:outputLabel styleClass="desc" value="Loja Saida"></h:outputLabel>
+								<h:outputText value="#{movimentacaoEstoqueBB.estoqueSaida.pk.loja.nome}" />			
+							</div>	
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque Saida"></h:outputLabel>
 								<h:outputText value="#{movimentacaoEstoqueBB.estoqueSaida.descricao}" />			
 							</div>	
-	
-
+							<div>
+								<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
+								<h:outputText value="Ativa" rendered="#{movimentacaoEstoqueBB.status == 'A'}" />
+								<h:outputText value="Cancelada" rendered="#{movimentacaoEstoqueBB.status == 'C'}" />
+							</div>
+							
 
 						</li>
+						<fieldset>	
+						<legend>Produtos</legend>				
 						<li class="normal">
 						<div class="listagem">
 							<t:dataTable value="#{movimentacaoEstoqueBB.arrayProduto}"
-								var="produtoMovimentacao" rowClasses="rowA,rowB" width="100%">
+								var="produtoMovimentacao" rowClasses="rowA,rowB" width="720" renderedIfEmpty="false">
 								<h:column>
 									<f:facet name="header">
 										<h:outputText value="Produto" />
@@ -133,13 +150,19 @@
 									</f:facet>
 									<h:outputText value="#{produtoMovimentacao.quantidade}" />
 								</h:column>
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="Vencimento" />
+									</f:facet>
+									<h:outputText value="#{produtoMovimentacao.vencimento}" />
+								</h:column>
 							</t:dataTable>
 						</div>
 
 						</li>
-
+						</fieldset>
 						<li class="buttons">
-							<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{movimentacaoEstoqueBB.voltarConsulta}" value="Voltar"></h:commandButton>
+							<h:commandButton styleClass="btTxt" id="botaoVoltar" action="#{movimentacaoEstoqueBB.voltarConsulta}" value="Voltar"></h:commandButton>							
 							<h:commandButton styleClass="btTxt" id="botaoCancelar" disabled="#{movimentacaoEstoqueBB.status == 'C'}" action="#{movimentacaoEstoqueBB.cancelar}" value="Cancelar"></h:commandButton>
 							<h:commandButton styleClass="btTxt" id="botaoImprimir" action="#{movimentacaoEstoqueBB.imprimirRecibo}" value="Imprimir"></h:commandButton>
 						</li>
