@@ -25,13 +25,11 @@
 		<script type="text/javascript">
 
 			function inicializar2() {
-				var objID = getId('frmLogin:id');
-				alert(objID);
-				objID.focus();
+				document.forms[0].elements[0].focus();
 			}
 		</script>
 	</head>
-	<body onload="inicializar();exibirMensagemErro();">
+	<body onload="inicializar();exibirMensagemErro();inicializar2();">
 			<jsp:include page="/jsp/topo.jsp?user=Desconhecido"></jsp:include>	
 			<h:form id="frmLogin"  binding="#{loginBB.init}">
 		

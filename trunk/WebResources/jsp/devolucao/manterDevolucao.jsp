@@ -121,7 +121,7 @@
            // O item selecionado é copiado para um campo de texto
            // no formulário principal.
            //
-            function setAtributoClientes(cpfCnpj,nomeCliente, razaoSocial, tipoPessoa, endereco) {
+            function setAtributoClientes(cpfCnpj,nomeCliente, razaoSocial, tipoPessoa) {
                 var form = document.forms[formIdClientes];                             
                  
                 form[formIdClientes+":cpfCnpj"].value = cpfCnpj; 
@@ -138,7 +138,7 @@
             }
 		</script>
 	</head>
-	<body onload="exibirMensagemErro();inicializar();">
+	<body onload="exibirMensagemErro();">
 		<div id="outer">
 			<div id="topoGeral">
 				<div id="tituloPaginaGeral">
@@ -196,6 +196,8 @@
 								</div>									
 							</li>							
 							<li>
+							<fieldset>	
+							<legend>Produtos</legend>
 								<div class="listagemSimples" style="overflow:auto; height:235px;">
 									<t:dataTable value="#{devolucaoBB.eventosOperacao}" 
 										var="produtoDevolucao" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
@@ -228,9 +230,16 @@
 												<h:outputText value="Valor Item" />
 											</f:facet>
 											<h:outputText style="align: right;" value="#{produtoDevolucao.preco}" /> 
-										</h:column>																						
+										</h:column>		
+										<h:column>
+											<f:facet name="header">
+												<h:outputText value="Vencimento" />
+											</f:facet>
+											<h:outputText style="align: right;" value="#{produtoDevolucao.vencimento}" /> 
+										</h:column>																					
 									</t:dataTable>																
 								</div>
+							</fieldset>
 							</li>
 							<li class="direita">
 								<div>

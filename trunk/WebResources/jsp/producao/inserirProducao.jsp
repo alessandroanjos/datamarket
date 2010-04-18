@@ -46,7 +46,7 @@
 				    var formaux = document.forms[form];
 				 
                     features="height=500,width=600,status=yes,toolbar=no,menubar=no,location=no,scrollbars=yes,dependent=yes";             
-				    winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces?acaoPopUp=init&enquadramento=3','list',features);
+				    winId=window.open('/EnterpriseServer/jsp/popup/PopUpProdutos.faces?acao=init&enquadramento=3','list',features);
 
 				    // Formulário escondido
                     hform=document.forms[form];                
@@ -70,6 +70,8 @@
                              form[formId+":descricao"].value=descricao;
                              form[formId+":quantidade"].focus();
                              winId.close();
+                             document.forms["frmInserirProducao"].action = "/EnterpriseServer/jsp/producao/inserirProducao.faces?acaoLocal=pesquisarProdutos&codigoProduto="+idProduto;
+					document.forms["frmInserirProducao"].submit();
             }
       </script>
 

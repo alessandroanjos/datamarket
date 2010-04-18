@@ -72,7 +72,7 @@
       </script>
 
 	</head>
-	<body onload="exibirMensagemErro();inicializar();">
+	<body onload="exibirMensagemErro();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
@@ -98,6 +98,10 @@
 								<h:outputText value="#{entradaProdutoBB.id}" />
 							</div>							
 							 -->
+							 <div>
+								<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+								<h:outputText value="#{entradaProdutoBB.estoque.pk.loja.nome}" />
+							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="N.Fiscal"></h:outputLabel>
 								<h:outputText value="#{entradaProdutoBB.numeroNota}" />
@@ -114,16 +118,23 @@
 								<h:outputLabel styleClass="desc" value="Fornecedor"></h:outputLabel>
 								<h:outputText value="#{entradaProdutoBB.nomeFornecedor}" />							
 							</div>
+							
 							<div>
 								<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
 								<h:outputText value="#{entradaProdutoBB.estoque.descricao}" />							
 							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
+								<h:outputText value="Ativa" rendered="#{entradaProdutoBB.status == 'A'}" />
+								<h:outputText value="Cancelada" rendered="#{entradaProdutoBB.status == 'C'}" />
+							</div>
 						</li>
-						
+						<fieldset>	
+						<legend>Produtos</legend>
 						<li>
 							<div class="listagem">
 								<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
-									var="produtoEntrada" rowClasses="rowA,rowB" width="95%">
+									var="produtoEntrada" rowClasses="rowA,rowB" width="700%">
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Cód." />
@@ -173,9 +184,17 @@
 										</f:facet>
 										<h:outputText value="#{produtoEntrada.total}" />
 									</h:column>
+									<h:column>
+										<f:facet name="header">
+											<h:outputText value="Vencimento" />
+										</f:facet>
+										<h:outputText value="#{produtoEntrada.vencimento}" />
+									</h:column>
 								</t:dataTable>
 							</div>
 						</li>	
+						</fieldset>	
+						<p>
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Quant. Total"></h:outputLabel>

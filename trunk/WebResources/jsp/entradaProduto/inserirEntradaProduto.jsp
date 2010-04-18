@@ -91,7 +91,7 @@
 			getId("frmInserirEntradaProdutos:valor").value = valorTotalCupom.toFixed(2);
          }
      </script>
-<body onload="exibirMensagemErro();inicializar();">
+<body onload="exibirMensagemErro();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
@@ -168,10 +168,12 @@
 								</h:selectOneMenu>
 							</div>
 						</li>
+						<fieldset>	
+						<legend>Produtos</legend>
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text" id="idProduto" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
+								<h:inputText styleClass="field text ativo" id="idProduto" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
 									maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9" required="false">
 									<f:validateLength maximum="9" />
 									<f:validator validatorId="LongValidator" />
@@ -183,8 +185,8 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-								<h:inputText styleClass="field text" id="descricao" 
-									maxlength="50" size="50" value="#{entradaProdutoBB.descricao}">
+								<h:inputText styleClass="field text ativo" id="descricao" 
+									maxlength="50" size="75" value="#{entradaProdutoBB.descricao}">
 									<f:validateLength maximum="50" />
 								</h:inputText>
 							</div>
@@ -194,7 +196,7 @@
 							<h:inputHidden id="valorSubTotalNota" value="#{entradaProdutoBB.valorSubTotalNota}"></h:inputHidden>					
 							<div>
 								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
-								<h:inputText styleClass="field text" id="quantidade" maxlength="9"
+								<h:inputText styleClass="field monetario" id="quantidade" maxlength="9"
 									size="7" value="#{entradaProdutoBB.quantidade}" dir="rtl"									
 									onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));" 
 									required="false">
@@ -205,7 +207,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Valor Unitário"></h:outputLabel>
-								<h:inputText styleClass="field text" id="precoUnitario" maxlength="10"
+								<h:inputText styleClass="field monetario" id="precoUnitario" maxlength="10"
 									size="11" value="#{entradaProdutoBB.precoUnitario}" dir="rtl"									
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
 									required="false">
@@ -216,7 +218,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
-								<h:inputText styleClass="field text" id="descontoProduto" maxlength="10"
+								<h:inputText styleClass="field monetario" id="descontoProduto" maxlength="10"
 									size="11" value="#{entradaProdutoBB.descontoProduto}" dir="rtl"
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
 									required="false">
@@ -227,7 +229,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
-								<h:inputText styleClass="field text" id="icmsProduto" maxlength="10"
+								<h:inputText styleClass="field monetario" id="icmsProduto" maxlength="10"
 									size="11" value="#{entradaProdutoBB.icmsProduto}" dir="rtl"
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
 									required="false">
@@ -238,7 +240,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
-								<h:inputText styleClass="field text" id="ipiProduto" maxlength="10"
+								<h:inputText styleClass="field monetario" id="ipiProduto" maxlength="10"
 									size="11" value="#{entradaProdutoBB.ipiProduto}" dir="rtl"
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
 									required="false">
@@ -246,6 +248,16 @@
 									<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
 									<f:validator validatorId="BigDecimalValidator" />
 								</h:inputText>
+							</div>
+							<div>
+								<h:outputLabel styleClass="desc" value="Data Vencimento*"></h:outputLabel>
+								<h:inputText readonly="false" styleClass="field text data"
+									maxlength="10" size="10" 
+									value="#{entradaProdutoBB.dataVencimentoProduto}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
+									id="dataVencimentoProduto">
+								    <f:convertDateTime timeZone="GMT-3"/>	 
+								</h:inputText>
+								
 								<h:commandButton image="/images/adicionar.png" alt="Inserir Produto" id="botaoInserirProduto"
 									action="#{entradaProdutoBB.inserirProdutoEntrada}">
 								</h:commandButton>
@@ -316,10 +328,11 @@
 								</h:column>
 							</t:dataTable>
 						</div> 
+						</fieldset>
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Quant. Total"></h:outputLabel>
-								<h:inputText styleClass="field text" id="quantidadeTotal" maxlength="10" disabled="true"
+								<h:inputText styleClass="field monetario" id="quantidadeTotal" maxlength="10" disabled="true"
 									size="11" value="#{entradaProdutoBB.quantidadeTotal}" 
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
 									required="false">
@@ -328,7 +341,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Frete"></h:outputLabel>
-								<h:inputText styleClass="field text" id="frete" maxlength="10"
+								<h:inputText styleClass="field monetario" id="frete" maxlength="10"
 									size="11" value="#{entradaProdutoBB.frete}" 
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
 									required="false" onblur="javascript:reCalculaTotalEntradaProdutosFrete();">
@@ -337,7 +350,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
-								<h:inputText styleClass="field text" id="icms" maxlength="10" disabled="true"
+								<h:inputText styleClass="field monetario" id="icms" maxlength="10" disabled="true"
 									size="11" value="#{entradaProdutoBB.icms}" dir="rtl"
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
 									required="false">
@@ -348,7 +361,7 @@
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
-								<h:inputText styleClass="field text" id="ipi" maxlength="10" disabled="true"
+								<h:inputText styleClass="field monetario" id="ipi" maxlength="10" disabled="true"
 									size="11" value="#{entradaProdutoBB.ipi}" dir="rtl"
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
 									required="false">
@@ -359,7 +372,7 @@
 							</div>	
 							<div>
 								<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
-								<h:inputText styleClass="field text" id="desconto" maxlength="10"
+								<h:inputText styleClass="field monetario" id="desconto" maxlength="10"
 									size="11" value="#{entradaProdutoBB.desconto}" dir="rtl"
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
 									required="false" onblur="javascript:reCalculaTotalEntradaProdutosDesconto();">
@@ -370,7 +383,7 @@
 							</div>									
 							<div>
 								<h:outputLabel styleClass="desc" value="Valor da Nota"></h:outputLabel>
-								<h:inputText styleClass="field text" id="valor" maxlength="10" disabled="true"
+								<h:inputText styleClass="field monetario" id="valor" maxlength="10" disabled="true"
 									size="11" value="#{entradaProdutoBB.valor}" dir="rtl"
 									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));"
 									required="false">

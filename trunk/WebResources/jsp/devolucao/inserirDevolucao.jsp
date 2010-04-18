@@ -121,7 +121,7 @@
            // O item selecionado é copiado para um campo de texto
            // no formulário principal.
            //
-            function setAtributoClientes(cpfCnpj,nomeCliente, razaoSocial, tipoPessoa, endereco) {
+            function setAtributoClientes(cpfCnpj,nomeCliente, razaoSocial, tipoPessoa) {
                 var form = document.forms[formIdClientes];                             
                  
                 form[formIdClientes+":cpfCnpj"].value = cpfCnpj; 
@@ -138,7 +138,7 @@
             }
 		</script>
 	</head>
-	<body onload="exibirMensagemErro();inicializar();">
+	<body onload="exibirMensagemErro();">
 		<div id="outer">
 			<div id="topoGeral">
 				<div id="tituloPaginaGeral">
@@ -226,6 +226,13 @@
 										<f:validateLength maximum="7" />
 										<f:validateDoubleRange  minimum="0.000" maximum="999.999"/>
 										<f:validator validatorId="BigDecimalValidator"/>
+									</h:inputText>
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Vencimento"></h:outputLabel>
+									<h:inputText styleClass="field text" id="vencimento" maxlength="10" size="10"
+										value="#{devolucaoBB.vencimento}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
+										<f:convertDateTime timeZone="GMT-3"/>
 									</h:inputText>
 									<h:commandButton image="/images/adicionar.png" alt="Inserir" styleClass="btTxt" id="botaoInserirProdutoDevolucao" action="#{devolucaoBB.inserirProdutoDevolucao}" value="Inserir"></h:commandButton>
 								</div>
