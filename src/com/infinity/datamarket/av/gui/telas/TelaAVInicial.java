@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.io.File;
 import java.text.Format;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.swing.JFrame;
@@ -21,12 +22,14 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.infinity.datamarket.pdv.gui.telas.Tela;
+import com.infinity.datamarket.pdv.gui.telas.TelaComMenu;
 
 /**
  *
  * @author  tosck
  */
-public class TelaAVInicial extends Tela{
+public class TelaAVInicial extends TelaComMenu {
+
 	/**
 	 * 
 	 */
@@ -416,5 +419,33 @@ public class TelaAVInicial extends Tela{
 	    }
 	}
    
+	private ArrayList listaLayoutMenu = new ArrayList();
+	
+	public void adicionarLayoutMenu(String layout) {
+		javax.swing.JLabel labelTotalDesconto = new javax.swing.JLabel();
+
+        painelCentral.add(labelTotalDesconto);
+        labelTotalDesconto.setText(layout);
+        labelTotalDesconto.setFont(new java.awt.Font("MS Sans Serif",Font.BOLD,11));
+
+		int colunaX  = (int)(listaLayoutMenu.size()/5);
+        int colunaY  = (int)(listaLayoutMenu.size()%5);
+
+		labelTotalDesconto.setBounds(10 + ((colunaX) * 225), 420 + ((colunaY)* 15), 220, 11);
+		
+		listaLayoutMenu.add(labelTotalDesconto);
+		
+		painelCentral.repaint();
+	}
+
+	public void apagarLayoutMenu(){
+		for (int i = 0; i < listaLayoutMenu.size(); i++) {
+			javax.swing.JLabel labelTotalDesconto = (javax.swing.JLabel)listaLayoutMenu.get(i);
+			painelCentral.remove(labelTotalDesconto);
+		}
+		listaLayoutMenu.clear();
+
+		painelCentral.repaint();
+	}
 	
 }

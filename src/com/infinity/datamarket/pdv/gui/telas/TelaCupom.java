@@ -25,7 +25,7 @@ import com.infinity.datamarket.comum.util.StringUtil;
  *
  * @author  wagner.medeiros
  */
-public class TelaCupom extends Tela{
+public class TelaCupom extends TelaComMenuPDV{
 	/**
 	 * 
 	 */
@@ -38,6 +38,10 @@ public class TelaCupom extends Tela{
         initComponents();
     }
 
+
+	public JPanel getPanel( ) {
+		return painelTop;
+	}
 
     private void initComponents() {
 

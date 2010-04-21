@@ -24,7 +24,7 @@ import com.infinity.datamarket.comum.util.StringUtil;
  *
  * @author  wagner.medeiros
  */
-public class TelaTotalPagamento extends Tela{
+public class TelaTotalPagamento extends TelaComMenuPDV{
 	
     /**
 	 * 
@@ -40,6 +40,10 @@ public class TelaTotalPagamento extends Tela{
         initComponents();
     }
 
+
+	public JPanel getPanel( ) {
+		return painelTop;
+	}
 
     private void initComponents() {
     	

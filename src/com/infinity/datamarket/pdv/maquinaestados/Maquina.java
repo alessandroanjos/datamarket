@@ -27,6 +27,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.display.Display;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.display.EntradaDisplay;
 import com.infinity.datamarket.pdv.gui.telas.ConstantesTela;
 import com.infinity.datamarket.pdv.gui.telas.Tela;
+import com.infinity.datamarket.pdv.gui.telas.TelaComMenu;
 import com.infinity.datamarket.pdv.gui.telas.swing.ExibeMenuFrame;
 import com.infinity.datamarket.pdv.infocomponent.ThreadEnviaInfoComponent;
 import com.infinity.datamarket.pdv.lote.ThreadVerificaNovoLote;
@@ -191,30 +192,12 @@ public class Maquina implements Serializable{
                     }
                     
                     if (macroOperacao == null) {
+                    	// se o estado atual tem teclas 
+                    	// se a tecla apertada for do tipo menu
 	                    if (this.estAtual != null && this.estAtual.getTeclaMenu() != null && this.estAtual.getTeclaMenu().getCodigoASCI() == entrada.getTeclaFinalizadora()) {
 	
-	                        Map<Tecla, MacroOperacao> teclaMacro = getConcentradorMaquina().getDescTeclasDescMacro(this.estAtual.getId());
-	        				if (teclaMacro != null) {
-
-	        			        int idComponente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValorInteiro();
-	        			        Componente componente = Fachada.getInstancia().consultarComponentePorId(new Long(idComponente));
-
-	        					// se tem usuario logado
-	        					// veja quais as macros que ele tem permissao
-	        					Usuario usuario =(Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.OPERADOR_ATUAL);
-	        					if (usuario != null) {
-		        					Iterator it = teclaMacro.keySet().iterator();
-		        					while(it.hasNext()) {
-		        						Tecla tecla = (Tecla)it.next();
-		        						MacroOperacao mo = teclaMacro.get(tecla);
-		        						
-		        						try {
-			        						Fachada.getInstancia().consultarUsuarioPorId_IdMacro(usuario.getId(), mo.getId(), componente.getTipoComponente());
-										} catch (Exception e) {
-											it.remove();
-										}
-		        					}
-	        					}
+        					Map<Tecla, MacroOperacao> teclaMacro = getTeclaMacro(this.estAtual.getId());
+	                    	if (teclaMacro != null) {
 	        					
 	        					ExibeMenuFrame c = new ExibeMenuFrame(gerenciadorPerifericos.getWindow().getFrame(),teclaMacro);
 	        			
@@ -224,8 +207,6 @@ public class Maquina implements Serializable{
 	        			    	if (c.getRetornoTela() == c.BUTTON_OK){
 	        			    		macroOperacao= c.getValor();
 	        			    	}
-	        			    	
-	        			    	
 	        				}
 	                    }
                     }
@@ -242,6 +223,21 @@ public class Maquina implements Serializable{
 
                         }
                     } 
+                    
+                    // se a tela do periferico extends de TelaComMenu entao seta as opceos na tela
+                    if (gerenciadorPerifericos.getCmos().ler(CMOSArquivo.TELA_ATUAL) instanceof TelaComMenu){
+    					TelaComMenu telaComMenu = (TelaComMenu)gerenciadorPerifericos.getCmos().ler(CMOSArquivo.TELA_ATUAL);
+    					telaComMenu.apagarLayoutMenu();
+    					
+                    	Map<Tecla, MacroOperacao> teclaMacro = getTeclaMacro(this.estAtual.getId());
+
+                    	Iterator<Tecla> it = teclaMacro.keySet().iterator();
+                    	while (it.hasNext()) {
+                    		Tecla tecla = it.next();
+                    		MacroOperacao macro = teclaMacro.get(tecla);
+                    		telaComMenu.adicionarLayoutMenu(tecla.getDescricao() + " - " + macro);
+						}
+                    }
                     
                     InfoComponentPK pk = new InfoComponentPK();
         			pk.setComponente(gerenciadorPerifericos.getCodigoComponente()+"");
@@ -278,6 +274,41 @@ public class Maquina implements Serializable{
             	RepositoryManagerHibernateUtil.getInstancia().closeSession();
             }
         }
+
+        /**
+         * Método qeu retorna as telca e os macros associados a ao um estado,
+         * esse metodo remove as teclas que o usuario nao tem permissao
+         * 
+         * @param teclaMacro
+         * @throws AppException
+         */
+		private Map<Tecla, MacroOperacao> getTeclaMacro(Long idEstadoAtual) throws AppException {
+			
+			Map<Tecla, MacroOperacao> teclaMacro = getConcentradorMaquina().getDescTeclasDescMacro(idEstadoAtual);
+        	if (teclaMacro != null) {
+
+	            int idComponente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValorInteiro();
+				Componente componente = Fachada.getInstancia().consultarComponentePorId(new Long(idComponente));
+	
+				// se tem usuario logado
+				// veja quais as macros que ele tem permissao
+				Usuario usuario =(Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.OPERADOR_ATUAL);
+				if (usuario != null) {
+					Iterator it = teclaMacro.keySet().iterator();
+					while(it.hasNext()) {
+						Tecla tecla = (Tecla)it.next();
+						MacroOperacao mo = teclaMacro.get(tecla);
+						
+						try {
+							Fachada.getInstancia().consultarUsuarioPorId_IdMacro(usuario.getId(), mo.getId(), componente.getTipoComponente());
+						} catch (Exception e) {
+							it.remove();
+						}
+					}
+				}
+        	}
+			return teclaMacro;
+		}
 
         public ThreadProcessaMacro(Estado estAtual) {
             this.estAtual = estAtual;
