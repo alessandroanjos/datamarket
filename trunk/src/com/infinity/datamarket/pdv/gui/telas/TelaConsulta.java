@@ -23,7 +23,7 @@ import com.infinity.datamarket.comum.util.StringUtil;
  *
  * @author  wagner.medeiros
  */
-public class TelaConsulta extends Tela{
+public class TelaConsulta extends TelaComMenuPDV{
 	/**
 	 * 
 	 */
@@ -31,6 +31,11 @@ public class TelaConsulta extends Tela{
 	private JPanel painelCentral;
 	private JPanel painelTop;
 	private JLabel imgLogo;
+
+
+	public JPanel getPanel( ) {
+		return painelTop;
+	}
 
     public TelaConsulta() {
         initComponents();

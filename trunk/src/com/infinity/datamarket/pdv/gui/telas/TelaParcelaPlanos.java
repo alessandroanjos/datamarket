@@ -30,7 +30,7 @@ import com.infinity.datamarket.comum.util.StringUtil;
  *
  * @author  wagner.medeiros
  */
-public class TelaParcelaPlanos extends Tela{
+public class TelaParcelaPlanos extends TelaComMenuPDV{
 	/**
 	 * 
 	 */
@@ -43,6 +43,10 @@ public class TelaParcelaPlanos extends Tela{
         initComponents();
     }
 
+
+	public JPanel getPanel( ) {
+		return painelTop;
+	}
 
     private void initComponents() {
 

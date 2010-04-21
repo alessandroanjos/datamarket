@@ -21,7 +21,7 @@ import javax.swing.JTextPane;
  *
  * @author  wagner.medeiros
  */
-public class TelaAutorizadoras extends Tela{
+public class TelaAutorizadoras extends TelaComMenuPDV{
 
 	/**
 	 * 
@@ -30,6 +30,11 @@ public class TelaAutorizadoras extends Tela{
 	private JPanel painelCentral;
 	private JPanel painelTop;
 	private JLabel imgLogo;
+
+
+	public JPanel getPanel( ) {
+		return painelTop;
+	}
 
     public TelaAutorizadoras() {
         initComponents();

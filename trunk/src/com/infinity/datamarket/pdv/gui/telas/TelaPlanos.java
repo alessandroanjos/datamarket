@@ -21,7 +21,7 @@ import javax.swing.JTextPane;
  *
  * @author  wagner.medeiros
  */
-public class TelaPlanos extends Tela{
+public class TelaPlanos extends TelaComMenuPDV{
 	/**
 	 * 
 	 */
@@ -34,6 +34,10 @@ public class TelaPlanos extends Tela{
         initComponents();
     }
 
+
+	public JPanel getPanel( ) {
+		return painelTop;
+	}
 
     private void initComponents() {
 

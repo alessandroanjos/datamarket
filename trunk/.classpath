@@ -85,7 +85,6 @@
 	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/concurrent.jar"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/ejb3-persistence.jar"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/getopt.jar"/>
-	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/hibernate-annotations.jar"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/jacorb.jar"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/javassist.jar"/>
 	<classpathentry kind="lib" path="WebResources/WEB-INF/libJboss/javax.servlet.jar"/>

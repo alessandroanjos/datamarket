@@ -21,7 +21,7 @@ import javax.swing.JTextField;
  *
  * @author  wagner.medeiros
  */
-public class TelaConsultaCartaoProprio extends Tela{
+public class TelaConsultaCartaoProprio extends TelaComMenuPDV{
 	/**
 	 * 
 	 */
@@ -34,6 +34,9 @@ public class TelaConsultaCartaoProprio extends Tela{
         initComponents();
     }
 
+	public JPanel getPanel( ) {
+		return painelTop;
+	}
 
     private void initComponents() {
 

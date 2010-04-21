@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  *
  * @author  wagner.medeiros
  */
-public class TelaMenssagem extends Tela{
+public class TelaMenssagem extends TelaComMenuPDV{
 	/**
 	 * 
 	 */
@@ -27,6 +27,10 @@ public class TelaMenssagem extends Tela{
     public TelaMenssagem() {
         initComponents();
     }
+
+	public JPanel getPanel( ) {
+		return painelTop;
+	}
 
 
     private void initComponents() {
