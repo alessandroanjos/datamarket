@@ -43,10 +43,16 @@ public class ServerConfig {
 	public static final String RECEPTOR_OPERACAO_SERVLET;//=ConsultarDebitosCartaoProprioServlet.servlet
 	public static final String CANCELAR_OPERACAO_EM_SEPARACAO;//=ConsultarDebitosCartaoProprioServlet.servlet
 	
+	public static final String IP_SERVIDOR_PEDIDO;//=127.0.0.1
+	public static final String PORTA_SERVIDOR_PEDIDO;//=4444
+
 	
 	static{
 		ResourceBundle rb = ResourceBundle.getBundle("ServerConfig");
 		
+		IP_SERVIDOR_PEDIDO = rb.getString("IP_SERVIDOR_PEDIDO"); 
+		PORTA_SERVIDOR_PEDIDO = rb.getString("PORTA_SERVIDOR_PEDIDO"); 
+
 		INITIAL_CONTEXT_FACTORY = rb.getString("INITIAL_CONTEXT_FACTORY"); 
 		PROVIDER_URL = rb.getString("PROVIDER_URL");
 		
