@@ -57,7 +57,7 @@ public class ThreadVerificaNovoLote extends Thread implements Serializable{
 				Estado estadoAtual = (Estado)GerenciadorPerifericos.getInstancia().getCmos().ler(CMOSArquivo.ESTADO_ATUAL);
 
 				if (componente.getTipoComponente() == Componente.TIPO_COMPONENTE_PDV &&(estadoAtual != null && (estadoAtual.getId().equals(Estado.DISPONIVEL_PDV) || estadoAtual.getId().equals(Estado.FECHADO_PDV)  || estadoAtual.getId().equals(Estado.FECHADO_PARCIAL_PDV ))) || 
-	        			componente.getTipoComponente() == Componente.TIPO_COMPONENTE_AV &&(estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL_AV))){
+	        			componente.getTipoComponente() == Componente.TIPO_COMPONENTE_AV &&(estadoAtual != null && (estadoAtual.getId().equals(Estado.FECHADO_AV) || estadoAtual.getId().equals(Estado.ABERTO_AV)))){
 				
 //        		if (estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL_PDV)){
 	        		//verifica se tem novo lote liberado

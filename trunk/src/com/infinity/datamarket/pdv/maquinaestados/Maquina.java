@@ -106,8 +106,8 @@ public class Maquina implements Serializable{
 		}
 		
         gerenciadorPerifericos.getWindow().atualizaLote(lote);
-        threadVerificaNovoLote = new ThreadVerificaNovoLote(lote,idLoja);
-        threadVerificaNovoLote.start();
+//        threadVerificaNovoLote = new ThreadVerificaNovoLote(lote,idLoja);
+//        threadVerificaNovoLote.start();
         
         threadVerificaCargaBase = new ThreadVerificaCargaBase(new Long(idComponente),new Long(idLoja));
         threadVerificaCargaBase.start();

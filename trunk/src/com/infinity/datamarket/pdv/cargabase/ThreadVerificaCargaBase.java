@@ -7,12 +7,12 @@ import java.io.Serializable;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Collection;
-import java.util.Date;
 
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.transacao.Transacao;
+import com.infinity.datamarket.comum.util.ConcentradorParametro;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOSArquivo;
@@ -75,8 +75,10 @@ public class ThreadVerificaCargaBase extends Thread implements Serializable{
 					if (novoCargaBase) {
 						Estado estadoAtual = (Estado)GerenciadorPerifericos.getInstancia().getCmos().ler(CMOSArquivo.ESTADO_ATUAL);
 	
-		        		if (componente.getTipoComponente() == Componente.TIPO_COMPONENTE_PDV &&(estadoAtual != null && (estadoAtual.getId().equals(Estado.DISPONIVEL_PDV) || estadoAtual.getId().equals(Estado.FECHADO_PDV)  || estadoAtual.getId().equals(Estado.FECHADO_PARCIAL_PDV ))) || 
-		        			componente.getTipoComponente() == Componente.TIPO_COMPONENTE_AV &&(estadoAtual != null && estadoAtual.getId().equals(Estado.DISPONIVEL_AV))){
+		        		if (componente.getTipoComponente() == Componente.TIPO_COMPONENTE_PDV &&
+		        				(estadoAtual != null && (estadoAtual.getId().equals(Estado.DISPONIVEL_PDV) ||  estadoAtual.getId().equals(Estado.FECHADO_PDV)  || estadoAtual.getId().equals(Estado.FECHADO_PARCIAL_PDV ))) || 
+		        			componente.getTipoComponente() == Componente.TIPO_COMPONENTE_AV &&
+		        			(estadoAtual != null && (estadoAtual.getId().equals(Estado.FECHADO_AV )|| estadoAtual.getId().equals(Estado.ABERTO_AV) ))){
 
 
 		//	        		//verifica se tem novo lote liberado
@@ -84,19 +86,23 @@ public class ThreadVerificaCargaBase extends Thread implements Serializable{
 		        			if (existeNovoLote()){
 		        				System.out.println("HÁ UMA NOVA CARGA DE BASE");
 		        				TelaCargaDados tela = new TelaCargaDados(GerenciadorPerifericos.getInstancia().getWindow().getFrame().getWidth(),GerenciadorPerifericos.getInstancia().getWindow().getFrame().getHeight());
-		        				Thread thread = new Thread(tela);
-		        				thread.start();
-			        			byte[] zipFile = verificarNovoCargaBase(numeroLoja, numeroComponente);
-			        			
-			        			String diretorioTemp = Util.getDirTemp() + "/CargaBase_" + Util.getDirDataHora() + ".zip";
-			    				FileOutputStream output = new FileOutputStream (diretorioTemp);
-			        			output.write(zipFile);
-			        			output.close();
+		        				try{
+			        					
+			        				Thread thread = new Thread(tela);
+			        				thread.start();
+				        			byte[] zipFile = verificarNovoCargaBase(numeroLoja, numeroComponente);
+				        			
+				        			String diretorioTemp = Util.getDirTemp() + "/CargaBase_" + Util.getDirDataHora() + ".zip";
+				    				FileOutputStream output = new FileOutputStream (diretorioTemp);
+				        			output.write(zipFile);
+				        			output.close();
+			
+				        			OpSolicitaCargaBase.trocaBasePDV(diretorioTemp);
 		
-			        			OpSolicitaCargaBase.trocaBasePDV(diretorioTemp);
-	
-			        			apagaCargaBaseServer(numeroLoja, numeroComponente);
-			        			tela.stop();	        			
+				        			apagaCargaBaseServer(numeroLoja, numeroComponente);
+		        				} finally {
+				        			tela.stop();	        			
+		        				}
 			        		}else{
 			        			System.out.println("NÃO HÁ NOVO LOTE LIBERADO");
 			        		}
@@ -211,4 +217,6 @@ public class ThreadVerificaCargaBase extends Thread implements Serializable{
 			throw  e;
 		}
 	}
+	
+	
 }

@@ -10,6 +10,8 @@ import javax.faces.model.SelectItem;
 
 import com.infinity.datamarket.comum.componente.Componente;
 import com.infinity.datamarket.comum.usuario.Loja;
+import com.infinity.datamarket.comum.util.ConcentradorParametro;
+import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 import com.infinity.datamarket.geradorbase.GeradorBaseComponente;
@@ -142,9 +144,21 @@ public class CargaBaseBackBean extends BackBean{
 //			}
 			GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator.getInstancia().getObjectToInstancia(
 							"com.infinity.datamarket.geradorbase.GeradorBaseComponenteHibernate");
+			if (getIdComponente() == null) 
+				{
+				setIdComponente("0"); 
+			}
+
+			Parametro param = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE);
+			if (param != null) {
+				int valor = Integer.parseInt(param.getValor());
+				param.setValor((valor + 1) + "");
+				ConcentradorParametro.getInstancia().atualizarParametro(param);
+			}
+			
 			gerador.geraBase(new Long(getIdLoja()),new Long(getIdComponente()));
 
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Novo Banco Gerado com Sucesso", "");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Novo Banco Gerado com Sucesso - Lote " + param.getValor(), "");
 			getContextoApp().addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();

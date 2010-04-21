@@ -43,6 +43,7 @@ public class LeitorMaquinaEstadoXML {
 	
 	public static MaquinaEstado lerArquivoXM(String arquivo) throws Exception {
 		Map mapEstado = new HashMap();
+		Map mapIDEstado = new HashMap();
 		Map mapMicOperacao = new HashMap();
 		Map mapTecla = new HashMap();
 		Collection mapMacroOperacao = new ArrayList();
@@ -125,6 +126,7 @@ public class LeitorMaquinaEstadoXML {
 					} catch (Exception e) { }
 
 					String codigo = atributosEstados.getNamedItem("codigo").getNodeValue();
+					String id = atributosEstados.getNamedItem("id").getNodeValue();
 					String descricao = atributosEstados.getNamedItem("descricao").getNodeValue();
 					String inputType = atributosEstados.getNamedItem("inputType").getNodeValue();
 					String inputSize = atributosEstados.getNamedItem("inputSize").getNodeValue();
@@ -134,11 +136,16 @@ public class LeitorMaquinaEstadoXML {
 					}
 
 					Estado obj = new Estado();
-					obj.setId(new Long(mapEstado.size() + 1));
+					obj.setId(new Long(id));
 					obj.setDescricao(descricao);
 					obj.setInputSize(Integer.parseInt(inputSize));
 					obj.setInputType(Integer.parseInt(inputType));
 					
+					
+					
+					if (mapIDEstado.containsKey(obj.getId())) {
+						throw new Exception("Já existe estado com o id " + codigo);
+					}
 					if (mapEstado.containsKey(codigo)) {
 						throw new Exception("Já existe estado com o código " + codigo);
 					}
