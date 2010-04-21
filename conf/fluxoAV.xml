@@ -56,6 +56,8 @@
     <operacao id="OpAVIncluirPedidoAlteracao" classe="com.infinity.datamarket.av.op.OpAVIncluirPedidoAlteracao"/>
     <operacao id="OpAVIncluirPedidoCancelamento" classe="com.infinity.datamarket.av.op.OpAVIncluirPedidoCancelamento"/>
     <operacao id="OpAVConfirmaEncerraAlteracaoPedido" classe="com.infinity.datamarket.av.op.OpAVConfirmaEncerraAlteracaoPedido"/>
+    <operacao id="OpAvSolicitaCargaBase" classe="com.infinity.datamarket.av.op.OpAvSolicitaCargaBase"/>
+    <operacao id="OpAvExibeTelaDisponivel" classe="com.infinity.datamarket.av.op.OpAvExibeTelaDisponivel"/>
 
 
 
@@ -64,14 +66,14 @@
   <listaEstado>
   
   
-    <estado teclaMenu="K" codigo="Fechado" descricao="Av Fechado [ENTER]" inputType="0" inputSize="0"/>
-    <estado teclaMenu="K" codigo="Aberto" descricao="Digite Operacao [1-P;2-D]" inputType="0" inputSize="0"/>
-    <estado teclaMenu="K" codigo="Pedido" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
-    <estado teclaMenu="K" codigo="Separacao" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
-    <estado teclaMenu="K" codigo="Devolucao" descricao="Devolucao" inputType="3" inputSize="1"/>
-    <estado teclaMenu="K" codigo="ESTADO7" descricao="A Receber" inputType="1" inputSize="10"/>
-    <estado teclaMenu="K" codigo="Cancela_Pedido" descricao="Cancela Pedido" inputType="1" inputSize="0"/>
-    <estado teclaMenu="K" codigo="Alteracao_Pedido" descricao="Alteração de Pedido" inputType="3" inputSize="13"/>
+    <estado id="1" teclaMenu="K" codigo="Fechado" descricao="Av Fechado [ENTER]" inputType="0" inputSize="0"/>
+    <estado id="2" teclaMenu="K" codigo="Aberto" descricao="Digite Operacao" inputType="0" inputSize="0"/>
+    <estado id="3" teclaMenu="K" codigo="Pedido" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
+    <estado id="4" teclaMenu="K" codigo="Separacao" descricao="Codigo do Produto" inputType="3" inputSize="13"/>
+    <estado id="5" teclaMenu="K" codigo="Devolucao" descricao="Devolucao" inputType="3" inputSize="1"/>
+    <estado id="6" teclaMenu="K" codigo="ESTADO7" descricao="A Receber" inputType="1" inputSize="10"/>
+    <estado id="7" teclaMenu="K" codigo="Cancela_Pedido" descricao="Cancela Pedido" inputType="1" inputSize="0"/>
+    <estado id="8" teclaMenu="K" codigo="Alteracao_Pedido" descricao="Alteração de Pedido" inputType="3" inputSize="13"/>
   </listaEstado>
 
   <listaTecla>
@@ -86,6 +88,8 @@
     <tecla codigo="ESC" descricao="ESC" codigoASCI="27" />
     <tecla codigo="S" descricao="S" codigoASCI="83" />
     <tecla codigo="K" descricao="K" codigoASCI="75" />
+    <tecla codigo="B" descricao="B" codigoASCI="66" />
+    
   </listaTecla>
   <listaMacroOperacao>
 
@@ -560,6 +564,25 @@ insert into macro_operacao (id,descricao,tipo_componente) values (125,'Desconto 
       <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAVEncerraIcluirItem">
       </microOperacaoAssociada>
     </macroOperacao>
+   <macroOperacao tipoComponente="2" estadoAtual="Fechado" proximoEstado="Fechado" tecla="B" codigoMicroOperacaoAssociada="subFluxo1" id="126" descricao="Solicita Carga Base Estado Fechado">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvSolicitaCargaBase">
+      <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAvExibeTelaDisponivel">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAvExibeDisplayDescricaoEstado">
+      </microOperacaoAssociada>
+    </macroOperacao>
+   <macroOperacao tipoComponente="2" estadoAtual="Aberto" proximoEstado="Aberto" tecla="B" codigoMicroOperacaoAssociada="subFluxo1" id="127" descricao="Solicita Carga Base Estado Aberto">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpAvSolicitaCargaBase">
+      <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo2" operacao="OpAvExibeTelaDisponivel">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo3" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo3" operacao="OpAvExibeDisplayDescricaoEstado">
+      </microOperacaoAssociada>
+    </macroOperacao>
   </listaMacroOperacao>
-
 </maquinaEstado>
