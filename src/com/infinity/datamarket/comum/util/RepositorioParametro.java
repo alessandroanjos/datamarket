@@ -32,9 +32,13 @@ public class RepositorioParametro extends Repositorio implements IRepositorioPar
 		update(parametro);
 		
 	}
-
 	
 	public void inserirParametro(Parametro parametro) throws AppException{
 		insert(parametro);
 	}
+	
+	public void removerParametro(String chave) throws AppException {
+		removeById(Parametro.class, chave);
+	}
+
 }

@@ -37,6 +37,29 @@ public class ConcentradorParametro extends Cadastro{
 		return (IRepositorioParametro) super.getRepositorio(IRepositorio.REPOSITORIO_PARAMETRO);
 	}
 
+	public void removerParametro(String chave) throws AppException{
+
+		try{			
+			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+			getRepositorio().removerParametro(chave);
+			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+		}catch(AppException e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}catch(Throwable e){
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+				throw new SistemaException(e);
+			}catch(Exception ex){
+				throw new SistemaException(ex);
+			}
+		}
+
+	}
+	
 	public Parametro getParametro(String chave) {
 		Parametro retorno = null;
 		try{			

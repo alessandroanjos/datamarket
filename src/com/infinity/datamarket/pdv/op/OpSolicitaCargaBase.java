@@ -14,7 +14,9 @@ import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.transacao.Transacao;
+import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.ConcentradorParametro;
+import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
@@ -131,9 +133,13 @@ public class OpSolicitaCargaBase extends Mic{
 	 * 
 	 * @param bancoZip
 	 * @throws IOException 
+	 * @throws AppException 
 	 */
-	public static void trocaBasePDV(String bancoZip) throws IOException {
-		RepositoryManagerHibernateUtil.getInstancia().trocarBase(bancoZip);
+	public static void trocaBasePDV(String bancoZip) throws IOException, AppException {
+		
+		ConcentradorParametro.getInstancia().removerParametro(ConcentradorParametro.LOTE);
+
+        RepositoryManagerHibernateUtil.getInstancia().trocarBase(bancoZip);
 		
         int lote = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE).getValorInteiro();
 

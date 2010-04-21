@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.infinity.datamarket.comum.util.ConcentradorParametro;
+import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.comum.util.ServiceLocator;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.geradorbase.GeradorBaseComponente;
@@ -46,6 +48,14 @@ public class GeraNovaCargaBaseServlet extends HttpServlet {
 			}
 			
 			GeradorBaseComponente gerador = (GeradorBaseComponente) ServiceLocator .getInstancia() .getObjectToInstancia( "com.infinity.datamarket.geradorbase.GeradorBaseComponenteHibernate");
+
+			Parametro param = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOTE);
+			if (param != null) {
+				int valor = Integer.parseInt(param.getValor());
+				param.setValor((valor + 1) + "");
+				ConcentradorParametro.getInstancia().atualizarParametro(param);
+			}
+
 			gerador.geraBase(codigoLoja, codigoComponente);
 
 			File f = new File(diretorioCargaBase);

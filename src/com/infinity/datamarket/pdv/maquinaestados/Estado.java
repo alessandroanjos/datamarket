@@ -20,7 +20,8 @@ public class Estado extends Persistente{
 	public static final Long FECHADO_PDV = new Long(1);
 	public static final Long FECHADO_PARCIAL_PDV = new Long(2);
 	public static final Long DISPONIVEL_PDV = new Long(3);
-	public static final Long DISPONIVEL_AV = new Long(1);
+	public static final Long FECHADO_AV = new Long(1);
+	public static final Long ABERTO_AV = new Long(2);
 	
 //	private static final String DELIM = ",";
 

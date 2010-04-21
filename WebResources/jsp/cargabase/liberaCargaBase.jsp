@@ -51,7 +51,7 @@
 											</h:selectOneMenu>
 										</div>
 								</li>
-
+<!-- 
 								<li class="normal">
 									<div>
 											<h:outputLabel styleClass="desc" value="Componente"></h:outputLabel>
@@ -61,7 +61,7 @@
 										
 									</div>
 								</li>
-							
+	 -->						
 								<li class="buttons">
 									<h:commandButton styleClass="btTxt" id="botaoConsultar" action="#{cargaBaseBB.liberarCargaBase}" value="Liberar CargaBase"></h:commandButton>
 								</li>

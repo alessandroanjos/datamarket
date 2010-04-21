@@ -2,17 +2,29 @@ package com.infinity.datamarket.av.op;
 
 
 import com.infinity.datamarket.comum.operacao.ConstantesOperacao;
-import com.infinity.datamarket.pdv.op.OpConsultaTelaPedido;
+import com.infinity.datamarket.pdv.op.OpConsultaTelaPedidoAbstrato;
 
-public class OpAVConsultaTelaPedido extends OpConsultaTelaPedido {
+public class OpAVConsultaTelaPedido extends OpConsultaTelaPedidoAbstrato {
 	
-
-	public int getEstadoOperacaoAtualizada() {
+	/**
+	 * Qual o estado do pedido ficara no E.S apois a coonsulta
+	 * Caso não queira separa retorna -1
+	 * 
+	 * @return
+	 */
+	public Integer getProximoEstadoOperacao(){
 		return ConstantesOperacao.EM_SEPARACAO;
 	}
-	
-	public int getEstadoOperacaoConsulta() {
-		return ConstantesOperacao.ABERTO;
-	}
 
+	/**
+	 * Qual o estado do pedido ficara no E.S apois a coonsulta
+	 * Caso não queira separa retorna -1
+	 * 
+	 * @return
+	 */
+	public Integer[]  getEstadoOperacaoConsulta(){
+		Integer[] retorno = {ConstantesOperacao.ABERTO};
+		
+		return retorno; 
+	}
 }
