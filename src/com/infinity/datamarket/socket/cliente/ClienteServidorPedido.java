@@ -8,11 +8,15 @@ import java.net.UnknownHostException;
 
 import com.infinity.datamarket.pdv.util.ServerConfig;
 
-public class Cliente {
+public class ClienteServidorPedido {
 
-	public int getProximoNumero() {
+	public static void main(String[] a) {
+		System.out.println(getProximoNumero(1l, 1l));
+	}
 
-		int retorno = 0;
+	public static Long getProximoNumero(long loja, long componente) {
+
+		Long retorno = 0l;
 
 		try {
 			int porta = Integer.parseInt(ServerConfig.PORTA_SERVIDOR_PEDIDO);
@@ -20,26 +24,28 @@ public class Cliente {
 			
 			Socket Socket = new Socket(ip, porta);
 
-			ObjectOutputStream ouptu = new ObjectOutputStream(Socket.getOutputStream());
-			ouptu.writeObject(new Integer("1"));
+			Long[] codigos = {loja, componente};
 			
-
+			ObjectOutputStream ouptu = new ObjectOutputStream(Socket.getOutputStream());
+			ouptu.writeObject(codigos);
+			
 			ObjectInputStream input = new ObjectInputStream(Socket.getInputStream());
 			Object object = input.readObject();
 			input.close();
 			ouptu.close();
 
-			retorno = Integer.parseInt(object + "");
+			retorno = Long.parseLong(object + "");
 			
-			System.out.println("" + object);
-
 		} catch (UnknownHostException e) {
+			e.printStackTrace();
 			System.err.println("Host não encontrado");
 			System.exit(1);
 		} catch (IOException e) {
+			e.printStackTrace();
 			System.err.println("Host não encontrado");
 			System.exit(1);
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

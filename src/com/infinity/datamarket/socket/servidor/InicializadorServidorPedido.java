@@ -1,26 +1,37 @@
 package com.infinity.datamarket.socket.servidor;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.Properties;
+
+import com.infinity.datamarket.comum.util.Util;
 
 
 public class InicializadorServidorPedido {
 	public static void main(String[] args) throws IOException {
 
 		try {
+			
+			FileInputStream iput = new FileInputStream(new File(Util.getDirCorrente() +  "/ServidorPedido.properties"));
+			Properties pr = new Properties();
+			try {
+				pr.load(iput);
+			} finally {
+				iput.close();
+			}	
+//
+//			ResourceBundle rs = ResourceBundle.getBundle(
+//					Util.getDirCorrente() +  "/ServidorPedido", Locale.getDefault());
 
-			ResourceBundle rs = ResourceBundle.getBundle(
-					"\\resources\\constantesJNDI", Locale.getDefault());
-
-			int porta = Integer.parseInt(rs.getString("PORTA_SERVIDOR_PEDIDO"));
+			int porta = Integer.parseInt(pr.get("PORTA_SERVIDOR_PEDIDO") + "");
 			
 			ServerSocket serverSocket = serverSocket = new ServerSocket(porta);
 			boolean listening = true;
 
 			while (listening) {
-				ControladorNumeroPedido.getProximoNumero(serverSocket.accept());
+				ControladorServidorPedido.getProximoNumero(serverSocket.accept());
 			}
 
 			serverSocket.close();
