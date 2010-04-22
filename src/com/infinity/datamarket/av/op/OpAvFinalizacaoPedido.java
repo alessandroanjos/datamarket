@@ -24,6 +24,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.socket.cliente.ClienteServidorPedido;
 
 public class OpAvFinalizacaoPedido extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -37,11 +38,21 @@ public class OpAvFinalizacaoPedido extends Mic{
 
 			Collection collItensPedido = (List<EventoOperacaoItemRegistrado>)gerenciadorPerifericos.getCmos().ler(CMOS.COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO);
 	        int idLoja = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.LOJA).getValorInteiro();
+	        int idComponente = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.COMPONENTE).getValorInteiro();
 	        long idPedido = 0;
 			if (op != null) {
 				idPedido = op.getPk().getId();
 			} else {
-				idPedido = carregarProximoIdPedido(idLoja);
+				try {
+					idPedido = carregarProximoIdPedido(idLoja,idComponente);	
+				} catch (Exception e) {
+					e.printStackTrace();
+					
+					gerenciadorPerifericos.getDisplay().setMensagem("Erro - Comun. S.P.");
+					gerenciadorPerifericos.esperaVolta();
+
+					return ALTERNATIVA_2;
+				}
 			}
 			Usuario usu = (Usuario) gerenciadorPerifericos.getCmos().ler(CMOS.USUARIO_ATUAL);
 			String codigoVendedor = usu.getId() + "";
@@ -148,7 +159,7 @@ public class OpAvFinalizacaoPedido extends Mic{
 		return pedido;
 	}
 	
-	public long carregarProximoIdPedido(long idLoja){
+	public long carregarProximoIdPedido(long idLoja, long idComponente) throws Exception {
 //		if(idLoja != 0){
 //			OperacaoPK pk = new OperacaoPK();
 //			pk.setLoja((int) idLoja);
@@ -161,10 +172,14 @@ public class OpAvFinalizacaoPedido extends Mic{
 //			}
 //		}
 //		return 1;
-		int retorno = (((int)new java.util.Date().getTime())/2) + 1;
+		
+		
+/*		int retorno = (((int)new java.util.Date().getTime())/2) + 1;
 		if (retorno < 0) {
 			retorno = retorno * -1;
 		}
-		return retorno;
+*/
+		
+		return ClienteServidorPedido.getProximoNumero(idLoja, idComponente);
 	}
 }

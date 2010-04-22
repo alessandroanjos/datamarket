@@ -25,10 +25,11 @@ public class OpAvConfirmaFinalizacaoPedido extends Mic{
 				return ALTERNATIVA_2;
 			}
 
-			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Finalizar Pedido? [ENTER][ESC]"));
+			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Finalizar Pedido?"));
 			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
 			if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
-			
+				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Finalizando...."));
+
 				return ALTERNATIVA_1;
 	
 			} else {
