@@ -58,6 +58,7 @@
     <operacao id="OpAVConfirmaEncerraAlteracaoPedido" classe="com.infinity.datamarket.av.op.OpAVConfirmaEncerraAlteracaoPedido"/>
     <operacao id="OpAvSolicitaCargaBase" classe="com.infinity.datamarket.av.op.OpAvSolicitaCargaBase"/>
     <operacao id="OpAvExibeTelaDisponivel" classe="com.infinity.datamarket.av.op.OpAvExibeTelaDisponivel"/>
+    <operacao id="OpAvValidaServidorPedido" classe="com.infinity.datamarket.av.op.OpAvValidaServidorPedido"/>
 
 
 
@@ -166,6 +167,10 @@
 
     <macroOperacao tipoComponente="2" estadoAtual="Aberto" proximoEstado="Pedido" tecla="P" codigoMicroOperacaoAssociada="subFluxo0" id="109" descricao="Pedido">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo0" operacao="OpAvAutorizacao">
+ 	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo1_1" />
+ 	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1_1" operacao="OpAvValidaServidorPedido">
  	    <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo1" />
  	    <saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
       </microOperacaoAssociada>
