@@ -14,6 +14,7 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.hibernate.HibernateException;
@@ -436,18 +437,19 @@ public class ProdutoBackBean extends BackBean{
 			resetBB();
 		
 		} catch (ObjectExistentException e) {
-			
+			this.setIdEnquadramento(this.getEnquadramentoSelecionado());
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"Produto já Existente!", "");
 			getContextoApp().addMessage(null, msg);
 
 		} catch (AppException e) {
-			
+			this.setIdEnquadramento(this.getEnquadramentoSelecionado());
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
 			getContextoApp().addMessage(null, msg);
 
 		} catch (Exception e) {
+			this.setIdEnquadramento(this.getEnquadramentoSelecionado());
 			if (e.getCause() instanceof ConstraintViolationException) {
 				
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -649,6 +651,8 @@ public class ProdutoBackBean extends BackBean{
 		
 		this.quantidadeMinimaProduto = BigDecimal.ZERO.setScale(3);
 		this.markup = BigDecimal.ONE.setScale(2);
+		this.setEnquadramentoSelecionado(Produto.FABRICADO);
+		this.setIdEnquadramento(Produto.FABRICADO);
 	}
 	
 	public String voltarConsulta(){
@@ -856,6 +860,7 @@ public class ProdutoBackBean extends BackBean{
 				filter.addProperty("id", new Long((String)params.get("codigoProduto")));
 				Collection c = getFachada().consultarProdutoPorFiltro(filter, true);
 				if(c == null || c.isEmpty()){
+//					this.setIdEnquadramento(this.getEnquadramentoSelecionado());
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 							"Produto não existe no cadastro ou não é um Produto Matéria-Prima!", "");
 					getContextoApp().addMessage(null, msg);
@@ -866,8 +871,10 @@ public class ProdutoBackBean extends BackBean{
 						this.descricaoProdutoComposicao = prod.getDescricaoCompleta();
 					}
 					this.setAbaCorrente("tabMenuDiv2");
+					this.setIdEnquadramento(Produto.FABRICADO);
 				}
-			} catch (Exception e) {				
+			} catch (Exception e) {	
+//				this.setIdEnquadramento(this.getEnquadramentoSelecionado());
 				e.printStackTrace();			
 				this.setAbaCorrente("tabMenuDiv2");
 			}
@@ -1042,6 +1049,11 @@ public class ProdutoBackBean extends BackBean{
 		this.quantidadeProdutoComposicao = quantidadeProdutoComposicao;
 	}
 	
+	
+	public void atualizarEnquadramento(ValueChangeEvent event){
+		this.setEnquadramentoSelecionado(this.getIdEnquadramento());
+	}
+	
 	public void inserirItemComposicao(){
 		try {
 			Produto produtoItemComposicao = validarItemComposicao();
@@ -1073,6 +1085,7 @@ public class ProdutoBackBean extends BackBean{
 			
 			resetItensComposicaoBB();
 			this.setAbaCorrente("tabMenuDiv2");
+//			this.setIdEnquadramento(this.getEnquadramentoSelecionado());
 		} catch (Exception e) {
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					e.getMessage(), "");
