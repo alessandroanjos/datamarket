@@ -52,7 +52,7 @@ public class ImpostoBackBean extends BackBean{
 			throw new AppException("É necessário informar um Imposto para Impressora.");
 		}
 		
-		if(this.getPercentual() == null || (this.getPercentual() != null && new BigDecimal(this.getPercentual()).setScale(2).equals(new BigDecimal("0.00")))){
+		if(this.getPercentual() == null){// || (this.getPercentual() != null && new BigDecimal(this.getPercentual()).setScale(2).equals(new BigDecimal("0.00")))){
 			throw new AppException("É necessário informar um Percentual do Imposto.");
 		}
 	}

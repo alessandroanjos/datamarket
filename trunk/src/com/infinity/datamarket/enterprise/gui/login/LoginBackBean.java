@@ -37,7 +37,9 @@ public class LoginBackBean extends BackBean{
 			   throw new AppException("Informe sua Senha.");	
 			}
 			
-			pathAplicacao = getFachada().consultarURLApp();
+//			pathAplicacao = getFachada().consultarURLApp();
+			
+			pathAplicacao = getContextoApp().getExternalContext().getRequestContextPath();
 			
 			Usuario usu = getFachada().loginUsuario(new Long(id), senha);
 			if (usu == null){
@@ -188,7 +190,8 @@ public class LoginBackBean extends BackBean{
 						subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),"/EnterpriseServer/jsp/"+funcAux.getUrl()+".faces");
 					}else{
 						subMenuAux = new NavigationMenuItem(funcAux.getDescricao(),"javascript:window.open(\""+
-										pathAplicacao+"/EnterpriseServer/jsp/"+funcAux.getUrl()+
+//										pathAplicacao+"/EnterpriseServer/jsp/"+funcAux.getUrl()+
+										pathAplicacao+"/jsp/"+funcAux.getUrl()+
 										".faces?"+ACAO+"="+VALOR_ACAO+																				
 										"\",\"\",\"top=50,left=50,status=yes,toolbar=no,menubar=no,location=no,resize=yes,height=" +
 										funcAux.getAltura() + ",width=" + funcAux.getLargura() + "\")");
