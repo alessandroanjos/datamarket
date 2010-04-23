@@ -97,7 +97,7 @@
 											size="5" value="#{impostoBB.percentual}"  
 											onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 											<f:validateLength maximum="5" />
-											<f:validateDoubleRange minimum="00.01" maximum="99.99"/>
+											<f:validateDoubleRange minimum="00.00" maximum="99.99"/>
 										</h:inputText>
 									</div>
 									

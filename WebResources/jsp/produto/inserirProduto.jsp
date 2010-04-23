@@ -46,6 +46,9 @@
 						}else{
 							selecionaMenuTab("tabMenuDiv0");
 						}
+						//alert(getId("frmInserirProduto:enquadramento"));
+						//alert(getId("frmInserirProduto:enquadramentoSelecionado").value);
+						trataTipoEnquadramento(getId("frmInserirProduto:enquadramentoSelecionado"));
 			      }
 			
 				  var formId; // referência ao formulário principal
@@ -91,15 +94,18 @@
 				  // for para produto fabricado (tipo P)
 				  function trataTipoEnquadramento(str){
 				      var opcao = str.value;
- 					  
+ 					 // alert(opcao);
+ 					  //alert((opcao.toUpperCase() == "P")); 					  
  					  if (opcao.toUpperCase() == "P") {
-				          habilita("tabMenuDiv2");
-  			              
+				          habilita("tabMenuDiv2");  			              
 				      }else{
 						  desabilita("tabMenuDiv2");
 						  selecionaMenuTab("tabMenuDiv0");
 					  }
 					  getId("frmInserirProduto:enquadramentoSelecionado").value = opcao;
+					 // getId("frmInserirProduto:idEnquadramento").value = opcao;
+					  //alert(getId("frmInserirProduto:enquadramentoSelecionado").value);
+					  //alert(getId("frmInserirProduto:idEnquadramento"));
 				  }
       		 </script>
 		</head>
@@ -117,8 +123,8 @@
 							<ul>
 								<li>
 									<div style="vertical-align: middle">
-									<h:selectOneRadio  styleClass="field radio" id="enquadramento" 
-												value="#{produtoBB.idEnquadramento}" layout="lineDirection"  rendered="true" onclick="javascript:trataTipoEnquadramento(this);">
+									<h:selectOneRadio  styleClass="field radio" id="enquadramento"  
+												value="#{produtoBB.idEnquadramento}" layout="lineDirection"  rendered="true"  onclick="javascript:trataTipoEnquadramento(this);">
 											    <f:selectItems id="situacao" value="#{produtoBB.listaTiposEnquadramento}"/>
 											</h:selectOneRadio>
 									</div>
@@ -129,13 +135,13 @@
 					
 					<div class="tabMenu">
 						<ul>
-							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)">
+							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));">
 								<span><a href="#">Produto</a> </span>
 							</li>
-							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)">
+							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));">
 								<span><a href="#">Lojas</a> </span>
 							</li>
-							<li id="tabMenuDiv2" onclick="selecionaMenuTab(this.id)">
+							<li id="tabMenuDiv2" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));">
 								<span><a href="#">Composição</a> </span>
 							</li>
 						</ul>
