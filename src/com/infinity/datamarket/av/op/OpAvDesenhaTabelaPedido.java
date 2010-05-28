@@ -68,7 +68,7 @@ public class OpAvDesenhaTabelaPedido extends Mic{
 
 				if (CMOS.OPERACAO_SEPARACAO.equals(operacao)) {
 					
-					tela.adicionarRegistroTabelaSeparacao(codigoExterno,descricaoProduto, descricaoValorItem, quantidade + "", descricaoDescontoItem, descricaoValorTotalItem, "            " + quantidadeSeparacao);
+					tela.adicionarRegistroTabelaSeparacao(codigoExterno,descricaoProduto, descricaoValorItem, quantidade + "", descricaoValorTotalItem, "" + quantidadeSeparacao);
 				} else {
 					tela.adicionarRegistroTabela(codigoExterno,descricaoProduto, descricaoValorItem, quantidade + "", descricaoDescontoItem, descricaoValorTotalItem);
 				}

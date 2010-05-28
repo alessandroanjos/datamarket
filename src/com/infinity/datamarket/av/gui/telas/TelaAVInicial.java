@@ -8,6 +8,7 @@ package com.infinity.datamarket.av.gui.telas;
 
 import java.awt.Font;
 import java.io.File;
+import java.math.BigDecimal;
 import java.text.Format;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -339,10 +340,39 @@ public class TelaAVInicial extends TelaComMenu {
         }
         });
                 
-		
-//		for (int i = 0; i < jTable1.getModel().getRowCount(); i++) {
-//			((DefaultTableModel)jTable1.getModel()).removeRow(i);			
-//		} 
+        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
+        jTable1.setPreferredSize(new java.awt.Dimension(790, 190));
+        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
+
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        FormatRenderer r = new FormatRenderer(formatter);
+        r.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(0).setResizable(false);
+        
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTable1.getColumnModel().getColumn(1).setResizable(false);
+
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jTable1.getColumnModel().getColumn(2).setCellRenderer(r);
+
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(108);
+        jTable1.getColumnModel().getColumn(3).setResizable(false);
+
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(4).setResizable(false);
+        jTable1.getColumnModel().getColumn(4).setCellRenderer(r);
+
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(5).setResizable(false);
+        jTable1.getColumnModel().getColumn(5).setCellRenderer(r);
+        
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+
 
 	}
 	
@@ -350,7 +380,8 @@ public class TelaAVInicial extends TelaComMenu {
         
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {},
-            new String [] {"Código","Produto", "Valor", "Quantidade", "Desconto no Item", "Total", "Separação"}
+            new String [] {"Código","Produto", "Valor", "Quantidade", "Total", "Separação"}
+      
         ){
         
         public boolean isCellEditable(int rowIndex, int columnIndex)
@@ -358,6 +389,41 @@ public class TelaAVInicial extends TelaComMenu {
             return false;
         }
         });
+        
+        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
+        jTable1.setPreferredSize(new java.awt.Dimension(790, 190));
+        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
+
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        FormatRenderer r = new FormatRenderer(formatter);
+        r.setHorizontalAlignment(SwingConstants.RIGHT);
+
+        
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(0).setResizable(false);
+        
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTable1.getColumnModel().getColumn(1).setResizable(false);
+
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jTable1.getColumnModel().getColumn(2).setCellRenderer(r);
+
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(108);
+        jTable1.getColumnModel().getColumn(3).setResizable(false);
+
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(4).setResizable(false);
+        jTable1.getColumnModel().getColumn(4).setCellRenderer(r);
+        
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(100);
+        jTable1.getColumnModel().getColumn(5).setResizable(false);
+     
+        
+        
+        
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
 
 	}
 	
@@ -371,11 +437,11 @@ public class TelaAVInicial extends TelaComMenu {
         
 	}
 	
-	public void adicionarRegistroTabelaSeparacao(String codigoExterno, String produto, String valor, String quantidade, String descont, String total, String totalSeparacao){
+	public void adicionarRegistroTabelaSeparacao(String codigoExterno, String produto, String valor, String quantidade, String total, String totalSeparacao){
 
 		javax.swing.table.DefaultTableModel table = (javax.swing.table.DefaultTableModel)jTable1.getModel();
 		
-	     Object[] linha = {codigoExterno,produto, valor, quantidade, descont, total,totalSeparacao};    
+	     Object[] linha = {codigoExterno,produto, valor, quantidade, total,totalSeparacao};    
 	     table.insertRow(0, linha);   
 
         
@@ -398,7 +464,8 @@ public class TelaAVInicial extends TelaComMenu {
 		f.add(t.getPainel());
 		f.setSize(800, 600);
 		f.setVisible(true);
-		t.adicionarRegistroTabela("001","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","9.999.999,99","9.999.999,999","9.999.999,99","9.999.999,99");
+		//t.adicionarRegistroTabela("001","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","9.999.999,99","9.999.999,999","9.999.999,99","9.999.999,99");
+		
 	}
 	
 	private JPanel painelCentral;
@@ -415,7 +482,10 @@ public class TelaAVInicial extends TelaComMenu {
 	    }
 	 
 	    protected void setValue(Object obj) {
-	        setText(obj==null? "" : formatter.format(obj));
+	        if (obj instanceof BigDecimal){
+	        	setText(obj==null? "" : formatter.format(obj));
+	        }
+	        setText(obj==null? "" : obj.toString());
 	    }
 	}
    
