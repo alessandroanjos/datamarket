@@ -18,7 +18,11 @@ import com.infinity.datamarket.pdv.maquinaestados.Tecla;
 
 public class OpSolicitaCliente extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
-		
+
+		TransacaoVenda transVenda = (TransacaoVenda) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
+		if (transVenda.getCliente() != null) {
+			return ALTERNATIVA_1;
+		}
 		Parametro parametro = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.SOLICITA_CLIENTE);
 		if (parametro != null && parametro != null && Boolean.valueOf(parametro.getValor()).booleanValue()){
 			try{
@@ -30,7 +34,6 @@ public class OpSolicitaCliente extends Mic{
 					TelaCadastroClientePDV tela = TelaCadastroClientePDV.iniciar(gerenciadorPerifericos.getWindow().getFrame());
 					if (TelaCadastroClientePDV.retorno == TelaCadastroClientePDV.OK){
 						ClienteTransacao cliente = tela.getClienteTransacao();
-						TransacaoVenda transVenda = (TransacaoVenda) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
 						System.out.println("OpSolicitaCliente.exec: cliente.getCpfCnpj(): "+cliente.getCpfCnpj());
 						transVenda.setCliente(cliente);
 						gerenciadorPerifericos.getCmos().gravar(CMOS.TRANSACAO_VENDA_ATUAL,transVenda);

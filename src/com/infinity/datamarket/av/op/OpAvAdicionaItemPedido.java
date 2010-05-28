@@ -61,6 +61,9 @@ public class OpAvAdicionaItemPedido extends Mic{
 				return ALTERNATIVA_2;
 			}
 
+			descontoItem.setScale(2);
+			valTotalPedido.setScale(2);
+			descontoTotalPedido.setScale(2);
 			boolean tem = false;
 			List<EventoOperacaoItemRegistrado> coll = (List<EventoOperacaoItemRegistrado>)gerenciadorPerifericos.getCmos().ler(CMOS.COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO);
 			if (coll == null ) {
@@ -75,18 +78,18 @@ public class OpAvAdicionaItemPedido extends Mic{
 					break;
 				}
 			}
-			if (tem && evento.getDesconto().equals(descontoItem) &&  evento.getProdutoOperacaoItemRegistrado().getPrecoPraticado().equals(valItem)) {
+			if (tem && evento.getDesconto().doubleValue() == descontoItem.doubleValue() &&  evento.getProdutoOperacaoItemRegistrado().getPrecoPraticado().equals(valItem)) {
 				evento.setPreco(evento.getPreco().add(valorTotalItem));
 				evento.setQuantidade(evento.getQuantidade().add(quantidade));
 			} else {
-
+//				String descricaoDescontoItem = "R$ " + descontoItem.toString();
+				
 				
 //				String descricaoProduto = produto.getDescricaoCompacta(); 
 //				String descricaoValorItem = "R$ " + valItem.toString();
-//				String descricaoDescontoItem = "R$ " + descontoItem.toString();
 //				String descricaoValorTotalItem = "R$ " + valorTotalItem.toString();
-	
 				valTotalPedido = valTotalPedido.add(valItem.subtract(descontoItem).multiply(quantidade));
+	
 				valTotalPedido = valTotalPedido.setScale(2, BigDecimal.ROUND_DOWN);
 	
 				descontoTotalPedido = descontoTotalPedido.add(descontoItem.multiply(quantidade));
