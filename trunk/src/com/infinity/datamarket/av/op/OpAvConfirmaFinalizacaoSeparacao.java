@@ -27,48 +27,49 @@ public class OpAvConfirmaFinalizacaoSeparacao extends Mic{
 				gerenciadorPerifericos.esperaVolta();
 				return ALTERNATIVA_2;
 			} else {
-				
-				boolean temItemSeparado = false;
+				boolean temProdutoSeparadoPorPartes = false;
 				boolean temProdutoNaoSeparado = false;
-				
 				Iterator<EventoOperacaoItemRegistrado> it  = coll.iterator();
 				while (it.hasNext()) {
 					EventoOperacaoItemRegistrado eoir = it.next();
 					if (eoir instanceof EventoOperacaoItemRegistradoSeparacao) {
 						EventoOperacaoItemRegistradoSeparacao ioirs = (EventoOperacaoItemRegistradoSeparacao) eoir;
-						if ( ioirs.getQuantidadeSeparada()  != BigDecimal.ZERO) {
-							temItemSeparado = true;	
-						}
 						if ( ioirs.getQuantidadeSeparada()  == BigDecimal.ZERO) {
-							temProdutoNaoSeparado = true;	
+							temProdutoNaoSeparado = true;
+						}
+						if ( ioirs.getEventoOperacaoItemRegistrado().getQuantidade() != null && ioirs.getEventoOperacaoItemRegistrado().getQuantidade().compareTo(ioirs.getQuantidadeSeparada()) > 0 ) {
+							temProdutoSeparadoPorPartes = true;
 						}
 					}
 				}
-
-				if (!temItemSeparado) {
-					gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Sem Prod. Separado [Voltar]"));
+				if (temProdutoNaoSeparado) {
+					gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "PROD. NAO SEPARADO [Voltar]"));
 					gerenciadorPerifericos.esperaVolta();
 					gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
 					return ALTERNATIVA_2;
 				}
+				if (temProdutoSeparadoPorPartes) {
+					gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "SEPARACAO INCOMPLETA [ENTRA] [VOLTA]"));
 
+					EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
+					if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_VOLTA){
+						gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Codigo do Produto"));
+						return ALTERNATIVA_2;
+					} else {
+						return ALTERNATIVA_1;
+					}
+				}
 			}
 
 			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Finalizar Separaca? [ENTER][ESC]"));
 			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 0);
 			if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
-			
 				return ALTERNATIVA_1;
-	
 			} else {
-				
 				return ALTERNATIVA_2;
 			}
-	
 		} catch (AppException e) {
 			return ALTERNATIVA_2;
 		}
-
 	}
-
 }
