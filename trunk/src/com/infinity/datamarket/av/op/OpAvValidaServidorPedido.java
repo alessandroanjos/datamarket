@@ -18,7 +18,7 @@ public class OpAvValidaServidorPedido extends Mic{
 		try{
 
 			if (!ClienteServidorPedido.servidorAtivo()) {
-				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "E.S. FORA AR"));
+				gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Server Pedido OFF"));
 				try{
 					gerenciadorPerifericos.esperaVolta();
 				}catch(AppException ex){

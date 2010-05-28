@@ -61,7 +61,7 @@ public class ControladorServidorPedido {
 			
 			
 			ObjectOutputStream ouptu = new ObjectOutputStream(socket.getOutputStream());
-			ouptu.writeObject(new Long(codigos[0] + "" + codigoComponente + "" + codigoNsu));
+			ouptu.writeObject(new Long(codigos[0] + "" +codigoNsu));
 			ouptu.close();
 		} catch (Exception e) {
 			e.printStackTrace();
