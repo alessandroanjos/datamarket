@@ -7,6 +7,7 @@ import java.util.Iterator;
 import org.hibernate.Hibernate;
 
 import com.infinity.datamarket.comum.estoque.CadastroEstoqueProduto;
+import com.infinity.datamarket.comum.estoque.Estoque;
 import com.infinity.datamarket.comum.estoque.EstoqueProduto;
 import com.infinity.datamarket.comum.estoque.EstoqueProdutoPK;
 import com.infinity.datamarket.comum.produto.CadastroProduto;
@@ -64,7 +65,10 @@ public class CadastroProducao extends Cadastro{
 				Composicao comp = (Composicao)it.next();
 				if(comp != null){
 					EstoqueProdutoPK estoqueProdutoPkOrigem = new EstoqueProdutoPK();
-					try {						
+					if(comp.getPk().getProduto().getEnquadramento().equals(Produto.FABRICADO)){
+						atualizarEstoqueProduto(cadEstoqueProduto, producao.getEstoque(), estoqueProdutoPkOrigem, comp.getPk().getProduto(), producao.getQuantidade(), false);
+					}
+					try {		
 						estoqueProdutoPkOrigem.setProduto(comp.getPk().getProduto());
 						estoqueProdutoPkOrigem.setEstoque(producao.getEstoque());
 						estProdOrigem = cadEstoqueProduto.consultarPorId(estoqueProdutoPkOrigem);
@@ -91,6 +95,9 @@ public class CadastroProducao extends Cadastro{
 				Composicao comp = (Composicao)it.next();
 				if(comp != null){
 					EstoqueProdutoPK estoqueProdutoPkOrigem = new EstoqueProdutoPK();
+					if(comp.getPk().getProduto().getEnquadramento().equals(Produto.FABRICADO)){
+						atualizarEstoqueProduto(cadEstoqueProduto, producao.getEstoque(), estoqueProdutoPkOrigem, comp.getPk().getProduto(), producao.getQuantidade(), false);
+					}
 					try {						
 						estoqueProdutoPkOrigem.setProduto(comp.getPk().getProduto());
 						estoqueProdutoPkOrigem.setEstoque(producao.getEstoque());
@@ -115,6 +122,41 @@ public class CadastroProducao extends Cadastro{
 			CadastroProduto.getInstancia().alterar(prod);			
 		}
 		
+	}
+	
+	public void atualizarEstoqueProduto(CadastroEstoqueProduto cadastro, Estoque estoque, EstoqueProdutoPK estoqueProdutoPK, Produto produto, BigDecimal quantidade, boolean somaEstoque) throws AppException{
+		EstoqueProduto estProdOrigem = null;
+		Collection c = produto.getComposicao();
+		Iterator it = c.iterator();
+		while(it.hasNext()){
+			Composicao comp = (Composicao)it.next();
+			if(comp != null){
+				EstoqueProdutoPK estoqueProdutoPkOrigem = new EstoqueProdutoPK();
+				if(comp.getPk().getProduto().getEnquadramento().equals(Produto.FABRICADO)){
+					atualizarEstoqueProduto(cadastro, estoque, estoqueProdutoPK, comp.getPk().getProduto(), quantidade, false);
+				}
+				try {		
+					estoqueProdutoPkOrigem.setProduto(comp.getPk().getProduto());
+					estoqueProdutoPkOrigem.setEstoque(estoque);
+					estProdOrigem = cadastro.consultarPorId(estoqueProdutoPkOrigem);
+					if(somaEstoque){
+						estProdOrigem.adicionarQuantidade(quantidade.multiply(comp.getQuantidade()),null);
+					}else{
+						estProdOrigem.subtrairQuantidade(quantidade.multiply(comp.getQuantidade()),null);	
+					}
+					cadastro.alterar(estProdOrigem);
+				} catch (ObjectNotFoundException e) {
+					estProdOrigem = new EstoqueProduto();
+					estProdOrigem.setPk(estoqueProdutoPkOrigem);
+					if(somaEstoque){
+						estProdOrigem.adicionarQuantidade(quantidade.multiply(comp.getQuantidade()),null);
+					}else{
+						estProdOrigem.subtrairQuantidade(quantidade.multiply(comp.getQuantidade()),null);	
+					}
+					cadastro.inserir(estProdOrigem);
+				}
+			}
+		}			
 	}
 	
 	public void alterar(Producao producao, BigDecimal quantidade) throws AppException{
