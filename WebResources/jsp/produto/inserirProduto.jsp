@@ -94,20 +94,13 @@
 				  // for para produto fabricado (tipo P)
 				  function trataTipoEnquadramento(str){
 				      var opcao = str.value;
- 					 // alert(opcao);
- 					  //alert((opcao.toUpperCase() == "P")); 					  
  					  if (opcao.toUpperCase() == "P") {
 				          habilita("tabMenuDiv2");  			              
 				      }else  if (opcao.toUpperCase() == "M") {
 						  desabilita("tabMenuDiv2");
-						  alert(getId("frmInserirProduto:abaCorrente").value);
-						  selecionaMenuTab(getId("frmInserirProduto:abaCorrente").value);
+						  selecionaMenuTab(strAbaCorrente);
 					  }
 					  getId("frmInserirProduto:enquadramentoSelecionado").value = opcao;
-					 // getId("frmInserirProduto:idEnquadramento").value = opcao;
-					  //alert(getId("frmInserirProduto:enquadramentoSelecionado").value);
-					  //alert(getId("frmInserirProduto:idEnquadramento"));
-					  //alert("final");
 				  }
       		 </script>
 		</head>
@@ -137,13 +130,13 @@
 					
 					<div class="tabMenu">
 						<ul>
-							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));strAbaCorrente = getId('frmInserirProduto:abaCorrente').value;">
+							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));strAbaCorrente = this.id;">
 								<span><a href="#">Produto</a> </span>
 							</li>
-							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));strAbaCorrente = getId('frmInserirProduto:abaCorrente').value;">
+							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));strAbaCorrente = this.id;">
 								<span><a href="#">Lojas</a> </span>
 							</li>
-							<li id="tabMenuDiv2" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));strAbaCorrente = getId('frmInserirProduto:abaCorrente').value;">
+							<li id="tabMenuDiv2" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));strAbaCorrente = this.id;">
 								<span><a href="#">Composição</a> </span>
 							</li>
 						</ul>

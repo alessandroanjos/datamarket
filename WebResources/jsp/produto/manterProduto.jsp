@@ -90,17 +90,15 @@
                   
                   //funcao responsavel por controlar a aba de composicao. esta so devera ser habilitada quando o enquadramento selecionado
 				  // for para produto fabricado (tipo P)
-				  function trataTipoEnquadramento(str){
+ 				  function trataTipoEnquadramento(str){
 				      var opcao = str.value;
- 					  
  					  if (opcao.toUpperCase() == "P") {
-				          habilita("tabMenuDiv2");
-  			              
-				      }else{
+				          habilita("tabMenuDiv2");  			              
+				      }else  if (opcao.toUpperCase() == "M") {
 						  desabilita("tabMenuDiv2");
-						  selecionaMenuTab("tabMenuDiv0");
+						  selecionaMenuTab(strAbaCorrente);
 					  }
-					  getId("frmManterProduto:enquadramentoSelecionado").value = opcao;
+					  getId("frmInserirProduto:enquadramentoSelecionado").value = opcao;
 				  }
       		 </script>
 		</head>
@@ -130,13 +128,13 @@
 					
 					<div class="tabMenu">
 						<ul>
-							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id)">
+							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmManterProduto:enquadramentoSelecionado'));strAbaCorrente = this.id;">
 								<span><a href="#">Produto</a> </span>
 							</li>
-							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id)">
+							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmManterProduto:enquadramentoSelecionado'));strAbaCorrente = this.id;">
 								<span><a href="#">Lojas</a> </span>
 							</li>
-							<li id="tabMenuDiv2" onclick="selecionaMenuTab(this.id)">
+							<li id="tabMenuDiv2" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmManterProduto:enquadramentoSelecionado'));strAbaCorrente = this.id;">
 								<span><a href="#">Composição</a> </span>
 							</li>
 						</ul>
