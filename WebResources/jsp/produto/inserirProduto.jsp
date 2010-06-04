@@ -98,14 +98,16 @@
  					  //alert((opcao.toUpperCase() == "P")); 					  
  					  if (opcao.toUpperCase() == "P") {
 				          habilita("tabMenuDiv2");  			              
-				      }else{
+				      }else  if (opcao.toUpperCase() == "M") {
 						  desabilita("tabMenuDiv2");
-						  selecionaMenuTab("tabMenuDiv0");
+						  alert(getId("frmInserirProduto:abaCorrente").value);
+						  selecionaMenuTab(getId("frmInserirProduto:abaCorrente").value);
 					  }
 					  getId("frmInserirProduto:enquadramentoSelecionado").value = opcao;
 					 // getId("frmInserirProduto:idEnquadramento").value = opcao;
 					  //alert(getId("frmInserirProduto:enquadramentoSelecionado").value);
 					  //alert(getId("frmInserirProduto:idEnquadramento"));
+					  //alert("final");
 				  }
       		 </script>
 		</head>
@@ -135,13 +137,13 @@
 					
 					<div class="tabMenu">
 						<ul>
-							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));">
+							<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));strAbaCorrente = getId('frmInserirProduto:abaCorrente').value;">
 								<span><a href="#">Produto</a> </span>
 							</li>
-							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));">
+							<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));strAbaCorrente = getId('frmInserirProduto:abaCorrente').value;">
 								<span><a href="#">Lojas</a> </span>
 							</li>
-							<li id="tabMenuDiv2" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));">
+							<li id="tabMenuDiv2" onclick="selecionaMenuTab(this.id);trataTipoEnquadramento(getId('frmInserirProduto:enquadramentoSelecionado'));strAbaCorrente = getId('frmInserirProduto:abaCorrente').value;">
 								<span><a href="#">Composição</a> </span>
 							</li>
 						</ul>
@@ -304,7 +306,7 @@
 											<h:inputText styleClass="field text" id="quantidadeMinimaProduto" maxlength="8" size="9"
 												value="#{produtoBB.quantidadeMinimaProduto}" dir="rtl" required="false" onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));">
 												<f:validateLength maximum="8" />
-												<f:validateDoubleRange  minimum="0.000" maximum="999.999"/>
+												<f:validateDoubleRange minimum="0.000" maximum="9999.999"/>
 												<f:validator validatorId="BigDecimalValidator"/>
 											</h:inputText>
 										</div>
@@ -313,7 +315,7 @@
 											<h:inputText styleClass="field text" id="markup" maxlength="8" size="9"
 												value="#{produtoBB.markup}" dir="rtl" required="false" onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));">
 												<f:validateLength maximum="8" />
-												<f:validateDoubleRange  minimum="0.01" maximum="999.99"/>
+												<f:validateDoubleRange  minimum="0.01" maximum="9999.99"/>
 												<f:validator validatorId="BigDecimalValidator"/>
 											</h:inputText>
 										</div>
