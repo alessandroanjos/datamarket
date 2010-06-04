@@ -57,17 +57,24 @@ public class CadastroProducao extends Cadastro{
 			EstoqueProduto estProdDestino = cadEstoqueProduto.consultarPorId(estoqueProdutoPkDestino);
 			estProdDestino.adicionarQuantidade(producao.getQuantidade(),producao.getVencimento());
 			cadEstoqueProduto.alterar(estProdDestino);
+		} catch (ObjectNotFoundException e) {			
+			EstoqueProduto ep = new EstoqueProduto();
+			ep.setPk(estoqueProdutoPkDestino);
+			ep.adicionarQuantidade(producao.getQuantidade(),producao.getVencimento());
+			cadEstoqueProduto.inserir(ep);
+
+		}
 			
-			EstoqueProduto estProdOrigem = null;
-			Collection c = CadastroProduto.getInstancia().consultarPorPK(producao.getProduto().getId()).getComposicao();
-			Iterator it = c.iterator();
-			while(it.hasNext()){
-				Composicao comp = (Composicao)it.next();
-				if(comp != null){
-					EstoqueProdutoPK estoqueProdutoPkOrigem = new EstoqueProdutoPK();
-					if(comp.getPk().getProduto().getEnquadramento().equals(Produto.FABRICADO)){
-						atualizarEstoqueProduto(cadEstoqueProduto, producao.getEstoque(), estoqueProdutoPkOrigem, comp.getPk().getProduto(), producao.getQuantidade(), false);
-					}
+		EstoqueProduto estProdOrigem = null;
+		Collection c = CadastroProduto.getInstancia().consultarPorPK(producao.getProduto().getId()).getComposicao();
+		Iterator it = c.iterator();
+		while(it.hasNext()){
+			Composicao comp = (Composicao)it.next();
+			if(comp != null){
+				EstoqueProdutoPK estoqueProdutoPkOrigem = new EstoqueProdutoPK();
+				if(comp.getPk().getProduto().getEnquadramento().equals(Produto.FABRICADO)){
+					atualizarEstoqueProduto(producao.getEstoque(), estoqueProdutoPkOrigem, comp.getPk().getProduto(), producao.getQuantidade().multiply(comp.getQuantidade()) , false);
+				} else {
 					try {		
 						estoqueProdutoPkOrigem.setProduto(comp.getPk().getProduto());
 						estoqueProdutoPkOrigem.setEstoque(producao.getEstoque());
@@ -81,38 +88,8 @@ public class CadastroProducao extends Cadastro{
 						cadEstoqueProduto.inserir(estProdOrigem);
 					}
 				}
-			}			
-		} catch (ObjectNotFoundException e) {			
-			EstoqueProduto ep = new EstoqueProduto();
-			ep.setPk(estoqueProdutoPkDestino);
-			ep.adicionarQuantidade(producao.getQuantidade(),producao.getVencimento());
-			cadEstoqueProduto.inserir(ep);
-			
-			EstoqueProduto estProdOrigem = null;
-			Collection c = CadastroProduto.getInstancia().consultarPorPK(producao.getProduto().getId()).getComposicao();
-			Iterator it = c.iterator();
-			while(it.hasNext()){
-				Composicao comp = (Composicao)it.next();
-				if(comp != null){
-					EstoqueProdutoPK estoqueProdutoPkOrigem = new EstoqueProdutoPK();
-					if(comp.getPk().getProduto().getEnquadramento().equals(Produto.FABRICADO)){
-						atualizarEstoqueProduto(cadEstoqueProduto, producao.getEstoque(), estoqueProdutoPkOrigem, comp.getPk().getProduto(), producao.getQuantidade(), false);
-					}
-					try {						
-						estoqueProdutoPkOrigem.setProduto(comp.getPk().getProduto());
-						estoqueProdutoPkOrigem.setEstoque(producao.getEstoque());
-						estProdOrigem = cadEstoqueProduto.consultarPorId(estoqueProdutoPkOrigem);
-						estProdOrigem.subtrairQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()),null);
-						cadEstoqueProduto.alterar(estProdOrigem);
-					} catch (ObjectNotFoundException e1) {
-						estProdOrigem = new EstoqueProduto();
-						estProdOrigem.setPk(estoqueProdutoPkOrigem);
-						estProdOrigem.subtrairQuantidade(producao.getQuantidade().multiply(comp.getQuantidade()),null);
-						cadEstoqueProduto.inserir(estProdOrigem);
-					}
-				}
 			}
-		}
+		}			
 		if (ajustaProduto){
 			Produto prod = CadastroProduto.getInstancia().consultarPorPK(producao.getProduto().getId());
 			Hibernate.initialize(prod.getLojas());
@@ -124,7 +101,7 @@ public class CadastroProducao extends Cadastro{
 		
 	}
 	
-	public void atualizarEstoqueProduto(CadastroEstoqueProduto cadastro, Estoque estoque, EstoqueProdutoPK estoqueProdutoPK, Produto produto, BigDecimal quantidade, boolean somaEstoque) throws AppException{
+	public void atualizarEstoqueProduto(Estoque estoque, EstoqueProdutoPK estoqueProdutoPK, Produto produto, BigDecimal quantidade, boolean somaEstoque) throws AppException{
 		EstoqueProduto estProdOrigem = null;
 		Collection c = produto.getComposicao();
 		Iterator it = c.iterator();
@@ -133,27 +110,28 @@ public class CadastroProducao extends Cadastro{
 			if(comp != null){
 				EstoqueProdutoPK estoqueProdutoPkOrigem = new EstoqueProdutoPK();
 				if(comp.getPk().getProduto().getEnquadramento().equals(Produto.FABRICADO)){
-					atualizarEstoqueProduto(cadastro, estoque, estoqueProdutoPK, comp.getPk().getProduto(), quantidade, false);
-				}
-				try {		
-					estoqueProdutoPkOrigem.setProduto(comp.getPk().getProduto());
-					estoqueProdutoPkOrigem.setEstoque(estoque);
-					estProdOrigem = cadastro.consultarPorId(estoqueProdutoPkOrigem);
-					if(somaEstoque){
-						estProdOrigem.adicionarQuantidade(quantidade.multiply(comp.getQuantidade()),null);
-					}else{
-						estProdOrigem.subtrairQuantidade(quantidade.multiply(comp.getQuantidade()),null);	
+					atualizarEstoqueProduto(estoque, estoqueProdutoPK, comp.getPk().getProduto(), quantidade.multiply(comp.getQuantidade()), false);
+				}else{
+					try {		
+						estoqueProdutoPkOrigem.setProduto(comp.getPk().getProduto());
+						estoqueProdutoPkOrigem.setEstoque(estoque);
+						estProdOrigem = CadastroEstoqueProduto.getInstancia().consultarPorId(estoqueProdutoPkOrigem);
+						if(somaEstoque){
+							estProdOrigem.adicionarQuantidade(quantidade.multiply(comp.getQuantidade()),null);
+						}else{
+							estProdOrigem.subtrairQuantidade(quantidade.multiply(comp.getQuantidade()),null);	
+						}
+						CadastroEstoqueProduto.getInstancia().alterar(estProdOrigem);
+					} catch (ObjectNotFoundException e) {
+						estProdOrigem = new EstoqueProduto();
+						estProdOrigem.setPk(estoqueProdutoPkOrigem);
+						if(somaEstoque){
+							estProdOrigem.adicionarQuantidade(quantidade.multiply(comp.getQuantidade()),null);
+						}else{
+							estProdOrigem.subtrairQuantidade(quantidade.multiply(comp.getQuantidade()),null);	
+						}
+						CadastroEstoqueProduto.getInstancia().inserir(estProdOrigem);
 					}
-					cadastro.alterar(estProdOrigem);
-				} catch (ObjectNotFoundException e) {
-					estProdOrigem = new EstoqueProduto();
-					estProdOrigem.setPk(estoqueProdutoPkOrigem);
-					if(somaEstoque){
-						estProdOrigem.adicionarQuantidade(quantidade.multiply(comp.getQuantidade()),null);
-					}else{
-						estProdOrigem.subtrairQuantidade(quantidade.multiply(comp.getQuantidade()),null);	
-					}
-					cadastro.inserir(estProdOrigem);
 				}
 			}
 		}			

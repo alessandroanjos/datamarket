@@ -13,11 +13,6 @@
 		<param-value>BR</param-value>
 	</context-param>
 	
-	<error-page>
-            <error-code>500</error-code>
-            <location>/jsp/erro.jsf</location>
-    </error-page>
-	
 	<context-param>
 		<param-name>javax.faces.CONFIG_FILES</param-name>
 		<param-value>/WEB-INF/faces-config.xml</param-value>

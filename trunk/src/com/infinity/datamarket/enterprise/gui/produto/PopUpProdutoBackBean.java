@@ -293,22 +293,22 @@ public class PopUpProdutoBackBean extends BackBean{
 //					filter.addPropertyInterval("enquadramento", Produto.MATERIA_PRIMA, IntervalObject.DIFERENTE);
 //				}
 //			}
-			int enquadramento = Integer.parseInt(this.getEnquadramento());
-			switch (enquadramento){
-				case 1: //apenas materia-prima
-					filter.addProperty("enquadramento", Produto.MATERIA_PRIMA);
-					break;
-				case 2: //materia-prima ou revenda
-					filter.addPropertyInterval("enquadramento", Produto.FABRICADO, IntervalObject.DIFERENTE);
-					break;
-				case 3: //prod. fabricado
-					filter.addProperty("enquadramento", Produto.FABRICADO);
-					break;
-				case 4: //todos
-					break;
-				default:
-					break;
-			}
+//			int enquadramento = Integer.parseInt(this.getEnquadramento());
+//			switch (enquadramento){
+//				case 1: //apenas materia-prima
+//					filter.addProperty("enquadramento", Produto.MATERIA_PRIMA);
+//					break;
+//				case 2: //materia-prima ou revenda
+//					filter.addPropertyInterval("enquadramento", Produto.FABRICADO, IntervalObject.DIFERENTE);
+//					break;
+//				case 3: //prod. fabricado
+//					filter.addProperty("enquadramento", Produto.FABRICADO);
+//					break;
+//				case 4: //todos
+//					break;
+//				default:
+//					break;
+//			}
 
 			if (getDescricaoCompleta() != null && !"".equals(getDescricaoCompleta())){				
 				filter.addProperty("descricaoCompleta", getDescricaoCompleta());
@@ -330,19 +330,19 @@ public class PopUpProdutoBackBean extends BackBean{
 			}
 			Collection col = getFachada().consultarProdutoPorFiltro(filter,false);
 			if (col == null || col.size() == 0){
-				col = getFachada().consultarTodosProdutos();
-				if (col == null || col.size() == 0){
+//				col = getFachada().consultarTodosProdutos();
+//				if (col == null || col.size() == 0){
 					setProdutos(null);
 					
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,
 							"Nenhum Registro Encontrado", "");
 					getContextoApp().addMessage(null, msg);	
 					setExisteRegistros(false);
-				} else {
-					setExisteRegistros(true);
-					setProdutos(col);
-					resetBB();
-				}
+//				} else {
+//					setExisteRegistros(true);
+//					setProdutos(col);
+//					resetBB();
+//				}
 			}else if (col != null){
 				setExisteRegistros(true);
 				setProdutos(col);
