@@ -853,14 +853,11 @@ public class ProdutoBackBean extends BackBean{
 			}
 		} else if(params.get("acaoLocal") != null && ((String)params.get("acaoLocal")).equals("pesquisarProdutos")){
 			try {
-//				Produto prod = getFachada().consultarProdutoPorPK(new Long((String)params.get("codigoProduto")));
 				PropertyFilter filter = new PropertyFilter();
 				filter.setTheClass(Produto.class);
-				filter.addProperty("enquadramento", Produto.MATERIA_PRIMA);
 				filter.addProperty("id", new Long((String)params.get("codigoProduto")));
 				Collection c = getFachada().consultarProdutoPorFiltro(filter, true);
 				if(c == null || c.isEmpty()){
-//					this.setIdEnquadramento(this.getEnquadramentoSelecionado());
 					FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 							"Produto não existe no cadastro ou não é um Produto Matéria-Prima!", "");
 					getContextoApp().addMessage(null, msg);
@@ -874,7 +871,6 @@ public class ProdutoBackBean extends BackBean{
 					this.setIdEnquadramento(Produto.FABRICADO);
 				}
 			} catch (Exception e) {	
-//				this.setIdEnquadramento(this.getEnquadramentoSelecionado());
 				e.printStackTrace();			
 				this.setAbaCorrente("tabMenuDiv2");
 			}
@@ -995,10 +991,10 @@ public class ProdutoBackBean extends BackBean{
 	}
 	
 	public SelectItem[] getListaTiposEnquadramento() {
-		SelectItem[] lista = new SelectItem[3];
+		SelectItem[] lista = new SelectItem[2];
 		lista[0] = new SelectItem(Produto.FABRICADO, "Produto Fabricado");
-		lista[1] = new SelectItem(Produto.REVENDA, "Produto para Revenda");
-		lista[2] = new SelectItem(Produto.MATERIA_PRIMA, "Matéria-Prima");
+//		lista[1] = new SelectItem(Produto.REVENDA, "Produto para Revenda");
+		lista[1] = new SelectItem(Produto.MATERIA_PRIMA, "Matéria-Prima");
 		if(this.getIdEnquadramento() == null || this.getIdEnquadramento().equals("")){
 			this.setIdEnquadramento(Produto.FABRICADO);
 		}
