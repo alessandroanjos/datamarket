@@ -17,6 +17,7 @@ public class ConcentradorParametro extends Cadastro{
 	public static final String IMPRIME_MOVIMENTO_DIA = "IMPRIME_MOVIMENTO_DIA";
 	public static final String IMPRIME_RECIBO_PAGAMENTO = "IMPRIME_RECIBO_PAGAMENTO";
 	public static final String SOLICITA_CLIENTE = "SOLICITA_CLIENTE";
+	public static final String PULA_SEPARACAO_AV = "PULA_SEPARACAO_AV";
 	public static final String ATUALIZA_COMISSAO_VENDEDOR = "ATUALIZA_COMISSAO_VENDEDOR";
 	
 	private static ConcentradorParametro instancia;

@@ -17,6 +17,8 @@ import com.infinity.datamarket.comum.operacao.OperacaoPedido;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.RepositoryManagerHibernateUtil;
 import com.infinity.datamarket.comum.util.AppException;
+import com.infinity.datamarket.comum.util.ConcentradorParametro;
+import com.infinity.datamarket.comum.util.Parametro;
 import com.infinity.datamarket.pdv.util.ServerConfig;
 
 public class ThreadEnviaOperacao extends Thread{
@@ -66,7 +68,12 @@ public class ThreadEnviaOperacao extends Thread{
 							huc1.setDoOutput(true);
 
 							if (opera.getStatus() == ConstantesOperacao.PARA_ENVIAR) {
-								opera.setStatus(ConstantesOperacao.ABERTO);
+								Parametro parametro = ConcentradorParametro.getInstancia().getParametro(ConcentradorParametro.PULA_SEPARACAO_AV);
+								if (parametro != null && parametro != null && Boolean.valueOf(parametro.getValor()).booleanValue()){
+									opera.setStatus(ConstantesOperacao.SEPARADO);
+								} else {
+									opera.setStatus(ConstantesOperacao.ABERTO);
+								}
 							}
 							ObjectOutputStream output = new ObjectOutputStream(huc1.getOutputStream());
 							output.writeObject(opera);
