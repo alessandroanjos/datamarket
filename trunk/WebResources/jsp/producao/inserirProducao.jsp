@@ -170,22 +170,22 @@
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Preço Venda Atual"></h:outputLabel>
-								<h:inputText styleClass="field text" id="precoVendaAtual" maxlength="7"
-									size="7" value="#{producaoBB.precoVendaAtual}" disabled="true">
+								<h:inputText styleClass="field text" id="precoVendaAtual" maxlength="22"
+									size="12" value="#{producaoBB.precoVendaAtual}" disabled="true">
 									<f:validator validatorId="BigDecimalValidator" />									
 								</h:inputText>																
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="Valor de Custo"></h:outputLabel>
-								<h:inputText styleClass="field text" id="valorUnitario" maxlength="7"
-									size="7" value="#{producaoBB.valorUnitario}" disabled="true">
+								<h:inputText styleClass="field text" id="valorUnitario" maxlength="22"
+									size="12" value="#{producaoBB.valorUnitario}" disabled="true">
 									<f:validator validatorId="BigDecimalValidator" />									
 								</h:inputText>																
 							</div>
 							<div>
 								<h:outputLabel styleClass="desc" value="MarkUp"></h:outputLabel>
 								<h:inputText styleClass="field text" id="markUp"
-									maxlength="10" size="10" value="#{producaoBB.markUp}"
+									maxlength="10" size="12" value="#{producaoBB.markUp}"
 									 dir="rtl" disabled="true">
 									<f:validator validatorId="BigDecimalValidator"/>
 								</h:inputText>
@@ -193,7 +193,7 @@
 							<div>
 								<h:outputLabel styleClass="desc" value="Preço Venda"></h:outputLabel>
 								<h:inputText styleClass="field text" id="precoVenda"
-									maxlength="10" size="10" value="#{producaoBB.precoVenda}"
+									maxlength="22" size="12" value="#{producaoBB.precoVenda}"
 									 dir="rtl" disabled="true">
 									<f:validator validatorId="BigDecimalValidator"/>
 								</h:inputText>
@@ -212,7 +212,7 @@
 					<legend>Composição do produto</legend>
 					<div>
 						<t:dataTable id="composicao" value="#{producaoBB.produto.composicao}"
-									var="comp" rowClasses="rowA,rowB" width="90%" renderedIfEmpty="false">
+									var="comp" rowClasses="rowA,rowB" width="90%" renderedIfEmpty="false" >
 									<h:column>
 										<f:facet name="header">
 											<h:outputText value="Produto" /> 
@@ -227,9 +227,17 @@
 									</h:column>
 									<h:column>
 										<f:facet name="header">
+											<h:outputText value="Unidade" />
+										</f:facet>
+										<h:outputText value="#{comp.pk.produto.unidade.abreviacao}" /> 																				
+									</h:column>
+									<h:column>
+										<f:facet name="header">
 											<h:outputText value="Custo" />
 										</f:facet>
-										<h:outputText value="#{comp.pk.produto.precoCompra}" /> 																				
+										<h:outputText value="#{comp.pk.produto.precoCompra * comp.quantidade}" > 																				
+											<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+										</h:outputText>
 									</h:column>
 						</t:dataTable>	
 					</div>

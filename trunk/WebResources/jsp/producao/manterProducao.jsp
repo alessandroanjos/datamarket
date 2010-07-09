@@ -195,7 +195,21 @@
 													<h:outputText value="Quantidade" />
 												</f:facet>
 												<h:outputText value="#{comp.quantidade}" /> 																				
-											</h:column>											
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Unidade" />
+												</f:facet>
+												<h:outputText value="#{comp.pk.produto.unidade.abreviacao}" /> 																				
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Custo" />
+												</f:facet>
+												<h:outputText value="#{comp.pk.produto.precoCompra * comp.quantidade}" > 																				
+													<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+												</h:outputText>
+											</h:column>										
 								</t:dataTable>	
 							</div>
 							
