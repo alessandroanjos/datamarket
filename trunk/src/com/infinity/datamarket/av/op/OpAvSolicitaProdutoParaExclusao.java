@@ -20,7 +20,7 @@ public class OpAvSolicitaProdutoParaExclusao extends Mic{
 
 		try {
 			gerenciadorPerifericos.getDisplay().setMensagem(MensagensAV.getMensagem(this, "Cod. Item para Exluir"));
-			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
+			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 13);
 			if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 
 				List<EventoOperacaoItemRegistrado> coll = (List<EventoOperacaoItemRegistrado>)gerenciadorPerifericos.getCmos().ler(CMOS.COLL_EVENTO_OPERACAO_ITEM_REGISTRADO_PEDIDO);

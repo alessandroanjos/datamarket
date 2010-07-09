@@ -82,9 +82,11 @@ public class GerenciadorPerifericos implements Serializable{
         String strWindow = rb.getString(WINDOW);
         window = carregaWindow(strWindow);
         String strArquivoCmos = Util.getDirCorrente() + "/cmos.dat";
-        System.out.println("TOSCK  " + strArquivoCmos);
+//        System.out.println("TOSCK  " + strArquivoCmos);
 //        String strArquivoCmos = rb.getString(ARQUIVO_CMOS);
         String strCmos = rb.getString(CMOS_CLASSE);
+        System.out.println(strCmos);
+        System.out.println(strArquivoCmos);
         cmos = (CMOS) getInstanciaClasse(strCmos);
         cmos.setArquivo(strArquivoCmos);
         String strDisplay = rb.getString(DISPLAY_VIRTUAL);

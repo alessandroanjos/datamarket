@@ -50,7 +50,7 @@ public class OpSolicitaDescontoCupom extends Mic{
 				String retornoTipo = "0";
 				while(!retornoTipo.equals("1") && !retornoTipo.equals("2")){
 					gerenciadorPerifericos.getDisplay().setMensagem("Desc : 1-Percentual 2-Valor");
-					EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
+					EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 1);
 					if (entrada.getTeclaFinalizadora() == Tecla.CODIGO_ENTER){
 						retornoTipo = entrada.getDado();
 					}else{

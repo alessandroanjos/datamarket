@@ -199,7 +199,7 @@
 					<reportElement
 						x="0"
 						y="0"
-						width="60"
+						width="120"
 						height="13"
 						key="textField-14"/>
 					<box></box>

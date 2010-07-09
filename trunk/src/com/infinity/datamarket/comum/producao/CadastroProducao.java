@@ -95,7 +95,10 @@ public class CadastroProducao extends Cadastro{
 			Hibernate.initialize(prod.getLojas());
 			Hibernate.initialize(prod.getComposicao());
 			prod.setPrecoPadrao(producao.getPrecoVenda());
-			prod.setPrecoPromocional(producao.getPrecoVenda());
+			if(prod.getPrecoPromocional().compareTo(producao.getPrecoVenda()) > 0){
+				prod.setPrecoPromocional(producao.getPrecoVenda());	
+			}
+//			prod.setPrecoPromocional(producao.getPrecoVenda());
 			CadastroProduto.getInstancia().alterar(prod);			
 		}
 		
