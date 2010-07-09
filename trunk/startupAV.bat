@@ -134,4 +134,4 @@ SET CLASSPATH=%CLASSPATH%;@destino@\libJboss\xmlsec.jar
 
 java com.infinity.datamarket.pdv.util.BackupLogs
 
-java -DDebug=all -Xdebug com.infinity.datamarket.av.StartUpAV 1>LogPDVSO.txt 2>LogPDVRT.txt
+java -DDebug=all -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8002 -Djava.compiler=NONE com.infinity.datamarket.av.StartUpAV 1>LogPDVSO.txt 2>LogPDVRT.txt
