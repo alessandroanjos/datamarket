@@ -34,7 +34,7 @@ public class OpSolicitaConsultaProduto extends Mic{
 			}else{
 				gerenciadorPerifericos.getDisplay().setMensagem("Canc: Código do Produto");
 			}
-			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 6);
+			EntradaDisplay entrada = gerenciadorPerifericos.lerDados(new int[]{Tecla.CODIGO_ENTER,Tecla.CODIGO_VOLTA},Display.MASCARA_NUMERICA, 13);
 			if (entrada.getTeclaFinalizadora() == 10){
 				codigo = entrada.getDado();
 			}else{

@@ -37,6 +37,7 @@ import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalOb
 import com.infinity.datamarket.comum.usuario.Loja;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
+import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
 
@@ -81,8 +82,10 @@ public class EntradaProdutoBackBean extends BackBean {
 	private BigDecimal quantidade        = BigDecimal.ZERO.setScale(3);
 	private BigDecimal precoUnitario     = BigDecimal.ZERO.setScale(2);
 	private BigDecimal descontoProduto   = BigDecimal.ZERO.setScale(2);
-	private BigDecimal icmsProduto       = BigDecimal.ZERO.setScale(2);	
+	private BigDecimal icmsProduto       = BigDecimal.ZERO.setScale(2);
+	private BigDecimal valorIcmsProduto  = BigDecimal.ZERO.setScale(2);
 	private BigDecimal ipiProduto	     = BigDecimal.ZERO.setScale(2);
+	private BigDecimal valorIpiProduto	 = BigDecimal.ZERO.setScale(2);
 	private BigDecimal total		     = BigDecimal.ZERO.setScale(2);
 	private BigDecimal totalDescontoItem = BigDecimal.ZERO.setScale(2);
 	private Date dataVencimentoProduto;
@@ -121,11 +124,13 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setIdProduto(null);
 		this.descricao = null;
 		this.setIdEstoque(null);
-		this.setDescontoProduto(BigDecimal.ZERO);
-		this.setQuantidade(BigDecimal.ZERO);
-		this.setIcmsProduto(BigDecimal.ZERO);
-		this.setIpiProduto(BigDecimal.ZERO);
-		this.setPrecoUnitario(BigDecimal.ZERO);
+		this.setDescontoProduto(BigDecimal.ZERO.setScale(2));
+		this.setQuantidade(BigDecimal.ZERO.setScale(3));
+		this.setIcmsProduto(BigDecimal.ZERO.setScale(2));
+		this.setIpiProduto(BigDecimal.ZERO.setScale(2));
+		this.setValorIcmsProduto(BigDecimal.ZERO.setScale(2));
+		this.setValorIpiProduto(BigDecimal.ZERO.setScale(2));
+		this.setPrecoUnitario(BigDecimal.ZERO.setScale(2));
 		this.setDataVencimentoProduto(null);
 		this.setStatus(null);
 	}
@@ -218,8 +223,10 @@ public class EntradaProdutoBackBean extends BackBean {
 			if (this.icmsProduto == null) this.icmsProduto = BigDecimal.ZERO.setScale(2);
 			if (this.descontoProduto == null) this.descontoProduto = BigDecimal.ZERO.setScale(2);
 			if (this.desconto == null) this.desconto = BigDecimal.ZERO.setScale(2);
-	        produtoEntrada.setIpi(this.ipiProduto.setScale(2));
-	        produtoEntrada.setIcms(this.icmsProduto.setScale(2));
+//	        produtoEntrada.setIpi(this.ipiProduto.setScale(2));
+//	        produtoEntrada.setIcms(this.icmsProduto.setScale(2));
+	        produtoEntrada.setIpi(this.valorIpiProduto.setScale(2));
+	        produtoEntrada.setIcms(this.valorIcmsProduto.setScale(2));
 			produtoEntrada.setDesconto(this.descontoProduto.setScale(2));
 			produtoEntrada.setQuantidade(this.quantidade.setScale(3));
 			this.setQuantidadeTotal(this.getQuantidadeTotal().add(this.quantidade.setScale(3)));
@@ -303,7 +310,7 @@ public class EntradaProdutoBackBean extends BackBean {
 			msg = 	"A Quantidade do Produto deve ser informada!";
 		} else if (this.precoUnitario == null || "".equals(this.precoUnitario)){// || this.precoUnitario.equals(BigDecimal.ZERO)) {
 			msg = 	"O Preço Unitário do Produto deve ser informado!";
-		}else if (this.dataVencimentoProduto != null && this.dataVencimentoProduto.compareTo(new Date())<=0){
+		}else if (this.dataVencimentoProduto != null && Util.comparaDatasSemHora(this.dataVencimentoProduto, new Date()) < 0){
 			msg = "Produto com data de vencimento inválida";		
 		} else if (this.descontoProduto != null && !"".equals(this.descontoProduto)) {
 			BigDecimal tmpTotalProduto = this.precoUnitario.multiply(this.quantidade);
@@ -841,11 +848,11 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setDataEntrada(new Date(System.currentTimeMillis()));
 		this.setDataInicio(null);
 		this.setDataFinal(null);
-		this.setFrete(BigDecimal.ZERO);
-		this.setIcms(BigDecimal.ZERO);
-		this.setIpi(BigDecimal.ZERO);
-		this.setDesconto(BigDecimal.ZERO);
-		this.setValor(BigDecimal.ZERO);
+		this.setFrete(BigDecimal.ZERO.setScale(2));
+		this.setIcms(BigDecimal.ZERO.setScale(2));
+		this.setIpi(BigDecimal.ZERO.setScale(2));
+		this.setDesconto(BigDecimal.ZERO.setScale(2));
+		this.setValor(BigDecimal.ZERO.setScale(2));
 		this.setFornecedor(null);
 		this.setEstoque(null);
 		this.setArrayProduto(null);
@@ -1151,11 +1158,17 @@ public class EntradaProdutoBackBean extends BackBean {
 		if (this.descontoProduto != null) 
 			this.total = this.total.subtract(this.descontoProduto);
 		
-		if (this.ipiProduto != null) 
-		this.total = this.total.add(this.ipiProduto);
-		
-		if (this.icmsProduto != null) { 
-		this.total = this.total.add(this.icmsProduto);
+//		if (this.ipiProduto != null) 
+//		this.total = this.total.add(this.ipiProduto);
+//		
+//		if (this.icmsProduto != null) { 
+//		this.total = this.total.add(this.icmsProduto);
+//		}
+		if (this.valorIpiProduto != null) 
+			this.total = this.total.add(this.valorIpiProduto);
+			
+		if (this.valorIcmsProduto != null) { 
+			this.total = this.total.add(this.valorIcmsProduto);
 		}
 	}
 	/**
@@ -1362,5 +1375,17 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public BigDecimal getValorIcmsProduto() {
+		return valorIcmsProduto;
+	}
+	public void setValorIcmsProduto(BigDecimal valorIcmsProduto) {
+		this.valorIcmsProduto = valorIcmsProduto;
+	}
+	public BigDecimal getValorIpiProduto() {
+		return valorIpiProduto;
+	}
+	public void setValorIpiProduto(BigDecimal valorIpiProduto) {
+		this.valorIpiProduto = valorIpiProduto;
 	}
 }
