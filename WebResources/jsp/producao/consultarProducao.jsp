@@ -86,77 +86,69 @@
 			<div id="primarioContentContainerInternas" >
 				<h:form id="frmInserirProducao" binding="#{producaoBB.init}">
 					<fieldset>
-					<ul>
-						<li class="normal">
-							<div>
-								<%@ include file="/jsp/mensagem_erro.jsp"%> <!--  h  messages errorClass="msgSistemaErro"
-									infoClass="msgSistemaSucesso" globalOnly="true"
-									showDetail="true" /> -->
-							</div>
-						</li>
-
 						<legend>Opções de filtro:</legend>
-						<li class="normal">	
-							<div>
-								<h:outputLabel styleClass="desc" value="Lote"></h:outputLabel>
-								<h:inputText readonly="false" styleClass="field text"
-									maxlength="9" size="10" 
-									value="#{producaoBB.loteConsulta}" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
-									maxlength="9" 
-									id="loteConsulta">
-								</h:inputText>	
-							</div>
-						</li>
-						<li class="normal">	
-							<div>
-								<h:outputLabel styleClass="desc" value="Fabricação Inicial*"></h:outputLabel>
-								<h:inputText readonly="false" styleClass="field text data"
-									maxlength="10" size="10" 
-									value="#{producaoBB.fabricacaoIni}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-									id="fabricacaoIni">
-								    <f:convertDateTime timeZone="GMT-3"/>	 
-								</h:inputText>	
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value=" Final*"></h:outputLabel>
-								<h:inputText readonly="false" styleClass="field text data"
-									maxlength="10" size="10" 
-									value="#{producaoBB.fabricacaoFim}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-									id="fabricacaoFim">
-								    <f:convertDateTime timeZone="GMT-3"/>	 
-								</h:inputText>								
-							</div>
-						</li>								
-						<li class="normal">
-							<div>
-								<h:outputLabel styleClass="desc" value="Código Produto"></h:outputLabel>
-								<h:inputText styleClass="field text" id="idProduto" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
-									maxlength="9" value="#{producaoBB.idProduto}" size="9" required="false">
-									<f:validateLength maximum="9" />
-									<f:validator validatorId="LongValidator" />
-								</h:inputText>
-								<h:commandButton  image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
-									onmousedown="showPopUp(this,'frmInserirProducao','find')"
-									onclick="return false" value="Consultar Produto ">
-								</h:commandButton>
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Descrição"></h:outputLabel>
-								<h:inputText styleClass="field text" id="descricao" 
-									maxlength="50" size="50" value="#{producaoBB.descricao}">
-									<f:validateLength maximum="50" />
-								</h:inputText>
-							</div>
-							
-						</li>
-					</ul>
+						<ul>
+							<li class="normal">	
+								<div>
+									<h:outputLabel styleClass="desc" value="Lote"></h:outputLabel>
+									<h:inputText readonly="false" styleClass="field text"
+										maxlength="9" size="10" 
+										value="#{producaoBB.loteConsulta}" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
+										maxlength="9" 
+										id="loteConsulta">
+									</h:inputText>	
+								</div>
+								<br/>
+								<br/>
+								<div>
+									<h:outputLabel styleClass="desc" value="Fabricação Inicial*"></h:outputLabel>
+									<h:inputText readonly="false" styleClass="field text data"
+										maxlength="10" size="10" 
+										value="#{producaoBB.fabricacaoIni}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
+										id="fabricacaoIni">
+									    <f:convertDateTime timeZone="GMT-3"/>	 
+									</h:inputText>	
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value=" Final*"></h:outputLabel>
+									<h:inputText readonly="false" styleClass="field text data"
+										maxlength="10" size="10" 
+										value="#{producaoBB.fabricacaoFim}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
+										id="fabricacaoFim">
+									    <f:convertDateTime timeZone="GMT-3"/>	 
+									</h:inputText>								
+								</div>
+								<br/>
+								<br/>
+								<div>
+									<h:outputLabel styleClass="desc" value="Código Produto"></h:outputLabel>
+									<h:inputText styleClass="field text" id="idProduto" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
+										maxlength="9" value="#{producaoBB.idProduto}" size="9" required="false">
+										<f:validateLength maximum="9" />
+										<f:validator validatorId="LongValidator" />
+									</h:inputText>
+									<h:commandButton  image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
+										onmousedown="showPopUp(this,'frmInserirProducao','find')"
+										onclick="return false" value="Consultar Produto ">
+									</h:commandButton>
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Descrição"></h:outputLabel>
+									<h:inputText styleClass="field text" id="descricao" 
+										maxlength="50" size="50" value="#{producaoBB.descricao}">
+										<f:validateLength maximum="50" />
+									</h:inputText>
+								</div>
+								
+							</li>
+						</ul>
 					</fieldset>
 					<div class="listagem">
 								<t:dataTable id="producoes" value="#{producaoBB.producoes}"
 									var="producao" rowClasses="rowA,rowB" width="90%" renderedIfEmpty="false">
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="lote" /> 
+											<h:outputText value="Lote" /> 
 										</f:facet>
 										<h:outputText value="#{producao.lote}" /> 
 									</h:column>
@@ -191,7 +183,7 @@
 									</h:column>
 									<h:column>
 										<f:facet name="header">
-											<h:outputText value="quantidade" /> 
+											<h:outputText value="Quantidade" /> 
 										</f:facet>
 										<h:outputText value="#{producao.quantidade}"/> 
 									</h:column>

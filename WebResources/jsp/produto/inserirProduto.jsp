@@ -296,10 +296,10 @@
 									<li class="normal">
 										<div>
 											<h:outputLabel styleClass="desc" value="Quant. Mínima"></h:outputLabel>
-											<h:inputText styleClass="field text" id="quantidadeMinimaProduto" maxlength="8" size="9"
+											<h:inputText styleClass="field text" id="quantidadeMinimaProduto" maxlength="22" size="15"
 												value="#{produtoBB.quantidadeMinimaProduto}" dir="rtl" required="false" onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));">
-												<f:validateLength maximum="8" />
-												<f:validateDoubleRange minimum="0.000" maximum="9999.999"/>
+												<f:validateLength maximum="22" />
+												<f:validateDoubleRange minimum="0.000" maximum="999999999999999999.999"/>
 												<f:validator validatorId="BigDecimalValidator"/>
 											</h:inputText>
 										</div>

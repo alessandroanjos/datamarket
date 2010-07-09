@@ -90,6 +90,23 @@
 
 			getId("frmInserirEntradaProdutos:valor").value = valorTotalCupom.toFixed(2);
          }
+         
+         function calculaIcmsProduto(){
+           	var percentualICMS = parseFloat(getId("frmInserirEntradaProdutos:icmsProduto").value);
+           	var precoUnitario = parseFloat(getId("frmInserirEntradaProdutos:precoUnitario").value);
+           	var valorIcmsProduto = parseFloat(getId("frmInserirEntradaProdutos:valorIcmsProduto").value);
+           	valorIcmsProduto = (precoUnitario*percentualICMS)/100;
+           	getId("frmInserirEntradaProdutos:valorIcmsProduto").value = valorIcmsProduto.toFixed(2);
+         }
+
+         function calculaIpiProduto(){
+           	var percentualIPI = parseFloat(getId("frmInserirEntradaProdutos:ipiProduto").value);
+           	var precoUnitario = parseFloat(getId("frmInserirEntradaProdutos:precoUnitario").value);
+           	var valorIpiProduto = parseFloat(getId("frmInserirEntradaProdutos:valorIpiProduto").value);
+           	valorIpiProduto = (precoUnitario*percentualIPI)/100;
+           	getId("frmInserirEntradaProdutos:valorIpiProduto").value = valorIpiProduto.toFixed(2);
+         }
+         
      </script>
 <body onload="exibirMensagemErro();">
 	<div id="outer">
@@ -168,167 +185,180 @@
 								</h:selectOneMenu>
 							</div>
 						</li>
-						<fieldset>	
-						<legend>Produtos</legend>
-						<li class="normal">
-							<div>
-								<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="idProduto" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
-									maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9" required="false">
-									<f:validateLength maximum="9" />
-									<f:validator validatorId="LongValidator" />
-								</h:inputText>
-								<h:commandButton  image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
-									onmousedown="showPopUp(this,'frmInserirEntradaProdutos','find')"
-									onclick="return false" value="Consultar Produto ">
-								</h:commandButton>
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
-								<h:inputText styleClass="field text ativo" id="descricao" 
-									maxlength="50" size="75" value="#{entradaProdutoBB.descricao}">
-									<f:validateLength maximum="50" />
-								</h:inputText>
-							</div>
-							
-						</li>	
-						<li class="normal">		
-							<h:inputHidden id="valorSubTotalNota" value="#{entradaProdutoBB.valorSubTotalNota}"></h:inputHidden>					
-							<div>
-								<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
-								<h:inputText styleClass="field monetario" id="quantidade" maxlength="9"
-									size="7" value="#{entradaProdutoBB.quantidade}" dir="rtl"									
-									onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));" 
-									required="false">
-									<f:validateLength maximum="9" />
-									<f:validateDoubleRange minimum="0.000" maximum="9999.999" />
-									<f:validator validatorId="BigDecimalValidator" />
-								</h:inputText>
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Valor Unitário"></h:outputLabel>
-								<h:inputText styleClass="field monetario" id="precoUnitario" maxlength="10"
-									size="11" value="#{entradaProdutoBB.precoUnitario}" dir="rtl"									
-									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
-									required="false">
-									<f:validateLength maximum="10" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
-									<f:validator validatorId="BigDecimalValidator" />
-								</h:inputText>
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
-								<h:inputText styleClass="field monetario" id="descontoProduto" maxlength="10"
-									size="11" value="#{entradaProdutoBB.descontoProduto}" dir="rtl"
-									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
-									required="false">
-									<f:validateLength maximum="10" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
-									<f:validator validatorId="BigDecimalValidator" />
-								</h:inputText>
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
-								<h:inputText styleClass="field monetario" id="icmsProduto" maxlength="10"
-									size="11" value="#{entradaProdutoBB.icmsProduto}" dir="rtl"
-									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
-									required="false">
-									<f:validateLength maximum="10" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
-									<f:validator validatorId="BigDecimalValidator" />
-								</h:inputText>
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
-								<h:inputText styleClass="field monetario" id="ipiProduto" maxlength="10"
-									size="11" value="#{entradaProdutoBB.ipiProduto}" dir="rtl"
-									onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
-									required="false">
-									<f:validateLength maximum="10" />
-									<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
-									<f:validator validatorId="BigDecimalValidator" />
-								</h:inputText>
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Data Vencimento*"></h:outputLabel>
-								<h:inputText readonly="false" styleClass="field text data"
-									maxlength="10" size="10" 
-									value="#{entradaProdutoBB.dataVencimentoProduto}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
-									id="dataVencimentoProduto">
-								    <f:convertDateTime timeZone="GMT-3"/>	 
-								</h:inputText>
-								
-								<h:commandButton image="/images/adicionar.png" alt="Inserir Produto" id="botaoInserirProduto"
-									action="#{entradaProdutoBB.inserirProdutoEntrada}">
-								</h:commandButton>
-							</div>	
-						</li>	
 						<li>
-						<div class="listagem">
-							<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
-								var="produtoEntrada" rowClasses="rowA,rowB" width="95%">
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Cód." />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.pk.produto.id}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Descrição" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.pk.produto.descricaoCompleta}" />
-								</h:column>								
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Vl. Unitário" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.precoUnitario}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Quant" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.quantidade}" />
-								</h:column>
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="ICMS" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.icms}" />
-								</h:column>	
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="IPI" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.ipi}" />
-								</h:column>	
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Desconto" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.desconto}" />
-								</h:column>	
-								<h:column>
-									<f:facet name="header">
-										<h:outputText value="Total" />
-									</f:facet>
-									<h:outputText value="#{produtoEntrada.total}" />
-								</h:column>																
-								<h:column >
-									<f:facet name="header">
-										<h:outputText value="" />
-									</f:facet>
-									<h:commandLink value="" 
-										action="#{entradaProdutoBB.excluirProdutoEntrada}"   >
-	
- 									   <h:commandButton style="" image="/images/excluir.png" alt="Excluir Produto" title="" />
-										<f:param name="idExcluir" value="#{produtoEntrada.pk.produto.id}" />
-									</h:commandLink>
-								</h:column>
-							</t:dataTable>
-						</div> 
-						</fieldset>
+							<fieldset>	
+								<legend>Produtos</legend>
+								<ul>
+									<li class="normal">
+										<div>
+											<h:outputLabel styleClass="desc" value="Código Produto*"></h:outputLabel>
+											<h:inputText styleClass="field text ativo" id="idProduto" onfocus="this.select();" onclick="this.select();" onkeypress="return SoNumero(event);"
+												maxlength="9" value="#{entradaProdutoBB.idProduto}" size="9" required="false">
+												<f:validateLength maximum="9" />
+												<f:validator validatorId="LongValidator" />
+											</h:inputText>
+											<h:commandButton  image="/images/pesquisa.png" alt="Pesquisar Produto" styleClass="btTxt" id="botaoConsultarProduto"
+												onmousedown="showPopUp(this,'frmInserirEntradaProdutos','find')"
+												onclick="return false" value="Consultar Produto ">
+											</h:commandButton>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Descrição*"></h:outputLabel>
+											<h:inputText styleClass="field text ativo" id="descricao" 
+												maxlength="50" size="75" value="#{entradaProdutoBB.descricao}">
+												<f:validateLength maximum="50" />
+											</h:inputText>
+										</div>
+									<br/>	
+									<br/>										
+										<h:inputHidden id="valorSubTotalNota" value="#{entradaProdutoBB.valorSubTotalNota}"></h:inputHidden>					
+										<div>
+											<h:outputLabel styleClass="desc" value="Qtd."></h:outputLabel>
+											<h:inputText styleClass="field monetario" id="quantidade" maxlength="22"
+												size="7" value="#{entradaProdutoBB.quantidade}" dir="rtl"									
+												onkeydown="return(BackSpaceQTD(this,event));"  onkeypress="return(MascaraQTD(this,'','.',event));" 
+												required="false">
+												<f:validateLength maximum="22" />
+												<f:validateDoubleRange minimum="0.000" maximum="999999999999999999.999"/>
+												<f:validator validatorId="BigDecimalValidator"/>
+											</h:inputText>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Valor Unitário"></h:outputLabel>
+											<h:inputText styleClass="field monetario" id="precoUnitario" maxlength="10"
+												size="9" value="#{entradaProdutoBB.precoUnitario}" dir="rtl"									
+												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
+												required="false">
+												<f:validateLength maximum="10" />
+												<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+												<f:validator validatorId="BigDecimalValidator" />
+											</h:inputText>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Desconto"></h:outputLabel>
+											<h:inputText styleClass="field monetario" id="descontoProduto" maxlength="10"
+												size="9" value="#{entradaProdutoBB.descontoProduto}" dir="rtl"
+												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
+												required="false">
+												<f:validateLength maximum="10" />
+												<f:validateDoubleRange minimum="0.00" maximum="9999999.99" />
+												<f:validator validatorId="BigDecimalValidator" />
+											</h:inputText>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="ICMS(%)"></h:outputLabel>
+											<h:inputText styleClass="field monetario" id="icmsProduto" maxlength="5"
+												size="7" value="#{entradaProdutoBB.icmsProduto}" dir="rtl"
+												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
+												required="false" onblur="calculaIcmsProduto();">
+												<f:validateLength maximum="5" />
+												<f:validateDoubleRange minimum="0.00" maximum="99.99" />
+												<f:validator validatorId="BigDecimalValidator" />
+											</h:inputText>
+											<h:inputText styleClass="field monetario" id="valorIcmsProduto" maxlength="10"
+												size="9" value="#{entradaProdutoBB.valorIcmsProduto}" dir="rtl"
+												required="false" disabled="true">
+											</h:inputText>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="IPI(%)"></h:outputLabel>
+											<h:inputText styleClass="field monetario" id="ipiProduto" maxlength="5"
+												size="7" value="#{entradaProdutoBB.ipiProduto}" dir="rtl"
+												onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" 
+												required="false" onblur="calculaIpiProduto();">
+												<f:validateLength maximum="5" />
+												<f:validateDoubleRange minimum="0.00" maximum="99.99" />
+												<f:validator validatorId="BigDecimalValidator" />
+											</h:inputText>
+											<h:inputText styleClass="field monetario" id="valorIpiProduto" maxlength="10"
+												size="9" value="#{entradaProdutoBB.valorIpiProduto}" dir="rtl"
+												required="false" disabled="true">
+											</h:inputText>
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Data Vencimento*"></h:outputLabel>
+											<h:inputText readonly="false" styleClass="field text data"
+												maxlength="10" size="10" 
+												value="#{entradaProdutoBB.dataVencimentoProduto}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }"
+												id="dataVencimentoProduto">
+											    <f:convertDateTime timeZone="GMT-3"/>	 
+											</h:inputText>
+											
+											<h:commandButton image="/images/adicionar.png" alt="Inserir Produto" id="botaoInserirProduto"
+												action="#{entradaProdutoBB.inserirProdutoEntrada}">
+											</h:commandButton>
+										</div>	
+									</li>	
+									<li>
+										<div class="listagem">
+											<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
+												var="produtoEntrada" rowClasses="rowA,rowB" width="95%">
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Cód." />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.pk.produto.id}" />
+												</h:column>
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Descrição" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.pk.produto.descricaoCompleta}" />
+												</h:column>								
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Vl. Unitário" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.precoUnitario}" />
+												</h:column>
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Quant" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.quantidade}" />
+												</h:column>
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="ICMS" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.icms}" />
+												</h:column>	
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="IPI" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.ipi}" />
+												</h:column>	
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Desconto" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.desconto}" />
+												</h:column>	
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Total" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.total}" />
+												</h:column>																
+												<h:column >
+													<f:facet name="header">
+														<h:outputText value="" />
+													</f:facet>
+													<h:commandLink value="" 
+														action="#{entradaProdutoBB.excluirProdutoEntrada}"   >
+					
+				 									   <h:commandButton style="" image="/images/excluir.png" alt="Excluir Produto" title="" />
+														<f:param name="idExcluir" value="#{produtoEntrada.pk.produto.id}" />
+													</h:commandLink>
+												</h:column>
+											</t:dataTable>
+										</div> 
+									</li>
+								<ul>							
+							</fieldset>
+						</li>
+						
 						<li class="normal">
 							<div>
 								<h:outputLabel styleClass="desc" value="Quant. Total"></h:outputLabel>
