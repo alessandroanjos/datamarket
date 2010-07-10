@@ -193,7 +193,7 @@ public class LoginBackBean extends BackBean{
 //										pathAplicacao+"/EnterpriseServer/jsp/"+funcAux.getUrl()+
 										pathAplicacao+"/jsp/"+funcAux.getUrl()+
 										".faces?"+ACAO+"="+VALOR_ACAO+																				
-										"\",\"\",\"top=0,left=0,status=yes,toolbar=no,menubar=no,location=no,resizable,resize=yes,height=" +
+										"\",\"\",\"top=0,left=0,status=yes,toolbar=no,menubar=no,location=no,scrollbars=auto,resizable,resize=yes,height=" +
 										funcAux.getAltura() + ",width=" + funcAux.getLargura() + "\")");
 //						System.out.println(subMenuAux.getAction());
 					}					
