@@ -12,7 +12,7 @@
 	
 	<property name="classeStartUp" value="com.infinity.datamarket.socket.servidor.InicializadorServidorPedido" />
 	
-	<target depends="renomearDestino,clean,criarDestino,recursosConf,recursosSRC,copyLib,gerarJar,deleteClasse,copyBat" name="make" />
+	<target depends="renomearDestino,clean,criarDestino,recursosConf,recursosSRC,copyLib,gerarJar,deleteClasse,copyBat,compilarJasper" name="make" />
 
 	<target name="renomearDestino" >
 		<mkdir dir="${destino}" />
@@ -107,6 +107,34 @@
 	            </replacetokens>
 	        </filterchain>
 		</copy>
+	</target>
+
+	<target name="compilarJasper" description="Compilar os Relatórios">
+		<mkdir dir="${dirDeploy}/${contexto}/WEB-INF/classes" />
+		<delete>
+			<fileset dir="src/resources">
+				<exclude name="*.jrxml"/>
+			</fileset>
+		</delete>
+
+		<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask">
+			<classpath>
+				<fileset dir="${destino}/lib">
+					<include name="*.jar" />
+				</fileset>
+				<fileset dir="${dirDeploy}/${contexto}/WEB-INF/classes">
+					<include name="classes**/*.class" />
+				</fileset>
+			</classpath>
+		</taskdef>
+
+		<jrc srcdir="src/resources" destdir="${dirDeploy}/${contexto}/WEB-INF/classes/resources" tempdir="${dirDeploy}/${contexto}/WEB-INF/classes/resources" keepjava="false">
+			<classpath>
+				<fileset dir="${dirDeploy}/${contexto}/WEB-INF/lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</jrc>
 	</target>
 
 	<target name="compile">
