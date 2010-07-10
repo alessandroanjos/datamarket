@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="make" name="av">
 
-	<property name="dirDeploy" value="E:\Arquivos de programas\Apache Software Foundation\Tomcat 5.0\webapps" />
+	<property name="dirDeploy" value="c:\temp" />
 	<property name="contexto" value="es" />
 
 	<property name="src" value="src" />
 	<property name="conf" value="conf" />
 	<property name="lib" value="lib" />
 	
-	<target depends="renomearDestino,clean,criarDestino,copyAmbienteWeb,recursosConf,recursosSRC,copyLib,compilar" name="make" />
+	<target depends="renomearDestino,clean,criarDestino,copyAmbienteWeb,recursosConf,recursosSRC,copyLib,gerarJar,compilarJasper" name="make" />
 
 	<target name="renomearDestino" >
 		<mkdir dir="${dirDeploy}/${contexto}" />
@@ -92,7 +92,39 @@
 		</copy>
 	</target>
 
-	<target name="compilar">
+	<target name="compilarJasper" description="Compilar os Relatórios">
+		<mkdir dir="${dirDeploy}/${contexto}/WEB-INF/classes" />
+		<delete>
+			<fileset dir="src/resources">
+				<exclude name="*.jrxml"/>
+			</fileset>
+		</delete>
+
+		<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask">
+			<classpath>
+				<fileset dir="${dirDeploy}/${contexto}/WEB-INF/lib">
+					<include name="*.jar" />
+				</fileset>
+				<fileset dir="${dirDeploy}/${contexto}/WEB-INF/classes">
+					<include name="classes**/*.class" />
+				</fileset>
+			</classpath>
+		</taskdef>
+
+		<jrc srcdir="src/resources" destdir="${dirDeploy}/${contexto}/WEB-INF/classes/resources" tempdir="${dirDeploy}/${contexto}/WEB-INF/classes/resources" keepjava="false">
+			<classpath>
+				<fileset dir="${dirDeploy}/${contexto}/WEB-INF/lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</jrc>
+	</target>
+
+	<target depends="compilar" name="gerarJar">
+        <jar destfile="${dirDeploy}/${contexto}/WEB-INF/lib/es.jar" basedir="${dirDeploy}/${contexto}/WEB-INF/classes" />
+    </target>
+	
+<target name="compilar">
         <mkdir dir=""/>
 		<javac srcdir="${src}" destdir="${dirDeploy}/${contexto}/WEB-INF/classes" classpathref="classpath"/>
 	</target>
