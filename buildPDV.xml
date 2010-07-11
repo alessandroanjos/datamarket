@@ -12,7 +12,7 @@
 	
 	<property name="classeStartUp" value="com.infinity.datamarket.pdv.StartUpPDV" />
 	
-	<target depends="renomearDestino,clean,criarDestino,recursosConf,recursosSRC,copyLib,gerarJar,deleteClasse,copyBat,copyBanco,copyLogo,compilarJasper" name="make" />
+	<target depends="renomearDestino,clean,criarDestino,recursosConf,recursosSRC,copyLib,copyBat,copyBanco,copyLogo,gerarJar,compilarJasper,gerarJar,deleteClasse" name="make" />
 
 	<target name="renomearDestino" >
 		<mkdir dir="${destino}" />
@@ -129,7 +129,7 @@
 	</target>
 
 	<target name="compilarJasper" description="Compilar os Relatórios">
-		<mkdir dir="${dirDeploy}/${contexto}/WEB-INF/classes" />
+		<mkdir dir="${destino}/classes/resources" />
 		<delete>
 			<fileset dir="src/resources">
 				<exclude name="*.jrxml"/>
@@ -141,27 +141,32 @@
 				<fileset dir="${destino}/lib">
 					<include name="*.jar" />
 				</fileset>
-				<fileset dir="${dirDeploy}/${contexto}/WEB-INF/classes">
+				<fileset dir="${destino}">
+					<include name="*.jar" />
+				</fileset>
+				<fileset dir="${destino}/classes">
 					<include name="classes**/*.class" />
 				</fileset>
 			</classpath>
 		</taskdef>
 
-		<jrc srcdir="src/resources" destdir="${dirDeploy}/${contexto}/WEB-INF/classes/resources" tempdir="${dirDeploy}/${contexto}/WEB-INF/classes/resources" keepjava="false">
+		<jrc srcdir="src/resources" destdir="${destino}/classes/resources" tempdir="${destino}/classes/resources" keepjava="false">
 			<classpath>
-				<fileset dir="${dirDeploy}/${contexto}/WEB-INF/lib">
+				<fileset dir="${destino}/lib">
+					<include name="*.jar" />
+				</fileset>
+				<fileset dir="${destino}">
 					<include name="*.jar" />
 				</fileset>
 			</classpath>
 		</jrc>
 	</target>
 
-	<target name="copyLogo">
+		<target name="copyLogo">
 		<copy file="./img/${logo}" tofile="${destino}/${logo}" >
 		</copy>
 	</target>
-	
-	
+
 	<path id="classpath">
         <fileset dir="${destino}/lib" includes="**/*.jar"/>
         <fileset dir="${destino}/libJboss" includes="**/*.jar"/>
