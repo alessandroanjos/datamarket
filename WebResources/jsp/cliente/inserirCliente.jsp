@@ -71,6 +71,11 @@
 			}
 		}
 		
+		function preencheValorLimite(){
+			var valorLimiteCompras = parseFloat(getId("frmInserirCliente:valorLimiteCompras").value);	
+			getId("frmInserirCliente:valorLimiteDisponivel").value = valorLimiteCompras.toFixed(2);
+		}
+		
 		</script>
 
 		</head>
@@ -177,8 +182,18 @@
 										</div>
 										<div>
 											<h:outputLabel styleClass="desc" value="Limite de Compra"></h:outputLabel>
-											<h:inputText styleClass="field text" dir="rtl" id="valorLimiteCompras" maxlength="10" size="10" 
+											<h:inputText styleClass="field text" dir="rtl" id="valorLimiteCompras" maxlength="10" size="10" onblur="javascript:preencheValorLimite();"
 												value="#{clienteBB.valorLimiteCompras}" required="false" onkeypress="return(formataMoeda(this,'','.',2,event));">
+												<f:validateLength maximum="10" />	
+												<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>										
+												<f:validator validatorId="BigDecimalValidator" />
+											</h:inputText>
+																		
+										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Limite Disponível"></h:outputLabel>
+											<h:inputText styleClass="field text" dir="rtl" id="valorLimiteDisponivel" maxlength="10" size="10" disabled="true"
+												value="#{clienteBB.valorLimiteDisponivel}" required="false" onkeypress="return(formataMoeda(this,'','.',2,event));">
 												<f:validateLength maximum="10" />	
 												<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>										
 												<f:validator validatorId="BigDecimalValidator" />
