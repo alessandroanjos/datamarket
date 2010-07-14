@@ -200,6 +200,16 @@
 											</h:inputText>
 																		
 										</div>
+										<div>
+											<h:outputLabel styleClass="desc" value="Limite Disponível"></h:outputLabel>
+											<h:inputText styleClass="field text" dir="rtl" id="valorLimiteDisponivel" maxlength="10" size="10" disabled="true"
+												value="#{clienteBB.valorLimiteDisponivel}" required="false" onkeypress="return(formataMoeda(this,'','.',2,event));">
+												<f:validateLength maximum="10" />	
+												<f:validateDoubleRange  minimum="0.00" maximum="9999999.99"/>										
+												<f:validator validatorId="BigDecimalValidator" />
+											</h:inputText>
+																		
+										</div>
 									</li>
 									<!-- PESSOA JURIDICA -->
 								</ul>
