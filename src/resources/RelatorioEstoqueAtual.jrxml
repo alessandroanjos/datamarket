@@ -145,7 +145,7 @@
 				</staticText>
 				<staticText>
 					<reportElement
-						x="61"
+						x="130"
 						y="4"
 						width="267"
 						height="15"
@@ -210,7 +210,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="61"
+						x="130"
 						y="0"
 						width="267"
 						height="13"
