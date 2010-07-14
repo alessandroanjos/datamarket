@@ -293,7 +293,7 @@ public class ClienteBackBean extends BackBean {
 		this.setPessoaContato(null);
 		this.setFoneContato(null);
 		this.setValorLimiteCompras(new BigDecimal("0.00"));
-//		this.setValorLimiteDisponivel(null);
+		this.setValorLimiteDisponivel(new BigDecimal("0.00"));
 		this.setDataCadastro(new Date(System.currentTimeMillis()));
 		this.setDataNascimento(null);
 		this.setReferenciaComercial(null);

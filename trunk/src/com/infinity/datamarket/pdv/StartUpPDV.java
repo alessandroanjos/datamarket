@@ -43,7 +43,7 @@ public class StartUpPDV {
 		
 		TelaMenssagem t = (TelaMenssagem) ServiceLocator.getInstancia().getTela(ConstantesTela.TELA_MENSAGEM);
     	t.setMenssagem("Caixa Fechado");
-		Maquina maquina = Maquina.getInstancia(est, new Date(), ger, contr, t, "Caixa Fechadoo");
+		Maquina maquina = Maquina.getInstancia(est, new Date(), ger, contr, t, "Caixa Fechado");
 //		ti.jProgressBar1.setValue(75);
 		ThreadEnviaTransacao t1 = new ThreadEnviaTransacao();
 		t1.start();
