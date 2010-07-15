@@ -96,21 +96,26 @@ public class CadastroEntradaProduto extends Cadastro{
 				System.out.println("NÃO FOI ALTERADO O VALOR DO PRODUTO");
 			}
 		}
-		Lancamento lancamento = new Lancamento();
-		lancamento.setId(CadastroControleId.getInstancia().getControle(Lancamento.class).getValor());
-		lancamento.setDescricao("ENTRADA DE PRODUTOS");
-		lancamento.setIdEntradaProduto(entradaProduto.getId());
-		lancamento.setDataLancamento(entradaProduto.getDataEntrada());
-		lancamento.setDataVencimento(entradaProduto.getDataVencimento());
-		lancamento.setFornecedor(entradaProduto.getFornecedor());
-		lancamento.setGrupo(CadastroGrupoLancamento.getInstancia().consultarPorId(GrupoLancamento.GRUPO_ENTRADA_PRODUTO));
-		lancamento.setLoja(entradaProduto.getEstoque().getPk().getLoja());
-		lancamento.setNumeroDocumento(entradaProduto.getNumeroNota());
-		lancamento.setObservacao("ENTRADA DE PRODUTOS EM ESTOQUE");
-		lancamento.setSituacao(Lancamento.ABERTO);
-		lancamento.setTipoLancamento(Lancamento.DEBITO);
-		lancamento.setValor(entradaProduto.getValor());
-		getRepositorioLancamento().inserir(lancamento);
+		Iterator i = entradaProduto.getParcelas().iterator();
+		while (i.hasNext()) {
+			ParcelaEntradaProduto parcela = (ParcelaEntradaProduto) i.next();
+					
+			Lancamento lancamento = new Lancamento();
+			lancamento.setId(CadastroControleId.getInstancia().getControle(Lancamento.class).getValor());
+			lancamento.setDescricao("ENTRADA DE PRODUTOS");
+			lancamento.setIdEntradaProduto(entradaProduto.getId());
+			lancamento.setDataLancamento(entradaProduto.getDataEntrada());
+			lancamento.setDataVencimento(parcela.getDataVencimento());
+			lancamento.setFornecedor(entradaProduto.getFornecedor());
+			lancamento.setGrupo(CadastroGrupoLancamento.getInstancia().consultarPorId(GrupoLancamento.GRUPO_ENTRADA_PRODUTO));
+			lancamento.setLoja(entradaProduto.getEstoque().getPk().getLoja());
+			lancamento.setNumeroDocumento(entradaProduto.getNumeroNota());
+			lancamento.setObservacao("ENTRADA DE PRODUTOS EM ESTOQUE");
+			lancamento.setSituacao(Lancamento.ABERTO);
+			lancamento.setTipoLancamento(Lancamento.DEBITO);
+			lancamento.setValor(parcela.getValor());
+			getRepositorioLancamento().inserir(lancamento);
+		}
 	}
 	
 	public void alterar(EntradaProduto entradaProduto) throws AppException{
