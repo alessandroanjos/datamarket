@@ -75,6 +75,15 @@
         </key>
         <one-to-many class="com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto"/>
     </set>
+    
+    <set name="parcelas" inverse="true" cascade="save-update, delete-orphan"
+			lazy="true" order-by="ID">
+			<key>
+				<column name="ID_ENTRADA_PRODUTO" />
+			</key>
+			<one-to-many
+				class="com.infinity.datamarket.comum.estoque.ParcelaEntradaProduto" />
+		</set>
 
     </class>
 

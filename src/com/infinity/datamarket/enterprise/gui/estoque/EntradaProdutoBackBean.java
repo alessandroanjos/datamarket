@@ -25,6 +25,8 @@ import org.hibernate.collection.PersistentSet;
 import com.infinity.datamarket.comum.Fachada;
 import com.infinity.datamarket.comum.estoque.EntradaProduto;
 import com.infinity.datamarket.comum.estoque.Estoque;
+import com.infinity.datamarket.comum.estoque.ParcelaEntradaProduto;
+import com.infinity.datamarket.comum.estoque.ParcelaEntradaProdutoPK;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProduto;
 import com.infinity.datamarket.comum.estoque.ProdutoEntradaProdutoPK;
 import com.infinity.datamarket.comum.fornecedor.Fornecedor;
@@ -35,11 +37,13 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.usuario.Loja;
+import com.infinity.datamarket.comum.usuario.Vendedor;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
+import com.infinity.datamarket.pdv.tef.RespostaOperacaoTEF.ParcelaTEF;
 
 public class EntradaProdutoBackBean extends BackBean {
 	
@@ -92,6 +96,12 @@ public class EntradaProdutoBackBean extends BackBean {
 	private List<Estoque> estoques = null; 
 	private String status;
 	
+//	 Atributos parcelas
+	private Set<ParcelaEntradaProduto> arrayParcela; 
+	private BigDecimal valorParcela      = BigDecimal.ZERO.setScale(2);
+	private Date dataVencimentoParcela;
+	
+	
 	private BigDecimal quantidadeTotal = BigDecimal.ZERO.setScale(3);
     
 	// para uso de filtro de consulta
@@ -134,6 +144,11 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setDataVencimentoProduto(null);
 		this.setStatus(null);
 	}
+	
+	public void resetParcelaBB() {
+		this.valorParcela = BigDecimal.ZERO.setScale(2);
+		this.dataVencimentoParcela = null;		
+	}
 	public String excluirProdutoEntrada() {
 		int i = 0;
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -169,6 +184,24 @@ public class EntradaProdutoBackBean extends BackBean {
 		}
 		return "mesma";
 	}
+	
+	public String excluirParcela() {
+		int i = 0;
+		FacesContext context = FacesContext.getCurrentInstance();
+		Map params = context.getExternalContext().getRequestParameterMap();  
+		String param = (String)  params.get("idExcluirParcela");
+		
+		for (Iterator iter = arrayParcela.iterator(); iter.hasNext();) {
+			ParcelaEntradaProduto parcela = (ParcelaEntradaProduto) iter.next();
+			if (parcela.getPk().getId().equals(new Long(param))) {				
+				arrayParcela.remove(parcela);
+				break;
+			}
+			i++;
+		}
+		return "mesma";
+	}
+	
 	public void inserirProdutoEntrada() { 
 		try {
 			
@@ -186,6 +219,12 @@ public class EntradaProdutoBackBean extends BackBean {
 			}
 			
 			msgValidacao =  validaProduto();
+			
+			if (!"".equals(msgValidacao)) {
+				throw new AppException(msgValidacao);
+			}
+			
+			msgValidacao =  validaParcela();
 			
 			if (!"".equals(msgValidacao)) {
 				throw new AppException(msgValidacao);
@@ -279,6 +318,61 @@ public class EntradaProdutoBackBean extends BackBean {
 		}
 	}
 	
+	public void inserirParcela() { 
+		try {
+			
+			
+			
+			if (arrayParcela==null){
+				arrayParcela = new HashSet<ParcelaEntradaProduto>();				
+			}	
+			
+			String msgValidacao =  validaNota();
+			
+			if (!"".equals(msgValidacao)) {
+				throw new AppException(msgValidacao);
+			}
+			
+			msgValidacao =  validaProduto();
+			
+			if (!"".equals(msgValidacao)) {
+				throw new AppException(msgValidacao);
+			}
+			
+			msgValidacao =  validaParcela();
+			
+			if (!"".equals(msgValidacao)) {
+				throw new AppException(msgValidacao);
+			}
+			
+			ParcelaEntradaProduto parcela = new ParcelaEntradaProduto();
+			ParcelaEntradaProdutoPK parcelaPK = new ParcelaEntradaProdutoPK();
+			
+			
+			
+			parcela.setPk(parcelaPK);
+			
+	        parcela.setDataVencimento(dataVencimentoParcela);
+	        parcela.setValor(valorParcela.setScale(2));						
+
+			parcela.getPk().setId(new Long(arrayParcela != null && arrayParcela.size() > 0? arrayParcela.size()+1:1));
+			arrayParcela.add(parcela);
+			
+			resetParcelaBB();
+			
+		} catch (AppException e) {
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+				e.getMessage(), "");
+			getContextoApp().addMessage(null, msg);
+		} catch (Exception e) {
+			
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+				"Erro de Sistema!", "");
+			getContextoApp().addMessage(null, msg);
+		}
+	}
+	
 	public String validaNota() {
 		  String msg = "";
 		if  (this.numeroNota == null || "".equals(this.numeroNota)) {
@@ -302,6 +396,36 @@ public class EntradaProdutoBackBean extends BackBean {
 		}
 		return msg;	  
 	}
+	
+	public String validaParcela() {
+		  String msg = "";
+		if (arrayProduto == null || arrayProduto.size() == 0){
+			msg = "Adicione Primeiro os Produtos depois as Parcelas!";
+		}else if(valorNota == null || valorNota.compareTo(BigDecimal.ZERO) == 0){
+			msg = "Adicione Primeiro os Produtos depois as Parcelas!";
+		}else if (valorParcela == null || valorParcela.compareTo(BigDecimal.ZERO) <= 0){
+			msg = "Informe um valor maior que zero para o valor da parcela!";
+		}else if (dataVencimentoParcela == null){
+			msg = "Informe a data de vencimento da parcela!";
+		}if (arrayParcela != null && arrayParcela.size() > 0){
+			Iterator i = arrayParcela.iterator();
+			BigDecimal valorParc = new BigDecimal(0).setScale(2);
+			while (i.hasNext()) {
+				ParcelaEntradaProduto parcela = (ParcelaEntradaProduto) i.next();
+				valorParc = valorParc.add(parcela.getValor());
+			}
+			valorParc = valorParc.add(valorParcela);
+			if (valorParc.compareTo(valorNota) > 0){
+				msg = "Valor das parcelas ultrapassa valor total da nota!";
+			}
+		}else if (arrayParcela == null || arrayParcela.size() == 0){
+			if (valorParcela.compareTo(valorNota) > 0){
+				msg = "Valor da parcelas ultrapassa valor total da nota!";
+			}
+		}
+		return msg;	  
+	}
+	
 	public String validaProduto() {
 		String msg = "";
 		if  (this.idProduto == null || "".equals(this.idProduto)) {
@@ -392,6 +516,16 @@ public class EntradaProdutoBackBean extends BackBean {
 				while(it.hasNext()){
 					ProdutoEntradaProduto pep = (ProdutoEntradaProduto) it.next();
 					pep.getPk().setId(entradaProduto.getId());
+				}
+			}	
+			entradaProduto.setProdutosEntrada(arrayProduto);
+			
+			col = arrayParcela;
+			if (col!=null) {
+				Iterator it = col.iterator();
+				while(it.hasNext()){
+					ParcelaEntradaProduto pep = (ParcelaEntradaProduto) it.next();
+					pep.getPk().setIdEntradaProduto(entradaProduto.getId());
 				}
 			}	
 			entradaProduto.setProdutosEntrada(arrayProduto);
@@ -869,6 +1003,7 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setValor(BigDecimal.ZERO.setScale(2));
 		this.setQuantidadeTotal(BigDecimal.ZERO.setScale(3));
     }
+	
 	 
 	public String voltarConsulta() {
 		resetProdutoBB();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">   
+
+
+<hibernate-mapping>
+    <class name="com.infinity.datamarket.comum.estoque.ParcelaEntradaProduto" table="PARCELA_ENTRADA_PRODUTO" dynamic-update="false" dynamic-insert="false" lazy="false">
+        
+        <composite-id name="pk" class="com.infinity.datamarket.comum.estoque.ParcelaEntradaProdutoPK">			
+	   		<key-property name="idEntradaProduto" column="ID_ENTRADA_PRODUTO" type="java.lang.Long"/>
+            <key-property name="id" column="ID" type="java.lang.Long"/>
+         </composite-id>
+
+	
+        <property name="valor" type="java.math.BigDecimal" update="true" insert="true">
+            <column name="VALOR" length="20" not-null="false"/>
+        </property>
+
+		<property name="dataVencimento" type="java.util.Date" update="true" insert="true">
+	            <column name="DATA_VENCIMENTO" length="20" not-null="false"/>
+	    </property>	
+	
+    </class>
+
+</hibernate-mapping>

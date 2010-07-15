@@ -27,6 +27,7 @@ public class EntradaProduto extends Persistente{
 	private Fornecedor fornecedor;
 	private Estoque estoque;
 	private Collection produtosEntrada;
+	private Collection parcelas;
 	
 	private Date dataVencimento;	
 	
@@ -127,5 +128,11 @@ public class EntradaProduto extends Persistente{
 	}
 	public void setDataVencimento(Date dataVencimento) {
 		this.dataVencimento = dataVencimento;
+	}
+	public Collection getParcelas() {
+		return parcelas;
+	}
+	public void setParcelas(Collection parcelas) {
+		this.parcelas = parcelas;
 	}
 }
