@@ -951,6 +951,7 @@ public class BaixaLancamentoBackBean extends BackBean {
 					"Operação Realizada com Sucesso!", "");
 			getContextoApp().addMessage(null, msg);
 			resetBB();
+			this.setDescricaoSituacao(retornaDescricaoSituacao(lancamento.getSituacao()));
 		} catch (AppException e) {
 			logger.info("baixarLancamento - AppException --> "+e.getMessage());
 			e.printStackTrace();
