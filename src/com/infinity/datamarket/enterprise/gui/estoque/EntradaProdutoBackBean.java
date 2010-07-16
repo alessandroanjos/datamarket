@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIParameter;
@@ -37,13 +38,11 @@ import com.infinity.datamarket.comum.repositorymanager.ObjectNotFoundException;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter;
 import com.infinity.datamarket.comum.repositorymanager.PropertyFilter.IntervalObject;
 import com.infinity.datamarket.comum.usuario.Loja;
-import com.infinity.datamarket.comum.usuario.Vendedor;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.Constantes;
 import com.infinity.datamarket.comum.util.Util;
 import com.infinity.datamarket.enterprise.gui.login.LoginBackBean;
 import com.infinity.datamarket.enterprise.gui.util.BackBean;
-import com.infinity.datamarket.pdv.tef.RespostaOperacaoTEF.ParcelaTEF;
 
 public class EntradaProdutoBackBean extends BackBean {
 	
@@ -209,7 +208,7 @@ public class EntradaProdutoBackBean extends BackBean {
 			
 			if (arrayProduto==null){
 				arrayProduto = new HashSet<ProdutoEntradaProduto>();
-				inicializaValoreNota();
+				inicializaValoresNota();
 			}	
 			
 			String msgValidacao =  validaNota();
@@ -224,11 +223,11 @@ public class EntradaProdutoBackBean extends BackBean {
 				throw new AppException(msgValidacao);
 			}
 			
-			msgValidacao =  validaParcela();
-			
-			if (!"".equals(msgValidacao)) {
-				throw new AppException(msgValidacao);
-			}
+//			msgValidacao =  validaParcela();
+//			
+//			if (!"".equals(msgValidacao)) {
+//				throw new AppException(msgValidacao);
+//			}
 			
 			ProdutoEntradaProduto produtoEntrada = new ProdutoEntradaProduto();
 			ProdutoEntradaProdutoPK produtoEntradaPK = new ProdutoEntradaProdutoPK();
@@ -319,12 +318,9 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
 	
 	public void inserirParcela() { 
-		try {
-			
-			
-			
+		try {			
 			if (arrayParcela==null){
-				arrayParcela = new HashSet<ParcelaEntradaProduto>();				
+				arrayParcela = new TreeSet<ParcelaEntradaProduto>();				
 			}	
 			
 			String msgValidacao =  validaNota();
@@ -333,11 +329,11 @@ public class EntradaProdutoBackBean extends BackBean {
 				throw new AppException(msgValidacao);
 			}
 			
-			msgValidacao =  validaProduto();
-			
-			if (!"".equals(msgValidacao)) {
-				throw new AppException(msgValidacao);
-			}
+//			msgValidacao =  validaProduto();
+//			
+//			if (!"".equals(msgValidacao)) {
+//				throw new AppException(msgValidacao);
+//			}
 			
 			msgValidacao =  validaParcela();
 			
@@ -346,15 +342,13 @@ public class EntradaProdutoBackBean extends BackBean {
 			}
 			
 			ParcelaEntradaProduto parcela = new ParcelaEntradaProduto();
-			ParcelaEntradaProdutoPK parcelaPK = new ParcelaEntradaProdutoPK();
-			
-			
+			ParcelaEntradaProdutoPK parcelaPK = new ParcelaEntradaProdutoPK();			
 			
 			parcela.setPk(parcelaPK);
 			
 	        parcela.setDataVencimento(dataVencimentoParcela);
 	        parcela.setValor(valorParcela.setScale(2));						
-
+//	        parcela.getPk().setIdEntradaProduto(new Long(1));
 			parcela.getPk().setId(new Long(arrayParcela != null && arrayParcela.size() > 0? arrayParcela.size()+1:1));
 			arrayParcela.add(parcela);
 			
@@ -391,8 +385,8 @@ public class EntradaProdutoBackBean extends BackBean {
 			msg = 	"Informe Fornecedor da Nota!";
 		} else if (this.arrayProduto == null ) {
 			msg = 	"Informe pelo menos um produto na Nota!";
-		} else if (this.dataVencimento == null || "".equals(this.dataVencimento)) {
-			msg = 	"Informe a Data de Vencimento!";
+//		} else if (this.dataVencimento == null || "".equals(this.dataVencimento)) {
+//			msg = 	"Informe a Data de Vencimento!";
 		}
 		return msg;	  
 	}
@@ -407,7 +401,27 @@ public class EntradaProdutoBackBean extends BackBean {
 			msg = "Informe um valor maior que zero para o valor da parcela!";
 		}else if (dataVencimentoParcela == null){
 			msg = "Informe a data de vencimento da parcela!";
-		}if (arrayParcela != null && arrayParcela.size() > 0){
+		}
+		if (arrayParcela != null && arrayParcela.size() > 0){
+			Iterator i = arrayParcela.iterator();
+			Date dataUltParc = null;
+			while (i.hasNext()) {
+				ParcelaEntradaProduto parcela = (ParcelaEntradaProduto) i.next();
+				if(dataVencimentoParcela.compareTo(parcela.getDataVencimento()) == 0){
+					msg = "Data de Vencimento da Parcela já existe!";
+					break;
+				}else{
+					dataUltParc = parcela.getDataVencimento();
+//					break;
+				}
+			}
+			
+			if(dataVencimentoParcela.compareTo(dataUltParc) < 0){
+				msg = "Data de Vencimento da Parcela menor que a última parcela!";
+				return msg;
+			}
+		}
+		if (arrayParcela != null && arrayParcela.size() > 0){
 			Iterator i = arrayParcela.iterator();
 			BigDecimal valorParc = new BigDecimal(0).setScale(2);
 			while (i.hasNext()) {
@@ -528,7 +542,7 @@ public class EntradaProdutoBackBean extends BackBean {
 					pep.getPk().setIdEntradaProduto(entradaProduto.getId());
 				}
 			}	
-			entradaProduto.setProdutosEntrada(arrayProduto);
+			entradaProduto.setParcelas(arrayParcela);
 			
 			Estoque estoque = null;
 			for (Iterator iter = estoques.iterator(); iter.hasNext();) {
@@ -543,7 +557,7 @@ public class EntradaProdutoBackBean extends BackBean {
 			
 			entradaProduto.setStatus(Constantes.STATUS_ATIVO);
 			
-			entradaProduto.setDataVencimento(this.getDataVencimento());
+			entradaProduto.setDataVencimento(new Date(System.currentTimeMillis()));
 
 			getFachada().inserirEntradaProduto(entradaProduto);
 			
@@ -695,9 +709,14 @@ public class EntradaProdutoBackBean extends BackBean {
 				
 				EntradaProduto entradaProduto = getFachada().consultarEntradaProdutoPorId(new Long(id));
 				if  (!entradaProduto.getProdutosEntrada().isEmpty()) {
-					Set<ProdutoEntradaProduto> produtoEntradaProduto =  (Set<ProdutoEntradaProduto>) entradaProduto.getProdutosEntrada();
+					Set<ProdutoEntradaProduto> produtoEntradaProduto =  (HashSet<ProdutoEntradaProduto>) entradaProduto.getProdutosEntrada();
 					this.setArrayProduto(produtoEntradaProduto);
+				}
+				if  (!entradaProduto.getParcelas().isEmpty()) {
+					Set<ParcelaEntradaProduto> parcelaEntradaProduto =  (TreeSet<ParcelaEntradaProduto>) entradaProduto.getParcelas();
+					this.setArrayParcela(parcelaEntradaProduto);
 				}	
+
 				this.setNumeroNota(entradaProduto.getNumeroNota());
 				this.setDataEmissaoNota(entradaProduto.getDataEmissaoNota());
 				this.setDataEntrada(entradaProduto.getDataEntrada());
@@ -819,9 +838,17 @@ public class EntradaProdutoBackBean extends BackBean {
 						this.setNomeFornecedor(entradaProduto.getFornecedor().getNomeFantasia());
 					}
 				}
-				Collection<ProdutoEntradaProduto> colProduto = entradaProduto.getProdutosEntrada();
-				Set<ProdutoEntradaProduto> produtos = (Set<ProdutoEntradaProduto>)colProduto;
-				this.setArrayProduto(produtos);
+//				Collection<ProdutoEntradaProduto> colProduto = entradaProduto.getProdutosEntrada();
+//				Set<ProdutoEntradaProduto> produtos = (Set<ProdutoEntradaProduto>)colProduto;
+//				this.setArrayProduto(produtos);
+				if  (!entradaProduto.getProdutosEntrada().isEmpty()) {
+					Set<ProdutoEntradaProduto> produtoEntradaProduto =  (HashSet<ProdutoEntradaProduto>) entradaProduto.getProdutosEntrada();
+					this.setArrayProduto(produtoEntradaProduto);
+				}
+				if  (!entradaProduto.getParcelas().isEmpty()) {
+					Set<ParcelaEntradaProduto> parcelaEntradaProduto =  (TreeSet<ParcelaEntradaProduto>) entradaProduto.getParcelas();
+					this.setArrayParcela(parcelaEntradaProduto);
+				}
 				return "proxima";
 			} else {
 				this.setExisteRegistros(true);
@@ -980,6 +1007,7 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setNumeroNota(null);
 		this.setDataEmissaoNota(null);
 		this.setDataEntrada(new Date(System.currentTimeMillis()));
+		this.setDataVencimento(null);
 		this.setDataInicio(null);
 		this.setDataFinal(null);
 		this.setFrete(BigDecimal.ZERO.setScale(2));
@@ -990,14 +1018,15 @@ public class EntradaProdutoBackBean extends BackBean {
 		this.setFornecedor(null);
 		this.setEstoque(null);
 		this.setArrayProduto(null);
+		this.setArrayParcela(null);
 		this.setQuantidadeTotal(BigDecimal.ZERO.setScale(3));
 		resetProdutoBB();
-		inicializaValoreNota();
+		inicializaValoresNota();
 		this.setStatus(null);
 		return "mesma";
 	}
     
-	public void inicializaValoreNota(){
+	public void inicializaValoresNota(){
 		this.setIcms(BigDecimal.ZERO.setScale(2));
 		this.setIpi(BigDecimal.ZERO.setScale(2));
 		this.setValor(BigDecimal.ZERO.setScale(2));
@@ -1522,5 +1551,23 @@ public class EntradaProdutoBackBean extends BackBean {
 	}
 	public void setValorIpiProduto(BigDecimal valorIpiProduto) {
 		this.valorIpiProduto = valorIpiProduto;
+	}
+	public Date getDataVencimentoParcela() {
+		return dataVencimentoParcela;
+	}
+	public void setDataVencimentoParcela(Date dataVencimentoParcela) {
+		this.dataVencimentoParcela = dataVencimentoParcela;
+	}
+	public BigDecimal getValorParcela() {
+		return valorParcela;
+	}
+	public void setValorParcela(BigDecimal valorParcela) {
+		this.valorParcela = valorParcela;
+	}
+	public Set<ParcelaEntradaProduto> getArrayParcela() {
+		return arrayParcela;
+	}
+	public void setArrayParcela(Set<ParcelaEntradaProduto> arrayParcela) {
+		this.arrayParcela = arrayParcela;
 	}
 }

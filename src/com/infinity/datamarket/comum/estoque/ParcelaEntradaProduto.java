@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class ParcelaEntradaProduto implements Serializable{
+public class ParcelaEntradaProduto implements Serializable, Comparable<ParcelaEntradaProduto>{
 	/**
 	 * 
 	 */
@@ -38,5 +38,30 @@ public class ParcelaEntradaProduto implements Serializable{
 
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+	
+	public int compareTo(ParcelaEntradaProduto o) {
+		// TODO Auto-generated method stub
+		return getPk().getId().compareTo((Long)o.getPk().getId());
+	}
+	@Override
+	public int hashCode() {
+		return getPk().toString().hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		final ParcelaEntradaProduto other = (ParcelaEntradaProduto) obj;
+		if (getPk() == null) {
+			if (other.getPk() != null)
+				return false;
+		} else if (!getPk().equals(other.getPk()))
+			return false;
+		return true;
 	}
 }
