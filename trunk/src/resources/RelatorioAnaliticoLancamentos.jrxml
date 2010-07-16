@@ -17,6 +17,9 @@
 		 whenNoDataType="NoPages"
 		 isTitleNewPage="false"
 		 isSummaryNewPage="false">
+	<property name="ireport.zoom" value="1.0" />
+	<property name="ireport.x" value="124" />
+	<property name="ireport.y" value="0" />
 	<property name="ireport.scriptlethandling" value="0" />
 	<property name="ireport.encoding" value="UTF-8" />
 	<import value="java.util.*" />
@@ -40,7 +43,7 @@
 	<field name="VALOR_TOTAL_PAGO" class="java.math.BigDecimal"/>
 
 	<variable name="descricaoSituacao" class="java.lang.String" resetType="Report" calculation="Nothing">
-		<variableExpression><![CDATA[( $F{SITUACAO} == "A" ? "Aberto" : ( $F{SITUACAO} == "P" ? "Pago Parcial" : ( $F{SITUACAO} == "F" ? "Finalizado" : ( $F{SITUACAO} == "C" ? "Cancelado" : "Pendente" ) ) ) )]]></variableExpression>
+		<variableExpression><![CDATA[( String.valueOf($F{SITUACAO}).equals(new String("A")) ? "Aberto" : ( String.valueOf($F{SITUACAO}).equals(new String("P")) ? "Pago Parcial" : (String.valueOf($F{SITUACAO}).equals(new String("F")) ? "Finalizado" : ( String.valueOf($F{SITUACAO}).equals(new String("C")) ? "Cancelado" : "Pendente" ) ) ) )]]></variableExpression>
 	</variable>
 
 		<group  name="dataGroup" >
