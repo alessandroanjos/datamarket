@@ -34,6 +34,14 @@
 				$(this).focus(function() {this.style.backgroundColor = "#eff6ff"});
 				$(this).blur(function() {this.style.backgroundColor = ""});
 			});
+			
+			strAbaCorrente = getId("frmManterEntradaProdutos:abaCorrente").value;
+			//alert(strAbaCorrente);
+			if(strAbaCorrente != ""){							
+				selecionaMenuTab(strAbaCorrente);
+			}else{
+				selecionaMenuTab("tabMenuDiv0");
+			}
 		}
 
 
@@ -72,7 +80,7 @@
       </script>
 
 	</head>
-	<body onload="exibirMensagemErro();">
+	<body onload="inicializar();exibirMensagemErro();">
 	<div id="outer">
 		<div id="topoGeral">
 			<div id="tituloPaginaGeral">
@@ -81,149 +89,220 @@
 				</strong>
 			</div>				
 		</div>	
-		<h:form id="frmManterEntradaProdutos">
-			<div id="content">
-				<div id="primarioContentContainerInternas" >
+		<div id="content">
+			<div class="tabMenu">
+				<ul>
+					<li id="tabMenuDiv0" class="current" onclick="selecionaMenuTab(this.id);strAbaCorrente = this.id;">
+						<span><a href="#">Geral</a> </span>
+					</li>
+					<li id="tabMenuDiv1" onclick="selecionaMenuTab(this.id);strAbaCorrente = this.id;">
+						<span><a href="#">Pagamentos</a> </span>
+					</li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+			<div id="primarioContentContainerInternas" >
+				<h:form id="frmManterEntradaProdutos"  onsubmit="javascript:getId('frmManterEntradaProdutos:abaCorrente').value = strAbaCorrente;">
+					<h:inputHidden id="abaCorrente" value="#{entradaProdutoBB.abaCorrente}"></h:inputHidden>							
+					<div id="tabDiv0" style="height: 530px;">
+						<ul>
+							<li class="normal">
+								<div>
+									<%@ include file="/jsp/mensagem_erro.jsp"%> <!--  h  messages errorClass="msgSistemaErro"
+										infoClass="msgSistemaSucesso" globalOnly="true"
+										showDetail="true" /> -->
+								</div>
+							</li>
+							<li class="normal">
+								<!-- <div>
+									<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.id}" />
+								</div>							
+								 -->
+								 <div>
+									<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.estoque.pk.loja.nome}" />
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="N.Fiscal"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.numeroNota}" />
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Data Emissão"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.dataEmissaoNota}" />							
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Data Entrada"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.dataEntrada}" />														
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Fornecedor"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.nomeFornecedor}" />							
+								</div>
+								<br/>
+								<br/>
+								<div>
+									<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.estoque.descricao}" />							
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
+									<h:outputText value="Ativa" rendered="#{entradaProdutoBB.status == 'A'}" />
+									<h:outputText value="Cancelada" rendered="#{entradaProdutoBB.status == 'C'}" />
+								</div>
+							</li>
+							<li>
+								<fieldset>
+									<legend>Produtos:</legend>
+									<ul>						
+										<div class="listagem">
+											<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
+												var="produtoEntrada" rowClasses="rowA,rowB" width="100%">
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Cód." />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.pk.produto.id}" />
+												</h:column>
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Descrição" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.pk.produto.descricaoCompleta}" />
+												</h:column>
+												
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Vl. Unitário" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.precoUnitario}" > 																				
+														<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+													</h:outputText>
+												</h:column>
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Quant" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.quantidade}" />
+												</h:column>
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="ICMS" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.icms}"> 																				
+														<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+													</h:outputText>
+												</h:column>	
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="IPI" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.ipi}" > 																				
+														<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+													</h:outputText>
+												</h:column>	
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Desconto" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.desconto}" > 																				
+														<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+													</h:outputText>
+												</h:column>	
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Total" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.total}" > 																				
+														<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+													</h:outputText>
+												</h:column>
+												<h:column>
+													<f:facet name="header">
+														<h:outputText value="Vencimento" />
+													</f:facet>
+													<h:outputText value="#{produtoEntrada.vencimento}" />
+												</h:column>
+											</t:dataTable>
+										</div>
+									</ul>
+								</fieldset>
+							</li>	
+							
+							<li class="normal">
+								<div>
+									<h:outputLabel styleClass="desc" value="Quant. Total"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.quantidadeTotal}" />							
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Frete"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.frete}" > 																				
+										<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+									</h:outputText>							
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.icms}" > 																				
+										<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+									</h:outputText>							
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.ipi}" > 																				
+										<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+									</h:outputText>							
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Desc"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.desconto}" > 																				
+										<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+									</h:outputText>							
+								</div>
+								<div>
+									<h:outputLabel styleClass="desc" value="Valor da Nota"></h:outputLabel>
+									<h:outputText value="#{entradaProdutoBB.valor}" > 																				
+										<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+									</h:outputText>							
+								</div>							
+							</li>
+						</ul>
+					</div>
+					<div id="tabDiv1" style="display:none;height: 530px;">
+						<div class="listagemSimples" style="overflow:auto; height:235px;">
+							<t:dataTable value="#{entradaProdutoBB.arrayParcela}"
+								var="parcela" rowClasses="rowA,rowB" width="100%" renderedIfEmpty="false">
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="Item" /> 
+									</f:facet>
+									<h:outputText style="align: center;" value="#{parcela.pk.id}" /> 
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="Vencimento" />
+									</f:facet>
+									<h:outputText style="align: left;" value="#{parcela.dataVencimento}" /> 
+								</h:column>
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="Valor" />
+									</f:facet>
+									<h:outputText style="align: right;" value="#{parcela.valor}" > 																				
+										<f:convertNumber currencySymbol="R$" locale="pt-BR" pattern="R$ ###,##0.00" type="currency"/>
+									</h:outputText> 
+								</h:column>	
+								<h:column>
+									<f:facet name="header">
+										<h:outputText style="align: center;" value="Ação" />
+									</f:facet>										
+									<h:commandButton image="/images/excluir.png" alt="Excluir Parcela" actionListener="#{entradaProdutoBB.excluirParcela}">
+										<f:param name="idExcluirParcela" value="#{parcela.pk.id}" id="idExcluirParcela"/>
+									</h:commandButton>
+								</h:column>													
+							</t:dataTable>																
+						</div>
+					</div >
 					<ul>
-						<li class="normal">
-							<div>
-								<%@ include file="/jsp/mensagem_erro.jsp"%> <!--  h  messages errorClass="msgSistemaErro"
-									infoClass="msgSistemaSucesso" globalOnly="true"
-									showDetail="true" /> -->
-							</div>
-						</li>
-						<li class="normal">
-							<!-- <div>
-								<h:outputLabel styleClass="desc" value="Código"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.id}" />
-							</div>							
-							 -->
-							 <div>
-								<h:outputLabel styleClass="desc" value="Loja"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.estoque.pk.loja.nome}" />
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="N.Fiscal"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.numeroNota}" />
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Data Emissão"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.dataEmissaoNota}" />							
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Data Entrada"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.dataEntrada}" />														
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Fornecedor"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.nomeFornecedor}" />							
-							</div>
-							<br/>
-							<br/>
-							<div>
-								<h:outputLabel styleClass="desc" value="Estoque"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.estoque.descricao}" />							
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Status"></h:outputLabel>
-								<h:outputText value="Ativa" rendered="#{entradaProdutoBB.status == 'A'}" />
-								<h:outputText value="Cancelada" rendered="#{entradaProdutoBB.status == 'C'}" />
-							</div>
-						</li>
-						<li>
-							<fieldset>
-								<legend>Produtos:</legend>
-								<ul>						
-									<div class="listagem">
-										<t:dataTable value="#{entradaProdutoBB.arrayProduto}"
-											var="produtoEntrada" rowClasses="rowA,rowB" width="100%">
-											<h:column>
-												<f:facet name="header">
-													<h:outputText value="Cód." />
-												</f:facet>
-												<h:outputText value="#{produtoEntrada.pk.produto.id}" />
-											</h:column>
-											<h:column>
-												<f:facet name="header">
-													<h:outputText value="Descrição" />
-												</f:facet>
-												<h:outputText value="#{produtoEntrada.pk.produto.descricaoCompleta}" />
-											</h:column>
-											
-											<h:column>
-												<f:facet name="header">
-													<h:outputText value="Vl. Unitário" />
-												</f:facet>
-												<h:outputText value="#{produtoEntrada.precoUnitario}" />
-											</h:column>
-											<h:column>
-												<f:facet name="header">
-													<h:outputText value="Quant" />
-												</f:facet>
-												<h:outputText value="#{produtoEntrada.quantidade}" />
-											</h:column>
-											<h:column>
-												<f:facet name="header">
-													<h:outputText value="ICMS" />
-												</f:facet>
-												<h:outputText value="#{produtoEntrada.icms}" />
-											</h:column>	
-											<h:column>
-												<f:facet name="header">
-													<h:outputText value="IPI" />
-												</f:facet>
-												<h:outputText value="#{produtoEntrada.ipi}" />
-											</h:column>	
-											<h:column>
-												<f:facet name="header">
-													<h:outputText value="Desconto" />
-												</f:facet>
-												<h:outputText value="#{produtoEntrada.desconto}" />
-											</h:column>	
-											<h:column>
-												<f:facet name="header">
-													<h:outputText value="Total" />
-												</f:facet>
-												<h:outputText value="#{produtoEntrada.total}" />
-											</h:column>
-											<h:column>
-												<f:facet name="header">
-													<h:outputText value="Vencimento" />
-												</f:facet>
-												<h:outputText value="#{produtoEntrada.vencimento}" />
-											</h:column>
-										</t:dataTable>
-									</div>
-								</ul>
-							</fieldset>
-						</li>	
-						
-						<li class="normal">
-							<div>
-								<h:outputLabel styleClass="desc" value="Quant. Total"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.quantidadeTotal}" />							
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Frete"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.frete}" />							
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="ICMS"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.icms}" />							
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="IPI"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.ipi}" />							
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Desc"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.desconto}" />							
-							</div>
-							<div>
-								<h:outputLabel styleClass="desc" value="Valor da Nota"></h:outputLabel>
-								<h:outputText value="#{entradaProdutoBB.valor}" />							
-							</div>							
-						</li>					
 						<li class="buttons">
 							<h:commandButton styleClass="btTxt" immediate="true" id="botaoVoltar"
 								action="#{entradaProdutoBB.voltarConsulta}" value="Voltar"></h:commandButton>
@@ -233,10 +312,10 @@
 							</h:commandButton>							
 						</li>
 					</ul>
+					</h:form>
+					<div class="clear"></div>
 				</div>
-				<div class="clear"></div>
-			</div>
-		</h:form>
-	  </body>		
+			</div>		
+	  </body>				
 	</f:view>
 </html>
