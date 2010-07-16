@@ -1,8 +1,5 @@
 package com.infinity.datamarket.comum.estoque;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import com.infinity.datamarket.comum.util.Persistente;
 
 public class ParcelaEntradaProdutoPK extends Persistente{

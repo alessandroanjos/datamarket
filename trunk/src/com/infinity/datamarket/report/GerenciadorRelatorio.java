@@ -7,8 +7,6 @@
 package com.infinity.datamarket.report;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -32,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import net.sf.jasperreports.engine.JRPropertiesMap;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperRunManager;
 
@@ -618,28 +617,33 @@ public OutputStream gerarRelatorioAnaliticoOperacoesDevolucao(int loja, Date dat
 
 	
 	public static void main(String[] a){
-		try{
-			Date d1 = new Date();
-			d1.setDate(1);
+		char c = 'A';
+		String s = String.valueOf(c);
+		System.out.println(s);
+//		( $F{SITUACAO} == "A" ? "Aberto" : ( $F{SITUACAO} == "P" ? "Pago Parcial" : ( $F{SITUACAO} == "F" ? "Finalizado" : ( $F{SITUACAO} == "C" ? "Cancelado" : "Pendente" ) ) ) )
 		
-			
-			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioLucroBrutoVenda(1, d1, new Date());
-			
-//			String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();//"c:\\pdv\\temp\\";
-			String caminho = Util.getDirCorrente();
-			File dir = new File(caminho);
-			if (!dir.exists()){
-				dir.mkdir();
-			}
-			String nomeArquivo = caminho+"DEVOLUCAO.pdf";						
-			FileOutputStream f = new FileOutputStream(nomeArquivo);
-			f.write(out.toByteArray());
-			f.flush();
-			f.close();
-			Runtime.getRuntime().exec("cmd /c"+nomeArquivo);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+//		try{
+//			Date d1 = new Date();
+//			d1.setDate(1);
+//		
+//			
+//			ByteArrayOutputStream out = (ByteArrayOutputStream) GerenciadorRelatorio.getInstancia().gerarRelatorioLucroBrutoVenda(1, d1, new Date());
+//			
+////			String caminho = Fachada.getInstancia().consultarParametro("DIR_PADRAO_RECIBOS").getValor();//"c:\\pdv\\temp\\";
+//			String caminho = Util.getDirCorrente();
+//			File dir = new File(caminho);
+//			if (!dir.exists()){
+//				dir.mkdir();
+//			}
+//			String nomeArquivo = caminho+"DEVOLUCAO.pdf";						
+//			FileOutputStream f = new FileOutputStream(nomeArquivo);
+//			f.write(out.toByteArray());
+//			f.flush();
+//			f.close();
+//			Runtime.getRuntime().exec("cmd /c"+nomeArquivo);
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
 	}
 
 
@@ -1227,6 +1231,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 			Map<String, String> parametros = new HashMap<String, String>();
 
 			String nomeRelatorio = "Relatório de Contas ";
+			
 			StringBuffer sb = new StringBuffer();
 			
 			sb.append("SELECT L.DATA_LANCAMENTO, L.DESCRICAO, L.NUMERO_DOCUMENTO, L.DATA_VENCIMENTO, L.DATA_PAGAMENTO, ");
@@ -1362,7 +1367,7 @@ public void gerarReciboOperacaoDevolucao(OperacaoDevolucao devolucao, OutputStre
 				
 			JRResultSetDataSource jrRS = new JRResultSetDataSource( rs );
 			
-            JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);            
+			JasperRunManager.runReportToPdfStream(input, out, parametros, jrRS);	            
    		}catch(Exception e){
 			e.printStackTrace();
 			throw new RelatorioException(e);

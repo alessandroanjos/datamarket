@@ -77,7 +77,7 @@
     </set>
     
     <set name="parcelas" inverse="true" cascade="save-update, delete-orphan"
-			lazy="true" order-by="ID">
+			lazy="true">
 			<key>
 				<column name="ID_ENTRADA_PRODUTO" />
 			</key>
