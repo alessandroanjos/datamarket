@@ -65,6 +65,9 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 
 		String diretorioDestino = Util.getDirDestinoCargaBaseLojaComponente(loja, componente.getId());
 		String diretorioOrigemTemplante = Util.getDirTemplateCargaBase();
+		if (!new File(diretorioOrigemTemplante + "/pdv").exists()) {
+			diretorioOrigemTemplante = Util.getDirCorrente() + "/WebResources/bd/template";
+		}
 		
 		diretorioOrigemTemplante = diretorioOrigemTemplante.replace('/', '\\');
 		diretorioDestino = diretorioDestino.replace('/','\\');
