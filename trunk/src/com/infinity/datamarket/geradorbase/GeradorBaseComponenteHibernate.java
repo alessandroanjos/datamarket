@@ -94,6 +94,11 @@ public class GeradorBaseComponenteHibernate extends GeradorBaseComponente{
 		String arq = Util.getDirCorrente() + "/WEB-INF/classes/" + RepositoryManagerHibernateUtil.HIBERNATE_PDV;
 		arq = arq.replace('/', '\\');
 		File file = new File(arq);
+		if (!file.exists()) {
+			arq = Util.getDirCorrente() + "/WebResources/WEB-INF/classes/" + RepositoryManagerHibernateUtil.HIBERNATE_PDV;
+			arq = arq.replace('/', '\\');
+			file = new File(arq);
+		}
 
 		sessionFactory = cfg.configure(file).
 			setProperty("hibernate.connection.url","jdbc:h2:" + diretorioDestino + "/" + nomeBanco).buildSessionFactory();
