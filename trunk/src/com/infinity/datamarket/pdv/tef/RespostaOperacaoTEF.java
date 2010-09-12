@@ -1,15 +1,13 @@
 package com.infinity.datamarket.pdv.tef;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-public class RespostaOperacaoTEF {
+public class RespostaOperacaoTEF implements Serializable {
 	
-	public final static int PARCELAMENTO_ESTABELECIMENTO = 0;
-	public final static int PARCELAMENTO_ADMINISTRADORA = 1;
-
 	private long identificacao;
 	
 	private long numeroCOO;

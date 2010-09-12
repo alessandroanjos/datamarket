@@ -93,29 +93,29 @@ public class ConcentradorParametro extends Cadastro{
 		Parametro p = getParametro(parametro.getChave());
 		if (p == null ) {
 			inserirParametro(parametro);
-		}else{
+		}else if (p.getValor()!= null && !p.getValor().equals(parametro.getValor())) {
 			//p.setChave(parametro.getChave());
 			p.setValor(parametro.getValor());
+			
+			try{
+				RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
+				getRepositorio().atualizarParametro(p);
+				RepositoryManagerHibernateUtil.getInstancia().commitTransation();
+			}catch(AppException e){
+				try{
+					RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+				}catch(Exception ex){
+					throw new SistemaException(ex);
+				}
+			}catch(Throwable e){
+				try{
+					RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
+					throw new SistemaException(e);
+				}catch(Exception ex){
+					throw new SistemaException(ex);
+				}
+			}	
 		}
-
-		try{
-			RepositoryManagerHibernateUtil.getInstancia().beginTrasaction();
-			getRepositorio().atualizarParametro(p);
-			RepositoryManagerHibernateUtil.getInstancia().commitTransation();
-		}catch(AppException e){
-			try{
-				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}catch(Throwable e){
-			try{
-				RepositoryManagerHibernateUtil.getInstancia().rollbackTransation();
-				throw new SistemaException(e);
-			}catch(Exception ex){
-				throw new SistemaException(ex);
-			}
-		}	
 	}
 	
 

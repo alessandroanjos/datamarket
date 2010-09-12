@@ -28,15 +28,23 @@ public class TEFPayGo implements TEF {
 	public final static String EXTENSAO_PRINCIPAL = ".001";
 	public final static String EXTENSAO_STATUS = ".Sts";
 	public final static String QUEBRA_LINHA = "\r\n";
+	public final static String EXTENSAO_MINE = ".mine";
 	
 	public final static String OPERACAO_VERIFICA_SERVICO = "ATV";
+	//	ATV		Verifica se o Gerenciador Padrão está ativo
 	public final static String OPERACAO_ADMINISTRACAO = "ADM";
+	//ADM		Permite o acionamento da Solução TEF Discado para execução das funções administrativas
 	public final static String OPERACAO_CHEQUE = "CHQ";
+	//CHQ*		Pedido de autorização para transação por meio de cheque
 	public final static String OPERACAO_CARTAO = "CRT";
+	//CRT		Pedido de autorização para transação por meio de cartão
 	public final static String OPERACAO_CANCELAMENTO = "CNC";
+	//CNC		Cancelamento de venda efetuada por qualquer meio de pagamento
 	public final static String OPERACAO_CONFIRMACAO = "CNF";
+	//CNF		Confirmação da venda e impressão de cupom
 	public final static String OPERACAO_DESFAZIMENTO = "NCN";
-	
+	//NCN		Não confirmação da venda e/ou da impressão.
+
 	public final static long TIMEOUT_OPERACAO = 120000;
 	public final static long TIMEOUT_RESPOSTA = 7000;
 	
@@ -44,6 +52,44 @@ public class TEFPayGo implements TEF {
 	
 	public final static String DIRETORIO_REQUISICAO = "C:\\TEF_Dial\\Req\\";
 	public final static String DIRETORIO_RESPOSTA = "C:\\TEF_Dial\\Resp\\";
+
+	public final static String TIPO_TRANSACAO_00 ="00"; //   00-	Administrativas - Outras (Reimpressão, Iniciação de Terminal etc.)
+	public final static String TIPO_TRANSACAO_01 ="01"; //   01-	Administrativa - Fechamento/Transmissão de Lote                   
+	public final static String TIPO_TRANSACAO_10 ="10"; //   10- Cartão de Crédito à Vista                                             
+	public final static String TIPO_TRANSACAO_11 ="11"; //   11- Cartão de Crédito Parcelado pelo Estabelecimento                      
+	public final static String TIPO_TRANSACAO_12 ="12"; //   12- Cartão de Crédito Parcelado pela Administradora                       
+	public final static String TIPO_TRANSACAO_13 ="13"; //   13- Pré-Autorização com Cartão de Crédito                                 
+	public final static String TIPO_TRANSACAO_20 ="20"; //   20- Cartão de Débito à Vista                                              
+	public final static String TIPO_TRANSACAO_21 ="21"; //   21- Cartão de Débito Pré-Datado                                           
+	public final static String TIPO_TRANSACAO_22 ="22"; //   22- Cartão de Débito Parcelada                                            
+	public final static String TIPO_TRANSACAO_23 ="23"; //   23- Cartão de Débito à Vista Forçada                                      
+	public final static String TIPO_TRANSACAO_24 ="24"; //   24- Cartão de Débito Pré-Datado Forçada                                   
+	public final static String TIPO_TRANSACAO_25 ="25"; //   25- Cartão de Débito Pré-Datado sem Garantia                              
+	public final static String TIPO_TRANSACAO_30 ="30"; //   30- Outros Cartões                                                        
+	public final static String TIPO_TRANSACAO_40 ="40"; //   40- CDC                                                                   
+	public final static String TIPO_TRANSACAO_41 ="41"; //   41- Consulta CDC                                                          
+	public final static String TIPO_TRANSACAO_50 ="50"; //   50- Convênio                                                              
+	public final static String TIPO_TRANSACAO_60 ="60"; //   60- Voucher                                                               
+	public final static String TIPO_TRANSACAO_70 ="70"; //   70- Consulta Cheque                                                       
+	public final static String TIPO_TRANSACAO_71 ="71"; //   71- Garantia de Cheque                                                    
+	public final static String TIPO_TRANSACAO_99 ="99"; //   99-Outras                                                                 
+
+	//Constantes da solicitacao
+	public final static Byte MOEDA_REAL = new Byte((byte)0);
+	public final static Byte MOEDA_DOLAR = new Byte((byte)1);
+	
+	public final static String PESSOA_FISICA = "F";
+	public final static String PESSOA_JURIDICA = "J";
+	
+	public final static String VISANET = "VISANET";
+	public final static String REDECARD = "REDECARD";
+	public final static String AMEX = "AMEX";
+	//fim das constantes da solicitacao
+	
+	// constantes da resposta
+	public final static int PARCELAMENTO_ESTABELECIMENTO = 0;
+	public final static int PARCELAMENTO_ADMINISTRADORA = 1;
+	// fim das constantes da resposta
 	
 	public static TEFPayGo instancia;
 	
@@ -73,7 +119,7 @@ public class TEFPayGo implements TEF {
 		
 		if(solicitacaoOperacaoTEF.getMoeda() != null 
 				&& (solicitacaoOperacaoTEF.getMoeda().toString().length() <= 0 || solicitacaoOperacaoTEF.getMoeda().toString().length() > 1)
-				&& (!solicitacaoOperacaoTEF.getMoeda().equals(SolicitacaoOperacaoTEF.MOEDA_REAL) || !solicitacaoOperacaoTEF.getMoeda().equals(SolicitacaoOperacaoTEF.MOEDA_DOLAR))){
+				&& (!solicitacaoOperacaoTEF.getMoeda().equals(MOEDA_REAL) || !solicitacaoOperacaoTEF.getMoeda().equals(MOEDA_DOLAR))){
 			throw new ExcecaoTEF("Campo Moeda [004-000] invalido.");
 		}
 		
@@ -84,7 +130,7 @@ public class TEFPayGo implements TEF {
 		
 		if(solicitacaoOperacaoTEF.getTipoPessoa() != null 
 				&& (solicitacaoOperacaoTEF.getTipoPessoa().length() <= 0 || solicitacaoOperacaoTEF.getTipoPessoa().length() > 1)
-				&& (!solicitacaoOperacaoTEF.getTipoPessoa().equals(SolicitacaoOperacaoTEF.PESSOA_FISICA) || !solicitacaoOperacaoTEF.getTipoPessoa().equals(SolicitacaoOperacaoTEF.PESSOA_JURIDICA))){
+				&& (!solicitacaoOperacaoTEF.getTipoPessoa().equals(PESSOA_FISICA) || !solicitacaoOperacaoTEF.getTipoPessoa().equals(PESSOA_JURIDICA))){
 			throw new ExcecaoTEF("Campo TipoPessoa [006-000] invalido.");
 		}
 		
@@ -99,7 +145,7 @@ public class TEFPayGo implements TEF {
 		
 		if(solicitacaoOperacaoTEF.getNomeRede() != null 
 				&& (solicitacaoOperacaoTEF.getNomeRede().length() <= 0 || solicitacaoOperacaoTEF.getNomeRede().length() > 8)
-				&& (!solicitacaoOperacaoTEF.getNomeRede().equals(SolicitacaoOperacaoTEF.AMEX) || !solicitacaoOperacaoTEF.getNomeRede().equals(SolicitacaoOperacaoTEF.VISANET) || !solicitacaoOperacaoTEF.getNomeRede().equals(SolicitacaoOperacaoTEF.REDECARD))){
+				&& (!solicitacaoOperacaoTEF.getNomeRede().equals(AMEX) || !solicitacaoOperacaoTEF.getNomeRede().equals(VISANET) || !solicitacaoOperacaoTEF.getNomeRede().equals(REDECARD))){
 			throw new ExcecaoTEF("Campo NomeRede [010-000] invalido.");
 		}
 		
@@ -163,6 +209,8 @@ public class TEFPayGo implements TEF {
 		validarSolicitacaoOperacaoTEF(solicitacaoOperacaoTEF);
 		
 		verificaStatusServico(solicitacaoOperacaoTEF.getIdentificacao());
+		Util.apagarArquivos(new File(DIRETORIO_REQUISICAO), filtro);
+
 		FileWriter fw = null;
 		BufferedWriter bw = null;
 		try {
@@ -278,6 +326,8 @@ public class TEFPayGo implements TEF {
 		validarSolicitacaoOperacaoTEF(solicitacaoOperacaoTEF);
 		
 		verificaStatusServico(solicitacaoOperacaoTEF.getIdentificacao());
+		Util.apagarArquivos(new File(DIRETORIO_REQUISICAO), filtro);
+
 		FileWriter fw = null;
 		BufferedWriter bw = null;
 		try {
@@ -373,6 +423,8 @@ public class TEFPayGo implements TEF {
 		validarSolicitacaoOperacaoTEF(solicitacaoOperacaoTEF);
 		
 		verificaStatusServico(solicitacaoOperacaoTEF.getIdentificacao());
+		Util.apagarArquivos(new File(DIRETORIO_REQUISICAO), filtro);
+		
 		FileWriter fw = null;
 		BufferedWriter bw = null;
 		try {
@@ -468,6 +520,8 @@ public class TEFPayGo implements TEF {
 		validarSolicitacaoOperacaoTEF(solicitacaoOperacaoTEF);
 		
 		verificaStatusServico(solicitacaoOperacaoTEF.getIdentificacao());
+		Util.apagarArquivos(new File(DIRETORIO_REQUISICAO), filtro);
+		
 		FileWriter fw = null;
 		BufferedWriter bw = null;
 		try {
@@ -548,26 +602,46 @@ public class TEFPayGo implements TEF {
 		return resposta;
 	}
 
+	public boolean validarServicoAtivo() throws ExcecaoTEF {
+
+		try {
+			verificaStatusServico(1l);	
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+
+	}
+
+
+	
 	public RespostaOperacaoTEF solicitaOperacaoCartao(SolicitacaoOperacaoTEF solicitacaoOperacaoTEF) throws ExcecaoTEF {
 		RespostaOperacaoTEF resposta = null;
-		
+		System.out.println("solicitaOperacaoCartao " + 01);
 		validarSolicitacaoOperacaoTEF(solicitacaoOperacaoTEF);
+		System.out.println("solicitaOperacaoCartao " + 02);
 		
 		verificaStatusServico(solicitacaoOperacaoTEF.getIdentificacao());
+		Util.apagarArquivos(new File(DIRETORIO_REQUISICAO), filtro);
+		
+		System.out.println("solicitaOperacaoCartao " + 03);
 		FileWriter fw = null;
 		BufferedWriter bw = null;
 		try {
 			File arqTemp = new File(DIRETORIO_REQUISICAO + NOME_ARQUIVO + EXTENSAO_TEMPORARIA);
 			fw = new FileWriter(arqTemp);
 			bw = new BufferedWriter(fw);
-			
+			System.out.println("solicitaOperacaoCartao " + 04);
+
 			bw.write("000-000 = " + OPERACAO_CARTAO + QUEBRA_LINHA);
 			bw.write("001-000 = " + String.valueOf(solicitacaoOperacaoTEF.getIdentificacao()) + QUEBRA_LINHA);
 			if(solicitacaoOperacaoTEF.getNumeroCOO() != null){
+				System.out.println("solicitaOperacaoCartao " + 05);
 				bw.write("002-000 = " + solicitacaoOperacaoTEF.getNumeroCOO().toString() + QUEBRA_LINHA);				
 			}
 			bw.write("003-000 = " + String.valueOf(solicitacaoOperacaoTEF.getValorOperacao().movePointRight(2)) + QUEBRA_LINHA);
 			if(solicitacaoOperacaoTEF.getMoeda() != null){
+				System.out.println("solicitaOperacaoCartao " + 06);
 				bw.write("004-000 = " + solicitacaoOperacaoTEF.getMoeda().toString() + QUEBRA_LINHA);				
 			}
 			bw.write(FINALIZA_ARQUIVO + QUEBRA_LINHA);
@@ -589,10 +663,12 @@ public class TEFPayGo implements TEF {
 					throw new ExcecaoTEF("TEF Indisponivel!", e);
 				}
 			}
+			System.out.println("solicitaOperacaoCartao " + 07);
 			
 			File arqFinal = new File(DIRETORIO_REQUISICAO + NOME_ARQUIVO + EXTENSAO_PRINCIPAL);
 			if(arqTemp.exists()){
 				arqTemp.renameTo(arqFinal);
+				System.out.println("solicitaOperacaoCartao " + 8);
 			}
 			
 			long start = System.currentTimeMillis();
@@ -601,20 +677,29 @@ public class TEFPayGo implements TEF {
 			
 			while(true){
 				if(System.currentTimeMillis() - start > TIMEOUT_OPERACAO && !arqResposta.exists()){
+					System.out.println("solicitaOperacaoCartao " + 9);
 					//cancela operacao
 					throw new ExcecaoTEF("Operacao Cancelada!");
 				}else if(arqResposta.exists()){
+					System.out.println("solicitaOperacaoCartao " + 10);
+					
 					//criar metodo para preencher a resposta do arquivo.
 					resposta = preencheRespostaSolicitacaoTEF(arqResposta);
 					if(solicitacaoOperacaoTEF.getIdentificacao().equals(resposta.getIdentificacao())){
+						System.out.println("solicitaOperacaoCartao " + 11);
 						break;	
+					} else {
+						System.out.println("solicitaOperacaoCartao " + 111);
 					}
 				}
 			}
 			
 			
 			//deletar arquivos de resposta IntPos.Sts e IntPos.001 do diretorio de RESPOSTA
+			System.out.println("solicitaOperacaoCartao " + 12);
+
 			Util.apagarArquivos(new File(DIRETORIO_RESPOSTA), filtro);
+			System.out.println("solicitaOperacaoCartao " + 13);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -643,12 +728,14 @@ public class TEFPayGo implements TEF {
 		return resposta;
 	}
 
-	public RespostaOperacaoTEF solicitaOperacaoCheque(SolicitacaoOperacaoTEF solicitacaoOperacaoTEF) throws ExcecaoTEF {
+public RespostaOperacaoTEF solicitaOperacaoCheque(SolicitacaoOperacaoTEF solicitacaoOperacaoTEF) throws ExcecaoTEF {
 		RespostaOperacaoTEF resposta = null;
 		
 		validarSolicitacaoOperacaoTEF(solicitacaoOperacaoTEF);
 		
 		verificaStatusServico(solicitacaoOperacaoTEF.getIdentificacao());
+		Util.apagarArquivos(new File(DIRETORIO_REQUISICAO), filtro);
+		
 		FileWriter fw = null;
 		BufferedWriter bw = null;
 		try {
@@ -782,9 +869,12 @@ public class TEFPayGo implements TEF {
 	}
 	
 	private void verificaStatusServico(long identificacao) throws ExcecaoTEF {
+
+		Util.apagarArquivos(new File(DIRETORIO_RESPOSTA), filtro);
+
 		FileWriter fw = null;
 		BufferedWriter bw = null;
-		
+
 		FileReader fr = null;
 		BufferedReader br = null;
 		try {
@@ -830,7 +920,10 @@ public class TEFPayGo implements TEF {
 					break;
 				}
 			}
-			
+
+			// colocado pq o arquivo existia ai ele tentava ler o paygo ainda estava escrevendo no arquivo de saida
+			try {Thread.sleep(100);} catch (Exception e) {}
+
 			fr = new FileReader(arqResposta);
 			br = new BufferedReader(fr);
 			
@@ -898,6 +991,9 @@ public class TEFPayGo implements TEF {
 	}
 	
 	private RespostaOperacaoTEF preencheRespostaSolicitacaoTEF(File arquivoResposta){
+
+		// colocado pq o arquivo existia ai ele tentava ler o paygo ainda estava escrevendo no arquivo de saida
+		try {Thread.sleep(100);} catch (Exception e) {}
 		
 		FileReader fr = null;
 		BufferedReader br = null;
@@ -1178,7 +1274,9 @@ public class TEFPayGo implements TEF {
 	private static FileFilter filtro = new FileFilter() {
 		public boolean accept(File file) {
 			return file.getName().endsWith(NOME_ARQUIVO.concat(EXTENSAO_PRINCIPAL)) ||
-	           file.getName().endsWith(NOME_ARQUIVO.concat(EXTENSAO_STATUS));
+	           file.getName().endsWith(NOME_ARQUIVO.concat(EXTENSAO_STATUS))
+	            ||
+	           file.getName().endsWith(NOME_ARQUIVO.concat(EXTENSAO_MINE));
 		}
 	};
 }

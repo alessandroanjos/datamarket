@@ -10,6 +10,8 @@ public interface TEF {
 	public RespostaOperacaoTEF solicitaOperacaoCartao(SolicitacaoOperacaoTEF solicitacaoOperacaoTEF) throws ExcecaoTEF;
 	
 	public RespostaOperacaoTEF confirmaOperacao(SolicitacaoOperacaoTEF solicitacaoOperacaoTEF) throws ExcecaoTEF;
+
+	public boolean  validarServicoAtivo() throws ExcecaoTEF;
 	
 	public RespostaOperacaoTEF cancelaOperacao(SolicitacaoOperacaoTEF solicitacaoOperacaoTEF, boolean operacaoCheque) throws ExcecaoTEF;
 	

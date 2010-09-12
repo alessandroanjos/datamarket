@@ -4,13 +4,13 @@ import java.util.ResourceBundle;
 
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 
-public class MensagensAV {
+public class MensagensPDV {
 
 	private static ResourceBundle rb; 
 
 	protected static ResourceBundle getResourceBundle(){
 		if (rb ==null) {
-			rb = ResourceBundle.getBundle("MensagensAV");	
+			rb = ResourceBundle.getBundle("MensagensPDV");	
 		}
 		return rb;
 	}

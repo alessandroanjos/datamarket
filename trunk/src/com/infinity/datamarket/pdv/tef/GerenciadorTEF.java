@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.infinity.datamarket.comum.util.ServiceLocator;
+import com.infinity.datamarket.pdv.tef.paygo.TEFPayGo;
 
 public class GerenciadorTEF {
 
@@ -32,12 +33,14 @@ public class GerenciadorTEF {
 	public static RespostaOperacaoTEF respostaTEF;
 	
 	public static void main(String[] args) {
-		GerenciadorTEF.getInstancia().testeSolicitaOperacaoAdministracao();
-//		GerenciadorTEF.getInstancia().testeSolicitaOperacaoCartao();
+		//GerenciadorTEF.getInstancia().testeServicoAtivo();
+
+	//	GerenciadorTEF.getInstancia().testeSolicitaOperacaoAdministracao();
+		GerenciadorTEF.getInstancia().testeSolicitaOperacaoCartao();
 //		GerenciadorTEF.getInstancia().testeCancelaOperacao(false);
 //		GerenciadorTEF.getInstancia().testeSolicitaOperacaoCheque();
 //		GerenciadorTEF.getInstancia().testeCancelaOperacao(true);
-//		GerenciadorTEF.getInstancia().testeConfirmaOperacao();
+		GerenciadorTEF.getInstancia().testeConfirmaOperacao();
 //		GerenciadorTEF.getInstancia().testeDesfazOperacao();
 	}
 	
@@ -62,7 +65,7 @@ public class GerenciadorTEF {
 					}
 				}
 			
-			GerenciadorTEF.getInstancia().testeConfirmaOperacao();
+			//GerenciadorTEF.getInstancia().testeConfirmaOperacao();
 		} catch (ExcecaoTEF e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,12 +78,20 @@ public class GerenciadorTEF {
 		solicitacao.setIdentificacao(new Long(2));
 		solicitacao.setNumeroCOO(new Long(1));
 		solicitacao.setValorOperacao(new BigDecimal("50.00"));
-		solicitacao.setNomeRede(SolicitacaoOperacaoTEF.VISANET);
-		solicitacao.setMoeda(SolicitacaoOperacaoTEF.MOEDA_REAL);
+		solicitacao.setNomeRede(TEFPayGo.VISANET);
+		solicitacao.setMoeda(TEFPayGo.MOEDA_REAL);
 		try {
 			respostaTEF = GerenciadorTEF.getInstancia().getTef().solicitaOperacaoCartao(solicitacao);
 		} catch (ExcecaoTEF e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void testeServicoAtivo(){
+		try {
+			System.out.println(GerenciadorTEF.getInstancia().getTef().validarServicoAtivo());
+		} catch (ExcecaoTEF e) {
 			e.printStackTrace();
 		}
 	}
@@ -93,7 +104,7 @@ public class GerenciadorTEF {
 		
 		solicitacao.setCmc7("237320870070000625477509958276");
 		
-		solicitacao.setTipoPessoa(SolicitacaoOperacaoTEF.PESSOA_FISICA);
+		solicitacao.setTipoPessoa(TEFPayGo.PESSOA_FISICA);
 		solicitacao.setDocumentoPessoa(new Long("02882755430"));
 		solicitacao.setDataCheque(new Date(System.currentTimeMillis()));
 		
