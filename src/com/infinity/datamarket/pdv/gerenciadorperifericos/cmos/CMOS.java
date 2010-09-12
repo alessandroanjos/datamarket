@@ -39,6 +39,7 @@ public interface CMOS {
 	public static final String DADOS_CHEQUE = "DADOS_CHEQUE";
 	public static final String DADOS_CHEQUE_PRE = "DADOS_CHEQUE_PRE";
 	public static final String DADOS_CARTAO_OFF = "DADOS_CARTAO_OFF";
+	public static final String DADOS_CARTAO = "DADOS_CARTAO";
 	public static final String DADOS_CARTAO_PROPRIO = "DADOS_CARTAO_PROPRIO";
 	public static final String DADOS_CONSULTA_CARTAO_PROPRIO = "DADOS_CONSULTA_CARTAO_PROPRIO";
 	public static final String AUTORIZADORA_CARTAO_OFF = "AUTORIZADORA_CARTAO_OFF";

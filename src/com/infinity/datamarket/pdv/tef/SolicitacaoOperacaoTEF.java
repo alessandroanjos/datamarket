@@ -1,19 +1,11 @@
 package com.infinity.datamarket.pdv.tef;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class SolicitacaoOperacaoTEF {
-	
-	public final static Byte MOEDA_REAL = new Byte((byte)0);
-	public final static Byte MOEDA_DOLAR = new Byte((byte)1);
-	
-	public final static String PESSOA_FISICA = "F";
-	public final static String PESSOA_JURIDICA = "J";
-	
-	public final static String VISANET = "VISANET";
-	public final static String REDECARD = "REDECARD";
-	public final static String AMEX = "AMEX";
+public class SolicitacaoOperacaoTEF  implements Serializable{
+
 	
 	private Long identificacao;
 	

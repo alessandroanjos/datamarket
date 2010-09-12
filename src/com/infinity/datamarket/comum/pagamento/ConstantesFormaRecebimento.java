@@ -8,6 +8,7 @@ public class ConstantesFormaRecebimento {
 	public static final Long CARTAO_PROPRIO = new Long(5);
 	public static final Long BOLETO = new Long(7);
 	public static final Long TROCA = new Long(6);
+	public static final Long CARTAO= new Long(8);
 	public static final String DESCRICAO_DINHEIRO = "DINHEIRO";
 	public static final String DESCRICAO_CHEQUE = "CHEQUE";
 	public static final String DESCRICAO_CHEQUE_PRE = "CHEQUE-PRE";
@@ -15,6 +16,7 @@ public class ConstantesFormaRecebimento {
 	public static final String DESCRICAO_CARTAO_PROPRIO = "CARTÃO PROPRIO";
 	public static final String DESCRICAO_TROCA = "TROCA";
 	public static final String DESCRICAO_BOLETO = "BOLETO";
+	public static final String DESCRICAO_CARTAO = "CARTÃO";
 	
 	public static String retornaDescricaoFormaRecebimento(int codigoForma){
 		String retorno = DESCRICAO_DINHEIRO;
@@ -39,6 +41,9 @@ public class ConstantesFormaRecebimento {
 				break;
 			case 7:
 				retorno = DESCRICAO_BOLETO;
+				break;
+			case 8:
+				retorno = DESCRICAO_CARTAO;
 				break;
 		}
 		return retorno;

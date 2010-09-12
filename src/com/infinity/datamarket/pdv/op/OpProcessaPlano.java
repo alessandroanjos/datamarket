@@ -20,6 +20,7 @@ import com.infinity.datamarket.comum.transacao.ConstantesEventoTransacao;
 import com.infinity.datamarket.comum.transacao.ConstantesTransacao;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamento;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoBoleto;
+import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartao;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoOff;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartaoProprio;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCheque;
@@ -36,6 +37,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.pdv.tef.RespostaOperacaoTEF;
 
 public class OpProcessaPlano extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -147,6 +149,64 @@ public class OpProcessaPlano extends Mic{
 			DadosCartaoOff dados = (DadosCartaoOff) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CARTAO_OFF);
 			eventoItemPagamento = new EventoItemPagamentoCartaoOff(pk,ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,dataAtual,plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora(),valorPagamento,valorDesconto,valorAcrescimo,
 					dados.getNumeroCartao(), dados.getQuantidadeParcelas(), dados.getAutorizacao(), dados.getCodigoAutorizadora());
+			eventos.add(eventoItemPagamento);
+			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamento);
+		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.CARTAO)){
+			RespostaOperacaoTEF respostaTEF = (RespostaOperacaoTEF)gerenciadorPerifericos.getCmos().ler("respostaSolicitacao");
+
+			long identificacao = respostaTEF.getIdentificacao();
+			long coo = respostaTEF.getNumeroCOO();
+			BigDecimal valor = respostaTEF.getValorOperacao();
+			byte moeda = respostaTEF.getMoeda();
+			String status = respostaTEF.getStatusTransacao();
+			String nomeRede = respostaTEF.getNomeRede();
+			Integer tipoTransacaoCartao = respostaTEF.getTipoTransacao();
+			long numeroTranscaoNSUTEF = respostaTEF.getNsuTEF();
+			Integer codigoAutorizacao = respostaTEF.getCodigoAutorizacao();
+			long numeroLoteTransacao = respostaTEF.getNumeroLoteTransacao();
+			Date dataHoraTranscaoHost = respostaTEF.getDataHoraTransacaoHost();
+			Date dataHoraTranscaoLocal = respostaTEF.getDataHoraTransacaoLocal();
+			byte tipoParcelamento = respostaTEF.getTipoParcelamento();
+			Integer quantidadeParcelas = respostaTEF.getQuantidadeParcelas() ;
+			Collection conjuntoParcelas = respostaTEF.getConjuntoParcelas();
+			//ParcelaTEF parcela = null;
+			Date dataHoraTransacao = respostaTEF.getDataHoraTransacao() ;
+			Date dataCartaoPreDatado = respostaTEF.getDataCartaoPreDatado();
+			String chaveFinalizacao = respostaTEF.getChaveFinalizacao();
+			String[] linhas = respostaTEF.getLinhasComprovantePrincipal();
+			String textoEspecialOperador = respostaTEF.getTextoEspecialOperador();
+			String textoEspecialCliente = respostaTEF.getTextoEspecialCliente();
+			String nomeAdministrador = respostaTEF.getNomeAutorizadora();
+
+//			EventoTransacaoPK pk, 
+//			int tipoEvento, 
+//			Date dataHoraEvento,
+//			int codigoForma, 
+//			int codigoPlano, 
+//			String formaImpressora, 
+//			BigDecimal valorBruto, 
+//			BigDecimal valorDesconto, 
+//			BigDecimal valorAcrescimo,
+//			String numeroCartao, 
+//			int quantidadeParcelas, 
+//			String autorizacao, 
+//			String codigoAutorizadora)
+
+			eventoItemPagamento = new EventoItemPagamentoCartaoOff
+				(pk,
+				ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,
+				dataAtual,
+				plano.getForma().getId().intValue(),
+				plano.getId().intValue(),
+				plano.getForma().getRecebimentoImpressora(),
+				valorPagamento,
+				valorDesconto,
+				valorAcrescimo,
+				"", 
+				quantidadeParcelas.intValue(), 
+				nomeAdministrador, 
+				numeroTranscaoNSUTEF + "");
+
 			eventos.add(eventoItemPagamento);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamento);
 		}else if (plano.getForma().getId().equals(ConstantesFormaRecebimento.CARTAO_PROPRIO)){
