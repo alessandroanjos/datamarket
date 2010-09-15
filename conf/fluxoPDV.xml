@@ -110,6 +110,13 @@
     <operacao id="OpIncluiVendeItemOperacaoPedido" classe="com.infinity.datamarket.pdv.op.OpIncluiVendeItemOperacaoPedido"/>  
     <operacao id="OpSolicitaDadosConsultaOperacaoPedido" classe="com.infinity.datamarket.pdv.op.OpSolicitaDadosConsultaOperacaoPedido"/>  
     <operacao id="OpSolicitaCargaBase" classe="com.infinity.datamarket.pdv.op.OpSolicitaCargaBase"/>  
+    <operacao id="OpInicioRecebimentoCartao" classe="com.infinity.datamarket.pdv.op.OpInicioRecebimentoCartao"/>
+    <operacao id="OpVerificaServidorTEFAtivo" classe="com.infinity.datamarket.pdv.op.OpVerificaServidorTEFAtivo"/>
+    <operacao id="OpProcessaRecebimentoCartao" classe="com.infinity.datamarket.pdv.op.OpProcessaRecebimentoCartao"/>
+    <operacao id="OpDesfazAutorizacaoCartao" classe="com.infinity.datamarket.pdv.op.OpDesfazAutorizacaoCartao"/>
+    <operacao id="OpImprimeNaoResponde" classe="com.infinity.datamarket.pdv.op.OpImprimeNaoResponde"/>
+    <operacao id="OpImprimeConfirmaAutorizacaoCartao" classe="com.infinity.datamarket.pdv.op.OpImprimeConfirmaAutorizacaoCartao"/>
+    <operacao id="OpConfirmaVendaTef" classe="com.infinity.datamarket.pdv.op.OpConfirmaVendaTef"/>
   </listaMicroperacao>
   <listaEstado>
     <estado id="1" teclaMenu="K" codigo="ESTADO1" descricao="Fechado" inputType="0" inputSize="0"/>
@@ -148,10 +155,12 @@
     <tecla codigo="TECLA25" descricao="H" codigoASCI="72" />
     <tecla codigo="TECLA26" descricao="J" codigoASCI="74" />
     <tecla codigo="K" descricao="K" codigoASCI="75" />
-    <tecla codigo="TECLA26" descricao="A" codigoASCI="65" />
+    <tecla codigo="TECLA27" descricao="A" codigoASCI="65" />
+    <tecla codigo="TECLA28" descricao="F8" codigoASCI="119" />
   </listaTecla>
   <listaMacroOperacao>
-   <macroOperacao tipoComponente="1" estadoAtual="ESTADO3" proximoEstado="ESTADO3" tecla="TECLA26" codigoMicroOperacaoAssociada="subFluxo1" id="39" descricao="Solicita Carga Base">
+  
+   <macroOperacao tipoComponente="1" estadoAtual="ESTADO3" proximoEstado="ESTADO3" tecla="TECLA27" codigoMicroOperacaoAssociada="subFluxo1" id="39" descricao="Solicita Carga Base">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo1" operacao="OpSolicitaCargaBase">
       <saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo2" />
       </microOperacaoAssociada>
@@ -1151,125 +1160,6 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo299" operacao="OpExibeTelaDisponivel">
       </microOperacaoAssociada>
     </macroOperacao>
-    <macroOperacao tipoComponente="1" estadoAtual="ESTADO5" proximoEstado="ESTADO3" tecla="TECLA18" codigoMicroOperacaoAssociada="subFluxo200"  id="27" descricao="Recebimento Cartao Off">
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo200" operacao="OpInicioRecebimentoCartaoOff">
-      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo201" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo201" operacao="OpExibeTelaAutorizadoras">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo202" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo202" operacao="OpSolicitaAutorizadora">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo203" />
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo212" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo203" operacao="OpSolicitaDadosCartaoOff">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo204" />
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo202" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo204" operacao="OpProcessaPlano">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo87" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo87" operacao="OpVerificaFimRecebimento">
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo88" />
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo163" />
-      	<saidaMicroOperacaoAssociada tipoSaida="4" codigoMicroOperacaoAssociadaDestino="subFluxo292" />
-      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo295" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo88" operacao="OpExibeTelaTotal">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo89" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo89" operacao="OpExibeDisplayTotal">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo90" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo90" operacao="OpAlternativaDois">
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo163" operacao="OpFinalizaCupom">
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo180" />
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo308" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo180" operacao="OpExibeDisplayTotal">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo181" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo181" operacao="OpAlternativaDois">
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo308" operacao="OpConfirmaOperacao">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo240" />
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo318" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo318" operacao="OpCancelaTransacaoVenda">      	      
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo319" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo319" operacao="OpCancelaCupom">      	            	
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo320" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">      	            	
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo321" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo321" operacao="OpIncluiTransacaoVenda">      	            	
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo322" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo322" operacao="OpExibeTelaDisponivel">      	  
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo323" />          	
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo323" operacao="OpExibeDisplayDisponivel">      	            	
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo240" operacao="OpImprimeConfirmaAutorizacaoCartaoProprio">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo271" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo271" operacao="OpSolicitaCliente">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo92" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo92" operacao="OpIncluiTransacaoVenda">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo29" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo29" operacao="OpExibeTelaTroco">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo30" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo30" operacao="OpExibeDisplayTroco">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo270" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo270" operacao="OpImprimeRecibo">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo31" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo31" operacao="OpExibeDisplayDisponivel">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo32" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo32" operacao="OpExibeTelaDisponivel">
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo292" operacao="OpExibeTelaTotalPagamento">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo293" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo293" operacao="OpExibeDisplayTotal">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo294" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo294" operacao="OpAlternativaDois">
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo295" operacao="OpIncluiTransacaoPagamento">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo296" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo296" operacao="OpExibeTelaTrocoPagamento">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo297" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo297" operacao="OpExibeDisplayTroco">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo300" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo300" operacao="OpImprimeReciboPagamento">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo298" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo298" operacao="OpExibeDisplayDisponivel">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo299" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo299" operacao="OpExibeTelaDisponivel">
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo212" operacao="OpExibeTelaTotal">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo213" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo213" operacao="OpExibeDisplayTotal">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo214" />
-      </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo214" operacao="OpAlternativaDois">
-      </microOperacaoAssociada>
-    </macroOperacao>
     <macroOperacao tipoComponente="1" estadoAtual="ESTADO5" proximoEstado="ESTADO3" tecla="TECLA19" codigoMicroOperacaoAssociada="subFluxo221" id="28" descricao="Recebimento Cartao Proprio">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo221" operacao="OpInicioRecebimentoCartaoProprio">
       	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo222" />
@@ -2163,6 +2053,148 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo315" operacao="OpAlternativaDois">      	            	
       </microOperacaoAssociada>
     </macroOperacao>
-  </listaMacroOperacao>
+  
+  
+	<macroOperacao tipoComponente="1" estadoAtual="ESTADO5" proximoEstado="ESTADO5" tecla="TECLA28" codigoMicroOperacaoAssociada="subFluxo01"  id="44" descricao="Recebimento Cartao">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo01" operacao="OpInicioRecebimentoCartao">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo02" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo02" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo02" operacao="OpVerificaServidorTEFAtivo">
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo03" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo03" operacao="OpProcessaRecebimentoCartao">
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo04" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo04" operacao="OpProcessaPlano">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo87" />
+      </microOperacaoAssociada>
 
+      <!-- Quando da erro no inicio -->
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpExibeDisplayTotal">      	            	
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="saidadois" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="saidadois" operacao="OpAlternativaDois">      	            	
+      </microOperacaoAssociada>
+      <!-- Fim de quando da erro no inicio -->
+
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo87" operacao="OpVerificaFimRecebimento">
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo88" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo163" />
+      	<saidaMicroOperacaoAssociada tipoSaida="4" codigoMicroOperacaoAssociadaDestino="subFluxo292" />
+      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo295" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo88" operacao="OpExibeTelaTotal">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo89" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo89" operacao="OpExibeDisplayTotal">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo90" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo90" operacao="OpAlternativaDois">
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo163" operacao="OpFinalizaCupom">
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo180" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo308" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo180" operacao="OpExibeDisplayTotal">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo181" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo181" operacao="OpAlternativaDois">
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo308" operacao="OpConfirmaOperacao">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo240" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo318" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo318" operacao="OpCancelaTransacaoVenda">      	      
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo319" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo319" operacao="OpCancelaCupom">      	            	
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo320" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartao">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo321" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo321" operacao="OpIncluiTransacaoVenda">      	            	
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo322" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo322" operacao="OpExibeTelaDisponivel">      	  
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo323" />          	
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo323" operacao="OpExibeDisplayDisponivel">      	            	
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo240" operacao="OpImprimeConfirmaAutorizacaoCartao">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo240_2" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo240_1" />
+      </microOperacaoAssociada>
+      
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo240_1" operacao="OpImprimeNaoResponde">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo318" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo318" />
+      </microOperacaoAssociada>
+
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo240_2" operacao="OpConfirmaVendaTef">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo271" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo318" />
+      </microOperacaoAssociada>
+
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo271" operacao="OpSolicitaCliente">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo92" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo92" operacao="OpIncluiTransacaoVenda">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo29" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo29" operacao="OpExibeTelaTroco">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo30" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo30" operacao="OpExibeDisplayTroco">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo270" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo270" operacao="OpImprimeRecibo">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo31" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo31" operacao="OpExibeDisplayDisponivel">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo32" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo32" operacao="OpExibeTelaDisponivel">
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo292" operacao="OpExibeTelaTotalPagamento">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo293" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo293" operacao="OpExibeDisplayTotal">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo294" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo294" operacao="OpAlternativaDois">
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo295" operacao="OpIncluiTransacaoPagamento">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo296" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo296" operacao="OpExibeTelaTrocoPagamento">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo297" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo297" operacao="OpExibeDisplayTroco">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo300" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo300" operacao="OpImprimeReciboPagamento">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo298" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo298" operacao="OpExibeDisplayDisponivel">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo299" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo299" operacao="OpExibeTelaDisponivel">
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo212" operacao="OpExibeTelaTotal">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo213" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo213" operacao="OpExibeDisplayTotal">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo214" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo214" operacao="OpAlternativaDois">
+      </microOperacaoAssociada>
+<!-- 
+ -->
+    </macroOperacao>
+  </listaMacroOperacao>
 </maquinaEstado>

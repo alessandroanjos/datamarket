@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="make" name="av">
 
-	<property name="dirDeploy" value="c:\temp" />
+	<property name="dirDeploy" value="c:\temp2" />
 	<property name="contexto" value="es" />
 
 	<property name="src" value="src" />
