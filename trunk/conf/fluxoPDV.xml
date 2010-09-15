@@ -408,7 +408,11 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo319" operacao="OpCancelaCupom">      	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo320" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">      	            	
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">
+                  	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243_01" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243_01" operacao="OpDesfazAutorizacaoCartao">
+            	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo321" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo321" operacao="OpIncluiTransacaoVenda">      	            	
@@ -691,6 +695,10 @@
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo242" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo242" operacao="OpDesfazAutorizacaoCartaoProprio">
+            	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243_01" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243_01" operacao="OpDesfazAutorizacaoCartao">
+      
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo94" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo94" operacao="OpExibeTelaTotal">
@@ -741,6 +749,9 @@
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243" operacao="OpDesfazAutorizacaoCartaoProprio">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243_01" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243_01" operacao="OpDesfazAutorizacaoCartao">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo106" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo106" operacao="OpIncluiTransacaoVenda">
@@ -830,7 +841,11 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo319" operacao="OpCancelaCupom">      	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo320" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">      	            	
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">
+                  	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243_01" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243_01" operacao="OpDesfazAutorizacaoCartao">
+            	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo321" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo321" operacao="OpIncluiTransacaoVenda">      	            	
@@ -962,7 +977,11 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo319" operacao="OpCancelaCupom">      	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo320" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">      	            	
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">
+                  	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243_01" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243_01" operacao="OpDesfazAutorizacaoCartao">
+            	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo321" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo321" operacao="OpIncluiTransacaoVenda">      	            	
@@ -1100,7 +1119,11 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo319" operacao="OpCancelaCupom">      	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo320" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">      	            	
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">
+            	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243_01" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243_01" operacao="OpDesfazAutorizacaoCartao">
+            	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo321" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo321" operacao="OpIncluiTransacaoVenda">      	            	
@@ -1204,7 +1227,11 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo319" operacao="OpCancelaCupom">      	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo320" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">      	            	
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">
+                  	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243_01" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243_01" operacao="OpDesfazAutorizacaoCartao">
+            	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo321" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo321" operacao="OpIncluiTransacaoVenda">      	            	
@@ -1469,7 +1496,11 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo319" operacao="OpCancelaCupom">      	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo320" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">      	            	
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">
+                  	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243_01" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243_01" operacao="OpDesfazAutorizacaoCartao">
+            	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo321" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo321" operacao="OpIncluiTransacaoVenda">      	            	
@@ -1583,7 +1614,11 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo319" operacao="OpCancelaCupom">      	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo320" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">      	            	
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">
+                  	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243_01" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243_01" operacao="OpDesfazAutorizacaoCartao">
+            	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo321" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo321" operacao="OpIncluiTransacaoVenda">      	            	
@@ -1713,7 +1748,11 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo319" operacao="OpCancelaCupom">      	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo320" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">      	            	
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">
+                  	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243_01" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243_01" operacao="OpDesfazAutorizacaoCartao">
+            	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo321" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo321" operacao="OpIncluiTransacaoVenda">      	            	
@@ -1824,7 +1863,10 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo319" operacao="OpCancelaCupom">      	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo320" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">      	            	
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243_01" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243_01" operacao="OpDesfazAutorizacaoCartao">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo321" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo321" operacao="OpIncluiTransacaoVenda">      	            	
@@ -1936,7 +1978,10 @@
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo319" operacao="OpCancelaCupom">      	            	
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo320" />
       </microOperacaoAssociada>
-      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">      	            	
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo320" operacao="OpDesfazAutorizacaoCartaoProprio">
+            	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo243_01" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo243_01" operacao="OpDesfazAutorizacaoCartao">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo321" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo321" operacao="OpIncluiTransacaoVenda">      	            	

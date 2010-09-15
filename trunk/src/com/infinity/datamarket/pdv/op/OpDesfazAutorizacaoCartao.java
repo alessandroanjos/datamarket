@@ -30,38 +30,41 @@ public class OpDesfazAutorizacaoCartao extends Mic{
 		try{
 
 			PlanoPagamento plano = (PlanoPagamento) gerenciadorPerifericos.getCmos().ler(CMOS.PLANO_PAGAMENTO_ATUAL);
-
-			RespostaOperacaoTEF  respostaTEF = (RespostaOperacaoTEF)gerenciadorPerifericos.getCmos().ler("respostaSolicitacao");
-
-			SolicitacaoOperacaoTEF solicitacao = new SolicitacaoOperacaoTEF();
-
-			solicitacao.setIdentificacao(respostaTEF.getIdentificacao());
-			solicitacao.setNumeroCOO(respostaTEF.getNumeroCOO());
-			solicitacao.setValorOperacao(respostaTEF.getValorOperacao());
-			solicitacao.setNomeRede(respostaTEF.getNomeRede());
-			solicitacao.setMoeda(respostaTEF.getMoeda());
-			solicitacao.setNsuTEF(new Long(respostaTEF.getNsuTEF()));
-			solicitacao.setDataHoraTransacao(respostaTEF.getDataHoraTransacao());
-
-		boolean ehCheque = false;	
-		if (plano != null && plano.getForma().getId().equals(ConstantesFormaRecebimento.CARTAO_OFF)){
-			ehCheque = true;
-				solicitacao.setCmc7(respostaTEF.getCmc7());
-				
-				solicitacao.setTipoPessoa(respostaTEF.getTipoPessoa());
-				solicitacao.setDocumentoPessoa(respostaTEF.getDocumentoPessoa());
-				solicitacao.setDataCheque(respostaTEF.getDataCheque());
-				
-				solicitacao.setBanco(respostaTEF.getBanco());
-				solicitacao.setAgencia(respostaTEF.getAgencia());
-				solicitacao.setDigitoAgencia(respostaTEF.getDigitoAgencia());
-				solicitacao.setContaCorrente(respostaTEF.getContaCorrente());
-				solicitacao.setDigitoContaCorrente(respostaTEF.getDigitoContaCorrente());
-				solicitacao.setNumeroCheque(respostaTEF.getNumeroCheque());
-				solicitacao.setDigitoCheque(respostaTEF.getDigitoCheque());
-			}		
-
-			RespostaOperacaoTEF  respostaCancelamentoTEF = GerenciadorTEF.getInstancia().getTef().cancelaOperacao(solicitacao, ehCheque);
+			if (plano != null) {
+				RespostaOperacaoTEF  respostaTEF = (RespostaOperacaoTEF)gerenciadorPerifericos.getCmos().ler("respostaSolicitacao");
+				if (respostaTEF != null) {
+	
+					SolicitacaoOperacaoTEF solicitacao = new SolicitacaoOperacaoTEF();
+	
+					solicitacao.setIdentificacao(respostaTEF.getIdentificacao());
+					solicitacao.setNumeroCOO(respostaTEF.getNumeroCOO());
+					solicitacao.setValorOperacao(respostaTEF.getValorOperacao());
+					solicitacao.setNomeRede(respostaTEF.getNomeRede());
+					solicitacao.setMoeda(respostaTEF.getMoeda());
+					solicitacao.setNsuTEF(new Long(respostaTEF.getNsuTEF()));
+					solicitacao.setDataHoraTransacao(respostaTEF.getDataHoraTransacao());
+	
+					boolean ehCheque = false;	
+					if (plano != null && plano.getForma().getId().equals(ConstantesFormaRecebimento.CARTAO_OFF)){
+						ehCheque = true;
+						solicitacao.setCmc7(respostaTEF.getCmc7());
+						
+						solicitacao.setTipoPessoa(respostaTEF.getTipoPessoa());
+						solicitacao.setDocumentoPessoa(respostaTEF.getDocumentoPessoa());
+						solicitacao.setDataCheque(respostaTEF.getDataCheque());
+						
+						solicitacao.setBanco(respostaTEF.getBanco());
+						solicitacao.setAgencia(respostaTEF.getAgencia());
+						solicitacao.setDigitoAgencia(respostaTEF.getDigitoAgencia());
+						solicitacao.setContaCorrente(respostaTEF.getContaCorrente());
+						solicitacao.setDigitoContaCorrente(respostaTEF.getDigitoContaCorrente());
+						solicitacao.setNumeroCheque(respostaTEF.getNumeroCheque());
+						solicitacao.setDigitoCheque(respostaTEF.getDigitoCheque());
+					}		
+	
+					RespostaOperacaoTEF  respostaCancelamentoTEF = GerenciadorTEF.getInstancia().getTef().cancelaOperacao(solicitacao, ehCheque);
+				}				
+			}
 
 		}catch(Exception e){
 			e.printStackTrace();
