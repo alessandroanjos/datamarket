@@ -117,6 +117,9 @@
     <operacao id="OpImprimeNaoResponde" classe="com.infinity.datamarket.pdv.op.OpImprimeNaoResponde"/>
     <operacao id="OpImprimeConfirmaAutorizacaoCartao" classe="com.infinity.datamarket.pdv.op.OpImprimeConfirmaAutorizacaoCartao"/>
     <operacao id="OpConfirmaVendaTef" classe="com.infinity.datamarket.pdv.op.OpConfirmaVendaTef"/>
+    <operacao id="OpAdministrarTEF" classe="com.infinity.datamarket.pdv.op.OpAdministrarTEF"/>
+
+
   </listaMicroperacao>
   <listaEstado>
     <estado id="1" teclaMenu="K" codigo="ESTADO1" descricao="Fechado" inputType="0" inputSize="0"/>
@@ -2238,8 +2241,17 @@
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo214" operacao="OpAlternativaDois">
       </microOperacaoAssociada>
-<!-- 
- -->
     </macroOperacao>
+
+	<macroOperacao tipoComponente="1" estadoAtual="ESTADO3" proximoEstado="ESTADO3" tecla="TECLA7" codigoMicroOperacaoAssociada="subFluxo01"  id="45" descricao="Administrar TEF">
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo01" operacao="OpAdministrarTEF">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="saida" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="saida" operacao="OpAlternativaDois">
+      </microOperacaoAssociada>
+    </macroOperacao>
+    
   </listaMacroOperacao>
 </maquinaEstado>

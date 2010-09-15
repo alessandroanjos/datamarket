@@ -12,6 +12,7 @@ import com.infinity.datamarket.autorizador.AutorizacaoException;
 import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.pagamento.ConstantesFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
+import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
@@ -25,10 +26,10 @@ import com.infinity.datamarket.pdv.util.ServerConfig;
 
 public class OpDesfazAutorizacaoCartao extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
-		
-		
-		try{
 
+		try{
+//			TransacaoVenda transacao = (TransacaoVenda) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
+			
 			PlanoPagamento plano = (PlanoPagamento) gerenciadorPerifericos.getCmos().ler(CMOS.PLANO_PAGAMENTO_ATUAL);
 			if (plano != null) {
 				RespostaOperacaoTEF  respostaTEF = (RespostaOperacaoTEF)gerenciadorPerifericos.getCmos().ler("respostaSolicitacao");
@@ -48,7 +49,7 @@ public class OpDesfazAutorizacaoCartao extends Mic{
 					if (plano != null && plano.getForma().getId().equals(ConstantesFormaRecebimento.CARTAO_OFF)){
 						ehCheque = true;
 						solicitacao.setCmc7(respostaTEF.getCmc7());
-						
+
 						solicitacao.setTipoPessoa(respostaTEF.getTipoPessoa());
 						solicitacao.setDocumentoPessoa(respostaTEF.getDocumentoPessoa());
 						solicitacao.setDataCheque(respostaTEF.getDataCheque());
