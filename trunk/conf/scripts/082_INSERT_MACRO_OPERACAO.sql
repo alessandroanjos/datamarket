@@ -29,3 +29,9 @@ insert into macro_operacao (id,descricao,tipo_componente) values (40,'Resgate de
 insert into macro_operacao (id,descricao,tipo_componente) values (41,'Recebimento em Boleto',1);
 insert into macro_operacao (id,descricao,tipo_componente) values (42,'Consulta Pedido',1);
 insert into macro_operacao (id,descricao,tipo_componente) values (43,'Número do Pedido',1);
+insert into macro_operacao (id,descricao,tipo_componente) values (44,'Recebimento Cartao',1);
+
+
+insert into macro_operacao (id,descricao,tipo_componente) values (44,'Recebimento Cartao',1);
+insert into macro_operacao (id,descricao,tipo_componente) values (45,'Configuracao TEF',1);
+insert into macro_operacao (id,descricao,tipo_componente) values (46,'Recebimento Chegue-Pre',1);

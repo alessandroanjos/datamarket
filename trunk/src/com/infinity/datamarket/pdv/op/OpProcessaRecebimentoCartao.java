@@ -53,7 +53,7 @@ public class OpProcessaRecebimentoCartao extends OpInicioRecebimento{
 
 			}
 			
-			if (respostaTEF.getLinhasComprovantePrincipal().length > 0) {
+			if (respostaTEF.getLinhasComprovantePrincipal().length == 0) {
 				gerenciadorPerifericos.getDisplay().setMensagem(MensagensPDV.getMensagem(this, "RESPOSTA SEM MENSAGEM"));
 				gerenciadorPerifericos.esperaVolta();
 				return ALTERNATIVA_2;
@@ -117,9 +117,22 @@ public class OpProcessaRecebimentoCartao extends OpInicioRecebimento{
 
 		} catch (AppException e) {
 			e.printStackTrace();
+			try {
+				gerenciadorPerifericos.getDisplay().setMensagem("ERRO .... ");
+				gerenciadorPerifericos.esperaVolta();
+				return ALTERNATIVA_2;
+			} catch (Exception e2) {
+			}
 			return ALTERNATIVA_2;
 		} catch (ExcecaoTEF e) {
 			e.printStackTrace();
+			try {
+				gerenciadorPerifericos.getDisplay().setMensagem(e.getMessage());
+				gerenciadorPerifericos.esperaVolta();
+				return ALTERNATIVA_2;
+			} catch (Exception e2) {
+			}
+
 			return ALTERNATIVA_2;
 		}
 		return ALTERNATIVA_1;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>EnterpriseServer</name>
+	<name>datamarket</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -42,5 +42,6 @@
 		<nature>com.genuitec.eclipse.jsf.jsfnature</nature>
 		<nature>com.genuitec.eclipse.j2eedt.core.webnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>com.sysdeo.eclipse.tomcat.tomcatnature</nature>
 	</natures>
 </projectDescription>

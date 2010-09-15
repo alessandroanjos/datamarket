@@ -4,7 +4,7 @@
 	<property name="pdv" value="av" />
 	<property name="bat" value="startupAV.bat" />
 
-	<property name="destino" value="c:\${pdv}" />
+	<property name="destino" value="c:\temp\${pdv}" />
 	<property name="src" value="src" />
 	<property name="conf" value="conf" />
 	<property name="lib" value="lib" />
