@@ -265,6 +265,7 @@ public class LeitorMaquinaEstadoXML {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new Exception(e);
 		}
 
