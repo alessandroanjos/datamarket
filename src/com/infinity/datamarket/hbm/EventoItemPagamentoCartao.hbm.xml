@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE hibernate-mapping   
+        PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+   <hibernate-mapping>
+      <joined-subclass name="com.infinity.datamarket.comum.transacao.EventoItemPagamentoCartao" extends="com.infinity.datamarket.comum.transacao.EventoItemPagamento" table="EVEN_ITEM_TRANS_CARTAO" lazy="false">
+
+          <key>
+              <column name="LOJA"/>
+              <column name="COMPONENTE"/>
+              <column name="NUM_TRANSACAO"/>
+              <column name="DATA_TRANSACAO"/>
+              <column name="NUM_EVENTO"/>
+          </key>
+
+
+		  <set name="parcelas" inverse="true" cascade="save-update, delete-orphan"
+			lazy="false">
+                 <key>
+                     <column name="LOJA"/>
+                     <column name="COMPONENTE"/>
+                     <column name="NUM_TRANSACAO"/>
+                     <column name="DATA_TRANSACAO"/>
+                     <column name="NUM_EVENTO"/>
+                 </key>
+                 <one-to-many class="com.infinity.datamarket.comum.transacao.ParcelaEventoItemPagamentoCartao"/>
+          </set>
+		  
+
+          <property name="identificacao" type="java.lang.Long" update="true" insert="true">
+            <column name="IDENTIFICACAO" not-null="false"/>
+          </property>
+          
+          <property name="coo" type="java.lang.Long" update="true" insert="true">
+            <column name="DOC_FISCAL_COO" not-null="false"/>
+          </property>
+
+          <property name="valor" type="java.math.BigDecimal" update="true" insert="true">
+              <column name="VALOR" length="20" not-null="false"/>
+          </property>
+          
+          <property name="dataHoraTransacao" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_HORA_TRANSACAO" length="20" not-null="false"/>
+          </property>
+          <property name="dataHoraTransacaoLocal" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_HORA_TRANSACAO_LOCAL" length="20" not-null="false"/>
+          </property>
+          <property name="dataHoraTransacaoHost" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_HORA_TRANSACAO_HOST" length="20" not-null="false"/>
+          </property>
+          <property name="dataCartaoPreDatado" type="java.util.Date" update="true" insert="true">
+            <column name="DATA_CARTAO_PRE_DATATADO" length="20" not-null="false"/>
+          </property>
+          <property name="moeda" type="java.lang.Short" update="true" insert="true">
+            <column name="MOEDA" length="1" not-null="false"/>
+          </property>
+          <property name="status" type="java.lang.Short" update="true" insert="true">
+            <column name="STATUS" length="1" not-null="false"/>
+          </property>
+          <property name="rede" type="java.lang.String" update="true" insert="true">
+            <column name="REDE" length="100" not-null="false"/>
+          </property>
+          <property name="tipoTransacao" type="java.lang.Short" update="true" insert="true">
+            <column name="TIPO_TRANSACAO" length="1" not-null="false"/>
+          </property>
+          <property name="numeroTransacaoNSU" type="java.lang.Long" update="true" insert="true">
+            <column name="NUMERO_TRANSACAO_NSU" not-null="false"/>
+          </property>
+          <property name="codigoAutorizacao" type="java.lang.Long" update="true" insert="true">
+            <column name="CODIGO_AUTORIZACAO" not-null="false"/>
+          </property>
+          <property name="numeroLoteTransacao" type="java.lang.Long" update="true" insert="true">
+            <column name="NUMERO_LOTE_TRANSACAO" not-null="false"/>
+          </property>
+          <property name="tipoParcelamento" type="java.lang.Short" update="true" insert="true">
+            <column name="TIPO_PARCELAMENTO" length="1" not-null="false"/>
+          </property>
+          <property name="quantidadeParcelamento" type="java.lang.Integer" update="true" insert="true">
+            <column name="QUANTIDADE_PARCELAMENTO" length="1" not-null="false"/>
+          </property>
+          <property name="chaveFinalizacao" type="java.lang.String" update="true" insert="true">
+            <column name="CHAVE_FINALIZACAO" length="100" not-null="false"/>
+          </property>
+          <property name="nomeAdministrador" type="java.lang.String" update="true" insert="true">
+            <column name="NOME_ADMINISTRADOR" length="100" not-null="false"/>
+          </property>
+      </joined-subclass>
+   </hibernate-mapping>
