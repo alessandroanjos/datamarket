@@ -37,6 +37,7 @@ public class OpSolicitaPlano extends Mic{
 					while(i.hasNext()){
 						plano = (PlanoPagamento) i.next();
 						if (plano.getId().equals(id)){
+							plano.setForma(forma);
 							break;
 						}else{
 							plano = null;
