@@ -49,7 +49,7 @@ public class OpSolicitaPlano extends Mic{
 						continue;
 					}
 					Date dataAtual = new Date();
-					if (plano != null && (dataAtual.compareTo(plano.getDataInicioValidade()) < 0 || dataAtual.compareTo(plano.getDataFimValidade()) > 0)){
+					if (plano!= null && plano.getDataInicioValidade()!= null &&  plano.getDataFimValidade() != null && (dataAtual.compareTo(plano.getDataInicioValidade()) < 0 || dataAtual.compareTo(plano.getDataFimValidade()) > 0)){
 						gerenciadorPerifericos.getDisplay().setMensagem("Plano Inválido");
 						gerenciadorPerifericos.esperaVolta();
 						continue;
