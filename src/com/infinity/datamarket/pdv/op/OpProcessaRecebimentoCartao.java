@@ -24,13 +24,16 @@ public class OpProcessaRecebimentoCartao extends OpInicioRecebimento{
 
 		try {
 
+			PlanoPagamento plano = (PlanoPagamento) gerenciadorPerifericos.getCmos().ler(CMOS.PLANO_PAGAMENTO_ATUAL);
+
+			
 			BigDecimal valor = (BigDecimal)gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_PAGAMENTO_ATUAL);
 
 			SolicitacaoOperacaoTEF solicitacao = new SolicitacaoOperacaoTEF();
 			solicitacao.setIdentificacao(new Long(2));
 			solicitacao.setNumeroCOO(new Long(1));
 			solicitacao.setValorOperacao(valor);
-			solicitacao.setNomeRede(TEFPayGo.VISANET);
+			solicitacao.setNomeRede(plano.getDescricao());
 			solicitacao.setMoeda(TEFPayGo.MOEDA_REAL);
 
 			gerenciadorPerifericos.getCmos().gravar("solicitacao",solicitacao);

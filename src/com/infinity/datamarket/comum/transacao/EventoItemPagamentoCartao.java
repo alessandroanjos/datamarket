@@ -3,6 +3,7 @@ package com.infinity.datamarket.comum.transacao;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 public class EventoItemPagamentoCartao extends EventoItemPagamento{
 
@@ -25,6 +26,12 @@ public class EventoItemPagamentoCartao extends EventoItemPagamento{
 		this.parcelas = parcelas;
 	}
 
+	public void adicioanr(ParcelaEventoItemPagamentoCartao parcela) {
+		if (parcelas == null) {
+			parcelas = new HashSet();
+		}
+		parcelas.add(parcela);
+	}
 
 	private java.lang.Long identificacao;
 	private java.lang.Long coo;
