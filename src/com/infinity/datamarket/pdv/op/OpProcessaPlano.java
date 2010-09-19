@@ -58,14 +58,15 @@ public class OpProcessaPlano extends Mic{
 
 		EventoTransacaoPK pk = new EventoTransacaoPK(transacao.getPk().getLoja(),transacao.getPk().getComponente(),transacao.getPk().getNumeroTransacao(),transacao.getPk().getDataTransacao());
 
-		BigDecimal valorAcrescimo = null;
-		BigDecimal valorDesconto = null;
+		BigDecimal valorAcrescimo = BigDecimal.ZERO;
+		BigDecimal valorDesconto = BigDecimal.ZERO
+		;
 
-		if (plano.getPercAcrescimo() != null && plano.getPercAcrescimo().compareTo(new BigDecimal(0)) == 0 ){
+		if (plano != null && plano.getPercAcrescimo() != null && plano.getPercAcrescimo().compareTo(new BigDecimal(0)) == 0 ){
 			BigDecimal fator = plano.getPercAcrescimo().divide(new BigDecimal(100), BigDecimal.ROUND_DOWN);
 			valorAcrescimo = valorPagamento.multiply(fator);
 		}
-		if (plano.getPercDesconto() != null && plano.getPercDesconto().compareTo(new BigDecimal(0)) == 0 ){
+		if (plano != null && plano.getPercDesconto() != null && plano.getPercDesconto().compareTo(new BigDecimal(0)) == 0 ){
 			BigDecimal fator = plano.getPercAcrescimo().divide(new BigDecimal(100), BigDecimal.ROUND_DOWN);
 			valorDesconto = valorPagamento.multiply(fator);
 		}
@@ -178,22 +179,8 @@ public class OpProcessaPlano extends Mic{
 			String textoEspecialCliente = respostaTEF.getTextoEspecialCliente();
 			String nomeAdministrador = respostaTEF.getNomeAutorizadora();
 
-//			EventoTransacaoPK pk, 
-//			int tipoEvento, 
-//			Date dataHoraEvento,
-//			int codigoForma, 
-//			int codigoPlano, 
-//			String formaImpressora, 
-//			BigDecimal valorBruto, 
-//			BigDecimal valorDesconto, 
-//			BigDecimal valorAcrescimo,
-//			String numeroCartao, 
-//			int quantidadeParcelas, 
-//			String autorizacao, 
-//			String codigoAutorizadora)
-
-			eventoItemPagamento = new EventoItemPagamentoCartaoOff
-				(pk,
+			EventoItemPagamentoCartao eventoItemPagamentoCartao = new EventoItemPagamentoCartao
+			(pk,
 				ConstantesEventoTransacao.EVENTO_ITEM_PAGAMENTO,
 				dataAtual,
 				plano.getForma().getId().intValue(),
@@ -201,11 +188,30 @@ public class OpProcessaPlano extends Mic{
 				plano.getForma().getRecebimentoImpressora(),
 				valorPagamento,
 				valorDesconto,
-				valorAcrescimo,
-				"", 
-				quantidadeParcelas.intValue(), 
-				nomeAdministrador, 
-				numeroTranscaoNSUTEF + "");
+				valorAcrescimo);
+
+			eventoItemPagamentoCartao.setIdentificacao(identificacao) ;
+			eventoItemPagamentoCartao.setCoo(coo);
+			eventoItemPagamentoCartao.setValor(valor);
+			if (status != null) 
+				eventoItemPagamentoCartao.setStatus(new Short(status));
+			eventoItemPagamentoCartao.setRede(nomeRede);
+			if (tipoTransacaoCartao != null) 
+				eventoItemPagamentoCartao.setTipoTransacao(new Short(tipoTransacaoCartao.shortValue()));
+
+			eventoItemPagamentoCartao.setNumeroTransacaoNSU(numeroTranscaoNSUTEF);
+			if (codigoAutorizacao != null) 
+				eventoItemPagamentoCartao.setCodigoAutorizacao(new Long(codigoAutorizacao));
+			eventoItemPagamentoCartao.setNumeroLoteTransacao(numeroLoteTransacao);
+			eventoItemPagamentoCartao.setDataHoraTransacaoHost(dataHoraTranscaoHost);
+			eventoItemPagamentoCartao.setDataHoraTransacaoLocal(dataHoraTranscaoLocal);
+			eventoItemPagamentoCartao.setTipoParcelamento(new Short(tipoParcelamento));
+			eventoItemPagamentoCartao.setQuantidadeParcelamento(quantidadeParcelas);
+			eventoItemPagamentoCartao.setDataHoraTransacao(dataHoraTransacao);
+			eventoItemPagamentoCartao.setDataCartaoPreDatado(dataCartaoPreDatado);
+			eventoItemPagamentoCartao.setChaveFinalizacao(chaveFinalizacao);
+			eventoItemPagamentoCartao.setNomeAdministrador(nomeAdministrador);
+
 
 			eventos.add(eventoItemPagamento);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamento);
