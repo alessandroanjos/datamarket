@@ -27,6 +27,8 @@ import com.infinity.datamarket.comum.transacao.EventoItemPagamentoCheque;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoChequePredatado;
 import com.infinity.datamarket.comum.transacao.EventoItemPagamentoTroca;
 import com.infinity.datamarket.comum.transacao.EventoTransacaoPK;
+import com.infinity.datamarket.comum.transacao.ParcelaEventoItemPagamentoCartao;
+import com.infinity.datamarket.comum.transacao.ParcelaEventoItemPagamentoCartaoPK;
 import com.infinity.datamarket.comum.transacao.ParcelaEventoItemPagamentoChequePredatado;
 import com.infinity.datamarket.comum.transacao.ParcelaEventoItemPagamentoChequePredatadoPK;
 import com.infinity.datamarket.comum.transacao.Transacao;
@@ -38,6 +40,7 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
 import com.infinity.datamarket.pdv.tef.RespostaOperacaoTEF;
+import com.infinity.datamarket.pdv.tef.RespostaOperacaoTEF.ParcelaTEF;
 
 public class OpProcessaPlano extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
@@ -190,6 +193,26 @@ public class OpProcessaPlano extends Mic{
 				valorDesconto,
 				valorAcrescimo);
 
+			if (conjuntoParcelas != null && conjuntoParcelas.size() >= 0) {
+				Iterator it = conjuntoParcelas.iterator();
+				while (it.hasNext()) {
+					ParcelaTEF parcela =  (ParcelaTEF)it.next();
+					ParcelaEventoItemPagamentoCartaoPK pkParcela = new ParcelaEventoItemPagamentoCartaoPK();
+					pkParcela.setLoja(pk.getLoja());
+					pkParcela.setComponente(pk.getComponente());
+					pkParcela.setDataTransacao(pk.getDataTransacao());
+					pkParcela.setNumeroEvento(pk.getNumeroEvento());
+					pkParcela.setNumeroTransacao(pk.getNumeroTransacao());
+					pkParcela.setNumeroParcela(parcela.getNsuParcela());
+					
+					ParcelaEventoItemPagamentoCartao itemParcela = new ParcelaEventoItemPagamentoCartao();
+					itemParcela.setPk(pkParcela);
+					itemParcela.setData(parcela.getVencimentoParcela());
+					itemParcela.setValor(parcela.getValorParcela());
+					eventoItemPagamentoCartao.adicioanr(itemParcela);
+				}
+			}
+			
 			eventoItemPagamentoCartao.setIdentificacao(identificacao) ;
 			eventoItemPagamentoCartao.setCoo(coo);
 			eventoItemPagamentoCartao.setValor(valor);
@@ -212,6 +235,7 @@ public class OpProcessaPlano extends Mic{
 			eventoItemPagamentoCartao.setChaveFinalizacao(chaveFinalizacao);
 			eventoItemPagamentoCartao.setNomeAdministrador(nomeAdministrador);
 
+			eventoItemPagamento = eventoItemPagamentoCartao;
 
 			eventos.add(eventoItemPagamento);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.ITEM_PAGAMENTO, eventoItemPagamento);
