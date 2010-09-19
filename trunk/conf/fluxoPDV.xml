@@ -2105,16 +2105,35 @@
   
 	<macroOperacao tipoComponente="1" estadoAtual="ESTADO5" proximoEstado="ESTADO5" tecla="TECLA28" codigoMicroOperacaoAssociada="subFluxo01"  id="44" descricao="Recebimento Cartao">
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo01" operacao="OpInicioRecebimentoCartao">
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo02" />
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo01_" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo88" />
       	<saidaMicroOperacaoAssociada tipoSaida="3" codigoMicroOperacaoAssociadaDestino="subFluxo02" />
       </microOperacaoAssociada>
+      
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo01_" operacao="OpExibeTelaPlanos">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo01_2" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo01_2" operacao="OpSolicitaPlano">
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo01_3" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo02" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo01_3" operacao="OpExibeTelaTotal">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo01_4" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo01_4" operacao="OpExibeDisplayTotal">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo01_5" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo01_5" operacao="OpAlternativaDois">
+      </microOperacaoAssociada>
+
+      
+      
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo02" operacao="OpVerificaServidorTEFAtivo">
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo88" />
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo03" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo03" operacao="OpProcessaRecebimentoCartao">
-      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="saida" />
+      	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo88" />
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo04" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo04" operacao="OpProcessaPlano">
