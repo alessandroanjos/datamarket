@@ -234,6 +234,7 @@ public class OpProcessaPlano extends Mic{
 			eventoItemPagamentoCartao.setDataCartaoPreDatado(dataCartaoPreDatado);
 			eventoItemPagamentoCartao.setChaveFinalizacao(chaveFinalizacao);
 			eventoItemPagamentoCartao.setNomeAdministrador(nomeAdministrador);
+			eventoItemPagamentoCartao.setMoeda(new Short(moeda));
 
 			eventoItemPagamento = eventoItemPagamentoCartao;
 

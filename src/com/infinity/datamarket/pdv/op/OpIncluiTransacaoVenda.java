@@ -80,6 +80,7 @@ public class OpIncluiTransacaoVenda extends Mic{
 			gerenciadorPerifericos.getCmos().gravar(CMOS.CHAVE_ULTIMA_TRANSACAO, trans.getPk());
 		}catch(AppException e){
 			e.printStackTrace();
+			return ALTERNATIVA_2;
 		}
 
 		return ALTERNATIVA_1;
