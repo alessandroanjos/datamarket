@@ -27,17 +27,10 @@ public class OpDesfazAutorizacaoCartaoProprio extends Mic{
 			
 			if (c != null && c.size() > 0){
 				gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
-//				AutorizadorServerRemote remote = (AutorizadorServerRemote) ServiceLocator.getJNDIObject(ServerConfig.AUTORIZADOR_SERVER_JNDI);
-//				if (remote == null){
-//					gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
-//					gerenciadorPerifericos.esperaVolta();
-//					return ALTERNATIVA_2;
-//				}				
 			
 				Iterator i = c.iterator();
 				while(i.hasNext()){
 					DadosAutorizacaoCartaoProprio dados = (DadosAutorizacaoCartaoProprio) i.next();
-//					remote.desfazTransacaoCartaoProprio(new Long(dados.getAutrizacao()));
 					
 					try{
 						URL urlCon = new URL("http://" +
