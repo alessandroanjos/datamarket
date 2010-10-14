@@ -20,7 +20,9 @@ public class OpInicioVenda extends Mic{
 		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_PAGAMENTO_ATUAL, new BigDecimal(0));
 		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TROCO_ATUAL, new BigDecimal(0));
 		gerenciadorPerifericos.getCmos().gravar(CMOS.VALOR_TROCO_ATUAL, new BigDecimal(0));
+		gerenciadorPerifericos.getCmos().gravar(CMOS.DADOS_AUTORIZACOES_CARTAO, new ArrayList());
 		gerenciadorPerifericos.getCmos().gravar(CMOS.DADOS_AUTORIZACOES_CARTAO_PROPRIO, new ArrayList());
+		gerenciadorPerifericos.getCmos().gravar(CMOS.AUTORIZADORA_CARTAO_OFF, new ArrayList());
 		gerenciadorPerifericos.getCmos().gravar(CMOS.PK_OPERACOES, new ArrayList());
 		gerenciadorPerifericos.getCmos().gravar(CMOS.OPERACAO_PEDIDO, null);
 		return ALTERNATIVA_1;

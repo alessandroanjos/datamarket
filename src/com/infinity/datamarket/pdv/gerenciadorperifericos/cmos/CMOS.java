@@ -44,6 +44,7 @@ public interface CMOS {
 	public static final String DADOS_CONSULTA_CARTAO_PROPRIO = "DADOS_CONSULTA_CARTAO_PROPRIO";
 	public static final String AUTORIZADORA_CARTAO_OFF = "AUTORIZADORA_CARTAO_OFF";
 	public static final String DADOS_AUTORIZACOES_CARTAO_PROPRIO = "DADOS_AUTORIZACOES_CARTAO_PROPRIO";
+	public static final String DADOS_AUTORIZACOES_CARTAO = "DADOS_AUTORIZACOES_CARTAO";
 	public static final String DATA_ULTIMA_ABERTURA = "DATA_ULTIMA_ABERTURA";
 	public static final String TIPO_TRANSACAO = "TIPO_TRANSACAO";
 	public static final String DESCONTO = "DESCONTO";

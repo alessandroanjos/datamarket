@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
+
 public class RespostaOperacaoTEF implements Serializable {
-	
+
+	private PlanoPagamento plano;
+
 	private long identificacao;
 	
 	private long numeroCOO;
@@ -108,6 +112,14 @@ public class RespostaOperacaoTEF implements Serializable {
 
 	public void setChaveFinalizacao(String chaveFinalizacao) {
 		this.chaveFinalizacao = chaveFinalizacao;
+	}
+
+	public PlanoPagamento getPlano() {
+		return plano;
+	}
+
+	public void setPlano(PlanoPagamento plano) {
+		this.plano = plano;
 	}
 
 	public String getCmc7() {

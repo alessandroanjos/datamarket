@@ -1,13 +1,10 @@
 package com.infinity.datamarket.pdv.op;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collection;
 
-import com.infinity.datamarket.comum.pagamento.DadosCartaoOff;
-import com.infinity.datamarket.comum.pagamento.DadosCartaoProprio;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
-import com.infinity.datamarket.comum.transacao.ConstantesTransacao;
-import com.infinity.datamarket.comum.transacao.Transacao;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
@@ -62,61 +59,15 @@ public class OpProcessaRecebimentoCartao extends OpInicioRecebimento{
 				return ALTERNATIVA_2;
 			}
 
-			
+			respostaTEF.setPlano(plano);
 			gerenciadorPerifericos.getCmos().gravar("respostaSolicitacao",respostaTEF);
 
-//			SolicitacaoOperacaoTEF solicitacaoConfirmacao = new SolicitacaoOperacaoTEF();
-//			solicitacaoConfirmacao.setIdentificacao(respostaTEF.getIdentificacao());
-//			solicitacaoConfirmacao.setNumeroCOO(respostaTEF.getNumeroCOO());
-//			solicitacaoConfirmacao.setNomeRede(respostaTEF.getNomeRede());
-//			solicitacaoConfirmacao.setNsuTEF(respostaTEF.getNsuTEF());
-//			solicitacaoConfirmacao.setChaveFinalizacao(respostaTEF.getChaveFinalizacao());
-//			gerenciadorPerifericos.getCmos().gravar("confirmacaoSolicitacao",solicitacaoConfirmacao);
-//
-//			RespostaOperacaoTEF respostaConfirmacaoTEF = GerenciadorTEF.getInstancia().getTef().confirmaOperacao(solicitacao);
-//
-//			gerenciadorPerifericos.getCmos().gravar("respostaConfirmacaoSolicitacao",respostaConfirmacaoTEF);
-
-			
-			
-//			DadosAutorizacaoCartaoProprio
-//				private String autrizacao;
-//				private String loja;
-//				private String componente;
-//				private Date data;
-//				private BigDecimal valor;
-//				private String nome;
-			
-//				para
-//			DadosCartaoProprio dados = new DadosCartaoProprio();
-//			dados.setAutorizacao(dadosAutorizacao.getAutrizacao());
-//			dados.setCPFCNPJ(CPFCNPJ);
-//
-//
-//			//plano.getForma().getId().intValue(),plano.getId().intValue(),plano.getForma().getRecebimentoImpressora()
-//			DadosCartaoOff dados = (DadosCartaoOff) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_CARTA);
-//			BigDecimal valorPagamento = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_PAGAMENTO_ATUAL);
-//			PlanoPagamento plano = (PlanoPagamento) gerenciadorPerifericos.getCmos().ler(CMOS.PLANO_PAGAMENTO_ATUAL);
-//			BigDecimal subTotal = (BigDecimal) gerenciadorPerifericos.getCmos().ler(CMOS.SUB_TOTAL);
-//
-//			if (valorPagamento.compareTo(subTotal) > 0){
-//				valorPagamento = subTotal;
-//			}
-//			Transacao transacao = null;
-//			Integer tipoTransacao = (Integer) gerenciadorPerifericos.getCmos().ler(CMOS.TIPO_TRANSACAO);
-//			if (tipoTransacao.intValue() == ConstantesTransacao.TRANSACAO_VENDA){
-//				transacao = (Transacao) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_VENDA_ATUAL);
-//			}else {
-//				transacao = (Transacao) gerenciadorPerifericos.getCmos().ler(CMOS.TRANSACAO_PAGAMENTO_ATUAL);
-//			}
-//			//
-//			
-//			
-//			
-//			
-//			
-//			
-//			
+			Collection c = (Collection) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_AUTORIZACOES_CARTAO);
+			if (c == null){
+				c = new ArrayList();
+			}
+			c.add(respostaTEF);
+			gerenciadorPerifericos.getCmos().gravar(CMOS.DADOS_AUTORIZACOES_CARTAO,c);
 
 		} catch (AppException e) {
 			e.printStackTrace();

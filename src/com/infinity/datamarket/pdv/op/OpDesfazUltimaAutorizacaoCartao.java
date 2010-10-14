@@ -24,7 +24,8 @@ import com.infinity.datamarket.pdv.tef.RespostaOperacaoTEF;
 import com.infinity.datamarket.pdv.tef.SolicitacaoOperacaoTEF;
 import com.infinity.datamarket.pdv.util.ServerConfig;
 
-public class OpDesfazAutorizacaoCartao extends Mic{
+public class OpDesfazUltimaAutorizacaoCartao extends OpDesfazAutorizacaoCartao {
+
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
 		try{
@@ -32,7 +33,7 @@ public class OpDesfazAutorizacaoCartao extends Mic{
 			
 			if (c != null && c.size() > 0){
 				gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
-			
+
 				Iterator i = c.iterator();
 				while(i.hasNext()){
 					RespostaOperacaoTEF  respostaTEF = (RespostaOperacaoTEF) i.next();
