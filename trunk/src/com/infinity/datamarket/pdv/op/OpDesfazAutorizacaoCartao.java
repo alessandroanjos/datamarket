@@ -70,7 +70,19 @@ public class OpDesfazAutorizacaoCartao extends Mic{
 							solicitacao.setDigitoCheque(respostaTEF.getDigitoCheque());
 						}		
 		
+						
 						RespostaOperacaoTEF  respostaCancelamentoTEF = GerenciadorTEF.getInstancia().getTef().cancelaOperacao(solicitacao, ehCheque);
+						
+						SolicitacaoOperacaoTEF solicitacaoConfirmacaoCancelamento = new SolicitacaoOperacaoTEF();
+						//solicitacaoConfirmacaoCancelamento.setPlano(respostaTEF.getPlano());
+						solicitacaoConfirmacaoCancelamento.setIdentificacao(respostaCancelamentoTEF.getIdentificacao());
+						solicitacaoConfirmacaoCancelamento.setNumeroCOO(respostaCancelamentoTEF.getNumeroCOO());
+						solicitacaoConfirmacaoCancelamento.setNomeRede(respostaCancelamentoTEF.getNomeRede());
+						solicitacaoConfirmacaoCancelamento.setNsuTEF(respostaCancelamentoTEF.getNsuTEF());
+						solicitacaoConfirmacaoCancelamento.setChaveFinalizacao(respostaCancelamentoTEF.getChaveFinalizacao());
+
+						RespostaOperacaoTEF respostaConfirmacaoTEF = GerenciadorTEF.getInstancia().getTef().confirmaOperacao(solicitacaoConfirmacaoCancelamento);
+
 					}				
 
 				}

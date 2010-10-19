@@ -1,37 +1,24 @@
 package com.infinity.datamarket.pdv.op;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
-import com.infinity.datamarket.autorizador.AutorizacaoException;
-import com.infinity.datamarket.autorizador.AutorizadorServerRemote;
-import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.comum.util.StringUtil;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.ImpressoraFiscalException;
 import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
+import com.infinity.datamarket.pdv.tef.GerenciadorTEF;
 import com.infinity.datamarket.pdv.tef.RespostaOperacaoTEF;
-import com.infinity.datamarket.pdv.util.ServerConfig;
-import com.infinity.datamarket.pdv.util.ServiceLocator;
+import com.infinity.datamarket.pdv.tef.SolicitacaoOperacaoTEF;
 
 public class OpImprimeConfirmaAutorizacaoCartao extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
-		
-		try{
 
+		try{
 			RespostaOperacaoTEF  respostaTEF  = (RespostaOperacaoTEF )gerenciadorPerifericos.getCmos().ler("respostaSolicitacao");
 			if (respostaTEF != null) {
 				imprimeComprovante(respostaTEF.getLinhasComprovantePrincipal(), gerenciadorPerifericos);
 			}
-			
+
 		}catch(ImpressoraFiscalException e){
 			e.printStackTrace();
 			gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
