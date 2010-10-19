@@ -8,6 +8,8 @@ import com.infinity.datamarket.pdv.gerenciadorperifericos.impressorafiscal.Impre
 
 public class ImpressoraFiscalVirtual implements ImpressoraFiscal{
 
+	public static long numeroCupom = 0;
+	
 	public void cancelaCupom() throws ImpressoraFiscalException {
 		// TODO Auto-generated method stub
 		
@@ -50,7 +52,8 @@ public class ImpressoraFiscalVirtual implements ImpressoraFiscal{
 
 	public long getNumeroCupom() throws ImpressoraFiscalException {
 		// TODO Auto-generated method stub
-		return 0;
+		numeroCupom++;
+		return numeroCupom;
 	}
 
 	public void imprimeRelatorioGerencial(String texto) throws ImpressoraFiscalException {

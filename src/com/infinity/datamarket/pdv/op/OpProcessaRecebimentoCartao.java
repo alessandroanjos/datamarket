@@ -33,7 +33,8 @@ public class OpProcessaRecebimentoCartao extends OpInicioRecebimento{
 			SolicitacaoOperacaoTEF solicitacao = new SolicitacaoOperacaoTEF();
 			solicitacao.setIdentificacao(new Long(c.size() + 1));
 			//pegar o numero da impressora
-			solicitacao.setNumeroCOO(new Long(1));
+			long numeroCupom = gerenciadorPerifericos.getImpressoraFiscal().getNumeroCupom();
+			solicitacao.setNumeroCOO(numeroCupom);
 			solicitacao.setValorOperacao(valor);
 			solicitacao.setNomeRede(plano.getDescricao());
 			solicitacao.setMoeda(TEFPayGo.MOEDA_REAL);
