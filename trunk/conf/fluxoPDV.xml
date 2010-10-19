@@ -798,9 +798,15 @@
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo118" operacao="OpAutorizacao">
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo119" />
-      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo171" />
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo171_01" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo119" operacao="OpExibeDisplayDisponivel">
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo171_01" operacao="OpDesfazAutorizacaoCartaoProprio">
+		<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo171_02" />
+      </microOperacaoAssociada>
+      <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo171_02" operacao="OpDesfazAutorizacaoCartao">
+      	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo171" />
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo171" operacao="OpCancelaCupom">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo117" />
@@ -808,7 +814,7 @@
       </microOperacaoAssociada>
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo117" operacao="OpCancelaUltimoCupom">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo119" />
-      </microOperacaoAssociada>
+      </microOperacaoAssociada>tosck
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo195" operacao="OpExibeDisplayDisponivel">
       </microOperacaoAssociada>
     </macroOperacao>
