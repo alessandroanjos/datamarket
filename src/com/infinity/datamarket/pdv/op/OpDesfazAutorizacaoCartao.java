@@ -28,7 +28,7 @@ public class OpDesfazAutorizacaoCartao extends Mic{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
 		try{
-			Collection c = (Collection) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_AUTORIZACOES_CARTAO_PROPRIO);
+			Collection c = (Collection) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_AUTORIZACOES_CARTAO);
 			
 			if (c != null && c.size() > 0){
 				gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
@@ -75,6 +75,10 @@ public class OpDesfazAutorizacaoCartao extends Mic{
 
 				}
 			}	
+			
+			
+			gerenciadorPerifericos.getCmos().gravar(CMOS.DADOS_AUTORIZACOES_CARTAO,new ArrayList());
+
 		}catch(Exception e){
 			e.printStackTrace();
 			gerenciadorPerifericos.getDisplay().setMensagem("Erro de Comunicação");
