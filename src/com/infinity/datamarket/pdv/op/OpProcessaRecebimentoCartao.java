@@ -20,14 +20,19 @@ public class OpProcessaRecebimentoCartao extends OpInicioRecebimento{
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
 		try {
-
+			Collection c = (Collection) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_AUTORIZACOES_CARTAO);
+			if (c == null){
+				c = new ArrayList();
+			}
+			
 			PlanoPagamento plano = (PlanoPagamento) gerenciadorPerifericos.getCmos().ler(CMOS.PLANO_PAGAMENTO_ATUAL);
 
 			
 			BigDecimal valor = (BigDecimal)gerenciadorPerifericos.getCmos().ler(CMOS.VALOR_PAGAMENTO_ATUAL);
 
 			SolicitacaoOperacaoTEF solicitacao = new SolicitacaoOperacaoTEF();
-			solicitacao.setIdentificacao(new Long(2));
+			solicitacao.setIdentificacao(new Long(c.size() + 1));
+			//pegar o numero da impressora
 			solicitacao.setNumeroCOO(new Long(1));
 			solicitacao.setValorOperacao(valor);
 			solicitacao.setNomeRede(plano.getDescricao());
@@ -60,12 +65,23 @@ public class OpProcessaRecebimentoCartao extends OpInicioRecebimento{
 			}
 
 			respostaTEF.setPlano(plano);
-			gerenciadorPerifericos.getCmos().gravar("respostaSolicitacao",respostaTEF);
 
-			Collection c = (Collection) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_AUTORIZACOES_CARTAO);
-			if (c == null){
-				c = new ArrayList();
-			}
+			SolicitacaoOperacaoTEF solicitacaoConfirmacao = new SolicitacaoOperacaoTEF();
+			solicitacaoConfirmacao.setIdentificacao(respostaTEF.getIdentificacao());
+			solicitacaoConfirmacao.setNumeroCOO(respostaTEF.getNumeroCOO());
+			solicitacaoConfirmacao.setNomeRede(respostaTEF.getNomeRede());
+			solicitacaoConfirmacao.setNsuTEF(respostaTEF.getNsuTEF());
+			solicitacaoConfirmacao.setChaveFinalizacao(respostaTEF.getChaveFinalizacao());
+			gerenciadorPerifericos.getCmos().gravar("confirmacaoSolicitacao",solicitacaoConfirmacao);
+
+			RespostaOperacaoTEF respostaConfirmacaoTEF = GerenciadorTEF.getInstancia().getTef().confirmaOperacao(solicitacaoConfirmacao);
+			respostaConfirmacaoTEF.setPlano(respostaTEF.getPlano());
+
+			gerenciadorPerifericos.getCmos().gravar("respostaConfirmacaoSolicitacao",respostaConfirmacaoTEF);
+
+			gerenciadorPerifericos.getCmos().gravar("respostaSolicitacao",respostaTEF);
+			//gerenciadorPerifericos.getCmos().gravar("respostaSolicitacao",respostaConfirmacaoTEF);
+
 			c.add(respostaTEF);
 			gerenciadorPerifericos.getCmos().gravar(CMOS.DADOS_AUTORIZACOES_CARTAO,c);
 

@@ -29,15 +29,12 @@ public class OpDesfazUltimaAutorizacaoCartao extends OpDesfazAutorizacaoCartao {
 	public int exec(GerenciadorPerifericos gerenciadorPerifericos, ParametroMacroOperacao param){
 
 		try{
-			Collection c = (Collection) gerenciadorPerifericos.getCmos().ler(CMOS.DADOS_AUTORIZACOES_CARTAO_PROPRIO);
-			
-			if (c != null && c.size() > 0){
+
+			RespostaOperacaoTEF respostaTEF = (RespostaOperacaoTEF) gerenciadorPerifericos.getCmos().ler("respostaConfirmacaoSolicitacao");
+
+			if (respostaTEF != null){
 				gerenciadorPerifericos.getDisplay().setMensagem("Aguarde...");
 
-				Iterator i = c.iterator();
-				while(i.hasNext()){
-					RespostaOperacaoTEF  respostaTEF = (RespostaOperacaoTEF) i.next();
-					
 					PlanoPagamento plano = respostaTEF.getPlano();
 					
 					
@@ -72,9 +69,19 @@ public class OpDesfazUltimaAutorizacaoCartao extends OpDesfazAutorizacaoCartao {
 						}		
 		
 						RespostaOperacaoTEF  respostaCancelamentoTEF = GerenciadorTEF.getInstancia().getTef().cancelaOperacao(solicitacao, ehCheque);
+					
+						SolicitacaoOperacaoTEF solicitacaoConfirmacaoCancelamento = new SolicitacaoOperacaoTEF();
+						//solicitacaoConfirmacaoCancelamento.setPlano(respostaTEF.getPlano());
+						solicitacaoConfirmacaoCancelamento.setIdentificacao(respostaCancelamentoTEF.getIdentificacao());
+						solicitacaoConfirmacaoCancelamento.setNumeroCOO(respostaCancelamentoTEF.getNumeroCOO());
+						solicitacaoConfirmacaoCancelamento.setNomeRede(respostaCancelamentoTEF.getNomeRede());
+						solicitacaoConfirmacaoCancelamento.setNsuTEF(respostaCancelamentoTEF.getNsuTEF());
+						solicitacaoConfirmacaoCancelamento.setChaveFinalizacao(respostaCancelamentoTEF.getChaveFinalizacao());
+
+						RespostaOperacaoTEF respostaConfirmacaoTEF = GerenciadorTEF.getInstancia().getTef().confirmaOperacao(solicitacaoConfirmacaoCancelamento);
+
 					}				
 
-				}
 			}	
 		}catch(Exception e){
 			e.printStackTrace();
