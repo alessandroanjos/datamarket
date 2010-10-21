@@ -35,4 +35,8 @@ public interface ImpressoraFiscal {
 	public void addAliquota(BigDecimal aliquota) throws ImpressoraFiscalException;
 	public Collection getAliqoutas() throws ImpressoraFiscalException;
 	
+	public void iniciaComprovanteNaoFiscalVinculado() throws ImpressoraFiscalException;
+	public void imprimeComprovanteNaoFiscalVinculado(String[] texto) throws ImpressoraFiscalException;
+	public void finalizaComprovanteNaoFiscalVinculado() throws ImpressoraFiscalException;
+
 }

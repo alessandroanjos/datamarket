@@ -74,7 +74,9 @@ public class ThreadEnviaTransacao extends Thread{
 							}
 						} catch (Exception e) {
 							System.out.println("ERRO NO PROCESSAMENTO DA TRANSAÇÃO");
-							e.printStackTrace();
+							if (!"Connection refused: connect".equalsIgnoreCase(e.getMessage())) {
+								e.printStackTrace();
+							}
 							break;
 						}
 

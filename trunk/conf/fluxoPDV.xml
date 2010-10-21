@@ -2387,7 +2387,6 @@
       	<saidaMicroOperacaoAssociada tipoSaida="2" codigoMicroOperacaoAssociadaDestino="subFluxo240_3" />
       </microOperacaoAssociada>
 
-
       <microOperacaoAssociada codigoMicroOperacaoAssociada="subFluxo271" operacao="OpSolicitaCliente">
       	<saidaMicroOperacaoAssociada tipoSaida="1" codigoMicroOperacaoAssociadaDestino="subFluxo92" />
       </microOperacaoAssociada>

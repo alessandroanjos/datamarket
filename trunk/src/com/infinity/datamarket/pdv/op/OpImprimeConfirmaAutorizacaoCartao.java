@@ -45,16 +45,9 @@ public class OpImprimeConfirmaAutorizacaoCartao extends Mic{
 	}
 	
 	private void imprimeComprovante(String[] linhas, GerenciadorPerifericos ger) throws ImpressoraFiscalException{
-		StringBuffer buffer = new StringBuffer();
-		System.out.println("Imprime cupom");
-		for (int i = 0; i < linhas.length; i++) {
-			System.out.println(linhas[i]);
-			buffer.append(StringUtil.centraliza("CARTÃO PRÓPRIO", 48));
-		}
-		System.out.println("FIM - Imprime cupom");
-
-		ger.getImpressoraFiscal().imprimeRelatorioGerencial(buffer.toString());
-		ger.getImpressoraFiscal().finalizaRelatorioGerencial();
+		ger.getImpressoraFiscal().iniciaComprovanteNaoFiscalVinculado();
+		ger.getImpressoraFiscal().imprimeComprovanteNaoFiscalVinculado(linhas);
+		ger.getImpressoraFiscal().finalizaComprovanteNaoFiscalVinculado();
 	}
 	
 }

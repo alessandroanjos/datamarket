@@ -33,15 +33,17 @@ public class GerenciadorTEF {
 	public static RespostaOperacaoTEF respostaTEF;
 	
 	public static void main(String[] args) {
-		//GerenciadorTEF.getInstancia().testeServicoAtivo();
+		System.out.println("A");
+		GerenciadorTEF.getInstancia().testeServicoAtivo();
+		System.out.println("B");
+		GerenciadorTEF.getInstancia().testeSolicitaOperacaoCartao(1);
+		System.out.println("C");
+		GerenciadorTEF.getInstancia().testeSolicitaOperacaoCartao(2);
+		System.out.println("D");
+		GerenciadorTEF.getInstancia().testeConfirmaOperacao(1);
+		System.out.println("E");
+		GerenciadorTEF.getInstancia().testeConfirmaOperacao(2);
 
-	//	GerenciadorTEF.getInstancia().testeSolicitaOperacaoAdministracao();
-		GerenciadorTEF.getInstancia().testeSolicitaOperacaoCartao();
-//		GerenciadorTEF.getInstancia().testeCancelaOperacao(false);
-//		GerenciadorTEF.getInstancia().testeSolicitaOperacaoCheque();
-//		GerenciadorTEF.getInstancia().testeCancelaOperacao(true);
-		GerenciadorTEF.getInstancia().testeConfirmaOperacao();
-//		GerenciadorTEF.getInstancia().testeDesfazOperacao();
 	}
 	
 	private void testeSolicitaOperacaoAdministracao(){
@@ -73,9 +75,9 @@ public class GerenciadorTEF {
 	}
 
 	
-	private void testeSolicitaOperacaoCartao(){
+	private void testeSolicitaOperacaoCartao(long identificador){
 		SolicitacaoOperacaoTEF solicitacao = new SolicitacaoOperacaoTEF();
-		solicitacao.setIdentificacao(new Long(2));
+		solicitacao.setIdentificacao(identificador);
 		solicitacao.setNumeroCOO(new Long(1));
 		solicitacao.setValorOperacao(new BigDecimal("50.00"));
 		solicitacao.setNomeRede(TEFPayGo.VISANET);
@@ -158,9 +160,9 @@ public class GerenciadorTEF {
 		}
 	}
 	
-	private void testeConfirmaOperacao(){
+	private void testeConfirmaOperacao(long identificacao){
 		SolicitacaoOperacaoTEF solicitacao = new SolicitacaoOperacaoTEF();
-		solicitacao.setIdentificacao(respostaTEF.getIdentificacao());
+		solicitacao.setIdentificacao(identificacao);
 		solicitacao.setNumeroCOO(respostaTEF.getNumeroCOO());
 		solicitacao.setNomeRede(respostaTEF.getNomeRede());
 		solicitacao.setNsuTEF(respostaTEF.getNsuTEF());
