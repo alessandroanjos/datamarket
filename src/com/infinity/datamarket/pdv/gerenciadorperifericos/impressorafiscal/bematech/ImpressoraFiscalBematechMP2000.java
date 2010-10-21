@@ -240,6 +240,20 @@ public class ImpressoraFiscalBematechMP2000 implements ImpressoraFiscal, Seriali
 		return c;
 	
 	}
-	
+
+	public void iniciaComprovanteNaoFiscalVinculado() throws ImpressoraFiscalException{
+		lib.Bematech_FI_IniciaModoTEF();
+	}
+	public void finalizaComprovanteNaoFiscalVinculado() throws ImpressoraFiscalException{
+		lib.Bematech_FI_FinalizaModoTEF();
+	}
+
+	public void imprimeComprovanteNaoFiscalVinculado(String[] texto) throws ImpressoraFiscalException{
+
+		for (int i = 0; i < texto.length; i++) {
+			lib.Bematech_FI_UsaComprovanteNaoFiscalVinculadoTEF(texto[i]);
+		}
+
+	}
 
 }

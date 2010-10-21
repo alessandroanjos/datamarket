@@ -120,5 +120,13 @@ public class ImpressoraFiscalVirtual implements ImpressoraFiscal{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public void iniciaComprovanteNaoFiscalVinculado() throws ImpressoraFiscalException{
+	}
+	public void finalizaComprovanteNaoFiscalVinculado() throws ImpressoraFiscalException{
+	}
+
+	public void imprimeComprovanteNaoFiscalVinculado(String[] texto) throws ImpressoraFiscalException{
+		
+	}
 
 }

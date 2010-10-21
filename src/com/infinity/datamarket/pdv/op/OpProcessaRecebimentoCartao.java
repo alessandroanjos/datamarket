@@ -47,13 +47,15 @@ public class OpProcessaRecebimentoCartao extends OpInicioRecebimento{
 
 				if (respostaTEF.getTextoEspecialCliente() != null && !"".equals(respostaTEF.getTextoEspecialCliente())) {
 					gerenciadorPerifericos.getDisplay().setMensagem(respostaTEF.getTextoEspecialCliente());
-					gerenciadorPerifericos.esperaVolta();
+			    	javax.swing.JOptionPane.showMessageDialog(null, respostaTEF.getTextoEspecialCliente(), "Atenção", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+//					gerenciadorPerifericos.esperaVolta();
 					return ALTERNATIVA_2;
 				}
 
 				if (respostaTEF.getTextoEspecialOperador()  != null && !"".equals(respostaTEF.getTextoEspecialOperador())) {
 					gerenciadorPerifericos.getDisplay().setMensagem(respostaTEF.getTextoEspecialOperador());
-					gerenciadorPerifericos.esperaVolta();
+			    	javax.swing.JOptionPane.showMessageDialog(null, respostaTEF.getTextoEspecialOperador(), "Atenção", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+//					gerenciadorPerifericos.esperaVolta();
 					return ALTERNATIVA_2;
 				}
 

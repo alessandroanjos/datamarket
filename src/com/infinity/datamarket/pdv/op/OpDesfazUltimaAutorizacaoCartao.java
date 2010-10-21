@@ -1,28 +1,13 @@
 package com.infinity.datamarket.pdv.op;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
-import com.infinity.datamarket.autorizador.AutorizacaoException;
-import com.infinity.datamarket.autorizador.DadosAutorizacaoCartaoProprio;
 import com.infinity.datamarket.comum.pagamento.ConstantesFormaRecebimento;
 import com.infinity.datamarket.comum.pagamento.PlanoPagamento;
-import com.infinity.datamarket.comum.transacao.TransacaoVenda;
 import com.infinity.datamarket.comum.util.AppException;
 import com.infinity.datamarket.pdv.gerenciadorperifericos.GerenciadorPerifericos;
-import com.infinity.datamarket.pdv.gerenciadorperifericos.cmos.CMOS;
-import com.infinity.datamarket.pdv.maquinaestados.Mic;
 import com.infinity.datamarket.pdv.maquinaestados.ParametroMacroOperacao;
-import com.infinity.datamarket.pdv.tef.ExcecaoTEF;
 import com.infinity.datamarket.pdv.tef.GerenciadorTEF;
 import com.infinity.datamarket.pdv.tef.RespostaOperacaoTEF;
 import com.infinity.datamarket.pdv.tef.SolicitacaoOperacaoTEF;
-import com.infinity.datamarket.pdv.util.ServerConfig;
 
 public class OpDesfazUltimaAutorizacaoCartao extends OpDesfazAutorizacaoCartao {
 
