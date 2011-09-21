@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="datamarket">
+    <wb-module deploy-name="EnterpriseServer">
         <wb-resource deploy-path="/" source-path="/WebResources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="datamarket"/>
+        <property name="context-root" value="EnterpriseServer"/>
         <property name="java-output-path"/>
     </wb-module>
 </project-modules>
