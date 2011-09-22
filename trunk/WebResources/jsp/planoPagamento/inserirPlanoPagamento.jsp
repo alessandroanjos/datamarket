@@ -71,7 +71,7 @@
 								</li>
 								<li class="normal">						
 									<div>
-										<h:outputLabel styleClass="desc" value="Forma de Receb. Associada"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Forma de Receb. Associada *"></h:outputLabel>
 										<h:selectOneMenu id="idForma" styleClass="field select" style="width: 190px;" 
 											value="#{planoPagamentoBB.idForma}" > 
 												  <f:selectItems id="formaSelectItems" 
@@ -94,7 +94,7 @@
 									</div>								
 									<div>
 										<h:outputLabel styleClass="desc" value="Valor Máximo"></h:outputLabel>
-										<h:inputText styleClass="field text" id="valorMaximo" maxlength="10" size="10"
+										<h:inputText styleClass="field text" id="valorMaximo" maxlength="9" size="10"
 											value="#{planoPagamentoBB.valorMaximo}" dir="rtl" required="false" 
 											onkeydown="return(BackSpace(this,event));"  onkeypress="return(MascaraMoeda(this,'','.',event));" >
 											<f:validateLength maximum="10" />
@@ -130,7 +130,7 @@
 								</li>
 								<li class="normal">
 									<div>
-										<h:outputLabel styleClass="desc" value="Inicio Validade"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Inicio Validade *"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataInicioValidade" maxlength="10" size="10" required="false"
 											value="#{planoPagamentoBB.dataInicioValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 											
@@ -138,7 +138,7 @@
 										
 									</div>
 									<div>
-										<h:outputLabel styleClass="desc" value="Final Validade"></h:outputLabel>
+										<h:outputLabel styleClass="desc" value="Final Validade *"></h:outputLabel>
 										<h:inputText styleClass="field text" id="dataFimValidade" maxlength="10" size="10" required="false"
 											value="#{planoPagamentoBB.dataFimValidade}" onkeypress="return MascaraData(this,event);" onblur="if (!isDate(this.value)) { alert(ERRO_DATA_INVALIDA); this.select(); }">
 										</h:inputText>
