@@ -17,8 +17,7 @@
             </generator>
         </id>
 
-
-        <property name="dado" type="serializable" update="true" insert="true">
+        <property name="dado" type="serializable" update="true" insert="true" >
             <column name="DADO" not-null="false"/>
         </property>
         

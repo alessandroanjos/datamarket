@@ -1,3 +1,5 @@
+ALTER TABLE `enterprise`.`dados_lote` MODIFY COLUMN `DADO` BLOB;
+
 delete from perfil_funcionalidad
 
 delete from funcionalidade
@@ -120,7 +122,7 @@ insert into funcionalidade (id, id_func_superior, descricao, situacao, url,largu
 insert into perfil_usuario values ( 1, 'Administrador', null, 0.0 );
 
 insert into perfil_funcionalidade
-select 1, id from funcionalidade
+select 1, id from funcionalidade;
 
 update funcionalidade set largura = 0, altura = 0;
 
@@ -132,73 +134,144 @@ insert into usuario values (1,'Admin', '1',1 );
 
 
 
+insert into macro_operacao (id,descricao,tipo_componente) values (101,'Saida Sistema Fechado',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (102,'Saida Sistema Aberto',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (103,'Saida Sistema Devolucao',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (104,'Saida Sistema Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (105,'Abertura de AV',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (106,'Volta Fechado',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (107,'Saida Separacao',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (108,'Volta Separacao',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (109,'Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (110,'Volta Fechado',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (111,'Desconto Item',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (112,'Venda Item',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (113,'Excluir Venda Item',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (114,'Finaliza Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (115,'Finaliza Separacao',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (116,'Separacao',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (117,'Separa Item',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (118,'Cancela Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (119,'Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (120,'Saida Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (121,'Excluir Item Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (122,'Adicionar Item Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (123,'Finalizar Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (124,'Cancelar Altera Pedido',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (125,'Desconto Item Altera Pedido',2);
+
+insert into macro_operacao (id,descricao,tipo_componente) values (39,'Solicita Carga Base',1);
+insert into macro_operacao (id,descricao,tipo_componente) values (40,'Resgate de Pedido',1);
+insert into macro_operacao (id,descricao,tipo_componente) values (41,'Recebimento em Boleto',1);
+insert into macro_operacao (id,descricao,tipo_componente) values (42,'Consulta Pedido',1);
+insert into macro_operacao (id,descricao,tipo_componente) values (43,'Número do Pedido',1);
+insert into macro_operacao (id,descricao,tipo_componente) values (44,'Recebimento Cartao',1);
+
+
+insert into macro_operacao (id,descricao,tipo_componente) values (44,'Recebimento Cartao',1);
+insert into macro_operacao (id,descricao,tipo_componente) values (45,'Configuracao TEF',1);
+insert into macro_operacao (id,descricao,tipo_componente) values (46,'Recebimento Chegue-TEF',1);
+
+insert into macro_operacao (id,descricao,tipo_componente) values (126,'Solicita Carga Base Estado Fechado',2);
+insert into macro_operacao (id,descricao,tipo_componente) values (127,'Solicita Carga Base Estado Aberto',2);
+
+
+
+insert into macro_operacao (id,descricao,tipo_componente) values ( 1, 'Abertura de Caixa',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 2, 'Saida Sistema Fechado',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 3, 'Saida Sistema Fechado Parcial',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 4, 'Entrada Operador',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 5, 'Saida Sistema Disponivel',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 6, 'Inicio Venda',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 7, 'Venda Item',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 8, 'Total',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 9, 'Recebimento Dinheiro',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 10, 'Cancela Item',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 11, 'Desconto Item',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 12, 'Multiplicacao Item',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 13, 'Sangria',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 14, 'Resuprimento',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 15, 'Pausa',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 16, 'Saida Pausa',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 17, 'Consulta Produto Nome',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 18, 'Volta Venda',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 19, 'Fechamento X',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 20, 'Fechamento Z',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 21, 'Volta Recebimento',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 22, 'Desconto Cupom',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 23, 'Cancela Cupom',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 24, 'Cancela Ultimo Cupom',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 25, 'Recebimento Cheque',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 26, 'Recebimento Cheque Pre',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 27, 'Recebimento Cartao Off',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 28, 'Recebimento Cartao Proprio',1);
+insert into macro_operacao (id,descricao,tipo_componente) values ( 29, 'Leitura X',1);
+
+insert into ACUMULADOR_NAO_FISCAL (ID,DESCRICAO) values (1,	'SUPRIMENTO');
+insert into ACUMULADOR_NAO_FISCAL (ID,DESCRICAO) values (2,	'SANGRIA');
+
+
+insert into AUTORIZADORA (id,descricao,desagil,situacao) values (1,	'VISA',	5.00,	'A');
+insert into AUTORIZADORA  (id,descricao,desagil,situacao) values (2	,	'MASTERCARD',	5.00	,	'A');
+insert into AUTORIZADORA  (id,descricao,desagil,situacao) values (3	,	'HIPERCARD',	5.00	,	'A');
+
+ 
+
+insert into LOJA (ID, NOME, NUMERO_IP, NUMERO_PORTA, ID_ESTOQUE_ATUAL, ID_CONTA_CORRENTE) values (1,	'LOJA PILOTO',	'10.0.0.254',	'8000',	null, null);
+insert into ESTOQUE (id,loja,descricao) values (1,1,	'Estoque Principal');
+update LOJA set id_estoque_atual = 1;
 
 
 
 
+insert into COMPONENTE (ID,DESCRICAO,NUMERO_IP,TIPO_COMPONENTE,VERSAO,NUMERO_PORTA,ID_LOJA) values (1, 'PDV1',	'127.0.0.1',1,'0.1','8000',	1);
 
 
 
 
+insert into FORMA_RECEBIMENTO (ID,DESCRICAO,REC_IMPRESSORA,ABRIR_GAVETA,VALOR_LIMITE_SANGRIA, DATA_INICIO_VALIDADE,VALOR_MAX_TROCO,ID_FORMA_TROCO,DATA_FIM_VALIDADE,VALIDA_PAGAMENTO_CONTA,VALIDA_RECEBIMENTO_CONTA) values (1,	'DINHEIRO','DINHEIRO'	,'S'	,1.00,	'2011-09-16 15:41:22',	1.00,	1	,'2009-12-04 00:00:00','N','N');
+insert into FORMA_RECEBIMENTO  (ID,DESCRICAO,REC_IMPRESSORA,ABRIR_GAVETA,VALOR_LIMITE_SANGRIA,DATA_INICIO_VALIDADE,VALOR_MAX_TROCO,ID_FORMA_TROCO,DATA_FIM_VALIDADE,VALIDA_PAGAMENTO_CONTA,VALIDA_RECEBIMENTO_CONTA) values (2,	'CHEQUE','CHEQUE'	,'S',	1.00,	'2007-12-04 00:00:00',	1.00,	NULL,	'2009-12-04 00:00:00','N','N');
+insert into FORMA_RECEBIMENTO  (ID,DESCRICAO,REC_IMPRESSORA,ABRIR_GAVETA,VALOR_LIMITE_SANGRIA,DATA_INICIO_VALIDADE,VALOR_MAX_TROCO,ID_FORMA_TROCO,DATA_FIM_VALIDADE,VALIDA_PAGAMENTO_CONTA,VALIDA_RECEBIMENTO_CONTA) values (3,	'CHEQUE-PRE','CHEQUE-PRE'	,'S',	1.00,	'2007-12-04 00:00:00.000',	1.00,	NULL	,'2009-12-04 00:00:00.000','N','N');
+insert into FORMA_RECEBIMENTO  (ID,DESCRICAO,REC_IMPRESSORA,ABRIR_GAVETA,VALOR_LIMITE_SANGRIA,DATA_INICIO_VALIDADE,VALOR_MAX_TROCO,ID_FORMA_TROCO,DATA_FIM_VALIDADE,VALIDA_PAGAMENTO_CONTA,VALIDA_RECEBIMENTO_CONTA) values (4,	'CARTÃO OFF','CARTAO_OFF','S',	1.00,	'2007-12-04 00:00:00.000',	1.00,	NULL	,'2007-12-04 00:00:00.000','N','N');
+insert into FORMA_RECEBIMENTO  (ID,DESCRICAO,REC_IMPRESSORA,ABRIR_GAVETA,VALOR_LIMITE_SANGRIA,DATA_INICIO_VALIDADE,VALOR_MAX_TROCO,ID_FORMA_TROCO,DATA_FIM_VALIDADE,VALIDA_PAGAMENTO_CONTA,VALIDA_RECEBIMENTO_CONTA) values (5,	'CARTÃO PROPRIO','CARTAO_PROPRIO','S',	1.00,	'2007-12-04 00:00:00.000',	1.00,	NULL	,'2009-12-04 00:00:00.000','N','N');
+
+ 
+insert into IMPOSTO   (ID, DESCRICAO, IMP_IMPRESSORA, PERCENTUAL) values (1,	'ICMS 18%'	,'T1',	18.00);
+insert into IMPOSTO  (ID, DESCRICAO, IMP_IMPRESSORA, PERCENTUAL) values (2,	'ICMS 17%'	,'T2',	17.00);
+insert into IMPOSTO  (ID, DESCRICAO, IMP_IMPRESSORA, PERCENTUAL) values (3,	'ICMS 15%'	,'T3',	15.00);
+insert into IMPOSTO   (ID, DESCRICAO, IMP_IMPRESSORA, PERCENTUAL) values (4,	'ICMS 10%'	,'T4',	10.00);
+insert into IMPOSTO   (ID, DESCRICAO, IMP_IMPRESSORA, PERCENTUAL) values (5,	'ISS 5%'	,'T5',	5.00);
+insert into IMPOSTO   (ID, DESCRICAO, IMP_IMPRESSORA, PERCENTUAL) values (6,	'ISENTO'	,'IS',	0.00);
 
 
+insert into parametros values ('COMPONENTE','1');
+insert into parametros values ('LOGO_CLIENTE','D:\\workspace\\Datamarket\\WebResources\\WEB-INF\\classes\\logo.png');
+insert into parametros values ('LOJA','1');
+insert into parametros values ('LOTE','2');
+insert into parametros values ('PEDE_VENDEDOR','true');
+insert into parametros values ('URL','http://pecajbmsv00:8080');
+insert into parametros values ('VERSAO','01.00.00');
+
+insert into PERFIL_MACRO_OPERACAO
+select 1, id from macro_operacao;
 
 
+insert into TIPO_PRODUTO values (1,	'NORMAL');
+insert into TIPO_PRODUTO values (2,	'UNIDADE VARIAVEL');
 
+ 
+insert into TOTALIZADORES_NAO_FISCAIS ( ID,IMPRESSORA,VALOR,CONTADOR )  values (1,	'COMPROVANTE',	0.00,	0);
+insert into TOTALIZADORES_NAO_FISCAIS ( ID,IMPRESSORA,VALOR,CONTADOR )  values (2,	'PAGAMENTOS',	0.00,	0);
+insert into TOTALIZADORES_NAO_FISCAIS ( ID,IMPRESSORA,VALOR,CONTADOR )  values (3,	'RECEBIMENTOS',	0.00,	0);
+insert into TOTALIZADORES_NAO_FISCAIS ( ID,IMPRESSORA,VALOR,CONTADOR )  values (4,	'REEMBOLSO',	0.00,	0);
+insert into TOTALIZADORES_NAO_FISCAIS ( ID,IMPRESSORA,VALOR,CONTADOR )  values (5,	'SANGRIA',	0.00,	0);
+insert into TOTALIZADORES_NAO_FISCAIS ( ID,IMPRESSORA,VALOR,CONTADOR )  values (6,	'SUPRIMENTO',	50.00,	1);
 
-
-update estado set descricao = 'Caixa Livre' where id = 2
-
-    insert into FORMA_RECEBIMENTO (id, descricao, rec_impressora, abrir_gaveta, valor_limite_sangria, data_inicio_validade, valor_max_troco, id_forma_troco, data_fim_validade, VALIDA_PAGAMENTO_CONTA, valida_recebimento_conta); values (7,'BOLETO', 'BOLETO', 'S', 1.00, GETDATE();, 1.00, null, GETDATE();, null, null);
-
-    	insert into PLANO_PAGAMENTO (id, descricao, status, valor_min, valor_max, percentual_desc, percentual_acre, data_inicio_validade, data_fim_validade, id_forma); values (11, 'A VISTA', 'A', 0.1, 999999999.99, 0.00, 0.00, GETDATE();, null, 7);
-
-    	
-    	    insert into FORMA_RECEBIMENTO (id, descricao, rec_impressora, abrir_gaveta, valor_limite_sangria, data_inicio_validade, valor_max_troco, id_forma_troco, data_fim_validade, VALIDA_PAGAMENTO_CONTA, valida_recebimento_conta); values (8,'CARTAO', 'CARTAO', 'S', 0.1, GETDATE();, 0.1, null, GETDATE();, null, null);
-	insert into PLANO_PAGAMENTO (id, descricao, status, valor_min, valor_max, percentual_desc, percentual_acre, data_inicio_validade, data_fim_validade, id_forma); values (22, 'VISANET', 'A', 0.1, 999999999.99, 0.00, 0.00, GETDATE();, null, 8);
-	insert into PLANO_PAGAMENTO (id, descricao, status, valor_min, valor_max, percentual_desc, percentual_acre, data_inicio_validade, data_fim_validade, id_forma); values (23, 'REDECARD', 'A', 0.1, 999999999.99, 0.00, 0.00, GETDATE();, null, 8);
-	insert into PLANO_PAGAMENTO (id, descricao, status, valor_min, valor_max, percentual_desc, percentual_acre, data_inicio_validade, data_fim_validade, id_forma); values (24, 'AMEX', 'A', 0.1, 999999999.99, 0.00, 0.00, GETDATE();, null, 8);
-
-	
-	insert into macro_operacao (id,descricao,tipo_componente); values (101,'Saida Sistema Fechado',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (102,'Saida Sistema Aberto',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (103,'Saida Sistema Devolucao',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (104,'Saida Sistema Pedido',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (105,'Abertura de AV',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (106,'Volta Fechado',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (107,'Saida Separacao',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (108,'Volta Separacao',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (109,'Pedido',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (110,'Volta Fechado',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (111,'Desconto Item',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (112,'Venda Item',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (113,'Excluir Venda Item',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (114,'Finaliza Pedido',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (115,'Finaliza Separacao',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (116,'Separacao',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (117,'Separa Item',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (118,'Cancela Pedido',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (119,'Altera Pedido',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (120,'Saida Altera Pedido',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (121,'Excluir Item Altera Pedido',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (122,'Adicionar Item Altera Pedido',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (123,'Finalizar Altera Pedido',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (124,'Cancelar Altera Pedido',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (125,'Desconto Item Altera Pedido',2);
-
-insert into macro_operacao (id,descricao,tipo_componente); values (39,'Solicita Carga Base',1);
-insert into macro_operacao (id,descricao,tipo_componente); values (40,'Resgate de Pedido',1);
-insert into macro_operacao (id,descricao,tipo_componente); values (41,'Recebimento em Boleto',1);
-insert into macro_operacao (id,descricao,tipo_componente); values (42,'Consulta Pedido',1);
-insert into macro_operacao (id,descricao,tipo_componente); values (43,'Número do Pedido',1);
-insert into macro_operacao (id,descricao,tipo_componente); values (44,'Recebimento Cartao',1);
-
-
-insert into macro_operacao (id,descricao,tipo_componente); values (44,'Recebimento Cartao',1);
-insert into macro_operacao (id,descricao,tipo_componente); values (45,'Configuracao TEF',1);
-insert into macro_operacao (id,descricao,tipo_componente); values (46,'Recebimento Chegue-TEF',1);
-
-insert into macro_operacao (id,descricao,tipo_componente); values (126,'Solicita Carga Base Estado Fechado',2);
-insert into macro_operacao (id,descricao,tipo_componente); values (127,'Solicita Carga Base Estado Aberto',2);
-
-insert into macro_operacao (id,descricao,tipo_componente); values (44,'Recebimento Cartao',1);
+ 
+ 
+insert into UNIDADE   ( ID, DESCRICAO, DESCRICAO_DISPLAY, ABREVIACAO ) values (1,	'UNIDADE',	'Unidade',	'UN');
+insert into UNIDADE ( ID, DESCRICAO, DESCRICAO_DISPLAY, ABREVIACAO ) values (2,	'METRO',	'Metragem',	'MT');
+insert into UNIDADE ( ID, DESCRICAO, DESCRICAO_DISPLAY, ABREVIACAO ) values (3,	'LITROS',	'25',	'LT');
+insert into UNIDADE ( ID, DESCRICAO, DESCRICAO_DISPLAY, ABREVIACAO ) values (4,	'KILOGRAMA',	'Peso',	'KG');
+insert into UNIDADE ( ID, DESCRICAO, DESCRICAO_DISPLAY, ABREVIACAO ) values (5,	'CENTIMETRO',	'Centimetro',	'CM');
+insert into UNIDADE ( ID, DESCRICAO, DESCRICAO_DISPLAY, ABREVIACAO ) values (20,'POLEGADA',	'10',	'PL');

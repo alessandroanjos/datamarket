@@ -3,6 +3,18 @@
     "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 <session-factory>
+<!--
+   	<property name="connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
+	<property name="connection.url">jdbc:jtds:sqlserver://10.1.1.110:1433/ENTERPRISE</property> 
+  	<property name="connection.username">sa</property>
+  	<property name="connection.password">123L2</property>
+
+	
+  	<property name="show_sql">false</property>
+  	<property name="format_sql">true</property>
+  	<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
+  	<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+ --> 	
 
    	<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 	<property name="connection.url">jdbc:mysql://localhost:3306/ENTERPRISE</property> 
@@ -15,7 +27,7 @@
   	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
   	<property name="hibernate.bytecode.use_reflection_optimizer">false</property>
   	<property name="hibernate.hbm2ddl.auto">update</property>
-
+ 
 
 	<mapping resource="com/infinity/datamarket/hbm/PagamentoBoleto.hbm.xml"/>        
  	<mapping resource="com/infinity/datamarket/hbm/ArquivoProcessado.hbm.xml"/>        
