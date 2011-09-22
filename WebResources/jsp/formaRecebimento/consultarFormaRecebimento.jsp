@@ -87,7 +87,7 @@
 								<ul>
 									<li class="normal">
 										<div>
-											<%@ include file="/jsp/mensagem_erro.jsp"%> <!--  h  messages rendered="#{not formaRecebimentoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true" /> -->
+											<%@ include file="/jsp/mensagem_erro.jsp"%> 
 										</div>
 									</li>
 								</ul>															

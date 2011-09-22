@@ -77,9 +77,7 @@
 										</li>
 										<li>
 											<div>
-												<%@ include file="/jsp/mensagem_erro.jsp"%> <!--  h  messages errorClass="msgSistemaErro"
-														infoClass="msgSistemaSucesso" globalOnly="true"
-														showDetail="true" /> -->
+												<%@ include file="/jsp/mensagem_erro.jsp"%> 
 											</div>
 										</li>
 									</ul>

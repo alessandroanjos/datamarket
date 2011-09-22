@@ -95,7 +95,7 @@
 									<li class="normal">
 										<div>
 										<%@ include file="/jsp/mensagem_erro.jsp"%>
-											<!--  h  messages rendered="#{not planoPagamentoAPrazoBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true"/>  -->
+											
 										</div>
 									</li>
 								</ul>															

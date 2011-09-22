@@ -152,7 +152,7 @@
 									</h:column>
 								</t:dataTable>	
 								<div>
-									<%@ include file="/jsp/mensagem_erro.jsp"%> <!--  h  messages rendered="#{not movimentacaoBancariaBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true" /> -->
+									<%@ include file="/jsp/mensagem_erro.jsp"%> 
 								</div>
 							</div>
 							<ul>
