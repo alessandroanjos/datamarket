@@ -89,9 +89,9 @@ public class RepositorioUsuario extends Repositorio implements IRepositorioUsuar
 				Object[] obj = (Object[])it.next();
 				if(obj != null){
 					if(vendedor){
-						col.add((Vendedor)session.get(Vendedor.class, new Long((Integer)obj[0])));
+						col.add((Vendedor)session.get(Vendedor.class, ((Number)obj[0]).longValue()));
 					}else{
-						col.add((Usuario)session.get(Usuario.class, new Long((Integer)obj[0])));	
+						col.add((Usuario)session.get(Usuario.class, ((Number)obj[0]).longValue()));	
 					}					
 				}
 			}

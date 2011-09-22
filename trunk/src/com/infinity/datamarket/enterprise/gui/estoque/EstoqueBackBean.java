@@ -330,8 +330,8 @@ public class EstoqueBackBean extends BackBean {
 				arrayLojas[i++] = item;
 			}
 
-			if (this.getIdLoja() == null || this.getIdLoja().equals("")
-					|| this.getIdLoja().equals("0")) {
+			if ((this.getIdLoja() == null || this.getIdLoja().equals("")
+					|| this.getIdLoja().equals("0")) && arrayLojas.length > 0) {
 				this.setIdLoja((String) arrayLojas[0].getValue());
 			}
 		} catch (Exception e) {
@@ -341,7 +341,7 @@ public class EstoqueBackBean extends BackBean {
 					"Erro de Sistema!", "");
 			getContextoApp().addMessage(null, msg);
 		}
-		if (this.idLoja == null) {
+		if (this.idLoja == null && arrayLojas.length > 0) {
 			this.idLoja = arrayLojas[0].getValue().toString();
 		}
 		return arrayLojas;

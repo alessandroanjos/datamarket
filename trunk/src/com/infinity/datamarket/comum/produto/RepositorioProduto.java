@@ -165,7 +165,7 @@ public class RepositorioProduto extends Repositorio implements IRepositorioProdu
 			while(it.hasNext()){
 				Object[] obj = (Object[])it.next();
 				if(obj != null){
-					col.add((Produto)session.get(Produto.class, new Long(((BigDecimal)obj[0]).toString())));
+					col.add((Produto)session.get(Produto.class, ((Number)obj[0]).longValue()));
 				}
 			}
 		}		
