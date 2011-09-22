@@ -43,7 +43,7 @@
 						<h:form id="frmInserirLoja"  binding="#{lojaBB.init}" >
 					        <ul>
 								<div>
-									<%@ include file="/jsp/mensagem_erro.jsp"%> <!--  h  messages rendered="#{not planoPagamentoChequePreBB.existeRegistros}" errorClass="msgSistemaErro" infoClass="msgSistemaSucesso" globalOnly="true" showDetail="true" /> -->
+									<%@ include file="/jsp/mensagem_erro.jsp"%> 
 
 								</div>
 							
