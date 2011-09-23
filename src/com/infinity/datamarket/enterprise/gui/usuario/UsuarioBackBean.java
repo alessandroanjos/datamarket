@@ -253,6 +253,7 @@ public class UsuarioBackBean extends BackBean {
 					Loja loja = new Loja();
 					loja.setId(new Long(idLoja));
 					loja = getFachada().consultarLojaPorPK(loja.getId());
+		//			loja.setUsuarios(null);
 					lojasTmp.add(loja);					
 				}
 				usuario.setLojas(lojasTmp);
