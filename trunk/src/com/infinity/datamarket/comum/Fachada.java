@@ -2029,11 +2029,18 @@ public class Fachada {
 	
 	public Loja consultarLojaPorPK(Long id) throws AppException{
 		Loja loja = null;
+		org.hibernate.Session session = null;
+		org.hibernate.Transaction tx = null;
 		try{
+			session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
+			tx = session.beginTransaction();
 			loja = getCadastroLoja().consultarPorPK(id);
+			tx.commit();
 		}catch(AppException e){
+			tx.rollback();
 			throw e;
 		}catch(Throwable e){
+			tx.rollback();
 			throw new SistemaException(e);
 		}
 		return loja;
