@@ -167,15 +167,11 @@ insert into macro_operacao (id,descricao,tipo_componente) values (42,'Consulta P
 insert into macro_operacao (id,descricao,tipo_componente) values (43,'Número do Pedido',1);
 insert into macro_operacao (id,descricao,tipo_componente) values (44,'Recebimento Cartao',1);
 
-
-insert into macro_operacao (id,descricao,tipo_componente) values (44,'Recebimento Cartao',1);
 insert into macro_operacao (id,descricao,tipo_componente) values (45,'Configuracao TEF',1);
 insert into macro_operacao (id,descricao,tipo_componente) values (46,'Recebimento Chegue-TEF',1);
 
 insert into macro_operacao (id,descricao,tipo_componente) values (126,'Solicita Carga Base Estado Fechado',2);
 insert into macro_operacao (id,descricao,tipo_componente) values (127,'Solicita Carga Base Estado Aberto',2);
-
-
 
 insert into macro_operacao (id,descricao,tipo_componente) values ( 1, 'Abertura de Caixa',1);
 insert into macro_operacao (id,descricao,tipo_componente) values ( 2, 'Saida Sistema Fechado',1);
