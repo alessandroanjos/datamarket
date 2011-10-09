@@ -1,4 +1,5 @@
-ALTER TABLE `enterprise`.`dados_lote` MODIFY COLUMN `DADO` BLOB;
+ALTER TABLE `enterprise`.`dados_lote` MODIFY COLUMN `DADO` LONGBLOB;
+
 
 delete from perfil_funcionalidad
 
