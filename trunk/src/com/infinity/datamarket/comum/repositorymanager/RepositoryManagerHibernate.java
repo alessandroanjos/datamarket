@@ -153,17 +153,19 @@ public class RepositoryManagerHibernate implements IRepositoryManager
         try
         {
             session = RepositoryManagerHibernateUtil.getInstancia().currentSession();
-            session.merge(_obj);
+            session.update(_obj);
         }
         catch(HibernateException ex)
         {
-//        	try {
-//        		session.merge(_obj);	
-//			} catch (HibernateException ex1) {
+        	if (ex.getMessage().startsWith("a different object with the same identifier value was already associated with the session")) {
+            	try {
+            		session.merge(_obj);	
+    			} catch (HibernateException ex1) {
+    				throw new RepositoryControlerException(ex);
+    			}
+        	} else {
 				throw new RepositoryControlerException(ex);
-//			}
-        	
-            
+        	}
         }
     }
     
