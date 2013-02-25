@@ -1,9 +1,9 @@
 ALTER TABLE `enterprise`.`dados_lote` MODIFY COLUMN `DADO` LONGBLOB;
 
 
-delete from perfil_funcionalidad
+delete from perfil_funcionalidade;
 
-delete from funcionalidade
+delete from funcionalidade;
 
 insert into funcionalidade (id, id_func_superior, descricao, situacao, url,largura, altura  ) values (100, NULL, 'Cadastros'                           , 'S', NULL                                                       , 0     , 0   );
 insert into funcionalidade (id, id_func_superior, descricao, situacao, url,largura, altura  ) values (101,  100, 'Usuário'                             , 'S', NULL                                                       , 0     , 0   );
