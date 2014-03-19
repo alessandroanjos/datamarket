@@ -80,6 +80,7 @@ SET CLASSPATH=%CLASSPATH%;@destino@\lib\versioncheck.jar
 SET CLASSPATH=%CLASSPATH%;@destino@\lib\xerces-2.6.2.jar
 SET CLASSPATH=%CLASSPATH%;@destino@\lib\xml-apis.jar
 SET CLASSPATH=%CLASSPATH%;@destino@\lib\yui4jsf-0.6.jar
+SET CLASSPATH=%CLASSPATH%;@destino@\lib\slf4j-api-1.7.6.jar
 
 
 SET CLASSPATH=%CLASSPATH%;@destino@\libJboss\activation.jar
